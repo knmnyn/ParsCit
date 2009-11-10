@@ -25,9 +25,9 @@ use CSXUtil::SafeText qw(cleanXML);
 # header data.  Returns a reference XML document.
 #
 sub extractHeader {
-    my ($textFile, $isTokenLevel) = @_;
+    my ($textFile, $isTokenLevel, $confLevel) = @_; # Thang 10/11/09: $confLevel to add confidence info
     my ($status, $msg, $xml)
-	= extractHeaderImpl($textFile, $isTokenLevel);
+	= extractHeaderImpl($textFile, $isTokenLevel, $confLevel);
     if ($status > 0) {
 	return \$xml;
     } else {
@@ -49,7 +49,7 @@ sub extractHeader {
 ##
 
 sub extractHeaderImpl {
-  my ($textFile, $isTokenLevel, $modelFile) = @_;
+  my ($textFile, $isTokenLevel, $confLevel, $modelFile) = @_;  # Thang 10/11/09: $confLevel to add confidence info
 
   if (!defined $modelFile) {
     $modelFile = $ParsCit::Config::modelFile;
@@ -101,11 +101,11 @@ sub extractHeaderImpl {
 
   if($isTokenLevel){
     if (ParsHed::Tr2crfpp_token::decode($tmpFile, $outFile)) {
-      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile, $isTokenLevel);
+      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile, 0, $isTokenLevel);
     }
   } else {
-    if (ParsHed::Tr2crfpp::decode($tmpFile, $outFile)) {
-      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile);
+    if (ParsHed::Tr2crfpp::decode($tmpFile, $outFile, $confLevel)) {  # Thang 10/11/09: $confLevel to add confidence info
+      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile, $confLevel);  # Thang 10/11/09: $confLevel to add confidence info
     }
   }
 

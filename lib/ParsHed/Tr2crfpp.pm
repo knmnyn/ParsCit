@@ -299,10 +299,14 @@ sub fatal {
 
 
 sub decode {
-  my ($inFile, $outFile) = @_;
+  my ($inFile, $outFile, $confLevel) = @_;
   
   my $labeledFile = buildTmpFile($inFile);
-  execute("$crf_test -m $modelFile $inFile > $labeledFile");
+  if($confLevel){
+    execute("$crf_test -v1 -m $modelFile $inFile > $labeledFile");
+  } else {
+    execute("$crf_test -m $modelFile $inFile > $labeledFile");
+  }
 
   unless (open(PIPE, $labeledFile)) {
     fatal("Could not open pipe from crf call: $!");

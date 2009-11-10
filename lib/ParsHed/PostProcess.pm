@@ -17,14 +17,14 @@ use ParsCit::Config; # qw(normalizeAuthorNames stripPunctuation);
 ## XML
 ##
 sub wrapHeaderXml {
-  my ($inFile, $isTokenLevel) = @_;
+  my ($inFile, $confLevel, $isTokenLevel) = @_; # Thang 10/11/09: $confLevel to add confidence info
 
   my $status = 1;
   my $msg = "";
   my $xml = "";
   my $lastTag = "";
   my $variant = "";
-  my $confidence = "1.0";
+  my $overallConfidence = "1.0"; # Thang 10/11/09: rename $confidence -> $overallConfidence
 
   ## output XML file for display
   $xml .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -33,12 +33,12 @@ sub wrapHeaderXml {
 
   my @fields = (); #array of hash: each element of fields correspond to a pairs of (tag, content) accessible through $fields[$i]->{"tag"} and $fields[$i]->{"content"}
   my $curContent = "";
-
+  my $curConfidence = 0;
+  my $count = 0;
   open(IN, "<:utf8", $inFile) or return (undef, undef, 0, "couldn't open infile: $!");
   while (<IN>) {
-    if (/^\# (\d+) ([\.\d]+)/) { # variant & confidence info
-      $variant = $1;
-      $confidence = $2;
+    if (/^\# ([\.\d]+)/) { # variant & confidence info
+      $overallConfidence = $1;
       next;
     }
     elsif (/^\#/) { next; }                              # skip comments
@@ -48,6 +48,15 @@ sub wrapHeaderXml {
       my %tmpHash = ();
       $tmpHash{"tag"} = $lastTag;
       $tmpHash{"content"} = $curContent;
+
+      ### Thang 10/11/09: compute confidence score
+      if($count > 0){
+	$tmpHash{"confidence"} = $curConfidence/$count;
+      } else {
+	die "Die in PostProcess.pm::decode : count $count is <= 0\n";
+      }
+      ### End Thang 10/11/09: compute confidence score
+
       push(@fields, \%tmpHash);
 
       if ($variant eq "") {
@@ -60,25 +69,32 @@ sub wrapHeaderXml {
 	  my $tag = $_->{"tag"};
 	  my $content = $_->{"content"};
 
+	  ### Thang 10/11/09: modify to output confidence score
+	  my $confStr = "";
+	  if($confLevel){
+	    $confStr = " confidence=\"".$_->{"confidence"}."\"";
+	  }
 	  if($content =~ /^\s*$/) { next; };
 
 	  ($tag, $content) = normalizeHeaderField($tag, $content);
 
 	  if($tag eq "authors"){ # handle multiple authors in a line
 	    foreach my $author (@{$content}){
-	      $output .= "PARSHED<author>$author</author>";
+	      $output .= "PARSHED<author$confStr>$author</author>";
 	    }
 	  }elsif($tag eq "emails"){ # handle multiple emails at a time
 	    foreach my $email (@{$content}){
-	      $output .= "PARSHED<email>$email</email>";
+	      $output .= "PARSHED<email$confStr>$email</email>";
 	    }
 	  } else {
-	    $output .= "PARSHED<$tag>$content</$tag>";
+	    $output .= "PARSHED<$tag$confStr>$content</$tag>";
 	  }
+	  ### End Thang 10/11/09: modify to output confidence score
+
 	}
 	$output =~ s/PARSHED</\n</g;
 
-	$xml .= "<variant no=\"0\" confidence=\"$confidence\">" . $output . "\n</variant>\n";
+	$xml .= "<variant no=\"0\" confidence=\"$overallConfidence\">" . $output . "\n</variant>\n";
 	$xml .= "</header>\n</algorithm>\n";
       }
 
@@ -96,6 +112,17 @@ sub wrapHeaderXml {
 	# train at line level, get the original line
 	my @tokens = split(/\|\|\|/, $token);
 	$token = join(" ", @tokens);
+
+	### Thang 10/11/09: process confidence output from CRFPP
+	if($confLevel){ #$sys contains probability info of the format "tag/prob"
+	  if($sys =~ /^(.+)\/([\d\.]+)$/){
+	    $sys = $1;
+	    $curConfidence += $2;
+	  } else {
+	    die "Die in PostProcess.pm::decode : incorrect format \"tag/prob\" $sys\n";
+	  }
+	}
+	### End Thang 10/11/09: process confidence output from CRFPP
       }
 
       if ($sys ne $lastTag) { # start a new tag
@@ -103,9 +130,20 @@ sub wrapHeaderXml {
 	  my %tmpHash = ();
 	  $tmpHash{"tag"} = $lastTag;
 	  $tmpHash{"content"} = $curContent;
+	
+	  ### Thang 10/11/09: compute confidence score
+	  if($count > 0){
+	    $tmpHash{"confidence"} = $curConfidence/$count;
+	  } else {
+	    die "Die in PostProcess.pm::decode : count $count is <= 0\n";
+	  }
+	  ### End Thang 10/11/09: compute confidence score
+
 	  push(@fields, \%tmpHash);
 
 	  $curContent = ""; #reset the value
+	  $curConfidence = 0;
+	  $count = 0;
 	}
       }
 
@@ -114,6 +152,7 @@ sub wrapHeaderXml {
       }
 
       $curContent .= "$token ";
+      $count++;
       $lastTag = $sys; #update lastTag
     }
   }

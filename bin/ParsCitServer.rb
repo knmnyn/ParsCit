@@ -29,15 +29,15 @@ class ParsCitServer < SOAP::RPC::StandaloneServer
   end
 
   def extract_citations(uri_or_path)
-    extract_core(uri_or_path,"citations",@@PARSCIT_CMD + " -m extract_citations")
+    extract_core(uri_or_path,"citations",@@PARSCIT_CMD + " -m extract_citations -c") # Thang 10/11/09: -c option for confidence score
   end
 
   def extract_header(uri_or_path)
-    extract_core(uri_or_path,"header",@@PARSCIT_CMD + " -m extract_header")
+    extract_core(uri_or_path,"header",@@PARSCIT_CMD + " -m extract_header -c") # Thang 10/11/09: -c option for confidence score
   end
 
   def extract_meta(uri_or_path)
-    extract_core(uri_or_path,"extract_meta",@@PARSCIT_CMD + " -m extract_meta")
+    extract_core(uri_or_path,"extract_meta",@@PARSCIT_CMD + " -m extract_meta -c") # Thang 10/11/09: -c option for confidence score
   end
 
   def extract_core(uri_or_path,mode,command)
