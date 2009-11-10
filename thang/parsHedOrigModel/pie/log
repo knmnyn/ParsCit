@@ -1,0 +1,18 @@
+### Note the number of CPU for parallel crfpp is 6
+### Constructing 2-fold test files /tmp/binparsHedredoparsHedpl20691246732270.*.test.src...
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../bin/tr2crfpp.pl /tmp/binparsHedredoparsHedpl20691246732270.0.test.src > /tmp/binparsHedredoparsHedpl20691246732270.0.test
+# Copyright 2005 © by Min-Yen Kan
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../bin/tr2crfpp.pl /tmp/binparsHedredoparsHedpl20691246732270.1.test.src > /tmp/binparsHedredoparsHedpl20691246732270.1.test
+# Copyright 2005 © by Min-Yen Kan
+Executing: cat /tmp/binparsHedredoparsHedpl20691246732270.1.test >> /tmp/binparsHedredoparsHedpl20691246732270.0.train
+Executing: cat /tmp/binparsHedredoparsHedpl20691246732270.0.test >> /tmp/binparsHedredoparsHedpl20691246732270.1.train
+### Training ...
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_learn -m 100 -p 6 -f 3 -c 3 parsHed.template /tmp/binparsHedredoparsHedpl20691246732270.0.train /tmp/binparsHedredoparsHedpl20691246732270.0.model
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_learn -m 100 -p 6 -f 3 -c 3 parsHed.template /tmp/binparsHedredoparsHedpl20691246732270.1.train /tmp/binparsHedredoparsHedpl20691246732270.1.model
+### Testing ...
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl20691246732270.0.model /tmp/binparsHedredoparsHedpl20691246732270.0.test > /tmp/binparsHedredoparsHedpl20691246732270.0.out
+Executing: cat /tmp/binparsHedredoparsHedpl20691246732270.0.out >> /tmp/binparsHedredoparsHedpl20691246732270.all.out
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl20691246732270.1.model /tmp/binparsHedredoparsHedpl20691246732270.1.test > /tmp/binparsHedredoparsHedpl20691246732270.1.out
+Executing: cat /tmp/binparsHedredoparsHedpl20691246732270.1.out >> /tmp/binparsHedredoparsHedpl20691246732270.all.out
+### Evaluating ...
+Executing: /mnt/homes/lmthang/RA/parscit/bin/parsHed/../../bin/conlleval.pl -r -d "	" < /tmp/binparsHedredoparsHedpl20691246732270.all.out

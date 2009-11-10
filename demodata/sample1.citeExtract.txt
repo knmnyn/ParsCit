@@ -1,0 +1,112 @@
+<algorithm name="ParsCit" version="090625">
+<citationList>
+<citation valid="true">
+<authors>
+<author>C A R Hoare</author>
+</authors>
+<title>Laws of programming</title>
+<date>1987</date>
+<journal>Communications of the ACM</journal>
+<volume>30</volume>
+<contexts>
+<context position="15817">ment paradigms, such as software incrementation, software merging, and software adaptation. Several authors have advocated that the join operator is useful in the refinement of complex specifications [2, 4, 1]. Hoare et al [1] identifies some basic properties of join, like idempotence, commutativity, associativity and absorption. They also mention distributivity over usual programming constructs like seque</context>
+<context position="17305">dicates vs. relations) and by their interpretations: termination is implicit in our specifications whereas it is expressed as timing constraints in Hehner&apos;s. Our work differs from that of Hoare et al [1] by using partial relations and demonic operators, by not using a fictitious state to represent nontermination, and by providing rules to eliminate meets in a specification. Our work differs from the </context>
+</contexts>
+<marker>[1]</marker>
+<rawString>C.A.R. Hoare et al. Laws of programming. Communications of the ACM, 30(8):672--686, 1987.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Frappier</author>
+<author>J Desharnais</author>
+<author>A Mili</author>
+</authors>
+<title>A calculus of program construction by parts</title>
+<date>1996</date>
+<journal>Science of Computer Programming</journal>
+<volume>6</volume>
+<contexts>
+<context position="3034">with respect to R is correct with respect to R 0 . The refinement ordering has some lattice-like properties which, for the sake of parsimony, we present briefly without proof (details can be found in [2]). ffl Two relations R and R 0 have a join (denoted by R t R 0 ) if and only if they satisfy the condition RL &amp;quot; R 0 L = (R &amp;quot; R 0 )L: Under this condition, the join is given by R t R 0 = R &amp;quot; R 0 L [ R </context>
+<context position="4935"> for combining partially determined programs into (more) completely determined programs. Due to space restrictions, we can only present a flavor of this method; details of this method can be found in [2]. 2.1 A Specification Notation Specifications are represented by structured relational expressions. We use two elementary specifications, in addition to closed form relations, which are: ffl Establish</context>
+<context position="9264"> position is that this problem amounts to refining the specification C t F: Note that although C is a program, we can write it using our specification notation (we have rules for doing that, given in [2]). For the sake of argument, we assume that C and F do indeed have a join, and that C is structured as a sequence of three components, say C = C 0 2 C 1 2 C 2 : We assume further that after analyzing </context>
+<context position="15817">ment paradigms, such as software incrementation, software merging, and software adaptation. Several authors have advocated that the join operator is useful in the refinement of complex specifications [2, 4, 1]. Hoare et al [1] identifies some basic properties of join, like idempotence, commutativity, associativity and absorption. They also mention distributivity over usual programming constructs like seque</context>
+</contexts>
+<marker>[2]</marker>
+<rawString>M. Frappier, J. Desharnais, and A. Mili. A calculus of program construction by parts. Science of Computer Programming, 6:237--254, 1996.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Gardiner</author>
+<author>C C Morgan</author>
+</authors>
+<title>Data refinement of predicate transformers</title>
+<date>1991</date>
+<journal>Theoretical Computer Science</journal>
+<volume>87</volume>
+<contexts>
+<context position="16437">finement for join-structured specifications. In Hehner&apos;s calculus, specifications are predicates, termination is prescribed using a time variable, and join is logical conjunction. Morgan and Gardiner [3] use a join statement for data refinement and for the definition of logical constants. They do not use join as a specification structuring device nor do they study the refinement of join-structured sp</context>
+</contexts>
+<marker>[3]</marker>
+<rawString>P. Gardiner and C.C. Morgan. Data refinement of predicate transformers. Theoretical Computer Science, 87:143--162, 1991.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E C R Hehner</author>
+</authors>
+<title>A Practical Theory of Programming</title>
+<date>1993</date>
+<publisher>Springer-Verlag</publisher>
+<contexts>
+<context position="15817">ment paradigms, such as software incrementation, software merging, and software adaptation. Several authors have advocated that the join operator is useful in the refinement of complex specifications [2, 4, 1]. Hoare et al [1] identifies some basic properties of join, like idempotence, commutativity, associativity and absorption. They also mention distributivity over usual programming constructs like seque</context>
+</contexts>
+<marker>[4]</marker>
+<rawString>E.C.R. Hehner. A Practical Theory of Programming. Springer-Verlag, 1993.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E Sekerinski</author>
+</authors>
+<title>A calculus for predicative programming</title>
+<date>1992</date>
+<booktitle>Mathematics of program construction : second international conference, number 669 in Lecture Notes in Computer Science</booktitle>
+<editor>In R.S. Bird, C.C. Morgan, and J.C.P. Woodcock, editors</editor>
+<publisher>Springer-Verlag</publisher>
+<location>Oxford, UK</location>
+<contexts>
+<context position="17730">rdiner and Morgan by using a different semantics, by not allowing miraculous specifications, and by studying the transformation of join-structured specifications. We share with the work of Sekerinski [5] (and Z) the same specification model where the focus is on input-output pairs for which a program must terminate. Most importantly, the work presented in this paper differs from other programming cal</context>
+</contexts>
+<marker>[5]</marker>
+<rawString>E. Sekerinski. A calculus for predicative programming. In R.S. Bird, C.C. Morgan, and J.C.P. Woodcock, editors, Mathematics of program construction : second international conference, number 669 in Lecture Notes in Computer Science, Oxford, UK, 1992. Springer-Verlag.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D R Skuce</author>
+<author>A Mili</author>
+</authors>
+<title>Behavioral specifications in object oriented programming</title>
+<date>1995</date>
+<journal>Journal of Object Oriented Programming</journal>
+<pages>41--49</pages>
+<contexts>
+<context position="1556">geneous relations, and we denote by S the space on which relations are defined. As a specification, a relation contains all the (input, output) pairs that are considered correct. We have discussed in [6] how to use (heterogeneous) relations to represent specifications of objects, in the sense of object oriented programming. Hence even though the discussions of this paper deal with specifications of s</context>
+</contexts>
+<marker>[6]</marker>
+<rawString>D.R. Skuce and A. Mili. Behavioral specifications in object oriented programming. Journal of Object Oriented Programming, pages 41--49, January 1995.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Von Wright</author>
+</authors>
+<title>A lattice theoretical basis for program refinement</title>
+<date>1990</date>
+<tech>Technical report</tech>
+<institution>Dept. of Computer Science, Abo Akademi</institution>
+<location>Finland</location>
+<contexts>
+<context position="16720">tants. They do not use join as a specification structuring device nor do they study the refinement of join-structured specifications. Finally, the work of von Wright also mentions a join operator. In [7], he reconstructs the refinement calculus of Back from elementary primitives. The emphasis of this work is more on the definition of a language than on the definition of a refinement calculus. The sem</context>
+</contexts>
+<marker>[7]</marker>
+<rawString>J. Von Wright. A lattice theoretical basis for program refinement. Technical report, Dept. of Computer Science, Abo Akademi, Finland, 1990.</rawString>
+</citation>
+</citationList>
+</algorithm>

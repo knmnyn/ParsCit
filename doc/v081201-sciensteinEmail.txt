@@ -1,0 +1,92 @@
+Dear Min-Yen Kan,
+
+my colleague Bela Gipp and I are currently developing a recommender
+system for research papers (www.scienstein.org). To extract citations
+from research papers we plan to use your "parscit". We are very
+thankful for this excellent work. However, we discovered some small
+bugs and would like to ask if those bugs are already known and if you
+plan to fix them in the near future:
+
+1) The parser does not recognize citations such as [1-4] or [3, 7-10]
+in the full text.
+
+2) The parser does not recognize citations of this type: "text text
+text Author A (2004) states that text text text..." in the full text.
+
+3) The last entry in the reference list is often ignored. I guess
+there is an index error in an array or something like that.
+
+For our purposes we also need some additional features. Among others
+the exact position at which a reference occurs in the full text. We
+implemented this feature already, so the resulting xml files are
+slightly modified (each "context" gets the attribute "position") and
+look like this:
+
+</contexts>
+<context position="1152">
+... [1]...
+</context>
+...
+</contexts>
+
+If you are interested in implementing this feature we could send you
+the source code modifications. We are also willed to support you in
+fixing the bugs.
+
+We are looking forward to hearing from you
+Bela, Nick and Joran
+
+---- Joran Beel (Dipl. Wirt.-Inf. & MSc in Project Management)
+
+------------------------------------------------------------
+Hi Min-Yen,
+
+I have some notes with regard to ParsCit:
+Modified pm-files are attached as a zip-file (ParsCit_changes.zip).
+
+1.  As Joran wrote I added functionality to find the position of a
+reference (context) in the (body)text. I added an array "positions"
+and also an add-method und get-method to Citation.pm. To find the
+positions I modified CitationContext::getCitationContext.  When a
+context is found, the position of the match (subtract the context
+radius) is stored in an array. The method returns an array with the
+positions in addition to the array with the
+contexts.Controller::extractCitationsImpl is modified accordingly.
+
+2.  There was an error with unmarkedCitations. ParsCit ignored the
+last citation in the reference section due to a simple error in a for
+loop.  In PreProcess::splitUnmarkedCitations (line 241; line 258 in my
+modified file) "$k<$#citeStarts" is used as exit condition. It should
+be "<=" and not "<" beause $#citeStarts provides the last index and
+not the length of the array.
+
+3.  In some publications markers with a range such as [1-5] or [1-12,
+16] are used. ParsCit cannot find these markers. I added a simple
+workaround to PreProcess::normalizeBodyText. The markers with range
+are replaced by markers containing every number of the range
+(e.g. [1-5] replaced by [1, 2, 3, 4, 5]).
+
+4.  In publications with unmarked citations the citations are not only
+referenced by markers like (Bottou, 1991). Often it is referenced like
+"Leon Bottou (1991) discussed two solutions". Getting Parscit to find
+both styles is easy. Actually ParsCit creates regular expressions like
+'Bottou,? 1991' or 'Beel and Gipp,? 2008' . The regular expressions in
+CitationContext::guessPossibleMarkers (line 75, 78, 79 91 - 79, 82,
+83, 95 in my modifies CitationContext.pm) need only to be modified to
+match parenthesis around the year (e.g. 'Bottou,? \(?1991\)?' ).
+
+5.  When a context is found and the same publication is referenced
+inside the context radius, then the second context is not found.
+After finding a passage in the bodytext that fits to
+'{$contextRadius}$mark.{$contextRadius}' ParsCit continues the search
+after the whole context.
+
+We would appreciate if you inform us as soon as you know if and which
+changes you will incorporate to Parscit. If you like to you can
+acknowledge our work by placing a link to www.scienstein.org somewhere
+on your website.
+
+
+Best Regards
+Nick Friedrich
+

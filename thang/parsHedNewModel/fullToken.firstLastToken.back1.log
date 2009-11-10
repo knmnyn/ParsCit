@@ -1,0 +1,44 @@
+### Note the number of CPU for parallel crfpp is 4
+### Constructing 2-fold test files /tmp/binparsHedredoparsHedpl43861246692044.*.test.src...
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.1.test.src >> /tmp/binparsHedredoparsHedpl43861246692044.0.train.src
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.0.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.0.keywords -n 100
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.0.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.0.keywords.back -n 100 -backKeyword
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.0.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.0.bigram -n 100 -nGram 2
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/tr2crfpp_parsHed.pl -in /tmp/binparsHedredoparsHedpl43861246692044.0.test.src -out /tmp/binparsHedredoparsHedpl43861246692044.0.test -k /tmp/binparsHedredoparsHedpl43861246692044.0.keywords -bk /tmp/binparsHedredoparsHedpl43861246692044.0.keywords.back -b /tmp/binparsHedredoparsHedpl43861246692044.0.bigram 1>/dev/null
+# Copyright 2009 © by Luong Minh Thang
+Read dict from /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../resources/parsCitDict.txt
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.0.keywords
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.0.keywords.back
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.0.bigram
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.0.test.src >> /tmp/binparsHedredoparsHedpl43861246692044.1.train.src
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.1.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.1.keywords -n 100
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.1.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.1.keywords.back -n 100 -backKeyword
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/keywordGen.pl -in /tmp/binparsHedredoparsHedpl43861246692044.1.train.src -out /tmp/binparsHedredoparsHedpl43861246692044.1.bigram -n 100 -nGram 2
+# Copyright 2009 © by Luong Minh Thang
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/tr2crfpp_parsHed.pl -in /tmp/binparsHedredoparsHedpl43861246692044.1.test.src -out /tmp/binparsHedredoparsHedpl43861246692044.1.test -k /tmp/binparsHedredoparsHedpl43861246692044.1.keywords -bk /tmp/binparsHedredoparsHedpl43861246692044.1.keywords.back -b /tmp/binparsHedredoparsHedpl43861246692044.1.bigram 1>/dev/null
+# Copyright 2009 © by Luong Minh Thang
+Read dict from /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../resources/parsCitDict.txt
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.1.keywords
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.1.keywords.back
+Load keywords from file /tmp/binparsHedredoparsHedpl43861246692044.1.bigram
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.1.test >> /tmp/binparsHedredoparsHedpl43861246692044.0.train
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.0.test >> /tmp/binparsHedredoparsHedpl43861246692044.1.train
+### Training ...
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_learn -m 100 -p 4 -f 3 -c 3 parsHed.template.fullToken.firstLastToken.back1 /tmp/binparsHedredoparsHedpl43861246692044.0.train /tmp/binparsHedredoparsHedpl43861246692044.0.model
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_learn -m 100 -p 4 -f 3 -c 3 parsHed.template.fullToken.firstLastToken.back1 /tmp/binparsHedredoparsHedpl43861246692044.1.train /tmp/binparsHedredoparsHedpl43861246692044.1.model
+### Testing ...
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl43861246692044.0.model /tmp/binparsHedredoparsHedpl43861246692044.0.test > /tmp/binparsHedredoparsHedpl43861246692044.0.out
+### Convert from line-level format to token-level format...
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/convert2TokenLevel.pl -in1 /tmp/binparsHedredoparsHedpl43861246692044.0.test.src -in2 /tmp/binparsHedredoparsHedpl43861246692044.0.out -out /tmp/binparsHedredoparsHedpl43861246692044.0.out.convert 2>/tmp/binparsHedredoparsHedpl43861246692044.0.out.log
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.0.out.convert >> /tmp/binparsHedredoparsHedpl43861246692044.all.out
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl43861246692044.1.model /tmp/binparsHedredoparsHedpl43861246692044.1.test > /tmp/binparsHedredoparsHedpl43861246692044.1.out
+### Convert from line-level format to token-level format...
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/parsHed/convert2TokenLevel.pl -in1 /tmp/binparsHedredoparsHedpl43861246692044.1.test.src -in2 /tmp/binparsHedredoparsHedpl43861246692044.1.out -out /tmp/binparsHedredoparsHedpl43861246692044.1.out.convert 2>/tmp/binparsHedredoparsHedpl43861246692044.1.out.log
+Executing: cat /tmp/binparsHedredoparsHedpl43861246692044.1.out.convert >> /tmp/binparsHedredoparsHedpl43861246692044.all.out
+### Evaluating ...
+Executing: /mnt/raid/homes/lmthang/RA/parscit/bin/parsHed/../../bin/conlleval.pl -r -d "	" < /tmp/binparsHedredoparsHedpl43861246692044.all.out

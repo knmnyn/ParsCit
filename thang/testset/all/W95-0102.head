@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="bibxml.xsl" type="text/xsl" ?>
+<file>
+  <entry no="0">
+    <variant no="0" confidence="1.0"><title>Heads, Phrase Structure and the Induction of Grammar +L+ </title><author>Carl de Marcken +L+ </author><affiliation>MIT Artificial Intelligence Laboratory +L+ </affiliation><address>NE43-804 +L+ 545 Technology Square +L+ Cambridge, MA, 02139, USA +L+ </address><email>cgdemarc@ai.mit.edu +L+ </email><abstract>Summary +L+ Acquiring linguistically plausible phrase-structure grammars from ordinary text has +L+ proven difficult for standard induction techniques, and researchers have turned to su- +L+ pervised training from bracketed corpora. We examine why previous approaches have +L+ failed to acquire desired grammars, concentrating our analysis on the inside-outside +L+ algorithm (Baker, 1979), and propose that with a representation of phrase structure +L+ centered on head relations such supervision may not be necessary. +L+ </abstract></variant>
+  </entry>
+  <entry no="1">
+  </entry>
+</file>

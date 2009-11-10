@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions
+  targetNamespace="http://citeseerx.org/algorithms/parscit/wsdl"
+  xmlns:ens="http://citeseerx.org/algorithms/parscit/xsd/error-messages"
+  xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://citeseerx.org/algorithms/parscit/wsdl"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <wsdl:message name="extractCitationsRequest">
+    <wsdl:part name="filePath" type="xsd:string" />
+    <wsdl:part name="repositoryID" type="xsd:string" />
+  </wsdl:message>
+
+  <wsdl:message name="extractCitationsResponse">
+    <wsdl:part name="citations" type="xsd:string" />
+    <wsdl:part name="citeFile" type="xsd:string" />
+    <wsdl:part name="bodyFile" type="xsd:string" />
+  </wsdl:message>
+
+  <wsdl:message name="ParsCitFault">
+    <wsdl:part name="message" type="xsd:string" />
+  </wsdl:message>
+
+  <wsdl:portType name="ParsCitPT">
+    <wsdl:operation name="extractCitations">
+      <wsdl:input message="tns:extractCitationsRequest" />
+      <wsdl:output message="tns:extractCitationsResponse" />
+      <wsdl:fault name="ParsCitFault"
+                  message="tns:ParsCitFault" />
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="SOAPBinding" type="tns:ParsCitPT">
+    <soap:binding style="rpc"
+                  transport="http://schemas.xmlsoap.org/soap/http" />
+      <wsdl:operation name="extractCitations">
+        <soap:operation soapAction="" style="rpc" />
+        <wsdl:input>
+          <soap:body use="encoded"
+                     namespace="urn:Parser"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </wsdl:input>
+        <wsdl:output>
+          <soap:body use="encoded" namespace="urn:Parser"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </wsdl:output>
+      </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="ParsCitService">
+    <wsdl:port name="ParsCitPT" binding="tns:SOAPBinding">
+      <soap:address location="http://wing.comp.nus.edu.sg:10570/" />
+    </wsdl:port>
+  </wsdl:service>
+
+  <plnk:partnerLinkType name="parsePartnerLT">
+    <plnk:role name="Parser" portType="tns:ParsCitPT" />
+  </plnk:partnerLinkType>
+
+</wsdl:definitions>

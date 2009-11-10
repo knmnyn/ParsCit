@@ -1,0 +1,18 @@
+### Note the number of CPU for parallel crfpp is 4
+Constructing 2-fold test files /tmp/binparsHedredoparsHedpl78781246644554.*.test.src...
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../bin/tr2crfpp.pl /tmp/binparsHedredoparsHedpl78781246644554.0.test.src > /tmp/binparsHedredoparsHedpl78781246644554.0.test
+# Copyright 2005 © by Min-Yen Kan
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../bin/tr2crfpp.pl /tmp/binparsHedredoparsHedpl78781246644554.1.test.src > /tmp/binparsHedredoparsHedpl78781246644554.1.test
+# Copyright 2005 © by Min-Yen Kan
+Executing: cat /tmp/binparsHedredoparsHedpl78781246644554.1.test >> /tmp/binparsHedredoparsHedpl78781246644554.0.train
+Executing: cat /tmp/binparsHedredoparsHedpl78781246644554.0.test >> /tmp/binparsHedredoparsHedpl78781246644554.1.train
+Training ...
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../crfpp/crf_learn -m 100 -p 4 -f 3 -c 3 parsHed.template /tmp/binparsHedredoparsHedpl78781246644554.0.train /tmp/binparsHedredoparsHedpl78781246644554.0.model
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../crfpp/crf_learn -m 100 -p 4 -f 3 -c 3 parsHed.template /tmp/binparsHedredoparsHedpl78781246644554.1.train /tmp/binparsHedredoparsHedpl78781246644554.1.model
+Testing ...
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl78781246644554.0.model /tmp/binparsHedredoparsHedpl78781246644554.0.test > /tmp/binparsHedredoparsHedpl78781246644554.0.out
+Executing: cat /tmp/binparsHedredoparsHedpl78781246644554.0.out >> /tmp/binparsHedredoparsHedpl78781246644554.all.out
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../crfpp/crf_test -m /tmp/binparsHedredoparsHedpl78781246644554.1.model /tmp/binparsHedredoparsHedpl78781246644554.1.test > /tmp/binparsHedredoparsHedpl78781246644554.1.out
+Executing: cat /tmp/binparsHedredoparsHedpl78781246644554.1.out >> /tmp/binparsHedredoparsHedpl78781246644554.all.out
+Evaluating ...
+Executing: /mnt/raid/homes/forecite/services/parscit-thang/bin/parsHed/../../bin/conlleval.pl -r -d "	" < /tmp/binparsHedredoparsHedpl78781246644554.all.out

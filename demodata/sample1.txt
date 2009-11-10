@@ -1,0 +1,902 @@
+A Calculus of Program Transformations and Its
+Applications
+
+Rahma Ben Ayed
+School of Engineering
+University of Tunis II
+Belvedere, 1002 Tunisia
+rbenayed@stardent.cck.tn
+Jules Desharnais
+Department of Informatics
+Laval University,
+Quebec City, PQ G1K 7P4, Canada
+Jules.Desharnais@ift.ulaval.ca
+Marc Frappier
+Dept of Maths and Informatics
+University of Sherbrooke
+Sherbrooke, PQ J1K 2R1 Canada
+marc.frappier@dmi.usherb.ca
+Ali Mili
+
+
+
+The Institute for Software Research
+1000 Technology Drive
+Fairmont, WV 26554 USA
+amili@csee.wvu.edu
+May 27, 1998
+Abstract
+
+Traditional programming calculi focus on transforming a specification into a program.
+With the advent of such recent paradigms as white box reuse, component based software
+development, and reengineering, and with the continued predominance of software maintenance,
+less and less software engineering activity nowadays deals with straightforward
+development. More and more, software products are derived by combining, merging, or
+adapting existing components. In this paper we present a calculus that models several
+aspects of these paradigms.
+
+Keywords: Formal specifications, Programming calculi, Program construction, Software
+merging, Software incrementation, Software adaptation.
+1 Relational Specifications
+
+We represent specifications by relations; without much loss of generality, we consider
+homogeneous relations, and we denote by S the space on which relations are defined. As a
+specification, a relation contains all the (input, output) pairs that are considered correct.
+We have discussed in [6] how to use (heterogeneous) relations to represent specifications of
+objects, in the sense of object oriented programming. Hence even though the discussions
+of this paper deal with specifications of simple input/output functions, they can in fact
+be applied to state-bearing modules, such as objects.
+Constant relations include the universal relation, denoted by L, the identity relation,
+denoted by I , and the empty relation, denoted by ;. Operations on relations include the
+
+complement, denoted by R, the inverse, denoted by
+
+b
+
+R, and the product, denoted by R ffi R
+
+0
+
+
+Correspondence Author.
+
+or RR
+
+0
+
+. We say that R is deterministic if and only if
+
+b
+
+RR ` I , and we say that R is total
+
+if and only if I ` R
+
+b
+
+R.
+
+We define an ordering relation on relational specifications under the name refinement
+ordering: A relation R is said to refine a relation R
+
+0
+
+if and only if
+
+RL " R
+
+0
+
+L " (R [ R
+
+0
+
+) = R
+
+0
+
+:
+
+We then write R w R
+
+0
+
+or R
+
+0
+
+v R. We admit without proof that this relation is a partial
+ordering. We also admit that, modulo some definition of total correctness, the following
+propositions hold:
+
+ffl A program P is correct with respect to a specification R if and only if [P ] w R,
+
+where [P ] is the function defined by P .
+
+ffl R w R
+
+0
+
+if and only if any program correct with respect to R is correct with respect
+to R
+
+0
+
+.
+The refinement ordering has some lattice-like properties which, for the sake of parsimony,
+we present briefly without proof (details can be found in [2]).
+
+ffl Two relations R and R
+
+0
+
+have a join (denoted by R t R
+
+0
+
+) if and only if they satisfy
+the condition
+
+RL " R
+
+0
+
+L = (R " R
+
+0
+
+)L:
+Under this condition, the join is given by
+
+R t R
+
+0
+
+= R " R
+
+0
+
+L [ R
+
+0
+
+" RL [ (R " R
+
+0
+
+):
+The specification R t R
+
+0
+
+captures all the information of R and all the information
+of R
+
+0
+
+. It is satisfied by any implementation that is known to satisfy both R and R
+
+0
+
+.
+
+ffl Any two relations R and R
+
+0
+
+have a meet, which is denoted by RuR
+
+0
+
+and defined by
+
+R u R
+
+0
+
+= RL " R
+
+0
+
+L " (R [ R
+
+0
+
+):
+The specification RuR
+
+0
+
+captures the requirements information that R and R
+
+0
+
+have
+in common. It is satisfied by any implementation that is known to satisfy either R
+
+or R
+
+0
+
+.
+The join operator can be used to structure complex specifications as aggregates of simpler
+specifications; hence most of the manipulations we discuss in this paper can be made
+arbitrarily simple by by considering arbitrarily simple component specifications.
+2 A Calculus of Programming by Parts
+
+Programming by parts rests on the premise that complex specifications can be structured
+as joins of simpler specifications, and proceeds by solving each component of the join
+in turn, then combining the partially defined solutions so obtained to produce a program
+that satisfies all the component subspecifications simultaneously. To support this program
+derivation method, we provide the following tools:
+
+ffl A specification/programming notation that supports specification structuring (by
+means of joins, meets) as well as program structuring (by means of traditional programming
+constructs).
+
+ffl A set of guidelines for deriving partially determined programs from component subspecifications.
+
+
+ffl A set of rules for combining partially determined programs into (more) completely
+determined programs.
+Due to space restrictions, we can only present a flavor of this method; details of this
+method can be found in [2].
+
+2.1 A Specification Notation
+
+Specifications are represented by structured relational expressions. We use two elementary
+specifications, in addition to closed form relations, which are:
+
+ffl Establish, which we denote by est(t), and define as:
+
+est(t) = f(s; s
+
+0
+
+)jt(s
+
+0
+
+)g:
+ffl Preserve, which we denote by prs(t), and define as:
+
+prs(t) = f(s; s
+
+0
+
+)jt(s)  t(s
+
+0
+
+)g:
+For the sake of stepwise refinement, we decide that all our compound statements must be
+monotonic with respect to the refinement ordering; we present some of these statements,
+for illustrative purposes.
+
+ffl Join. When two requirements must be satisfied simultaneously, they are combined
+with the join (t).
+
+ffl Meet. When any one of two requirements may be satisfied, they are combined with
+the meet (u).
+
+ffl Composition. Because the traditional relational product is not monotonic with respect
+to refinement, we define a monotonic sequence-like operator, which we denote
+by R
+
+2
+
+R
+
+0
+
+and define as
+
+R
+
+2
+
+R
+
+0
+
+= RR
+
+0
+
+" RR
+
+0
+
+L:
+ffl Closure. When a specification must be applied an arbitrary number of times, we
+apply the closure operator to it, to produce
+
+R
+
+?
+
+= t i0 R
+
+i
+
+;
+
+where R
+
+i
+
+is the monotonic composition of R by itself i times.
+
+2.2 Refinement Rules: Basis of Induction
+
+We present a sample of refinement rules that produce a programming construct or eliminate
+a specification construct (join, meet).
+
+ffl R t R is refined by R.
+
+ffl R u R
+
+0
+
+is refined by R (and by R
+
+0
+
+).
+
+ffl If R is deterministic or R
+
+0
+
+is total then R 2 R
+
+0
+
+is refined by R; R'.
+2.3 Refinement Rules: Merging
+
+Given two components of the join that have the same structure, these rules merge the
+components into a single specification that has the common structure, and propagate the
+joins deeper into the nesting structure. A sampling of these rules is:
+
+ffl If all the joins are defined, then (R
+
+2
+
+R
+
+0
+
+) t (Q
+
+2
+
+Q
+
+0
+
+) is refined by
+(R t Q)
+
+2
+
+(R
+
+0
+
+t Q
+
+0
+
+):
+ffl If all the joins are defined, then R
+
+
+
+t Q
+
+
+
+is refined by
+(R t Q)
+
+
+
+:
+2.4 Refinement Rules: Structure Unification
+
+While the rules of the previous section exploit the common structure of two subspecifications
+to merge them into a single specification (that has the common structure), the
+rules that we discuss in this section attempt to unify the structure of two components.
+Typically, they do so by imposing the structure of one component on the other. For the
+sake of illustration, we present two such rules, which impose a sequence structure on a
+(structureless) relation.
+
+ffl R is refined by (R \Theta \Theta \Theta \Theta R) 2 R,
+
+ffl R is refined by R 2
+
+(R B B B B R),
+
+where (R \Theta \Theta \Theta \Theta R) is the least refined solution to the equation R v X
+
+2
+
+R and (R B B B B R) is the
+least refined solution to the equation R v R
+
+2
+
+X . Note that for R = est(t), for some
+predicate t, the first rule yields the decomposition
+
+est(t) v est(true) 2 est(t);
+
+and the second rule yields the decomposition
+
+est(t) v est(t) 2 prs(t):
+
+2.5 Brief Illustration
+
+For the sake of illustration, we consider the specification of a sorting program and show
+how we can apply some refinement steps using the method of program construction by
+parts.
+
+Sort
+
+v f join structure g
+
+Perm t Ord
+
+v f definition of Ord g
+
+Perm t est(sorted)
+
+v f sorted j psorted  k = N , where psorted means partially sorted g
+
+Perm t est(psorted) t est(k = N)
+
+v f structure unification rules g
+
+Perm
+
+2
+
+Perm
+
+t est(psorted)
+
+2
+
+prs(psorted)
+
+t est(true) 2 est(k = N)
+
+v f merging rule g
+
+(Perm t est(psorted) t est(true))
+
+2
+
+(Perm t prs(psorted) t est(k = N))
+
+v f common refinement of the first factor g
+
+(k := 1 t k := 1 t k := 1)
+
+2
+
+(Perm t prs(psorted) t est(k = N))
+
+v f basis of induction rule: eliminating joins g
+
+(k := 1)
+
+2
+
+(Perm t prs(psorted) t est(k = N )).
+
+v f basis of induction rule: replacing
+
+2
+
+with ; g
+
+(k := 1) ; (Perm t prs(psorted) t est(k = N )).
+The first term of the sequence is the initialization segment; the second term is the specification
+of the while statement of an insertion sort.
+3 Application: Software Incrementation
+
+We consider a software system C and a feature F that we wish to add to C, and we are
+interested in how to augment C so that it has feature F . Our position is that this problem
+amounts to refining the specification
+
+C t F:
+
+Note that although C is a program, we can write it using our specification notation (we
+have rules for doing that, given in [2]). For the sake of argument, we assume that C and
+
+F do indeed have a join, and that C is structured as a sequence of three components, say
+
+C = C 0 2 C 1 2 C 2 :
+
+We assume further that after analyzing C and F , we have determined that modifications
+of C to augment it with F are localized in component C 1 . In light of this analysis, we
+deccompose F as
+
+F v (F \Theta \Theta \Theta \Theta F ) 2 F 2 (F B B B B F );
+using the structure unification rules given above. It may be worthwhile at this stage
+to analyze the intuitive meaning of (F \Theta \Theta \Theta \Theta F ) and (F B B B B F ): the term (F \Theta \Theta \Theta \Theta F ) represents the
+minimal (with respect to refinement) specification that must be satisfied upstream of
+
+F in order not to destroy any information that F may need; for example, if F is the
+specification of a sort routine, (F \Theta \Theta \Theta \Theta F ) is specification Perm, which prescribes that no cell
+of the array to be sorted is lost. Also, the term (F B B B B F ) represents the minimal (with
+respect to refinement) specification that must be satisfied downstream of F in order not
+to destroy the work achieved by F ; if F is the specification of a sort routine, then (F B B B B F ) is
+the specification that prescribes that array a (which has been sorted by F ) is kept intact.
+Using the sequential decomposition of C and F into three terms, we find the following
+refinement:
+
+C t F
+
+v f substitution g
+
+(C 0
+
+2
+
+C 1
+
+2
+
+C 2 ) t
+
+(F \Theta \Theta \Theta \Theta F )
+
+2
+
+F
+
+2
+
+(F B B B B F )
+
+v f merging g
+
+(C 0 t (F \Theta \Theta \Theta \Theta F ))
+
+2
+
+(C 1 t F )
+
+2
+
+(C 2 t (F B B B B F )).
+We consider the first term of the product, and analyze the possibilities that may arise (the
+same discussion holds for the third term):
+
+ffl C 0 and (F \Theta \Theta \Theta \Theta F ) have no join; this means that the decompositions of F and C have not
+been lined up, and must be revised. To illustrate what it means for decompositions
+to be lined up, consider the following relations:
+
+R
+
+0
+
+= f(s; s
+
+0
+
+)js
+
+0
+
+= s + 3g, R
+
+00
+
+= f(s; s
+
+0
+
+)js + 7  s
+
+0
+
+ s + 8g.
+
+Q
+
+0
+
+= f(s; s
+
+0
+
+)js + 3  s
+
+0
+
+ s + 4g, Q
+
+00
+
+= f(s; s
+
+0
+
+)js
+
+0
+
+= s + 7g.
+
+R = Q = f(s; s
+
+0
+
+)js + 10  s
+
+0
+
+ s + 11g.
+Relations R and Q do have a join since they are identical; if we decompose R as
+
+R
+
+0
+
+2
+
+R
+
+00
+
+and decompose Q as Q
+
+0
+
+2
+
+Q
+
+00
+
+then we obtain a lined up decomposition, since
+
+R
+
+0
+
+and Q
+
+0
+
+have a join (R
+
+0
+
+), and R
+
+00
+
+and Q
+
+00
+
+have a join (Q
+
+00
+
+); but if we decompose R
+
+as R
+
+0
+
+2
+
+R
+
+00
+
+and Q as Q
+
+00
+
+2
+
+Q
+
+0
+
+then we do not obtain a lined up decomposition, because
+neither R
+
+0
+
+and Q
+
+00
+
+nor R
+
+00
+
+and Q
+
+0
+
+have a join.
+
+ffl C 0 and (F \Theta \Theta \Theta \Theta F ) do have a join, and C 0 does not refine (F \Theta \Theta \Theta \Theta F ). This means that C 0
+
+must be modified to accomodate specification (F \Theta \Theta \Theta \Theta F ), hence enable the application
+of function F in the next component (C 1 t F ). The modification of C 0 is carried
+out using the refinement rules of the calculus of programming by parts.
+
+ffl C 0 and (F \Theta \Theta \Theta \Theta F ) do have a join; furthermore, C 0 refines (F \Theta \Theta \Theta \Theta F ). This is the ideal
+case: it means that the modification of C does not involve component C 0 , since
+
+C 0 preserves all the information required to compute function F . The verification
+condition provided for this case, which is
+
+C 0 w (F \Theta \Theta \Theta \Theta F )
+(along with the homologous condition, C 2 w (F B B B B F )) consitutes the necessary condition
+under which the modification of C to augment it with F is localized to component
+ C 1 .
+4 Application: Software Merging
+
+We consider two versions, say V and W , of some software system, and we are interested
+in merging them into a single version that has all the features of V and all the features of
+
+W . We view this problem as that of refining the expression
+
+V t W:
+
+Because V and W stem presumably from a common original system by incrementation,
+it is reasonable to expect that large portions of V and W are common, and that their
+differences are localized. For the sake of argument, we assume that both V and W are
+structured as sequences, which we write as:
+
+V t W
+
+v f substitutions g
+
+(V 0 2
+
+V 1 2
+
+V 2 )
+
+t(W 0
+
+2
+
+W 1
+
+2
+
+W 2 )
+
+v f merging g
+
+((V 0 t W 0 )
+
+2
+
+(V 1 t W 1 )
+
+2
+
+(V 2 t W 2 )).
+We imagine, for the sake of argument, that
+
+ffl The feature of V that W does not have is localized in V 1 ; hence V 1 w W 1 , whence
+
+V 1 t W 1 = V 1 .
+
+ffl The feature of W that V does not have is localized in W 2 ; hence W 2 w V 2 , whence
+
+V 2 t W 2 = W 2 .
+
+ffl The components V 0 and W 0 have not been changed from the original version of the
+software system, hence are identical; whence V 0 t W 0 = V 0 .
+Under the condition hypothesized above, the new version of the software system become,
+after substitution:
+
+V 0
+
+2
+
+V 1
+
+2
+
+W 2 :
+
+5 Application: Software Adaptation
+
+We consider a software component C and a specification K; we assume that C does not
+satisfy specification K, but we have reasons to believe that it can be modified economically
+to satisfy it. This problem does look like the refinement of K t C, since it proceeds by
+considering information from two specifications/programs, but differs in two significant
+ways:
+
+ffl Whereas the refinement of K t C seeks to satisfy both K and C, the modification
+of C to satisfy K really seeks to satisfy K only ---but expects to use C towards this
+end.
+
+ffl Whereas structure unification rules of program construction by parts consider the
+two arguments as interchangeable, and may impose any one argument's structure
+on the other, software adaptation rules will always attempt to impose the structure
+of C on K. In effect, what happens in software adaptation is that the refinement
+proceeds by drawing syntactic information from C and semantic information from
+
+K, to produce a component that acts (semantics) like K but looks (syntax) like C.
+
+To acknowledge the asymmetry between the roles played by K and C in the adaptation
+of C to satisfy K, we write the expression to refine as
+
+K  C;
+
+and we derive slightly different refinement rules for the  operator than we had for the
+
+t operator. Space limitations prohibit us from presenting these rules, and from giving an
+illustrative example.
+6 Conclusion
+
+In this paper we have briefly presented a calculus of program construction by parts,
+and have discussed its use for recent software development paradigms, such as software
+incrementation, software merging, and software adaptation.
+Several authors have advocated that the join operator is useful in the refinement
+of complex specifications [2, 4, 1]. Hoare et al [1] identifies some basic properties of
+join, like idempotence, commutativity, associativity and absorption. They also mention
+distributivity over usual programming constructs like sequential composition, alternation,
+iteration and nondeterministic choice, but for a very limited case of join (directed set of
+subspecifications with bounded nondeterminacy). Recent work of Hehner [4] includes laws
+of refinement for join-structured specifications. In Hehner's calculus, specifications are
+predicates, termination is prescribed using a time variable, and join is logical conjunction.
+Morgan and Gardiner [3] use a join statement for data refinement and for the definition
+of logical constants. They do not use join as a specification structuring device nor do they
+study the refinement of join-structured specifications. Finally, the work of von Wright
+also mentions a join operator. In [7], he reconstructs the refinement calculus of Back from
+elementary primitives. The emphasis of this work is more on the definition of a language
+than on the definition of a refinement calculus. The semantics of the language is given by
+predicate transformers, and miraculous specifications are allowed.
+Our work differs from Hehner's work by the representation of specifications (predicates
+vs. relations) and by their interpretations: termination is implicit in our specifications
+
+whereas it is expressed as timing constraints in Hehner's. Our work differs from that of
+Hoare et al [1] by using partial relations and demonic operators, by not using a fictitious
+state to represent nontermination, and by providing rules to eliminate meets in a
+specification. Our work differs from the work of von Wright, Gardiner and Morgan by
+using a different semantics, by not allowing miraculous specifications, and by studying the
+transformation of join-structured specifications. We share with the work of Sekerinski [5]
+(and Z) the same specification model where the focus is on input-output pairs for which
+a program must terminate. Most importantly, the work presented in this paper differs
+from other programming calculi (including our own [2]) by the fact that it deals with new
+software development paradigms rather than traditional program construction.
+References
+
+[1] C.A.R. Hoare et al. Laws of programming. Communications of the ACM, 30(8):672--
+686, 1987.
+[2] M. Frappier, J. Desharnais, and A. Mili. A calculus of program construction by parts.
+
+Science of Computer Programming, 6:237--254, 1996.
+[3] P. Gardiner and C.C. Morgan. Data refinement of predicate transformers. Theoretical
+Computer Science, 87:143--162, 1991.
+[4] E.C.R. Hehner. A Practical Theory of Programming. Springer-Verlag, 1993.
+[5] E. Sekerinski. A calculus for predicative programming. In R.S. Bird, C.C. Morgan, and
+J.C.P. Woodcock, editors, Mathematics of program construction : second international
+conference, number 669 in Lecture Notes in Computer Science, Oxford, UK, 1992.
+Springer-Verlag.
+[6] D.R. Skuce and A. Mili. Behavioral specifications in object oriented programming.
+
+Journal of Object Oriented Programming, pages 41--49, January 1995.
+[7] J. Von Wright. A lattice theoretical basis for program refinement. Technical report,
+Dept. of Computer Science,
+
+Abo Akademi, Finland, 1990.
+

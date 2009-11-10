@@ -1,0 +1,229 @@
+ISSUES:
+=================================
+!(1) Install directory "/home/forecite/services/parscit" hard-coded into bin/tr2crfpp.pl - - wonder if this could be made relative to current directory?
+
+* Thang:
+Replace:
+my $installDir = "/home/forecite/services/parscit";
+my $dictFile = "$installDir/resources/parsCitDict.txt";
+by:
+use FindBin;
+my $dictFile = "$FindBin::Bin/../resources/parsCitDict.txt";
+
+=================================
+!(2) I added extra checks to subroutine 'isValid' in lib/ParsCit/Citation.pm. It helped to eliminate a lot of mis-parced citations:
+
+if (!defined $date) { # date not found in citation
+return 0;
+}
+my $rawString = $self->getString();
+if (length($rawString) > 400) { # citation string over 400 characters - - - probably a mistake in parsing somewhere
+return 0;
+}
+
+* Thang: Should these conditions be put before the rest? (i.e. !defined $date has stronger effect than e.g. $#authors>=0 && (defined $title || defined $date)
+########## modified by Artemy Kolchinsky (v090625)
+### added extra checks to subroutine 'isValid' in lib/ParsCit/Citati
+on.pm. It helps to eliminate a lot of mis-parsed citations
+ my $rawString = $self->getString();
+ if (!defined $date) { # date not found in citation
+ return 0;
+ }
+ if (length($rawString) > 400) { # citation string over 400 char
+acters - - - probably a mistake in parsing somewhere
+ return 0;
+ }
+########## end modified by Artemy Kolchinsky (v090625)
+
+ if (!defined $venue) {
+ $venue = $self->getBooktitle();
+ }
+ if ($#authors>=0 && (defined $title || defined $date)) {
+ return 1;
+ }
+ if (defined $venue && defined $date) {
+ return 1;
+ }
+ if (defined $title) {
+ return 1;
+ }
+
+ return 0;
+
+=================================
+!(3) On line 82 and 177 of lib/ParsCit/Controller.pm, you output an XML <title> tag containing the string of the citation, like:
+	.... 
+	"<title> ".$citation->getString() . " </title>\n"; 
+	
+	
+However, it's possible that the citation contains illegal XML characters, such as '<' or '>' (this happened to me when a citation of an online resource contained the resource URL in angle brackets <http://like.this>).  This situation would then break proper parsing of the XML document.  I made a special subroutine:
+sub xml_char_escape {
+     my ($text) = @_;
+     $text =~ s/&/&amp;/go;
+     $text =~ s/</&lt;/go;
+     $text =~ s/>/&gt;/go;
+     $text =~ s/'/&apos;/go;
+     $text =~ s/"/&quot;/go;
+     return $text;
+}
+
+and changed
+... "<title> ".$citation->getString() . " </title>\n";
+to:
+... "<title> ".xml_char_escape($citation->getString()) . " </title>\n";
+
+* Thang: it is done by calling subroutine cleanXML in Controller.pm, which in turn the right place to modify is CSXUtil/SafeText.pm
+our %htmlSpecialCharEncodings = ("&" => "&amp;",
+                                ">" => "&gt;",
+                                "<" => "&lt;",
+                                "\"" => "&quot;",
+                                 "\'" => "&apos;" # Added by Thang (v090625)
+                                );
+
+
+
+=================================
+!(4) In lib/ParsCit/PreProcess.pm , I changed the numbered-citation parsing regular expressions (lines 17, 18) from :
+
+'NAKEDNUM' => '\\d+',
+'NAKEDNUMDOT' => '\\d+\\.',
+
+to:
+
+'NAKEDNUM' => '\\d{1,3}',
+'NAKEDNUMDOT' => '\\d{1,3}\\.',
+
+This makes it so that citation nubmers can be a maximum of 3 digits long.  This prevented some situations where parsCit was parsing year numbers as citations number.  I figure it would be extremely rare to have more than 999 numbered citations.
+
+* Thang: incorporated
+
+=================================
+
+!(5) IIn the subroutine normalizeCiteText in PreProcess.pm, you filter out all the citation lines that consist of only spacing or numeric characters.  You do this in the following way:
+
+foreach my $line (@lines) {
+	if ($line =~ m/^[\s\d]*$/) {
+		next;
+	}
+	push @newLines, $line;
+}
+
+
+I needed to make a slight modification to this.  In some cases, I had situations like:
+
+Smith B, "Blah Blah." Journal1, 2000, p. 23-
+85
+
+Here, the line consisting of '85' is part of the citation and shouldn't be dropped, even though it only consist of numeric characters.  The way I went about this is that I dropped those lines consisting of only spacing characters, *or* only numeric characters *if the previous line did not end on a hyphen*.  Thus, my new foreach loop looked like this:
+
+my $oldline = "";
+foreach my $line (@lines) {
+	if ($line =~ m/^\s*$/ || ($oldline !~ m/\-$/ && $line =~ m/^\d*$/)) {
+		$oldline = $line;
+		next;
+	}
+	$oldline = $line;
+	push @newLines, $line;
+}
+
+* Thang: incorporated with 2 lines added
+ $line =~ s/^\s*//g; #dropped leading spaces added by Thang (v090625)
+ $line =~ s/\s*$//g; #dropped trailing spaces added by Thang (v090625)
+
+
+=================================
+!(6) On line 184 of PreProcess.pm, you find lines that end on a hyphen, drop the hyphen, and then join them to their subsequent lines.  You do this by matching to this regular expression:
+
+if ($currentCitationString =~ m/\w\-$/) {
+
+However, this should only happens with lines where an alphabetic character is followed by a hyphen.  Cases where a number is followed by a hyphen, such as, for example: 
+
+Smith B, "Blah Blah." Journal1, 2000, p. 23-
+85.
+
+should *not* drop the hyphen (it would break the page numbering).  So I changed the above line to:
+
+if ($currentCitationString =~ m/[A-Za-z]\-$/) {
+
+
+For similar reasons, I changed line 300 of Preprocess.pm from:
+if ($mergedText =~ m/\w\-$/) {
+ to
+if ($mergedText =~ m/[A-Za-z]\-$/) {
+
+and line 109 of Preprocess.pm from:
+if ($text =~ s/(\w)\-$/$1/) {
+to
+if ($text =~ s/([A-Za-z])\-$/$1/) {
+
+* Thang: incorporated
+
+=================================
+!(7) In the lines below (line 189) of PreProcess, you add a space between joined lines if the above one doesn't end in a hyphen.  Since now we can be in this condition if the line ends on a number preceeding a hyphen, we only add a space between lines if there's no hyphen at the end of first line.  My entire if/else statement looks like this:
+
+# !!! merge without removing "-" if preceeded by numbers...
+if ($currentCitationString =~ m/[A-Za-z]\-$/) {
+	# merge words when lines are hyphenated
+	$currentCitationString =~ s/\-$//; 
+	$currentCitationString .= $line;
+} else {
+	if ($currentCitationString !~ m/\-\s*$/) { $currentCitationString .= " " } #!!!
+	$currentCitationString .= $line;
+}
+
+Thang: incorporated + make similar modification for sub normalizeBodyText & mergeLines
+
+=================================
+
+!(8) On line 262 of Preprocess.pm, you have the following:
+
+# Now that the backwards author search failed
+# to find any extra lines, start a new citation
+# here if the previous line ends with a ".".
+if ($content[$k-1] =~ m/\.\s*$/) {
+	$citeStart = $k;
+	last;
+}
+
+I made two changes to this.  First of all, a new citation is started if the previous line ended with a period, but not if it ended with a period, something else, and then a period.  This is to avoid assuming that abbrevations, like U.S.A. , indicate the end of a cite.  Also, a new cite is started only if the current line does not begin with a series of 4 digits.  This helped avoid some mis-parsed citations for me.  The new if-statement read like:
+
+if ($content[$k-1] =~ m/[^\.].\.\s*$/ && $content[$k] !~ m/^\d\d\d\d/) {
+	$citeStart = $k;
+	last;
+}
+
+* Thang: incorporated
+
+I also put in another check to determine when to start a new citation.  This might be sort of a hack to get parsCit to work better with my specific data.  I put in the following if-statement after the one just mentioned above:
+
+if (length($content[$k-1]) < length($content[$k])-5 && $content[$k-1] =~ m/\d\d\d*\.?\s*$/ && $content[$k] =~ m/^\s*[A-Z]/) {
+	$citeStart = $k;
+	last;
+}
+
+In other words, if we haven't decided to start a new citation yet, but the current line is considerably shorter than the previous one, and the previous one started with a character symbol and ended with a string of numbers (and possibly a period), then start a new citation.
+
+* Thang: not incorporated
+
+=================================
+!(9) On line 338 of Preprocess.pm, you match against 'naked number' citation separators:
+while ($citeText =~ m/\n\s*($markerTypes{'NAKEDNUM'} [^\n]{10}) /sg) {
+
+I'm pretty sure that space should not be at the end of the regular expression (it indicates that this will only match citations that have the 'NAKEDNUM' expression, then a space, then 10 non-carriage return characters, then *another* space .  I think this is a type, and line 338 should read:
+
+while ($citeText =~ m/\n\s*($markerTypes{'NAKEDNUM'} [^\n]{10})/sg) {
+
+* Thang: incorporated
+
+=================================
+* In lib/ParsCit/Tr2crfpp.pm , you detect 'editors' using the following regular expression (line 55):
+
+(/(ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+
+However, 'ed.' also matches things like 'Med.' , which are found extremely often in my document database. To avoid this situation, I changed this string to match 'ed.', 'editor', 'editors', and 'eds.' if *not* preceeded by an alphabetic character:
+
+(/[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+
+* Thang: incorporated
+</http:>
+<<<

@@ -1,0 +1,487 @@
+<algorithm name="ParsCit" version="1.0">
+<citationList>
+<citation valid="true">
+<authors>
+<author>D W Aha</author>
+<author>D Kibler</author>
+<author>M Albert</author>
+</authors>
+<title>Instance-based learning algorithms</title>
+<date>1991</date>
+<booktitle>Machine Learning</booktitle>
+<volume>7</volume>
+<pages>37--66</pages>
+<contexts>
+<context>sing terminology such as similarity-based, example-based, memory-based, exemplar-sbased, case-based, analogical, lazy, nearest-neighbour, and instance-based (Stanfill andsWaltz, 1986; Kolodner, 1993; Aha et al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandler, 1992; Scha, 19</context>
+<context>using equation (2), an overlap metric, forssymbolic features (we will have no numeric features in the tagging application).s5(xi, Yi) = 0 if xi = Yi, else 1 (2)sWe will refer to this approach as IB1 (Aha et al., 1991). We extended the algorithmsdescribed there in the following way: in case a pattern is associated with more than onescategory in the training set (i.e. the pattern is ambiguous), the distribution of </context>
+<context>ee memory-basedslearning algorithms: (i) IB1, a slight extension (to cope with symbolic values and ambigu-sous training items) of the well-known k-nn algorithm in statistical pattern recognition (seesAha et al., 1991), (ii) IBI-IG, an extension of IB1 which uses feature relevance weightings(described in Section 2), and (iii) IGTree, a memory- and processing time saving heuris-stic implementation of IBi-IG (see Se</context>
+</contexts>
+<marker>Aha, Kibler, Albert, 1991</marker>
+<rawString>Aha, D. W., Kibler, D., &amp; Albert, M. (1991). 'Instance-based learning algorithms'. Machine Learning, 7, 37-66.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E Brill</author>
+</authors>
+<title>A simple rule-based part-of-speech tagger</title>
+<date>1992</date>
+<booktitle>Proceedings Third ACL Applied</booktitle>
+<pages>152--155</pages>
+<location>Trento, Italy</location>
+<marker>Brill, 1992</marker>
+<rawString>Brill, E. (1992) 'A simple rule-based part-of-speech tagger'. Proceedings Third ACL Applied, Trento, Italy, 152-155.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Cardie</author>
+</authors>
+<title>A case-based approach to knowledge acquisition for domain-specific sentence analysis</title>
+<date>1993</date>
+<booktitle>In AAAL93</booktitle>
+<pages>798--803</pages>
+<contexts>
+<context> parsed already), and with a tag set of 18 tags (7 open-class,s11 closed class), she reports a 95% tagging accuracy. A decision-tree learning approachsto feature selection is used in this experiment (Cardie, 1993b, 1994) to discard irrelevantsfeatures. Results are based on experiments with 120 randomly chosen sentences fromsthe TIPSTER JV corpus (representing 2056 cases). Cardie (p.c.) reports 89.1% correctst</context>
+</contexts>
+<marker>Cardie, 1993</marker>
+<rawString>Cardie, C. (1993a). 'A case-based approach to knowledge acquisition for domain-specific sentence analysis'. In AAAL93, 798-803.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Cardie</author>
+</authors>
+<title>Using Decision Trees to Improve Case-Based Learning</title>
+<date>1993</date>
+<booktitle>In Proceedings of the Tenth International Conference on Machine Learning</booktitle>
+<pages>25--32</pages>
+<contexts>
+<context> parsed already), and with a tag set of 18 tags (7 open-class,s11 closed class), she reports a 95% tagging accuracy. A decision-tree learning approachsto feature selection is used in this experiment (Cardie, 1993b, 1994) to discard irrelevantsfeatures. Results are based on experiments with 120 randomly chosen sentences fromsthe TIPSTER JV corpus (representing 2056 cases). Cardie (p.c.) reports 89.1% correctst</context>
+</contexts>
+<marker>Cardie, 1993</marker>
+<rawString>Cardie, C. (1993b). 'Using Decision Trees to Improve Case-Based Learning'. In Proceedings of the Tenth International Conference on Machine Learning, 25-32.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Cardie</author>
+</authors>
+<title>Domain-Specific Knowledge Acquisition for Conceptual Sentence Analysis</title>
+<date>1994</date>
+<tech>Ph.D. Thesis</tech>
+<institution>University of Massachusetts</institution>
+<location>Amherst, MA</location>
+<contexts>
+<context>nn ap-sproach provides a uniform approach for all disambiguation tasks, more flexibility in thesengineering of case representations, and a more elegant approach to handling of unknownswords (see e.g. Cardie 1994).s24s7 ConclusionsWe have shown that a memory-based approach to large-scale tagging is feasible bothsin terms of accuracy (comparable to other statistical approaches), and also in terms ofscomputatio</context>
+</contexts>
+<marker>Cardie, 1994</marker>
+<rawString>Cardie, C. (1994). 'Domain-Specific Knowledge Acquisition for Conceptual Sentence Analysis'. Ph.D. Thesis, University of Massachusetts, Amherst, MA.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Chandler</author>
+</authors>
+<title>Are rules and modules really necessary for explaining language</title>
+<date>1992</date>
+<journal>Journal of Psycholinguistic research</journal>
+<volume>22</volume>
+<pages>593--606</pages>
+<contexts>
+<context>r, 1993; Aha et al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandler, 1992; Scha, 1992). In computationalslinguistics (apart from incidental computational work of the linguists referred to earlier),sthe general approach has only recently gained some popularity: e.g., Cardie</context>
+</contexts>
+<marker>Chandler, 1992</marker>
+<rawString>Chandler, S. (1992). 'Are rules and modules really necessary for explaining language?' Journal of Psycholinguistic research, 22(6): 593-606.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Church</author>
+</authors>
+<title>A stochastic parts program and noun phrase parser for unrestricted text</title>
+<date>1988</date>
+<booktitle>Proceedings Second A CL Applied NLP</booktitle>
+<pages>136--143</pages>
+<location>Austin, Texas</location>
+<contexts>
+<context>un, as in theysman the boats). Several approaches have been proposed to construct automatic taggers.sMost work on statistical methods has used n-gram models or Hidden Markov Model-basedstaggers (e.g. Church, 1988; DeRose, 1988; Cutting et al. 1992; Merialdo, 1994, etc.). Ins14sthese approaches, a tag sequence is chosen for a sentence that maximizes the product ofslexical and contextual probabilities as estima</context>
+</contexts>
+<marker>Church, 1988</marker>
+<rawString>Church, K. (1988). 'A stochastic parts program and noun phrase parser for unrestricted text'. Proceedings Second A CL Applied NLP, Austin, Texas, 136-143.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Cost</author>
+<author>S Salzberg</author>
+</authors>
+<title>A weighted nearest neighbour algorithm for learning with symbolic features</title>
+<date>1993</date>
+<booktitle>Machine Learning</booktitle>
+<volume>10</volume>
+<pages>57--78</pages>
+<marker>Cost, Salzberg, 1993</marker>
+<rawString>Cost, S. and Salzberg, S. (1993). 'A weighted nearest neighbour algorithm for learning with symbolic features.' Machine Learning, 10, 57-78.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Cutting</author>
+<author>J Kupiec</author>
+<author>J Pederson</author>
+<author>P Sibun</author>
+</authors>
+<title>A practical part of speech tagger</title>
+<date>1992</date>
+<booktitle>Proceedings Third A CL Applied NLP</booktitle>
+<pages>133--140</pages>
+<location>Trento, Italy</location>
+<contexts>
+<context>). Several approaches have been proposed to construct automatic taggers.sMost work on statistical methods has used n-gram models or Hidden Markov Model-basedstaggers (e.g. Church, 1988; DeRose, 1988; Cutting et al. 1992; Merialdo, 1994, etc.). Ins14sthese approaches, a tag sequence is chosen for a sentence that maximizes the product ofslexical and contextual probabilities as estimated from a tagged corpus.sIn rule-b</context>
+</contexts>
+<marker>Cutting, Kupiec, Pederson, Sibun, 1992</marker>
+<rawString>Cutting, D., Kupiec, J., Pederson, J., Sibun, P. (1992). A practical part of speech tagger. Proceedings Third A CL Applied NLP, Trento, Italy, 133-140.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W Daelemans</author>
+</authors>
+<title>Memory-based lexical acquisition and processing</title>
+<date>1995</date>
+<booktitle>Machine Translation and the Lexicon, Lecture Notes in Artificial Intelligence 898</booktitle>
+<pages>85--98</pages>
+<editor>In Steffens, P., editor</editor>
+<publisher>Springer</publisher>
+<location>Berlin</location>
+<marker>Daelemans, 1995</marker>
+<rawString>Daelemans, W. (1995). 'Memory-based lexical acquisition and processing.' In Steffens, P., editor, Machine Translation and the Lexicon, Lecture Notes in Artificial Intelligence 898. Berlin: Springer, 85-98.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W Daelemans</author>
+<author>A Van den Bosch</author>
+</authors>
+<title>Generalisation performance of backpropagation learning on a syllabification task</title>
+<date>1992</date>
+<booktitle>In M. Drossaers &amp; A. Nijholt (Eds.), TWLT3: Connectionism and Natural Language Processing</booktitle>
+<pages>27--38</pages>
+<institution>Twente University</institution>
+<location>Enschede</location>
+<marker>Daelemans, Van den Bosch, 1992</marker>
+<rawString>Daelemans, W., Van den Bosch, A. (1992). 'Generalisation performance of backpropagation learning on a syllabification task.' In M. Drossaers &amp; A. Nijholt (Eds.), TWLT3: Connectionism and Natural Language Processing. Enschede: Twente University, 27-38.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W Daelemans</author>
+<author>A Van den Bosch</author>
+<author>T Weijters</author>
+</authors>
+<title>IGTree: Using Trees for Compression and Classification in Lazy Learning Algorithms</title>
+<date>1996</date>
+<booktitle>Review Special Issue on Lazy Learning, forthcoming</booktitle>
+<editor>In Aha, D. (ed.). AI</editor>
+<marker>Daelemans, Van den Bosch, Weijters, 1996</marker>
+<rawString>Daelemans, W., Van den Bosch, A., Weijters, T. (1996). 'IGTree: Using Trees for Compression and Classification in Lazy Learning Algorithms.' In Aha, D. (ed.). AI Review Special Issue on Lazy Learning, forthcoming.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S DeRose</author>
+</authors>
+<title>Grammatical category disambiguation by statistical optimization</title>
+<date>1988</date>
+<journal>Computational Linguistics</journal>
+<volume>14</volume>
+<pages>31--39</pages>
+<contexts>
+<context>sman the boats). Several approaches have been proposed to construct automatic taggers.sMost work on statistical methods has used n-gram models or Hidden Markov Model-basedstaggers (e.g. Church, 1988; DeRose, 1988; Cutting et al. 1992; Merialdo, 1994, etc.). Ins14sthese approaches, a tag sequence is chosen for a sentence that maximizes the product ofslexical and contextual probabilities as estimated from a tag</context>
+</contexts>
+<marker>DeRose, 1988</marker>
+<rawString>DeRose, S. (1988). 'Grammatical category disambiguation by statistical optimization. ' Computational Linguistics 14, 31-39.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B L Derwing</author>
+<author>R Skousen</author>
+</authors>
+<title>Real Time Morphology: Symbolic Rules or Analogical Networks'. Berkeley Linguistic Society 15</title>
+<date>1989</date>
+<pages>48--62</pages>
+<marker>Derwing, Skousen, 1989</marker>
+<rawString>Derwing, B. L. and Skousen, R. (1989). 'Real Time Morphology: Symbolic Rules or Analogical Networks'. Berkeley Linguistic Society 15: 48-62.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Federici</author>
+<author>V Pirelli</author>
+</authors>
+<title>Analogy, Computation and Linguistic Theory</title>
+<date>1996</date>
+<booktitle>New Methods in Language Processing</booktitle>
+<pages>forthcoming.</pages>
+<editor>In Jones, D. (ed</editor>
+<publisher>UCL Press</publisher>
+<location>London</location>
+<marker>Federici, Pirelli, 1996</marker>
+<rawString>Federici S. and V. Pirelli. (1996). 'Analogy, Computation and Linguistic Theory.' In Jones, D. (ed.) New Methods in Language Processing. London: UCL Press, forthcoming.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Garside</author>
+<author>G Leech</author>
+<author>G Sampson</author>
+</authors>
+<title>The computational analysis of English: A corpus-based approach</title>
+<date>1987</date>
+<location>London: Longman</location>
+<contexts>
+<context>xical and contextual probabilities as estimated from a tagged corpus.sIn rule-based approaches, words are assigned a tag based on a set of rules and aslexicon. These rules can either be hand-crafted (Garside et al., 1987; Klein &amp; Simmons,s1963; Green &amp; Rubin, 1971), or learned, as in Hindle (1989) or the transformation-basedserror-driven approach of Brill (1992).sIn a memory-based approach, a set of cases is kept in </context>
+</contexts>
+<marker>Garside, Leech, Sampson, 1987</marker>
+<rawString>Garside, R., Leech, G. and Sampson, G. (1987). The computational analysis of English: A corpus-based approach, London: Longman, 1987.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B B Greene</author>
+<author>G M lubin</author>
+</authors>
+<title>Automatic Grammatical Tagging of English. Providence RI</title>
+<date>1971</date>
+<institution>Department of Linguistics, Brown University</institution>
+<marker>Greene, lubin, 1971</marker>
+<rawString>Greene, B.B. and l~ubin, G.M. (1971). Automatic Grammatical Tagging of English. Providence RI: Department of Linguistics, Brown University.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Donald Hindle</author>
+</authors>
+<title>Acquiring disambiguation rules from text</title>
+<date>1989</date>
+<booktitle>In Proceedings, 27th Annual Meeting of the Association for Computational Linguistics</booktitle>
+<location>Vancouver, BC</location>
+<marker>Hindle, 1989</marker>
+<rawString>Hindle, Donald. (1989). 'Acquiring disambiguation rules from text.' In Proceedings, 27th Annual Meeting of the Association for Computational Linguistics, Vancouver, BC.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E Hunt</author>
+<author>J Matin</author>
+<author>P Stone</author>
+</authors>
+<date>1966</date>
+<booktitle>Experiments in Induction</booktitle>
+<publisher>Academic Press</publisher>
+<location>New York</location>
+<contexts>
+<context>ith its information gain;sa number expressing the average amount of reduction of training set information entropyswhen knowing the value of the feature (Daelemans &amp; van de Bosch, 1992, Quinlan, 1993;sHunt et al. 1966) (Equation 3). We will call this algorithm IB-IG.sY) = (3)si:1s3 IGTreessMemory-based learning is an expensive algorithm: of each test item, all feature valuessmust be compared to the corresponding f</context>
+</contexts>
+<marker>Hunt, Matin, Stone, 1966</marker>
+<rawString>Hunt, E., J. Matin, P. Stone. (1966). Experiments in Induction. New York: Academic Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Jones</author>
+</authors>
+<title>Analogical Natural Language Processing</title>
+<date>1996</date>
+<publisher>UCL Press</publisher>
+<location>London</location>
+<marker>Jones, 1996</marker>
+<rawString>Jones, D. Analogical Natural Language Processing. London: UCL Press, 1996.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Klein</author>
+<author>R Simmons</author>
+</authors>
+<title>A grammatical approach to grammatical coding of English words</title>
+<date>1963</date>
+<journal>JACM</journal>
+<volume>10</volume>
+<pages>334--347</pages>
+<marker>Klein, Simmons, 1963</marker>
+<rawString>Klein S. and Simmons, R. (1963). 'A grammatical approach to grammatical coding of English words.' JACM 10, 334-347.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Kolodner</author>
+</authors>
+<title>Case-Based Reasoning</title>
+<date>1993</date>
+<publisher>Morgan Kaufmann</publisher>
+<location>San Mateo</location>
+<contexts>
+<context> to robotics),susing terminology such as similarity-based, example-based, memory-based, exemplar-sbased, case-based, analogical, lazy, nearest-neighbour, and instance-based (Stanfill andsWaltz, 1986; Kolodner, 1993; Aha et al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandle</context>
+</contexts>
+<marker>Kolodner, 1993</marker>
+<rawString>Kolodner, J. (1993). Case-Based Reasoning. San Mateo: Morgan Kaufmann.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Langley</author>
+<author>S Sage</author>
+</authors>
+<title>Oblivious decision trees and abstract cases</title>
+<date>1994</date>
+<booktitle>In D. W. Aha (Ed.), Case-Based Reasoning: Papers from the 1994 Workshop (Technical Report WS-94-01). Menlo</booktitle>
+<publisher>AAAI Press</publisher>
+<location>Park, CA</location>
+<marker>Langley, Sage, 1994</marker>
+<rawString>Langley, P. and Sage, S. (1994). 'Oblivious decision trees and abstract cases.' In D. W. Aha (Ed.), Case-Based Reasoning: Papers from the 1994 Workshop (Technical Report WS-94-01). Menlo Park, CA: AAAI Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B Merialdo</author>
+</authors>
+<title>Tagging English Text with a Probabilistic Model</title>
+<date>1994</date>
+<journal>Computational Linguistics</journal>
+<volume>20</volume>
+<pages>155--172</pages>
+<contexts>
+<context> have been proposed to construct automatic taggers.sMost work on statistical methods has used n-gram models or Hidden Markov Model-basedstaggers (e.g. Church, 1988; DeRose, 1988; Cutting et al. 1992; Merialdo, 1994, etc.). Ins14sthese approaches, a tag sequence is chosen for a sentence that maximizes the product ofslexical and contextual probabilities as estimated from a tagged corpus.sIn rule-based approaches,</context>
+</contexts>
+<marker>Merialdo, 1994</marker>
+<rawString>Merialdo, B. (1994). 'Tagging English Text with a Probabilistic Model.' Computational Linguistics 20 (2), 155-172.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>F Pereira</author>
+<author>Y Singer</author>
+<author>N Tishby</author>
+</authors>
+<title>Beyond Word N-grams</title>
+<date>1995</date>
+<booktitle>Proceedings Third Workshop on Very Large Corpora, MIT</booktitle>
+<pages>95--106</pages>
+<location>Cambridge Mass</location>
+<contexts>
+<context>indow size used by the algorithm will alsosdynamically change depending on the information present in the context for the disam-sbiguation of a particular focus symbol (see Schfitze et al., 1994, and Pereira et al., 1995s1ACL Data Collection Initiative CD-ROM 1, September 1991.s2We disregarded a category associated with a word when less than 10% of the word tokens were taggedswith that category. This way, noise in th</context>
+</contexts>
+<marker>Pereira, Singer, Tishby, 1995</marker>
+<rawString>Pereira, F., Y. Singer, N. Tishby. (1995). 'Beyond Word N-grams.' Proceedings Third Workshop on Very Large Corpora, MIT, Cambridge Mass., 95-106.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Quinlan</author>
+</authors>
+<title>C4.5: Programs for Machine Learning</title>
+<date>1993</date>
+<publisher>Morgan Kaufmann</publisher>
+<location>San Mateo, CA</location>
+<contexts>
+<context> each feature with its information gain;sa number expressing the average amount of reduction of training set information entropyswhen knowing the value of the feature (Daelemans &amp; van de Bosch, 1992, Quinlan, 1993;sHunt et al. 1966) (Equation 3). We will call this algorithm IB-IG.sY) = (3)si:1s3 IGTreessMemory-based learning is an expensive algorithm: of each test item, all feature valuessmust be compared to t</context>
+</contexts>
+<marker>Quinlan, 1993</marker>
+<rawString>Quinlan, J. (1993). C4.5: Programs for Machine Learning. San Mateo, CA: Morgan Kaufmann.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Salzberg</author>
+</authors>
+<title>A nearest hyperrectangle learning method</title>
+<date>1990</date>
+<journal>Machine Learning</journal>
+<volume>6</volume>
+<pages>251--276</pages>
+<contexts>
+<context>such as similarity-based, example-based, memory-based, exemplar-sbased, case-based, analogical, lazy, nearest-neighbour, and instance-based (Stanfill andsWaltz, 1986; Kolodner, 1993; Aha et al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandler, 1992; Scha, 1992). In computat</context>
+</contexts>
+<marker>Salzberg, 1990</marker>
+<rawString>Salzberg, S. (1990) 'A nearest hyperrectangle learning method'. Machine Learning 6, 251-276.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Samuelsson</author>
+</authors>
+<title>Morphological Tagging Based Entirely on Bayesian Inference</title>
+<date>1994</date>
+<booktitle>In Proceedings of the 9th Nordic Conference on Computational Linguistics</booktitle>
+<location>Stockholm University, Sweden</location>
+<contexts>
+<context> byscombining these two sources of information in the case representation, and having thesinformation gain feature relevance weighting technique figure out their relative relevances(see Schmid, 1994; Samuelsson, 1994 for similar solutions).sIn most taggers, some form of morphological analysis is performed on unknown words,sin an attempt to relate the unknown word to a known combination of known morphemes,sthereby</context>
+</contexts>
+<marker>Samuelsson, 1994</marker>
+<rawString>Samuelsson, C. (1994) 'Morphological Tagging Based Entirely on Bayesian Inference.' In Proceedings of the 9th Nordic Conference on Computational Linguistics, Stockholm University, Sweden, 1994.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Scha</author>
+</authors>
+<title>Virtuele Grammatica's en Creatieve Algoritmen</title>
+<date>1992</date>
+<journal>Gramma/TTT</journal>
+<volume>1</volume>
+<pages>57--77</pages>
+<contexts>
+<context>al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandler, 1992; Scha, 1992). In computationalslinguistics (apart from incidental computational work of the linguists referred to earlier),sthe general approach has only recently gained some popularity: e.g., Cardie (1994, syn-</context>
+</contexts>
+<marker>Scha, 1992</marker>
+<rawString>Scha, R. (1992) 'Virtuele Grammatica's en Creatieve Algoritmen.' Gramma/TTT 1 (1), 57-77.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Schmid</author>
+</authors>
+<title>Part-of-speech tagging with neural networks</title>
+<date>1994</date>
+<booktitle>In Proceedings of COLING, Kyoto</booktitle>
+<location>Japan</location>
+<contexts>
+<context>based approach byscombining these two sources of information in the case representation, and having thesinformation gain feature relevance weighting technique figure out their relative relevances(see Schmid, 1994; Samuelsson, 1994 for similar solutions).sIn most taggers, some form of morphological analysis is performed on unknown words,sin an attempt to relate the unknown word to a known combination of known </context>
+</contexts>
+<marker>Schmid, 1994</marker>
+<rawString>Schmid, H. (1994) 'Part-of-speech tagging with neural networks.' In Proceedings of COLING, Kyoto, Japan.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Schfitze</author>
+<author>Y Singer</author>
+</authors>
+<title>Part-of-speech Tagging Using a Variable Context Markov Model</title>
+<date>1994</date>
+<booktitle>Proceedings of ACL 1994, Las</booktitle>
+<location>Cruces, New Mexico</location>
+<marker>Schfitze, Singer, 1994</marker>
+<rawString>Schfitze, H., and Y. Singer. (1994) 'Part-of-speech Tagging Using a Variable Context Markov Model' Proceedings of ACL 1994, Las Cruces, New Mexico.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Skousen</author>
+</authors>
+<title>Analogical Modeling of Language</title>
+<date>1989</date>
+<publisher>Kluwer</publisher>
+<location>Dordrecht</location>
+<contexts>
+<context>based (Stanfill andsWaltz, 1986; Kolodner, 1993; Aha et al. 1991; Salzberg, 1990). Ideas about this type ofsanalogical reasoning can be found also in non-mainstream linguistics and pyscholinguisticss(Skousen, 1989; Derwing ~ Skousen, 1989; Chandler, 1992; Scha, 1992). In computationalslinguistics (apart from incidental computational work of the linguists referred to earlier),sthe general approach has only rece</context>
+</contexts>
+<marker>Skousen, 1989</marker>
+<rawString>Skousen, R. (1989). Analogical Modeling of Language. Dordrecht: Kluwer.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T J Sejnowski</author>
+<author>C S Rosenberg</author>
+</authors>
+<title>Parallel networks that learn to pronounce English text</title>
+<date>1987</date>
+<journal>Complex Systems</journal>
+<volume>1</volume>
+<pages>145--168</pages>
+<contexts>
+<context>y can be found there, a case representation is constructed for them,sand they are retrieved from either the known words case base or the unknown words casesbase.s4.2 Known WordssA windowing approach (Sejnowski &amp; Rosenberg, 1987) was used to represent the taggingstask as a classification problem. A case consists of information about a focus word tosbe tagged, its left and right context, and an associated category (tag) valid</context>
+</contexts>
+<marker>Sejnowski, Rosenberg, 1987</marker>
+<rawString>Sejnowski, T. J., Rosenberg, C. S. (1987). Parallel networks that learn to pronounce English text. Complex Systems, 1, 145-168.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Stanfill</author>
+<author>D Waltz</author>
+</authors>
+<title>Toward memory-based reasoning</title>
+<date>1986</date>
+<journal>Communications of the ACM</journal>
+<volume>29</volume>
+<pages>1212--1228</pages>
+<contexts>
+<context> rb-in and vb-nn. Apart from linguistic engineering refinements ofsthe similarity metric, we are currently experimenting with statistical measures to computessuch more fine-grained similarities (e.g. Stanfill &amp; Waltz, 1986, Cost &amp; Salzberg, 1994).sAcknowledgementssResearch of the first author was done while he was a visiting scholar at NIAS (NetherlandssInstitute for Advanced Studies) in Wassenaar. Thanks to Antal van </context>
+</contexts>
+<marker>Stanfill, Waltz, 1986</marker>
+<rawString>Stanfill, C. and Waltz, D. (1986). 'Toward memory-based reasoning.' Communications of the ACM, 29, 1212-1228.</rawString>
+</citation>
+</citationList>
+</algorithm>
