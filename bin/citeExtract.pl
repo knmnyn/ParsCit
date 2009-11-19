@@ -52,12 +52,11 @@ sub quitHandler {
 sub Help {
   print STDERR "usage: $progname -h\t\t\t\t[invokes help]\n";
   print STDERR "       $progname -v\t\t\t\t[invokes version]\n";
-  print STDERR "       $progname [-qt] [-m <mode>] [-c] <filename> [outfile]\n";
+  print STDERR "       $progname [-qt] [-m <mode>] <filename> [outfile]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-m <mode>\tMode (extract_header, extract_meta, default: extract_citations)\n";
   print STDERR "\t-t\tUse token level model instead\n";
-  print STDERR "\t-c\tAdd confident score info (not support for token level)\n"; # Thang 10/11/09: -c to add confidence score
   print STDERR "\n";
   print STDERR "Will accept input on STDIN as a single file.\n";
   print STDERR "\n";
@@ -90,12 +89,12 @@ our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_c, $opt_t);
 if ($opt_v) { Version(); exit(0); }	# call Version, if asked for
 if ($opt_h) { Help(); exit (0); }	# call help, if asked for
 my $mode = (!defined $opt_m) ? $defaultMode : parseMode($opt_m);
-my $confLevel = ($opt_c == 1) ? 1 : 0;
 my $phModel = ($opt_t == 1) ? 1 : 0;
 my $in = shift;						  # input file
 my $out = shift;					# if available
 my $rXML = "";					       # output buffer
 
+my $confLevel = 1; # Thang 10/11/09: add confidence score option - 1: enable, 0: disable
 if (($mode & $PARSHED) == $PARSHED) {
   use ParsHed::Controller;
   # print "parsHed\n";
