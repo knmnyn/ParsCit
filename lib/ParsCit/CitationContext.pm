@@ -27,6 +27,7 @@ sub getCitationContext {
    	#print join "::", @markers;
     #print "\n";
     my @matches = ();
+    my @citStrs = (); # Thang 29/11/09: store the in-text citation strings
 ########## modified by Nick Friedrich
 	my @positions = ();
 	my $position;
@@ -34,16 +35,25 @@ sub getCitationContext {
     my $contextsFound = 0;
     foreach my $mark (@markers) {
 	while (($contextsFound < $maxContexts) &&
-	       $$rBodyText =~ m/(.{$contextRadius}$mark.{$contextRadius})/gs) {
+	       $$rBodyText =~ m/(.{$contextRadius}($mark).{$contextRadius})/gs) {
 		push @positions, (pos $$rBodyText) - $contextRadius;
-	    push @matches, $1;
+		push @matches, $1;
+
+		# Thang 29/11/09
+		my $citStr = $2;
+		if($citStr !~ /\(.+\)$/ && $citStr =~ /\)$/){
+		  $citStr =~ s/\)$//; # trim ending bracket
+		}
+		push @citStrs, $citStr;
+		# End Thang 29/11/09
+
 	    $contextsFound++;
 	}
 	if (($prioritize > 0) && ($#matches >= 0)) {
 	    last;
 	}
     }
-    return ( \@matches, \@positions);
+    return ( \@matches, \@positions, \@citStrs);
 ##########
 }  # getCitationContext
 

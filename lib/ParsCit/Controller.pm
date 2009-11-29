@@ -212,13 +212,18 @@ sub extractCitationsImpl {
 		}
 ########## modified by Nick Friedrich
 ### getCitationContext returns contexts and the position of the contexts
-		my ($rContexts, $rPositions) =
+		my ($rContexts, $rPositions, $rCitStrs) = # Thang: 29/11/2009 add $rCitStrs - in-text ciation strs
 		    ParsCit::CitationContext::getCitationContext($rNormBodyText,
 								 $marker);
 		foreach my $context (@{$rContexts}) {
 		    $citation->addContext($context);
-			my $position = shift @{$rPositions};
-			$citation->addPosition($position);
+		    my $position = shift @{$rPositions};
+		    $citation->addPosition($position);
+		    
+		    # Thang: 29/11/2009
+		    my $citStr = shift @{$rCitStrs};
+		    $citation->addCitStr($citStr);
+		    # End Thang: 29/11/2009
 ##########
 		}
 		push @validCitations, $citation;

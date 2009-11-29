@@ -29,6 +29,7 @@ sub new {
 # contexts.Controller::extractCitationsImpl is modified accordingly.
 #
     my @positions = ();
+    my @citStrs = (); # Thang 29/11/09 add in-text citation strings e.g. Brown et al., 1990 which might differ from the marker Brown, Pietra, deSouza, Lai, Mercer, 1990
     my $self = {
 	'_rawString' => undef,
 	'_markerType' => undef,
@@ -49,6 +50,7 @@ sub new {
 	'_editor' => undef,
 	'_note' => undef,
 	'_positions' => \@positions,
+	'_citStrs' => \@citStrs, # Thang 29/11/09 add in-text citation strings
     };
 ##########
     bless $self, $class;
@@ -260,15 +262,18 @@ sub toXML {
 ########## modified by Nick Friedrich (v081201)
 ### the xml-element "context" contains now an attribute "position"
     my @contexts = $self->getContexts();
-	my @positions = $self->getPositions();
+    my @positions = $self->getPositions();
+    my @citStrs = $self->getCitStrs(); # Thang 29/11/09
     if ($#contexts >= 0) {
 	$xml .= "<contexts>\n";
 	foreach my $context (@contexts) {
 	    cleanAll(\$context);
 		my $pos = shift(@positions);
-	    $xml .= "<context position=\"";
-		$xml .= $pos;
-		$xml .=	"\">$context</context>\n";
+		my $citStr = shift(@citStrs); # Thang 29/11/09
+	    $xml .= "<context";
+	    $xml .= " position=\"".$pos."\"";
+	    $xml .= " citStr=\"".$citStr."\""; # Thang 29/11/09
+	    $xml .= ">$context</context>\n";
 	}
 	$xml .= "</contexts>\n";
     }
@@ -302,6 +307,20 @@ sub addPosition {
     push @positions, $position;
     $self->{'_positions'} = \@positions;
 }
+
+# Thang 29/11/09 add in-text citation strings
+sub getCitStrs {
+    my ($self) = @_;
+    return @{$self->{'_citStrs'}};
+}
+
+sub addCitStr {
+    my ($self, $citStr) = @_;
+    my @citStrs = @{$self->{'_citStrs'}};
+    push @citStrs, $citStr;
+    $self->{'_citStrs'} = \@citStrs;
+}
+# End Thang 29/11/09 add in-text citation strings
 
 sub getString {
     my ($self) = @_;
