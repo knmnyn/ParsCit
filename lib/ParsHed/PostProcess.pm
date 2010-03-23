@@ -77,7 +77,6 @@ sub wrapHeaderXml {
 	  if($content =~ /^\s*$/) { next; };
 
 	  ($tag, $content) = normalizeHeaderField($tag, $content);
-
 	  if($tag eq "authors"){ # handle multiple authors in a line
 	    foreach my $author (@{$content}){
 	      $output .= "PARSHED<author$confStr>$author</author>";
@@ -93,7 +92,6 @@ sub wrapHeaderXml {
 
 	}
 	$output =~ s/PARSHED</\n</g;
-
 	$xml .= "<variant no=\"0\" confidence=\"$overallConfidence\">" . $output . "\n</variant>\n";
 	$xml .= "</header>\n</algorithm>\n";
       }
@@ -107,6 +105,7 @@ sub wrapHeaderXml {
       my $token = $tokens[0];
       my $sys = $tokens[-1];
       my $gold = $tokens[-2];
+      my $confidence = 0;
 
       if(!defined $isTokenLevel){ 
 	# train at line level, get the original line
@@ -117,7 +116,7 @@ sub wrapHeaderXml {
 	if($confLevel){ #$sys contains probability info of the format "tag/prob"
 	  if($sys =~ /^(.+)\/([\d\.]+)$/){
 	    $sys = $1;
-	    $curConfidence += $2;
+	    $confidence = $2;
 	  } else {
 	    die "Die in PostProcess.pm::decode : incorrect format \"tag/prob\" $sys\n";
 	  }
@@ -146,6 +145,8 @@ sub wrapHeaderXml {
 	  $count = 0;
 	}
       }
+
+      $curConfidence+=$confidence;
 
       if(defined $isTokenLevel && $token eq "+L+"){ 
 	next;

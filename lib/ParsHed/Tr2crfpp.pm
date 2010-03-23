@@ -323,7 +323,9 @@ sub decode {
   }
   close PIPE;
   close OUT;
-  
+
+  unlink($labeledFile);
+
   return 1;
 
 }  # decode

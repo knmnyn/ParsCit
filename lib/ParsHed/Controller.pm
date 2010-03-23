@@ -25,7 +25,9 @@ use CSXUtil::SafeText qw(cleanXML);
 # header data.  Returns a reference XML document.
 #
 sub extractHeader {
-    my ($textFile, $isTokenLevel, $confLevel) = @_; # Thang 10/11/09: $confLevel to add confidence info
+    my ($textFile, $isTokenLevel) = @_; 
+    my $confLevel = 1; # Thang 10/11/09: add confidence score option - 1: enable, 0: disable
+
     my ($status, $msg, $xml)
 	= extractHeaderImpl($textFile, $isTokenLevel, $confLevel);
     if ($status > 0) {

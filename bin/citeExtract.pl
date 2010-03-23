@@ -84,7 +84,7 @@ if ($#ARGV == -1) { 		        # invoked with no arguments, error in execution
 $SIG{'INT'} = 'quitHandler';
 getopts ('hqm:ctv');
 
-our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_c, $opt_t);
+our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_t);
 # use (!defined $opt_X) for options with arguments
 if ($opt_v) { Version(); exit(0); }	# call Version, if asked for
 if ($opt_h) { Help(); exit (0); }	# call help, if asked for
@@ -94,11 +94,10 @@ my $in = shift;						  # input file
 my $out = shift;					# if available
 my $rXML = "";					       # output buffer
 
-my $confLevel = 1; # Thang 10/11/09: add confidence score option - 1: enable, 0: disable
 if (($mode & $PARSHED) == $PARSHED) {
   use ParsHed::Controller;
   # print "parsHed\n";
-  my $phXML = ParsHed::Controller::extractHeader($in, $phModel, $confLevel); # Thang 10/11/09: $confLevel to add confidence score
+  my $phXML = ParsHed::Controller::extractHeader($in, $phModel);
   $rXML .= $$phXML;
 }
 
@@ -146,14 +145,5 @@ sub parseMode {
   } else {
     Help();
     exit(-1);
-  }
-}
-
-sub parseConfLevel {
-  my $arg = shift;
-  if ($arg < 0 || $arg > 2) {
-    exit(-1);
-  } else {
-    return $arg;
   }
 }
