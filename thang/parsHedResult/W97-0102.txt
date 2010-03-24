@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="ParsHed" version="090625">
+<header>
+<variant no="0" confidence="0.306905">
+<title confidence="0.999684">Commercial Implementation of Text Recognition Tools for VLC</title>
+<author confidence="0.99849">John Rausch</author>
+<affiliation confidence="0.513636">Senior S~fr Consultant Lexis-Nexis</affiliation>
+<email confidence="0.927721">john.musch@,lexis-nexis.com</email>
+<abstract confidence="0.991813076923077">Researchers typically use traditional lexical scanner and parser tools for projects requiring the recognition of complex text elements. The role relegated to the lexical scanner is usually the simple tokenization while the relationships of the tokens to one another is done by the parser. Implementation of products or features using these tools for VLC can require months of processing or even years. In this talk, I will describe how extending the capabilities of the lexical scanner while optlmi~ng its performance can allow it to complete the recognition work traditionally done by parsers. This technique allows for flexible reprocessing of VLC that might otherwise not be done when improvements to algorithms are made. I will illustrate this with a case study of the recognition of embedded case law citations, including anaphoric references, and case names. 2 ! ! i I ! i ! i, i | I ! ! ! i J</abstract>
+<intro confidence="0.938595">I</intro>
+</variant>
+</header>
+</algorithm>

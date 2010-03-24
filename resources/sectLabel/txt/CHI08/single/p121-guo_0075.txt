@@ -1,0 +1,109 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+believe it can be categorized as a generic 3D tangible user 
+interface due to its ability to capture physical input and to 
+interact with digital entities. Due to its generality, we think 
+that the Wiimote’s basic physical affordances are a good, 
+fundamental starting point for exploring the use of TUIs in 
+HRI tasks. Success in mapping a robotic task to a 
+tangible/gestural interaction via a simple TUI will point to 
+the great potential of better and more elaborate TUIs in 
+more complex HRI tasks. In order to utilize the power of 
+Wiimote and apply it to control an AIBO, we used a PC 
+equipped with both Bluetooth and 802.11b wireless 
+network adapter to act as a mediator to translate and 
+transmit the command from the Wiimote to the AIBO.
+Another interface that we selected for representing the 
+generic input device is an OQO 02 Ultra-Mobile PC 
+(UMPC) with an onboard thumb keyboard. The OQO 02 is 
+a scaled down version of a regular desktop PC. It has built- 
+in wireless network adapter that can be used to 
+communicate with an AIBO. The OQO-based “button-press 
+and key-to-action mapping” interaction style represents a 
+common interaction technique in current HRI.
+When designing the interface we had to deal with a short 
+(about 500ms) latency issue, resulting from the wireless 
+network transmission and the robot’s electromechanical 
+startup time. To maintain the fairness of the experiment, the 
+underlying controlling code for both techniques was 
+identical. Thus, the amount of lag the participants 
+experienced was the same using both techniques, unless 
+there were random wireless transmission spikes.
+Wiimote &amp; Nunchuk Input
+The Wiimote consists of a D-pad, a speaker, four LEDs and 
+eight buttons. It communicates with the Wii via Bluetooth 
+wireless link. A complete 3-axis accelerometer [1] located 
+inside the Wiimote measures a minimum full-scale range of 
+± 3g with 10% sensitivity. It can measure the static 
+acceleration of gravity in tilt-sensing applications, as well 
+as dynamic acceleration resulting from motion, shock, or 
+vibration. [1] An extension port is located on the bottom of 
+the Wiimote to allow peripherals such as a Nunchuk to be 
+attached. The Nunchuk has an analog stick and two buttons 
+and uses the same accelerometer on the Wiimote to support 
+motion sensing.
+Accelerometer
+In order to understand the Wiimote’s motion sensing 
+capability, we need to examine its acceleration measuring 
+mechanism. According to the Data sheet [1] of the ADXL 
+330 accelerometer:
+“The sensor is a polysilicon surface micromachined 
+structure built on top of a silicon wafer. Polysilicon springs 
+suspend the structure over the surface of the wafer and 
+provide a resistance against acceleration forces. Deflection 
+of the structure is measured using a differential capacitor 
+that consists of independent fixed plates and plates attached 
+to the moving mass... Acceleration deflects the moving 
+mass and unbalances the differential capacitor resulting in a 
+senior output whose amplitude is proportional to 
+acceleration.”
+In other words, the sensor does not measure the acceleration 
+of the Wiimote, but rather the force exerted by the test mass 
+on its supporting springs. [27] When the Wiimote is at rest 
+on a flat surface the accelerometer reading is 1 g 
+(approximately 9.8 m/s2) due to gravity. When it is in a free 
+fall motion, the reading is close to zero. These facts implies 
+that one, we can only derive a relatively accurate measuring 
+of the pitch and roll angle of the Wiimote when it is 
+reasonably still. This is because when the Wiimote is 
+accelerating (e.g. when a user is swinging the Wiimote), the 
+acceleration value sensed by the Wiimote is due to the force 
+exerted by the user rather than the pulling of gravity. Thus, 
+the tilting angle derived based on this force does not 
+represent the current position of the Wiimote. Two, the 
+accelerometer cannot detect the rotation angle around the 
+gravitational axis. For instance, when the Wiimote is facing 
+up (e.g. the A button is facing upward) and resting on a flat 
+surface, the Z-axis (Figure 2) of the accelerometer is 
+parallel to the direction of gravity. Thus, it does not matter 
+how we orient the Wiimote on the surface, the acceleration 
+value sensed on the Z-axis always remains the same. This 
+means we lose one degree of freedom when one of the axes 
+of the accelerometer aligns with the direction of the gravity.
+Figure 2. The coordinate system of Wiimote
+Due to the constraints associated with the accelerometer 
+and the unavailability of a motion analyzing package, we 
+are left with the choice of measuring pitch and roll angles 
+for recognizing arm and hand gestures. In our experiment, 
+we want to allow users to use large arm movements for 
+controlling an AIBO, because large movements are easier 
+to distinguish when processing the Wiimote data and also 
+easier to memorize by the user. Therefore, we decided to 
+rely on only using the pitch angle of the Wiimote and 
+Nunchuk to predict arm positions. In this case, we use the 
+Wiimote and Nunchuk as a one degree of freedom input 
+devices to measure the rotation angle of a person’s elbow 
+and shoulder joint in relation to the arm rest position.
+In order to access the acceleration value sensed by the 
+Wiimote and Nunchuk we used Brian Peek’s C# library 
+[16] for acquiring the accelerometer readings. To covert the 
+raw acceleration value into rotation angles, we enter the 
+calibrated raw acceleration values into the following 
+equation, where the variable ay denotes the calibrated 
+acceleration value along the Y-axis: [26]
+Pitch = asin (ay / 1)
+OQO 02 Thumb Keyboard
+The generic input device that we have chosen is the thumb 
+keyboard on an OQO 02 UMPC. The OQO 02 is equipped 
+with a 1.5 GHz VIA C7M ULV CPU, 1GB DDR2 SDRAM 
+and a 60GB HDD. It runs on Windows® XP Tablet PC
+124

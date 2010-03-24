@@ -1,0 +1,94 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+Harvesting with SONAR - The Value of Aggregating Social
+Network Information
+Ido Guy, Michal Jacovi, Elad Shahar,
+Noga Meshulam, Vladimir Soroka
+IBM Haifa Research Lab
+Mt. Carmel, Haifa 31905, Israel
+{ido, jacovi, elads, noga, vladi} @il.ibm.com
+ABSTRACT
+Web 2.0 gives people a substantial role in content and 
+metadata creation. New interpersonal connections are 
+formed and existing connections become evident. This 
+newly created social network (SN) spans across multiple 
+services and aggregating it could bring great value. In this 
+work we present SONAR, an API for gathering and sharing 
+SN information. We give a detailed description of SONAR, 
+demonstrate its potential value through user scenarios, and 
+show results from experiments we conducted with a 
+SONAR-based social networking application within our 
+organizational intranet. These suggest that aggregating SN 
+information across diverse data sources enriches the SN 
+picture and makes it more complete and useful for the end 
+user.
+Author Keywords
+Social networks, SN, social network analysis, SNA, 
+aggregation.
+ACM Classification Keywords
+H.5.3 Group and Organizational Interfaces – Computer- 
+supported cooperative work
+INTRODUCTION
+Social software – software that has people as its focal point 
+– is the core of Web 2.0. From blogs and wikis through 
+recommender systems to social bookmarking and personal 
+network systems – social applications proliferate. In 
+continuation to its dominance on the internet, social 
+software has recently emerged in organizations, as a mean 
+of connecting employees in a better way and enhancing 
+knowledge management and expertise location. Blogging 
+systems [14], social bookmarking [19], and people tagging
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00. 
+Stephen Farrell
+IBM Almaden Research Center
+650 Harry Road, San Jose, California
+sfarrell@almaden.ibm.com
+[7], are examples of social applications that became part of 
+organizations’ intranets in the purpose of promoting intra-
+organizational interaction.
+Many of these social applications expose interesting 
+information about people’s relationships. For example, by 
+analysing blog commenters, or bookmarking similarities, 
+connections among people can become evident. By 
+extracting this information and aggregating it across 
+multiple sources, a comprehensive and often intriguing 
+picture of individual and organizational social networks 
+may be revealed.
+Potential sources of social information are very diverse. 
+Different users make use of different tools, and social 
+information is scattered among many services and 
+applications. As these applications rarely interoperate, each 
+is typically only aware of its own social data and cannot 
+benefit from other applications’ data.
+The diversity of sources of social networking data also 
+brings a variety of semantics to interpersonal connections. 
+While some of these semantics are straightforward and 
+derived from the nature of the connection (brother, close 
+friend, manager, etc.), others are more complex. Many 
+researchers recognized that people are connected through 
+artifacts. For example, many studies have investigated 
+networks where two people are connected if they have co-
+authored a paper [22]. Newer examples of artifacts that 
+connect people include email messages [3,28], and web 
+pages [14]. Affiliation networks [29] present people’s 
+connections through groups in which they co-participate, 
+such as a board of directors, or a movie cast [22]. The 
+above examples imply that aggregating social network data 
+presents the challenge of creating a single framework, 
+general yet informative, to fit all types of connections.
+To address the above challenges, we introduce SONAR 
+(Social Networks Architecture) – an API for sharing social 
+network data and aggregating it across applications to show 
+who is related to whom and how. Applications 
+implementing the SONAR API (SONAR providers) should 
+provide internal information about how strongly people are 
+connected and by what means. SONAR clients can use the 
+SONAR API to access data from a single provider that 
+implements the API. However, the more compelling case is
+1017

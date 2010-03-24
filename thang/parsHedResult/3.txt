@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="ParsHed" version="090625">
+<header>
+<variant no="0" confidence="0.404735">
+<title confidence="0.968525">Bayesian Feature and Model Selection for Gaussian Mixture Models Constantinos Constantinopoulos</title>
+<author confidence="0.749439">Michalis K Titsias</author>
+<author confidence="0.749439">Aristidis Likas</author>
+<author confidence="0.749439">Senior Member</author>
+<author confidence="0.749439">IEEE</author>
+<abstract confidence="0.999856666666667">We present a Bayesian method for mixture model training that simultaneously treats the feature selection and the model selection problem. The method is based on the integration of a mixture model formulation that takes into account the saliency of the features and a Bayesian approach to mixture learning that can be used to estimate the number of mixture components. The proposed learning algorithm follows the variational framework and can simultaneously optimize over the number of components, the saliency of the features, and the parameters of the mixture model. Experimental results using high-dimensional artificial and real data illustrate the effectiveness of the method</abstract>
+<keyword confidence="0.752049">Index Terms—Mixture models, feature selection, model selection, Bayesian approach, variational training</keyword>
+<intro confidence="0.933">æ</intro>
+</variant>
+</header>
+</algorithm>

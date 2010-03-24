@@ -1,0 +1,117 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+body motion. However, in order to maintain the fairness of 
+the comparative study, we implemented the Wiimote 
+interface as a state machine to match the limitation of the 
+keypad interface.
+CONCLUSION
+We have introduced a new interaction technique which 
+utilizes simple generic 3D TUIs (based on the Nintendo 
+Wiimote and Nunchuk) to capture human arm and hand 
+gesture input for human-robot interaction. To evaluate this 
+technique, we have conducted a comparative user study 
+which compares the Wiimote/Nunchuk interface with a 
+traditional input device – keypad in terms of speed and 
+accuracy. We employed two tasks for our study: the posture 
+task utilized a direct mapping between the TUIs and the 
+robot, and the navigation task utilized a less direct, more 
+abstract mapping. The result of our experiment provides 
+some evidence that a gesture input scheme with tangible 
+user interfaces can outperform a button-pressing input 
+design for certain HRI tasks. We have observed a 
+significant decrease in both task completion time and the 
+number of mistakes participants made for both the 
+navigation and posture tasks. The follow-up questionnaire 
+revealed that a significant majority of the participants chose 
+the Wiimote/Nunchuk interface as their preferred technique 
+for controlling an AIBO in both tasks.
+In future work, we hope to improve the Wiimote/Nunchuk 
+interaction technique to analyze continuous human arm and 
+hand gestures to extend our abilities in controlling 
+anthropomorphic and zoomorphic robots. We believe more 
+elaborate TUIs would afford intuitive mapping for much 
+more delicate HRI tasks. We also intend to explore the 
+possibility of mapping a large set of TUIs as physical 
+manipulators for a large group of robots.
+ACKNOWLEDGMENTS
+Our research was supported by NSERC as well as internal 
+University of Calgary grants. We are very grateful for the help 
+and support provided by Dr. Tak Shing Fung, Dr. Edward Tse, 
+Mark Hancock, James Young and other members of the 
+uTouch group and the Interactions Lab.
+REFERENCES
+1. ADXL330, Analog Devices. http://www.analog.com/ 
+UploadedFiles/Data_Sheets/ADXL330.pdf
+2. Balakrishnan, R., Hinckley, K. Symmetric bimanual interaction. 
+In Proc. CHI 2000, ACM Press (2000), 33-40.
+3. Baudel, T., Baudouin-Lafon, M. Charade: Remote Control of 
+Objects Using Free-Hand Gestures. Communication of the. ACM, 
+vol. 36, (1993), no. 7, pp. 28-35.
+4. Beaudouin-Lafon, M. Instrumental interaction: an interaction 
+model for designing post-WIMP user interfaces. In Proc. CHI 
+2000, ACM Press (2000), 446-453
+5. Bluethmann, W., Ambrose, R., Diftler, M., Askew, S., Huber, E., 
+Goza, M., Rehnmark, F., Lovchik, C. and Magruder, D. 
+Robonaut: A robot designed to work with humans in space. 
+Autonomous Robots (2003), 14(2-3): 179-197.
+6. Dourish, P. Where the Action is: The Foundations of Embodied 
+Interaction. MIT Press, Cambridge, MA, USA, 2001.
+7. Drury, J. L., Scholtz, J., Yanco, H.A. Awareness in human-robot 
+interactions. In Proc. IEEE SMC 2003.
+8. Faisal, S., Cairns, P., and Craft, B. Infoviz experience 
+enhancement through mediated interaction. In Proc. ICMI 2005, 
+ACM Press (2005), 3-9.
+9. Fitzmaurice, G.W., Buxton, W. An empirical evaluation of 
+graspable user interfaces: towards specialized, space-multiplexed 
+input. In Proc. CHI 1997, ACM Press (1997), 43-50.
+10. Fitzmaurice, G.W., Ishii, H., and Buxton, W. Bricks: Laying the 
+Foundations for Graspable User Interfaces. In Proc. CHI 1995, 
+ACM Press (1995), 317-324.
+11. Goodrich, M., and Olsen, D. Seven principles of efficient human 
+robot interaction. In Proc. IEEE SMC 2003, 3943–3948.
+12. Hasanuzzaman, Md., Zhang, T., Ampornaramveth, V., Kiatisevi, 
+P., Shirai, Y., and Ueno, H. Gesture Based Human-Robot 
+Interaction Using a Frame Based Software Platform. In Proc. 
+IEEE SMC 2004, 2883-2888.
+13. Ishii, H. and Ullmer, B. Tangible Bits: Towards Seamless 
+Interfaces between People, Bits and Atoms. In Proc. CHI 1997, 
+ACM Press (1997), 234-241.
+14. Kazerooni, H. Human-Robot Interaction via the Transfer of 
+Power and Information Signals. IEEE Trans. on System and 
+Cybernetics (1990) Vol.20, No. 2, 450-463.
+15. Kortenkamp, D., Huber, E., and Bonasso, R. Recognizing and 
+interpreting gestures on a mobile robot. In Proc. AAAI 1996.
+16. Managed Library for Nintendo’s Wiimote, http://blogs. 
+sdn.com/coding4fun/archive/2007/03/14/1879033.aspx
+17. McNeill, D. Hand and Mind: What Gestures Reveal about 
+Thought. University of Chicago Press (1992).
+18. Messing, L., Campbell, R. Gesture, speech, and sign. New York: 
+Oxford University Press (1999), 227.
+19. Norman, D.A. The Psychology of Everyday Things. BasicBooks, 
+1988.
+20. Quigely, M., Goodrich, M., Beard, R. Semi-Autonomous 
+Human-UAV Interfaces for Fixed-Wing Mini-UAVs. In Proc. 
+IROS 2004.
+21. Raffle, H., Parkes, A. Ishii, H. Topobo: A Constructive Assembly 
+System with Kinetic Memory. In Proc. CHI 2004, ACM Press 
+(2004), 647 – 654.
+22. Richer, J., Drury J.L. A Video Game-Based Framework for 
+Analyzing Human-Robot Interaction: Characterizing Interface 
+Design in Real-Time Interactive Multimedia Applications. In 
+Proc. HRI 2006, ACM Press (2006), 266-273.
+23. Sharlin, E., Watson, B.A., Kitamura, Y., Kishino, F. and 
+Itoh, Y. On Tangible User Interfaces, Humans and Spatiality. 
+Personal and Ubiquitous Computing, Springer-Verlag (2004).
+24. Sturman, D., Zeltzer, D. A Survey of Glove-Based Input. IEEE 
+CG&amp;A (1994), Vol. 14, No. 1, 30-39.
+25. Tekkotsu framework, http://www.cs.cmu.edu/~tekkotsu/
+26. Wiimote Motion Analysis, 
+http://www.wiili.org/index.php/Motion_analysis
+27. Wiimote Motion Sensor, 
+http://www.wiili.org/index.php/Wiimote#Motion_Sensor
+28. Yanco, H.A., Drury, J.L. and Scholtz, J. Beyond Usability 
+Evaluation: Analysis of Human-Robot Interaction at a Major 
+Robotics Competition. Journal of Human-Computer Interaction 
+(2004), Vol 19, Numbers 1 and 2, pp. 117-149.
+29. Yanco, H.A., Drury, J. Classifying Human-Robot Interaction: An 
+Updated Taxonomy. In Proc. IEEE SMC 2004
+130

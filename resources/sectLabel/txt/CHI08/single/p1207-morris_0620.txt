@@ -1,0 +1,107 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Table 2. Percent of respondents (n = 170) who mentioned using 
+the following strategies when resuming a suspended investigation.
+Strategy	Respondents
+Active Storage / Active Retrieval	55%
+Written or typed notes	30%
+Browser bookmarks	26%
+Save Web pages locally as files	5.3%
+E-mail to self	2.4%
+Online bookmarks/tagging	1.8%
+Print Web pages	0.6%
+Passive Storage / Active Retrieval	8.2%
+Browser history	7.6%
+Online query history	1.2%
+Passive Storage / Passive Retrieval	49%
+Memory	36%
+Leave browser open	14%
+Link coloring	2.4%
+Autocomplete	2.4%
+they use to refamiliarize themselves with the context of 
+their suspended investigations upon resumption.
+The common strategies described by respondents can be 
+distinguished along two axes: initiative (whether the user 
+was active or passive) and stage (whether the strategy 
+applies to the storage or retrieval of the task context). For 
+example, an active approach to storage attempts to preserve 
+the state, strategies, and/or results of a search task for later 
+use, while a passive approach to storage involves no 
+explicit user actions to save information during a search 
+session. An active approach to retrieval seeks out 
+mechanisms that have captured data (either explicitly or 
+implicitly) that may help in re-establishing a search context, 
+while a passive retrieval strategy uses only information that 
+is automatically revealed by basic browser or search engine 
+interfaces. We describe strategies by indicating the 
+initiative type for each of those stages.
+Active Storage/Active Retrieval strategies reported in our 
+survey included saving the contents of a website (either into 
+a local file or by printing), bookmarking a website (either 
+locally in the browser or via an online bookmarking utility), 
+and note-taking (either by hand, by typing into a document, 
+via self-email, or via instant messages).
+Examples of Passive Storage/Active Retrieval strategies 
+include using browser history to find information from a 
+previously executed search task, or visiting a search-engine-
+specific query history tracker to re-find a useful query.
+Passive Storage/Passive Retrieval strategies reported by our 
+survey population included relying on memory when 
+resuming a search (and possibly starting over and repeating 
+previously issued queries), leaving the browser open on the 
+machine when suspending a task so its state was preserved
+upon resumption, relying on the browser’s autocomplete 
+functionality to serve as a memory aid when typing queries, 
+and relying on the browser’s coloring of visited links to 
+prompt memory about previously viewed Web sites.
+Table 2 shows the percentage of people in our survey 
+population who reported employing each of the above 
+strategies (note that the numbers total to more than 100%, 
+as some people listed several of these strategies). Note that 
+no respondents described using an Active Storage/Passive 
+Retrieval strategy, which is not surprising given that such a 
+combination represents wasted storage effort.
+In summary, previous work and our own survey indicate 
+that information-seeking tasks are frequently interrupted, 
+yet current Web browsers provide only partial support for 
+task resumption. Furthermore, our data show that an 
+effective tool for re-finding information should support a 
+variety of re-access strategies.
+SEARCHBAR
+To improve the user experience of resuming suspended 
+investigations and re-finding previously encountered online 
+content, we created SearchBar (Figure 1), a system for 
+capturing, storing, and presenting an annotatable, integrated 
+search and browsing history within the context of a Web 
+browser. SearchBar is implemented as a plugin for Internet 
+Explorer. As such, it is able to monitor all navigation 
+events, to recognize URLs corresponding to common 
+search engines, and to track a user’s browsing history 
+subsequent to a search. More details on these features are 
+provided below. Once enabled, SearchBar is visible in any 
+new tabs or browser windows the user creates, and content 
+is mirrored across all of these views. SearchBar can be 
+hidden or revealed using a keyboard shortcut.
+SearchBar presents visited Web pages hierarchically 
+according to the search queries that led to those visits. A 
+recent Pew Internet Project report [20] found that search 
+engine use was the second most common online activity, 
+after e-mail. The ubiquity of search in Web use, users’ 
+tendencies to repeat previously executed searches [25, 26], 
+and the tendency of informational [3, 21] and exploratory 
+[29] search tasks to involve multiple query-browse 
+iterations inspired us to use queries as a fundamental 
+organization metaphor in the SearchBar interface. Thus, 
+SearchBar functions as a rich history mechanism, 
+proactively capturing all queries issued and URLs visited 
+subsequent to each query. The search-centric structure is 
+manifested by showing all URLs browsed to subsequent to 
+a query as child nodes of that query, in reverse- 
+chronological order, thus revealing to users the process 
+through which they reached a piece of information. 
+Clicking on a URL or query navigates the browser to that 
+page or those search results.
+For the large portion of users who choose to employ only 
+Passive Storage strategies, all queries and browsing are 
+proactively captured and stored under SearchBar’s 
+“Default” topic. However, for those users who prefer to
+1209

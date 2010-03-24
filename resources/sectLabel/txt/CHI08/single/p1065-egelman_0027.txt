@@ -1,0 +1,114 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Condition Name	Size	Clicked	Phished
+Firefox	20	20(100%)	0(0%)
+Active IE	20	19(95%)	9(45%)
+Passive IE	10	10(100%)	9(90%)
+Control	10	9(90%)	9(90%)
+Table 1. An overview depicting the number of participants in each 
+condition, the number who clicked at least one phishing URL, and 
+the number who entered personal information on at least one phishing 
+website. For instance, nine of the control group participants clicked at 
+least one phishing URL. Of these, all nine participants entered personal 
+information on at least one of the phishing websites.
+the messages, participants received a set of instructions for 
+the second purchase. After participants checked their email 
+after the second purchase (thereby encountering the second 
+phishing message), an exit survey was administered. This 
+online exit survey contained questions about participants’ re-
+actions to the warning messages. The experimenter observed 
+participants fill this out and asked followup questions if any 
+of the responses were too terse or did not seem to follow 
+the behaviors exhibited during the experiment. Those in the 
+control group were not asked to complete an exit survey as 
+they had not seen any warnings. Participants took an aver-
+age of forty minutes to complete all the tasks and were given 
+$35 in cash before leaving.
+We were initially concerned that since participants did not 
+explicitly want the items, the results might be skewed in fa-
+vor of participants acting more cautious. However, we be-
+lieve their desire to complete the study negated this. Thus, 
+the desire to buy the items to complete the study was likely 
+just as strong as if the participant were at home purchasing 
+a desired item. Additionally, we do not believe that the cost 
+of the items played any role since an attacker could use the 
+stolen account credentials to make any number of larger pur-
+chases.
+RESULTS AND ANALYSIS
+Overall we found that participants were highly susceptible 
+to our spear phishing attack. However, users of the active 
+phishing warnings were largely protected, since 79% chose 
+to heed them. We found a significant difference between
+the active IE and Firefox warnings (p &lt; 0.0004 for Fisher’s
+exact test) as well as no significant difference between the 
+passive IE warning and the control group (i.e. significantly 
+more users were helped by the active Firefox warning than 
+the active IE warning, while the passive IE warning is no dif-
+ferent than not displaying any warning). We also found sig-
+nificant differences between the active IE warning and the
+control group (p &lt; 0.01) demonstrating that the active IE
+warning is still significantly better than not displaying any 
+warning. Table 1 depicts these results. In this section we ex-
+amine how participants reacted to the initial phishing mes-
+sages, and then we use the C-HIP model to analyze why 
+certain warnings performed better than others.
+Phishing Susceptibility
+Our simulated spear phishing attack was highly effective: 
+of the 106 phishing messages that reached participants’ in- 
+boxes, participants clicked the URLs of 94 of them (89%).
+While all participants made purchases from both Amazon 
+and eBay, not every participant received both of our phish-
+ing messages due to email filtering. Only two participants 
+(3%) did not attempt to visit any of the phishing URLs. Of 
+the 46 participants who received both phishing messages, 43 
+clicked the Amazon link and 37 clicked the eBay link. How-
+ever this difference was not statistically significant, nor were 
+there any significant correlations based on which phishing 
+message was viewed first. It should also be noted that every 
+participant in the control group who followed a link from an 
+email message also submitted information to the phishing 
+websites (Table 1). Thus, in the absence of security indica-
+tors, it is likely that this type of phishing attack could have a 
+success rate of at least 89%.
+With regard to the technical questions mentioned in the Re-
+cruitment section, we noticed a negative trend between tech-
+nical experience and obeying the warnings among Internet 
+Explorer users (i.e. users with more technical experience 
+were more likely to ignore the warnings). With Firefox, 
+technical experience played no role: all users obeyed the 
+warnings regardless of their technical experience.
+We did not actually collect any information entered into the 
+phishing websites. Instead the experimenter observed each 
+participant and noted when they submitted information. Thus 
+we cannot conclusively say whether all participants entered 
+their correct information. However, the experimenter did 
+note that all usernames were entered correctly, and no partic-
+ipants denied entering their correct information when asked 
+in the exit survey.
+We found that participants had very inaccurate mental mod-
+els of phishing. Both of our phishing messages contained 
+language that said the orders would be cancelled if they did 
+not visit the URLs. Thirty-two percent of the participants 
+who heeded the warnings and left the phishing websites be-
+lieved that their orders would be cancelled as a result—they 
+believed that the emails were really sent from eBay and Ama-
+zon. We asked 25 of the participants how they believed 
+the fraudulent URLs came to them, and only three recog-
+nized that the emails had been sent by someone not affiliated 
+with either eBay or Amazon (we added this question halfway 
+through the study). Thus, there seems to be some cognitive 
+dissonance between recognizing a fraudulent website and 
+the fraudulent email that spread it. This raises grave con-
+cerns about Internet users’ susceptibility to phishing. Highly 
+targeted phishing attacks will continue to be very effective as 
+long as users do not understand how easy it is to forge email. 
+At the same time, effective browser warnings may mitigate 
+the need for user education, as we will now show.
+Attention Switch and Maintenance
+The first stage in the C-HIP model is “attention switch.” If 
+a warning is unable to capture the user’s attention, the warn-
+ing will not be noticed and thus be rendered useless. Unlike 
+the passive indicators examined by Wu et al. [23], the ac-
+tive warnings in Firefox and Internet Explorer get the user’s 
+attention by interrupting their task—the user is forced to 
+choose one of the options presented by the warning.
+1070

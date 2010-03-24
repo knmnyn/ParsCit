@@ -1,0 +1,115 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+T1	T2	T3	T4	T5	T6
+Task (T)
+Figure 6: Participant hit-rates for security tasks
+provided by ZoneAlarm in making their security decisions. 
+Also, many of the participants (seven out of ten) said they 
+were following a specific strategy in making allow/deny 
+decisions. Five of the seven were either allowing or denying 
+every connection request. For example, one participant said 
+“I don’t want to read all this stuff so I’m just going to deny 
+it. If I allow it, I may have to do something else.” The 
+remaining two of the seven allowed or denied based on 
+whether they could recognize the process name. Even though 
+all the participants had access to a lot of information pro-
+vided by Zone Alarm, only five participants in total looked at 
+the process name given to help with their decision. The more 
+info button was consistently ignored.
+Cumulatively, as discussed above, the experimental group 
+performed significantly better than the control group. One 
+contributing factor for this may have been that none of the 
+participants reported using a predetermined strategy in 
+making decisions. But perhaps more importantly, Sesame 
+users appeared to employ more of the information provided 
+than the control group in making their allow/deny decisions. 
+Sesame users reported using information about the processes 
+themselves as well as the remote systems to which they were 
+connecting. In contrast, control users tended to rely on 
+process names only. We suspect that this may be because 
+Sesame provided a more accessible explanation of the 
+general significance and specific facts about remote systems. 
+For example, five participants found the geography informa-
+tion provided on remote systems to be helpful. Participants 
+also reported that the type of language used in Sesame was 
+helpful, as well as the permission cards in the allow/deny 
+dialog box—though it is not clear that the latter specifically 
+aided them in performing the tasks.
+To assess the extent to which participants understood the 
+conceptual model Sesame provides, we asked them to 
+describe the visualization. We specifically inquired about the 
+nature of the visual elements such as processes, and about the 
+distinction between areas representing things within the 
+computer versus outside of the computer. We found that 8 of 
+the 10 users understood the basic significance of the cubes 
+representing foreground processes. Background processes 
+posed a challenge, with only 2 users understanding their 
+purpose. We were surprised by this finding, as we explicitly 
+included a textual description of the distinction between the 
+two types of processes within the UI. The representations of 
+the remote computers were understood well, with 8 partici-
+pants recognizing their meaning. Eight participants also 
+understood the basic purpose of the arrows connecting 
+processes to the remote computers. Finally, 8 of the 10 
+participants were also able to identify the areas of the Sesame 
+UI that represented things considered to be within the com-
+puter, versus the areas representing things that were ‘outside’ 
+the computer.
+DISCUSSION AND FUTURE WORK
+The results of our study are encouraging, suggesting that on 
+the whole, Sesame’s novel UI helps users make better 
+security decisions than with typical security environments 
+with a traditional firewall. We were especially pleased that 
+our representation could be reasonably well interpreted 
+without explanation. E.g., nearly all users understood the 
+division between the internal and external regions of the 
+design—this was a particular challenge we faced in earlier 
+prototypes. The results suggest our basic representational 
+approach to be a viable alternative to conventional textual 
+approaches; and that novice users seem to rapidly learn a 
+system-level structure when it is framed visually and in terms 
+of more familiar concepts as was done in Sesame. While 
+there is evidence that Sesame’s visual presentation is more 
+effective than traditional firewalls, additional, larger studies 
+are needed to confirm this.
+Besides the seemingly successful aspects of Sesame, the 
+shortcomings of the UI were also informative. A common 
+difficulty for participants was inferring causal relationships. 
+Many participants felt that actions they took caused Sesame 
+to bring up dialog boxes, even in cases where the Sesame 
+visualization itself gave indications to the contrary. Addi-
+tionally, participant comments suggested they often had 
+difficulty grasping the idea of their computer’s software 
+environment as a collection of quasi-independent causal 
+agents, instead inferring strong relationships among the 
+different processes. These difficulties suggest that future 
+versions of Sesame might use metaphors that better suggest 
+the agent-causal nature of processes—such as depicting them 
+with animated, anthropomorphic figures.
+While we evaluated Sesame as a holistic combination of its 
+features, we do believe that there are generalizable design 
+principles from our experiences that could be applied to other 
+systems.
+First, given our desire to provide a direct manipulation 
+interface, swiveling the desktop to show the underlying 
+system seemed to be an accessible way to provide context to 
+help users understand otherwise hidden features. That there 
+are other possible approaches is certain; however, we believe 
+that the generalizable principle here is that contextualization 
+of new information with familiar, known concepts is a key 
+for non-expert use. Our swivel metaphor is one (but not the 
+only) way one might accomplish this.
+Second, Sesame’s policy cards provide a persistent visual 
+indication of policy settings, allowing them to be easily seen 
+and accessed by users in the future. The utility of persistent 
+visual indicators —to support awareness of system state, to
+120 
+100 
+80 
+60 
+40 
+20 
+0
+Success Rate By Task
+Sesame 
+Control
+1053

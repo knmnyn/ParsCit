@@ -1,0 +1,88 @@
+CHI 2008 Proceedings · Tangibles: Input &amp; Output	April 5-10, 2008 · Florence, Italy
+You Can Touch, but You Can’t Look:
+Interacting with In-Vehicle Systems
+&apos;Kenneth Majlund Bach, &apos;Mads Gregers Jæger, &apos;,2Mikael B. Skov and &apos;Nils Gram Thomassen
+1Department of Computer Science	2Department of Information Systems
+Aalborg University	The University of Melbourne
+Selma Lagerlöfs Vej 300, 9220 Aalborg East	111 Barry Street, Carlton, 3006
+Denmark		Victoria, Australia
+{kenned, hunter, dubois, nmyt}@cs.aau.dk
+ABSTRACT
+Car drivers are nowadays offered a wide array of in-vehicle 
+systems i.e. route guidance systems, climate controls, music 
+players. Such in-vehicle systems often require the driver’s 
+visual attention, but visual workload has shown significant 
+less eyes-on-the-road time and affects driving performance. 
+In this paper, we illustrate and compare three different 
+interaction techniques for in-vehicle systems. We refer to 
+them as tactile, touch, and gesture interaction. The focus of 
+the techniques is the effects on drivers while driving cars. 
+We evaluated the interaction techniques with 16 subjects in 
+two settings. Our results showed that gesture interaction has 
+a significant effect on the number of driver eye glances 
+especially eye fixations of more seconds. However, gesture 
+interaction still required rapid eye glances for hand/eye 
+coordination. On the other hand, touch interaction leads to 
+fast and efficient task completion while tactile interaction 
+seemed inferior to the two other interaction techniques.
+Author Keywords
+In-vehicle systems, visual attention, gesture interaction, 
+touch interaction, tactile interaction, driving, eye glances
+ACM Classification Keywords
+H.5.2 [User Interfaces]: Interaction styles
+INTRODUCTION
+Designing for mobility is rather challenging as mobile users 
+and mobile use are characterized by great diversity and 
+done for different purposes. As designers we need to enable 
+users to interact with technologies during travelling, trips, 
+journeys, hikes, visits, or rides. An increasingly important 
+area for human-computer interaction within mobility is the
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00
+design of in-vehicle systems. With significant advances in 
+technology, car drivers are nowadays offered a wide array 
+of in-vehicle systems i.e. route guidance systems, climate 
+controls, music players. As emerging vehicles constantly 
+offer additional and more advanced in-vehicle systems, the 
+side effects of in-vehicle systems become more significant. 
+Several research studies illustrate that interacting with such 
+in-vehicle systems while driving highly challenges drivers’ 
+attention on the primary task of driving [12, 16, 22].
+Visual attention stands out as the most important attention 
+property when driving vehicles. Not surprisingly, research 
+on visual workload has shown significant less eyes-on-the-
+road time when drivers interact with in-vehicle systems 
+with high visual demands and this directly affects driving 
+performances [11, 24].
+However, many vehicles are today shipped with a built in 
+touch screens which highly depends on visual attention. 
+Such touch-based screens are typically being employed to 
+enable the driver to interact with novel functions as well as 
+established functions. Consequently, simple control 
+operations (e.g. using a fan speed dial) have become more 
+complicated requiring a number of discrete steps 
+interactions (e.g. mode selection, option choice, adjustment 
+setting). Taking the immediate safety critical aspects of 
+driving into account, Green recommends that we need to 
+identify and investigate new interaction techniques that are 
+more suited for in-vehicle systems [10].
+This paper compares three different interaction techniques 
+for in-vehicle systems. Inspired by previous research (i.e. 
+[1, 2, 19, 24]), we identify and refer to tactile, touch, and 
+gesture interaction for in-vehicle systems. The interaction 
+techniques are illustrated and manifested through three 
+different music players and are compared on their effects on 
+primary and secondary driving tasks performances and on 
+visual attention of the driver. The paper is organized as 
+follows. First, we illustrate related work on in-vehicle 
+systems interaction. Secondly, we illustrate the interaction 
+techniques. Thirdly, we outline an experiment where the 
+techniques are compared against each other and findings are 
+presented and illustrated. Finally, we discuss our results.
+1139

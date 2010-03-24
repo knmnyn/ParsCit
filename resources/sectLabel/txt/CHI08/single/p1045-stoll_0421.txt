@@ -1,0 +1,112 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+interface of the system uses the standard windows GDI to 
+render most graphics, with GDI+ used for more complex 
+effects, such as the gradient fills on the extruded arrows. The 
+front-end also includes a series of hooks allowing it to be 
+driven from synthetic data sets, as this capability was neces-
+sary for our user study. In order to modify the datasets in real 
+time, Sesame registers several global hotkeys allowing us to 
+use a second keyboard to control the data Sesame shows to 
+study participants. The Sesame front-end gathers process list 
+data; the back-end is used to retrieve network status. It also 
+includes a simple open-source firewall that is used to inter-
+cept attempts at initiating network connections, and performs 
+reverse-DNS and WHOIS lookups to obtain information 
+about remote systems. As we did not need complete func-
+tionality for our evaluations, certain backend features related 
+to firewall operations, process culling, CPU usage, and 
+vender verification were not fully implemented, but were 
+mocked up in the front end.
+USER STUDY
+We conducted a study to evaluate how well users could 
+judge potential security threats using the visualization 
+provided by Sesame. Our primary interest was in how well 
+users could cumulatively leverage the concepts presented in 
+Sesame to make security-related decisions. We chose to 
+evaluate these concepts together rather than piecemeal, as the 
+experience of our formative study suggested that the differ-
+ent concepts underlying Sesame are heavily interdependent. 
+To perform this cumulative evaluation, we asked users to 
+make security decisions in an environment with Sesame, as 
+well as a more conventional environment using the 
+ZoneAlarm firewall instead. To assess users’ understanding 
+of the different ideas in Sesame, we asked various questions 
+about different parts of the visualization and about why users 
+made particular choices. Note that our focus in this study was 
+to understand how the quality of decision-making was 
+affected by our visual interface, not on evaluating Sesame’s 
+efficiency as a UI (whether it allows faster decision-making), 
+or its impact on user motivation (whether it incents people to 
+be more active in security management); we leave these as 
+future work.
+Participants
+Our study included a total of 20 participants recruited from a 
+university campus: 45% female (9 subjects) and 55% male 
+(11 subjects). All were undergraduate students; none were 
+computer science or computer engineering majors, and none 
+considered themselves to be experts in computer operation. 
+While those pursuing undergraduate degrees may not ideally 
+represent typical users, we found that our participants were 
+indeed unfamiliar with basic concepts of computer operation 
+such as processes, and security threats such as phishing. We 
+therefore felt they were adequately representative. We used 
+between-subjects testing, so participants were divided evenly 
+between control and experimental groups.
+Security Tasks
+To determine how well participants could identify security
+threats, we gave them several tasks. For each task, they 
+effectively had to judge whether a given situation posed a 
+security threat. The tasks were based on the types of deci-
+sions users must make in real world use; the first four were 
+common personal firewall configuration decisions, the latter 
+two required judging the authenticity of websites. The tasks 
+included: T1) allow or forbid an incoming connection from 
+Microsoft.com after clicking on a video player link; T2) 
+allow or forbid an outgoing connection from a spyware 
+process named loadsys.exe; T3) allow or forbid an incoming 
+connection from a bot server requesting connection with a 
+bot process named intmonp.exe; T4) allow or forbid an 
+outgoing connection from the process named outlook.exe; 
+T5) determine if the website claiming to be Mid America 
+Bank is a phishing site; T6) determine if the website claiming 
+to be CitiBank is a phishing site. T5 and T6 are intentionally 
+similar but whereas T5 represents a threat, T6 does not—this 
+allows us to test for false positives as well as false negatives. 
+We balanced the tasks between situations that are triggered 
+by user activity (T1, T5, and T6) and those with no direct 
+relationship to the user’s actions (T2, T3, and T4).
+Participants performed the security tasks in either the control 
+or the experimental environment. The control environment 
+was made to reflect the most common configuration used by 
+non-experts [15], a typical personal computer with the 
+ZoneAlarm firewall. In addition to its ubiquity, we used 
+ZoneAlarm in the control because, like Sesame, it provides 
+firewall functions and therefore offers many of the same 
+actionable controls, and asks many of the same questions, as 
+Sesame. It also embodies the textual, indirect interaction 
+paradigm employed in most end-user security tools. Further, 
+the firewall tasks (T1-T4) were derived from actual prompts 
+ZoneAlarm presents to users. Also, rather than use a live 
+installation of ZoneAlarm, we made an interactive mockup 
+using actual screenshots from ZoneAlarm alerts—this was to 
+ensure that we could control the timing and exact content of 
+the dialog boxes. We integrated interactive widgets into our 
+mockup as well so that it would behave, as well as appear, 
+virtually identical to the actual tool.
+Participants in the experimental group used the same system 
+as those in the control, except that Sesame was provided in 
+place of ZoneAlarm. Because Sesame offers an unusual user 
+interface, we gave participants about 90 seconds to explore it 
+before beginning the tasks. We provided no explanation 
+about the meaning of Sesame’s behind-the-desktop visual 
+elements; we only demonstrated how one could hover over 
+and click on some objects to semantically zoom in on them.
+Similarly to ZoneAlarm and other firewalls, for tasks T1-T4, 
+Sesame alerted the user to the security situation by bringing 
+up a dialog box. From there the user would click a button to 
+enter the Sesame UI. For T5-T6, the experimenter explained 
+the situation and asked the user to click the always-present 
+“Open Sesame” button to enter the Sesame interface.
+Study Details
+As each participant began the study, they were asked a series
+1051

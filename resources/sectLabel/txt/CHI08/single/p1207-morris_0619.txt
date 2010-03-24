@@ -1,0 +1,111 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+needed content later on. Kellar et al. [14] interviewed Web 
+users about content-monitoring habits, and identified 
+information-gathering as a class of activity that often 
+involved revisiting sites to monitor for changed 
+information. They found that people relied on a 
+combination of bookmarks, auto-completion, and search 
+engines to return to the sites they monitored. Teevan et al. 
+[25] conducted a study of Yahoo!’s query logs showing that 
+nearly 40% of queries were attempts to re-find previously 
+encountered results. Tauscher and Greenberg [24] studied 
+users’ browser logs over a six-week period, and found that 
+58% of the pages visited were actually re-visits, while 
+Cockburn and MacKenzie [5] reported an even higher rate 
+of revisitation (81%). Wen [28] asked study participants to 
+re-find pages that they had visited during a search task, and 
+observed an overall success rate below 20%. Nearly all 
+participants in Wen’s study tried to re-create their search 
+paths to re-find information. A more recent study by 
+Obendorf et al. [19] found that about 44% of pages visited 
+were revisits. Their study revealed that users employed 
+strategies such as re-searching and re-tracing to re-find 
+content viewed a week or more in the past, but the authors 
+noted that such strategies often frustrated users, due to 
+problems remembering their original query or to expired 
+link coloring information. They also note that browser 
+history was nearly unused by participants, initiating only 
+0.2% of all actions despite the high rate of re-visitation.
+In summary, there is significant evidence that re-finding 
+information constitutes a significant portion of Web use, 
+and that current browser-based mechanisms that support 
+this activity are poorly utilized. Obendorf et al. noted that 
+“A time and task based search history could help to redo 
+searches.” SearchBar is a realization of such a system.
+Interruptions, Multi-tasking, and Multi-Session Tasks
+In addition to re-finding previously encountered 
+information, another user need not explicitly addressed by 
+current Web interfaces is task resumption after an 
+interruption. This interruption might be self-generated (i.e., 
+multi-tasking) or externally generated.
+Previous Research on Interruptions and Search
+Interruptions often cause people to forget the nature of a 
+task they meant to complete [18]. Such interruptions are 
+common – a diary study of knowledge workers found an 
+average of 50 task shifts per person during a typical work 
+week [6], and a log study found an average of 3.74 e-mail 
+or IM-driven task shifts per hour, taking between 8 and 10 
+minutes on average for the person to return to the 
+interrupted task [9]. However, previous work has not 
+specifically explored how users manage interruptions 
+during Web search tasks, as we do in our study.
+Sellen et al.’s study of knowledge workers’ Web use [23] 
+reported that 40% of the “information gathering” activities 
+they observed (similar to Broder’s definition of 
+“informational searches” [3]) were not completed in a 
+single sitting, often due to external interruptions. Such 
+“multi-session” information-seeking activities were also
+Table 1. The 170 respondents who had resumed a Web search
+after a gap in time reported the longest gap they recalled between
+suspension and resumption.
+Time Before Resumption	Respondents
+Minutes	1.2%
+Hours	24%
+Days	51%
+Weeks	13%
+Months	10%
+Years	1.2%
+reported by Obendorf et al. [19], whose client-side log 
+study of Web use found that an average of 15% of Web 
+page revisits occurred after periods of a week or more; 
+while this represented only a small portion of Web activity, 
+the users in their study indicated that these long-term 
+revisits were important but were difficult to achieve.
+Survey on Search Habits
+To learn more about multi-session Web investigations, we 
+conducted our own formative study, surveying information 
+workers at a large technology company about their Web 
+search habits and needs. Our survey was sent to 740 people 
+and was completed by 204 (28% response rate). 80% of 
+respondents were male. Ages ranged from 21 – 61 years old 
+(median = 36). Respondents had varied job roles within the 
+company, such as software developers, researchers, 
+managers, administrative assistants, attorneys, and student 
+interns. All respondents self-identified as average (27%) or 
+expert (74%) Web searchers, with none identifying as 
+novice. All but one respondent reported using a search 
+engine to find information online at least once per day. Our 
+survey asked questions about a variety of Web use habits, 
+many of which are beyond the scope of this paper. Here, we 
+report only on portions of the survey relevant to the 
+suspension, resumption, and/or re-execution of information- 
+seeking tasks. We also highlight that the data presented in 
+this section are self-reported, so we use these results as 
+design guidelines but cannot verify their absolute accuracy.
+We found that multi-session information-seeking tasks were 
+a common experience among this demographic, with 83% 
+of respondents answering “Yes” to the question “Have you 
+ever had a Web information-seeking task that has lasted for 
+longer than a single session (i. e., a task which you put aside 
+and resumed at a later time)?”
+We asked several follow-up questions to the 170 
+respondents who reported engaging in multi-session 
+investigations. First, we asked them to report the longest 
+gap they had experienced between suspending and 
+resuming an investigation. The results in Table 1 show 
+these responses, which indicate that time gaps before 
+resumption can be lengthy – 75% indicated experiencing 
+gaps of at least a full day, while 24% reported gaps of a 
+week or more before resumption.
+We then asked these respondents to describe the strategies
+1208

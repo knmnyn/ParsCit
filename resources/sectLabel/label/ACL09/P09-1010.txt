@@ -1,0 +1,747 @@
+title ||| Reinforcement Learning for Mapping Instructions to Actions
+author ||| S.R.K. Branavan, Harr Chen, Luke S. Zettlemoyer, Regina Barzilay
+affiliation ||| Computer Science and Artificial Intelligence Laboratory
+affiliation ||| Massachusetts Institute of Technology
+email ||| {branavan, harr, lsz, regina}@csail.mit.edu
+sectionHeader ||| Abstract
+bodyText ||| In this paper, we present a reinforce-
+bodyText ||| ment learning approach for mapping nat-
+bodyText ||| ural language instructions to sequences of
+bodyText ||| executable actions. We assume access to
+bodyText ||| a reward function that defines the qual-
+bodyText ||| ity of the executed actions. During train-
+bodyText ||| ing, the learner repeatedly constructs ac-
+bodyText ||| tion sequences for a set of documents, ex-
+bodyText ||| ecutes those actions, and observes the re-
+bodyText ||| sulting reward. We use a policy gradient
+bodyText ||| algorithm to estimate the parameters of a
+bodyText ||| log-linear model for action selection. We
+bodyText ||| apply our method to interpret instructions
+bodyText ||| in two domains â Windows troubleshoot-
+bodyText ||| ing guides and game tutorials. Our results
+bodyText ||| demonstrate that this method can rival su-
+bodyText ||| pervised learning techniques while requir-
+bodyText ||| ing few or no annotated training exam-
+bodyText ||| ples.1
+sectionHeader ||| 1 Introduction
+bodyText ||| The problem of interpreting instructions written
+bodyText ||| in natural language has been widely studied since
+bodyText ||| the early days of artificial intelligence (Winograd,
+bodyText ||| 1972; Di Eugenio, 1992). Mapping instructions to
+bodyText ||| a sequence of executable actions would enable the
+bodyText ||| automation of tasks that currently require human
+bodyText ||| participation. Examples include configuring soft-
+bodyText ||| ware based on how-to guides and operating simu-
+bodyText ||| lators using instruction manuals. In this paper, we
+bodyText ||| present a reinforcement learning framework for in-
+bodyText ||| ducing mappings from text to actions without the
+bodyText ||| need for annotated training examples.
+bodyText ||| For concreteness, consider instructions from a
+bodyText ||| Windows troubleshooting guide on deleting tem-
+bodyText ||| porary folders, shown in Figure 1. We aim to map
+footnote ||| 1Code, data, and annotations used in this work are avail-
+footnote ||| able at http://groups.csail.mit.edu/rbg/code/rl/
+figureCaption ||| Figure 1: A Windows troubleshooting article de-
+figureCaption ||| scribing how to remove the âmsdownld.tmpâ tem-
+figureCaption ||| porary folder.
+bodyText ||| this text to the corresponding low-level commands
+bodyText ||| and parameters. For example, properly interpret-
+bodyText ||| ing the third instruction requires clicking on a tab,
+bodyText ||| finding the appropriate option in a tree control, and
+bodyText ||| clearing its associated checkbox.
+bodyText ||| In this and many other applications, the valid-
+bodyText ||| ity of a mapping can be verified by executing the
+bodyText ||| induced actions in the corresponding environment
+bodyText ||| and observing their effects. For instance, in the
+bodyText ||| example above we can assess whether the goal
+bodyText ||| described in the instructions is achieved, i.e., the
+bodyText ||| folder is deleted. The key idea of our approach
+bodyText ||| is to leverage the validation process as the main
+bodyText ||| source of supervision to guide learning. This form
+bodyText ||| of supervision allows us to learn interpretations
+bodyText ||| of natural language instructions when standard su-
+bodyText ||| pervised techniques are not applicable, due to the
+bodyText ||| lack of human-created annotations.
+bodyText ||| Reinforcement learning is a natural framework
+bodyText ||| for building models using validation from an envi-
+bodyText ||| ronment (Sutton and Barto, 1998). We assume that
+bodyText ||| supervision is provided in the form of a reward
+bodyText ||| function that defines the quality of executed ac-
+bodyText ||| tions. During training, the learner repeatedly con-
+bodyText ||| structs action sequences for a set of given docu-
+bodyText ||| ments, executes those actions, and observes the re-
+bodyText ||| sulting reward. The learnerâs goal is to estimate a
+page ||| 82
+note ||| Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 82â90,
+note ||| Suntec, Singapore, 2-7 August 2009. cï¿½2009 ACL and AFNLP
+bodyText ||| policy â a distribution over actions given instruc-
+bodyText ||| tion text and environment state â that maximizes
+bodyText ||| future expected reward. Our policy is modeled in a
+bodyText ||| log-linear fashion, allowing us to incorporate fea-
+bodyText ||| tures of both the instruction text and the environ-
+bodyText ||| ment. We employ a policy gradient algorithm to
+bodyText ||| estimate the parameters of this model.
+bodyText ||| We evaluate our method on two distinct applica-
+bodyText ||| tions: Windows troubleshooting guides and puz-
+bodyText ||| zle game tutorials. The key findings of our ex-
+bodyText ||| periments are twofold. First, models trained only
+bodyText ||| with simple reward signals achieve surprisingly
+bodyText ||| high results, coming within 11% of a fully su-
+bodyText ||| pervised method in the Windows domain. Sec-
+bodyText ||| ond, augmenting unlabeled documents with even
+bodyText ||| a small fraction of annotated examples greatly re-
+bodyText ||| duces this performance gap, to within 4% in that
+bodyText ||| domain. These results indicate the power of learn-
+bodyText ||| ing from this new form of automated supervision.
+sectionHeader ||| 2 Related Work
+bodyText ||| Grounded Language Acquisition Our work
+bodyText ||| fits into a broader class of approaches that aim to
+bodyText ||| learn language from a situated context (Mooney,
+bodyText ||| 2008a; Mooney, 2008b; Fleischman and Roy,
+bodyText ||| 2005; Yu and Ballard, 2004; Siskind, 2001; Oates,
+bodyText ||| 2001). Instances of such approaches include
+bodyText ||| work on inferring the meaning of words from
+bodyText ||| video data (Roy and Pentland, 2002; Barnard and
+bodyText ||| Forsyth, 2001), and interpreting the commentary
+bodyText ||| of a simulated soccer game (Chen and Mooney,
+bodyText ||| 2008). Most of these approaches assume some
+bodyText ||| form of parallel data, and learn perceptual co-
+bodyText ||| occurrence patterns. In contrast, our emphasis
+bodyText ||| is on learning language by proactively interacting
+bodyText ||| with an external environment.
+bodyText ||| Reinforcement Learning for Language Pro-
+bodyText ||| cessing Reinforcement learning has been previ-
+bodyText ||| ously applied to the problem of dialogue manage-
+bodyText ||| ment (Scheffler and Young, 2002; Roy et al., 2000;
+bodyText ||| Litman et al., 2000; Singh et al., 1999). These
+bodyText ||| systems converse with a human user by taking ac-
+bodyText ||| tions that emit natural language utterances. The
+bodyText ||| reinforcement learning state space encodes infor-
+bodyText ||| mation about the goals of the user and what they
+bodyText ||| say at each time step. The learning problem is to
+bodyText ||| find an optimal policy that maps states to actions,
+bodyText ||| through a trial-and-error process of repeated inter-
+bodyText ||| action with the user.
+bodyText ||| Reinforcement learning is applied very differ-
+bodyText ||| ently in dialogue systems compared to our setup.
+bodyText ||| In some respects, our task is more easily amenable
+bodyText ||| to reinforcement learning. For instance, we are not
+bodyText ||| interacting with a human user, so the cost of inter-
+bodyText ||| action is lower. However, while the state space can
+bodyText ||| be designed to be relatively small in the dialogue
+bodyText ||| management task, our state space is determined by
+bodyText ||| the underlying environment and is typically quite
+bodyText ||| large. We address this complexity by developing
+bodyText ||| a policy gradient algorithm that learns efficiently
+bodyText ||| while exploring a small subset of the states.
+sectionHeader ||| 3 Problem Formulation
+bodyText ||| Our task is to learn a mapping between documents
+bodyText ||| and the sequence of actions they express. Figure 2
+bodyText ||| shows how one example sentence is mapped to
+bodyText ||| three actions.
+bodyText ||| Mapping Text to Actions As input, we are
+bodyText ||| given a document d, comprising a sequence of sen-
+bodyText ||| tences (u1, ... , ut), where each ui is a sequence
+bodyText ||| of words. Our goal is to map d to a sequence of
+bodyText ||| actions aï¿½ = (a0, ... , a,1). Actions are predicted
+bodyText ||| and executed sequentially.2
+bodyText ||| An action a = (c, R, W&apos;) encompasses a com-
+bodyText ||| mand c, the commandâs parameters R, and the
+bodyText ||| words W&apos; specifying c and R. Elements of R re
+bodyText ||| fer to objects available in the environment state, as
+bodyText ||| described below. Some parameters can also refer
+bodyText ||| to words in document d. Additionally, to account
+bodyText ||| for words that do not describe any actions, c can
+bodyText ||| be a null command.
+bodyText ||| The Environment The environment state Â£
+bodyText ||| specifies the set of objects available for interac-
+bodyText ||| tion, and their properties. In Figure 2, Â£ is shown
+bodyText ||| on the right. The environment state Â£ changes
+bodyText ||| in response to the execution of command c with
+bodyText ||| parameters R according to a transition distribu-
+bodyText ||| tion p(Â£&apos;JÂ£, c, R). This distribution is a priori un-
+bodyText ||| known to the learner. As we will see in Section 5,
+bodyText ||| our approach avoids having to directly estimate
+bodyText ||| this distribution.
+bodyText ||| State To predict actions sequentially, we need to
+bodyText ||| track the state of the document-to-actions map-
+bodyText ||| ping over time. A mapping state s is a tuple
+bodyText ||| (Â£, d, j, W), where Â£ refers to the current environ-
+bodyText ||| ment state; j is the index of the sentence currently
+bodyText ||| being interpreted in document d; and W contains
+bodyText ||| words that were mapped by previous actions for
+footnote ||| 2That is, action ai is executed before ai+1 is predicted.
+page ||| 83
+figureCaption ||| Figure 2: A three-step mapping from an instruction sentence to a sequence of actions in Windows 2000.
+figureCaption ||| For each step, the figure shows the words selected by the action, along with the corresponding system
+figureCaption ||| command and its parameters. The words of W&apos; are underlined, and the words of W are highlighted in
+figureCaption ||| grey.
+bodyText ||| the same sentence. The mapping state s is ob-
+bodyText ||| served after each action.
+bodyText ||| The initial mapping state s0 for document d is
+bodyText ||| (Â£d, d, 0, 0); Â£d is the unique starting environment
+bodyText ||| state for d. Performing action a in state s =
+bodyText ||| (Â£, d, j, W) leads to a new state s&apos; according to
+bodyText ||| distribution p(s&apos;Is, a), defined as follows: Â£ tran-
+bodyText ||| sitions according to p(Â£&apos;IÂ£, c, R), W is updated
+bodyText ||| with aâs selected words, and j is incremented if
+bodyText ||| all words of the sentence have been mapped. For
+bodyText ||| the applications we consider in this work, environ-
+bodyText ||| ment state transitions, and consequently mapping
+bodyText ||| state transitions, are deterministic.
+bodyText ||| Training During training, we are provided with
+bodyText ||| a set D of documents, the ability to sample from
+bodyText ||| the transition distribution, and a reward function
+bodyText ||| r(h). Here, h = (s0, a0, ... , snâ1, anâ1, sn) is
+bodyText ||| a history of states and actions visited while in-
+bodyText ||| terpreting one document. r(h) outputs a real-
+bodyText ||| valued score that correlates with correct action
+bodyText ||| selection.3 We consider both immediate reward,
+bodyText ||| which is available after each action, and delayed
+bodyText ||| reward, which does not provide feedback until the
+bodyText ||| last action. For example, task completion is a de-
+bodyText ||| layed reward that produces a positive value after
+bodyText ||| the final action only if the task was completed suc-
+bodyText ||| cessfully. We will also demonstrate how manu-
+bodyText ||| ally annotated action sequences can be incorpo-
+bodyText ||| rated into the reward.
+footnote ||| 3In most reinforcement learning problems, the reward
+footnote ||| function is defined over state-action pairs, as r(s, a) â in this
+footnote ||| case, r(h) _ Et r(st, at), and our formulation becomes a
+footnote ||| standard finite-horizon Markov decision process. Policy gra-
+footnote ||| dient approaches allow us to learn using the more general
+footnote ||| case of history-based reward.
+bodyText ||| The goal of training is to estimate parameters 0
+bodyText ||| of the action selection distribution p(aI s, 0), called
+bodyText ||| the policy. Since the reward correlates with ac-
+bodyText ||| tion sequence correctness, the 0 that maximizes
+bodyText ||| expected reward will yield the best actions.
+sectionHeader ||| 4 A Log-Linear Model for Actions
+bodyText ||| Our goal is to predict a sequence of actions. We
+bodyText ||| construct this sequence by repeatedly choosing an
+bodyText ||| action given the current mapping state, and apply-
+bodyText ||| ing that action to advance to a new state.
+bodyText ||| Given a state s = (Â£, d, j, W), the space of pos-
+bodyText ||| sible next actions is defined by enumerating sub-
+bodyText ||| spans of unused words in the current sentence (i.e.,
+bodyText ||| subspans of the jth sentence of d not in W), and
+bodyText ||| the possible commands and parameters in envi-
+bodyText ||| ronment state Â£ .4 We model the policy distribu-
+bodyText ||| tion p(aIs; 0) over this action space in a log-linear
+bodyText ||| fashion (Della Pietra et al., 1997; Lafferty et al.,
+bodyText ||| 2001), giving us the flexibility to incorporate a di-
+bodyText ||| verse range of features. Under this representation,
+bodyText ||| the policy distribution is:
+equation ||| ee-ï¿½(s,a)
+equation ||| p(aI s; 0) = ï¿½ ee-0(s,a&apos;) ,	(1)
+equation ||| a/
+bodyText ||| where 0(s, a) E Rn is an n-dimensional feature
+bodyText ||| representation. During test, actions are selected
+bodyText ||| according to the mode of this distribution.
+footnote ||| 4For parameters that refer to words, the space of possible
+footnote ||| values is defined by the unused words in the current sentence.
+page ||| 84
+sectionHeader ||| 5 Reinforcement Learning
+bodyText ||| During training, our goal is to find the optimal pol-
+bodyText ||| icy p(aIs; 0). Since reward correlates with correct
+bodyText ||| action selection, a natural objective is to maximize
+bodyText ||| expected future reward â that is, the reward we
+bodyText ||| expect while acting according to that policy from
+bodyText ||| state s. Formally, we maximize the value function:
+equation ||| Vo(s) = Ep(hJo) [r(h)] ,	(2)
+bodyText ||| where the history h is the sequence of states and
+bodyText ||| actions encountered while interpreting a single
+bodyText ||| document d E D. This expectation is averaged
+bodyText ||| over all documents in D. The distribution p(hI0)
+bodyText ||| returns the probability of seeing history h when
+bodyText ||| starting from state s and acting according to a pol-
+bodyText ||| icy with parameters 0. This distribution can be de-
+bodyText ||| composed into a product over time steps:
+bodyText ||| Input: A document set D,
+bodyText ||| Feature representation ï¿½,
+bodyText ||| Reward function r(h),
+bodyText ||| Number of iterations T
+bodyText ||| Initialization: Set 0 to small random values.
+listItem ||| 1 fori=1 ... Tdo
+listItem ||| 2	foreach d E D do
+listItem ||| 3	Sample history h â p(hl0) where
+listItem ||| h = (s0, a0, ... , an-1, sn) as follows:
+listItem ||| 3a	fort =0 ... n-1do
+listItem ||| 3b	Sample action at â p(alst; 0)
+listItem ||| 3c	Execute at on state st: st+1 â p(slst, at)
+listItem ||| end
+listItem ||| 4	A +- Et (O(st, at) â Ea, 0(st, a&apos;)p(a&apos; l st; 0))
+listItem ||| 5	0+-0+r(h)A
+listItem ||| end
+listItem ||| end
+listItem ||| Output: Estimate of parameters 0
+listItem ||| Algorithm 1: A policy gradient algorithm.
+equation ||| p(hI0) = nï¿½1 H p(atIst; 0)p(st+1 Ist, at).	(3)
+equation ||| t=0
+subsectionHeader ||| 5.1 A Policy Gradient Algorithm
+bodyText ||| Our reinforcement learning problem is to find the
+bodyText ||| parameters 0 that maximize Vo from equation 2.
+bodyText ||| Although there is no closed form solution, policy
+bodyText ||| gradient algorithms (Sutton et al., 2000) estimate
+bodyText ||| the parameters 0 by performing stochastic gradi-
+bodyText ||| ent ascent. The gradient of Vo is approximated by
+bodyText ||| interacting with the environment, and the resulting
+bodyText ||| reward is used to update the estimate of 0. Policy
+bodyText ||| gradient algorithms optimize a non-convex objec-
+bodyText ||| tive and are only guaranteed to find a local opti-
+bodyText ||| mum. However, as we will see, they scale to large
+bodyText ||| state spaces and can perform well in practice.
+bodyText ||| To find the parameters 0 that maximize the ob-
+bodyText ||| jective, we first compute the derivative of Vo. Ex-
+bodyText ||| panding according to the product rule, we have:
+equation ||| a0Vo(s) = Ep(hJo) Lr(h)	ï¿½0 log p(atI st; 0) ,
+equation ||| t
+bodyText ||| (4)  where the inner sum is over all time steps t in
+bodyText ||| the current history h. Expanding the inner partial
+bodyText ||| derivative we observe that:
+equation ||| ï¿½a0 log p(aIs; 0) = 0(s, a)â	0(s, a&apos;)p(a&apos;Is; 0),
+equation ||| a/
+bodyText ||| (5)  which is the derivative of a log-linear distribution.
+bodyText ||| Equation 5 is easy to compute directly. How-
+bodyText ||| ever, the complete derivative of Vo in equation 4
+bodyText ||| is intractable, because computing the expectation
+bodyText ||| would require summing over all possible histo-
+bodyText ||| ries. Instead, policy gradient algorithms employ
+bodyText ||| stochastic gradient ascent by computing a noisy
+bodyText ||| estimate of the expectation using just a subset of
+bodyText ||| the histories. Specifically, we draw samples from
+bodyText ||| p(hI0) by acting in the target environment, and
+bodyText ||| use these samples to approximate the expectation
+bodyText ||| in equation 4. In practice, it is often sufficient to
+bodyText ||| sample a single history h for this approximation.
+bodyText ||| Algorithm 1 details the complete policy gradi-
+bodyText ||| ent algorithm. It performs T iterations over the
+bodyText ||| set of documents D. Step 3 samples a history that
+bodyText ||| maps each document to actions. This is done by
+bodyText ||| repeatedly selecting actions according to the cur-
+bodyText ||| rent policy, and updating the state by executing the
+bodyText ||| selected actions. Steps 4 and 5 compute the empir-
+bodyText ||| ical gradient and update the parameters 0.
+bodyText ||| In many domains, interacting with the environ-
+bodyText ||| ment is expensive. Therefore, we use two tech-
+bodyText ||| niques that allow us to take maximum advantage
+bodyText ||| of each environment interaction. First, a his-
+bodyText ||| tory h = (s0, a0, ... , sn) contains subsequences
+bodyText ||| (si, ai,... sn) for i = 1 to n â 1, each with its
+bodyText ||| own reward value given by the environment as a
+bodyText ||| side effect of executing h. We apply the update
+bodyText ||| from equation 5 for each subsequence. Second,
+bodyText ||| for a sampled history h, we can propose alterna-
+bodyText ||| tive histories h&apos; that result in the same commands
+bodyText ||| and parameters with different word spans. We can
+bodyText ||| again apply equation 5 for each h&apos;, weighted by its
+bodyText ||| probability under the current policy, Pï¿½h&apos;Jl1 .
+page ||| 85
+bodyText ||| The algorithm we have presented belongs to
+bodyText ||| a family of policy gradient algorithms that have
+bodyText ||| been successfully used for complex tasks such as
+bodyText ||| robot control (Ng et al., 2003). Our formulation is
+bodyText ||| unique in how it represents natural language in the
+bodyText ||| reinforcement learning framework.
+subsectionHeader ||| 5.2 Reward Functions and ML Estimation
+bodyText ||| We can design a range of reward functions to guide
+bodyText ||| learning, depending on the availability of anno-
+bodyText ||| tated data and environment feedback. Consider the
+bodyText ||| case when every training document d E D is an-
+bodyText ||| notated with its correct sequence of actions, and
+bodyText ||| state transitions are deterministic. Given these ex-
+bodyText ||| amples, it is straightforward to construct a reward
+bodyText ||| function that connects policy gradient to maxi-
+bodyText ||| mum likelihood. Specifically, define a reward
+bodyText ||| function r(h) that returns one when h matches the
+bodyText ||| annotation for the document being analyzed, and
+bodyText ||| zero otherwise. Policy gradient performs stochas-
+bodyText ||| tic gradient ascent on the objective from equa-
+bodyText ||| tion 2, performing one update per document. For
+bodyText ||| document d, this objective becomes:
+equation ||| Ep(hï¿½e)[r(h)] = X r(h)p(hï¿½ e) = p(hdï¿½ e),
+equation ||| h
+bodyText ||| where hd is the history corresponding to the an-
+bodyText ||| notated action sequence. Thus, with this reward
+bodyText ||| policy gradient is equivalent to stochastic gradient
+bodyText ||| ascent with a maximum likelihood objective.
+bodyText ||| At the other extreme, when annotations are
+bodyText ||| completely unavailable, learning is still possi-
+bodyText ||| ble given informative feedback from the environ-
+bodyText ||| ment. Crucially, this feedback only needs to cor-
+bodyText ||| relate with action sequence quality. We detail
+bodyText ||| environment-based reward functions in the next
+bodyText ||| section. As our results will show, reward func-
+bodyText ||| tions built using this kind of feedback can provide
+bodyText ||| strong guidance for learning. We will also con-
+bodyText ||| sider reward functions that combine annotated su-
+bodyText ||| pervision with environment feedback.
+sectionHeader ||| 6 Applying the Model
+bodyText ||| We study two applications of our model: follow-
+bodyText ||| ing instructions to perform software tasks, and
+bodyText ||| solving a puzzle game using tutorial guides.
+subsectionHeader ||| 6.1 Microsoft Windows Help and Support
+subsectionHeader ||| On its Help and Support website,5 Microsoft pub-
+subsectionHeader ||| lishes a number of articles describing how to per-
+footnote ||| 5support.microsoft.com
+table ||| Notation
+table ||| o Parameter referring to an environment object
+table ||| L Set of object class names (e.g. âbuttonâ)
+table ||| V Vocabulary
+table ||| Features on W and object o
+table ||| Test if o is visible in s
+table ||| Test if o has input focus
+table ||| Test if o is in the foreground
+table ||| Test if o was previously interacted with
+table ||| Test if o came into existence since last action
+table ||| Min. edit distance between w E W and object labels in s
+table ||| Features on words in W, command c, and object o
+table ||| `dc&apos; EC,wEV:test ifc&apos;=cand wEW
+table ||| `dc&apos; E C, l E L: test if c&apos; = c and l is the class of o
+tableCaption ||| Table 1: Example features in the Windows do-
+tableCaption ||| main. All features are binary, except for the nor-
+tableCaption ||| malized edit distance which is real-valued.
+bodyText ||| form tasks and troubleshoot problems in the Win-
+bodyText ||| dows operating systems. Examples of such tasks
+bodyText ||| include installing patches and changing security
+bodyText ||| settings. Figure 1 shows one such article.
+bodyText ||| Our goal is to automatically execute these sup-
+bodyText ||| port articles in the Windows 2000 environment.
+bodyText ||| Here, the environment state is the set of visi-
+bodyText ||| ble user interface (UI) objects, and object prop-
+bodyText ||| erties such as label, location, and parent window.
+bodyText ||| Possible commands include left-click, right-click,
+bodyText ||| double-click, and type-into, all of which take a UI
+bodyText ||| object as a parameter; type-into additionally re-
+bodyText ||| quires a parameter for the input text.
+bodyText ||| Table 1 lists some of the features we use for this
+bodyText ||| domain. These features capture various aspects of
+bodyText ||| the action under consideration, the current Win-
+bodyText ||| dows UI state, and the input instructions. For ex-
+bodyText ||| ample, one lexical feature measures the similar-
+bodyText ||| ity of a word in the sentence to the UI labels of
+bodyText ||| objects in the environment. Environment-specific
+bodyText ||| features, such as whether an object is currently in
+bodyText ||| focus, are useful when selecting the object to ma-
+bodyText ||| nipulate. In total, there are 4,438 features.
+bodyText ||| Reward Function Environment feedback can
+bodyText ||| be used as a reward function in this domain. An
+bodyText ||| obvious reward would be task completion (e.g.,
+bodyText ||| whether the stated computer problem was fixed).
+bodyText ||| Unfortunately, verifying task completion is a chal-
+bodyText ||| lenging system issue in its own right.
+bodyText ||| Instead, we rely on a noisy method of check-
+bodyText ||| ing whether execution can proceed from one sen-
+bodyText ||| tence to the next: at least one word in each sen-
+bodyText ||| tence has to correspond to an object in the envi-
+page ||| 86
+figureCaption ||| Figure 3: Crossblock puzzle with tutorial. For this
+figureCaption ||| level, four squares in a row or column must be re-
+figureCaption ||| moved at once. The first move specified by the
+figureCaption ||| tutorial is greyed in the puzzle.
+bodyText ||| ronment.6 For instance, in the sentence from Fig-
+bodyText ||| ure 2 the word âRunâ matches the Run... menu
+bodyText ||| item. If no words in a sentence match a current
+bodyText ||| environment object, then one of the previous sen-
+bodyText ||| tences was analyzed incorrectly. In this case, we
+bodyText ||| assign the history a reward of -1. This reward is
+bodyText ||| not guaranteed to penalize all incorrect histories,
+bodyText ||| because there may be false positive matches be-
+bodyText ||| tween the sentence and the environment. When
+bodyText ||| at least one word matches, we assign a positive
+bodyText ||| reward that linearly increases with the percentage
+bodyText ||| of words assigned to non-null commands, and lin-
+bodyText ||| early decreases with the number of output actions.
+bodyText ||| This reward signal encourages analyses that inter-
+bodyText ||| pret all of the words without producing spurious
+bodyText ||| actions.
+subsectionHeader ||| 6.2 Crossblock: A Puzzle Game
+bodyText ||| Our second application is to a puzzle game called
+bodyText ||| Crossblock, available online as a Flash game.7
+bodyText ||| Each of 50 puzzles is played on a grid, where some
+bodyText ||| grid positions are filled with squares. The object
+bodyText ||| of the game is to clear the grid by drawing vertical
+bodyText ||| or horizontal line segments that remove groups of
+bodyText ||| squares. Each segment must exactly cross a spe-
+bodyText ||| cific number of squares, ranging from two to seven
+bodyText ||| depending on the puzzle. Humans players have
+bodyText ||| found this game challenging and engaging enough
+bodyText ||| to warrant posting textual tutorials.8 A sample
+bodyText ||| puzzle and tutorial are shown in Figure 3.
+bodyText ||| The environment is defined by the state of the
+bodyText ||| grid. The only command is clear, which takes a
+bodyText ||| parameter specifying the orientation (row or col-
+bodyText ||| umn) and grid location of the line segment to be
+footnote ||| 6We assume that a word maps to an environment object if
+footnote ||| the edit distance between the word and the objectâs name is
+footnote ||| below a threshold value.
+footnote ||| 7hexaditidom.deviantart.com/art/Crossblock-108669149
+footnote ||| 8www.jayisgames.com/archives/2009/01/crossblock.php
+bodyText ||| removed. The challenge in this domain is to seg-
+bodyText ||| ment the text into the phrases describing each ac-
+bodyText ||| tion, and then correctly identify the line segments
+bodyText ||| from references such as âthe bottom four from the
+bodyText ||| second column from the left.â
+bodyText ||| For this domain, we use two sets of binary fea-
+bodyText ||| tures on state-action pairs (s, a). First, for each
+bodyText ||| vocabulary word w, we define a feature that is one
+bodyText ||| if w is the last word of aâs consumed words W&apos;.
+bodyText ||| These features help identify the proper text seg-
+bodyText ||| mentation points between actions. Second, we in-
+bodyText ||| troduce features for pairs of vocabulary word w
+bodyText ||| and attributes of action a, e.g., the line orientation
+bodyText ||| and grid locations of the squares that a would re-
+bodyText ||| move. This set of features enables us to match
+bodyText ||| words (e.g., ârowâ) with objects in the environ-
+bodyText ||| ment (e.g., a move that removes a horizontal series
+bodyText ||| of squares). In total, there are 8,094 features.
+bodyText ||| Reward Function For Crossblock it is easy to
+bodyText ||| directly verify task completion, which we use as
+bodyText ||| the basis of our reward function. The reward r(h)
+bodyText ||| is -1 if h ends in a state where the puzzle cannot
+bodyText ||| be completed. For solved puzzles, the reward is
+bodyText ||| a positive value proportional to the percentage of
+bodyText ||| words assigned to non-null commands.
+sectionHeader ||| 7 Experimental Setup
+bodyText ||| Datasets For the Windows domain, our dataset
+bodyText ||| consists of 128 documents, divided into 70 for
+bodyText ||| training, 18 for development, and 40 for test. In
+bodyText ||| the puzzle game domain, we use 50 tutorials,
+bodyText ||| divided into 40 for training and 10 for test.9
+bodyText ||| Statistics for the datasets are shown below.
+table ||| 	Windows	Puzzle
+table ||| Total # of documents	128	50
+table ||| Total # of words	5562	994
+table ||| Vocabulary size	610	46
+table ||| Avg. words per sentence	9.93	19.88
+table ||| Avg. sentences per document	4.38	1.00
+table ||| Avg. actions per document	10.37	5.86
+bodyText ||| The data exhibits certain qualities that make
+bodyText ||| for a challenging learning problem. For instance,
+bodyText ||| there are a surprising variety of linguistic con-
+bodyText ||| structs â as Figure 4 shows, in the Windows do-
+bodyText ||| main even a simple command is expressed in at
+bodyText ||| least six different ways.
+footnote ||| 9For Crossblock, because the number of puzzles is lim-
+footnote ||| ited, we did not hold out a separate development set, and re-
+footnote ||| port averaged results over five training/test splits.
+page ||| 87
+figureCaption ||| Figure 4: Variations of âclick internet options on
+figureCaption ||| the tools menuâ present in the Windows corpus.
+bodyText ||| Experimental Framework To apply our algo-
+bodyText ||| rithm to the Windows domain, we use the Win32
+bodyText ||| application programming interface to simulate hu-
+bodyText ||| man interactions with the user interface, and to
+bodyText ||| gather environment state information. The operat-
+bodyText ||| ing system environment is hosted within a virtual
+bodyText ||| machine,10 allowing us to rapidly save and reset
+bodyText ||| system state snapshots. For the puzzle game do-
+bodyText ||| main, we replicated the game with an implemen-
+bodyText ||| tation that facilitates automatic play.
+bodyText ||| As is commonly done in reinforcement learn-
+bodyText ||| ing, we use a softmax temperature parameter to
+bodyText ||| smooth the policy distribution (Sutton and Barto,
+bodyText ||| 1998), set to 0.1 in our experiments. For Windows,
+bodyText ||| the development set is used to select the best pa-
+bodyText ||| rameters. For Crossblock, we choose the parame-
+bodyText ||| ters that produce the highest reward during train-
+bodyText ||| ing. During evaluation, we use these parameters
+bodyText ||| to predict mappings for the test documents.
+bodyText ||| Evaluation Metrics For evaluation, we com-
+bodyText ||| pare the results to manually constructed sequences
+bodyText ||| of actions. We measure the number of correct ac-
+bodyText ||| tions, sentences, and documents. An action is cor-
+bodyText ||| rect if it matches the annotations in terms of com-
+bodyText ||| mand and parameters. A sentence is correct if all
+bodyText ||| of its actions are correctly identified, and analo-
+bodyText ||| gously for documents.11 Statistical significance is
+bodyText ||| measured with the sign test.
+bodyText ||| Additionally, we compute a word alignment
+bodyText ||| score to investigate the extent to which the input
+bodyText ||| text is used to construct correct analyses. This
+bodyText ||| score measures the percentage of words that are
+bodyText ||| aligned to the corresponding annotated actions in
+bodyText ||| correctly analyzed documents.
+bodyText ||| Baselines We consider the following baselines
+bodyText ||| to characterize the performance of our approach.
+footnote ||| 10VMware Workstation, available at www.vmware.com
+footnote ||| 11In these tasks, each action depends on the correct execu-
+footnote ||| tion of all previous actions, so a single error can render the
+footnote ||| remainder of that documentâs mapping incorrect. In addition,
+footnote ||| due to variability in document lengths, overall action accu-
+footnote ||| racy is not guaranteed to be higher than document accuracy.
+listItem ||| â¢	Full Supervision Sequence prediction prob-
+bodyText ||| lems like ours are typically addressed us-
+bodyText ||| ing supervised techniques. We measure how
+bodyText ||| a standard supervised approach would per-
+bodyText ||| form on this task by using a reward signal
+bodyText ||| based on manual annotations of output ac-
+bodyText ||| tion sequences, as defined in Section 5.2. As
+bodyText ||| shown there, policy gradient with this re-
+bodyText ||| ward is equivalent to stochastic gradient as-
+bodyText ||| cent with a maximum likelihood objective.
+listItem ||| â¢	Partial Supervision We consider the case
+bodyText ||| when only a subset of training documents is
+bodyText ||| annotated, and environment reward is used
+bodyText ||| for the remainder. Our method seamlessly
+bodyText ||| combines these two kinds of rewards.
+listItem ||| â¢	Random and Majority (Windows) We con-
+bodyText ||| sider two naive baselines. Both scan through
+bodyText ||| each sentence from left to right. A com-
+bodyText ||| mand c is executed on the object whose name
+bodyText ||| is encountered first in the sentence. This
+bodyText ||| command c is either selected randomly, or
+bodyText ||| set to the majority command, which is left-
+bodyText ||| click. This procedure is repeated until no
+bodyText ||| more words match environment objects.
+listItem ||| â¢	Random (Puzzle) We consider a baseline
+listItem ||| that randomly selects among the actions that
+listItem ||| are valid in the current game state.12
+sectionHeader ||| 8 Results
+bodyText ||| Table 2 presents evaluation results on the test sets.
+bodyText ||| There are several indicators of the difficulty of this
+bodyText ||| task. The random and majority baselinesâ poor
+bodyText ||| performance in both domains indicates that naive
+bodyText ||| approaches are inadequate for these tasks. The
+bodyText ||| performance of the fully supervised approach pro-
+bodyText ||| vides further evidence that the task is challenging.
+bodyText ||| This difficulty can be attributed in part to the large
+bodyText ||| branching factor of possible actions at each step â
+bodyText ||| on average, there are 27.14 choices per action in
+bodyText ||| the Windows domain, and 9.78 in the Crossblock
+bodyText ||| domain.
+bodyText ||| In both domains, the learners relying only
+bodyText ||| on environment reward perform well. Although
+bodyText ||| the fully supervised approach performs the best,
+bodyText ||| adding just a few annotated training examples
+bodyText ||| to the environment-based learner significantly re-
+bodyText ||| duces the performance gap.
+footnote ||| 12 Since action selection is among objects, there is no natu-
+footnote ||| ral majority baseline for the puzzle.
+page ||| 88
+table ||| 			Windows					Puzzle
+table ||| 	Action		Sent.		Doc.	Word	Action		Doc.		Word
+table ||| Random baseline	0.128		0.101		0.000	ââ		0.081		0.111	ââ
+table ||| Majority baseline	0.287		0.197		0.100	ââ		ââ		ââ	ââ
+table ||| Environment reward	* 0.647	*	0.590	*	0.375	0.819	*	0.428	*	0.453	0.686
+table ||| Partial supervision	*0.723	*	0.702		0.475	0.989		0.575	*	0.523	0.850
+table ||| Full supervision	*0.756		0.714		0.525	0.991		0.632		0.630	0.869
+tableCaption ||| Table 2: Performance on the test set with different reward signals and baselines. Our evaluation measures
+tableCaption ||| the proportion of correct actions, sentences, and documents. We also report the percentage of correct
+tableCaption ||| word alignments for the successfully completed documents. Note the puzzle domain has only single-
+tableCaption ||| sentence documents, so its sentence and document scores are identical. The partial supervision line
+tableCaption ||| refers to 20 out of 70 annotated training documents for Windows, and 10 out of 40 for the puzzle. Each
+tableCaption ||| result marked with * or o is a statistically significant improvement over the result immediately above it;
+tableCaption ||| * indicates p &lt; 0.01 and o indicates p &lt; 0.05.
+figureCaption ||| Figure 5: Comparison of two training scenarios where training is done using a subset of annotated
+figureCaption ||| documents, with and without environment reward for the remaining unannotated documents.
+bodyText ||| Figure 5 shows the overall tradeoff between an-
+bodyText ||| notation effort and system performance for the two
+bodyText ||| domains. The ability to make this tradeoff is one
+bodyText ||| of the advantages of our approach. The figure also
+bodyText ||| shows that augmenting annotated documents with
+bodyText ||| additional environment-reward documents invari-
+bodyText ||| ably improves performance.
+bodyText ||| The word alignment results from Table 2 in-
+bodyText ||| dicate that the learners are mapping the correct
+bodyText ||| words to actions for documents that are success-
+bodyText ||| fully completed. For example, the models that per-
+bodyText ||| form best in the Windows domain achieve nearly
+bodyText ||| perfect word alignment scores.
+bodyText ||| To further assess the contribution of the instruc-
+bodyText ||| tion text, we train a variant of our model without
+bodyText ||| access to text features. This is possible in the game
+bodyText ||| domain, where all of the puzzles share a single
+bodyText ||| goal state that is independent of the instructions.
+bodyText ||| This variant solves 34% of the puzzles, suggest-
+bodyText ||| ing that access to the instructions significantly im-
+bodyText ||| proves performance.
+sectionHeader ||| 9 Conclusions
+bodyText ||| In this paper, we presented a reinforcement learn-
+bodyText ||| ing approach for inducing a mapping between in-
+bodyText ||| structions and actions. This approach is able to use
+bodyText ||| environment-based rewards, such as task comple-
+bodyText ||| tion, to learn to analyze text. We showed that hav-
+bodyText ||| ing access to a suitable reward function can signif-
+bodyText ||| icantly reduce the need for annotations.
+sectionHeader ||| Acknowledgments
+bodyText ||| The authors acknowledge the support of the NSF
+bodyText ||| (CAREER grant IIS-0448168, grant IIS-0835445,
+bodyText ||| grant IIS-0835652, and a Graduate Research Fel-
+bodyText ||| lowship) and the ONR. Thanks to Michael Collins,
+bodyText ||| Amir Globerson, Tommi Jaakkola, Leslie Pack
+bodyText ||| Kaelbling, Dina Katabi, Martin Rinard, and mem-
+bodyText ||| bers of the MIT NLP group for their suggestions
+bodyText ||| and comments. Any opinions, findings, conclu-
+bodyText ||| sions, or recommendations expressed in this paper
+bodyText ||| are those of the authors, and do not necessarily re-
+bodyText ||| flect the views of the funding organizations.
+page ||| 89
+reference ||| Jeffrey Mark Siskind. 2001. Grounding the lexical se-
+reference ||| mantics of verbs in visual perception using force dy-
+reference ||| namics and event logic. J. Artif. Intell. Res. (JAIR),
+reference ||| 15:31â90.
+sectionHeader ||| References
+reference ||| Kobus Barnard and David A. Forsyth. 2001. Learning
+reference ||| the semantics of words and pictures. In Proceedings
+reference ||| of ICCV.
+reference ||| David L. Chen and Raymond J. Mooney. 2008. Learn-
+reference ||| ing to sportscast: a test of grounded language acqui-
+reference ||| sition. In Proceedings of ICML.
+reference ||| Stephen Della Pietra, Vincent J. Della Pietra, and
+reference ||| John D. Lafferty. 1997. Inducing features of ran-
+reference ||| dom fields. IEEE Trans. Pattern Anal. Mach. Intell.,
+reference ||| 19(4):380â393.
+reference ||| Barbara Di Eugenio. 1992. Understanding natural lan-
+reference ||| guage instructions: the case of purpose clauses. In
+reference ||| Proceedings of ACL.
+reference ||| Michael Fleischman and Deb Roy. 2005. Intentional
+reference ||| context in situated language learning. In Proceed-
+reference ||| ings of CoNLL.
+reference ||| John Lafferty, Andrew McCallum, and Fernando
+reference ||| Pereira. 2001. Conditional random fields: Prob-
+reference ||| abilistic models for segmenting and labeling se-
+reference ||| quence data. In Proceedings of ICML.
+reference ||| Diane J. Litman, Michael S. Kearns, Satinder Singh,
+reference ||| and Marilyn A. Walker. 2000. Automatic optimiza-
+reference ||| tion of dialogue management. In Proceedings of
+reference ||| COLING.
+reference ||| Raymond J. Mooney. 2008a. Learning language
+reference ||| from its perceptual context. In Proceedings of
+reference ||| ECML/PKDD.
+reference ||| Raymond J. Mooney. 2008b. Learning to connect lan-
+reference ||| guage and perception. In Proceedings ofAAAI.
+reference ||| Andrew Y. Ng, H. Jin Kim, Michael I. Jordan, and
+reference ||| Shankar Sastry. 2003. Autonomous helicopter flight
+reference ||| via reinforcement learning. In Advances in NIPS.
+reference ||| James Timothy Oates. 2001. Grounding knowledge
+reference ||| in sensors: Unsupervised learning for language and
+reference ||| planning. Ph.D. thesis, University of Massachusetts
+reference ||| Amherst.
+reference ||| Deb K. Roy and Alex P. Pentland. 2002. Learn-
+reference ||| ing words from sights and sounds: a computational
+reference ||| model. Cognitive Science 26, pages 113â146.
+reference ||| Nicholas Roy, Joelle Pineau, and Sebastian Thrun.
+reference ||| 2000. Spoken dialogue management using proba-
+reference ||| bilistic reasoning. In Proceedings of ACL.
+reference ||| Konrad Scheffler and Steve Young. 2002. Automatic
+reference ||| learning of dialogue strategy using dialogue simula-
+reference ||| tion and reinforcement learning. In Proceedings of
+reference ||| HLT.
+reference ||| Satinder P. Singh, Michael J. Kearns, Diane J. Litman,
+reference ||| and Marilyn A. Walker. 1999. Reinforcement learn-
+reference ||| ing for spoken dialogue systems. In Advances in
+reference ||| NIPS.
+reference ||| Richard S. Sutton and Andrew G. Barto. 1998. Re-
+reference ||| inforcement Learning: An Introduction. The MIT
+reference ||| Press.
+reference ||| Richard S. Sutton, David McAllester, Satinder Singh,
+reference ||| and Yishay Mansour. 2000. Policy gradient meth-
+reference ||| ods for reinforcement learning with function approx-
+reference ||| imation. In Advances in NIPS.
+reference ||| Terry Winograd. 1972. Understanding Natural Lan-
+reference ||| guage. Academic Press.
+reference ||| Chen Yu and Dana H. Ballard. 2004. On the integra-
+reference ||| tion of grounding language and learning objects. In
+reference ||| Proceedings ofAAAI.
+page ||| 90

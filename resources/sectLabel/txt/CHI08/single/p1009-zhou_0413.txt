@@ -1,0 +1,91 @@
+CHI 2008 Proceedings · Help Me Search	April 5-10, 2008 · Florence, Italy
+especially substitutes that may be preferable to the current 
+module.
+Conceptually, the double pivot block automatically follows 
+the pivot to related conversation threads and then pivots 
+again to a set of modules that are also referenced by those 
+threads. Such a process would be tedious, however, for 
+users to perform manually. By automatically aggregating 
+the other module references from the set of messages that 
+reference the current module, the body of contributing 
+content is much larger than just the few messages that can 
+be displayed to a user on a page.
+The double-pivot technique is closely related to the 
+technique of item-item collaborative filtering [3], where 
+two items are related if they are highly rated (or purchased) 
+by the same people. It is also analogous to co-citation 
+analysis in bibliometrics, where two papers are related if 
+they are cited in the same other paper [4].
+In computing conversation double pivots, we first collapse 
+messages into threads. Column T4a in Table 1 is a message 
+that might have said something like, “Module S 1 doesn’t 
+quite do what I need. Anyone have suggestions?” T4b is a 
+reply suggesting module S3 as an alternative. Other users, 
+when visiting the page for module S1, might then benefit 
+from a double pivot link to S3, even though no single 
+message mentions both S1 and S3. Thus, we treat two 
+modules as related if they are referenced in the same thread.
+Table 2 illustrates the double pivot matrix resulting from 
+the original matrix from Table 1. It indicates that S1 and S2 
+are never referenced in the same thread, but S2 and S3 are 
+both referenced in two different threads, and S1 and S3 in 
+one thread. Thus, the double pivot block for the page about 
+S2 would include a link to S3 but not to S1.
+More sophisticated implementations of the double pivot 
+would account for the overall popularity of source items. 
+For example, when two modules that are rarely referenced
+are referenced in the same thread, it is a stronger indicator 
+that the two are related than when the same outcome occurs 
+for a pair of frequently referenced modules.
+		Software Module		
+		S1	S2	S3
+	S1	2	0	1
+	S2	0	2	2
+	S3	1	2	3
+Table 2. Module by Module Associations from a double pivot
+DETECTING CONVERSATION SUBJECTS
+The pivot matrix is constructed by examining the potential 
+target threads to see which source items they reference. One 
+possibility would be to rely on message authors to explicitly 
+link to source items rather than using natural language to 
+identify them. Tools such as auto-complete could simplify 
+this task for message authors. Even so, it seems unwise to 
+depend on authors to do this, since the primary beneficiaries 
+would not be the authors or even the readers of the 
+messages, but unknown and unseen future visitors to 
+module pages.
+Instead, a software program can automatically infer 
+references to items as they are naturally expressed in 
+messages, albeit with some error. The errors will be 
+reduced to the extent that authors refer to items using 
+distinctive canonical identifiers, such as ISBN numbers. For 
+example, the PHOAKS project mined Usenet for references 
+to web pages, where the natural way to refer to a site in 
+conversation was to put in a complete URL [5].
+Two factors make it practical to automatically mine 
+conversations for software module references. The first is a 
+high tolerance for errors of omission: detecting even a small 
+fraction of the actual references to software modules may 
+be sufficient to generate useful pivot and double-pivot 
+blocks for navigation. The second factor is that there are 
+regularities in module names and in patterns of reference to 
+them that can be exploited when creating a reference index.
+Some software systems employ a naming system that 
+allows exact string matching on module titles to perform 
+well. Perl modules follow a hierarchical naming convention 
+with “::” as a separator found rarely in normal conversation. 
+If the text string “Time::ParseDate” appears in a message, 
+the author almost certainly meant to refer to the Perl 
+module of that name, so that exact matching on module 
+titles will have high precision. Moreover, a social norm has 
+emerged so that an author who wants to refer to that module 
+will typically use that text string to refer to it, rather than a 
+shorter alias such as ParseDate. Thus, exact text matching 
+will retrieve the correct references with high recall as well, 
+although it will occasionally miss matches due to 
+misspellings.
+A
+B
+Figure 2. CPAN with a (A) conversation pivot to
+Perlmonks.org, and a (B) double-pivot to related modules
+1011

@@ -1,0 +1,296 @@
+A New Statistical Formula for Chinese Text Segmentation
+Incorporating Contextual Information
+Yubin Dai
+Christopher S.G. Khoo
+Division of Information Studies
+School of Applied Science
+Nanyang Technological University
+Singapore 639798
+(65) 790-4602
+dyb_lte@hotmail.com +L+ assgkhoo@ntu.edu.sg
+ABSTRACT
+A new statistical formula for identifying 2-character words in +L+ Chinese text, called the contextual information formula, was +L+ developed empirically by performing stepwise logistic regression +L+ using a sample of sentences that had been manually segmented. +L+ Contextual information in the form of the frequency of characters +L+ that are adjacent to the bigram being processed as well as the +L+ weighted document frequency of the overlapping bigrams were +L+ found to be significant factors for predicting the probablity that +L+ the bigram constitutes a word. Local information (the number of +L+ times the bigram occurs in the document being segmented) and +L+ the position of the bigram in the sentence were not found to be +L+ useful in determining words. The contextual information formula +L+ was found to be significantly and substantially better than the +L+ mutual information formula in identifying 2-character words. +L+ The method can also be used for identifying multi-word terms in +L+ English text.
+Keywords
+Chinese text segmentation, word boundary identification, logistic +L+ regression, multi-word terms
+1. INTRODUCTION
+Chinese text is different from English text in that there is no +L+ explicit word boundary. In English text, words are separated by +L+ spaces. Chinese text (as well as text of other Oriental languages) +L+ is made up of ideographic characters, and a word can comprise +L+ one, two or more such characters, without explicit indication +L+ where one word ends and another begins.
+This has implications for natural language processing and +L+ information retrieval with Chinese text. Text processing +L+ techniques that have been developed for Western languages deal +L+ with words as meaningful text units and assume that words are +L+ easy to identify. These techniques may not work well for Chinese +L+ text without some adjustments. To apply these techniques to
+Teck Ee Loh
+10 Kent Ridge Crescent
+Data Storage Institute
+Singapore 119260
+(65) 874-8413
+dsilohte@dsi.nus.edu.sg
+Chinese text, automatic methods for identifying word boundaries +L+ accurately have to be developed. The process of identifying word +L+ boundaries has been referred to as text segmentation or, more +L+ accurately, word segmentation.
+Several techniques have been developed for Chinese text +L+ segmentation. They can be divided into:
+1. statistical methods, based on statistical properties and +L+ frequencies of characters and character strings in a corpus +L+ (e.g. [13] and [16]).
+2. dictionary-based methods, often complemented with +L+ grammar rules. This approach uses a dictionary of words to +L+ identify word boundaries. Grammar rules are often used to +L+ resolve conflicts (choose between alternative segmentations) +L+ and to improve the segmentation (e.g. [4], [8], [19] and [20]).
+3. syntax-based methods, which integrate the word +L+ segmentation process with syntactic parsing or part-of-speech +L+ tagging (e.g. [1]).
+4. conceptual methods, that make use of some kind of semantic +L+ processing to extract information and store it in a knowledge +L+ representation scheme. Domain knowledge is used for +L+ disambiguation (e.g. [9]).
+Many researchers use a combination of methods (e.g. [14]).
+The objective of this study was to empirically develop a +L+ statistical formula for Chinese text segmentation. Researchers +L+ have used different statistical methods in segmentation, most of +L+ which were based on theoretical considerations or adopted from +L+ other fields. In this study, we developed a statistical formula +L+ empirically by performing stepwise logistic regression using a +L+ sample of sentences that had been manually segmented. This +L+ paper reports the new formula developed for identifying 2- +L+ character words, and the effectiveness of this formula compared +L+ with the mutual information formula.
+This study has the following novel aspects:
+•	The statistical formula was derived empirically using +L+ regression analysis.
+•	The manual segmentation was performed to identify
+meaningful	words rather than simple words.
+Meaningful words include phrasal words and multi- +L+ word terms.
+•	In addition to the relative frequencies of bigrams and
+characters often used in other studies, our study also +L+ investigated the use of document frequencies and weighted
+82
+document frequencies. Weighted document frequencies are +L+ similar to document frequencies but each document is +L+ weighted by the square of the number of times the character +L+ or bigram occurs in the document.
+•	Contextual information was included in the study. To predict +L+ whether the bigram BC in the character string	A B C D
+constitutes a word, we investigated whether the +L+ frequencies for AB, CD, A and D should be included in the +L+ formula.
+•	Local frequencies were included in the study. We
+investigated character and bigram frequencies within the +L+ document in which the sentence occurs (i.e. the number of +L+ times the character or bigram appears in the document being +L+ segmented).
+•	We investigated whether the position of the bigram (at the
+beginning of the sentence, before a punctuation mark, or after +L+ a punctuation mark) had a significant effect.
+•	We developed a segmentation algorithm to apply the
+statistical formula to segment sentences and resolve conflicts.
+In this study, our objective was to segment text into
+meaningful words rather than simple words . A simple +L+ word is the smallest independent unit of a sentence that has +L+ meaning on its own. A meaningful word can be a simple word or +L+ a compound word comprising 2 or more simple words – +L+ depending on the context. In many cases, the meaning of a +L+ compound word is more than just a combination of the meanings +L+ of the constituent simple words, i.e. some meaning is lost when +L+ the compound word is segmented into simple words. +L+ Furthermore, some phrases are used so often that native speakers +L+ perceive them and use them as a unit. Admittedly, there is some +L+ subjectivity in the manual segmentation of text. But the fact that +L+ statistical models can be developed to predict the manually +L+ segmented words substantially better than chance indicates some +L+ level of consistency in the manual segmentation.
+The problem of identifying meaningful words is not limited to +L+ Chinese and oriental languages. Identifying multi-word terms is +L+ also a problem in text processing with English and other Western +L+ languages, and researchers have used the mutual information +L+ formula and other statistical approaches for identifying such +L+ terms (e.g. [3], [6] and [7]).
+2. PREVIOUS STUDIES
+There are few studies using a purely statistical approach to +L+ Chinese text segmentation. One statistical formula that has been +L+ used by other researchers (e.g. [11] and [16]) is the mutual +L+ information formula. Given a character string A B C D +L+ , the mutual information for the bigram BC is given by the +L+ formula:
+freq(BC) 
+log2 freq(B) * freq(C)
+= log2 freq(BC) – log2 freq(B) – log2 freq(C)
+where freq refers to the relative frequency of the character or +L+ bigram in the corpus (i.e. the number of times the character or +L+ bigram occurs in the corpus divided by the number of characters +L+ in the corpus).
+Mutual information is a measure of how strongly the two +L+ characters are associated, and can be used as a measure of how
+likely the pair of characters constitutes a word. Sproat &amp; Shih +L+ [16] obtained recall and precision values of 94% using mutual +L+ information to identify words. This study probably segmented +L+ text into simple words rather than meaningful words. In our +L+ study, text was segmented into meaningful words and we +L+ obtained much poorer results for the mutual information +L+ formula.
+Lua [12] and Lua &amp; Gan [13] applied information theory to the +L+ problem of Chinese text segmentation. They calculated the +L+ information content of characters and words using the +L+ information entropy formula I = - log2 P, where P is the +L+ probability of occurrence of the character or word. If the +L+ information content of a character string is less than the sum of +L+ the information content of the constituent characters, then the +L+ character string is likely to constitute a word. The formula for +L+ calculating this loss of information content when a word is +L+ formed is identical to the mutual information formula. Lua &amp; +L+ Gan [13] obtained an accuracy of 99% (measured in terms of the +L+ number of errors per 100 characters).
+Tung &amp; Lee [18] also used information entropy to identify +L+ unknown words in a corpus. However, instead of calculating the +L+ entropy value for the character string that is hypothesized to be a +L+ word (i.e. the candidate word), they identified all the characters +L+ that occurred to the left of the candidate word in the corpus. For +L+ each left character, they calculated the probability and entropy +L+ value for that character given that it occurs to the left of the +L+ candidate word. The same is done for the characters to the right +L+ of the candidate word. If the sum of the entropy values for the +L+ left characters and the sum of the entropy values for the right +L+ characters are both high, than the candidate word is considered +L+ likely to be a word. In other words, a character string is likely to +L+ be a word if it has several different characters to the left and to +L+ the right of it in the corpus, and none of the left and right +L+ characters predominate (i.e. not strongly associated with the +L+ character string).
+Ogawa &amp; Matsuda [15] developed a statistical method to +L+ segment Japanese text. Instead of attempting to identify words +L+ directly, they developed a formula to estimate the probability that +L+ a bigram straddles a word boundary. They referred to this as the +L+ segmentation probability. This was complemented with some +L+ syntactic information about which class of characters could be +L+ combined with which other class.
+All the above mathematical formulas used for identifying words +L+ and word boundaries were developed based on theoretical +L+ considerations and not derived empirically.
+Other researchers have developed statistical methods to find the +L+ best segmentation for the whole sentence rather than focusing on +L+ identifying individual words. Sproat et al. [17] developed a +L+ stochastic finite state model for segmenting text. In their model, +L+ a word dictionary is represented as a weighted finite state +L+ transducer. Each weight represents the estimated cost of the +L+ word (calculated using the negative log probability). Basically, +L+ the system selects the sentence segmentation that has the +L+ smallest total cost. Chang &amp; Chen [1] developed a method for +L+ word segmentation and part-of-speech tagging based on a first- +L+ order hidden Markov model.
+MI(BC) =
+83
+3. RESEARCH METHOD
+The purpose of this study was to empirically develop a statistical +L+ formula for identifying 2-character words as well as to +L+ investigate the usefulness of various factors for identifying the +L+ words. A sample of 400 sentences was randomly selected from 2 +L+ months (August and September 1995) of news articles from the +L+ Xin Hua News Agency, comprising around 2.3 million characters. +L+ The sample sentences were manually segmented. The +L+ segmentation rules described in [10] were followed fairly closely. +L+ More details of the manual segmentation process, especially with +L+ regard to identifying meaningful words will be given in [5].
+300 sentences were used for model building, i.e. using regression +L+ analysis to develop a statistical formula. 100 sentences were set +L+ aside for model validation to evaluate the formula developed in +L+ the regression analysis. The sample sentences were broken up +L+ into overlapping bigrams. In the regression analysis, the +L+ dependent variable was whether a bigram was a two-character +L+ word according to the manual segmentation. The independent +L+ variables were various corpus statistics derived from the corpus +L+ (2 months of news articles).
+The types of frequency information investigated were:
+1. Relative frequency of individual characters and bigrams +L+ (character pairs) in the corpus, i.e. the number of times the +L+ character or bigram occurs in the corpus divided by the total +L+ number of characters in the corpus.
+2. Document frequency of characters and bigrams, i.e. the +L+ number of documents in the corpus containing the character +L+ or bigram divided by the total number of documents in the +L+ corpus.
+3. Weighted document frequency of characters and bigrams. To +L+ calculate the weighted document frequency of a character +L+ string, each document containing the character string is +L+ assigned a score equal to the square of the number of times +L+ the character string occurs in the document. The scores for all +L+ the documents containing the character string are then +L+ summed and divided by the total number of documents in the +L+ corpus to obtain the weighted document frequency for the +L+ character string. The rationale is that if a character string +L+ occurs several times within the same document, this is +L+ stronger evidence that the character string constitutes a word, +L+ than if the character string occurs once in several documents. +L+ Two or more characters can occur together by chance in +L+ several different documents. It is less likely for two +L+ characters to occur together several times within the same +L+ document by chance.
+4. Local frequency in the form of within-document frequency of +L+ characters and bigrams, i.e. the number of times the character +L+ or bigram occurs in the document being segmented.
+5. Contextual information. Frequency information of characters +L+ adjacent to a bigram is used to help determine whether the +L+ bigram is a word. For the character string	A B C D
+, to determine whether the bigram BC is a word, +L+ frequency information for the adjacent characters A and D, as +L+ well as the overlapping bigrams AB and BC were considered.
+6. Positional information. We studied whether the position of a +L+ character string (at the beginning, middle or end of a +L+ sentence) gave some indication of whether the character +L+ string was a word.
+The statistical model was developed using forward stepwise +L+ logistic regression, using the Proc Logistic function in the SAS +L+ v.6.12 statistical package for Windows. Logistic regression is an +L+ appropriate regression technique when the dependent variable is +L+ binary valued (takes the value 0 or 1). The formula developed +L+ using logistic regression predicts the probability (more +L+ accurately, the log of the odds) that a bigram is a meaningful +L+ word.
+In the stepwise regression, the threshold for a variable to enter +L+ the model was set at the 0.001 significance level and the +L+ threshold for retaining a variable in the model was set at 0.01. In +L+ addition, preference was given to relative frequencies and local +L+ frequencies because they are easier to calculate than document +L+ frequencies and weighted document frequencies. Also, relative +L+ frequencies are commonly used in previous studies.
+Furthermore, a variable was entered in a model only if it gave a +L+ noticeable improvement to the effectiveness of the model. During +L+ regression analysis, the effectiveness of the model was estimated +L+ using the measure of concordance that was automatically output +L+ by the SAS statistical program. A variable was accepted into the +L+ model only if the measure of concordance improved by at least +L+ 2% when the variable was entered into the model.
+We evaluated the accuracy of the segmentation using measures of +L+ recall and precision. Recall and precision in this context are +L+ defined as follows:
+Recall = No. of 2-character words identified in the automatic
+segmentation that are correct
+No. of 2-character words identified in the manual
+segmentation
+Precision = No. of 2-character words identified in the automatic
+segmentation that are correct
+No. of 2-character words identified in the automatic
+segmentation
+4. STATISTICAL FORMULAS +L+ DEVELOPED
+4.1 The Contextual Information Formula
+The formula that was developed for 2-character words is as +L+ follows. Given a character string A B C D , the +L+ association strength for bigram BC is:
+Assoc(BC) = 0.35 * log2 freq(BC) + 0.37 * log2 freq(A) + +L+ 0.32 log2 freq(D) – 0.36 * log2 docfreqwt(AB) – +L+ 0.29 * log2 docfreqwt(CD) + 5.91
+where freq refers to the relative frequency in the corpus and +L+ docfreqwt refers to the weighted document frequency. We refer to +L+ this formula as the contextual information formula. More details +L+ of the regression model are given in Table 1.
+The formula indicates that contextual information is helpful in +L+ identifying word boundaries. A in the formula refers to the +L+ character preceding the bigram that is being processed, whereas +L+ D is the character following the bigram. The formula indicates +L+ that if the character preceding and the character following the +L+ bigram have high relative frequencies, then the bigram is more +L+ likely to be a word.
+84
+		Parameter	Standard	Wald		Pr &gt;	Standardized
+Variable	DF	Estimate	Error	Chi-Square		Chi-Square	Estimate
+INTERCPT	1	5.9144	0.1719	1184.0532	0.0001	.
+Log freq(BC)	1	0.3502	0.0106	1088.7291	0.0001	0.638740
+Log freq(A)	1	0.3730	0.0113	1092.1382	0.0001	0.709621
+Log freq(D)	1	0.3171	0.0107	886.4446	0.0001	0.607326
+Log docfreqwt(AB)	1	-0.3580	0.0111	1034.0948	0.0001	-0.800520
+Log docfreqwt(CD)	1	-0.2867	0.0104	754.2276	0.0001	-0.635704
+Note: freq refers to the relative frequency, and docfreqwt refers to the +L+ weighted document frequency.
+Association of Predicted Probabilities and Observed Responses
+Somers&apos; D = 0.803
+Gamma	= 0.803
+Tau-a	= 0.295
+(23875432 pairs)	c	= 0.901
+Concordant	=	90.1%
+Discordant	=	9.8%
+Tied	=	0.1%
+Table 1. Final regression model for 2-character words
+Contextual information involving the weighted document +L+ frequency was also found to be significant. The formula indicates +L+ that if the overlapping bigrams AB and CD have high weighted +L+ document frequencies, then the bigram BC is less likely to be a +L+ word. We tried replacing the weighted document frequencies +L+ with the unweighted document frequencies as well as the relative +L+ frequencies. These were found to give a lower concordance score. +L+ Even with docfreq (AB) and docfreq (CD) in the model, docfreqwt +L+ (AB) and docfreqwt (CD) were found to improve the model +L+ significantly. However, local frequencies were surprisingly not +L+ found to be useful in predicting 2-character words.
+We investigated whether the position of the bigram in the +L+ sentence was a significant factor. We included a variable to +L+ indicate whether the bigram occurred just after a punctuation +L+ mark or at the beginning of the sentence, and another variable to +L+ indicate whether the bigram occurred just before a punctuation +L+ mark or at the end of a sentence. The interaction between each of +L+ the position variables and the various relative frequencies +L+ were not significant. However, it was found that whether or not +L+ the bigram was at the end of a sentence or just before a +L+ punctuation mark was a significant factor. Bigrams at the end of +L+ a sentence or just before a punctuation mark tend to be words. +L+ However, since this factor did not improve the concordance score +L+ by 2%, the effect was deemed too small to be included in the +L+ model.
+It should be noted that the contextual information used in the +L+ study already incorporates some positional information. The +L+ frequency of character A (the character preceding the bigram) +L+ was given the value 0 if the bigram was preceded by a +L+ punctuation mark or was at the beginning of a sentence. +L+ Similarly, the frequency of character D (the character following +L+ the bigram) was given the value 0 if the bigram preceded a +L+ punctuation mark.
+We also investigated whether the model would be different for +L+ high and low frequency words. We included in the regression +L+ analysis the interaction between the relative frequency of the +L+ bigram and the other relative frequencies. The interaction terms +L+ were not found to be significant. Finally, it is noted that the
+coefficients for the various factors are nearly the same, hovering +L+ around 0.34.
+4.2 Improved Mutual Information Formula
+In this study, the contextual information formula (CIF) was +L+ evaluated by comparing it with the mutual information formula +L+ (MIF). We wanted to find out whether the segmentation results +L+ using the CIF was better than the segmentation results using the +L+ MIF.
+In the CIF model, the coefficients of the variables were +L+ determined using regression analysis. If CIF was found to give +L+ better results than MIF, it could be because the coefficients for +L+ the variables in CIF had been determined empirically – and not +L+ because of the types of variables in the formula. To reject this +L+ explanation, regression analysis was used to determine the +L+ coefficients for the factors in the mutual information formula. +L+ We refer to this new version of the formula as the improved +L+ mutual information formula.
+Given a character string	A B C D	, the improved
+mutual information formula is:
+Improved MI(BC) = 0.39 * log2 freq(BC) - 0.28 * log2 freq(B) -
+0.23 log2 freq(C) - 0.32
+The coefficients are all close to 0.3. The formula is thus quite +L+ similar to the mutual information formula, except for a +L+ multiplier of 0.3.
+5. SEGMENTATION ALGORITHMS
+The automatic segmentation process has the following steps:
+1. The statistical formula is used to calculate a score for each +L+ bigram to indicate its association strength (or how likely the +L+ bigram is a word).
+2. A threshold value is then set and used to decide which +L+ bigram is a word. If a bigram obtains a score above the +L+ threshold value, then it is selected as a word. Different +L+ threshold values can be used, depending on whether the user +L+ prefers high recall or high precision.
+3. A segmentation algorithm is used to resolve conflict. If two +L+ overlapping bigrams both have association scores above the
+85
+	Precision		
+Recall	Comparative Forward Match	Forward Match	Improvement
+Mutual Information		-	-
+90%	51%		
+80%	52%	47%	5%
+70%	53%	51%	2%
+60%	54%	52%	2%
+Improved Mutual Information			
+90%	51%		-	-
+80%	53%	46%	7%
+70%	54%	52%	2%
+60%	55%	54%	1%
+Contextual Information Formula			
+90%	55%	54%	1%
+80%	62%	62%	0%
+70%	65%	65%	0%
+60%	68%	68%	0%
+Table 2. Recall and precision values for the comparative +L+ forward match segmentation algorithm vs. forward match
+threshold value, then there is conflict or ambiguity. The +L+ frequency of such conflicts will rise as the threshold value is +L+ lowered. The segmentation algorithm resolves the conflict +L+ and selects one of the bigrams as a word.
+One simple segmentation algorithm is the forward match +L+ algorithm. Consider the sentence A B C D E . The +L+ segmentation process proceeds from the beginning of the +L+ sentence to the end. First the bigram AB is considered. If the +L+ association score is above the threshold, then AB is taken as a +L+ word, and the bigram CD is next considered. If the association +L+ score of AB is below the threshold, the character A is taken as a +L+ 1-character word. And the bigram BC is next considered. In +L+ effect, if the association score of both AB and BC are above +L+ threshold, the forward match algorithm selects AB as a word and +L+ not BC.
+The forward match method for resolving ambiguity is somewhat +L+ arbitrary and not satisfactory. When overlapping bigrams exceed +L+ the threshold value, it simply decides in favour of the earlier +L+ bigram. Another segmentation algorithm was developed in this +L+ study which we refer to as the comparative forward match +L+ algorithm. This has an additional step:
+If 2 overlapping bigrams AB and BC both have scores above +L+ the threshold value then their scores are compared. If AB has a +L+ higher value, then it is selected as a word, and the program +L+ next considers the bigrams CD and DE. On the other hand, if +L+ AB has a lower value, then character A is selected as a 1- +L+ character word, and the program next considers bigrams BC +L+ and CD.
+The comparative forward match method (CFM) was compared +L+ with the forward match method (FM) by applying them to the 3 +L+ statistical formulas (the contextual information formula, the +L+ mutual information formula and the improved mutual +L+ information formula). One way to compare the effectiveness of +L+ the 2 segmentation algorithms is by comparing their precision +L+ figures at the same recall levels. The precision figures for
+Precision
+Recall	Mutual	Improved Mutual Contextual
+Information	Information	Information
+90%	57%	(0.0)	57%	(-2.5)	61%	(-1.5)
+80%	59%	(3.7)	59%	(-1.5)	66%	(-0.8)
+70%	59%	(4.7)	60%	(-1.0)	70%	(-0.3)
+60%	60%	(5.6)	62%	(-0.7)	74%	(0.0)
+* Threshold values are given in parenthesis.
+Table 3. Recall and precision for three statistical formulas
+selected recall levels are given in Table 2. The results are based +L+ on the sample of 300 sentences.
+The comparative forward match algorithm gave better results for +L+ the mutual information and improved mutual information +L+ formulas – especially at low threshold values when a large +L+ number of conflicts are likely. Furthermore, for the forward +L+ match method, the recall didn t go substantially higher than +L+ 80% even at low threshold values.
+For the contextual information formula, the comparative forward +L+ match method did not perform better than forward match, except +L+ at very low threshold values when the recall was above 90%. +L+ This was expected because the contextual information formula +L+ already incorporates information about neighboring characters +L+ within the formula. The formula gave very few conflicting +L+ segmentations. There were very few cases of overlapping +L+ bigrams both having association scores above the threshold – +L+ except when threshold values were below –1.5.
+6. EVALUATION
+6.1 Comparing the Contextual Information +L+ Formula with the Mutual Information +L+ Formula
+In this section we compare the effectiveness of the contextual +L+ information formula with the mutual information formula and +L+ the improved mutual information formula using the 100 +L+ sentences that had been set aside for evaluation purposes. For the +L+ contextual information formula, the forward match segmentation +L+ algorithm was used. The comparative forward match algorithm +L+ was used for the mutual information and the improved mutual +L+ information formulas.
+The three statistical formulas were compared by comparing their +L+ precision figures at 4 recall levels – at 60%, 70%, 80% and 90%. +L+ For each of the three statistical formulas, we identified the +L+ threshold values that would give a recall of 60%, 70%, 80% and +L+ 90%. We then determined the precision values at these threshold +L+ values to find out whether the contextual information formula +L+ gave better precision than the other two formulas at 60%, 70%, +L+ 80% and 90% recall. These recall levels were selected because a +L+ recall of 50% or less is probably unacceptable for most +L+ applications.
+The precision figures for the 4 recall levels are given in Table 3. +L+ The recall-precision graphs for the 3 formulas are given in Fig. 1. +L+ The contextual information formula substantially outperforms +L+ the mutual information and the improved mutual information +L+ formulas. At the 90% recall level, the contextual information
+86
+Avg Precision
+Avg	Mutual	Improved Mutual Contextual
+Recall Information	Information	Information
+90%	57%	(1.0)	58%	(-2.3)	61%	(-1.5)
+80%	60%	(3.8)	60%	(-1.4)	67%	(-0.7)
+70%	59%	(4.8)	60%	(-1.0)	70%	(-0.3)
+60%	60%	(5.6)	63%	(-0.6)	73%	(0.0)
+* Threshold values are given in parenthesis.
+Table 4. Average recall and average precision for the three +L+ statistical formulas
+60	65	70	75	80	85	90	95
+Recall(%)
+Fig. 1. Recall-precision graph for the three statistical
+formula was better by about 4%. At the 60% recall level, it +L+ outperformed the mutual information formula by 14% (giving a +L+ relative improvement of 23%). The results also indicate that the +L+ improved mutual information formula does not perform better +L+ than the mutual information formula.
+6.2 Statistical Test of Significance
+In order to perform a statistical test, recall and precision figures +L+ were calculated for each of the 100 sentences used in the +L+ evaluation. The average recall and the average precision across +L+ the 100 sentences were then calculated for the three statistical +L+ formulas. In the previous section, recall and precision were +L+ calculated for all the 100 sentences combined. Here, recall and +L+ precision were obtained for individual sentences and then the +L+ average across the 100 sentences was calculated. The average +L+ precision for 60%, 70%, 80% and 90% average recall are given +L+ in Table 4.
+For each recall level, an analysis of variance with repeated +L+ measures was carried out to find out whether the differences in +L+ precision were significant. Pairwise comparisons using Tukey s +L+ HSD test was also carried out. The contextual information +L+ formula was significantly better (a=0.001) than the mutual +L+ information and the improved mutual information formulas at all +L+ 4 recall levels. The improved mutual information formula was +L+ not found to be significantly better than mutual information.
+Association Score&gt;1.0 (definite errors) +L+ (	)	university (agricultural
+university)
+(	)	geology (geologic age)
+(	)	plant (upland plant)
+(	)	sovereignty (sovereign state)
+Association Score Between –1.0 and 1.0 +L+ (borderline errors)
+(	)	statistics (statistical data)
+(	)	calamity (natural calamity)
+(	)	resources (manpower resources)
+(	)	professor (associate professor)
+(	)	poor (pauperization)
+(	)	fourteen (the 14th day)
+(	)	twenty (twenty pieces)
+Table 5. Simple words that are part of a longer +L+ meaningful word
+Association Score &gt;1.0 (definite errors)
+will through
+telegraph [on the] day [31 July]
+Association Score Between –1.0 and 1.0 +L+ (borderline errors)
+still	to
+will be
+people etc.
+I want
+Person&apos;s name
+(	)	Wan Wen Ju
+Place name
+(	)	a village name in China
+(	)	Canada
+Name of an organization/institution
+(	)	Xin Hua Agency
+(	)	The State Department
+Table 6. Bigrams incorrectly identified as words
+7. ANALYSIS OF ERRORS
+The errors that arose from using the contextual information +L+ formula were analyzed to gain insights into the weaknesses of +L+ the model and how the model can be improved. There are two +L+ types of errors: errors of commission and errors of omission. +L+ Errors of commission are bigrams that are identified by the +L+ automatic segmentation to be words when in fact they are not +L+ (according to the manual segmentation). Errors of omission are +L+ bigrams that are not identified by the automatic segmentation to +L+ be words but in fact they are.
+The errors depend of course on the threshold values used. A high +L+ threshold (e.g. 1.0) emphasizes precision and a low threshold +L+ (e.g. –1.0) emphasizes recall. 50 sentences were selected from +L+ the 100 sample sentences to find the distribution of errors at +L+ different regions of threshold values.
+Contextual information +L+ Mutual information
+Improved mutual +L+ information
+	75 70 65 60 55
+87
+Association Score between -1.0 and -2.0
+the northern section of a construction project +L+ fragments of ancient books
+Association Score &lt; -2.0
+September
+3rd day
+(name of a district in China ) +L+ (name of an institution)
+the Book of Changes
+Table 7. 2-character words with association score +L+ below -1.0
+We divide the errors of commission (bigrams that are incorrectly +L+ identified as words by the automatic segmentation) into 2 groups:
+1. Definite errors: bigrams with association scores above 1.0 but +L+ are not words
+2. Borderline errors: bigrams with association scores between – +L+ 1.0 and 1.0 and are not words
+We also divide the errors of omission (bigrams that are words +L+ but are not identified by the automatic segmentation) into 2 +L+ groups:
+1. Definite errors: bigrams with association scores below –1.0 +L+ but are words
+2. Borderline errors: bigrams with association scores between – +L+ 1.0 and 1.0 and are words.
+7.1 Errors of Commission
+Errors of commission can be divided into 2 types:
+1. The bigram is a simple word that is part of a longer +L+ meaningful word.
+2. The bigram is not a word (neither simple word nor +L+ meaningful word).
+Errors of the first type are illustrated in Table 5. The words +L+ within parenthesis are actually meaningful words but segmented +L+ as simple words (words on the left). The words lose part of the +L+ meaning when segmented as simple words. These errors +L+ occurred mostly with 3 or 4-character meaningful words.
+Errors of the second type are illustrated in Table 6. Many of the +L+ errors are caused by incorrectly linking a character with a +L+ function word or pronoun. Some of the errors can easily be
+removed by using a list of function words and pronouns to +L+ identify these characters.
+7.2 Errors of Omission
+Examples of definite errors of omission (bigrams with +L+ association scores below –1.0 but are words) are given in Table
+7. Most of the errors are rare words and time words. Some are +L+ ancient names, rare and unknown place names, as well as +L+ technical terms. Since our corpus comprises general news +L+ articles, these types of words are not frequent in the corpus. Time +L+ words like dates usually have low association values because +L+ they change everyday! These errors can be reduced by +L+ incorporating a separate algorithm for recognizing them.
+The proportion of errors of the various types are given in Table 8.
+8. CONCLUSION
+A new statistical formula for identifying 2-character words in +L+ Chinese text, called the contextual information formula, was +L+ developed empirically using regression analysis. The focus was +L+ on identifying meaningful words (including multi-word terms +L+ and idioms) rather than simple words. The formula was found to +L+ give significantly and substantially better results than the mutual +L+ information formula.
+Contextual information in the form of the frequency of characters +L+ that are adjacent to the bigram being processed as well as the +L+ weighted document frequency of the overlapping bigrams were +L+ found to be significant factors for predicting the probablity that +L+ the bigram constitutes a word. Local information (e.g. the +L+ number of times the bigram occurs in the document being +L+ segmented) and the position of the bigram in the sentence were +L+ not found to be useful in determining words.
+Of the bigrams that the formula erroneously identified as words, +L+ about 80% of them were actually simple words. Of the rest, +L+ many involved incorrect linking with a function words. Of the +L+ words that the formula failed to identify as words, more than a +L+ third of them were rare words or time words. The proportion of +L+ rare words increased as the threshold value used was lowered. +L+ These rare words cannot be identified using statistical +L+ techniques.
+This study investigated a purely statistical approach to text
+Errors of Commission	Borderline Cases	Errors of Omission
+Association score &gt; 1.0	Association score: –1.0 to1.0	Association score &lt; –1.0
+(No. of errors=34)	(No. of cases: 210)	
+Simple words	Not words	Simple words	Not words	Meaning- ful words	Association score:	Association score
+82.3%	17.7%	55.2%	20.5%	24.3%	–1.0 to –2.0	&lt; –2.0
+					(No. of errors=43)	(No. of errors=22)
+					Rare words	Others	Rare words	Others
+					&amp; time	76.8%	&amp; time	36.4%
+					words		words	
+					23.2%		63.6%	
+Table 8. Proportion of errors of different types
+88
+segmentation. The advantage of the statistical approach is that it +L+ can be applied to any domain, provided that the document +L+ collection is sufficiently large to provide frequency information. +L+ A domain-specific dictionary of words is not required. In fact, the +L+ statistical formula can be used to generate a shortlist of candidate +L+ words for such a dictionary. On the other hand, the statistical +L+ method cannot identify rare words and proper names. It is also +L+ fooled by combinations of function words that occur frequently +L+ and by function words that co-occur with other words.
+It is well-known that a combination of methods is needed to give +L+ the best segmentation results. The segmentation quality in this +L+ study can be improved by using a list of function words and +L+ segmenting the function words as single character words. A +L+ dictionary of common and well-known names (including names +L+ of persons, places, institutions, government bodies and classic +L+ books) could be used by the system to identify proper names that +L+ occur infrequently in the corpus. Chang et al. [2] developed a +L+ method for recognizing proper nouns using a dictionary of family +L+ names in combination with a statistical method for identifying +L+ the end of the name. An algorithm for identifying time and dates +L+ would also be helpful. It is not clear whether syntactic processing +L+ can be used to improve the segmentation results substantially.
+Our current work includes developing statistical formulas for +L+ identifying 3 and 4-character words, as well as investigating +L+ whether the statistical formula developed here can be used with +L+ other corpora. The approach adopted in this study can also be +L+ used to develop statistical models for identifying multi-word +L+ terms in English text. It would be interesting to see whether the +L+ regression model developed for English text is similar to the one +L+ developed in this study for Chinese text. Frantzi, Ananiadou &amp; +L+ Tsujii [7], using a different statistical approach, found that +L+ contextual information could be used to improve the +L+ identification of multi-word terms in English text.
+9. REFERENCES
+[1] Chang, C.-H., and Chen, C.-D. A study of integrating +L+ Chinese word segmentation and part-of-speech tagging. +L+ Communications of COLIPS, 3, 1 (1993), 69-77.
+[2] Chang, J.-S., Chen, S.-D., Ker, S.-J., Chen, Y., and Liu, J.S. +L+ A multiple-corpus approach to recognition of proper names +L+ in Chinese texts. Computer Processing of Chinese and +L+ Oriental Languages, 8, 1 (June 1994), 75-85.
+[3] Church, K.W., and Hanks, P. Word association norms, +L+ mutual information and lexicography. In Proceedings of the +L+ 27th Annual Meeting of the Association for Computational +L+ Linguistics (Vancouver, June 1989), 76-83.
+[4] Dai, J.C., and Lee, H.J. A generalized unification-based LR +L+ parser for Chinese. Computer Processing of Chinese and +L+ Oriental Languages, 8, 1 (1994), 1-18.
+[5] Dai, Y. Developing a new statistical method for Chinese +L+ text segmentation. (Master s thesis in preparation)
+[6] Damerau, F.J. Generating and evaluating domain-oriented +L+ multi-word terms from texts. Information Processing &amp; +L+ Management, 29, 4 (1993), 433-447.
+[7] Frantzi, K.T., Ananiadou, S., and Tsujii, J. The C- +L+ value/NC-value method of automatic recognition for multi- +L+ word terms. In C. Nikolaou and C. Stephanidis (eds.),
+Research and Advanced Technology for Digital Libraries, +L+ 2nd European Conference, ECDL 98 (Heraklion, Crete, +L+ September 1998), Springer-Verlag, 585-604.
+[8] Liang, N.Y. The knowledge of Chinese words segmentation +L+ [in Chinese]. Journal of Chinese Information Processing, 4, +L+ 2 (1990), 42-49.
+[9] Liu, I.M. Descriptive-unit analysis of sentences: Toward a +L+ model natural language processing. Computer Processing of +L+ Chinese &amp; Oriental Languages, 4, 4 (1990), 314-355.
+[10] Liu, Y., Tan, Q., and Shen, X.K. Xin xi chu li yong xian dai +L+ han yu fen ci gui fan ji zi dong fen ci fang fa [ Modern +L+ Chinese Word Segmentation Rules and Automatic Word +L+ Segmentation Methods for Information Processing ]. Qing +L+ Hua University Press, Beijing, 1994.
+[11] Lua, K.T. Experiments on the use of bigram mutual +L+ information in Chinese natural language processing. +L+ Presented at the 1995 International Conference on Computer +L+ Processing of Oriental Languages (ICCPOL) (Hawaii, +L+ November 1995). Available: http://137.132.89.143/luakt/ +L+ publication.html
+[12] Lua, K.T. From character to word - An application of +L+ information theory. Computer Processing of Chinese &amp; +L+ Oriental Languages, 4, 4 (1990), 304-312.
+[13] Lua, K.T., and Gan, G.W. An application of information +L+ theory in Chinese word segmentation. Computer Processing +L+ of Chinese &amp; Oriental Languages, 8, 1 (1994), 115-124.
+[14] Nie, J.Y., Hannan, M.L., and Jin, W.Y. Unknown word +L+ detection and segmentation of Chinese using statistical and +L+ heuristic knowledge. Communications of COLIPS, 5, 1&amp;2 +L+ (1995), 47-57.
+[15] Ogawa, Y., and Matsuda, T. Overlapping statistical word +L+ indexing: A new indexing method for Japanese text. In +L+ Proceedings of the 20th Annual International ACM SIGIR +L+ Conference on Research and Development in Information +L+ Retrieval (Philadelphia, July 1997), ACM, 226-234.
+[16] Sproat, R., and Shih, C.L. A statistical method for finding +L+ word boundaries in Chinese text. Computer Processing of +L+ Chinese &amp; Oriental Languages, 4, 4 (1990), 336-351.
+[17] Sproat, R., Shih, C., Gale, W., and Chang, N. A stochastic +L+ finite-state word-segmentation algorithm for Chinese. +L+ Computational Lingustics, 22, 3 (1996), 377-404.
+[18] Tung, C.-H., and Lee, H.-J. Identification of unknown words +L+ from a corpus. Computer Processing of Chinese and +L+ Oriental Languages, 8 (Supplement, Dec. 1994), 131-145.
+[19] Wu, Z., and Tseng, G. ACTS: An automatic Chinese text +L+ segmentation system for full text retrieval. Journal of the +L+ American Society for Information Science, 46, 2 (1995), 83- +L+ 96.
+[20] Yeh, C.L., and Lee, H.J. Rule-based word identification for +L+ mandarin Chinese sentences: A unification approach. +L+ Computer Processing of Chinese and Oriental Languages, 5, +L+ 2 (1991), 97-118.
+89

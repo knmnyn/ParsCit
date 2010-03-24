@@ -1,0 +1,107 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+The first premise behind the SONAR API is that it is 
+necessary to present the strength of ties between people. In 
+contrast to APIs for specific SN applications like Facebook 
+[6], SONAR does not model any specific semantics of the 
+underlying system like “friending” or “communities”. 
+Instead, it asks providers to boil down these semantics into 
+floating point numbers between 0 and 1. SONAR 
+aggregators combine results from multiple systems using a 
+simple weighted average. This approach enables diverse 
+applications from instant messaging clients through 
+publication databases to SN sites to provide data supporting 
+an aggregated view of relationships among people. SONAR 
+clients are oblivious to the types of relations – when 
+querying for strength of a relationship, all that the client 
+sees is people and the weight of their associations.
+Users of aggregated SN data frequently want to understand 
+how people are connected, or why a connection is stronger 
+than another. To support this need, SONAR allows queries 
+for evidence. Evidence is essentially a time-ordered log of 
+entries, originating from each of the providers. It may 
+include comments posted by one user in the other user’s 
+blog, email messages or chat transcripts between them, or 
+web sites that they both bookmarked. According to our 
+privacy model, users do not have access to any private 
+material of other people through this interface—it just 
+organizes information they already had access to before.
+SONAR API Specification
+We have implemented SONAR as a REST API. The API 
+has four methods. The first three are fetching weighted 
+people relationships, while the fourth provides evidence for 
+connections. The methods are summarized in Table 1.
+SONAR Aggregator
+SONAR is designed to enable an aggregator component 
+that merges results from multiple providers. Like an HTTP 
+proxy, the aggregator protocol is in most ways identical to 
+the protocol for interacting with a SONAR provider. In fact, 
+clients communicate with aggregators the exact same way 
+they do with primary providers – through the SONAR API. 
+The aggregator is configured to connect to one or more 
+providers. When a request is received, the aggregator 
+forwards it to each provider. It then processes the results by 
+computing a weighted average and returns the result to the 
+user. The original results from the different sources remain 
+transparent to the user.
+Name	Parameters*	Output
+Strength	source (user) , target (user)	Float (0.0 to 1.0)
+Relations	user(s), limit, offset	&lt;list of people&gt;
+Network	user(s), degrees, threshold	&lt;graph of people&gt;
+Evidence	users(s), limit, offset	&lt;list of entries&gt;
+Table 1. SONAR API methods*
+* All methods also accept parameters since and until. Since limits results to 
+those after the given date, until limits to those before the given date.
+SONAR Providers
+We have implemented SONAR providers of over ten 
+sources in our organizational intranet. The following four 
+systems, which serve as public sources, were used in our 
+experiments: BlogCentral (IBM’s corporate blogging 
+system [14]), Fringe, for people tagging and friending [7], 
+Dogear, for social bookmarking [19], and the IBM 
+organizational chart.
+For the blog system, social relations are derived from the 
+comments made to one’s blog. This information is an 
+indication of the people who leave a trace in a blog, which 
+is likely to imply that the author is aware of them. Fringe 
+supports extraction of social information of both friending 
+and tagging. Friending is a reciprocal action: one person 
+invites the other to be friends and they are defined friends 
+only if the invitation is accepted. Tagging people is one 
+sided, yet indicates some level of connection. The SONAR 
+provider that extracts SNs from Dogear is based on 
+bookmark similarity information. The connections returned 
+by this provider are those of people who bookmark the 
+same pages. From the organizational chart we extracted, for 
+each user, the user’s manager as well as the user’s direct 
+peers - all employees who have the same manager.
+We have implemented several client-side SONAR 
+providers that have access to the user’s private data. The 
+experiments in this paper use two of these – email and chat 
+transcripts. The outcome of these providers is only visible 
+to the owner, visualizing an egocentric map of connections, 
+but not revealing any private information to others.
+For the email information, our client requests the user’s 
+password and then crawls the mailbox and collects details 
+of people the user corresponds with. The chat information is 
+easily accessible to our SONAR client, as the client is 
+implemented as a plugin of Lotus Sametime, IBM’s chat 
+system. We extract social information from the history of 
+chat transcripts, as these indicate the people a person 
+actually chats with.
+SONAR Usage Scenarios
+To demonstrate the potential usage of the SONAR API, we 
+created SonarBuddies – a plugin for Lotus Sametime. The 
+plugin presents an alternative buddylist, which consists of 
+the people most strongly related to the user, ordered by 
+their strength of connection (see Figure 1(a)).
+Additional features include showing related people to any 
+buddy on the list, the connection points (evidence) with a 
+buddy (Figure 1(b)), and people who are connected to both 
+the user and a buddy (Figure 1(c)).
+The SonarBuddies extension has a preference page in which 
+the user may choose the relative weight of each data source, 
+the number of buddies to display, and the number of days in 
+history to consider. When adjusting the preferences, the 
+user may see a preview of the buddylist. This enables fine- 
+tuning the selection of weights (see Figure 2).
+1020

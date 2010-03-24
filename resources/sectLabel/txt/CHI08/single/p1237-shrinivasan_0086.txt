@@ -1,0 +1,96 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+ing and recognizing concepts and their relations. The use 
+of an appropriate diagram helps the user to make all the 
+possibilities explicit and reason more rapidly and accurately 
+[3]. Based on these premises, numerous diagramming tech-
+niques such as mind maps, concept maps, cognitive maps, 
+affinity diagrams, causal maps, and so forth have been de-
+veloped to facilitate the reasoning process [8]. However, in 
+some cases just placing the concepts next to each other in 
+some meaningful order will be sufficient. Hence, a knowl-
+edge view should be a flexible environment for analysts to 
+structure the analysis artifacts according to their thought pro-
+cess. We therefore have chosen to design the knowledge 
+view as a basic graphics editor. It helps the users to construct 
+diagrams to externalize their mental models and structure ar-
+guments.
+A note is the basic entity to record the findings. A note is ei-
+ther rectangular (see figure 5(a)) or elliptical (see figure 5(b)) 
+in shape. Notes can be organized into a group with a title (see 
+figure 5(c)). The tool supports multiple group levels (see 
+figure 5(d)). A connector line can be drawn between notes, 
+groups, and a note and a group (see figure 5(e)). The connec-
+tor line can be drawn with or without directed arrows to rep-
+resent causal relations between findings. These entities en-
+able the analyst to record the analysis artifacts such as find-
+ings, assumptions, hypotheses and causal relations; organize 
+them into some schema; and build a case to support or con-
+tradict an argument. Thus, the output of the knowledge view 
+can vary from simple placement of notes next to each other 
+to highly structured and systematic argumentation based on a 
+diagramming technique. The knowledge view canvas can be 
+panned in all directions if more space is needed. The knowl-
+edge view uses a flip-chart metaphor, such that the analyst 
+can create any number of sheets to record the findings.
+When an entity in the knowledge view is linked to a visual-
+ization state, it is marked with a star (see figure 5(f)). The 
+user can revisit visualization states by clicking on the starred 
+entities in the knowledge view. The knowledge view sup-
+ports an undo and redo mechanism for creating entities, re-
+arranging and linking with a visualization state. The linking 
+is synchronized with the history tracking mechanism (de-
+scribed in the previous section).
+PROTOTYPE
+For understanding the support offered by the information 
+visualization framework for analytic reasoning process, we 
+implemented a prototype of the framework - Aruvi. We de-
+veloped a scatterplot visualization with a dynamic query in-
+terface as a part of the data view. Scatterplots are extensively 
+used in multivariate data analysis to identify correlation be-
+tween two attributes. A classic example of a scatterplot com-
+bined with a dynamic query interface is the dynamic home 
+finder application[36]. This approach is also found modern 
+tools such as SpotfireTMand GapMinderTM, to name a few.
+The scatterplot in the data view can plot ordinal and nom-
+inal attributes on the x- and y- axes. In case of nominal 
+attributes, the unique values of the attribute are sorted al-
+phabetically and mapped onto an axis. When the attribute
+Figure 5. Knowledge view
+mapping of an axis of the scatterplot is changed via a drop- 
+down menu (see figure 6(k)), the transition to a new mapping 
+is animated. When one of the axes is kept constant and other 
+axis is changed continuously, it aids to recognize the change 
+in the correlation between the new attribute and the previous 
+attribute.
+Three different mappings of the data are available in the scat-
+terplot based on size encoding. First, the objects are plotted 
+on the scatterplot without size encoding. This view helps to 
+understand the correlation between the two attributes. Sec-
+ond, the objects can be grouped according to the x- and y- 
+axes values and the density of the objects at each data point 
+on the scatterplot is plotted using size. Third, the object size 
+can be set based on an attribute value. This mapping en-
+ables comparison of three attributes at the same time. These 
+different mappings can be chosen via the size interface (see 
+figure 6(d)). The scatterplot is attached to a dynamic query 
+interface. The dynamic query interface automatically gen-
+erates query widgets for the data attributes according to the 
+data type. For text and boolean data types, a check box list 
+with unique values is created (see figure 6(n)). For numeric 
+data types, a slider is created to specify range selection (see 
+figure 6(g)). Any change in the attribute filters is reflected on 
+the scatterplot dynamically. An attribute filter is reset using 
+the reset button (see figure 6(h)).
+The scatterplot implements a Degree of Interest (DOI) model 
+based on attribute filtering through a dynamic query inter-
+face, and selection through a direct manipulation technique. 
+The objects on the scatterplot are selected or unselected by 
+picking, and rectangles drawn on top of the scatterplot. There 
+are three levels of DOI: low (objects that do not satisfy the 
+attribute filters), medium (objects that satisfy the attribute fil-
+ters), and high (objects that satisfy the attributes filters and 
+are selected through direct manipulation). The color encod-
+ings for the three levels of DOI are gray, green and orange 
+respectively (see figure 6(m)). Only the objects with medium 
+DOI can be selected through direct manipulation. The DOI
+1241

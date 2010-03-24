@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<file>
-  <entry no="0">
-    <variant no="0" confidence="1.0"><title>Implementation of Text Recognition Tools for VLC +L+ John Rausch +L+ Senior S~fr Consultant +L+ Lexis-Nexis +L+ </title><email>john.musch@,lexis-nexis.com +L+ Researchers typically use </email><abstract>traditional lexical scanner and parser tools for projects requiring +L+ the recognition of complex text elements. The role relegated to the lexical scanner is +L+ usually the simple tokenization while the relationships of the tokens to one another is +L+ done by the parser. Implementation of products or features using these tools for VLC can +L+ require months of processing or even years. +L+ In this talk, I will describe how extending the capabilities of the lexical scanner while +L+ optlmi~ng its performance can allow it to complete the recognition work traditionally +L+ done by parsers. This technique allows for flexible reprocessing of VLC that might +L+ otherwise not be done when improvements to algorithms are made. I will illustrate this +L+ with a case study of the recognition of embedded case law citations, including anaphoric +L+ references, and case names. +L+ 2 +L+ ! +L+ ! +L+ </abstract><email>i +L+ I +L+ ! +L+ i ! +L+ i, +L+ i | </email><note>+L+ I +L+ ! +L+ ! +L+ ! +L+ i +L+ J/ +L+ I +L+ </note></variant>
-  </entry>
-  <entry no="1">
-  </entry>
-</file>

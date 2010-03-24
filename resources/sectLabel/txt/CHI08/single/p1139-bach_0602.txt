@@ -1,0 +1,108 @@
+CHI 2008 Proceedings · Tangibles: Input &amp; Output	April 5-10, 2008 · Florence, Italy
+We used a similar approach in simulated driving where the 
+subjects were given time to adjust to the steering sensitivity 
+and the simulator driving sensation. For the evaluation, the 
+subjects were told to drive between 50 and 70 km/h and to 
+stay in the middle of the road. The driving simulator used 
+four cameras to capture eye movements and interaction of 
+the subjects.
+Data Analysis
+We chose to integrate several parameters for the assessment 
+of the interaction techniques. From a literature review on 
+in-vehicle systems research, we identified and illustrated a 
+number of relevant dependent measures for assessing the 
+quality of the three interaction techniques and their effects 
+on the driver and the driving [2]. The included measures in 
+the experiment were:
+1. Primary driving task performance
+2. Secondary driving task performance 
+3. Eye glance behaviour
+Further, we measured subjective attitudes of the subjects 
+towards the interaction techniques.
+1) We measured primary driving task performance through 
+lateral and longitudinal control errors (inspired by i.e. [1, 
+16, 25]). Lateral control incidents were defined as attention 
+related loss of vehicle lateral control (lane excursions, 
+steering wheel input, etc.) while longitudinal control errors 
+denote incidents where subjects had problems controlling 
+vehicle velocity (speed maintenance, acceleration, etc.).
+Lateral and longitudinal control errors were identified by 
+reviewing video recordings and logs. Two authors of this 
+paper both reviewed all 48 video recordings separately by 
+identifying, classifying, and reporting incidents. Their lists 
+of incidents were then compared and merged into one final 
+incidents list. An inter-rate reliability test of this analysis 
+(weighted Cohen’s Kappa) gave a=0.92. This corresponds 
+to an excellent agreement according to Fleiss [7].
+2) We integrated secondary driving task performances to 
+include task effectiveness (task completion and interaction 
+errors) and task efficiency (total task completion time). 
+Task effectiveness is a common measure when conducting 
+in-vehicle research (i.e. [1, 15, 16, 27]) as well as efficiency 
+(i.e. [5, 24]).
+Interaction errors were identified from the video recordings 
+based on different criteria due to the nature of the systems 
+representing each interaction technique. For the tactile 
+interaction technique, interaction errors were defined as 
+unsuccessful attempts to press a specific button or selecting 
+a wrong control for the assignment (e.g. using the volume 
+control when asked to skip one track forward). For the 
+touch and gesture interaction techniques, interaction errors 
+were automatically logged when touching any non-button 
+part of the surface (touch) or producing a non-recognized 
+gesture (gesture).
+The task completion times for touch and gesture interaction 
+were measured through the data log entries of the sessions 
+as the laptop running the two players also logged task data. 
+As tactile interaction offered no such data, it was necessary 
+to manually measure task completion times through video 
+analysis. Two authors reviewed all 48 video recordings 
+independently by measuring the task completion times for 
+all 1440 assignments. Due to the nature of this data, no 
+inter-rate reliability tests were conducted, but an average 
+was calculated from the list of the two authors. To get the 
+total task completion times (including the time it took for 
+participants to move their hand to and from the system), a 
+constant was added to the values from the interaction log. 
+The constant was calculated using a stopwatch on a sample 
+of 20 assignments for both systems and was set to 660 
+milliseconds.
+3) Eye glance is probably the most common predicator of 
+driver attention and is an accepted measure for in-vehicle 
+system evaluations as the link between visual attention and 
+driving performance (i.e. [8, 21, 26]. We divided eye 
+glances into three categories according to their duration 
+(less than 0.5 seconds, 0.5-2.0 seconds and above 2.0 
+seconds). These categories are motivated in the following.
+Eye fixations (when the eyes dwell on something) are 
+typically glances over 0.5 seconds and can be used as an 
+indication of what a driver is attentive towards [26]. This 
+defines the boundary between two categories; below and 
+above the eye fixation time of 0.5 seconds. Also, research 
+suggests that drivers are very reluctant to continue without 
+roadway information for more than 2 seconds also known 
+as the “2-second rule” [21, 27]. This defines the boundary 
+between two others of our categories; eye glances of more 
+than 2 seconds.
+We classified eye glances according to whether they were 
+below 0.5 seconds, between 0.5-2.0 seconds, or above 2.0 
+seconds using video analysis. Two authors independently of 
+each other classified eye glances in the 48 video recordings. 
+Their classification were then compared and an inter-rate 
+reliability test (weighted Cohen’s Kappa) showed a=0.71 
+suggesting substantial agreement according to Fleiss [7]. 
+Due to the number of disagreements, a third author would 
+review all incidents (where the two authors disagreed) and 
+classify them according to the categories.
+The questionnaire included questions on the subjective 
+preferences towards the interaction techniques. We used a 
+5-point scale on perceived workload, concurrent driving 
+performance, and ease of use. Their answers served as input 
+for the subsequent interview sessions.
+RESULTS
+This section presents the results from the data analysis for 
+each measure. We present results in the following order: 
+primary driving task performance, secondary driving task 
+performance, eye glance behaviour, driving settings impact, 
+and satisfaction. All results were subjected to one-way
+1143

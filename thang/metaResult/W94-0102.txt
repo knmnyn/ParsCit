@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="ParsHed" version="090625">
+<header>
+<variant no="0" confidence="0.172631">
+<title confidence="0.996369333333333">AMALGAM: : Automatic Mapping Among Lexico-Grammatical Annotation Models</title>
+<author confidence="0.999846">Eric Atwell</author>
+<author confidence="0.999846">John Hughes</author>
+<author confidence="0.999846">Clive Souter</author>
+<affiliation confidence="0.8194935">Centre for Computer Analysis of Language And Speech School of Computer Studies, Leeds University, Leeds LS2 9JT, UK</affiliation>
+<email confidence="0.791207">eric@scs,leeds,ac.ukjohn@scs,leeds,ac.ukcs@scs,leeds,ac.uk</email>
+<abstract confidence="0.977641024390244">Several Corpus Linguistics research groups have gone beyond collation of &apos;raw&apos; text, to syntactic annotation of the text. However, linguists developing these linguistic resources have used quite different wordtagging and parse-tree labelling schemes in each of these annotated corpora. This restricts the accessibility of each corpus, making it impossible for speech and handwriting researchers to collate them into a single very large training set. This is particularly problematic as there is evidence that one of these parsed corpora on its own is too small for a general statistical model of grammatical structure, but the combined size of all the above annotated corpora should deliver a much more reliable model. We are developing a set of mapping algorithms to map between the main tagsets and phrase structure grammar schemes used in the above corpora. We plan to develop a Multi-tagged Corpus and a MultiTreebank, a single text-set annotated with all the above tagging and parsing schemes. The text-set is the Spoken English Corpus: this is a half-way house between formal written text and colloquial conversational speech. However, the main deliverable to the computational linguistics research community is not the SEC-based Multi- Treebank, but the mapping suite used to produce it this can be used to combine currently-incompatible syntactic training sets into a large unified multicorpus. Our architecture combines standard statistical language modelling and a rule-base derived from linguists&apos; analyses of tagset-mappings, in a novel yet intuitive way. Our development of the mapping algorithms aims to distinguish notational from substantive differences in the annotation schemes, and we will be able to evaluate tagging schemes in terms of how well they fit standard statistical language models such as n-pos (Markov) models. 1 1This research began with grants from the UK Science and Engineering Research Council (SERC) and the Universities Funding Council&apos;s Knowledge Based Systems Initiative (UFC KBSI), and is now funded by the UK Engineer</abstract>
+<intro confidence="0.522696">ing and Physical Sciences Research Council (EPSRC) and</intro>
+</variant>
+</header>
+<citationList>
+</citationList>
+</algorithm>

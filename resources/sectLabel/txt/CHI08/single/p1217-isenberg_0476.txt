@@ -1,0 +1,127 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+Participants also seemed to frequently impose categorizations 
+on data items by organizing them spatially in the workspace. 
+During browsing, overview layouts were often created in 
+which the cards were spread across the whole workspace. 
+Mainly during selection and at the end of an operation pro-
+cess, information artefacts were organized in piles in the 
+workspace. These piles seemed to have inherent categories 
+and varied greatly in size, lifespan, and semantic. Allow-
+ing users to impose a spatial organization of the informa-
+tion artefacts in the workspace should be considered in the 
+design of information visualization systems. These spatial 
+organizations can help users support their mental model of 
+the available information. Systems like CoMotion [11] are 
+already taking a step in this direction but the typical informa-
+tion visualization system still relies on a fixed set of windows 
+and controls that can rarely be changed, piled, or relocated.
+CONCLUSION
+Several researchers have contributed to creating a theoretical 
+understanding of how individuals make use of information 
+visualizations to gain insight into data and solve problems. 
+In this paper, we have continued our evolving theoretical un-
+derstanding of this process by presenting a framework for 
+visual information analysis. Our framework is based on find-
+ings from an observational study that was designed to un-
+cover the processes involved in collaborative and individual 
+activities around information visualizations in a non-digital 
+setting. We identified eight processes as part of this frame-
+work: Browse, Parse, Discuss Collaboration Style, Establish 
+Task-Specific Strategy, Clarify, Select, Operate, and Validate 
+and described differences in team and individual work dur-
+ing these processes. We have shown how these eight pro-
+cesses relate to other models of information analysis, and 
+provided insights on differences and commonalities between 
+them. Yet, while others have posited a general temporal flow 
+of information analysis, our results suggest this temporal 
+flow may simply reflect an assumption in the design of ex-
+isting information visualization tools. Thus, we argue that 
+designers should allow for individuals’ unique approaches 
+toward analysis, and support a more flexible temporal flow 
+of activity. These eight processes can, therefore, be seen as 
+an analytic framework that has implications for the design, 
+heuristic evaluation, and analysis of individual and collabo-
+rative information visualization systems. We have also given 
+concrete design implications for digital information visual-
+ization systems derived from our findings.
+ACKNOWLEDGEMENTS
+This work was supported in part by Alberta Ingenuity, iCORE, 
+NSERC, NECTAR, and Smart Technologies. We would also 
+like to thank Stacey Scott and our co-workers in the ilab for 
+important feedback on this work and Bob Spence for discus-
+sions about navigation in information spaces.
+REFERENCES
+1. R. A. Amar and J. T. Stasko. Knowledge Precepts for Design 
+and Evaluation of Information Visualizations. IEEE 
+Transactions on Visualization and Computer Graphics, 
+11(4):432–442, July/August 2005.
+2. J. Bertin. Semiology of Graphics: Diagrams Networks Maps. 
+The University of Wisconsin Press, Madison, WI, USA, 1983.
+3. S. Card, J. D. Mackinlay, and B. Shneiderman, editors. 
+Readings In Information Visualization: Using Vision To 
+Think. Morgan Kauffman Publishers, Inc., San Francisco, 
+USA, 1999.
+4. J. M. Carroll, M. B. Rosson, G. Convertino, and C. H. Ganoe. 
+Awareness and Teamwork in Computer-Supported 
+Collaborations. Interacting with Computers, 18(1):21–46, 
+2006.
+5. E. H.-H. Chi and J. T. Riedl. An Operator Interaction 
+Framework for Visualization Systems. In Proc. of the 
+Symposium on Information Visualization (InfoVis), pages 
+63–70, Los Alamitos, USA, 1998. IEEE Comp. Society.
+6. H. H. Clark. Using Language. Cambridge University Press, 
+Cambridge, UK, 1996.
+7. J. Heiser, B. Tversky, and M. Silverman. Sketches For and 
+From Collaboration. In Visual and spatial reasoning in design 
+III. Key Centre for Design Research, Sydney, 2004.
+8. P. Isenberg and S. Carpendale. Interactive Tree Comparison 
+for Co-located Collaborative Information Visualization. IEEE 
+Transactions on Visualization and Computer Graphics, 
+12(5):1232–1238, Nov./Dec. 2007.
+9. T. Jankun-Kelly, K.-L. Ma, and M. Gertz. A Model and 
+Framework for Visualization Exploration. IEEE Transactions 
+on Visualization and Computer Graphics, 13(2):357–369, 
+March/April 2007.
+10. G. Mark and A. Kobsa. The Effects of Collaboration and 
+System Transparency on CIVE Usage: An Empirical Study 
+and Model. Presence, 14(1):60–80, February 2005.
+11. MayaViz. CoMotion®. Website, 2007. 
+http://www.mayaviz.com/ (accessed March 2007).
+12. K. S. Park, A. Kapoor, and J. Leigh. Lessons Learned from 
+Employing Multiple Perspectives In a Collaborative Virtual 
+Environment for Visualizing Scientific Data. In Proc. of the 
+Conference on Collaborative Virtual Environments (CVE), 
+pages 73–82, New York, USA, 2000. ACM Press.
+13. D. M. Russell, M. J. Stefik, P. Pirolli, and S. K. Card. The 
+Cost Structure of Sensemaking. In Proc. of the Conference on 
+Human Factors in Computing Systems (CHI), pages 269–276, 
+New York, NY, USA, 1993. ACM Press.
+14. S. D. Scott, M. S. T. Carpendale, and K. M. Inkpen. 
+Territoriality in Collaborative Tabletop Workspaces. In Proc. 
+of the Conference on Computer-Supported Cooperative Work 
+(CSCW), pages 294–303, New York, USA, 2004. ACM Press.
+15. B. Shneiderman. The Eyes Have It: A Task by Data Type 
+Taxonomy for Information Visualizations. In Proc. of the 
+Symp. on Visual Languages, pages 336–343, Los Alamitos, 
+USA, 1996. IEEE Computer Society.
+16. R. Spence. A Framework for Navigation. International 
+Journal of Human-Computer Studies, 51(5):919–945, 
+November 1999.
+17. R. Spence. Information Visualization. Pearson Education 
+Limited, Harlow, England, 2nd edition, 2007.
+18. A. Tang, M. Tory, B. Po, P. Neumann, and S. Carpendale. 
+Collaborative Coupling over Tabletop Displays. In Proc. of 
+the Conference on Human Factors in Computing Systems 
+(CHI), pages 1181–1290, New York, USA, 2006. ACM Press.
+19. J. C. Tang. Findings from Observational Studies of 
+Collaborative Work. International Journal of Man-Machine 
+Studies, 34(2):143–160, February 1991.
+20. J. J. Thomas and K. A. Cook, editors. Illuminating the Path: 
+The Research and Development Agenda for Visual Analytics. 
+National Visualization and Analytics Center, August 2005.
+21. F. B. Vi´egas, M. Wattenberg, F. van Ham, J. Kriss, and
+M. McKeon. Many Eyes: A Site for Visualization at Internet 
+Scale. IEEE Transactions on Visualization and Computer 
+Graphics (Proceedings Visualization /Information 
+Visualization 2007), 12(5):1121–1128, Nov./Dec. 2007.
+1226

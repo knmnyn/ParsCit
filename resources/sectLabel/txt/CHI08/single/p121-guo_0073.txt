@@ -1,0 +1,107 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+of physical robotic interfaces directly mapped to the 
+physical aspects and the potential functionalities of robotic 
+platforms. Furthermore, the spatial orientation and the 
+position of a physical object in relation to its surroundings 
+can reveal additional information and provide interaction 
+insight and task awareness to the manipulator. When 
+controlling a robot, maintaining good situational awareness 
+[7] is crucial to the operator. If a physical object can be 
+transformed into a tool for controlling a robot, then the 
+orientation and position of the object in the physical space 
+can be utilized to provide additional information about the 
+status of a robot. We see great potential in using TUI-based 
+mediators for supporting more natural human-robot 
+interfaces.
+To explore the possibilities of applying TUIs to HRI, we 
+utilized the Nintendo WiiTM controllers, the Wiimote and 
+Nunchuk, as generic TUI for capturing human postures. 
+The Wiimote can be viewed as a generic 3D TUI, similarly 
+to the view of the mouse as a generic and very successful 
+2D TUI [23]. The Wiimote can also be seen as a gestural 
+interface [3], arguably representing a gestural/TUI duality 
+which is a key to its commercial success. We believe that 
+the Wiimote supports simple tangible interaction metaphors 
+and techniques that could not have been as successful with 
+pure gestural interaction (that is, with no physical 
+embodiment, and with no physical interface to hold and 
+manipulate).
+To utilize the power of the Wiimote, we used it as a robotic 
+interface for fusing dynamic human postures and gestures 
+with robotic actions. (Figure 1) In order to assess the 
+quality and effectiveness of the Wiimote and Nunchuk as 
+robotic interface, we designed an experimental test bed that 
+allowed us to test them against a generic input device – a 
+keypad, with a robot that has 0% autonomy and 100% 
+intervention ratio [29]. Our experimental test bed was based 
+on a Sony AIBOTM robot dog which the user had to control 
+through a variety of tasks. We used the test bed to conduct a 
+user study investigating the advantages and drawbacks of 
+each interaction method in practical HRI tasks.
+In this paper we briefly present related TUIs efforts and 
+other instances of gesture input interfaces in the field of 
+HRI. We describe in detail our Wiimote and Nunchuk 
+interaction technique implementation, the baseline keypad 
+interface and the robotic test bed. We present our 
+experimental design, the comparative user study and its 
+results. We discuss the findings and their implications on
+Figure 1. Wiimote, Nunchuk and AIBO 
+using gestures in Human-Robot Interaction tasks vis-à-vis a 
+more orthodox keyboard-based approach.
+RELATED WORK
+HRI is a relatively new sub area of study in HCI. A large 
+amount of effort in the field of robotics has been spent on 
+the development of hardware and software to extend the 
+functionality and intelligence of robotic platforms. 
+Compared to the substantial increase in the variety of robots 
+and their capabilities, the techniques people use to 
+command and control them remain relatively unchanged. 
+As robots are being deployed in more demanding situations, 
+the need for meaningful and intuitive interaction techniques 
+for controlling them has raised a considerable amount of 
+attention among HRI researchers. In terms of interface 
+design, Goodrich and Olsen’s [11] work provided a general 
+guide to HRI researchers on how to design an effective user 
+interface. Drury, Yanco and Scholtz had defined a set of 
+HRI taxonomies [29] and conducted a thorough study [28] 
+on how to improve human operators’ awareness of rescue 
+robots and their surroundings. To broaden the view of HRI 
+researchers in interface design, Richer and Drury [22] had 
+summarized and formed a video game-based framework 
+that can be used to characterize and analyze robotic 
+interfaces.
+Yanco and Drury defined and detailed sets of robotic 
+interfaces terminologies and definitions in an effort to 
+classify the different HRI approaches explored in the 
+domain [29]. Specially, they defined that a robot’s 
+autonomy level can be being measured as the percentage of 
+task time in which the robot is carrying out its task on its 
+own. In correspondence, the amount of intervention 
+required for a robot to function is measured as the 
+percentage of task time in which a human operator must be 
+controlling the robot. These two measures, autonomy and 
+intervention, sum up to 100% [29]. In this paper, we are 
+mainly focused on interactions with robot of low autonomy 
+level.
+The notion of tangible user interfaces [13] is based on 
+Fitzmaurice et al.’s earlier Graspable User Interfaces effort 
+[10]. Fitzmaurice and Buxton have conducted an 
+experiment which allowed users to use “Bricks” [9] as 
+physical handles to direct manipulate virtual objects. Their 
+study has shown that a space-multiplex input scheme with 
+specialized devices can outperform a time-multiplex (e.g., 
+mouse-based) input design for certain situations. [9] Later, 
+Ishii and Ullmer proposed the term Tangible User 
+Interfaces [13] and addressed the importance of both the 
+foreground interaction which consists of using physical 
+objects to manipulate virtual entities and the background 
+interaction which happens at the periphery to enhance 
+users’ awareness using ambient media in an augmented 
+space. In our research, we focus on the essence of TUIs 
+which is defined by Ishii as “seamless coupling everyday 
+graspable objects with the digital information that pertains 
+to them” [13]. Moreover, we want to select a TUI that has a 
+tight spatial mapping [23] with robotic actions. Spatial 
+mapping can be defined as “the relationship between the 
+object’s spatial characteristics and the way it is being
+122

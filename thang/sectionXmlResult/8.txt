@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="SectLabel" version="090625" confidence="0.000086">
+<title confidence="0.952226">
+A Flexible 3D Slicer for Voxelization Using Graphics Hardware
+</title>
+<author confidence="0.97647">
+Hsien-Hsi Hsieh, Yueh-Yi Lai, Wen-Kai Tai* and Sheng-Yi Chang
+</author>
+<affiliation confidence="0.871461">
+Department of Computer Science and Information Engineering
+National Dong Hwa University
+</affiliation>
+<sectionHeader confidence="0.996329">
+Abstract
+</sectionHeader>
+<bodyText confidence="0.983276928571429">
+In this paper we present a simple but general 3D slicer for voxeliz-
+ing polygonal model. Instead of voxelizing a model by projecting
+and rasterizing triangles with clipping planes, the distance field is
+used for more accurate and stable voxelization. Distance transform
+is used with triangles on voxels of each slice. A voxel is marked
+with opacity only when the shortest distance between it and trian-
+gles is judged as intersection. With advanced programmable graph-
+ics hardware assistance, surface and solid voxelization are feasible
+and more efficient than on a CPU.
+CR Categories: I.3.1 [Computer Graphics]: Hardware
+Architecture—Graphics processors; I.3.5 [Computer Graphics]:
+Computational Geometry and Object Modeling—Curve, surface,
+solid, and object representations;
+Keywords: voxelization, GPU, distance transform
+</bodyText>
+<sectionHeader confidence="0.998289">
+1 Introduction
+</sectionHeader>
+<bodyText confidence="0.995116289473684">
+Object representation is a broad topic in research. In computer
+graphics, polygons play a dominant role in 3D graphics because
+they approximate arbitrary surfaces by meshes. In games and ani-
+mations, surface representation is the main technique used in ren-
+dering and visualization. However, volumetric representation, an
+alternative method to traditional geometric representation, is well
+known since the 1980s. It provides a simple and uniform descrip-
+tion to measure and model a volumetric objects and establish the
+research field of volumetric graphics. Voxelization is a process of
+constructing a volumetric representation of an object. Voxelizing a
+polygonal object is not only a shift of the representation, it gives
+an opportunity to manipulate mesh object with volumetric opera-
+tions such as morphological operation and solid modeling. Many
+applications, for example, CSG modeling, virtual medicine, haptic
+rendering, visualization of geometric model, collision detection, 3D
+spatial analysis, and model fixing, work on volumetric representa-
+tion or use it as the inter-medium.
+In this paper, we calculate the accurate distance field on GPU to
+compute coverage of each voxel in voxelization for polygonal mod-
+els. Our method works for arbitrary triangulated models without
+any preprocessing for models, except organizing meshes slab by
+slab in order to prune the unnecessary computation while voxeliz-
+ing complex models. By using the power of GPU, Hausdorff dis-
+tance is guaranteed between each sampled voxel and the polygonal
+model. Surface voxelization with distance field on a GPU works
+well and runs faster than on a PC with a CPU. Our method is a re-
+liable and accurate solution for the polygonal model under a given
+distribution of sampling voxels and a specific opacity criterion. Be-
+sides, error tolerance in voxelization is easy to manipulate by ad-
+justing the threshold of opacity criterion for voxelization, which
+also dominates the smoothness of features and the thickness of sur-
+face voxelization.
+*e-mail:wktai@mail.ndhu.edu.tw
+The rest of paper is organized as follows. Some related works are
+surveyed in the section 2. In section 3, we present the computation
+of Hausdorff distance and our framework. The experimental results
+are illustrated in section 4. Finally, we conclude the proposed ap-
+proach and point out some future works
+</bodyText>
+<sectionHeader confidence="0.999582">
+2 Related Works
+</sectionHeader>
+<bodyText confidence="0.999597861111111">
+Volume construction approaches are often referred to as scan-
+conversion or voxelization methods. Researchers mainly focused
+on modeling aspects such as robustness and accuracy. Wang and
+Kaufman [Wang and Kaufman 1993] used a method that samples
+and filters the voxels in 3D space to produce alias-free 3D volume
+models. They used filters to produce final density from the sup-
+port of the region that polygons lie inside. Schroeder and Lorensen
+[Schroeder et al. 1994] created a volumetric model by finding clos-
+est polygon from distance map and classify the opacity of voxels.
+Huang et al. [Huang et al. 1998] described separability and min-
+imality as two desirable features of a discrete surface representa-
+tion and extended 2D scan line algorithm to perform voxelization.
+Dachille and Kaufman [Dachille IX and Kaufman 2000] presented
+an incremental method for voxelizing a triangle with pre-filtering
+to generate multivalued voxelization. Widjaya et al. [Widjaya et al.
+2003] presented the voxelization in common sampling lattices as
+general 2D lattices including hexagonal lattices and 3D body-center
+cubic lattices. Ju [Ju 2004] constructed an octree grid for record-
+ing intersected edges with the model and expanded nodes to scan-
+convert a polygon on an octree, and then generate signs from the
+boundary edges and faces of the octree.
+In recent years, attention on performance of voxelization raises.
+More and more studies try to explore the benefits of graphics hard-
+ware for more efficient rendering. Chen and Feng [Chen and Fang
+1999] presented a slicing-based voxelization algorithm to generate
+slices of the underlying model in the frame buffer by setting appro-
+priate clipping planes and extracting each slice of the model, which
+is extended and published in later [Chen and Fang 2000]. Karabassi
+and Theoharis [Karabassi and Theoharis 1999] projected an object
+to six faces of its bounding box through standard graphics system
+for the outermost parts and read back the information from depth
+buffer. However it works well only on convex objects. Dong et
+al. [Dong et al. 2004] proposed a real-time voxelization method us-
+ing GPU acceleration to rasterize and texelize an object into three
+directional textures and then synthesize textures back to the final
+volume
+</bodyText>
+<copyright confidence="0.7141705">
+2005 by the Association for Computing Machinery, Inc.
+Permission to make digital or hard copies of part or all of this work for personal or
+</copyright>
+<bodyText confidence="0.851100666666667">
+classroom use is granted without fee provided that copies are not made or distributed
+for commercial advantage and that copies bear this notice and the full citation on the
+first page. Copyrights for components of this work owned by others than ACM must be
+honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on
+servers, or to redistribute to lists, requires prior specific permission and/or a fee.
+Request permissions from Permissions Dept, ACM Inc., fax +1 (212) 869-0481 or e-mail
+</bodyText>
+<equation confidence="0.334078">
+permissions@acm.org.
+© 2005 ACM 1-59593-201-1/05/0010 $5.00
+</equation>
+<page confidence="0.997562">
+285
+</page>
+<sectionHeader confidence="0.899245">
+3 Hausdorff Distance Computation and
+</sectionHeader>
+<bodyText confidence="0.925399">
+Voxelization
+In this section, we first discuss the computation of Hausdorff dis-
+tance between a given triangle and a point. Then we explain how
+we use GPU to compute the distance field of triangles and modify
+the rendering pipeline
+</bodyText>
+<subsectionHeader confidence="0.998984">
+3.1 Distance Field Computation
+</subsectionHeader>
+<bodyText confidence="0.9467214">
+For a given 3D point P(x,y,z) and a triangle T(V0,V1,V2), Haus-
+dorff distance is the shortest distance between the point P and any
+point v on the triangle. A point on triangle T can be parametrically
+defined by two linearly independent vectors with two weights (s, t)
+by
+</bodyText>
+<equation confidence="0.968165428571429">
+T(s,t) = B + s�e0 + �te1, (1)
+where (s,t) ED= {(s,t) :s E [0,1],t E [0,1],s+t &amp;lt; 11, and B =
+V0,�e0 =V1 —V0 and�e1 =V2—V0.
+For any point on triangle T, the distance from T to P is
+I1T(s,t) —PI1 , (2)
+or we can use the squared-distance function instead
+Q(s,t) = I1T(s,t) —PI12, (3
+</equation>
+<bodyText confidence="0.936934">
+where a point p&amp;apos; = (¯s, ¯t) exists which makes Q(¯s, ¯t) minimum.
+Therefore, the computation of distance can be reduced into a min-
+imization problem. For an efficient computation, we can expand
+Q(s, t) as
+</bodyText>
+<equation confidence="0.9954184">
+Q(s,t)=as2+2bst+ct2+2ds+2et+f, (4)
+where
+a = �e0 • �e0 b = �e0 • e&amp;quot;1
+c = �e1•�e1 d = �e0•(B—P) (5)
+e = �e1 • (B — P) f = (B — P) • (B — P
+</equation>
+<bodyText confidence="0.991323">
+From analyzing the gradient of Q(s, t), the minimum s¯ and t¯ hap-
+pens only when VQ is zero, where
+</bodyText>
+<equation confidence="0.999485">
+bd — ae (6)
+ac — b2
+</equation>
+<bodyText confidence="0.954742769230769">
+If (¯s, ¯t) E D, the minimum distance is the distance between p&amp;apos; and
+P; otherwise, according to the sign of s¯ and ¯t, there are six possible
+regions that the shortest distance point p&amp;apos;&amp;apos; may lie on triangle T,
+as shown in Figure 1. Efficient solutions are well addressed on
+the book [Schneider and Eberly 2003] by CPU computation with
+simple calculation and logic classification.
+However, in GPU, there is no efficient dynamic flow control to de-
+termine the shortest point on a triangle. Therefore, instead of di-
+rectly computing the point of shortest distance on a triangle, we
+compute the distance from the 3D point to four possible points
+which may be inside the triangle or on the three boundaries and
+then the minimum scalar is the shortest distance. These four points
+are
+</bodyText>
+<equation confidence="0.99524">
+s0 , t0) = (be—cd bd—ae) (s1,t1) = (0,— e )
+ac—b2 , ac—b2 c
+(s3,t3) = (c+e—b—d a+d—b—e) (s2,t2) = (—d 0)
+a—2b+c , a—2b+c a,
+(7
+</equation>
+<figureCaption confidence="0.980021">
+Figure 1: Six regions in s, t coordinate. Space is partitioned by
+range of parameters s and t for efficient shortest position classifica-
+tion and calculation.
+Figure 2: Rendering pipeline for generating a distance field of a
+</figureCaption>
+<bodyText confidence="0.979323090909091">
+triangle. A quad is rendered instead of a triangle. Five channels of
+each vertex of a quad (position, normal, and 4 texture coordinates)
+is filled with position of quad, position of voxel, and information of
+a triangle: v0, �e0, �e1, and normal N� respectively.
+where position (s0, t0) assumes point p&amp;apos; is inside the triangle, posi-
+tions (s1,t1), (s2, t2)and (s3, t3) assume point p&amp;apos;&amp;apos; is on boundaries
+of s = 0, t = 0, and s + t = 1. All calculated points are truncated
+in the range of [0, 1] so that three end vertices of the triangle T are
+also in consideration and it guarantees these points are on the trian-
+gle for distance computation. Therefore, the minimum distance is
+the shortest distance from the point P to the triangle T
+</bodyText>
+<subsectionHeader confidence="0.997983">
+3.2 Geometry Rendering for Voxelization
+</subsectionHeader>
+<bodyText confidence="0.980618409090909">
+Voxelization by projection and rasterization faces the difficulty of
+non-uniform sampling of polygons because polygons with arbitrary
+orientations are not parallel to projection plane for maximum pro-
+jection area. Even classifying polygons and projecting them to in-
+dividual best-fit plane, there still have no guarantee on valid rasteri-
+zation. However, distance field is omni-directional, i.e., insensitive
+to the projection plane, and has no assumption on input geometry
+and therefore no extra preprocessing is required.
+Our approach is a slice-based approach for distance field gen-
+eration and voxelization. Figure 2 shows the rendering process
+for generating the distance field for a triangle. For each triangle
+Ti = {Ti (s, t) �v0 +se0 +te1, s &amp;gt; 0, t &amp;gt; 0, s+ t &amp;lt; 11, a full-filled quad
+Qi = {qi0 , qi1 , qi2, qi3 1 is rendered and rasterized to generate the dis-
+tance field from voxels on a slice to the triangle. Triangle data and
+voxel positions are associated with the rendering quads. Voxel po-
+sitions are stored in the channel of vertex normal, the triangle data
+(base vertex B, vectors �e0 and �te1, and the normal �N) are separately
+stored in channels of texture coordinates and transmitted to GPU.
+Voxel positions are linearly interpolated in rasterization of render-
+ing pipeline and pairs of triangle data and voxel positions are sent
+to pixel processors for Hausdorff distance computation. After dis-
+tance computation, the shortest distance between a triangle and a
+</bodyText>
+<equation confidence="0.983165">
+t¯=
+be — cd
+s¯=
+ac—b2
+</equation>
+<page confidence="0.996255">
+286
+</page>
+<bodyText confidence="0.991047823529411">
+voxel is stored in the pixel depth and the pixel color is assigned
+for identification depending on applications. For example, binary
+surface voxelization uses color information to identify whether a
+voxel intersects a geometry such as 0 for empty and 1 for opacity;
+distance visualization uses color information to display the distance
+from geometries, etc.
+The distance field of polygonal objects is constructed incrementally
+by rendering quads of triangles. Each pixel of depth buffer keeps
+the shortest distance from its voxel to triangles rendered. Depth
+buffer updates when a triangle is rendered. Unless distance is recal-
+culated on different slice or rendered objects deform, quads which
+have been rendered have no need to be re-rendered again even new
+geometry are added in the scene. Depth buffer of the viewport is
+initialized as infinitude.
+The rendering pseudo code is abstracted as follows:
+for each triangle t on slice i {
+Create a quad Q for the triangle t
+</bodyText>
+<equation confidence="0.782492">
+for k=0to 3{
+//assign a full-filled quad
+//q is end vertices of quad
+Q.q[k].position = ScreenBoundary.q[k];
+// assign voxel position, and triangle data
+Q.q[k].normal = Slice[i].q[k];
+Q.q[k].tex0 = t.B;
+Q.q[k].tex1 = t.e0;
+Q.q[k].tex2 = t.e1;
+}
+RenderQuad(Q
+</equation>
+<subsectionHeader confidence="0.959092">
+3.3 Surface Voxelization
+</subsectionHeader>
+<bodyText confidence="0.999892565217391">
+We use local distance field to reduce work load of GPU because
+the distance field far away from a triangle is meaningless for sur-
+face voxelization. For each triangle, we extend its parallel projected
+bounding rectangle by a small scalar for effective rasterization es-
+pecially for triangles perpendicular to the projection plane. Due to
+coherence and precision in interpolating voxel positions, triangles
+are rendered with extended bounding rectangles. While a pixel is
+rasterized by a quad, Hausdorff distance is calculated according to
+the interpolated voxels, i.e., centers of voxels, and the triangle data.
+Only if the distance is less than the given threshold, e.g., distance
+from a uniform voxel center to its corner, the pixel is marked as
+opacity. Using local distance field could guarantee a small region
+of Hausdorff distance but greatly improve the performance of sur-
+face voxelization.
+For more efficient voxelization process on GPU, triangles can be
+culled early by space partitioning. We construct an active triangle
+list for each slice. Currently we define slabs along Z-axis. Ac-
+cording to partitioning planes, triangles are filtered and rearranged
+slab by slab. Many triangles can be pruned while rendering a slice.
+It is significantly helpful while voxelizing very complex models.
+Because distance field is insensitive to projecting directions of tri-
+angles, selection of partitioning plane has no influence on effective-
+ness of voxelization
+</bodyText>
+<sectionHeader confidence="0.999086">
+4 Experimental Results
+</sectionHeader>
+<bodyText confidence="0.9913172">
+We implement our fragment program using HLSL on a Pentium 4
+3.0 MHz PC with 1G RAM and a nVidia Geforce FX5800 graphics
+card running on Windows XP with DirectX 9.0c. We use Vertex
+Shader 1.1 and Pixel Shader 2.0 to implement fragment program
+in scattering pairs of voxel positions and triangle data and in dis
+</bodyText>
+<figureCaption confidence="0.756854">
+tance calculation and visualization. Table 1 shows the performance
+Figure 4: Rendering from the results of voxelization (5123): dragon
+</figureCaption>
+<bodyText confidence="0.991448533333333">
+of 870K faces in 5123 voxels.
+of surface voxelization on different models and in different voxel
+resolutions. Figure 3 and Figure 4 demonstrate quality of voxeliza-
+tion results. In the experiment, opacity threshold is set to the dis-
+tance from voxel center to its corner. That means if the shortest
+distance between a voxel and a triangle is less than the threshold,
+the voxel will be marked as opacity. Note that voxels are normal-
+ized to cubes in rendering so the scale of output may differ from the
+original polygonal model.
+In Table 1, we list average time on surface voxelization per slice, per
+voxel, and per triangle. In the same resolution, voxelization time is
+proportional to the complexity of polygonal model. For each voxel,
+process time is always less than 0.1 ms. Even when voxel resolution
+increase, GPU still could handle voxelization for complex object in
+stable throughput which may be increased much more for CPU.
+Due to speed up by using local distance field and culling for unre-
+lated geometry, voxelization by distance field can be displayed slice
+by slice interactively under 1283 voxel resolution. When voxel res-
+olution is low, voxelization time highly depends on complexity of
+model. However, when the voxel resolution increases higher, even
+for a low complexity model, it still need more time to voxelize a
+model than in lower voxel resolution. On average, resolution of
+2563 could provide a benefit of reliable voxelization both in quality
+and time cost.
+Rendering cost is stable for a triangle even when resolution of vol-
+ume increases while it is linear on a CPU. Voxelization with pro-
+posed method is still slower than methods using traditional projec-
+tion and rasterization by graphic hardware. However, our method
+is stable, correct and flexible because the opacity of each voxel is
+determined by thresholding the distance field of objects
+</bodyText>
+<sectionHeader confidence="0.999686">
+5 Conclusion
+</sectionHeader>
+<bodyText confidence="0.9992331">
+In this paper, we propose a GPU-based 3D slicer approach for vox-
+elizing polygonal models. We calculate minimum distance between
+pairs of sampled voxels and triangles of arbitrary models with guar-
+antee of Hausdorff distance. With programmable hardware ver-
+tex/pixel processors, efficient surface voxelization, solid voxeliza-
+tion, and visualization of the distance field all are feasible on the
+proposed 3D slicer.
+However, in current implementation, performance of pixel shader
+is the bottleneck in overall processing speed. Area of rasteriza-
+tion also has a significant influence on the loading of pixel shader
+</bodyText>
+<page confidence="0.998341">
+287
+</page>
+<table confidence="0.999178363636364">
+Model Faces Res. Time(s) Time Slices Time Voxels Time Res. Tlme(s) Time Slices Time Voxels Time
+Tri. Tri.
+Beethoven 5027 128 13.94 0.11 6.65 2.77 256 85.86 0.34 5.12 17.08
+Teapot 6320 128 14.31 0.11 6.82 2.26 256 87.62 0.34 5.22 13.86
+Cup 7494 128 15.24 0.12 7.27 2.03 256 93.65 0.37 5.58 12.50
+Bunny 10000 128 16.24 0.13 7.75 1.62 256 93.98 0.37 5.60 9.40
+Bunny 69451 128 43.21 0.34 20.60 0.62 256 231.85 0.91 13.82 3.34
+Dragon 871414 128 84.21 0.66 40.15 0.10 256 325.87 1.27 19.42 0.37
+Buddha 1087716 128 170.44 1.33 81.27 0.16 256 347.65 1.36 20.72 0.32
+Dragon 871414 512 1748.11 3.41 13.02 2.01 * The time unit in Time/Voxels is us
+Buddha 1087716 512 1825.47 3.57 13.60 1.68 * The time unit in Time/Tri. is ms
+</table>
+<tableCaption confidence="0.995449">
+Table 1: Surface voxelization on different models and in different voxel resolutions
+</tableCaption>
+<equation confidence="0.402296">
+e) (f) (g) (h
+</equation>
+<figureCaption confidence="0.993245">
+Figure 3: Rendering from the results of voxelization (2563): (a) Beethoven in 2563 voxels, (b) Teapot in 2563 voxels, (c) Cup in 2563 voxels
+</figureCaption>
+<figure confidence="0.899992666666667">
+d) Bunny of 10000 faces in 2563 voxels, (e) dragon of 10000 faces in 2563 voxels, (f) Bunny of 69451 faces in 2563 voxels, (g) dragon of
+870K faces in 2563 voxels, and (h) Buddha of 1M faces in 2563 voxels.
+(a) (b) (c) (d
+</figure>
+<bodyText confidence="0.999424">
+Therefore, in the near feature, searching a better computational
+methodology for GPU is one direction to improve performance of
+distance field computation. In addition, a sophisticated culling for
+error-free distance computation will be a technique in demand. To
+improve the quality of voxelization, adaptive dense voxelization
+and a mechanism for quality measurement and guide on GPU is
+another interesting topic
+</bodyText>
+<sectionHeader confidence="0.990577">
+References
+</sectionHeader>
+<reference confidence="0.976935678571429">
+CHEN, H., AND FANG, S. 1999. Fast voxelization of 3D synthetic
+objects. ACM Journal of Graphics Tools 3, 4, 33–45.
+CHEN, H., AND FANG, S. 2000. Hardware accelerated voxeliza-
+tion. Computers and Graphics 24, 3, 433–442.
+DACHILLE IX, F., AND KAUFMAN, A. E. 2000. Incremental
+triangle voxelization. In Graphics Interface, 205–212.
+DONG, Z., CHEN, W., BAO, H., ZHANG, H., AND PENG, Q.
+2004. Real-time voxelization for complex polygonal models. In
+Proceedings of Pacific Graphics ’04, 43–50.
+HUANG, J., YAGEL, R., FILIPPOV, V., AND KURZION, Y. 1998.
+An accurate method for voxelizing polygon meshes. In Proceed-
+ings of IEEE symposium on Volume visualization, 119–126.
+JU, T. 2004. Robust repair of polygonal models. ACM Transactions
+on Graphics 23, 3, 888–895.
+KARABASSI, G. P. E.-A., AND THEOHARIS, T. 1999. A fast
+depth-buffer-based voxelization algorithm. ACM Journal of
+Graphics Tools 4, 4, 5–10.
+SCHNEIDER, P., AND EBERLY, D. H. 2003. Geometry Tools for
+Computer Graphics. Morgan Kaufmann.
+SCHROEDER, W. J., LORENSEN, W. E., AND LINTHICUM, S.
+1994. Implicit modeling of swept surfaces and volumes. In Pro-
+ceedings of IEEE Visualization, 40–45.
+WANG, S. W., AND KAUFMAN, A. E. 1993. Volume sampled
+voxelization of geometric primitives. In Proceedings of IEEE
+Visualization, 78–84.
+WIDJAYA, H., MUELLER, T., AND ENTEZARI., A. 2003. Vox-
+elization in common sampling lattices. In Proceedings of Pacific
+Graphics ’03, 497–501
+</reference>
+<page confidence="0.999155">
+288
+</page>
+</algorithm>

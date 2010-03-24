@@ -31,15 +31,12 @@ $modelFile = "$FindBin::Bin/../$modelFile";
 ### END user customizable section
 
 my %dict = ();
-readDict($dictFile);
-
 
 sub prepData {
     my ($rCiteText, $filename) = @_;
     my $tmpfile = buildTmpFile($filename);
-#    $tmpfile = "$tmpDir/$tmpfile";
 
-#    print $$rCiteText;
+    readDict($dictFile); # Thang Mar 10: move inside the method, only load when running
 
     unless (open(TMP, ">:utf8", $tmpfile)) {
 	fatal("Could not open tmp file $tmpDir/$tmpfile for writing.");
@@ -78,6 +75,22 @@ sub prepData {
 
 	    ## feature generation
 	    $feats[$j][0] = $word;			    # 0 = lexical word
+	    my @chars = split(//,$word);
+	    my $lastChar = $chars[-1];
+	    if ($lastChar =~ /[\p{IsLower}]/) { $lastChar = 'a'; }
+	    elsif ($lastChar =~ /[\p{IsUpper}]/) { $lastChar = 'A'; }
+	    elsif ($lastChar =~ /[0-9]/) { $lastChar = '0'; }
+	    push(@{$feats[$j]}, $lastChar);		       # 1 = last char
+
+	    push(@{$feats[$j]}, $chars[0]);		      # 2 = first char
+	    push(@{$feats[$j]}, join("",@chars[0..1]));  # 3 = first 2 chars
+	    push(@{$feats[$j]}, join("",@chars[0..2]));  # 4 = first 3 chars
+	    push(@{$feats[$j]}, join("",@chars[0..3]));  # 5 = first 4 chars
+
+	    push(@{$feats[$j]}, $chars[-1]);		       # 6 = last char
+	    push(@{$feats[$j]}, join("",@chars[-2..-1])); # 7 = last 2 chars
+	    push(@{$feats[$j]}, join("",@chars[-3..-1])); # 8 = last 3 chars
+	    push(@{$feats[$j]}, join("",@chars[-4..-1])); # 9 = last 4 chars
 
 	    push(@{$feats[$j]}, $wordLCNP);  # 10 = lowercased word, no punct
 

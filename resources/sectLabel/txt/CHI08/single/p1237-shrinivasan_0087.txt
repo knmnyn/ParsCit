@@ -1,0 +1,56 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+Figure 6. The Aruvi prototype. The alphabet labels describe the interaction interfaces of the prototype explained in the Prototype section. The 
+numeric labels are used to describe an analysis process presented in the Use Case section.
+of the objects does not change when the data mapping is 
+changed by changing the axes or size. Hence, it is possible 
+to track or emphasize the interesting objects during the en-
+tire exploration process. The three levels of DOI facilitate 
+convergent analysis. However, the analyst can revert back 
+to a previous DOI of the objects using the history tracking 
+mechanism and continue the analysis with different DOIs for 
+the objects. Hence, divergent analysis is also supported.
+The analyst can choose to show or hide the low DOI objects 
+via the show only filtered data interface (see figure 6(c)). The 
+current selection interface (see figure 6(q)) displays the list 
+of objects with high DOI. When there is no selection, it dis-
+plays the list of objects with medium DOI. The object list in 
+the current selection interface can be added as a note in the 
+knowledge view using the paste as new note interface (see 
+figure 6(r)). The scatterplot allows zoom-in to a particular 
+region of the scatterplot via the Zoom in interface (see fig-
+ure 6(e)). The settings interface (see figure 6(b)) toggles the 
+display of the size and show only filtered data interfaces. An 
+information bar interface (see figure 6(f)) is used to display 
+details about the selection and size encoding. Finally, the 
+analyst can save, reopen or recover the last analysis using a 
+file menu (see figure 6(a)).
+History Tracking
+The granularity of the history tracking can be chosen in vari-
+ous ways. For instance, all changes to the visualization spec-
+ification can be captured. However, some heuristics on spec-
+ification change detection can be applied to avoid too much 
+low level detail. For instance, when the user continuously 
+changes the filter in the dynamic query interface, the changes 
+are reflected in the visualization (scatterplot) but are not cap-
+tured by the history tracking module. We found it to be con-
+venient just to capture the visualization state when the mouse 
+pointer leaves the dynamic query interface and if atleast one 
+of the filters has been changed. Other heuristics, like detec-
+tion of (not necessarily continuous) change patterns could be 
+used and will be studied in the future. The base model itself 
+does allow for a variety of choices here.
+USE CASE
+We now present a simple use case where a user explores a 
+digital camera dataset (565 cameras with 15 attributes) us-
+ing the Aruvi prototype. There are a several tasks that the 
+user might perform with the data, such as detecting trends 
+and finding cameras that meet user requirements. To per-
+form trend analysis, the user compares the digital camera 
+attributes for different years. The user uses the scatterplot in 
+the data view for this comparison.
+The user records the findings in the knowledge view using 
+a mind map. The mind map is a diagram used to represent 
+ideas linked to and arranged radially around a central idea 
+[9]. The user records the central idea - trend analysis - in 
+note 1 (see figure 6(1)). Firstly, the user plots the number
+1242

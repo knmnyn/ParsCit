@@ -1,0 +1,100 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+Supporting the Analytical Reasoning Process in
+Information Visualization
+Yedendra B. Shrinivasan
+Dept. Mathematics and Computer Science
+Technische Universiteit Eindhoven
+y.b.shrinivasan@tue.nl
+ABSTRACT
+This paper presents a new information visualization frame-
+work that supports the analytical reasoning process. It con-
+sists of three views - a data view, a knowledge view and 
+a navigation view. The data view offers interactive informa-
+tion visualization tools. The knowledge view enables the an-
+alyst to record analysis artifacts such as findings, hypotheses 
+and so on. The navigation view provides an overview of the 
+exploration process by capturing the visualization states au-
+tomatically. An analysis artifact recorded in the knowledge 
+view can be linked to a visualization state in the navigation 
+view. The analyst can revisit a visualization state from both 
+the navigation and knowledge views to review the analysis 
+and reuse it to look for alternate views. The whole analysis 
+process can be saved along with the synthesized information. 
+We present a user study and discuss the perceived usefulness 
+of a prototype based on this framework that we have devel-
+oped.
+ACM Classification Keywords
+H.5.2 [Information Interfaces and Presentation]: User Inter-
+faces Graphical User Interfaces (GUI);
+Author Keywords
+Visual analytics, analytical reasoning process, information 
+visualization
+INTRODUCTION
+Information visualization helps to understand data using in-
+teractive abstract visual representations [10]. Interactive ex-
+ploration of the data can lead to many discoveries in terms 
+of relations, patterns, outliers and so on. It is difficult for 
+the human working memory to keep track of all findings. 
+Hence, synthesis of many different findings and relations 
+between those findings increase the cognitive overload [27] 
+and thereby hinders the reasoning process.
+Visual analytics is the science of analytical reasoning facili-
+tated by interactive visual interfaces [32]. It combines tech-
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, or 
+republish, to post on servers or to redistribute to lists, requires prior specific 
+permission and/or a fee.
+CHI 2008, April 5 - 10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00
+Jarke J. van Wijk
+Dept. Mathematics and Computer Science
+Technische Universiteit Eindhoven
+vanwijk@win.tue.nl
+niques from information visualization and computational data 
+analysis to support the analytical reasoning process. The 
+grand challenge in the visual analytics research agenda [32] 
+calls for developing information visualization to perform data 
+analysis as well as structured reasoning. This includes the 
+construction of arguments, convergent-divergent investiga-
+tion and evaluation of alternative hypotheses. In this way, 
+sensemaking is facilitated.
+Sensemaking involves seeking information, organizing and 
+analyzing it, and possibly forming new knowledge and in-
+forming further action [10]. Pirolli and Card [27] organize 
+the sensemaking process of an analyst into two major loops: 
+the information foraging loop and the sensemaking loop. 
+The information foraging loop involves organizing informa-
+tion into some schema [26]. The sensemaking loop involves 
+development of a mental model from the schema to support 
+or contradict the claims [29]. They found that for effective 
+analytical reasoning, analysts opportunistically mix the two 
+loop. In practice, the support of information visualization 
+tools for the sensemaking process is limited to the informa-
+tion foraging loop, and the sensemaking loop has to be done 
+in the analyst’s mind.
+In this paper, we present a new information visualization 
+framework that supports the analytical reasoning process. 
+We first consider analytical reasoning in general and in com-
+bination with visualization, and derive requirements from 
+this. Next, we present our solution, which consists of a com-
+bination of three views - a data view, a knowledge view and 
+a navigation view. The data view offers interactive infor-
+mation visualization tools. The knowledge view enables an 
+analyst to record the analysis artifacts. The navigation view 
+provides an overview of the exploration process by capturing 
+visualization states automatically and presenting them to the 
+user. We argue that by using this information visualization 
+framework the analyst can review the analysis, validate the 
+findings and revise them. The analyst can also organize the 
+findings in the knowledge view to build a case. The whole 
+analysis process can be saved and presented to others along 
+with the findings. To support this argument, we present a 
+user study and discuss the perceived usefulness of a proto-
+type based on this framework that we have developed.
+ANALYTICAL REASONING IN INFOVIS
+The analytical reasoning process is often not a systematic 
+process. Information foraging in information visualization 
+can be described as navigation through an information space
+1237

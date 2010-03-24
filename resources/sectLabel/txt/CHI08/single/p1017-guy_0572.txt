@@ -1,0 +1,110 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+willing to share their lists with anyone. Seven stated that 
+they would want to edit first. “I am worried that SONAR 
+results are not accurate enough and would like to [ ...] 
+make sure the people who see the lists get good lists”, said 
+one user. Another user said, at first, “[I am] worried about 
+what my buddies would say about me sharing their names”, 
+but, after thinking about it he decided that it was harmless 
+enough and said he would share his lists. Four users showed 
+great openness by declaring that they would share their list 
+automatically, without any editing, with anyone. Only one 
+user said that he will not share his lists with anyone. One of 
+the users summarized these results nicely: “... I think it 
+should always be left up to the individual as there are 
+dangerous things about SN. [but]... within a company, you 
+have to realize you are probably not going to be that 
+private”. All in all, hypothesis (6) is supported to a high 
+extent. Our results suggest that there is a good chance 
+people will be willing to share their private-based 
+buddylists after applying some editing to it.
+Discussion
+Our experiments show that information from public sources 
+is very diverse and no single source may provide all SN 
+information. While some sources provide communication 
+data, others provide similarity data. While reacting to lists 
+generated from Dogear, users said: “Far from ideal list”, 
+“Over 50% are strangers”. But another user, while 
+discussing her usage of SNs described: “if my goal was to 
+search for expertise, then I would lean it heavily towards 
+social bookmarking and blogs”. It suggests that diverse 
+sources can become valuable for diverse tasks. It also 
+explains why our hope to locate an optimal default 
+combination of weights for aggregation was not fulfilled - 
+different users with different views and different needs may 
+require different combinations of the sources.
+The information extracted from public sources is shown to 
+be of value, and while private sources provide better 
+information, public sources do contribute additional 
+information and create a more complete picture of SNs. The 
+value of aggregation is proven both by the diversity of 
+public sources and by user votes for aggregated lists.
+We saw in our interviews that aggregation and collection of 
+SN information becomes crucial in global organizations. 
+While analyzing the organizational chart data source one of 
+the users noted: “It just looks at people within my world, 
+and I deal with a lot of people outside of my function, if you 
+will”. Another user commented: “Names that were missing 
+on email appear now. Top person on ideal list does not 
+appear here”. It shows that no single data source is 
+sufficient for creating one’s ideal buddylist and thus 
+demonstrates the value of aggregation.
+CONCLUSIONS AND FUTURE WORK
+In this paper, we present the motivation and challenge for 
+aggregating SN information from multiple data sources. We 
+describe SONAR, an API for exposing relations embedded
+in numerous applications or services. SONAR allows 
+building weighted networks with evidence for each 
+connection, showing how strongly people are connected. 
+SONAR was implemented for various sources, public and 
+personal, within IBM, and demonstrated through a plugin 
+for Lotus Sametime: SONARBuddies.
+Our experiments indicate that aggregation produces a more 
+comprehensive SN. Information coming from public data 
+sources is shown to be relevant and diverse. Public sources 
+mainly represent new emerging social technologies on the 
+Web. We believe that people’s involvement in these 
+technologies will continue to grow, while new technologies 
+appear. Hence, more quality social information will be 
+available for frameworks like SONAR. For some users, 
+public sources make a significant contribution over private 
+ones, which may have been considered the predominant 
+sources. It is extremely interesting to continue examining 
+the potential of public sources to actually replace SN 
+information currently extracted from private sources, and 
+thus relieving privacy issues.
+This paper focuses on general SNs. In practice, there are 
+different types of SNs, which reflect different semantics of 
+connections, like friendship, interpersonal communication, 
+or similarity. Such networks tend to be semantically 
+different even for the same user. Shared bookmarks, for 
+instance, reflect similarity between users rather than a direct 
+connection. The scenario used in our experiments asked the 
+users to rank buddylists, typically used for communication. 
+It was natural that Dogear, which exposes similarity, 
+received low scores by our users. One could think of 
+different scenarios, such as finding potential people for a 
+community on a specific topic, where this similarity 
+network would be a perfect networking tool. It would be 
+interesting to identify different scenarios and examine the 
+contribution of different sources to them.
+Another interesting direction is deriving contextual 
+networks – networks that are related to a specific context or 
+term. For example, the list of people with whom one 
+communicates most frequently about Java, is likely to be 
+different from the list of people with whom one 
+communicates mostly about SN analysis.
+Our plans for future work on the SONAR API include 
+extending it to support different types of relations (e.g., 
+familiarity vs. similarity). We also plan to allow a 
+specification of a search term to support contextual queries 
+such as: “who is most related to &lt;person&gt; w.r.t. &lt;topic&gt;?” 
+These extensions would allow us to further explore the 
+variety of SNs, the differences and relations among them, 
+the value they bring to users, and the patterns of their usage.
+ACKNOWLEDGEMENTS
+We would like to acknowledge all those who installed 
+SONARBuddies and provided us with feedback about its 
+usage. We are especially grateful to those who participated 
+in our experiments and interviews. We thank James Snell
+1025

@@ -1,0 +1,57 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+a)	b)
+c)
+d)
+Figure 1a. A (log-scaled) scatter plot of pages (each point represents a single page) along the three 
+dimensions of interest. 1b-d are the histograms for per-user visit, unique visitors, and inter-arrival time 
+respectively (each point is a set of pages). The 55k pages were sampled from these distributions.
+most pages were visited by very few people overall (the top 
+leftmost point indicating that over one million pages only 
+had one unique visitor), with a small number of revisits per 
+person (Figure 1b), and at low (fast) inter-arrival times 
+(Figure 1d). To sample broadly from this space without 
+over-selecting from this “long-tail” we applied a pseudo- 
+exponential binning to find thresholds for the unique-visitor 
+(with a minimum of two) and per-user revisit criteria. The 
+specific thresholds are noted as vertical lines in Figure 1(b- 
+d). For the inter-arrival time criteria we opted to use 
+thresholds that correspond to well understood time periods 
+(e.g. 10 seconds, 1 minute, 1 hour, 1 day, 1 week).
+As illustrated in Figure 1a, we defined four bins for the 
+unique-visitor criteria, five for the per-user revisit criteria, 
+and six for the inter-arrival time criteria (for a combination 
+of 4 x 5 x 6 = 120 possible bins). Each URL was annotated 
+with these three bin numbers, and we sampled from this 
+space. Some oversampling of popular pages was added by 
+explicitly including the top 5000 most visited pages. We 
+crawled the pages to ensure that they were still publicly 
+available (in conformance with the robots.txt protocol), and 
+removed from further analysis those that were not. The 
+final sample included 54,788 URLs with an average of 
+468.3 (median 650) URLs in each of the 120 bins.
+Self-Reported Intent
+The interaction logs allow us to observe what people did, 
+and led us to categorize revisitation in a way that 
+emphasizes observable behaviors. However, the logs do 
+not tell us why people behaved the way we observed. For 
+this reason we conducted a complimentary user survey to 
+gather information about user intent. In addition to helping 
+us better understand revisitation patterns, the results of the 
+user study also serve to relate our behavioral observations 
+to previous taxonomies of revisitation that focus on intent 
+(e.g., monitoring or communication [14]).
+Twenty volunteers participated in the study (all daily 
+WWW users; 7 were in their 20s, 9 in their 30s, and four 
+were 40 or older; 19 were male). Participants were 
+employees of Microsoft in a range of roles (developers, 
+researchers, interns, program managers, etc.) Each 
+participant installed software to log Web page visits, which 
+they used for one to two months. We recorded visits only 
+for the 55,000 URLs in our log study as well as a random 
+subset from the user’s cache and Web history. At the end 
+of the logging period, participants were asked to complete a 
+survey to gather greater detail about ten of the Web pages 
+they had revisited during the observation period. Of the 
+survey responses, 49% (~80 URLs) overlapped with the 
+55,000 pages in the log study. The remaining URLs
+1199

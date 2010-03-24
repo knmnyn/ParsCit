@@ -1,0 +1,110 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+of background questions to assess their familiarity with 
+computers and security tools. Before any tasks were pre-
+sented to them, participants were instructed to think aloud 
+about what information they would be using in making their 
+decisions. All participants used the same Dell laptop with a 
+15” monitor running Windows XP Home edition. An exter-
+nal keyboard was used by the experimenters to bring up the 
+alerts for each security task. The participants were asked to 
+make security decisions as if the laptop being used was their 
+own.
+As discussed above, for the first security task participants 
+were asked to download a video from the Microsoft website 
+which caused an alert dialog box from the firewall to pop-up. 
+After completing the first task, participants were instructed to 
+browse to any website of their choosing. They were then 
+presented with the next three tasks while they browsed 
+online. Upon the completion of each task, the participant 
+continued browsing until the next one was presented to them. 
+We were careful during these tasks not to cause a popup to 
+appear immediately after the user took an action (e.g., 
+clicking a link) so that they would not erroneously think they 
+caused the popup in those cases where they did not. For the 
+final two tasks, none of the participants were familiar with 
+the term ‘phishing site’ so a brief explanation was given.
+Since we were assessing the intelligibility of the Sesame 
+visualization, we declined to answer participant questions 
+about the meanings of Sesame’s visual elements. We asked 
+them to infer as best they could with the information given.
+Participants were asked to think aloud during their decision 
+making process for the six tasks, in order to aid us in under-
+standing their reasoning processes. Upon completion of all 
+tasks participants were asked follow-up questions in a semi- 
+structured interview regarding the choices they made. We 
+asked about the clarity of the decisions they had to make, the 
+choices presented to them and the information provided by 
+the security tool they used (i.e., Sesame or ZoneAlarm). We 
+also asked for suggestions for improving the security tools. 
+Each subject participated in the study individually and was 
+voice recorded to capture responses to the interview ques-
+tions and the think aloud.
+RESULTS
+For each participant, we gathered the following data: 1) 
+background information, 2) the participant’s ‘miss-rate’ for 
+the six tasks, and 3) responses to follow-up questions regard-
+ing comprehension of the system information provided. We 
+define miss-rate to be the number of potential threats the 
+participant evaluated erroneously (i.e., judging a threatening 
+situation to be safe or vice versa).
+Participant security background: Based on the background 
+information gathered, both the control and experimental 
+groups were similar in terms of experience with computers 
+and security tools. Participants in the control group had an 
+average of 10.4 years of experience using the computer and 
+only 2 out of 10 participants did not use any security tool 
+(e.g. Norton Anti-virus, firewalls or anti-spyware). Similarly,
+participants in the experimental group had an average of 9.2 
+years of experience using the computer and 2 out of 10 did 
+not use any security tools. Subjects in both groups were 
+asked to briefly describe their security practices besides 
+using security software.
+Based on the responses in both groups, the majority of the 
+participants did not have or could not recall additional 
+security practices they performed besides making occasional 
+updates to their security software when alerted to do so by 
+their tools. Further, it seems that the amount of time spent 
+using a computer does not necessarily translate into familiar-
+ity with the system knowledge needed to make security 
+decisions. Although participants’ computer usage averaged 
+9-10 years, all were unfamiliar with basic system-level 
+concepts, e.g., processes, network connections.
+Security task miss-rate: Since our data were non-parametric, 
+discrete, and did not appear to fit a known distribution, we 
+used a two-tailed Mann-Whitney test to determine if the 
+difference in the miss-rate between the ZoneAlarm (control) 
+and Sesame (experimental) groups was statistically signifi-
+cant. In the table below, we summarize the miss rate for both 
+groups of participants:
+	ZoneAlarm group miss- rate (6 males, 4 females)	Sesame group miss-rate (5 males, 5 females)
+Females	45.8%	25% (with outlier* 30%)
+Males	36%	20%
+Miss-rate	40%	22.2% (with outlier* 26.6%)
+*Outlier miss-rate: 66.7%
+Table 1. Participant miss-rate for security tasks
+Of the 20 participants, we identified one outlier whose miss- 
+rate was 66.7%. During the study, this participant expressed 
+concern about completing the tasks because s/he was very 
+unfamiliar with the Windows environment given that the 
+participant’s primary computer was a Macintosh.
+Cumulatively over all of the tasks, the experimental group 
+performed significantly better than the control group. Includ-
+ing the outlier, the miss-rate for the group using Sesame is 
+26.6% while the miss-rate is 40% for the control group 
+(Z=1.97, P=0.05). (When the outlier is excluded, the Sesame 
+group miss-rate is reduced further to 22.2%, Z=2.53, 
+P=0.05). Over just the firewall-like tasks (T1-T4), the 
+experimental group using Sesame performed 41 % better than 
+the control group; but if the outlier is included, the experi-
+mental group performs just 20% better. However, when tasks 
+were considered individually or in smaller sets, we did not 
+have statistically significant differences between groups due 
+to our relatively small sample size. Figure 6 shows the 
+success rates by task, including the outlier.
+Information Comprehension: After the completion of the six 
+security tasks, we interviewed participants to understand 
+their reactions to the tasks they performed and, for the 
+experimental group, to assess how much of Sesame they 
+understood. Most of the participants in the control group 
+stated that they were uncertain how to use the information
+1052

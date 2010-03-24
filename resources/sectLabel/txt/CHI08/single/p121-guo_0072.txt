@@ -1,0 +1,105 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+Exploring the Use of Tangible User Interfaces
+for Human-Robot Interaction: A Comparative Study
+Cheng Guo
+University of Calgary, 2500 University Drive NW.
+Calgary, Alberta, Canada, T2N 1N4
+cheguo@cpsc.ucalgary.ca
+ABSTRACT
+In this paper we suggest the use of tangible user interfaces 
+(TUIs) for human-robot interaction (HRI) applications. We 
+discuss the potential benefits of this approach while 
+focusing on low-level of autonomy tasks. We present an 
+experimental robotic interaction test bed to support our 
+investigation. We use the test bed to explore two HRI-
+related task-sets: robotic navigation control and robotic 
+posture control. We discuss the implementation of these 
+two task-sets using an AIBOTM robot dog. Both tasks were 
+mapped to two different robotic control interfaces: keypad 
+interface which resembles the interaction approach 
+currently common in HRI, and a gesture input mechanism 
+based on Nintendo WiiTM game controllers. We discuss the 
+interfaces implementation and conclude with a detailed user 
+study for evaluating these different HRI techniques in the 
+two robotic tasks-sets.
+ACM Classification Keywords
+H5.2	[Information	interfaces	and presentation]:
+User Interfaces – Interaction Styles
+Author Keywords
+Human-Robot Interaction, Tangible User Interface, Gesture 
+Input
+INTRODUCTION
+Over the last few decades a large variety of robots have 
+been introduced to numerous applications, tasks and 
+markets. They range, for example, from robotic arms that 
+are used in space station assemblies to explosive ordnance 
+disposal robots dispatched on battlefields. Depending on the 
+task difficulty and the complexity, the interaction 
+techniques used by the human operator to control a robot 
+may vary from simple mouse clicks to complicate 
+operations on a specialized hardware.
+When performing tasks, the human operator may need to 
+break down high-level commands such as “pick up that 
+object” into a sequence of low-level discrete actions that the 
+robot can perform, and then translate each action to a key or
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00
+Ehud Sharlin
+University of Calgary, 2500 University Drive NW.
+Calgary, Alberta, Canada, T2N 1N4
+ehud@cpsc.ucalgary.ca
+switch on the user interface to trigger the appropriate action 
+on the robotic platform. The necessity to perform high-level 
+task planning and management through the composition of 
+low-level actions is not ideal. Depending on the low-level 
+set of interactions, the overall experience can be unnatural, 
+confusing and can cause task failure and endanger the robot 
+in case of critical tasks. As the level of task difficulty 
+increases, it is ideal if the operator spends more time on 
+high-level problem solving and task planning than on low- 
+level robot operations. Intuitive interfaces, well mapped to 
+specific human-robot interaction (HRI) tasks, can allow 
+users to focus on tasks goals rather than on the micro-scale 
+operations needed to accomplish these goals. We believe 
+that orthodox input devices such as keyboards and joysticks 
+can often hinder higher-level interactive tasks as their 
+physicality (layout of keys and buttons) is limited and 
+cannot always be mapped intuitively to a large set of 
+robotic actions.
+The aforementioned problem can be tackled by searching 
+for natural and intuitive input methods for robotic 
+interfaces, with one possible avenue being the use of 
+gestures. Studies have shown that children begin to gesture 
+at around 10 months of age [18] and that humans continue 
+to develop their gesturing skills from childhood to 
+adolescence [17]. This natural skill coupled with speech 
+enables us to interact and communicate with each other 
+more effectively. In contrast, moving a mouse and typing 
+on a keyboard, which are arguably not difficult to learn, are 
+acquired skills that are not as innate as performing gestures 
+with our hands and arms. Also, the generic nature of the 
+mouse and keyboard cause them to be inappropriate for 
+certain tasks, which can break the flow of users’ cognitive 
+engagement with the task, negatively impacting 
+performance [8]. Can specialized gesture controlled input 
+devices offer more efficient mappings from human to robot 
+than the prevalent keyboard, joystick and mouse interface 
+for a certain set of HRI tasks?
+Tangible user interfaces (TUIs) exploit embodied 
+interaction [6], coupling physical objects with computerized 
+qualities, and ideally empowering users with simple and 
+natural physical interaction metaphors. Intuitive, efficient 
+spatial mappings underlie the design of tangible user 
+interfaces [19, 23]. TUIs make effective use of the 
+affordances [19] of physical objects which can directly 
+represent their functionality. The shape, size and weight 
+along with other physical properties of a physical object 
+imply the way we interact with it. By taking the advantage 
+of the affordances of physical objects we may design a set
+121

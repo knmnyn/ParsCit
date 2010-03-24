@@ -1,0 +1,87 @@
+CHI 2008 Proceedings · Help Me Search	April 5-10, 2008 · Florence, Italy
+Conversation Pivots and Double Pivots
+Daniel Xiaodan Zhou, Nathan Oostendorp, Michael Hess, Paul Resnick
+CommunityLab*
+University of Michigan School of Information
+Ann Arbor, MI 48109
+{mrzhou, oostendo, mlhess, presnick}@umich.edu
+ABSTRACT
+Many sites on the web offer collaborative databases that 
+catalog items such as bands, events, products, or software 
+modules. Conversation pivots allow readers to navigate 
+from pages about these items to conversations about them 
+on the same site or elsewhere on the Internet. Double pivots 
+allow readers to navigate from item pages to pages about 
+other items mentioned in the same conversations. Using 
+text mining techniques specific to the collection it is 
+possible to find references to collected items in online 
+conversations. We implemented conversation pivots for the 
+CPAN archive of Perl modules, and for Drupal.org, the 
+reference site for the Drupal content management system.
+Author Keywords
+Online Discussion, Conversation, Recommender, Pivot, 
+Drupal, Perlmonks
+ACM Classification Keywords
+H5.4 Hypertext/Hypermedia Navigation. H5.2. User 
+Interfaces
+INTRODUCTION
+Many websites maintain collections of pages about people, 
+places, and things. These item pages typically include 
+structured data. The sites also frequently include online 
+forums, with an abundant and unstructured repository of 
+user-contributed data about the same items. Drenner et al 
+[1] describe these areas as “item-land” and “forum-land”, 
+and describe how the site MovieLens was able to cross-link 
+them. Movie item pages have links to conversation threads 
+mentioning the movies and conversation pages link to the 
+referenced movie pages.
+More generally, item-land describes a large variety of 
+online collections:
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00
+•	Musician profiles on MySpace.com or Last.fm
+•	Concert or other event listing in a public calendar
+•	Wikipedia entries for people, places, or things
+•	Product pages (e.g., on Amazon.com)
+•	Software module pages on a repository such as PEAR
+or CPAN
+It is easy to imagine how bridges between “item-land” and 
+“forum-land” could be very useful in these contexts, 
+especially when “forum-land” might be separate from the 
+item collection (i.e., on a separate website.)
+While previous work has explored the connections in the 
+case of movie items, we explore them in the case of item 
+pages that describe software modules. We explain how the 
+unique features of software modules and conversation 
+threads can be used in inferring links between them. We 
+also show how these links can be used not only to help 
+navigate from software modules to related conversation but 
+also from software modules to related modules.
+CONVERSATION PIVOTS
+Links between items and forums are instances of a more 
+general class of navigation aids that we call pivots. A pivot 
+enables navigation from an object to a set of other objects 
+that share some attribute in common. Perhaps the most 
+familiar instantiation of the pivot concept is the ability, at 
+sites such as del.icio.us and Flickr and many individual 
+blogs, to click on a “tag” in order to move from one page or 
+photo to a set of others that have been classified with the 
+same tag. Many other pivots are possible. For example, a 
+pivot can allow navigation from a message to other 
+messages by the same author, or from an event 
+announcement to other events at the same venue, or other 
+events at the same time, or other events featuring the same 
+speaker.1
+* CommunityLab is a collaborative project of the University of 
+Minnesota, University of Michigan, and Carnegie Mellon 
+University. http://www.communitylab.org/
+1 We borrow this usage of the term pivot from spreadsheet 
+pivot tables and from the description of features of the Ning 
+platform for building social applications. [2]
+1009

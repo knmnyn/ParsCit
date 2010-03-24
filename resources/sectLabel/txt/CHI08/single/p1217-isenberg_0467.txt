@@ -1,0 +1,95 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+An Exploratory Study of Visual Information Analysis
+Petra Isenberg	Anthony Tang	Sheelagh Carpendale
+Dept. of Computer Science	HCT Lab	Dept. of Computer Science
+University of Calgary	University of British Columbia	University of Calgary
+Calgary, AB, Canada	Vancouver, BC, Canada	Calgary, AB, Canada
+petra.isenberg@ucalgary.ca	tonyt@ece.ubc.ca	sheelagh@ucalgary.ca
+ABSTRACT
+To design information visualization tools for collaborative 
+use, we need to understand how teams engage with visual-
+izations during their information analysis process. We re-
+port on an exploratory study of individuals, pairs, and triples 
+engaged in information analysis tasks using paper-based vi-
+sualizations. From our study results, we derive a framework 
+that captures the analysis activities of co-located teams and 
+individuals. Comparing this framework with existing mod-
+els of the information analysis process suggests that informa-
+tion visualization tools may benefit from providing a flexible 
+temporal flow of analysis actions.
+Author Keywords
+Information Visualization, analysis process, collaboration.
+ACM Classification Keywords 
+[H.5.2]Information Interfaces and Presentation
+INTRODUCTION
+Interactive information visualization (infovis) tools are often 
+the center of many complex information analysis tasks [20]. 
+In everyday practice, data is frequently interpreted and an-
+alyzed not only by individuals but by teams of individuals 
+working in concert to make decisions. Imagine a team of 
+geologists looking at test results to plan an upcoming expe-
+dition, a group of city planners examining census data and its 
+influence on future development, or a team of businessmen 
+looking at current data and forecasts of their industry sec-
+tor. While many researchers have explored the information 
+analysis process (e. g. [3, 9, 16]), little has emerged on the na-
+ture of this process in a collaborative context [10, 12]. How 
+a single doctor would analyze biomedical visualizations, for 
+example, might differ from how a team of doctors might ana-
+lyze the same data. If teams make use of visual information 
+to solve problems differently than individuals, we need to 
+understand what these differences are so we can redesign in-
+fovis tools to support their activity. To address this problem, 
+we designed an exploratory study to understand the flow and
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior spe-
+cific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04... $5.00.
+nature of this collaborative process and its relation to indi-
+vidual analysis practices. To derive practical guidelines for 
+information visualization tool design, we focused on analyz-
+ing how participants engage with the workspace and their 
+collaborators. Teams in our study were given paper-based 
+visualizations to solve tasks, allowing us to view their pro-
+cess independently of the confounds of a specific infovis sys-
+tem. The analytic framework that we have derived from our 
+observations allows us to deconstruct and understand this vi-
+sual information analysis process for the purpose of design, 
+heuristic evaluation, and analysis of infovis tools.
+Our work makes three primary contributions: we present an 
+exploratory study to examine the information analysis pro-
+cess for individuals and small groups in the context of visual 
+data; second, we present an analytic framework that allows 
+researchers to understand this analysis process in other con-
+texts, and finally, we provide three concrete design implica-
+tions for digital infovis tools derived from our findings.
+BACKGROUND AND RELATED WORK
+Collaborative Information Visualization Tools
+Most collaborative information visualization systems have 
+been developed for distributed data analysis: Many Eyes 
+[21] and Swivel (http://www.swivel.com/) are two systems 
+that are targeted at an internet-scale audience and both sup-
+port asynchronous distributed collaborative sharing and ex-
+ploration of data by letting users upload data, create visual-
+izations, and comment on available visualizations. The Co- 
+Motion environment has been used for information analysis 
+and decision-support applications using shared views of the 
+data on which all users can interact synchronously from re-
+mote desktops [11]. A collaborative tree comparison system 
+and a set of design guidelines for co-located data analysis 
+has been presented in [8]. In relation to this work, our focus 
+is to gain an understanding of the processes of co-located col-
+laboration around information visualizations using a single 
+shared workspace. This work particularly relates to previ-
+ous studies that have also resulted in information processing 
+frameworks as outlined in the next sections.
+Collaborative Visual Information Processing
+Both Park et al.’s study of pairs using distributed CAVE en-
+vironments [12], and Mark et al.’s study of pairs sharing an 
+infovis software tool that had been designed for single per-
+son use [10], resulted in similar but not identical information
+1217

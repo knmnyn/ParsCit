@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="ParsCit" version="090625">
+<citationList>
+<citation valid="true">
+<authors>
+<author>B G McLachlan</author>
+<author>D Peel</author>
+</authors>
+<title>Finite Mixture Models</title>
+<date>2000</date>
+<publisher>Wiley</publisher>
+<contexts>
+<context position="1373" citStr="[1]">re components. The estimation of the parameters of mixture models with a predefined number of components is usually achieved through likelihood maximization using the EM algorithm or several variants [1]. Apart from the selection of the number of components, a problem that naturally arises, especially in highdimensional data, deals with the detection of the salient features. Intuitively, salient feat</context>
+</contexts>
+<marker>[1]</marker>
+<rawString>B.G. McLachlan and D. Peel, Finite Mixture Models. Wiley, 2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Carbonetto</author>
+<author>N de Freitas</author>
+<author>P Gustafson</author>
+<author>N Thompson</author>
+</authors>
+<title>Bayesian Feature Weighting for Unsupervised Learning, with Application to Object Recognition</title>
+<date>2003</date>
+<booktitle>Proc. Ninth Int’l Conf. Artificial Intelligence and Statistics</booktitle>
+<contexts>
+<context position="2014" citStr="[2]">ith Gaussian components. On the other hand, uniform or unimodal features are irrelevant to clustering. Moreover, they may confuse inference by increasing the complexity of the model, for examples see [2], [3]. Notice that choosing the features and finding the number of components are strongly dependent problems. Clearly, for different feature subsets, we might get different estimations for the number</context>
+<context position="6002" citStr="[2]">ces a pruning behavior over the components of the model. As stated in [3], the method can be viewed as a MAP approach with improper priors on mixture weights and feature saliencies. Carbonetto et al. [2] propose a Bayesian shrinkage model. They use Gaussian mixture models for clustering and define conjugate priors over all mixture parameters. Moreover, they place hyperpriors over the parameters of th</context>
+</contexts>
+<marker>[2]</marker>
+<rawString>P. Carbonetto, N. de Freitas, P. Gustafson, and N. Thompson, “Bayesian Feature Weighting for Unsupervised Learning, with Application to Object Recognition,” Proc. Ninth Int’l Conf. Artificial Intelligence and Statistics, 2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M H Law</author>
+<author>M A T Figueiredo</author>
+<author>A K Jain</author>
+</authors>
+<title>Simultaneous Feature Selection and Clustering Using a Mixture Model</title>
+<date>2004</date>
+<journal>IEEE Trans. Pattern Analysis and Machine Intelligence</journal>
+<volume>26</volume>
+<pages>1154--1166</pages>
+<contexts>
+<context position="2019" citStr="[3]">aussian components. On the other hand, uniform or unimodal features are irrelevant to clustering. Moreover, they may confuse inference by increasing the complexity of the model, for examples see [2], [3]. Notice that choosing the features and finding the number of components are strongly dependent problems. Clearly, for different feature subsets, we might get different estimations for the number of c</context>
+<context position="2720" citStr="[3]">eature and model selection, we present a Bayesian variational framework for training a two-level mixture model that maximizes a lower bound of the marginal likelihood. We employ the model proposed in [3], i.e., a Gaussian mixture model that incorporates a feature saliency determination process, where each feature is useful up to a probability. So, when this probability obtains a close to zero value t</context>
+<context position="5297" citStr="[3]">lustering, they employ Gaussian mixture models trained using EM. To estimate the number of components, they merge clusters one at a time and use the BIC criterion to select the best model. Law et al. [3] follow the second approach and define feature saliency as a probability. They use Gaussian mixture models for clustering and assume independent features given a mixture component. Given a feature, ob</context>
+<context position="5872" citStr="[3]">aliency. To estimate the mixture models, the MML criterion is employed and a component-wise version of the EM algorithm that enforces a pruning behavior over the components of the model. As stated in [3], the method can be viewed as a MAP approach with improper priors on mixture weights and feature saliencies. Carbonetto et al. [2] propose a Bayesian shrinkage model. They use Gaussian mixture models </context>
+<context position="7848" citStr="[3]">.00 ß 2006 IEEE Published by the IEEE Computer Society propose a Bayesian formulation and Markov Chain Monte Carlo strategies to tackle the problem. The method we propose engages the same model as in [3] to describe the relevance of features, but integrates model and feature selection under a Bayesian framework. The MML approach used in [3] is based on a statistical criterion and is obtained after se</context>
+</contexts>
+<marker>[3]</marker>
+<rawString>M.H. Law, M.A.T. Figueiredo, and A.K. Jain, “Simultaneous Feature Selection and Clustering Using a Mixture Model,” IEEE Trans. Pattern Analysis and Machine Intelligence, vol. 26, no. 9, pp. 1154-1166, Sept. 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Dy</author>
+<author>C Brodley</author>
+</authors>
+<title>Feature Selection for Unsupervised Learning</title>
+<date>2004</date>
+<journal>J. Machine Learning Research</journal>
+<volume>5</volume>
+<pages>845--889</pages>
+<marker>[4]</marker>
+<rawString>J. Dy and C. Brodley, “Feature Selection for Unsupervised Learning,” J. Machine Learning Research, vol. 5, pp. 845-889, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R M Neal</author>
+<author>G E Hinton</author>
+</authors>
+<date>1998</date>
+<booktitle>A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants,” Learning in Graphical Models</booktitle>
+<pages>355--368</pages>
+<editor>M.I. Jordan, ed</editor>
+<publisher>Kluwer</publisher>
+<contexts>
+<context position="3401" citStr="[5]"> the parameters of the model and maximize the marginal likelihood given the mixing coefficients and the feature saliencies. For optimization, we use variational methods to derive an EM-like algorithm [5], following the approach proposed in [6], [7]. In Section 2, we briefly present related work from the literature. In Section 3, we describe the proposed model, the Bayesian framework for feature and m</context>
+</contexts>
+<marker>[5]</marker>
+<rawString>R.M. Neal and G.E. Hinton, “A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants,” Learning in Graphical Models, M.I. Jordan, ed., pp. 355-368, Kluwer, 1998.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Attias</author>
+</authors>
+<title>A Variational Bayesian Framework for Graphical Models</title>
+<date>2000</date>
+<booktitle>Advances in Neural Information Processing Systems 12</booktitle>
+<publisher>MIT Press</publisher>
+<contexts>
+<context position="3441" citStr="[6]">e the marginal likelihood given the mixing coefficients and the feature saliencies. For optimization, we use variational methods to derive an EM-like algorithm [5], following the approach proposed in [6], [7]. In Section 2, we briefly present related work from the literature. In Section 3, we describe the proposed model, the Bayesian framework for feature and model selection, and the variational lear</context>
+</contexts>
+<marker>[6]</marker>
+<rawString>H. Attias, “A Variational Bayesian Framework for Graphical Models,” Advances in Neural Information Processing Systems 12, MIT Press, 2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Corduneanu</author>
+<author>C M Bishop</author>
+</authors>
+<title>Variational Bayesian Model Selection for Mixture Distributions</title>
+<date>2001</date>
+<booktitle>Proc. Eighth Int’l Conf. Artificial Intelligence and Statistics</booktitle>
+<pages>27--34</pages>
+<editor>T. Richardson and T. Jaakkola, eds</editor>
+<publisher>Morgan Kaufmann</publisher>
+<contexts>
+<context position="3446" citStr="[7]"> marginal likelihood given the mixing coefficients and the feature saliencies. For optimization, we use variational methods to derive an EM-like algorithm [5], following the approach proposed in [6], [7]. In Section 2, we briefly present related work from the literature. In Section 3, we describe the proposed model, the Bayesian framework for feature and model selection, and the variational learning </context>
+<context position="10031" citStr="[7]"> while the second subcomponent that is common to all mixture components generates “noisy” data. In this work, the above model for feature saliency is integrated in the Bayesian framework suggested in [7] for estimating the number of components in mixture models. We assume that data set X has been generated from the graphical model illustrated in Fig. 1. A maximum number J of Gaussian components is in</context>
+<context position="12440" citStr="[7]">the MML criterion and a component-wise version of the EM algorithm that enforces a pruning behavior over the components of the model. In our method, a Bayesian approach for model selection is adopted [7]. In particular, we introduce Gaussian and Gamma priors for  and T, respectively, pðÞ  YJ j1 Yd i1 N ðji; mi; cÞ; ð7Þ pðTÞ  YJ j1 Yd i1 Gðji; ; Þ; ð8Þ and integrate them out to obtain the m</context>
+<context position="14454" citStr="[7]"> component parameters and marginalizing them out, we expect to smooth the likelihood surface (6) and obtain a marginal likelihood that is more robust to over fitting. This methodology was proposed in [7] to optimize over the mixing probabilities  and infer the number of components in a typical mixture model with remarkable results. Since the integration in (9) is intractable, the variational approac</context>
+<context position="17326" citStr="[7]"> parameters is impossible, as they are coupled together in a nonlinear way, we can still improve the bound by iteratively updating the parameters using (17) to (24). An analogous approach is taken in [7]. After the maximization of L with respect to Q, the second step of the method requires maximization of L with respect to j, wi, &amp;quot;i, and i. Setting the derivative of L with respect to the parameters </context>
+</contexts>
+<marker>[7]</marker>
+<rawString>A. Corduneanu and C.M. Bishop, “Variational Bayesian Model Selection for Mixture Distributions,” Proc. Eighth Int’l Conf. Artificial Intelligence and Statistics, T. Richardson and T. Jaakkola, eds., pp. 27-34, Morgan Kaufmann, 2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J S Liu</author>
+<author>J L Zhang</author>
+<author>M J Palumbo</author>
+<author>C E Lawrence</author>
+</authors>
+<title>Bayesian Clustering with Variable and</title>
+<date>2003</date>
+<journal>Transformation Selections,” Bayesian Statistics</journal>
+<volume>7</volume>
+<pages>249--276</pages>
+<marker>[8]</marker>
+<rawString>J.S. Liu, J.L. Zhang, M.J. Palumbo, and C.E. Lawrence, “Bayesian Clustering with Variable and Transformation Selections,” Bayesian Statistics, vol. 7, pp. 249-276, 2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J H Friedman</author>
+<author>J J Meulman</author>
+</authors>
+<title>Clustering Objects on Subsets of Attributes</title>
+<date>2004</date>
+<journal>J. Royal Statistical Soc</journal>
+<volume>66</volume>
+<pages>815--849</pages>
+<contexts>
+<context position="8627" citStr="[9]">ch is subspace clustering that assumes separate feature weights for each cluster. Thus, each cluster is differentiated from the rest in a particular subspace, for methods following this approach, see [9], [10]. 3 A BAYESIAN MIXTURE MODEL WITH FEATURE SALIENCY In this section, we present a Bayesian method for learning mixture models that automatically determines the number of components and the salien</context>
+</contexts>
+<marker>[9]</marker>
+<rawString>J.H. Friedman and J.J. Meulman, “Clustering Objects on Subsets of Attributes,” J. Royal Statistical Soc., vol. 66, no. 4, pp. 815-849, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P D Hoff</author>
+</authors>
+<title>Model-Based Subspace Clustering,” Bayesian Analysis</title>
+<date>2006</date>
+<volume>1</volume>
+<pages>321--344</pages>
+<contexts>
+<context position="8633" citStr="[10]"> subspace clustering that assumes separate feature weights for each cluster. Thus, each cluster is differentiated from the rest in a particular subspace, for methods following this approach, see [9], [10]. 3 A BAYESIAN MIXTURE MODEL WITH FEATURE SALIENCY In this section, we present a Bayesian method for learning mixture models that automatically determines the number of components and the saliencies o</context>
+</contexts>
+<marker>[10]</marker>
+<rawString>P.D. Hoff, “Model-Based Subspace Clustering,” Bayesian Analysis, vol. 1, no. 2, pp. 321-344, 2006.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A K Jain</author>
+<author>R Duin</author>
+<author>J Mao</author>
+</authors>
+<title>Statistical Pattern Recognition: A Review</title>
+<date>2000</date>
+<journal>IEEE Trans. Pattern Analysis and Machine Intelligence</journal>
+<volume>22</volume>
+<pages>4--38</pages>
+<contexts>
+<context position="20084" citStr="[11]">omponents never identified the correct number of components, providing on average 12 components for all three data sets. For experiments with real data we used the “multiple feature database” used in [11], which is available from the UCI repository [12]. It consists of features of handwritten numerals (“0”-“9”) extracted from a collection of Dutch utility maps. From each class, 200 patterns have been </context>
+</contexts>
+<marker>[11]</marker>
+<rawString>A.K. Jain, R. Duin, and J. Mao, “Statistical Pattern Recognition: A Review,” IEEE Trans. Pattern Analysis and Machine Intelligence, vol. 22, no. 1, pp. 4-38, Jan. 2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C L Blake</author>
+<author>C J Merz</author>
+</authors>
+<title>UCI Repository of Machine Learning Databases</title>
+<date>1998</date>
+<journal>IEEE TRANSACTIONS ON PATTERN ANALYSIS AND MACHINE INTELLIGENCE, VOL</journal>
+<volume>28</volume>
+<contexts>
+<context position="20133" citStr="[12]">components, providing on average 12 components for all three data sets. For experiments with real data we used the “multiple feature database” used in [11], which is available from the UCI repository [12]. It consists of features of handwritten numerals (“0”-“9”) extracted from a collection of Dutch utility maps. From each class, 200 patterns have been digitized to produce a total of 2,000 images. Dig</context>
+</contexts>
+<marker>[12]</marker>
+<rawString>C.L. Blake and C.J. Merz, “UCI Repository of Machine Learning Databases,” 1998, http://www.ics.uci.edu/mlearn/MLRepository.html. . For more information on this or any other computing topic, please visit our Digital Library at www.computer.org/publications/dlib. 1018 IEEE TRANSACTIONS ON PATTERN ANALYSIS AND MACHINE INTELLIGENCE, VOL. 28, NO. 6, JUNE 2006</rawString>
+</citation>
+</citationList>
+</algorithm>

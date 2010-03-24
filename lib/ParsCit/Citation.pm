@@ -78,6 +78,7 @@ sub isValid {
       return 0;
     }
     if (length($rawString) > 400) {  # citation string over 400 characters --- probably a mistake in parsing somewhere
+#      print STDERR "#! Long citation string: \"$rawString\"\n";
       return 0;
     }
 ########## end modified by Artemy Kolchinsky (v090625)

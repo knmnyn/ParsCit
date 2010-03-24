@@ -1,0 +1,92 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+TALC: Using Desktop Graffiti to Fight
+Software Vulnerability
+Kandha Sankarapandian, Travis Little, W. Keith Edwards
+Georgia Institute of Technology
+85 Fifth Street NW, Atlanta, GA 30308, USA.
+{kandha, tlittle , keith}@cc.gatech.edu
+ABSTRACT
+With the proliferation of computer security threats on the 
+Internet, especially threats such as worms that 
+automatically exploit software flaws, it is becoming more 
+and more important that home users keep their computers 
+secure from known software vulnerabilities. Unfortunately, 
+keeping software up-to-date is notoriously difficult for 
+home users. This paper introduces TALC, a system to 
+encourage and help home users patch vulnerable software. 
+TALC increases home users’ awareness of software 
+vulnerabilities and their motivation to patch their software; 
+it does so by detecting unpatched software and then 
+drawing graffiti on their computer’s background wallpaper 
+image to denote potential vulnerabilities. Users can “clean 
+up” the graffiti by applying necessary patches, which 
+TALC makes possible by assisting in the software patching 
+process
+ACM Classification: H.5.m Information interfaces and 
+presentation, H.5.2 User Interfaces, K.6.5 Management of 
+Computer and Information Systems: Security and 
+Protection, D.4.6 Operating Systems: Security and 
+Protection
+General terms: Human factors, security, management
+Keywords: Usable security, Internet security, home users, 
+patch management, software vulnerabilities, security 
+framework, graffiti
+INTRODUCTION
+One of the most significant computer security threats faced 
+by users today results from vulnerabilities in the operating 
+system and application software installed on users’ 
+computers. Software defects—bugs such as susceptibility 
+to buffer overflow attacks [7], cross site scripting [26], and 
+so forth—represent vectors through which malware can
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+infect and compromise users’ machines. Once machines 
+have been compromised, malicious parties can extract 
+personal information from them, or enlist them into botnets 
+to serve in further attacks on network resources. The latter 
+threat, in particular, has a significant impact on the entire 
+Internet community as botnets are the means to Distributed 
+Denial of Service (DDoS), spam and phishing attacks [14]; 
+the exponential increase in size and number of botnets [6] 
+is a stark reflection on the number of vulnerable machines 
+that exist in the Internet. Ironically, in many cases, patches 
+exist to repair these vulnerabilities; however, users are 
+often unaware that such patches exist, or are unmotivated to 
+install them, or may not know how to install them.
+Numerous reports from both government and industry 
+sources highlight the magnitude of the threat posed by 
+unpatched software vulnerabilities. For example, statistics 
+from the Computer Emergency Response Team 
+(CERT/CC) show the rapid increase in reported software 
+vulnerabilities since 1995 [5]. NIST&apos;s report on the 
+economic impacts of inadequate software testing estimates 
+damage from attacks exploiting software vulnerabilities at 
+US$60 billion/year [25]. Furthermore, testimony from the 
+US General Accounting Office notes the importance of 
+effective and continual patch management in addressing the 
+“staggering” increase in software vulnerabilities [29].
+Industry sources echo these same concerns. The importance 
+of routine patching is highlighted in Symantec’s security 
+report [28], which notes that after having a firewall and 
+antivirus software, the single most important practice for 
+consumers to maintain their computer’s security is to stay 
+current on software patches. The SAGE report [17] from 
+McAfee Avert Labs estimates that known software 
+vulnerabilities are increasing at a rate of about 30% 
+annually. Microsoft’s LaMacchia [16] also notes that the 
+window of time between when new software is released 
+and when an exploit has been created has decreased 
+considerably (leading to so-called zero day attacks, in 
+which exploits are ready to be employed the day new 
+software is released).
+Unfortunately, just as the necessity of maintaining up-to- 
+date patches is increasing, the complexity of doing so is 
+also increasing: users must now be responsible for patching 
+not only their operating system software, but also the
+1055

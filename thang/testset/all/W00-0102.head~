@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="bibxml.xsl" type="text/xsl" ?>
-<file>
-  <entry no="0">
-    <variant no="0" confidence="1.0"><title>Long Runs as Predictors of Semantic Coherence in a +L+ Partial Document Retrieval System +L+ </title><author>Hyopil Shin +L+ </author><affiliation>Computing Research Laboratory, NMSU +L+ </affiliation><address>PO Box 30001 +L+ Las Cruces, NM, 88003 +L+ </address><email>hshin@crl.nmsu.edu +L+ </email><author>Jerrold F. Stach +L+ </author><affiliation>Computer Science Telecommunications, </affiliation><address>UMKC +L+ 5100 Rockhill Road +L+ Kansas City, MO, 64110 +L+ stach </address><email>@cstp.umkc.edu +L+ </email><abstract>Abstract +L+ We propose a method for dealing with +L+ semantic complexities occurring in +L+ information retrieval systems on the basis of +L+ linguistic observations. Our method follows +L+ from an analysis indicating that long runs of +L+ content words appear in a stopped document +L+ cluster, and our observation that these long +L+ runs predominately originate from the +L+ prepositional phrase and subject +L+ complement positions and as such, may be +L+ useful predictors of semantic coherence. +L+ From this linguistic basis, we test three +L+ statistical hypotheses over a small collection +L+ of documents from different genre. By +L+ coordinating thesaurus semantic categories +L+ (SEMCATs) of the long run words to the +L+ semantic categories of paragraphs, we +L+ conclude that for paragraphs containing both +L+ long runs and short runs, the SEMCAT +L+ weight of long runs of content words is a +L+ strong predictor of the semantic coherence +L+ of the paragraph. +L+ </abstract></variant>
-  </entry>
-  <entry no="1">
-  </entry>
-</file>

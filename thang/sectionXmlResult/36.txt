@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="SectLabel" version="090625" confidence="0.112595">
+<title confidence="0.9937085">
+Analysis of Soft Handover Measurements
+in 3G Network
+</title>
+<author confidence="0.977851">
+Kimmo Raivio
+</author>
+<affiliation confidence="0.981379">
+Adaptive Informatics Research Centre
+Helsinki University of Technology
+</affiliation>
+<address confidence="0.908379">
+P.O. Box 5400, FIN-02015 HUT, Finland
+</address>
+<email confidence="0.994333">
+kimmo.raivio@hut.fi
+</email>
+<sectionHeader confidence="0.579292">
+ABSTRACT
+</sectionHeader>
+<bodyText confidence="0.9983506">
+A neural network based clustering method for the analysis
+of soft handovers in 3G network is introduced. The method
+is highly visual and it could be utilized in explorative anal-
+ysis of mobile networks. In this paper, the method is used
+to find groups of similar mobile cell pairs in the sense of
+handover measurements. The groups or clusters found by
+the method are characterized by the rate of successful han-
+dovers as well as the causes of failing handover attempts.
+The most interesting clusters are those which represent cer-
+tain type of problems in handover attempts. By comparing
+variable histograms of a selected cluster to histograms of
+the whole data set an application domain expert may find
+some explanations on problems. Two clusters are investi-
+gated further and causes of failing handover attempts are
+discussed
+</bodyText>
+<sectionHeader confidence="0.991894">
+Categories and Subject Descriptors
+</sectionHeader>
+<category confidence="0.987715666666667">
+H.4.3 [Information Systems Applications]: Communi-
+cations Applications—Information browsers; I.5.3 [Pattern
+Recognition]: Clustering
+</category>
+<sectionHeader confidence="0.97835">
+General Terms
+</sectionHeader>
+<keyword confidence="0.995283">
+Algorithms, Management, Performance
+</keyword>
+<sectionHeader confidence="0.979806">
+Keywords
+</sectionHeader>
+<keyword confidence="0.990815">
+3G network, soft handover, mobility management, data min-
+ing, hierarchical clustering, neural networks
+</keyword>
+<sectionHeader confidence="0.997311">
+1. INTRODUCTION
+</sectionHeader>
+<bodyText confidence="0.9965618">
+Mobility management is a great challenge in current and
+future radio access networks. In third generation (3G) net-
+works user experienced quality of service (QoS) under a
+move of mobile station (MS) from one mobile cell to an-
+other cell has been improved by implementing soft handover
+</bodyText>
+<copyright confidence="0.997554833333333">
+Permission to make digital or hard copies of all or part of this work for
+personal or classroom use is granted without fee provided that copies are
+not made or distributed for profit or commercial advantage and that copies
+bear this notice and the full citation on the first page. To copy otherwise, to
+republish, to post on servers or to redistribute to lists, requires prior specific
+permission and/or a fee
+</copyright>
+<note confidence="0.993491">
+MSWIM’06, October 2–6, 2006, Torremolinos, Malaga, Spain
+</note>
+<copyright confidence="0.988721">
+2006 ACM 1-59593-477-4/06/0010 ...$5.00
+</copyright>
+<bodyText confidence="0.99789705">
+SHO). Soft handover makes it possible to have connections
+on several base stations (BS) simultaneously.
+In this paper, a set of measurements which can be used for
+soft handover decision making are analyzed and compared
+with other measurements in which statistics of successful-
+ness of handover attempts have been collected. We do not
+know exactly the parameters of used SHO algorithm. SHOs
+are investigated only on basis of data set and some general
+knowledge of 3G systems. Mobile cell pairs with handovers
+(HO) are divided in groups using clustering algorithm. Cell
+pairs in which SHOs are similar with each other fall in same
+group. Different types of SHO failures are analyzed using
+clustering information and distributions of measurements in
+each cluster.
+In Section 2 the soft handover concept, the measurements
+and used neural network algorithm are shortly introduced.
+Analysis methods which have been used are described in
+Section 3. Preliminary results are shown and discussed in
+Section 4. Finally, some conclusions are drawn in the last
+section
+</bodyText>
+<sectionHeader confidence="0.985126">
+2. BACKGROUND
+</sectionHeader>
+<bodyText confidence="0.999621">
+In this section, the basics of soft handover in 3G network
+is explained and the available data set is introduced. Neural
+network algorithm used in data clustering is also presented
+</bodyText>
+<subsectionHeader confidence="0.991966">
+2.1 Soft handover
+</subsectionHeader>
+<bodyText confidence="0.999801666666666">
+Soft handover is a state of MS being connected to several
+BSs simultaneously. In GSM networks, a fixed threshold for
+handover from one cell to another is used. In 3G networks,
+each MS is connected to a network via a set of BSs called
+active set. Members of active set are updated on basis of
+measurements made by MS. The advantage of having con-
+nections on several BS simultaneously is realized when MS
+is moving towards another BS, the MS should have a con-
+nection at least on one BS all the time. In GSM system, the
+older connection has to be terminated before the new one
+can be setup. The connection setup phases are the most
+vulnerable steps in a call. The connection between MS and
+BS is setup in a beginning of a call or later when handover
+occurs. If the setup is not successful, it is useful to have an
+existing connection to another BS or otherwise the call will
+be abnormally terminated.
+Handover can occur due to signal quality reasons or when
+the traffic capacity in a cell has reached its maximum or is
+approaching it. In the latter case, traffic load in the network
+can be distributed more uniformly by handing over some
+users from the most crowded cells. The above method is
+</bodyText>
+<page confidence="0.999161">
+330
+</page>
+<bodyText confidence="0.999506270270271">
+called cell breathing. Use of cell breathing without giving
+the information to the analyzer increases the complexity of
+the analysis and can mix up a lot in the analysis process.
+For a user soft handover means power saving (in uplink)
+and less abnormally terminated calls. For an operator lower
+MS transmitting powers mean less interference. When MS
+is in SHO, several BSs listen the same uplink channel, but
+all BSs have their own downlink channel. The offered diver-
+sity is resource consuming in downlink direction. There is
+a tradeoff between better QoS in mobility management and
+consumption of resources.
+Decision of soft handover is made in mobile station by
+comparing the signal-to-noise ratios of active and candidate
+BSs Common Pilot Channel (CPICH) [2]. Members of ac-
+tive set are selected on basis of powers of this pilot signal [5,
+12, 16] .
+BSs which are not in the active set but next from it in the
+sense of measured quantity are in candidate set. Candidate
+set BSs are constantly monitored whether their offer better
+connection than cells in active set. Cells not in active or
+candidate set are monitored less frequently whether their
+can enter the candidate set. Cell is either added to the
+active set if the maximum amount of cells in the active set
+is not reached or cell replaces the cell which offers the lowest
+quality connection. Cells which are no more able to offer
+a connection which is good enough are removed from the
+active set.
+Thresholds are used in adding, replacing and removing
+BSs from active set by BSs in candidate set to avoid ping
+pong effect. This means that a value of measured quantity
+should be with a certain threshold better than the old one
+for changing cells in active set. If measurement which is only
+slightly better (i.e. with zero threshold) is enough for chang-
+ing cells in sets, it is quite possible that the same change is
+performed in opposite direction very soon. Thus, the origi-
+nal update of the set was useless and resource consuming in
+the sense of all required signaling
+</bodyText>
+<subsectionHeader confidence="0.987105">
+2.2 Data
+</subsectionHeader>
+<bodyText confidence="0.999544066666667">
+Three data sets of Key Performance Indicator (KPI) level
+measurements related on handover events are saved. Each
+set consists of measurements collected during one hour. KPI
+is considered as an important measure to be followed. It can
+be a measurement by itself or it has been computed from a
+group of raw counters [10]. One data vector consists of prob-
+abilities, means, sums and counters computed over one hour
+of one source target cell pair. Here, source refers on cell
+in active set and target on another cell which is measured
+and possibly added in active or candidate set. Measure-
+ments of target cell are compared with those of source cell.
+Handover decisions are made in MS on basis of measured
+and computed base stations received signal signal-to-noise
+ratios (Ec/N0). For each source and target cell pair mean
+of signal-to-noise ratio differences is computed using
+</bodyText>
+<equation confidence="0.935007">
+EcnoDiffMean = mean {[Ec/N0]target — [Ec/N0] source
+</equation>
+<bodyText confidence="0.999604529411765">
+Mean value and number off made comparisons (EcnoDiffNum)
+are saved. Four bin pdfs of these measurements are also
+stored with bin centers in -6, -3, 0 and 3dB, correspond-
+ingly.
+In addition to Ec/N0 measurements, averages of received
+pilot signal power ratios between BS pairs (av rscp ratio)
+have been computed and stored in database. The time and
+probability of being in SHO with each other have also been
+measured. Time of target and source cell being in SHO with
+each other simultaneously is counted in variable t act. Then,
+at least one MS is in SHO having both source and target cell
+in its active set. The measurement is symmetric for a switch
+of source and target cells. Time of target cell being in SHO
+with source cell is stored in t act dir. Cell total time in
+SHO is saved in tot time sho. It has been counted over all
+the targets of fixed source cell. Probability of target and
+source being in same active set is stored in variable p act.
+Total number of SHO attempts to add target to active
+set is stored in SHO total att. Ratio of successful SHO at-
+tempts which lead to addition of target cell in active set is
+saved in add ratio. In addition to those above, the num-
+ber of SHO failures is stored in pfail total and ratios of four
+different failure causes are saved. Failure occurs in setup
+or active time phase of SHO and it is either radio channel
+problem or not. Probability of cell being in monitored state
+is also measured (p4th 5th). All the measurements used in
+the analysis are shortly described in Table 1.
+A lot of data has been saved in data sets, but also some
+very important information is missing. Due to missing in-
+formation on cell capacities, their locations and performed
+manual and automatic tuning operations on network config-
+uration between successive data set saves, only preliminary
+analysis can be performed. The rest of the analysis process
+is described on theoretical level
+</bodyText>
+<subsectionHeader confidence="0.988825">
+2.3 Self-Organizing Map
+</subsectionHeader>
+<bodyText confidence="0.999642272727273">
+Self-Organizing Map (SOM) [8] is an unsupervised neu-
+ral network algorithm which adapts the codebook vectors
+of neurons so that they approximate the input data distri-
+bution. When the training has converged topological areas
+or domains corresponding to certain types of inputs can be
+found from the map. The topology and the size of the net-
+work is fixed before adaptation.
+In the SOM algorithm, the codebook vectors wj of the
+SOM are at first initialized. Then, the following steps are
+repeated for each input vector x: Find the index of best-
+matching or nearest codebook vector using
+</bodyText>
+<equation confidence="0.93022">
+i(x) = argminI Ix — wj I I
+</equation>
+<bodyText confidence="0.989845666666667">
+in which j goes through all the neurons in the map. Next,
+the codebook vectors of winner neuron and its neighbors are
+updated using
+</bodyText>
+<equation confidence="0.975461">
+wj (t + 1) = wj (t) + αhij (x)(x(t) — wj (t
+</equation>
+<bodyText confidence="0.998944">
+Here, α is the learning rate and hij (x) is the neighborhood
+function centered around the winner neuron. Input sample
+x defines the winner neuron and the topological distance
+between indexes i and j defines how much the neuron is
+updated. Neighborhood function is typically Gaussian or
+bubble function i.e. function which decrease monotonically
+and even goes to zero when the distance increases.
+In this paper, a batch version of the SOM algorithm is
+used. In batch SOM, all codebook vectors of the SOM are
+computed after the best-matching units of all input data
+vectors have been found. The same data set is used several
+times
+</bodyText>
+<sectionHeader confidence="0.964075">
+3. METHODS
+</sectionHeader>
+<bodyText confidence="0.9920195">
+Handover related measurement from 3G network can be
+analyzed using standard data mining methods [1]. In this
+</bodyText>
+<page confidence="0.999867">
+331
+</page>
+<tableCaption confidence="0.996005">
+Table 1: Measurements in the analysis. Data set has one sample vector for each source target cell pair
+</tableCaption>
+<table confidence="0.998602173913044">
+Variable Explanation Type
+EcnoDiffNum Computed Ec/N0 differences number
+EcnoDiffMean Computed Ec/N0 differences mean
+EcnoDiffPdf-6.0 -6 dB bin of Ec/N0 difference pdf ratio
+EcnoDiffPdf-3.0 -3 dB bin of Ec/N0 difference pdf ratio
+EcnoDiffPdf0.0 0 dB bin of Ec/N0 difference pdf ratio
+EcnoDiffPdf3.0 3 dB bin of Ec/N0 difference pdf ratio
+t act Target and source simultaneously in SHO mean
+t act dir Time of target being in SHO with source mean
+tot time sho Cell total time in SHO sum
+p act Target in active set of source ratio
+SHO total att SHO attempts to add Target to active set number
+add ratio Successful attempts leading to addition ratio
+pfail total Failures number
+pfail ini Setup phase failures due to non-radio ratio
+pfail ini radio Setup phase failures due to radio ratio
+pfail act Active time failures due to non-radio ratio
+pfail act radio Active time failures due to radio ratio
+p4th 5th Cell is in monitored state (=4th or 5th) ratio
+av rscp ratio Target / Source Received power ratio mean
+r fail Ratio pfail total / SHO total att ratio
+r EcnoDNum Ratio EcnoDiffNum / SHO total att ratio
+* Variable defined in the analysis
+</table>
+<bodyText confidence="0.999858476190476">
+study, methods presented in Figure 1 are used. At first,
+the miner have to decide what could be interesting in this
+data. The analysis task has to be defined. On basis of that
+the first choice of variables will be done. Next, the selected
+variables are preprocessed, in order to be able to use them
+in later analysis.
+In data mining tasks, variable selection and preprocessing
+are the most critical phases, because in this step the miner
+decides which variables are important and how should they
+be processed. The whole data mining process consists of sev-
+eral cycles performed repeatedly. The cycles include testing
+how different variable selections and preprocessing methods
+effect on final results. The process has inner loops in which
+some tasks or parameters are fixed on basis of selections
+made in outer loop. The inner loops are performed more
+frequently. Loops with more general task like the defini-
+tion of mining task are repeated less frequently. When the
+mining task is defined the analyzer should be able to decide
+what is (s)he looking out for.
+Now, the analysis task is defined as finding groups of sim-
+ilarly behaving cell pairs in SHO situations. Importance of
+measurements can also be highlighted using proper weight-
+ing of variables. In addition to clustering, also other tasks
+for data analysis can be defined. One possibility is to try to
+find cells or cell pairs with anomalous behavior. Anomalies
+can also be found by clustering, but expert knowledge in
+variable selection and preprocessing steps are very impor-
+tant.
+Using different variables, preprocessing methods and weight-
+ing of variables different clustering results can be found. To
+find out which of them is useful, interpretation of clusters is
+needed. This can be done using histograms or rules defined
+by data samples falling in clusters. The results which have
+been found using clustering methods should be visualized
+together with spatial locations to be able to understand the
+usefulness of results. Methods should be performed repeat-
+edly to analyze successive data sets under the knowledge of
+performed tuning operations. Thus, there is a possibility to
+find explanations to changing results. In this study, results
+of only one data set are shown, because more information
+on application domain is needed to be able to combine and
+compare successive clustering results
+</bodyText>
+<subsectionHeader confidence="0.99885">
+3.1 Preprocessing
+</subsectionHeader>
+<bodyText confidence="0.999750916666667">
+Different preprocessing methods have been tested. The
+final method was selected on basis of histograms and the
+clusters which were found using the selected method. At
+the first step, the distributions are truncated. Outliers in
+the selected variables were replaced by their maximum per-
+mitted values. Two variables, pfail total and EcnoDiffNum,
+were scaled using the number of performed soft handover
+attempts (see Table 1). Logarithms of some of the variables
+were taken, but finally only scaled EcnoDiffNum was prepro-
+cessed with logarithmic function. Sample vectors with high
+amount of undefined measurements were canceled. Used
+clustering method (see section 3.2) allows using sample vec-
+tors in which some variables are undefined. However, they
+are not so useful when the rate of undefined values increases.
+Here, sample vectors with 15 or more missing values in 20
+variables are canceled.
+In Figure 2 the histograms of the most interesting vari-
+ables preprocessed using selected methods are visualized.
+Some of the variables have quite high peaks in distributions,
+but due to the origin of variables no other preprocessing
+have been performed. For example, handover failure reasons
+pfail ini, pfail ini radio, pfail act radio and pfail act sum up
+to unity. However, pfail act is not analyzed because it is zero
+all the time in the first data set
+</bodyText>
+<page confidence="0.999853">
+332
+</page>
+<figureCaption confidence="0.9849015">
+Figure 1: Used data analysis method. Steps con-
+nected with solid arrows have been performed
+</figureCaption>
+<subsectionHeader confidence="0.996027">
+3.2 Clustering
+</subsectionHeader>
+<bodyText confidence="0.999500217391305">
+Cluster analysis is used to divide data vectors in groups.
+Data vectors falling in same cluster are similar with each
+other. Here, clustering is performed using a two-phase
+method [15]. In this method, data vectors are at first used
+to train a Self-Organizing Map. Neurons of the SOM adapt
+to incoming data so that the input data can in later analysis
+be represented by the codebook vectors of neurons. Number
+of these codebook vectors is much smaller than the number
+of original data vectors. Thus, computational complexity of
+the final crisp clustering algorithm is decreased. Another
+advantage of using a SOM based two-phase method instead
+of direct clustering of data vectors is the visualization capa-
+bility of SOM.
+In addition to preprocessing, SOM algorithm provides an-
+other possibility to emphasize important properties of data.
+Larger weights in distance computation are given to the
+most important properties defined by the analyzer. Smaller
+or even zero weight can be given to those variables which
+are not used in organization of the SOM i.e. in building clus-
+ters. However, values of them can be compared to those with
+larger weights using various visualization methods. Weight-
+ing by variable importance can also be built into SOM train-
+ing algorithm by utilizing learning distance metrics [7
+</bodyText>
+<figureCaption confidence="0.991075">
+Figure 2: Logarithmic histograms after distribution
+cuts, logarithmic preprocessing of r EcnoDNum and
+scaling of all variables between [0,1
+</figureCaption>
+<bodyText confidence="0.999787">
+The codebook vectors are further clustered using k-means
+or some hierarchical clustering method. In this paper, Ward
+agglomerative clustering method has been used [4]. In the
+beginning of hierarchical clustering, each codebook vector
+is a cluster of its own. In the next step, the most similar
+clusters are combined and this is continued until all vectors
+are in same cluster. The clustering results form a tree struc-
+ture called dendrogram. In visualization of a dendrogram,
+the clusters combined in each step and the distance between
+them are shown. Final clustering is selected by cutting this
+tree at certain level. The number of clusters can be selected
+manually or some cluster validation index can be utilized
+to find the optimum. In this paper, Davies-Bouldin vali-
+dation index has been used [3]. Similar clustering methods
+have earlier been used in the analysis of both GSM and 3G
+network BTSs [9, 11, 13].
+As a result of clustering, each data vector is represented
+by index of one neuron or by the codebook vector stored in
+that neuron. Furthermore, the neuron and the data vectors
+the neuron represents belong to same cluster. On basis of
+the clustering result, some clusters can be selected for more
+specific analysis. Cluster selection is usually done on basis
+of found higher values of some critical variables. It is pos-
+sible to build a system in which rules are found for clusters
+[14, 9] and these are used to select interesting clusters au-
+tomatically. Here, interesting clusters are selected manually
+on basis of clusterwise variable mean values and histograms
+</bodyText>
+<sectionHeader confidence="0.993424">
+4. RESULTS
+</sectionHeader>
+<bodyText confidence="0.9991445">
+In this section, handover measurement data is used to
+train a Self-Organizing Map of size 17 x 12. Then, the code-
+book vectors of the SOM are clustered using hierarchical
+Ward method. Results of clustering are described and two
+clusters are then selected for more specific analysis. Charac-
+teristics of sample vectors falling in those clusters are studied
+using histograms.
+Only the most interesting variables are used to find the
+</bodyText>
+<figure confidence="0.994731888888889">
+Task definition
+Variable selection
+Clustering
+Interpretation
+of clusters
+Preprocessing
+Visualization
+with locations
+Parameter tuning
+</figure>
+<page confidence="0.999361">
+333
+</page>
+<bodyText confidence="0.99446075">
+nearest neuron of input data vector. These variables have
+nonzero mask which can also be considered as a weighting
+factor in a search for the best-matching neuron. Rest of
+the variables have zero mask, which means that they can
+be visualized and updated using SOM algorithm, but they
+do not have an effect on organization of the SOM and on
+selection of the cluster in which the sample belongs to.
+In Figure 3 all other component planes of SOM with pos-
+itive mask are shown, except Ec/N0 difference distributions
+which are shown in Figure 6. In component plane visual-
+ization, distributions of components (or variables) of SOM
+codebook vectors are shown. Component values of one code-
+book vector are visualized using grayscaling and their locate
+in the same position at each plane. For example, values of
+one codebook vector are shown at upper right corner in each
+plane
+</bodyText>
+<figureCaption confidence="0.95950275">
+Figure 3: Component planes of SOM with denor-
+malized scales. Shown variables have nonzero mask
+and they are not describing Ec/N0 difference distri-
+butions
+</figureCaption>
+<bodyText confidence="0.997694428571429">
+Some component values which were not used in SOM
+training (i.e. they were masked out) are shown in Figure
+4. Although, they have no effect on SOM organization, they
+are adapted to be able to compare their distributions even
+with those used in organizing the SOM.
+By visual comparison of variables in Figures 3 and 4, it can
+be seen that the total number of SHO attempts
+(SHO total att) and Ec/N0 difference measurements
+(EcnoDiffNum) is higher in upper part of the SOM. How-
+ever, when the latter is scaled by total number of attempts,
+higher rate of measurements (r EcnoDNum) is in lower part
+of the map. Also, the total number of failuring SHO at-
+tempts (pfail total) is high in upper right corner, but scal-
+ing this by number of attempts tells us that the failure rate
+(r fail) in upper right corner is quite moderate. Instead,
+higher failure rates exists in both lower corners i.e. in clus-
+ters 5 and 8 (see Figure 5).
+Trained SOM codebook vectors are clustered using hier-
+archical Ward algorithm. The clustering result selected by
+Davies-Bouldin index is shown in Figure 5. Four bin Ec/N0
+difference histograms are visualized on top of clustered SOM
+</bodyText>
+<figureCaption confidence="0.987289">
+Figure 4: Denormalized component planes of vari-
+ables which were not used in SOM training
+</figureCaption>
+<bodyText confidence="0.9861806">
+in Figure 6. When component values of SOM (see Figures
+3, 4 and 6) are compared with clustering result (see Figure
+5) several types of source target pairs can be found. Most of
+them are behaving as expected, but some of them represent
+handover attempts with certain type of problems
+</bodyText>
+<figureCaption confidence="0.9628595">
+Figure 5: SOM which is clustered using hierarchical
+Ward method and Davies-Bouldin validation index
+</figureCaption>
+<bodyText confidence="0.999598777777778">
+To find out the most interesting clusters of the SOM for
+further investigations, distribution of data samples on SOM
+is visualized. In Figure 7a hits of all samples on SOM nodes
+are visualized and in Figure 7b hits of samples with SHO
+failure rate (r fail) larger than 22% are shown. Samples are
+distributed all over the map, only some edge nodes have
+slightly larger hit rate. Lower part of the map has more hits
+when samples with increased failure rate are considered.
+In Figure 8 hits of samples which represent two differ
+</bodyText>
+<page confidence="0.999318">
+334
+</page>
+<figure confidence="0.994663">
+a) All (b) SHO failure rate &amp;gt; 22
+</figure>
+<figureCaption confidence="0.973233">
+Figure 7: Sample vector hits on SOM nodes. Size of
+black hexagonal on SOM node denotes the number
+of hits. Maximum number of hits per node is shown
+above the plot.
+Figure 6: EcnoDiff distributions on top of clustered
+SOM. In each SOM node a four bin Ec/N0 histogram
+is shown
+</figureCaption>
+<bodyText confidence="0.999174791666667">
+ent types of SHO failures are shown. Samples are from cell
+pairs in which the rate of selected type of failures is larger
+than 75%. However, handover initialization failures due to
+some other reason than radio channel resources (i.e. pfail ini
+type failures) are obviously more frequent than failures due
+to radio channel initialization problems (pfail ini radio type
+failures). Cell pairs with SHO failures originating mainly
+from these two reasons are mapped on separate clusters.
+All SHO failures due to radio channel initialization are in
+cluster 9 (see Figures 5 and 8b) and most of all other ini-
+tialization failures are in cluster 5 (see Figures 5 and 8a). In
+the following, these two clusters are studied in more detail.
+In Figures 9 and 10 histograms of samples which belong
+to clusters 5 and 9 are shown. These histograms should
+be compared with histograms of whole data set which were
+shown in Figure 2. In histograms of cluster 5 (see Figure
+9), the average received signal power ratio (av rscp ratio) is
+slightly lower than in general. Distributions of three largest
+Ec/N0 difference measurement bins are completely different
+than corresponding distributions from the whole data set.
+In cluster 5 most of the samples have about 3dB Ec/N0 dif-
+ference (EcnodiffPdf3.0) which means that at least this mea-
+surement makes successful SHOs possible and SHO should
+be performed. Exceptional Ec/N0 difference measurements
+</bodyText>
+<figure confidence="0.906198">
+a) pfail ini (b) pfail ini radio
+</figure>
+<figureCaption confidence="0.986003333333333">
+Figure 8: Hits of samples of two failure types. Sam-
+ples of which more than 75% are failuring due to
+selected cause are counted
+</figureCaption>
+<bodyText confidence="0.999568578947368">
+of this cluster can also be seen in Figure 6. All the failing
+cell pairs fail in initialization due to other than radio chan-
+nel reasons (pfail ini). Total rate of failures is very high
+(r fail). One reason for high rate of failures can be that all
+the capacity is in use.
+In histograms of cluster 9 (see Figure 10), the average re-
+ceived power ratios are a bit higher than usual, but there are
+no samples with high rate of 3dB Ec/N0 differences (EcnoD-
+iffPdf3.0). However, in such a situation it should be possible
+to perform successful SHOs. The rate of initialization fail-
+ures in radio channels (pfail ini radio) is higher than usually,
+but because only a small part of samples in this cluster have
+above mentioned problems the total SHO failure rate is not
+higher than usually. The total number of samples or cell
+pairs with high rate of initialization failures in SHO is so
+small, that it is impossible to make any further inferences
+from these clusters. It is possible to check histograms of
+only those samples which fulfill the failure rate criteria, but
+the number of samples is anyway quite low
+</bodyText>
+<page confidence="0.999894">
+335
+</page>
+<figureCaption confidence="0.988022">
+Figure 9: Histograms of data vectors of cluster 5
+</figureCaption>
+<bodyText confidence="0.987816166666667">
+Cell pairs with high rate of radio channel initialization
+failures in SHO attempts vary from data set to another,
+but without any information on network topology and with
+uncomplete information on performed tuning operations, it
+is impossible to make any further inferences.
+Figure 10: Histograms of data vectors of cluster 9
+</bodyText>
+<sectionHeader confidence="0.999735">
+5. CONCLUSIONS
+</sectionHeader>
+<bodyText confidence="0.999779060606061">
+In this paper, a data analysis method based on a neu-
+ral network has been presented. The method is utilized in
+data visualization and clustering. The presented method is
+only one possibility for finding data clusters. However, the
+benefits of the proposed method are the decrease in compu-
+tational complexity due to used two-phase clustering algo-
+rithm and the visualization capability of the method. Thus,
+it is well suitable for this kind of explorative data analysis.
+It is desirable to find clusters with characteristics which
+differ from one cluster to another. In the presented method,
+selection of variables and variable weighting factors have
+been used to find interesting clusters. In the preprocess-
+ing phase, also the number of permitted undefined measure-
+ment values in sample vector has an effect on found clusters.
+Sample vectors with high rate of missing values are not so
+usable and describable as samples without them. Vectors
+with missing values can be used in the SOM training but
+the benefit of using them decreases when the rate of unde-
+fined values increases.
+In this study, histograms are used both when preprocess-
+ing methods are decided and when an interpretation for the
+found clusters are looked for. However, clusters can also be
+compared using other visual methods, finding limiting rules
+for variable values in clusters or comparing distributions of
+variable values in clusters using more sophisticated distribu-
+tion comparison measures like Kullback-Leibler divergences
+[6].
+The results which have been obtained using all available
+data sets differ slightly from each other, but due to uncom-
+plete information on network configuration and parameter
+tuning, further inferences cannot be made. However, adding
+this information would offer interesting possibilities to con-
+tinue this study
+</bodyText>
+<sectionHeader confidence="0.994151">
+6. REFERENCES
+</sectionHeader>
+<reference confidence="0.999803555555555">
+1] P. Chapman, J. Clinton, T. Khabaza, T. Reinartz,
+and R. Wirth. CRISP-DM 1.0 step-by-step data
+mining guide. Technical report, CRISM-DM
+consortium, 2000. http://www.crisp-dm.org.
+[2] Y. Chen. Soft Handover Issues in Radio Resource
+Management for 3G WCDMA Networks. PhD thesis,
+Queen Mary, University of London, 2003.
+[3] D. Davies and D. Bouldin. A cluster separation
+measure. IEEE Transactions on Pattern Analysis and
+Machine Intelligence, 1(2):224–227, April 1979.
+[4] B. Everitt. Cluster Analysis. Arnold, 1993.
+[5] V. K. Garg. Wireless Network Evolution: 2G to 3G.
+Prentice-Hall, Inc., 2002.
+[6] S. Haykin. Neural Networks, a Comprehensive
+Foundation. Macmillan, 1999.
+[7] S. Kaski and J. Sinkkonen. Metrics that learn
+relevance. In Proceedings of the International Joint
+Conference on Neural Networks, volume 5, pages
+547–552, 2000.
+[8] T. Kohonen. Self-Organizing Maps. Springer-Verlag,
+Berlin, 1995.
+[9] J. Laiho, K. Raivio, P. Lehtim¨aki, K. H¨at¨onen, and
+O. Simula. Advanced analysis methods for 3G cellular
+networks. IEEE Transactions on Wireless
+Communications, 4(3):930–942, May 2005.
+[10] J. Laiho, A. Wacker, and T. Novosad, editors. Radio
+Network Planning and Optimisation for UMTS. John
+Wiley &amp;amp; Sons Ltd., 2001.
+[11] P. Lehtim¨aki and K. Raivio. A SOM based approach
+for visualization of GSM network performance data.
+In IEA/AIE, pages 588–598, 2005.
+[12] R. Prakash and V. Veeravalli. Locally optimal soft
+handoff algorithms. IEEE Transactions on Vehicular
+Technology, 52(2):347–356, March 2003.
+[13] K. Raivio, O. Simula, and J. Laiho. Neural analysis of
+mobile radio access network. In IEEE International
+</reference>
+<page confidence="0.991561">
+336
+</page>
+<reference confidence="0.999460083333333">
+Conference on Data Mining, pages 457–464, San Jose,
+California, USA, November 29 - December 2 2001.
+[14] M. Siponen, J. Vesanto, O. Simula, and P. Vasara. An
+approach to automated interpretation of SOM. In
+N. Allinson, H. Yin, L. Allinson, and J. Slack, editors,
+Advances in Self-Organizing Maps, pages 89–94.
+Springer, 2001.
+[15] J. Vesanto and E. Alhoniemi. Clustering of the
+self-organizing map. IEEE Transactions on Neural
+Networks, 11(3):586–600, May 2000.
+[16] J. Zander. Radio Resource Management for Wireless
+Networks. Artech House, Inc., 2001
+</reference>
+<page confidence="0.999596">
+337
+</page>
+</algorithm>

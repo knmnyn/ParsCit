@@ -1,0 +1,109 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+where an intermediate component, an aggregator, is used 
+by clients, with the very same SONAR API, to consolidate 
+the data from different providers. This way, one can choose 
+multiple providers and assign an appropriate weight to each 
+of them. It is expected that federating more data providers 
+will make the resulting answers to queries more complete.
+Clients of SONAR may vary from expertise miners, 
+through network visualizers, to user interface widgets. 
+SONAR answers questions such as “who does this person 
+communicate with most?”, “what are all the artifacts co-
+authored by these two individuals?”, “whom should I invite 
+to a brainstorm on a certain topic?”
+SONAR includes two types of data sources: personal 
+(private) and public. Personal sources, such as email and 
+instant messaging (IM), are only available to their owner 
+and reflect the owner’s personal, or egocentric, social 
+network (i.e., all nodes in the network are directly related to 
+the owner). Public data sources, such as blogs and 
+organizational charts, are available to all users and reflect 
+their extended, or sociocentric, network. SONAR maintains 
+the privacy model of its data sources: only those users who 
+have access to a certain piece of data by the original 
+provider will have access to the social information extracted 
+from this data by SONAR.
+As of now, we implemented the SONAR API for over ten 
+sources, public and personal, within the IBM intranet. 
+SONAR’s ultimate goal is to be widely used by social 
+networking and Web 2.0 services on the internet and to 
+define a standard, analogous to RSS [11]. SONAR is based 
+on the REST design pattern [9] and uses standard data 
+formats such as Atom [23] and JSON [13].
+When used for creating a sociocentric view of a social 
+network, SONAR is based solely on public sources. Any 
+user may use this view to examine publicly visible 
+connections within any group of people. When used for 
+creating an egocentric view of a user’s network, SONAR 
+also makes use of the user’s personal sources. Enriching the 
+egocentric network, as reflected in personal sources, with 
+information from public sources, opens up new 
+opportunities for learning about one’s extended network 
+(i.e., one’s connections and their connections with others). 
+Consider, for example, Alice who seeks a social connection 
+to Cindy. Cindy may not appear at all in Alice’s egocentric 
+network based on personal sources. However, examining 
+the extended network, Alice may discover that Bob – who 
+appears on her egocentric network by her personal data – is 
+related to Cindy according to public sources. Alice will then 
+be able to discover a social path to Cindy through Bob, 
+based on aggregation of her personal and public sources.
+In order to verify the fundamental concepts on which 
+SONAR relies, namely aggregation and the usage of public 
+sources, we conducted three experiments. The first 
+experiment examines different social networks derived 
+from four of SONAR’s implemented public data sources. 
+The second experiment involves a user study in which over
+a hundred users evaluated different buddylists derived from 
+24 different combinations of SONAR public as well as 
+personal data sources. For the third experiment we 
+interviewed 12 users about their usage of a SONAR UI and 
+their thoughts on the different buddylists. The experiments 
+examine the diversity of the public data sources, their value 
+to the user, and whether they add value over personal data 
+sources. Finally, we checked whether there exists an ideal 
+weighting scheme of the sources, which may serve as the 
+system’s default, and followed users as they were 
+composing their own ideal weighting scheme.
+We note that the experiments in this paper examine 
+buddylists and social networks generally, while, in practice, 
+different semantics may yield different social networks. For 
+example, the network consisting of users’ friends may be 
+different from the network of people with whom users 
+communicate most frequently, which may be different from 
+the network of individuals with whom users share similar 
+interests.
+The rest of the paper is organized as follows. The next 
+section surveys related work, followed by a more detailed 
+description of SONAR and typical usage scenarios. We 
+then describe our hypotheses, research method, and results. 
+The final section discusses conclusions and future work.
+RELATED WORK
+The formal discipline that studies interpersonal connections 
+is called social network analysis (SNA) [29]. A social 
+network (SN) is a graph that represents social entities and 
+relationships between them. SNs have often been studied 
+through the use of social science tools such as surveys and 
+interviews, which require a great deal of human labor. The 
+evolution of the Web, which is often referred to as Web 2.0 
+[24], has introduced new possibilities for SN research.
+Gathering SN Data from Computer Applications
+There are several popular SN services on the Web, which 
+help to connect friends and business acquaintances1. These 
+services define an explicit SN. Users directly specify who 
+their friends are and often manually state the nature of the 
+connection. The manual nature of these networks is perhaps 
+their main disadvantage. Only part of the user’s actual SN 
+will be registered in any such application, and since 
+explicitly entering social data is tedious, even users who are 
+registered are likely to have incomplete information about 
+their network. These applications are useful for SONAR, 
+providing very accurate, even if partial, social connections.
+The wealth of information in computer databases and 
+applications is a good source for automatically obtaining 
+various kinds of SN data without burdening users with the 
+manual management of their network. For example, 
+Wellman views computer networks as SNs and surveys 
+how computer networks reflect and affect traditional SNs
+1 {myspace, facebook, linkedin, orkut, friendster}.com
+1018

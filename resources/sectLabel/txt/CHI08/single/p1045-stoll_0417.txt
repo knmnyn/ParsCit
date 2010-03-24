@@ -1,0 +1,111 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+security decision making for end users remains nascent [4, 
+18]. Discussed below are two classes of such tools.
+Tools for specific activities: Some tools for non-experts 
+provide support only for security decisions that relate to a 
+specific user activity, e.g., browsing, searching, making 
+online transactions, sharing files, and so forth [2, 3, 21]. For 
+example, Web Wallet [19] can be used to ensure that a user’s 
+information will be sent to the desired site rather than to a 
+spoof. While these tools help support security decisions in 
+the context of a specific activity, they do not address the 
+range of ‘system level’ security situations that are independ-
+ent of what the user is doing. Consequently, security 
+decisions which do not map to a specific activity are largely 
+overlooked by these tools. For example, a spyware or bot 
+infection can severely endanger a user’s privacy and security 
+regardless of what actions the user is performing [13,9]. 
+Further, since different tools are employed for different 
+activities, the level of security, as well as the user interface, 
+can easily be inconsistent. This is not to say that security 
+tools are only effective if they support all security decisions 
+across all activities, but rather that activity-specific tools are 
+not a complete answer to end-user security.
+Tools for specific threats: Other tools provide support for 
+user decisions based on specific types of threats such as anti-
+phishing toolbars, anti-virus, -adware, and –spyware sys-
+tems. These tools tend to be based on heuristics or black lists 
+and will only provide protection for against attacks matching 
+their heuristics or that are on their lists. Users must con-
+stantly update these tools in order for them to be effective; 
+and the way in which they alert users to problems is also 
+problematic, as evidence shows that users often find the 
+information in these alerts to be difficult to understand and so 
+ignore them [20, 4].
+Consumer firewalls are perhaps the most common types of 
+security software that involves explicit user decision-making. 
+These systems protect against a range of network-based 
+attacks, such as worms that exploit software vulnerabilities. 
+These systems are not task-specific, but present system-level 
+information in a way that is often undecipherable to users 
+(e.g., describing connection attempts in terms of process 
+names, IP addresses, and port numbers). Users therefore 
+have little actionable information on which to base security 
+decisions when faced with firewall popups.
+Thus, there are few systems that attempt to provide users 
+with a framework for making security decisions that are not 
+tied directly to a specific activity, but instead help with 
+overall system security. Our goal with Sesame is to fill this 
+void; to provide general, firewall-like security (not, for 
+example, detecting of malware at the point of installation), 
+while helping users to make informed decisions. We focused 
+specifically on handling common classes of attacks where 
+user action is necessary to determine the correct course of 
+action. These include situations where there is no universally 
+correct action, but rather a tradeoff between security and 
+convenience that the user must consider, or situations where
+the correct action is dependent on context outside of the 
+system. Thus, unlike current firewalls—which convey 
+systems-related information textually, using low-level 
+technical details—Sesame provides a holistic graphical 
+representation of security-related system information in a 
+way designed to be understandable by end-users. Sesame 
+also provides a means for exploration of the underlying 
+system, allowing it be used for a greater range of purposes 
+than traditional consumer firewalls.
+DESIGN PROCESS
+In this section we discuss our iterative design process and 
+choice of the representational paradigm for Sesame.
+Representational Paradigm
+Our overarching goal with Sesame is to convey a visual 
+model that allows security-related system information to be 
+meaningfully interpreted by the user. To do so, we chose a 
+direct manipulation, model-world paradigm, as this is known 
+to have significant benefits for learnability [8]. Within this 
+interface we sought to 1) show how important but unfamiliar 
+abstractions (e.g., processes and networks) relate to abstrac-
+tions that are familiar and meaningful to users (e.g., windows 
+and real-world places); and 2) provide users with actionable 
+controls that enable them to affect their security state using 
+the information given.
+We believed a spatial, direct-manipulation interface would 
+yield a number of important benefits, the first of which is to 
+leverage existing knowledge. Our target, non-expert user 
+already typically interacts with the computer through the 
+spatial metaphor of the desktop GUI, which allows us to 
+leverage that experience to convey other, more complex 
+relationships via a similar spatial GUI. More subtly though, 
+desktop objects are familiar and meaningful to users; by 
+employing an interface that is metaphorically compatible 
+with the desktop, it should be easier to represent relationships 
+between esoteric security abstractions and the familiar 
+windows and things found on the desktop. The second 
+reason to use a visual representation is speed. The human 
+visual system has an enormous facility for the rapid assess-
+ment of visual scenes [ 14]. By presenting data in this way, as 
+opposed to a more verbose text-based approach, we hope to 
+minimize the time users need to assess their security situation 
+in any particular instance—thereby reducing one of the 
+known barriers to user motivation for understanding security 
+[18].
+Information Content
+Portraying all low-level information about the state of the 
+user’s system would not only potentially be overwhelming, 
+but also likely unnecessary for protection against the classes 
+of threats we are targeting. Thus, we do not attempt to depict 
+all possible system information, but focus instead on a 
+smaller subset selected through an analysis of whether the 
+information is both practically accessible and relevant in 
+addressing the common types of security threats we are 
+targeting (spyware, phishing, and bot infections).
+1047

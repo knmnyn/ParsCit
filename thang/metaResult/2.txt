@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithm name="ParsHed" version="090625">
+<header>
+<variant no="0" confidence="0.055561">
+<title confidence="0.993179">Power Tools for Copying and Moving: Useful Stuff for your Desktop</title>
+<author confidence="0.987738">Guillaume Faure</author>
+<author confidence="0.987738">Olivier Chapuis</author>
+<author confidence="0.987738">Nicolas Roussel</author>
+<email confidence="0.503522">gfaure@lri.fr</email>
+<email confidence="0.503522">chapuis@lri.fr</email>
+<email confidence="0.503522">roussel@lri.fr</email>
+<address confidence="0.685955">1LRI - Univ. Paris-Sud &amp;amp; CNRS 2INRIA Orsay, France Orsay, France</address>
+<abstract confidence="0.960818692307692">Copy and move operations have long been supported by interactive desktops through various means. But the growing number of on-screen objects makes these means harder to use. In this note, we present new tools and techniques to enhance the existing ones: a selection, copy and drag history manager; two techniques to expose the user’s desk and leaf through stacks of overlapping windows; and a technique that integrates the previous two with conventional drag-anddrop. ACM Classification Keywords H.5.2 [Information interfaces and presentation]: User interfaces - Graphical user interfaces</abstract>
+<keyword confidence="0.513058">Author Keywords Copy-and-paste, Cut-and-paste, Drag-and-drop</keyword>
+</variant>
+</header>
+<citationList>
+<citation valid="true">
+<authors>
+<author>P Baudisch</author>
+<author>C Gutwin</author>
+</authors>
+<title>Multiblending: displaying overlapping windows simultaneously without the drawbacks of alpha blending</title>
+<date>2004</date>
+<booktitle>In Proc. CHI’04, 367–374. ACM</booktitle>
+<contexts>
+<context position="13774" citStr="[1]"> desk’s original background with a semi-transparent black one while preserving the contents original opacity. Windows displayed under the desk are blurred a little to increase icon labels readability [1] and continually remind the user that the desk now covers them. Two variants of the desk pop technique can be activated by long mouse gestures (Figure 2, bottom). In the first one, dragging icons auto</context>
+</contexts>
+<marker>1.</marker>
+<rawString>P. Baudisch and C. Gutwin. Multiblending: displaying overlapping windows simultaneously without the drawbacks of alpha blending. In Proc. CHI’04, 367–374. ACM, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>O Chapuis</author>
+<author>R Blanch</author>
+<author>M Beaudouin-Lafon</author>
+</authors>
+<title>Fitts’ Law in the Wild: A Field Study of Aimed Movements</title>
+<date>2007</date>
+<tech>Technical report, LRI, Univ. Paris-Sud</tech>
+<location>France</location>
+<note>http://www.lri.fr/-chapuis/publications/RR1480.pdf</note>
+<contexts>
+<context position="11423" citStr="[2]">ter, preserving their workflow. In order to evaluate our timeout values, we analyzed middle and right button press-release sequences recorded from nine Linux users in their everyday use of a computer [2]. The analyzed logs include 32,571 middle clicks and 65,980 right clicks (among 1,473,029 clicks). We considered the 95%-quantile of the time between the button press and the action that triggers a dr</context>
+</contexts>
+<marker>2.</marker>
+<rawString>O. Chapuis, R. Blanch, and M. Beaudouin-Lafon. Fitts’ Law in the Wild: A Field Study of Aimed Movements. Technical report, LRI, Univ. Paris-Sud, France, 2007. http://www.lri.fr/-chapuis/publications/RR1480.pdf.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>O Chapuis</author>
+<author>N Roussel</author>
+</authors>
+<title>Metisse is not a 3D desktop</title>
+<date>2005</date>
+<booktitle>In Proc. UIST’05, 13–22. ACM</booktitle>
+<contexts>
+<context position="5642" citStr="[3]"> of nonoverlapping windows; e a gesture-based trailing widget that integrates desk pop and stack leafing with conventional drag-and-drop These tools and techniques have been implemented using Metisse [3] and tested with real applications. This imposed some constraints that would have been easy to avoid in simple demonstration prototypes. This was probably the biggest challenge we faced, one that is o</context>
+</contexts>
+<marker>3.</marker>
+<rawString>O. Chapuis and N. Roussel. Metisse is not a 3D desktop! In Proc. UIST’05, 13–22. ACM, 2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>O Chapuis</author>
+<author>N Roussel</author>
+</authors>
+<title>Copy-and-paste between overlapping windows</title>
+<date>2007</date>
+<booktitle>In Proc. CHI’07, 201–210. ACM</booktitle>
+<contexts>
+<context position="1524" citStr="[4]"> or cut command, specifies the destination and then activates the paste command. Various techniques support this copyor-move action sequence, such as keyboard shortcuts, popup menus and drag-and-drop [4]. Keyboard shortcuts and popup menus dissociate the four steps of the sequence, allowing to intertwine them with other actions. This supports complex navigation tasks between the source and target loc</context>
+<context position="2690" citStr="[4]"> 4-9, 2009, Boston, Massachusetts, USA. Copyright 2009 ACM 978-1-60558-246-7/09/04...$5.00. Although very efficient, this makes it far too easy to lose data to be copied on the way to the destination [4]. Drag-and-drop combines the last three actions of copy-ormove in a single, continuous, direct manipulation technique. It provides a clear visual feedback of the operation reinforced by the tension of</context>
+<context position="4380" citStr="[4]"> the desk1 is usually problematic. Clipboard managers have been proposed to allow users to retrieve previously copied objects in arbitrary order, but interviews suggest these tools remain rarely used [4]. New window management techniques accessible through keyboard shortcuts and time-based interactions have been added to some systems to facilitate navigation during drag-and-drop operations, e.g. Expo</context>
+</contexts>
+<marker>4.</marker>
+<rawString>O. Chapuis and N. Roussel. Copy-and-paste between overlapping windows. In Proc. CHI’07, 201–210. ACM, 2007.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Dragicevic</author>
+</authors>
+<title>Combining crossing-based and paper-based interaction paradigms for dragging and dropping between overlapping windows</title>
+<date>2004</date>
+<booktitle>In Proc. UIST’04, 193–196. ACM</booktitle>
+<contexts>
+<context position="4738" citStr="[5]">on during drag-and-drop operations, e.g. Expos´e and the spring-loaded folders on OS X. But little work has been done by the HCI community on this problem. Two notable exceptions are the Fold n’ Drop [5] and Boomerang [9] techniques, the former making it possible to leaf through windows during the drag-and-drop operation and the latter providing ways to suspend it and resume it later. 1we will use th</context>
+<context position="17842" citStr="[5]"> key but intricate factor in evaluating window navigation techniques. Nevertheless, we believe that the exploratory facet of stack leafing offers a notable advantage over techniques like Fold n’ Drop [5] that require users to know what they look for beforehand to be efficient. IMPLEMENTATION REQUIREMENTS Besides the classical services provided by any high level GUI toolkit, implementation of the prop</context>
+</contexts>
+<marker>5.</marker>
+<rawString>P. Dragicevic. Combining crossing-based and paper-based interaction paradigms for dragging and dropping between overlapping windows. In Proc. UIST’04, 193–196. ACM, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Forlines</author>
+<author>D Vogel</author>
+<author>R Balakrishnan</author>
+</authors>
+<title>Hybridpointing: fluid switching between absolute and relative pointing with a direct input device</title>
+<date>2006</date>
+<booktitle>In Proc. UIST’06, 211–220. ACM</booktitle>
+<contexts>
+<context position="16723" citStr="[6]"> the keyboard to perform commands during a dragand-drop is acceptable in some situations, but more direct mouse or stylus interactions might be preferable in others. We designed a new trailing widget [6] for the latter, displayed as a small red point that follows dragged objects in an elastic way. By performing a short and fast movement in the direction of this point, users can “catch” it, which reve</context>
+</contexts>
+<marker>6.</marker>
+<rawString>C. Forlines, D. Vogel, and R. Balakrishnan. Hybridpointing: fluid switching between absolute and relative pointing with a direct input device. In Proc. UIST’06, 211–220. ACM, 2006.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Hinckley</author>
+<author>P Baudisch</author>
+<author>G Ramos</author>
+<author>F Guimbretiere</author>
+</authors>
+<title>Design and analysis of delimiters for selection-action pen gesture phrases in scriboli</title>
+<date>2005</date>
+<booktitle>In Proc. CHI’05, 451–460. ACM</booktitle>
+<contexts>
+<context position="8008" citStr="[7]">menus were carefully chosen to be as consistent as possible with the interaction flow of the corresponding copy-or-move mechanisms. We used time in a way similar to Hinckley et al’s Timeout delimiter [7] to smoothly integrate new interaction techniques with existing ones. A timeout was used in our impleFigure 1. Sample selection history menu. mentations to differentiate regular mouse and keyboard int</context>
+</contexts>
+<marker>7.</marker>
+<rawString>K. Hinckley, P. Baudisch, G. Ramos, and F. Guimbretiere. Design and analysis of delimiters for selection-action pen gesture phrases in scriboli. In Proc. CHI’05, 451–460. ACM, 2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E W Ishak</author>
+<author>S K Feiner</author>
+</authors>
+<title>Interacting with hidden content using content-aware free-space transparency</title>
+<date>2004</date>
+<booktitle>In Proc. UIST’04, 189–192. ACM</booktitle>
+<contexts>
+<context position="14717" citStr="[8]">, making them hard to distinguish. Content-aware free-space transparency has been proposed as another solution to view and manipulate hidden content through unimportant regions of overlapping windows [8]. However, the associated navigation techniques only work for windows close to the mouse cursor. The stack leafing technique we propose is based on a widget that combines generalized scrolling [10] an</context>
+</contexts>
+<marker>8.</marker>
+<rawString>E. W. Ishak and S. K. Feiner. Interacting with hidden content using content-aware free-space transparency. In Proc. UIST’04, 189–192. ACM, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Kobayashi</author>
+<author>T Igarashi</author>
+</authors>
+<title>Boomerang: suspendable dragand-drop interactions based on a throw-and-catch metaphor</title>
+<date>2007</date>
+<booktitle>In Proc. UIST’07, 187–190. ACM</booktitle>
+<contexts>
+<context position="4756" citStr="[9]">-drop operations, e.g. Expos´e and the spring-loaded folders on OS X. But little work has been done by the HCI community on this problem. Two notable exceptions are the Fold n’ Drop [5] and Boomerang [9] techniques, the former making it possible to leaf through windows during the drag-and-drop operation and the latter providing ways to suspend it and resume it later. 1we will use this term to refer t</context>
+<context position="10524" citStr="[9]">t click. An interesting aspect of our drag history mechanism is that it can be used to handle multiple interrupted drag-and-drop operations, providing a partial reification of the Boomerang technique [9]: dragging objects only a few pixels away is enough to insert them in the history list from which they can be later retrieved at a convenient time and place. A keystroke level analysis reveals that ou</context>
+</contexts>
+<marker>9.</marker>
+<rawString>M. Kobayashi and T. Igarashi. Boomerang: suspendable dragand-drop interactions based on a throw-and-catch metaphor. In Proc. UIST’07, 187–190. ACM, 2007.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R B Smith</author>
+<author>A Taivalsaari</author>
+</authors>
+<title>Generalized and stationary scrolling</title>
+<date>1999</date>
+<booktitle>In Proc. UIST’99, 1–9. ACM</booktitle>
+<contexts>
+<context position="14914" citStr="[10]">ows [8]. However, the associated navigation techniques only work for windows close to the mouse cursor. The stack leafing technique we propose is based on a widget that combines generalized scrolling [10] and crossing to control the stacking order of layers of non-overlapping windows. This technique has the advantages of minimizing mouse navigation and preserving the size and position of windows while</context>
+</contexts>
+<marker>10.</marker>
+<rawString>R. B. Smith and A. Taivalsaari. Generalized and stationary scrolling. In Proc. UIST’99, 1–9. ACM, 1999.</rawString>
+</citation>
+</citationList>
+</algorithm>

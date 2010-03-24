@@ -1,0 +1,98 @@
+CHI 2008 Proceedings · Usability Evaluation Considered Harmful?	April 5-10, 2008 · Florence, Italy
+Usability Evaluation Considered Harmful
+(Some of the Time)
+Saul Greenberg
+Department of Computer Science
+University of Calgary
+Calgary, Alberta, T2N 1N4, Canada
+saul.greenberg@ucalgary.ca
+ABSTRACT
+Current practice in Human Computer Interaction as 
+encouraged by educational institutes, academic review 
+processes, and institutions with usability groups advocate 
+usability evaluation as a critical part of every design 
+process. This is for good reason: usability evaluation has a 
+significant role to play when conditions warrant it. Yet 
+evaluation can be ineffective and even harmful if naively 
+done ‘by rule’ rather than ‘by thought’. If done during early 
+stage design, it can mute creative ideas that do not conform 
+to current interface norms. If done to test radical 
+innovations, the many interface issues that would likely 
+arise from an immature technology can quash what could 
+have been an inspired vision. If done to validate an 
+academic prototype, it may incorrectly suggest a design’s 
+scientific worthiness rather than offer a meaningful critique 
+of how it would be adopted and used in everyday practice. 
+If done without regard to how cultures adopt technology 
+over time, then today&apos;s reluctant reactions by users will 
+forestall tomorrow&apos;s eager acceptance. The choice of 
+evaluation methodology – if any – must arise from and be 
+appropriate for the actual problem or research question 
+under consideration.
+Author Keywords
+Usability testing, interface critiques, teaching usability.
+ACM Classification Keywords
+H5.2. Information interfaces and presentation (e.g., HCI): 
+User Interfaces (Evaluation/Methodology).
+In 1968, Dijkstra wrote ‘Go To Statement Considered 
+Harmful’, a critique of existing programming practices that 
+eventually led the programming community to adopt 
+structured programming [8]. Since then, titles that include 
+the phrase ‘considered harmful’ signal a critical essay that 
+advocates change. This article is written in that vein.
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+Bill Buxton
+Principle Researcher
+Microsoft Research
+Redmond, WA, USA
+bibuxton@microsoft.com
+INTRODUCTION
+Usability evaluation is one of the major cornerstones of 
+user interface design. This is for good reason. As Dix et al., 
+remind us, such evaluation helps us “assess our designs and 
+test our systems to ensure that they actually behave as we 
+expect and meet the requirements of the user” [7]. This is 
+typically done by using an evaluation method to measure or 
+predict how effective, efficient and/or satisfied people 
+would be when using the interface to perform one or more 
+tasks. As commonly practiced, these usability evaluation 
+methods range from laboratory-based user observations, 
+controlled user studies, and/or inspection techniques 
+[7,22,1]. The scope of this paper concerns these methods.
+The purpose behind usability evaluation, regardless of the 
+actual method, can vary considerably in different contexts. 
+Within product groups, practitioners typically evaluate 
+products under development for ‘usability bugs’, where 
+developers are expected to correct the significant problems 
+found (i.e., iterative development). Usability evaluation can 
+also form part of an acceptance test, where human 
+performance while using the system is measured 
+quantitatively to see if it falls within an acceptable criteria 
+(e.g., time to complete a task, error rate, relative 
+satisfaction). Or if the team is considering purchasing one 
+of two competing products, usability evaluation can 
+determine which is better at certain things.
+Within HCI research and academia, researchers employ 
+usability evaluation to validate novel design ideas and 
+systems, usually by showing that human performance or 
+work practices are somehow improved when compared to 
+some baseline set of metrics (e.g., other competing ideas), 
+or that people can achieve a stated goal when using this 
+system (e.g., performance measures, task completions), or 
+that their processes and outcomes improve.
+Clearly, usability evaluation is valuable for many situations, 
+as it often helps validate both research ideas and products at 
+varying stages in its lifecycle. Indeed, we (the authors) have 
+advocated and practiced usability evaluation in both 
+research and academia for many decades. We believe that 
+the community should continue to evaluate usability for 
+many – but not all – interface development situations. What 
+we will argue is that there are some situations where
+111

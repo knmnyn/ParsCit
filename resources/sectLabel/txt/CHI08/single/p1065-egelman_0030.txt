@@ -1,0 +1,113 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+URL did not match the usual eBay URL and so it could be 
+fraudulent;” “I did look at the URL that I opened from the 
+email, and the sender of the email, to confirm that they did 
+look suspicious;” and “it made me look at the web address 
+which was wrong.” One participant in the passive IE con-
+dition and three in the active IE condition incorrectly used 
+this information to fall for the phishing attacks. Some of 
+the comments included: “The address in the browser was 
+of amazonaccounts.com which is a genuine address” and “I 
+looked at the URL and it looked okay.”
+Finally, at least four participants claimed that the timing of 
+the phishing emails with the purchases contributed to them 
+ignoring the warnings. It is unclear how susceptible these 
+participants would have been to a broader phishing attack, 
+rather than the targeted attack that we examined.
+DISCUSSION
+In this section we provide some recommendations for im-
+proving the design of phishing indicators based on the results 
+of our study.
+Interrupting the primary task — Phishing indicators need 
+to be designed to interrupt the user’s task. We found that the 
+passive indicator, which did not interrupt the user’s task, was 
+not significantly different than not providing any warning. 
+The active warnings were effective because they facilitated 
+attention switch and maintenance.
+Providing clear choices — Phishing indicators need to pro-
+vide the user with clear options on how to proceed, rather 
+than simply displaying a block of text. The users that no-
+ticed the passive Internet Explorer warning, read it but ig-
+nored it because they did not understand what they were sup-
+posed to do. They understood it had something to do with 
+security, but they did not know how to proceed. In contrast, 
+the active warnings presented choices and recommendations 
+which were largely heeded. Wu found similar results with 
+regard to providing users with clear choices [22].
+Failing safely — Phishing indicators must be designed such 
+that one can only proceed to the phishing website after read-
+ing the warning message. Users of the active Internet Ex-
+plorer warning who did not read the warning or choices could 
+only close the window to get rid of the message. This pre-
+vented them from accessing the page without reviewing the 
+warning’s recommendations. However, users of the passive 
+Internet Explorer warning had the option of clicking the fa-
+miliar ‘X’ in the corner to dismiss it without reading it, and 
+accessing the page anyway.
+Preventing habituation — Phishing indicators need to be 
+distinguishable from less serious warnings and used only 
+when there is a clear danger. Users ignored the passive in-
+dicators because they looked like many other warnings that 
+users have ignored without consequences, thus they appear 
+to be “crying wolf.” Even the active Internet Explorer warn-
+ing was not read in a few cases because users mistook it for 
+other IE warnings. More people read the Firefox warnings 
+because they are designed unlike any other warnings. Dy-
+namic warning messages may help prevent habituation [3].
+Altering the phishing website — Phishing indicators need to 
+distort the look and feel of the website such that the user does 
+not place trust in it. This can be accomplished by altering its 
+look or simply not displaying it at all. The overall look and 
+feel of a website is usually the primary factor when users 
+make trust decisions [10]. When the website was displayed 
+alongside the passive indicators, users ignored the warnings 
+because they said that they trusted the look of the website.
+CONCLUSION
+This study has given us insights into creating effective se-
+curity indicators within the context of phishing. Such in-
+dicators are clearly needed as 97% of participants believed 
+the phishing emails enough to visit the URLs. Of the par-
+ticipants who saw the active warnings, 79% chose to heed 
+them and close the phishing websites, whereas only 13% of 
+those who saw the passive warnings obeyed them. Without 
+the active warning indicators, it is likely that most partici-
+pants would have entered personal information. However, 
+the active indicators did not perform equally: the indica-
+tors used by Firefox performed significantly better than the 
+active warnings used by IE, though both performed signif-
+icantly better than the passive IE warnings (which was not 
+significantly different from not showing any warnings in the 
+control group).
+As phishing attacks continue to evolve, it is likely that highly 
+targeted attacks will become more prevalent. Future indica-
+tors within the phishing context need to be designed such 
+that they interrupt the user’s primary task, clearly convey the 
+recommended actions to take, fail in a secure manner if the 
+user does not understand or ignores them, draw trust away 
+from the suspected phishing website, and prevent the user 
+from becoming habituated.
+ACKNOWLEDGMENTS
+Thanks to the members of the Supporting Trust Decisions 
+project for their feedback, and Matthew Williams for his as-
+sistance. This work was supported in part by the National 
+Science Foundation under grant CCF-0524189. The views 
+and conclusions contained in this document are those of the 
+authors and should not be interpreted as representing the of-
+ficial policies, either expressed or implied, of the National 
+Science Foundation or the U.S. government.
+REFERENCES
+1. AMER, T. S., AND MARIS, J. B. Signal words and 
+signal icons in application control and information 
+technology exception messages – hazard matching and 
+habituation effects. Tech. Rep. Working Paper 
+Series–06-05, Northern Arizona University, Flagstaff, 
+AZ, October 2006.
+2. BANK OF AMERICA. How Bank of America SiteKey 
+Works for Online Banking Security. 
+http://www.bankofamerica.com/privacy/sitekey/, 2007.
+3. BRUSTOLONI, J. C., AND VILLAMAR´IN-SALOM´ON, 
+R. Improving security decisions with polymorphic and 
+audited dialogs. In SOUPS ’07: Proceedings of the 3rd 
+symposium on Usable privacy and security (New York, 
+NY, USA, 2007), ACM Press, pp. 76–85.
+1073
