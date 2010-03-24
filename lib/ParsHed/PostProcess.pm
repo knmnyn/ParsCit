@@ -57,6 +57,7 @@ sub wrapHeaderXml {
       my $token = $tokens[0];
       my $sys = $tokens[-1];
       my $gold = $tokens[-2];
+      my $confidence = 0;
 
       my $confidence = 0; # for this line
       if(!defined $isTokenLevel){ 
@@ -85,6 +86,8 @@ sub wrapHeaderXml {
 	$curConfidence = 0;
 	$count = 0;
       } # end if ($lastTag ne "")
+
+      $curConfidence+=$confidence;
 
       if(defined $isTokenLevel && $token eq "+L+"){ 
 	next;

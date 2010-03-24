@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<algorithm name="SectLabel" version="090625" confidence="1.0">
-<title>
+<algorithm name="SectLabel" version="090625" confidence="0.000014">
+<title confidence="0.987437">
 2-Source Dispersers for Sub-Polynomial Entropy and
 Ramsey Graphs Beating the Frankl-Wilson Construction
 </title>
-<email>
+<email confidence="0.146937">
 
 </email>
-<author>
+<author confidence="0.701143">
 Boaz Barak
 </author>
-<affiliation>
+<affiliation confidence="0.794406">
 Department of Computer Science
 Princeton University
 </affiliation>
-<email>
+<email confidence="0.96053">
 boaz@cs.princeton.edu
 </email>
-<author>
+<author confidence="0.906146">
 Ronen Shaltiel
 </author>
-<affiliation>
+<affiliation confidence="0.906285">
 University of Haifa
 </affiliation>
-<address>
+<address confidence="0.637941">
 Mount Carmel
 Haifa, Israel
 </address>
-<email>
+<email confidence="0.947358">
 ronen@cs.haifa.ac.il
 </email>
-<sectionHeader>
+<sectionHeader confidence="0.995246">
 ABSTRACT
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.996187210526316">
 The main result of this paper is an explicit disperser for two
 independent sources on n bits, each of entropy k = no(1).
 Put differently, setting N = 2n and K = 2k, we construct
@@ -54,7 +54,7 @@ entropy rate &amp;lt; 1/2 [5]
 • Raz’s extractor for 2 independent sources, one of which
 has any entropy rate &amp;gt; 1/2 [18
 </bodyText>
-<footnote>
+<footnote confidence="0.76668075">
 Supported by a Princeton University startup grant.
 †Most of this work was done while the author was visiting
 Princeton University and the Institute for Advanced Study.
@@ -64,7 +64,7 @@ and NSF Grant CCR-0310960.
 Binational Science Foundation (BSF) grant 2004329.
 §This research was supported by NSF Grant CCR-0324906
 </footnote>
-<copyright>
+<copyright confidence="0.996023833333333">
 Permission to make digital or hard copies of all or part of this work for
 personal or classroom use is granted without fee provided that copies are
 not made or distributed for profit or commercial advantage and that copies
@@ -72,36 +72,36 @@ bear this notice and the full citation on the first page. To copy otherwise, to
 republish, to post on servers or to redistribute to lists, requires prior specific
 permission and/or a fee
 </copyright>
-<note>
+<note confidence="0.995724">
 STOC’06, May 21–23, 2006, Seattle, Washington, USA
 </note>
-<copyright>
+<copyright confidence="0.979675">
 2006 ACM 1-59593-134-1/06/0005 ...$5.00
 </copyright>
-<author>
+<author confidence="0.938142">
 Anup Rao
 </author>
-<affiliation>
+<affiliation confidence="0.978725">
 Department of Computer Science
 University of Texas at Austin
 </affiliation>
-<email>
+<email confidence="0.993217">
 arao@cs.utexas.edu
 </email>
-<author>
+<author confidence="0.933514">
 Avi Wigderson
 </author>
-<affiliation>
+<affiliation confidence="0.909881">
 Institute for Advanced Study
 </affiliation>
-<address>
+<address confidence="0.6055295">
 Princeton
 New Jersey
 </address>
-<email>
+<email confidence="0.855255">
 avi@math.ias.edu
 </email>
-<bodyText>
+<bodyText confidence="0.988757923076923">
 Rao’s extractor for 2 independent block-sources of en-
 tropy no(1) [17]
 • The “Challenge-Response” mechanism for detecting
@@ -116,35 +116,35 @@ resolved via a new construct, in between a disperser and
 an extractor, which behaves like an extractor on sufficiently
 large subsources of the given ones
 </bodyText>
-<note>
+<note confidence="0.894176">
 This version is only an extended abstract, please see the
 full version, available on the authors’ homepages, for more
 details
 </note>
-<sectionHeader>
+<sectionHeader confidence="0.995702">
 Categories and Subject Descriptors
 </sectionHeader>
-<category>
+<category confidence="0.9688995">
 G.2.2 [Mathematics of Computing]: Discrete Mathe-
 matics—Graph algorithms
 </category>
-<sectionHeader>
+<sectionHeader confidence="0.9982">
 General Terms
 </sectionHeader>
-<keyword>
+<keyword confidence="0.978364">
 Theory, Algorithms
 </keyword>
-<sectionHeader>
+<sectionHeader confidence="0.998361">
 Keywords
 </sectionHeader>
-<keyword>
+<keyword confidence="0.9676905">
 Dispersers, Ramsey Graphs, Independent Sources, Extrac-
 tors
 </keyword>
-<sectionHeader>
+<sectionHeader confidence="0.999932">
 1. INTRODUCTION
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.999419125">
 This paper deals with randomness extraction from weak
 random sources. Here a weak random source is a distribu-
 tion which contains some entropy. The extraction task is to
@@ -154,10 +154,10 @@ unbiased bits. Beyond the obvious motivations (potential
 use of physical sources in pseudorandom generators and in
 derandomization), extractors have found applications in a
 </bodyText>
-<page>
+<page confidence="0.999295">
 671
 </page>
-<bodyText>
+<bodyText confidence="0.9997988125">
 variety of areas in theoretical computer science where ran-
 domness does not seem an issue, such as in efficient con-
 structions of communication networks [24, 7], error correct-
@@ -191,15 +191,15 @@ difficulties so that the main ideas, structure and tools used
 are highlighted. For that reason we also often state defini-
 tions and theorems somewhat informally
 </bodyText>
-<subsectionHeader>
+<subsectionHeader confidence="0.995534">
 1.1 Ramsey Graphs
 </subsectionHeader>
-<construct>
+<construct confidence="0.983896">
 DefInItIOn 1.1. A graph on N vertices is called a K-
 Ramsey Graph if it contains no clique or independent set of
 size K
 </construct>
-<bodyText>
+<bodyText confidence="0.996748192307692">
 In 1947 Erd}os published his paper inaugurating the Prob-
 abilistic Method with a few examples, including a proof that
 most graphs on N = 2n vertices are 2n-Ramsey. The quest
@@ -227,12 +227,12 @@ we were able to surpass it.
 The analogous question for bipartite graphs seemed much
 harder
 </bodyText>
-<construct>
+<construct confidence="0.992925">
 DefInItIOn 1.2. A bipartite graph on two sets of N ver-
 tices is a K-Ramsey Bipartite Graph if it has no K × K
 complete or empty bipartite subgraph
 </construct>
-<bodyText>
+<bodyText confidence="0.9951547">
 While Erd}os’ result on the abundance of 2n-Ramsey graphs
 holds as is for bipartite graphs, until recently the best ex-
 plicit construction of bipartite Ramsey graphs was 2n/2-
@@ -244,13 +244,13 @@ It is convenient to view such graphs as functions f :
 ({0, 1}n)2 → {0, 1}. This then gives exactly the definition
 of a disperser
 </bodyText>
-<construct>
+<construct confidence="0.99404275">
 DefInItIOn 1.3. A function f : ({0, 1}n)2 → {0, 1} is
 called a 2-source disperser for entropy k if for any two sets
 X, Y ⊂ {0, 1}n with  |X  |= |Y |= 2k, we have that the image
 f (X, Y) is {0, 1
 </construct>
-<bodyText>
+<bodyText confidence="0.9946115">
 This allows for a more formal definition of explicitness: we
 simply demand that the function f is computable in polyno-
 mial time. Most of the constructions mentioned above are
@@ -258,18 +258,18 @@ explicit in this sense.&amp;apos;
 Our main result (stated informally) significantly improves
 the bounds in both the bipartite and non-bipartite settings
 </bodyText>
-<construct>
+<construct confidence="0.9865422">
 TheOrem 1.4. For every N we construct polynomial time
 computable bipartite graphs which are 2n&amp;apos;(1)-Ramsey. A stan-
 dard transformation of these graphs also yields polynomial
 time computable ordinary Ramsey Graphs with the same pa-
 rameters
 </construct>
-<subsectionHeader>
+<subsectionHeader confidence="0.9764405">
 1.2 Extractors and Dispersers from indepen-
 dent sources
 </subsectionHeader>
-<bodyText>
+<bodyText confidence="0.997855166666667">
 Now we give a brief review of past relevant work (with the
 goal of putting this paper in proper context) and describe
 some of the tools from these past works that we will use.
@@ -277,34 +277,34 @@ We start with the basic definitions of k-sources by Nisan
 and Zuckerman [15] and of extractors and dispersers for in-
 dependent sources by Santha and Vazirani [20
 </bodyText>
-<construct>
+<construct confidence="0.9884694">
 DefInItIOn 1.5 ([15], See alSO [8]). The min-entropy
 of a distribution X is the maximum k such that for every
 element x in its support, Pr[X = x] ≤ 2-k. If X is a dis-
 tribution on strings with min-entropy at least k, we will call
 X a k-source 2
 </construct>
-<bodyText>
+<bodyText confidence="0.925819666666667">
 To simplify the presentation, in this version of the paper
 we will assume that we are working with entropy as opposed
 to min-entropy
 </bodyText>
-<construct>
+<construct confidence="0.984319666666667">
 DefInItIOn 1.6 ([20]). A function f : ({0,1}n)c →
 {0, 1}m is a c-source (k, ǫ) extractor if for every family of c
 independent k-sources X&amp;apos;, • • • , Xc, the output f (X&amp;apos;, • • • , Xc
 </construct>
-<footnote>
+<footnote confidence="0.9813538">
 amp;apos;The Abbot’s product based Ramsey-graph construction of
 [3] and the bipartite Ramsey construction of [16] only satisfy
 a weaker notion of explicitness.
 2It is no loss of generality to imagine that X is uniformly
 distributed over some (unknown) set of size 2k
 </footnote>
-<page>
+<page confidence="0.999621">
 672
 </page>
-<bodyText>
+<bodyText confidence="0.998290181818182">
 is a ǫ-close 3 to uniformly distributed on m bits. f is a dis-
 perser for the same parameters if the output is simply re-
 quired to have a support of relative size (1 − ǫ).
@@ -328,12 +328,12 @@ sources of entropy .4999n, again with linear output length
 m = 0(n). This seemingly minor improvement will be cru-
 cial for our work
 </bodyText>
-<construct>
+<construct confidence="0.980822333333333">
 TheOrem 1.7 ([5] ). There is a polynomial time com-
 putable 2-source extractor f : ({0, 1}n)2 → {0, 1}m for en-
 tropy .4999n and m = 0(n
 </construct>
-<bodyText>
+<bodyText confidence="0.998968266666667">
 No better bounds are known for 2-source extractors. Now
 we turn our attention to 2-source dispersers. It turned out
 that progress for building good 2-source dispersers came via
@@ -365,28 +365,28 @@ and Goldreich [8]. It has been fundamental in the develop-
 ment of seeded extractors and as we shall see, is essential
 for us as well
 </bodyText>
-<construct>
+<construct confidence="0.993072">
 DefInItIOn 1.8 ([8] ). A distribution X = X1, ... , Xc
 is a c-block-source of (block) entropy k if every block Xi
 has entropy k even conditioned on fixing the previous blocks
 X1, • • • , Xi_1 to arbitrary constants
 </construct>
-<footnote>
+<footnote confidence="0.9613255">
 3The error is usually measured in terms of ℓ1 distance or
 variation distance
 </footnote>
-<bodyText>
+<bodyText confidence="0.97720725">
 This definition allowed Barak et al. [4] to show that their
 extractor for 4 independent sources, actually performs as
 well with only 2 independent sources, as long as both are
 2-block-sources
 </bodyText>
-<construct>
+<construct confidence="0.984073333333333">
 TheOrem 1.9 ([4] ). There exists a polynomial time com-
 putable extractor f : ({0, 1}n)2 → {0, 1} for 2 independent
 2-block-sources with entropy o(n
 </construct>
-<bodyText>
+<bodyText confidence="0.999100583333334">
 There is no reason to assume that the given sources are
 block-sources, but it is natural to try and reduce to this
 case. This approach has been one of the most successful in
@@ -400,12 +400,12 @@ choice of such a partition. This method succeeds only with
 small probability, dashing the hope for an extractor, but still
 yielding a disperser
 </bodyText>
-<construct>
+<construct confidence="0.981174333333333">
 TheOrem 1.10 ([4] ). There exists a polynomial time
 computable 2-source disperser f : ({0, 1}n)2 → {0, 1} for
 entropy o(n
 </construct>
-<bodyText>
+<bodyText confidence="0.998279375">
 Reducing the entropy requirement of the above 2-source
 disperser, which is what we achieve in this paper, again
 needed progress on achieving a similar reduction for extrac-
@@ -423,13 +423,13 @@ ficiently many blocks, Rao proves that 2 independent sources
 suffice (though this result does rely on arithmetic combina-
 torics, in particular, on Bourgain’s extractor
 </bodyText>
-<construct>
+<construct confidence="0.993491">
 TheOrem 1.11 ([?] ). There is a polynomial time com-
 putable extractor f : ({0, 1}n)2 → {0, 1}m for 2 independent
 c-block-sources with block entropy k and m = 0(k), as long
 as c = O((log n)/(log k
 </construct>
-<bodyText>
+<bodyText confidence="0.997827888888889">
 In this paper (see Theorem 2.7 below) we improve this
 result to hold even when only one of the 2 sources is a c-
 block-source. The other source can be an arbitrary source
@@ -440,10 +440,10 @@ uses a theorem of Raz [18] allowing seeded extractors to have
 ”weak” seeds, namely instead of being completely random
 they work as long as the seed has entropy rate &amp;gt; 1/2
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.999321">
 2. MAIN NOTIONS AND NEW RESULTS
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.994909">
 The main result of this paper is a polynomial time com-
 putable disperser for 2 sources of entropy no(1), significantly
 improving both the results of Barak et al. [4] (o(n) entropy).
@@ -451,15 +451,15 @@ It also improves on Frankl and Wilson [9], who only built
 Ramsey Graphs and only for entropy ~O(√n).
 = (x, y)( mod 2). It is an extractor for entropy
 </bodyText>
-<page>
+<page confidence="0.999696">
 673
 </page>
-<construct>
+<construct confidence="0.988543333333333">
 ThEOREm 2.1 (MaIn thEOREm, REStatEd). There ex-
 ists a polynomial time computable 2-source disperser D :
 ({0, 1}n)2 → {0, 1} for entropy no(1
 </construct>
-<bodyText>
+<bodyText confidence="0.986142666666667">
 The construction of this disperser will involve the con-
 struction of an object which in some sense is stronger and
 in another weaker than a disperser: a subsource somewhere
@@ -470,14 +470,14 @@ issues such as error, min-entropy vs. entropy and more, in
 definitions and results, which are deferred to the full version
 of this paper
 </bodyText>
-<construct>
+<construct confidence="0.9938218">
 DEfInItIOn 2.2. A function f : ({0, 1}n)2 → ({0,1}m)ℓ
 is a 2-source somewhere extractor with ℓ outputs, for entropy
 k, if for every 2 independent k-sources X, Y there exists an
 i ∈ [ℓ] such the ith output f (X, Y)i is a uniformly distributed
 string of m bits
 </construct>
-<bodyText>
+<bodyText confidence="0.940112666666667">
 Here is a simple construction of such a somewhere extrac-
 tor with ℓ as large as poly(n) (and the p in its name will
 stress the fact that indeed the number of outputs is that
@@ -488,23 +488,23 @@ rithmic seed extractor, and V is the Hadamard/Vazirani 2-
 source extractor. Using this construction, it is easy to see
 that
 </bodyText>
-<construct>
+<construct confidence="0.93915175">
 PROPOSItIOn 2.3. For every n, k there is a polynomial
 time computable somewhere extractor pSE : ({0, 1}n)2 →
 ({0, 1}m)ℓ with ℓ = poly(n) outputs, for entropy k, and m =
 Q(k
 </construct>
-<bodyText>
+<bodyText confidence="0.974253">
 Before we define subsource somewhere extractor, we must
 first define a subsource
 </bodyText>
-<construct>
+<construct confidence="0.99432925">
 DEfInItIOn 2.4 (SUBSOURCES). Given random variables
 Z and Z^ on {0, 1}n we say that Z^ is a deficiency d subsource
 of Z and write Z^ ⊆ Z if there exists a set A ⊆ {0,1}n such
 that (Z|Z ∈ A) = Z^ and Pr[Z ∈ A] ≥ 2-d
 </construct>
-<bodyText>
+<bodyText confidence="0.990173">
 A subsource somewhere extractor guarantees the ”some-
 where extractor” property only on subsources X&amp;apos;, Y&amp;apos; of the
 original input distributions X, Y (respectively). It will be
@@ -515,7 +515,7 @@ complication we have to deal with. However we will be in-
 formal with it here, mentioning it only qualitatively when
 needed. We discuss this issue a little more in Section 6
 </bodyText>
-<construct>
+<construct confidence="0.9895465">
 DEfInItIOn 2.5. A function f : ({0, 1}n)2 → ({0,1}m)ℓ
 is a 2-source subsource somewhere extractor with ℓ outputs
 for entropy k, if for every 2 independent k-sources X, Y there
@@ -523,20 +523,20 @@ exists a subsource X^ of X, a subsource Y^ of Y and an i ∈ [ℓ]
 such the ith output f (^X, Y^)i is a uniformly distributed string
 of m bits
 </construct>
-<bodyText>
+<bodyText confidence="0.94373825">
 A central technical result for us is that with this ”sub-
 source” relaxation, we can have much fewer outputs – in-
 deed we’ll replace poly(n) outputs in our first construction
 above with no(1) outputs
 </bodyText>
-<construct>
+<construct confidence="0.9697282">
 ThEOREm 2.6 (SUBSOURCE SOmEWhERE ExtRaCtOR).
 For every δ &amp;gt; 0 there is a polynomial time computable sub-
 source somewhere extractor SSE : ({0, 1}n)2 → ({0, 1}m)ℓ
 with ℓ = no(1) outputs, for entropy k = nδ, with output
 m=√k
 </construct>
-<bodyText>
+<bodyText confidence="0.987142875">
 We will describe the ideas used for constructing this im-
 portant object and analyzing it in the next section, where
 we will also indicate how it is used in the construction of
@@ -546,14 +546,14 @@ work of Rao [?]). We construct an extractor for 2 indepen-
 dent sources one of which is a block-sources with sufficient
 number of blocks
 </bodyText>
-<construct>
+<construct confidence="0.9791224">
 ThEOREm 2.7 (BlOCK SOURCE ExtRaCtOR). There is
 a polynomial time computable extractor B : ({0, 1}n)2 →
 {0,1}m for 2 independent sources, one of which is a c-block-
 sources with block entropy k and the other a source of en-
 tropy k, with m = 0(k), and c = O((log n)/(log k
 </construct>
-<bodyText>
+<bodyText confidence="0.957947285714286">
 A simple corollary of this block-source extractor B, is the
 following weaker (though useful) somewhere block-source
 extractor SB. A source Z = Z1, Z2, • • • , Zt is a somewhere
@@ -562,7 +562,7 @@ i2 &amp;lt; • • • &amp;lt; ic the source Zi1, Zi2, • • • , Zic is a 
 Collecting the outputs of B on every c-subset of blocks re-
 sults in that somewhere extractor
 </bodyText>
-<construct>
+<construct confidence="0.986647666666667">
 COROllaRY 2.8. There is a polynomial time computable
 somewhere extractorSB : ({0, 1}n)2 → ({0, 1}m)ℓ for2 inde-
 pendent sources, one of which is a somewhere c-block-sources
@@ -570,16 +570,16 @@ with block entropy k and t blocks total and the other a source
 of entropy k, with m = 0(k), c = O((log n)/(log k)), and
 ℓ ≤ tc
 </construct>
-<bodyText>
+<bodyText confidence="0.984229">
 In both the theorem and corollary above, the values of
 entropy k we will be interested in are k = no(1). It follows
 that a block-source with a constant c = O(1) suffices
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.99966">
 3. THE CHALLENGE-RESPONSE MECH-
 ANISM
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.999015136363636">
 We now describe abstractly a mechanism which will be
 used in the construction of the disperser as well as the sub-
 source somewhere extractor. Intuitively, this mechanism al-
@@ -603,10 +603,10 @@ level, the basic idea behind the mechanism is the same:
 Let Z be a source and Z&amp;apos; a part of Z (Z projected on a
 subset of the coordinates). We know that Z has entropy k
 </bodyText>
-<page>
+<page confidence="0.998713">
 674
 </page>
-<bodyText>
+<bodyText confidence="0.999170444444445">
 and want to distinguish two possibilities: Z′ has no entropy
 (it is fixed) or it has at least k′ entropy. Z′ will get a pass
 or fail grade, hopefully corresponding to the cases of high or
@@ -626,10 +626,10 @@ happens after some restriction of the 2 sources Z and Y.
 We state it and then explain how the functions C and R are
 defined to accommodate its proof
 </bodyText>
-<construct>
+<construct confidence="0.946683">
 Lemma 3.1. Assume Z, Y are sources of entropy k
 </construct>
-<listItem>
+<listItem confidence="0.969829166666667">
 1. If Z′ has entropy k′+O(m), then there are subsources
 Z^ of Z and Y^ of Y, such that
 Pr[^Z′ passes] = Pr[C(^Z′, Y^) C R(^Z, Y^)] &amp;gt; 1—nO(1)2−m
@@ -637,7 +637,7 @@ Pr[^Z′ passes] = Pr[C(^Z′, Y^) C R(^Z, Y^)] &amp;gt; 1—nO(1)2−m
 subsources Z^ of Z and Y^ of Y, we have
 Pr[Z′ fails] = Pr[C(^Z′, Y^) C R(^Z, Y^)] = 1
 </listItem>
-<bodyText>
+<bodyText confidence="0.997126">
 Once we have such a mechanism, we will design our dis-
 perser algorithm assuming that the challenge response mech-
 anism correctly identifies parts of the source with high or
@@ -656,7 +656,7 @@ in the lemma in turn (and after each comment on the im-
 portant parameters and how they differ from Barak et al.
 [4
 </bodyText>
-<listItem>
+<listItem confidence="0.953825119047619">
 1. Z′ has entropy. We need to show that Z′ passes the
 test with high probability. We will point to the out-
 put string in C(^Z′, Y^′) which avoids R(^Z, Y^) with high
@@ -700,7 +700,7 @@ at least on a subsource – this is one aspect of how cru-
 cial the subsource somewhere extractor SSE is to the
 construction
 </listItem>
-<bodyText>
+<bodyText confidence="0.9996065">
 We note that initially it seemed like the Challenge-Response
 mechanism as used in [4] could not be used to handle en-
 tropy that is significantly less than -,/n (which is approxi-
@@ -720,11 +720,11 @@ our blocks are so large, a single block could contain all the
 entropy. Thus it was not clear how to use the challenge
 response mechanism to find a block source
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.99139">
 4. THE SUBSOURCE SOMEWHERE
 EXTRACTOR SSE
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.999834714285714">
 We now explain some of the ideas behind the construction
 of the subsource somewhere extractor SSE of Theorem 2.6.
 Consider the source X. We are seeking to find in it a some-
@@ -740,10 +740,10 @@ somewhere block source. Note that in [4], the challenge re-
 sponse mechanism was used to find a block source also, but
 there the entropy was so high that they could afford to use
 </bodyText>
-<page>
+<page confidence="0.9978">
 675
 </page>
-<figure>
+<figure confidence="0.99901124">
 Not Somewhere block source n bits total
 t blocks Outputs
 &amp;lt; k’
@@ -770,12 +770,12 @@ Random Row
 med
 SB
 </figure>
-<figureCaption>
+<figureCaption confidence="0.784980333333333">
 Figure 1: Analysis of the subsource somewhere extractor.
 a tree of depth 1. They did not need to recurse or condense
 the sources
 </figureCaption>
-<bodyText>
+<bodyText confidence="0.999074266666667">
 Consider the tree of parts of the source X evolved by
 such recursion. Each node in the tree corresponds to some
 interval of bit locations of the source, with the root node
@@ -807,15 +807,15 @@ Now let us describe the algorithm for SSE. SSE will be
 initially invoked as SSE(x, y), but will recursively call itself
 with different inputs z which will always be substrings of x
 </bodyText>
-<footnote>
+<footnote confidence="0.962041666666667">
 4We note that we ignore the additional complication that
 SSE will actually use recursion also to compute the challenge
 in the challenge-response mechanism
 </footnote>
-<construct>
+<construct confidence="0.968857">
 Algorithm: SSE(z, y
 </construct>
-<bodyText>
+<bodyText confidence="0.982712428571429">
 Let pSE(., .) be the somewhere extractor with a polyno-
 mial number of outputs of Proposition 2.3.
 Let SB be the somewhere block source extractor of Corol-
@@ -824,7 +824,7 @@ Global Parameters: t, the branching factor of the tree. k
 the original entropy of the sources.
 Output will be a set of strings
 </bodyText>
-<listItem>
+<listItem confidence="0.996411478260869">
 1. If z is shorter than √k, return the empty set, else
 continue.
 2. Partition z into t equal parts z = z1, z2, ... ,zt.
@@ -849,10 +849,10 @@ Let us turn to the highlights of the analysis, for the proof
 of Theorem 2.6. Let k&amp;apos; be the entropy of the source Z at
 some place in this recursion. Either one of its blocks Zi has
 </listItem>
-<page>
+<page confidence="0.999312">
 676
 </page>
-<bodyText>
+<bodyText confidence="0.998689764705882">
 entropy k&amp;apos;/c, in which case it is very condensed, since its
 size is n/t for t ≫ c), or it must be that c of its blocks form
 a c-block source with block entropy k&amp;apos;/t (which is sufficient
@@ -888,10 +888,10 @@ k = nΩ(1) a (large enough) constant t suffices (resulting in
 only logarithmic number of outputs of SSE). This analysis
 is depicted pictorially in Figure 1
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.999753">
 5. THE FINAL DISPERSER D
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.999296826086956">
 Following is a rough description of our disperser D proving
 Theorem 2.1. The high level structure of D will resemble the
 structure of SSE we will recursively split the source X and
@@ -916,7 +916,7 @@ entropy, but not all the entropy of Z (namely Zi, Z is a
 of D. Intuitively, thinking about the Challenge-Response
 mechanism described above, the analysis implies that we
 </bodyText>
-<footnote>
+<footnote confidence="0.406725628571429">
 5There is a catch – it only works on subsources of them!
 This will cause us a lot of head ache; we will elaborate on it
 later.
@@ -953,10 +953,10 @@ it is immediately clear that if CM is contained in RM, then
 CL is contained in RL. Thus these tests are monotone, if
 our sample fails the high test, it will definitely fail all tests
 </footnote>
-<construct>
+<construct confidence="0.648584">
 Algorithm: D(z, y
 </construct>
-<bodyText>
+<bodyText confidence="0.992347875">
 Let pSE(., .) be the somewhere extractor with a polyno-
 mial number of outputs of Proposition 2.3.
 Let SSE(.,.) be the subsource somewhere extractor of The-
@@ -966,7 +966,7 @@ the original entropy of the sources.
 Local Parameters for recursive level: mL ≪ mM ≪ mH.
 Output will be an element of {0, 1
 </bodyText>
-<listItem>
+<listItem confidence="0.999452142857143">
 1. If z is shorter than √k, return 0.
 2. Partition z into t equal parts z = z1, z2, ... , zt.
 3. Compute three response sets RL, RM, RH using pSE(z, y).
@@ -982,10 +982,10 @@ no such index, output 0 and halt.
 output 0 and halt. If ChH is contained in RH but ChH
 is not contained in RM, output 1 and halt
 </listItem>
-<page>
+<page confidence="0.982329">
 677
 </page>
-<figure>
+<figure confidence="0.999158888888889">
 t blocks
 X
 low
@@ -1032,13 +1032,13 @@ fail
 fail
 Output 0 Output 1
 </figure>
-<figureCaption>
+<figureCaption confidence="0.99842">
 Figure 2: Analysis of the disperser
 </figureCaption>
-<listItem>
+<listItem confidence="0.912361">
 7. Output D(zh, y
 </listItem>
-<bodyText>
+<bodyText confidence="0.9948805">
 First note the obvious monotonicity of the tests. If Zi fails
 one of the tests it will certainly fail for shorter strings. Thus
 there are only four outcomes to the three tests, written in the
@@ -1046,7 +1046,7 @@ order (low, medium, high): (pass, pass, pass), (pass, pass, fail),
 (pass, fail, fail) and (fail, fail, fail). Conceptually, the algo-
 rithm is making the following decisions using the four tests
 </bodyText>
-<listItem>
+<listItem confidence="0.997671857142857">
 1. (fail, fail, fail): Assume Zi has low entropy and proceed
 to block i + 1.
 2. (pass, fail, fail): Assume Zi is medium, halt and output
@@ -1055,7 +1055,7 @@ to block i + 1.
 put 1.
 4. (pass, pass, pass): Assume Zi is high and recurse on Zi
 </listItem>
-<bodyText>
+<bodyText confidence="0.999937232558139">
 The analysis of this idea (depicted in Figure 2).turns out
 to be more complex than it seems. There are two reasons for
 that. Now we briefly explain them and the way to overcome
@@ -1100,24 +1100,24 @@ ensure that the recurrence always arrives at a medium sub-
 part, but it is easy to chose entropy thresholds for low, medium
 and high to ensure that this happens
 </bodyText>
-<page>
+<page confidence="0.999555">
 678
 </page>
-<sectionHeader>
+<sectionHeader confidence="0.999633">
 6. RESILIENCY AND DEFICIENCY
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.999093333333333">
 In this section we will breifly discuss an issue which arises
 in our construction that we glossed over in the previous sec-
 tions. Recall our definition of subsources
 </bodyText>
-<construct>
+<construct confidence="0.99035">
 DEfInItIOn 6.1 (SUBSOURCES). Given random variables
 Z and Zˆ on {0,1}n we say that Zˆ is a deficiency d subsource
 of Z and write Zˆ ⊆ Z if there exists a set A ⊆ {0,1}n such
 that (Z|A) = Zˆ and Pr[Z ∈ A] ≥ 2—d
 </construct>
-<bodyText>
+<bodyText confidence="0.999797894736842">
 Recall that we were able to guarantee that our algorithms
 made the right decisions only on subsources of the original
 source. For example, in the construction of our final dis-
@@ -1138,10 +1138,10 @@ siliency to deal with this. To give an idea of how this works,
 here is the actual definition of somewhere subsource extrac-
 tor that we use in the formal analysis
 </bodyText>
-<construct>
+<construct confidence="0.966913">
 DEfInItIOn 6.2 (SUBSOURCE SOmEWhERE ExtRaCtOR
 </construct>
-<bodyText>
+<bodyText confidence="0.997524684210526">
 A function SSE : {0, 1}n × {0, 1}n → ({0, 1}m)ℓ is a sub-
 source somewhere extractor with nrows output rows, entropy
 threshold k, deficiency def, resiliency res and error ǫ if for
@@ -1162,10 +1162,10 @@ This issue of managing the resiliency for the various ob-
 jects that we construct is one of the major technical chal-
 lenges that we had to overcome in our construction
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.999502">
 7. OPEN PROBLEMS
 </sectionHeader>
-<bodyText>
+<bodyText confidence="0.997173166666667">
 Better Independent Source Extractors A bottleneck to
 improving our disperser is the block versus general
 source extractor of Theorem 2.7. A good next step
@@ -1185,10 +1185,10 @@ if |S ∩ T  |≡ −1 mod p. It would be nice to find a good
 disperser that beats the Frankl-Wilson construction,
 yet is comparable in simplicity
 </bodyText>
-<sectionHeader>
+<sectionHeader confidence="0.949741">
 8. REFERENCES
 </sectionHeader>
-<reference>
+<reference confidence="0.999814274509804">
 1] N. Alon. The shannon capacity of a union.
 Combinatorica, 18, 1998.
 [2] B. Barak. A simple explicit construction of an
@@ -1241,10 +1241,10 @@ On data structures and asymmetric communication
 complexity. Journal of Computer and System
 Sciences, 57:37–49, 1 1998
 </reference>
-<page>
+<page confidence="0.985034">
 679
 </page>
-<reference>
+<reference confidence="0.999380243243243">
 15] N. Nisan and D. Zuckerman. More deterministic
 simulation in logspace. In Proceedings of the 25th
 Annual ACM Symposium on Theory of Computing,
@@ -1283,7 +1283,7 @@ pages 366–378, 1985.
 beat the eigenvalue bound: Explicit construction and
 applications. Combinatorica, 19(1):125–138, 1999
 </reference>
-<page>
+<page confidence="0.999216">
 680
 </page>
 </algorithm>
