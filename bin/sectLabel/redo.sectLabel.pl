@@ -25,11 +25,11 @@ use lib "$path/../../lib";
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
 
-my $tr2crfppLoc = "$FindBin::Bin/../bin/tr2crfpp.pl";
-my $keywordLoc = "$FindBin::Bin/../bin/keywordGen.pl"; #new model
-my $crf_learnLoc = "$FindBin::Bin/../crfpp/crf_learn";
-my $crf_testLoc = "$FindBin::Bin/../crfpp/crf_test";
-my $conllevalLoc = "$FindBin::Bin/../bin/conlleval.pl";
+my $tr2crfppLoc = "$path/tr2crfpp.pl";
+my $keywordLoc = "$path/keywordGen.pl"; #new model
+my $crf_learnLoc = "$path/../../crfpp/crf_learn";
+my $crf_testLoc = "$path/../../crfpp/crf_test";
+my $conllevalLoc = "$path/conlleval.pl";
 ### END user customizable section
 
 ## Thang add ##
@@ -40,6 +40,7 @@ sub Help {
   print STDERR "\t\t-p: Default is 6 cpus\n";
   print STDERR "\t\t-iter: Default is 100 iterations\n";
   print STDERR "\t\t-t type: e.g. ACL09-ACM-CHI08 to indicate subdirs containing label file. If not specified, the labelDir is supposed to contain all label files\n";
+  print STDERR "\t\t-topN topN: used when extracting topN-frequent keywords\n";
 }
 
 my $HELP = 0;

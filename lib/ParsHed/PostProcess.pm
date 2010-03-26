@@ -87,8 +87,6 @@ sub wrapHeaderXml {
 	$count = 0;
       } # end if ($lastTag ne "")
 
-      $curConfidence+=$confidence;
-
       if(defined $isTokenLevel && $token eq "+L+"){ 
 	next;
       }

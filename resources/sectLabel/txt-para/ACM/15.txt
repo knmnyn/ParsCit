@@ -1,0 +1,1058 @@
+# Para 0 1
+A New Statistical Formula for Chinese Text Segmentation
+# Para 1 1
+Incorporating Contextual Information
+# Para 2 2
+Yubin Dai
+Christopher S.G. Khoo
+# Para 4 5
+Division of Information Studies
+School of Applied Science
+Nanyang Technological University
+Singapore 639798
+(65) 790-4602
+# Para 9 2
+dyb_lte@hotmail.com 
+assgkhoo@ntu.edu.sg
+# Para 11 1
+ABSTRACT
+# Para 12 16
+A new statistical formula for identifying 2-character words in 
+Chinese text, called the contextual information formula, was 
+developed empirically by performing stepwise logistic regression 
+using a sample of sentences that had been manually segmented. 
+Contextual information in the form of the frequency of characters 
+that are adjacent to the bigram being processed as well as the 
+weighted document frequency of the overlapping bigrams were 
+found to be significant factors for predicting the probablity that 
+the bigram constitutes a word. Local information (the number of 
+times the bigram occurs in the document being segmented) and 
+the position of the bigram in the sentence were not found to be 
+useful in determining words. The contextual information formula 
+was found to be significantly and substantially better than the 
+mutual information formula in identifying 2-character words. 
+The method can also be used for identifying multi-word terms in 
+English text.
+# Para 28 1
+Keywords
+# Para 29 2
+Chinese text segmentation, word boundary identification, logistic 
+regression, multi-word terms
+# Para 31 1
+1. INTRODUCTION
+# Para 32 6
+Chinese text is different from English text in that there is no 
+explicit word boundary. In English text, words are separated by 
+spaces. Chinese text (as well as text of other Oriental languages) 
+is made up of ideographic characters, and a word can comprise 
+one, two or more such characters, without explicit indication 
+where one word ends and another begins.
+# Para 38 6
+This has implications for natural language processing and 
+information retrieval with Chinese text. Text processing 
+techniques that have been developed for Western languages deal 
+with words as meaningful text units and assume that words are 
+easy to identify. These techniques may not work well for Chinese 
+text without some adjustments. To apply these techniques to
+# Para 44 1
+Teck Ee Loh
+# Para 45 4
+10 Kent Ridge Crescent
+Data Storage Institute
+Singapore 119260
+(65) 874-8413
+# Para 49 1
+dsilohte@dsi.nus.edu.sg
+# Para 50 4
+Chinese text, automatic methods for identifying word boundaries 
+accurately have to be developed. The process of identifying word 
+boundaries has been referred to as text segmentation or, more 
+accurately, word segmentation.
+# Para 54 2
+Several techniques have been developed for Chinese text 
+segmentation. They can be divided into:
+# Para 56 3
+1. statistical methods, based on statistical properties and 
+frequencies of characters and character strings in a corpus 
+(e.g. [13] and [16]).
+# Para 59 5
+2. dictionary-based methods, often complemented with 
+grammar rules. This approach uses a dictionary of words to 
+identify word boundaries. Grammar rules are often used to 
+resolve conflicts (choose between alternative segmentations) 
+and to improve the segmentation (e.g. [4], [8], [19] and [20]).
+# Para 64 3
+3. syntax-based methods, which integrate the word 
+segmentation process with syntactic parsing or part-of-speech 
+tagging (e.g. [1]).
+# Para 67 4
+4. conceptual methods, that make use of some kind of semantic 
+processing to extract information and store it in a knowledge 
+representation scheme. Domain knowledge is used for 
+disambiguation (e.g. [9]).
+# Para 71 1
+Many researchers use a combination of methods (e.g. [14]).
+# Para 72 10
+The objective of this study was to empirically develop a 
+statistical formula for Chinese text segmentation. Researchers 
+have used different statistical methods in segmentation, most of 
+which were based on theoretical considerations or adopted from 
+other fields. In this study, we developed a statistical formula 
+empirically by performing stepwise logistic regression using a 
+sample of sentences that had been manually segmented. This 
+paper reports the new formula developed for identifying 2- 
+character words, and the effectiveness of this formula compared 
+with the mutual information formula.
+# Para 82 1
+This study has the following novel aspects:
+# Para 83 2
+•	The statistical formula was derived empirically using 
+regression analysis.
+# Para 85 1
+•	The manual segmentation was performed to identify
+# Para 86 1
+meaningful	words rather than simple words.
+# Para 87 2
+Meaningful words include phrasal words and multi- 
+word terms.
+# Para 89 1
+•	In addition to the relative frequencies of bigrams and
+# Para 90 2
+characters often used in other studies, our study also 
+investigated the use of document frequencies and weighted
+# Para 92 1
+82
+# Para 93 4
+document frequencies. Weighted document frequencies are 
+similar to document frequencies but each document is 
+weighted by the square of the number of times the character 
+or bigram occurs in the document.
+# Para 97 2
+•	Contextual information was included in the study. To predict 
+whether the bigram BC in the character string	A B C D
+# Para 99 3
+constitutes a word, we investigated whether the 
+frequencies for AB, CD, A and D should be included in the 
+formula.
+# Para 102 1
+•	Local frequencies were included in the study. We
+# Para 103 4
+investigated character and bigram frequencies within the 
+document in which the sentence occurs (i.e. the number of 
+times the character or bigram appears in the document being 
+segmented).
+# Para 107 1
+•	We investigated whether the position of the bigram (at the
+# Para 108 2
+beginning of the sentence, before a punctuation mark, or after 
+a punctuation mark) had a significant effect.
+# Para 110 1
+•	We developed a segmentation algorithm to apply the
+# Para 111 1
+statistical formula to segment sentences and resolve conflicts.
+# Para 112 1
+In this study, our objective was to segment text into
+# Para 113 14
+meaningful words rather than simple words . A simple 
+word is the smallest independent unit of a sentence that has 
+meaning on its own. A meaningful word can be a simple word or 
+a compound word comprising 2 or more simple words – 
+depending on the context. In many cases, the meaning of a 
+compound word is more than just a combination of the meanings 
+of the constituent simple words, i.e. some meaning is lost when 
+the compound word is segmented into simple words. 
+Furthermore, some phrases are used so often that native speakers 
+perceive them and use them as a unit. Admittedly, there is some 
+subjectivity in the manual segmentation of text. But the fact that 
+statistical models can be developed to predict the manually 
+segmented words substantially better than chance indicates some 
+level of consistency in the manual segmentation.
+# Para 127 6
+The problem of identifying meaningful words is not limited to 
+Chinese and oriental languages. Identifying multi-word terms is 
+also a problem in text processing with English and other Western 
+languages, and researchers have used the mutual information 
+formula and other statistical approaches for identifying such 
+terms (e.g. [3], [6] and [7]).
+# Para 133 1
+2. PREVIOUS STUDIES
+# Para 134 6
+There are few studies using a purely statistical approach to 
+Chinese text segmentation. One statistical formula that has been 
+used by other researchers (e.g. [11] and [16]) is the mutual 
+information formula. Given a character string A B C D 
+, the mutual information for the bigram BC is given by the 
+formula:
+# Para 140 1
+freq(BC) 
+# Para 141 1
+log2 freq(B) * freq(C)
+# Para 142 1
+= log2 freq(BC) – log2 freq(B) – log2 freq(C)
+# Para 143 4
+where freq refers to the relative frequency of the character or 
+bigram in the corpus (i.e. the number of times the character or 
+bigram occurs in the corpus divided by the number of characters 
+in the corpus).
+# Para 147 2
+Mutual information is a measure of how strongly the two 
+characters are associated, and can be used as a measure of how
+# Para 149 7
+likely the pair of characters constitutes a word. Sproat &amp; Shih 
+[16] obtained recall and precision values of 94% using mutual 
+information to identify words. This study probably segmented 
+text into simple words rather than meaningful words. In our 
+study, text was segmented into meaningful words and we 
+obtained much poorer results for the mutual information 
+formula.
+# Para 156 12
+Lua [12] and Lua &amp; Gan [13] applied information theory to the 
+problem of Chinese text segmentation. They calculated the 
+information content of characters and words using the 
+information entropy formula I = - log2 P, where P is the 
+probability of occurrence of the character or word. If the 
+information content of a character string is less than the sum of 
+the information content of the constituent characters, then the 
+character string is likely to constitute a word. The formula for 
+calculating this loss of information content when a word is 
+formed is identical to the mutual information formula. Lua &amp; 
+Gan [13] obtained an accuracy of 99% (measured in terms of the 
+number of errors per 100 characters).
+# Para 168 16
+Tung &amp; Lee [18] also used information entropy to identify 
+unknown words in a corpus. However, instead of calculating the 
+entropy value for the character string that is hypothesized to be a 
+word (i.e. the candidate word), they identified all the characters 
+that occurred to the left of the candidate word in the corpus. For 
+each left character, they calculated the probability and entropy 
+value for that character given that it occurs to the left of the 
+candidate word. The same is done for the characters to the right 
+of the candidate word. If the sum of the entropy values for the 
+left characters and the sum of the entropy values for the right 
+characters are both high, than the candidate word is considered 
+likely to be a word. In other words, a character string is likely to 
+be a word if it has several different characters to the left and to 
+the right of it in the corpus, and none of the left and right 
+characters predominate (i.e. not strongly associated with the 
+character string).
+# Para 184 7
+Ogawa &amp; Matsuda [15] developed a statistical method to 
+segment Japanese text. Instead of attempting to identify words 
+directly, they developed a formula to estimate the probability that 
+a bigram straddles a word boundary. They referred to this as the 
+segmentation probability. This was complemented with some 
+syntactic information about which class of characters could be 
+combined with which other class.
+# Para 191 3
+All the above mathematical formulas used for identifying words 
+and word boundaries were developed based on theoretical 
+considerations and not derived empirically.
+# Para 194 11
+Other researchers have developed statistical methods to find the 
+best segmentation for the whole sentence rather than focusing on 
+identifying individual words. Sproat et al. [17] developed a 
+stochastic finite state model for segmenting text. In their model, 
+a word dictionary is represented as a weighted finite state 
+transducer. Each weight represents the estimated cost of the 
+word (calculated using the negative log probability). Basically, 
+the system selects the sentence segmentation that has the 
+smallest total cost. Chang &amp; Chen [1] developed a method for 
+word segmentation and part-of-speech tagging based on a first- 
+order hidden Markov model.
+# Para 205 1
+MI(BC) =
+# Para 206 1
+83
+# Para 207 1
+3. RESEARCH METHOD
+# Para 208 10
+The purpose of this study was to empirically develop a statistical 
+formula for identifying 2-character words as well as to 
+investigate the usefulness of various factors for identifying the 
+words. A sample of 400 sentences was randomly selected from 2 
+months (August and September 1995) of news articles from the 
+Xin Hua News Agency, comprising around 2.3 million characters. 
+The sample sentences were manually segmented. The 
+segmentation rules described in [10] were followed fairly closely. 
+More details of the manual segmentation process, especially with 
+regard to identifying meaningful words will be given in [5].
+# Para 218 9
+300 sentences were used for model building, i.e. using regression 
+analysis to develop a statistical formula. 100 sentences were set 
+aside for model validation to evaluate the formula developed in 
+the regression analysis. The sample sentences were broken up 
+into overlapping bigrams. In the regression analysis, the 
+dependent variable was whether a bigram was a two-character 
+word according to the manual segmentation. The independent 
+variables were various corpus statistics derived from the corpus 
+(2 months of news articles).
+# Para 227 1
+The types of frequency information investigated were:
+# Para 228 4
+1. Relative frequency of individual characters and bigrams 
+(character pairs) in the corpus, i.e. the number of times the 
+character or bigram occurs in the corpus divided by the total 
+number of characters in the corpus.
+# Para 232 4
+2. Document frequency of characters and bigrams, i.e. the 
+number of documents in the corpus containing the character 
+or bigram divided by the total number of documents in the 
+corpus.
+# Para 236 16
+3. Weighted document frequency of characters and bigrams. To 
+calculate the weighted document frequency of a character 
+string, each document containing the character string is 
+assigned a score equal to the square of the number of times 
+the character string occurs in the document. The scores for all 
+the documents containing the character string are then 
+summed and divided by the total number of documents in the 
+corpus to obtain the weighted document frequency for the 
+character string. The rationale is that if a character string 
+occurs several times within the same document, this is 
+stronger evidence that the character string constitutes a word, 
+than if the character string occurs once in several documents. 
+Two or more characters can occur together by chance in 
+several different documents. It is less likely for two 
+characters to occur together several times within the same 
+document by chance.
+# Para 252 3
+4. Local frequency in the form of within-document frequency of 
+characters and bigrams, i.e. the number of times the character 
+or bigram occurs in the document being segmented.
+# Para 255 3
+5. Contextual information. Frequency information of characters 
+adjacent to a bigram is used to help determine whether the 
+bigram is a word. For the character string	A B C D
+# Para 258 3
+, to determine whether the bigram BC is a word, 
+frequency information for the adjacent characters A and D, as 
+well as the overlapping bigrams AB and BC were considered.
+# Para 261 4
+6. Positional information. We studied whether the position of a 
+character string (at the beginning, middle or end of a 
+sentence) gave some indication of whether the character 
+string was a word.
+# Para 265 8
+The statistical model was developed using forward stepwise 
+logistic regression, using the Proc Logistic function in the SAS 
+v.6.12 statistical package for Windows. Logistic regression is an 
+appropriate regression technique when the dependent variable is 
+binary valued (takes the value 0 or 1). The formula developed 
+using logistic regression predicts the probability (more 
+accurately, the log of the odds) that a bigram is a meaningful 
+word.
+# Para 273 7
+In the stepwise regression, the threshold for a variable to enter 
+the model was set at the 0.001 significance level and the 
+threshold for retaining a variable in the model was set at 0.01. In 
+addition, preference was given to relative frequencies and local 
+frequencies because they are easier to calculate than document 
+frequencies and weighted document frequencies. Also, relative 
+frequencies are commonly used in previous studies.
+# Para 280 7
+Furthermore, a variable was entered in a model only if it gave a 
+noticeable improvement to the effectiveness of the model. During 
+regression analysis, the effectiveness of the model was estimated 
+using the measure of concordance that was automatically output 
+by the SAS statistical program. A variable was accepted into the 
+model only if the measure of concordance improved by at least 
+2% when the variable was entered into the model.
+# Para 287 3
+We evaluated the accuracy of the segmentation using measures of 
+recall and precision. Recall and precision in this context are 
+defined as follows:
+# Para 290 1
+Recall = No. of 2-character words identified in the automatic
+# Para 291 1
+segmentation that are correct 
+# Para 292 1
+No. of 2-character words identified in the manual
+# Para 293 1
+segmentation
+# Para 294 1
+Precision = No. of 2-character words identified in the automatic
+# Para 295 1
+segmentation that are correct 
+# Para 296 1
+No. of 2-character words identified in the automatic
+# Para 297 1
+segmentation
+# Para 298 2
+4. STATISTICAL FORMULAS 
+DEVELOPED
+# Para 300 1
+4.1 The Contextual Information Formula
+# Para 301 3
+The formula that was developed for 2-character words is as 
+follows. Given a character string A B C D , the 
+association strength for bigram BC is:
+# Para 304 3
+Assoc(BC) = 0.35 * log2 freq(BC) + 0.37 * log2 freq(A) + 
+0.32 log2 freq(D) – 0.36 * log2 docfreqwt(AB) – 
+0.29 * log2 docfreqwt(CD) + 5.91
+# Para 307 4
+where freq refers to the relative frequency in the corpus and 
+docfreqwt refers to the weighted document frequency. We refer to 
+this formula as the contextual information formula. More details 
+of the regression model are given in Table 1.
+# Para 311 7
+The formula indicates that contextual information is helpful in 
+identifying word boundaries. A in the formula refers to the 
+character preceding the bigram that is being processed, whereas 
+D is the character following the bigram. The formula indicates 
+that if the character preceding and the character following the 
+bigram have high relative frequencies, then the bigram is more 
+likely to be a word.
+# Para 318 1
+84
+# Para 319 8
+		Parameter	Standard	Wald		Pr &gt;	Standardized
+Variable	DF	Estimate	Error	Chi-Square		Chi-Square	Estimate
+INTERCPT	1	5.9144	0.1719	1184.0532	0.0001	.
+Log freq(BC)	1	0.3502	0.0106	1088.7291	0.0001	0.638740
+Log freq(A)	1	0.3730	0.0113	1092.1382	0.0001	0.709621
+Log freq(D)	1	0.3171	0.0107	886.4446	0.0001	0.607326
+Log docfreqwt(AB)	1	-0.3580	0.0111	1034.0948	0.0001	-0.800520
+Log docfreqwt(CD)	1	-0.2867	0.0104	754.2276	0.0001	-0.635704
+# Para 327 2
+Note: freq refers to the relative frequency, and docfreqwt refers to the 
+weighted document frequency.
+# Para 329 1
+Association of Predicted Probabilities and Observed Responses
+# Para 330 1
+Somers&apos; D = 0.803
+# Para 331 1
+Gamma	= 0.803
+# Para 332 1
+Tau-a	= 0.295
+# Para 333 1
+(23875432 pairs)	c	= 0.901
+# Para 334 3
+Concordant	=	90.1%
+Discordant	=	9.8%
+Tied	=	0.1%
+# Para 337 1
+Table 1. Final regression model for 2-character words
+# Para 338 11
+Contextual information involving the weighted document 
+frequency was also found to be significant. The formula indicates 
+that if the overlapping bigrams AB and CD have high weighted 
+document frequencies, then the bigram BC is less likely to be a 
+word. We tried replacing the weighted document frequencies 
+with the unweighted document frequencies as well as the relative 
+frequencies. These were found to give a lower concordance score. 
+Even with docfreq (AB) and docfreq (CD) in the model, docfreqwt 
+(AB) and docfreqwt (CD) were found to improve the model 
+significantly. However, local frequencies were surprisingly not 
+found to be useful in predicting 2-character words.
+# Para 349 14
+We investigated whether the position of the bigram in the 
+sentence was a significant factor. We included a variable to 
+indicate whether the bigram occurred just after a punctuation 
+mark or at the beginning of the sentence, and another variable to 
+indicate whether the bigram occurred just before a punctuation 
+mark or at the end of a sentence. The interaction between each of 
+the position variables and the various relative frequencies 
+were not significant. However, it was found that whether or not 
+the bigram was at the end of a sentence or just before a 
+punctuation mark was a significant factor. Bigrams at the end of 
+a sentence or just before a punctuation mark tend to be words. 
+However, since this factor did not improve the concordance score 
+by 2%, the effect was deemed too small to be included in the 
+model.
+# Para 363 8
+It should be noted that the contextual information used in the 
+study already incorporates some positional information. The 
+frequency of character A (the character preceding the bigram) 
+was given the value 0 if the bigram was preceded by a 
+punctuation mark or was at the beginning of a sentence. 
+Similarly, the frequency of character D (the character following 
+the bigram) was given the value 0 if the bigram preceded a 
+punctuation mark.
+# Para 371 5
+We also investigated whether the model would be different for 
+high and low frequency words. We included in the regression 
+analysis the interaction between the relative frequency of the 
+bigram and the other relative frequencies. The interaction terms 
+were not found to be significant. Finally, it is noted that the
+# Para 376 2
+coefficients for the various factors are nearly the same, hovering 
+around 0.34.
+# Para 378 1
+4.2 Improved Mutual Information Formula
+# Para 379 5
+In this study, the contextual information formula (CIF) was 
+evaluated by comparing it with the mutual information formula 
+(MIF). We wanted to find out whether the segmentation results 
+using the CIF was better than the segmentation results using the 
+MIF.
+# Para 384 9
+In the CIF model, the coefficients of the variables were 
+determined using regression analysis. If CIF was found to give 
+better results than MIF, it could be because the coefficients for 
+the variables in CIF had been determined empirically – and not 
+because of the types of variables in the formula. To reject this 
+explanation, regression analysis was used to determine the 
+coefficients for the factors in the mutual information formula. 
+We refer to this new version of the formula as the improved 
+mutual information formula.
+# Para 393 1
+Given a character string	A B C D	, the improved
+# Para 394 1
+mutual information formula is:
+# Para 395 2
+Improved MI(BC) = 0.39 * log2 freq(BC) - 0.28 * log2 freq(B) -
+0.23 log2 freq(C) - 0.32
+# Para 397 3
+The coefficients are all close to 0.3. The formula is thus quite 
+similar to the mutual information formula, except for a 
+multiplier of 0.3.
+# Para 400 1
+5. SEGMENTATION ALGORITHMS
+# Para 401 1
+The automatic segmentation process has the following steps:
+# Para 402 3
+1. The statistical formula is used to calculate a score for each 
+bigram to indicate its association strength (or how likely the 
+bigram is a word).
+# Para 405 5
+2. A threshold value is then set and used to decide which 
+bigram is a word. If a bigram obtains a score above the 
+threshold value, then it is selected as a word. Different 
+threshold values can be used, depending on whether the user 
+prefers high recall or high precision.
+# Para 410 2
+3. A segmentation algorithm is used to resolve conflict. If two 
+overlapping bigrams both have association scores above the
+# Para 412 1
+85
+# Para 413 17
+	Precision		
+Recall	Comparative Forward Match	Forward Match	Improvement
+Mutual Information		-	-
+90%	51%		
+80%	52%	47%	5%
+70%	53%	51%	2%
+60%	54%	52%	2%
+Improved Mutual Information			
+90%	51%		-	-
+80%	53%	46%	7%
+70%	54%	52%	2%
+60%	55%	54%	1%
+Contextual Information Formula			
+90%	55%	54%	1%
+80%	62%	62%	0%
+70%	65%	65%	0%
+60%	68%	68%	0%
+# Para 430 2
+Table 2. Recall and precision values for the comparative 
+forward match segmentation algorithm vs. forward match
+# Para 432 4
+threshold value, then there is conflict or ambiguity. The 
+frequency of such conflicts will rise as the threshold value is 
+lowered. The segmentation algorithm resolves the conflict 
+and selects one of the bigrams as a word.
+# Para 436 11
+One simple segmentation algorithm is the forward match 
+algorithm. Consider the sentence A B C D E . The 
+segmentation process proceeds from the beginning of the 
+sentence to the end. First the bigram AB is considered. If the 
+association score is above the threshold, then AB is taken as a 
+word, and the bigram CD is next considered. If the association 
+score of AB is below the threshold, the character A is taken as a 
+1-character word. And the bigram BC is next considered. In 
+effect, if the association score of both AB and BC are above 
+threshold, the forward match algorithm selects AB as a word and 
+not BC.
+# Para 447 6
+The forward match method for resolving ambiguity is somewhat 
+arbitrary and not satisfactory. When overlapping bigrams exceed 
+the threshold value, it simply decides in favour of the earlier 
+bigram. Another segmentation algorithm was developed in this 
+study which we refer to as the comparative forward match 
+algorithm. This has an additional step:
+# Para 453 7
+If 2 overlapping bigrams AB and BC both have scores above 
+the threshold value then their scores are compared. If AB has a 
+higher value, then it is selected as a word, and the program 
+next considers the bigrams CD and DE. On the other hand, if 
+AB has a lower value, then character A is selected as a 1- 
+character word, and the program next considers bigrams BC 
+and CD.
+# Para 460 7
+The comparative forward match method (CFM) was compared 
+with the forward match method (FM) by applying them to the 3 
+statistical formulas (the contextual information formula, the 
+mutual information formula and the improved mutual 
+information formula). One way to compare the effectiveness of 
+the 2 segmentation algorithms is by comparing their precision 
+figures at the same recall levels. The precision figures for
+# Para 467 1
+Precision
+# Para 468 1
+Recall	Mutual	Improved Mutual Contextual
+# Para 469 1
+Information	Information	Information
+# Para 470 4
+90%	57%	(0.0)	57%	(-2.5)	61%	(-1.5)
+80%	59%	(3.7)	59%	(-1.5)	66%	(-0.8)
+70%	59%	(4.7)	60%	(-1.0)	70%	(-0.3)
+60%	60%	(5.6)	62%	(-0.7)	74%	(0.0)
+# Para 474 1
+* Threshold values are given in parenthesis.
+# Para 475 1
+Table 3. Recall and precision for three statistical formulas
+# Para 476 2
+selected recall levels are given in Table 2. The results are based 
+on the sample of 300 sentences.
+# Para 478 6
+The comparative forward match algorithm gave better results for 
+the mutual information and improved mutual information 
+formulas – especially at low threshold values when a large 
+number of conflicts are likely. Furthermore, for the forward 
+match method, the recall didn t go substantially higher than 
+80% even at low threshold values.
+# Para 484 9
+For the contextual information formula, the comparative forward 
+match method did not perform better than forward match, except 
+at very low threshold values when the recall was above 90%. 
+This was expected because the contextual information formula 
+already incorporates information about neighboring characters 
+within the formula. The formula gave very few conflicting 
+segmentations. There were very few cases of overlapping 
+bigrams both having association scores above the threshold – 
+except when threshold values were below –1.5.
+# Para 493 1
+6. EVALUATION
+# Para 494 3
+6.1 Comparing the Contextual Information 
+Formula with the Mutual Information 
+Formula
+# Para 497 8
+In this section we compare the effectiveness of the contextual 
+information formula with the mutual information formula and 
+the improved mutual information formula using the 100 
+sentences that had been set aside for evaluation purposes. For the 
+contextual information formula, the forward match segmentation 
+algorithm was used. The comparative forward match algorithm 
+was used for the mutual information and the improved mutual 
+information formulas.
+# Para 505 10
+The three statistical formulas were compared by comparing their 
+precision figures at 4 recall levels – at 60%, 70%, 80% and 90%. 
+For each of the three statistical formulas, we identified the 
+threshold values that would give a recall of 60%, 70%, 80% and 
+90%. We then determined the precision values at these threshold 
+values to find out whether the contextual information formula 
+gave better precision than the other two formulas at 60%, 70%, 
+80% and 90% recall. These recall levels were selected because a 
+recall of 50% or less is probably unacceptable for most 
+applications.
+# Para 515 5
+The precision figures for the 4 recall levels are given in Table 3. 
+The recall-precision graphs for the 3 formulas are given in Fig. 1. 
+The contextual information formula substantially outperforms 
+the mutual information and the improved mutual information 
+formulas. At the 90% recall level, the contextual information
+# Para 520 1
+86
+# Para 521 1
+Avg Precision
+# Para 522 1
+Avg	Mutual	Improved Mutual Contextual
+# Para 523 1
+Recall Information	Information	Information
+# Para 524 4
+90%	57%	(1.0)	58%	(-2.3)	61%	(-1.5)
+80%	60%	(3.8)	60%	(-1.4)	67%	(-0.7)
+70%	59%	(4.8)	60%	(-1.0)	70%	(-0.3)
+60%	60%	(5.6)	63%	(-0.6)	73%	(0.0)
+# Para 528 1
+* Threshold values are given in parenthesis.
+# Para 529 2
+Table 4. Average recall and average precision for the three 
+statistical formulas
+# Para 531 1
+60	65	70	75	80	85	90	95
+# Para 532 1
+Recall(%)
+# Para 533 1
+Fig. 1. Recall-precision graph for the three statistical
+# Para 534 5
+formula was better by about 4%. At the 60% recall level, it 
+outperformed the mutual information formula by 14% (giving a 
+relative improvement of 23%). The results also indicate that the 
+improved mutual information formula does not perform better 
+than the mutual information formula.
+# Para 539 1
+6.2 Statistical Test of Significance
+# Para 540 10
+In order to perform a statistical test, recall and precision figures 
+were calculated for each of the 100 sentences used in the 
+evaluation. The average recall and the average precision across 
+the 100 sentences were then calculated for the three statistical 
+formulas. In the previous section, recall and precision were 
+calculated for all the 100 sentences combined. Here, recall and 
+precision were obtained for individual sentences and then the 
+average across the 100 sentences was calculated. The average 
+precision for 60%, 70%, 80% and 90% average recall are given 
+in Table 4.
+# Para 550 8
+For each recall level, an analysis of variance with repeated 
+measures was carried out to find out whether the differences in 
+precision were significant. Pairwise comparisons using Tukey s 
+HSD test was also carried out. The contextual information 
+formula was significantly better (a=0.001) than the mutual 
+information and the improved mutual information formulas at all 
+4 recall levels. The improved mutual information formula was 
+not found to be significantly better than mutual information.
+# Para 558 2
+Association Score&gt;1.0 (definite errors) 
+(	)	university (agricultural
+# Para 560 1
+university)
+# Para 561 1
+(	)	geology (geologic age)
+# Para 562 1
+(	)	plant (upland plant)
+# Para 563 1
+(	)	sovereignty (sovereign state)
+# Para 564 2
+Association Score Between –1.0 and 1.0 
+(borderline errors)
+# Para 566 1
+(	)	statistics (statistical data)
+# Para 567 1
+(	)	calamity (natural calamity)
+# Para 568 1
+(	)	resources (manpower resources)
+# Para 569 1
+(	)	professor (associate professor)
+# Para 570 1
+(	)	poor (pauperization)
+# Para 571 1
+(	)	fourteen (the 14th day)
+# Para 572 1
+(	)	twenty (twenty pieces)
+# Para 573 2
+Table 5. Simple words that are part of a longer 
+meaningful word
+# Para 575 1
+Association Score &gt;1.0 (definite errors)
+# Para 576 1
+will through
+# Para 577 1
+telegraph [on the] day [31 July]
+# Para 578 2
+Association Score Between –1.0 and 1.0 
+(borderline errors)
+# Para 580 1
+still	to
+# Para 581 1
+will be
+# Para 582 1
+people etc.
+# Para 583 1
+I want
+# Para 584 1
+Person&apos;s name
+# Para 585 1
+(	)	Wan Wen Ju
+# Para 586 1
+Place name
+# Para 587 1
+(	)	a village name in China
+# Para 588 1
+(	)	Canada
+# Para 589 1
+Name of an organization/institution
+# Para 590 1
+(	)	Xin Hua Agency
+# Para 591 1
+(	)	The State Department
+# Para 592 1
+Table 6. Bigrams incorrectly identified as words
+# Para 593 1
+7. ANALYSIS OF ERRORS
+# Para 594 9
+The errors that arose from using the contextual information 
+formula were analyzed to gain insights into the weaknesses of 
+the model and how the model can be improved. There are two 
+types of errors: errors of commission and errors of omission. 
+Errors of commission are bigrams that are identified by the 
+automatic segmentation to be words when in fact they are not 
+(according to the manual segmentation). Errors of omission are 
+bigrams that are not identified by the automatic segmentation to 
+be words but in fact they are.
+# Para 603 5
+The errors depend of course on the threshold values used. A high 
+threshold (e.g. 1.0) emphasizes precision and a low threshold 
+(e.g. –1.0) emphasizes recall. 50 sentences were selected from 
+the 100 sample sentences to find the distribution of errors at 
+different regions of threshold values.
+# Para 608 2
+Contextual information 
+Mutual information
+# Para 610 2
+Improved mutual 
+information
+# Para 612 1
+	75 70 65 60 55
+# Para 613 1
+87
+# Para 614 1
+Association Score between -1.0 and -2.0
+# Para 615 2
+the northern section of a construction project 
+fragments of ancient books
+# Para 617 1
+Association Score &lt; -2.0
+# Para 618 1
+September
+# Para 619 1
+3rd day
+# Para 620 2
+(name of a district in China ) 
+(name of an institution)
+# Para 622 1
+the Book of Changes
+# Para 623 2
+Table 7. 2-character words with association score 
+below -1.0
+# Para 625 2
+We divide the errors of commission (bigrams that are incorrectly 
+identified as words by the automatic segmentation) into 2 groups:
+# Para 627 2
+1. Definite errors: bigrams with association scores above 1.0 but 
+are not words
+# Para 629 2
+2. Borderline errors: bigrams with association scores between – 
+1.0 and 1.0 and are not words
+# Para 631 3
+We also divide the errors of omission (bigrams that are words 
+but are not identified by the automatic segmentation) into 2 
+groups:
+# Para 634 2
+1. Definite errors: bigrams with association scores below –1.0 
+but are words
+# Para 636 2
+2. Borderline errors: bigrams with association scores between – 
+1.0 and 1.0 and are words.
+# Para 638 1
+7.1 Errors of Commission
+# Para 639 1
+Errors of commission can be divided into 2 types:
+# Para 640 2
+1. The bigram is a simple word that is part of a longer 
+meaningful word.
+# Para 642 2
+2. The bigram is not a word (neither simple word nor 
+meaningful word).
+# Para 644 5
+Errors of the first type are illustrated in Table 5. The words 
+within parenthesis are actually meaningful words but segmented 
+as simple words (words on the left). The words lose part of the 
+meaning when segmented as simple words. These errors 
+occurred mostly with 3 or 4-character meaningful words.
+# Para 649 3
+Errors of the second type are illustrated in Table 6. Many of the 
+errors are caused by incorrectly linking a character with a 
+function word or pronoun. Some of the errors can easily be
+# Para 652 2
+removed by using a list of function words and pronouns to 
+identify these characters.
+# Para 654 1
+7.2 Errors of Omission
+# Para 655 2
+Examples of definite errors of omission (bigrams with 
+association scores below –1.0 but are words) are given in Table
+# Para 657 7
+7. Most of the errors are rare words and time words. Some are 
+ancient names, rare and unknown place names, as well as 
+technical terms. Since our corpus comprises general news 
+articles, these types of words are not frequent in the corpus. Time 
+words like dates usually have low association values because 
+they change everyday! These errors can be reduced by 
+incorporating a separate algorithm for recognizing them.
+# Para 664 1
+The proportion of errors of the various types are given in Table 8.
+# Para 665 1
+8. CONCLUSION
+# Para 666 7
+A new statistical formula for identifying 2-character words in 
+Chinese text, called the contextual information formula, was 
+developed empirically using regression analysis. The focus was 
+on identifying meaningful words (including multi-word terms 
+and idioms) rather than simple words. The formula was found to 
+give significantly and substantially better results than the mutual 
+information formula.
+# Para 673 8
+Contextual information in the form of the frequency of characters 
+that are adjacent to the bigram being processed as well as the 
+weighted document frequency of the overlapping bigrams were 
+found to be significant factors for predicting the probablity that 
+the bigram constitutes a word. Local information (e.g. the 
+number of times the bigram occurs in the document being 
+segmented) and the position of the bigram in the sentence were 
+not found to be useful in determining words.
+# Para 681 8
+Of the bigrams that the formula erroneously identified as words, 
+about 80% of them were actually simple words. Of the rest, 
+many involved incorrect linking with a function words. Of the 
+words that the formula failed to identify as words, more than a 
+third of them were rare words or time words. The proportion of 
+rare words increased as the threshold value used was lowered. 
+These rare words cannot be identified using statistical 
+techniques.
+# Para 689 1
+This study investigated a purely statistical approach to text
+# Para 690 10
+Errors of Commission	Borderline Cases	Errors of Omission
+Association score &gt; 1.0	Association score: –1.0 to1.0	Association score &lt; –1.0
+(No. of errors=34)	(No. of cases: 210)	
+Simple words	Not words	Simple words	Not words	Meaning- ful words	Association score:	Association score
+82.3%	17.7%	55.2%	20.5%	24.3%	–1.0 to –2.0	&lt; –2.0
+					(No. of errors=43)	(No. of errors=22)
+					Rare words	Others	Rare words	Others
+					&amp; time	76.8%	&amp; time	36.4%
+					words		words	
+					23.2%		63.6%	
+# Para 700 1
+Table 8. Proportion of errors of different types
+# Para 701 1
+88
+# Para 702 9
+segmentation. The advantage of the statistical approach is that it 
+can be applied to any domain, provided that the document 
+collection is sufficiently large to provide frequency information. 
+A domain-specific dictionary of words is not required. In fact, the 
+statistical formula can be used to generate a shortlist of candidate 
+words for such a dictionary. On the other hand, the statistical 
+method cannot identify rare words and proper names. It is also 
+fooled by combinations of function words that occur frequently 
+and by function words that co-occur with other words.
+# Para 711 13
+It is well-known that a combination of methods is needed to give 
+the best segmentation results. The segmentation quality in this 
+study can be improved by using a list of function words and 
+segmenting the function words as single character words. A 
+dictionary of common and well-known names (including names 
+of persons, places, institutions, government bodies and classic 
+books) could be used by the system to identify proper names that 
+occur infrequently in the corpus. Chang et al. [2] developed a 
+method for recognizing proper nouns using a dictionary of family 
+names in combination with a statistical method for identifying 
+the end of the name. An algorithm for identifying time and dates 
+would also be helpful. It is not clear whether syntactic processing 
+can be used to improve the segmentation results substantially.
+# Para 724 11
+Our current work includes developing statistical formulas for 
+identifying 3 and 4-character words, as well as investigating 
+whether the statistical formula developed here can be used with 
+other corpora. The approach adopted in this study can also be 
+used to develop statistical models for identifying multi-word 
+terms in English text. It would be interesting to see whether the 
+regression model developed for English text is similar to the one 
+developed in this study for Chinese text. Frantzi, Ananiadou &amp; 
+Tsujii [7], using a different statistical approach, found that 
+contextual information could be used to improve the 
+identification of multi-word terms in English text.
+# Para 735 1
+9. REFERENCES
+# Para 736 3
+[1] Chang, C.-H., and Chen, C.-D. A study of integrating 
+Chinese word segmentation and part-of-speech tagging. 
+Communications of COLIPS, 3, 1 (1993), 69-77.
+# Para 739 4
+[2] Chang, J.-S., Chen, S.-D., Ker, S.-J., Chen, Y., and Liu, J.S. 
+A multiple-corpus approach to recognition of proper names 
+in Chinese texts. Computer Processing of Chinese and 
+Oriental Languages, 8, 1 (June 1994), 75-85.
+# Para 743 4
+[3] Church, K.W., and Hanks, P. Word association norms, 
+mutual information and lexicography. In Proceedings of the 
+27th Annual Meeting of the Association for Computational 
+Linguistics (Vancouver, June 1989), 76-83.
+# Para 747 3
+[4] Dai, J.C., and Lee, H.J. A generalized unification-based LR 
+parser for Chinese. Computer Processing of Chinese and 
+Oriental Languages, 8, 1 (1994), 1-18.
+# Para 750 2
+[5] Dai, Y. Developing a new statistical method for Chinese 
+text segmentation. (Master s thesis in preparation)
+# Para 752 3
+[6] Damerau, F.J. Generating and evaluating domain-oriented 
+multi-word terms from texts. Information Processing &amp; 
+Management, 29, 4 (1993), 433-447.
+# Para 755 3
+[7] Frantzi, K.T., Ananiadou, S., and Tsujii, J. The C-
+value/NC-value method of automatic recognition for multi- 
+word terms. In C. Nikolaou and C. Stephanidis (eds.),
+# Para 758 3
+Research and Advanced Technology for Digital Libraries, 
+2nd European Conference, ECDL 98 (Heraklion, Crete, 
+September 1998), Springer-Verlag, 585-604.
+# Para 761 3
+[8] Liang, N.Y. The knowledge of Chinese words segmentation 
+[in Chinese]. Journal of Chinese Information Processing, 4, 
+2 (1990), 42-49.
+# Para 764 3
+[9] Liu, I.M. Descriptive-unit analysis of sentences: Toward a 
+model natural language processing. Computer Processing of 
+Chinese &amp; Oriental Languages, 4, 4 (1990), 314-355.
+# Para 767 5
+[10] Liu, Y., Tan, Q., and Shen, X.K. Xin xi chu li yong xian dai 
+han yu fen ci gui fan ji zi dong fen ci fang fa [ Modern 
+Chinese Word Segmentation Rules and Automatic Word 
+Segmentation Methods for Information Processing ]. Qing 
+Hua University Press, Beijing, 1994.
+# Para 772 6
+[11] Lua, K.T. Experiments on the use of bigram mutual 
+information in Chinese natural language processing. 
+Presented at the 1995 International Conference on Computer 
+Processing of Oriental Languages (ICCPOL) (Hawaii, 
+November 1995). Available: http://137.132.89.143/luakt/ 
+publication.html
+# Para 778 3
+[12] Lua, K.T. From character to word - An application of 
+information theory. Computer Processing of Chinese &amp; 
+Oriental Languages, 4, 4 (1990), 304-312.
+# Para 781 3
+[13] Lua, K.T., and Gan, G.W. An application of information 
+theory in Chinese word segmentation. Computer Processing 
+of Chinese &amp; Oriental Languages, 8, 1 (1994), 115-124.
+# Para 784 4
+[14] Nie, J.Y., Hannan, M.L., and Jin, W.Y. Unknown word 
+detection and segmentation of Chinese using statistical and 
+heuristic knowledge. Communications of COLIPS, 5, 1&amp;2 
+(1995), 47-57.
+# Para 788 5
+[15] Ogawa, Y., and Matsuda, T. Overlapping statistical word 
+indexing: A new indexing method for Japanese text. In 
+Proceedings of the 20th Annual International ACM SIGIR 
+Conference on Research and Development in Information 
+Retrieval (Philadelphia, July 1997), ACM, 226-234.
+# Para 793 3
+[16] Sproat, R., and Shih, C.L. A statistical method for finding 
+word boundaries in Chinese text. Computer Processing of 
+Chinese &amp; Oriental Languages, 4, 4 (1990), 336-351.
+# Para 796 3
+[17] Sproat, R., Shih, C., Gale, W., and Chang, N. A stochastic 
+finite-state word-segmentation algorithm for Chinese. 
+Computational Lingustics, 22, 3 (1996), 377-404.
+# Para 799 3
+[18] Tung, C.-H., and Lee, H.-J. Identification of unknown words 
+from a corpus. Computer Processing of Chinese and 
+Oriental Languages, 8 (Supplement, Dec. 1994), 131-145.
+# Para 802 4
+[19] Wu, Z., and Tseng, G. ACTS: An automatic Chinese text 
+segmentation system for full text retrieval. Journal of the 
+American Society for Information Science, 46, 2 (1995), 83- 
+96.
+# Para 806 4
+[20] Yeh, C.L., and Lee, H.J. Rule-based word identification for 
+mandarin Chinese sentences: A unification approach. 
+Computer Processing of Chinese and Oriental Languages, 5, 
+2 (1991), 97-118.
+# Para 810 1
+89

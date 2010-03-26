@@ -16,15 +16,6 @@ use Encode ();
 
 ### USER customizable section
 
-my $tmpDir = $SectLabel::Config::tmpDir;
-$tmpDir = "$FindBin::Bin/../$tmpDir";
-
-my $dictFile = $SectLabel::Config::dictFile;
-$dictFile = "$FindBin::Bin/../$dictFile";
-
-my $funcFile = $SectLabel::Config::funcFile;
-$funcFile = "$FindBin::Bin/../$funcFile";
-
 my $crf_test = $SectLabel::Config::crf_test;
 $crf_test = "$FindBin::Bin/../$crf_test";
 ### END user customizable section
@@ -124,27 +115,33 @@ my %tagMap = (
 binmode(STDERR, ":utf8");
 binmode(STDOUT, ":utf8");
 
-sub tr2crfpp {
-  my ($inFile, $outFile, $kFile, $biFile, $triFile, $fourthFile, $configFile, $isGenerateTemplate) = @_;
-  if(!defined $isGenerateTemplate){
-    die "Die: Tr2crfpp::tr2crfpp - undefined isGenerateTemplate\n";
-  }
+sub initialize {
+  my ($dictFile, $funcFile, $configFile) = @_;
 
-  print STDERR "Dict file = $dictFile\n";
-  print STDERR "Func file = $funcFile\n";
+#  print STDERR "Dict file = $dictFile\n";
+#  print STDERR "Func file = $funcFile\n";
   readDict($dictFile);
   loadListHash($funcFile, \%funcWord);
-
-  if($kFile ne "") { readKeywordDict($kFile, \%keywords); }
-  if($biFile ne "") { readKeywordDict($biFile, \%bigrams); }
-  if($triFile ne "") { readKeywordDict($triFile, \%trigrams); }
-  if($fourthFile ne "") { readKeywordDict($fourthFile, \%fourthgrams); }
-
   if(defined $configFile && $configFile ne ""){
     loadConfigFile($configFile, \%config);
   } else {
     die "!defined $configFile || $configFile eq \"\"\n";
   }
+
+#  if($kFile ne "") { readKeywordDict($kFile, \%keywords); }
+#  if($biFile ne "") { readKeywordDict($biFile, \%bigrams); }
+#  if($triFile ne "") { readKeywordDict($triFile, \%trigrams); }
+#  if($fourthFile ne "") { readKeywordDict($fourthFile, \%fourthgrams); }
+}
+
+## Entry point called by sectLabel/tr2crfpp.pl
+sub tr2crfpp {
+  my ($inFile, $outFile, $dictFile, $funcFile, $configFile, $isGenerateTemplate) = @_; #$kFile, $biFile, $triFile, $fourthFile
+  if(!defined $isGenerateTemplate){
+    die "Die: Tr2crfpp::tr2crfpp - undefined isGenerateTemplate\n";
+  }
+
+  initialize($dictFile, $funcFile, $configFile);
 
   # File IOs
   open (IF, "<:utf8", $inFile) || die "# crash\t\tCan't open \"$inFile\"";
@@ -154,11 +151,13 @@ sub tr2crfpp {
   close (IF);
 }
 
+## Entry point called by SectLabel::Controller
 sub extractTestFeatures {
-  my ($textLines, $filename, $configFile, $isDebug) = @_;
+  my ($textLines, $filename, $dictFile, $funcFile, $configFile, $isDebug) = @_;
   my $tmpfile = buildTmpFile($filename);
 
-  loadConfigFile($configFile, \%config);
+  initialize($dictFile, $funcFile, $configFile);
+
   my $isGenerateTemplate = 0;
   processData($textLines, $tmpfile, $isGenerateTemplate, $isDebug);
 

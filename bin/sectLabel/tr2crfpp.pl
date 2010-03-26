@@ -49,7 +49,12 @@ my $QUIET = 0;
 my $HELP = 0;
 my $inFile = undef;
 my $outFile = undef;
-my $dictFile = "$FindBin::Bin/../".$SectLabel::Config::dictFile;
+my $dictFile = $SectLabel::Config::dictFile;
+$dictFile = "$FindBin::Bin/../../$dictFile";
+
+my $funcFile = $SectLabel::Config::funcFile;
+$funcFile = "$FindBin::Bin/../../$funcFile";
+
 my $keywordFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::keywordFile;
 my $bigramFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::bigramFile;
 my $trigramFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::trigramFile;
@@ -79,7 +84,6 @@ if (!$QUIET) {
 ### Untaint ###
 $inFile = untaintPath($inFile);
 $outFile = untaintPath($outFile);
-$dictFile = untaintPath($dictFile);
 $configFile = untaintPath($configFile);
 $keywordFile = untaintPath($keywordFile);
 $bigramFile = untaintPath($bigramFile);
@@ -88,7 +92,7 @@ $fourthgramFile = untaintPath($fourthgramFile);
 $ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin';
 ### End untaint ###
 
-SectLabel::Tr2crfpp::tr2crfpp($inFile, $outFile, $keywordFile, $bigramFile, $trigramFile, $fourthgramFile, $configFile, $isTemplate);
+SectLabel::Tr2crfpp::tr2crfpp($inFile, $outFile, $dictFile, $funcFile, $configFile, $isTemplate); #$keywordFile, $bigramFile, $trigramFile, $fourthgramFile,
 
 sub untaintPath {
   my ($path) = @_;

@@ -309,7 +309,6 @@ sub decode {
   } else {
     execute("$crf_test -m $modelFile $inFile > $labeledFile");
   }
-
   unless (open(PIPE, $labeledFile)) {
     fatal("Could not open pipe from crf call: $!");
     return;

@@ -22,7 +22,7 @@ use CSXUtil::SafeText qw(cleanXML);
 # header data.  Returns a reference XML document.
 #
 sub extractSection {
-    my ($textFile, $isXmlOutput, $modelFile, $configFile, $isXmlInput, $isDebug) = @_;
+    my ($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug) = @_;
 
     if (!defined $modelFile || $modelFile eq "") {
       die "Die in SectLabel::Controller::extractSection - need to specify modelFile\n";
@@ -32,7 +32,7 @@ sub extractSection {
     }
 
     my ($status, $msg, $xml)
-	= extractSectionImpl($textFile, $isXmlOutput, $modelFile, $configFile, $isXmlInput, $isDebug);
+	= extractSectionImpl($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
     if ($status > 0) {
 	return \$xml;
     } else {
@@ -53,7 +53,7 @@ sub extractSection {
 ##
 
 sub extractSectionImpl {
-  my ($textFile, $isXmlOutput, $modelFile, $configFile, $isXmlInput, $isDebug) = @_;
+  my ($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug) = @_;
 
   if($isDebug){
     print STDERR "modelFile = $modelFile\n";
@@ -90,7 +90,7 @@ sub extractSectionImpl {
   # run tr2crfpp to prepare feature files
   my $tmpFile;
   if($isDebug){ print STDERR "\n# Extracting test features ... "; }
-  $tmpFile = SectLabel::Tr2crfpp::extractTestFeatures(\@textLines, $textFile, $configFile, $isDebug);
+  $tmpFile = SectLabel::Tr2crfpp::extractTestFeatures(\@textLines, $textFile, $dictFile, $funcFile, $configFile, $isDebug);
   if($isDebug){ print STDERR " Done! Output to $tmpFile\n"; }
 
   # run crf_test, output2xml
@@ -107,6 +107,8 @@ sub extractSectionImpl {
   }
 
   unlink($tmpFile);
+#  print STDERR "$outFile\n";
+
   unlink($outFile);
   return ($status, $msg, $xml);
 }

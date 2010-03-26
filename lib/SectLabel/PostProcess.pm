@@ -215,7 +215,7 @@ sub simpleNormalize {
   # escape XML characters
   cleanXML(\$content);
   
-  $content = ParsCit::PostProcess::stripPunctuation($content);
+#  $content = ParsCit::PostProcess::stripPunctuation($content);
 
   return ($tag, $content);
 }
@@ -237,34 +237,7 @@ sub normalizeHeaderField {
   # escape XML characters
   cleanXML(\$content);
   
-  # normalize author and break into multiple authors (if any)
-=pod
-  if ($tag eq "author") {
-    $tag = "authors";
-    $content = ParsCit::PostProcess::normalizeAuthorNames($content);
-  } elsif ($tag eq "email") {
-    $content =~ s/\s+//g; #simple strip white spaces first
-    if($content =~ /^\{(.+)\}(.+)$/){ #multiple emails of the form {kanmy,luongmin}@nus.edu.sg
-      my $begin = $1;
-      my $end = $2;
-      
-      my @tokens = split(/,/, $begin);
-      if(scalar(@tokens) > 1) { #there are actually multiple emails
-	my @emails = ();
-	foreach(@tokens){
-	  push (@emails, "$_$end");
-	}
-
-	$tag = "emails";
-	$content = \@emails;
-      }
-    }
-  } else {
-    $content = ParsCit::PostProcess::stripPunctuation($content);
-  }
-=cut
-
-  $content = ParsCit::PostProcess::stripPunctuation($content);
+#  $content = ParsCit::PostProcess::stripPunctuation($content);
   return ($tag, $content);
 }  # normalizeFields
 

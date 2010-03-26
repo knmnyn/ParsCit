@@ -59,7 +59,7 @@ sub Help {
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 
   # Thang Mar 10: add new mode (extract_section), and -i <inputType>
-  print STDERR "\t-m <mode>\tMode (extract_header, extract_meta, extract_section, default: extract_citations)\n";
+  print STDERR "\t-m <mode>\tMode (extract_header, extract_meta, extract_section, extract_all, default: extract_citations)\n";
   print STDERR "\t-i <inputType>\tType (raw, xml, default: raw)\n";
   print STDERR "\t-t\tUse token level model instead\n";
   print STDERR "\n";
@@ -97,7 +97,7 @@ my $mode = (!defined $opt_m) ? $defaultMode : parseMode($opt_m);
 my $phModel = ($opt_t == 1) ? 1 : 0;
 my $in = shift;						  # input file
 my $out = shift;					# if available
-my $rXML = "";					       # output buffer
+my $rXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<result>\n";       # output buffer
 
 my $confLevel = 1; # Thang Nov 09: add confidence score option --- 1: enable, 0: disable
 my $inputType = (!defined $opt_i) ? $defaultInputType : $opt_i; # Thang Mar 10: add input type option
@@ -109,31 +109,22 @@ if($inputType ne "raw" && $inputType ne "xml"){
 if (($mode & $PARSHED) == $PARSHED) {
   use ParsHed::Controller;
   my $phXML = ParsHed::Controller::extractHeader($in, $phModel, $confLevel); # Thang Nov 09: $confLevel to add confidence score
-  $rXML .= $$phXML;
+  $rXML .= removeTopLines($$phXML, 1) . "\n"; # remove first line <?xml/> 
+}
+
+# Thang Mar 10: add sectLabel
+if (($mode & $SECTLABEL) == $SECTLABEL) {			     # SECTLABEL
+  my $slXML .= sectLabel($in, $inputType);
+  $rXML .= removeTopLines($slXML, 1) . "\n"; # remove first line <?xml/> 
 }
 
 if (($mode & $PARSCIT) == $PARSCIT) {			     # PARSCIT
   use ParsCit::Controller;
   my $pcXML = ParsCit::Controller::extractCitations($in);
-  my $buf = $$pcXML;
-  if (($mode & $PARSHED) == $PARSHED) {			 # called both
-    # remove last line "</algorithm>"
-    my @lines = split (/\n/,$rXML);
-    @lines = splice(@lines,0,$#lines);
-    my $buf2 = join("\n",@lines);
-
-    # remove first two lines <?xml/> <algorithm ...>
-    my @lines = split (/\n/,$buf);
-    @lines = splice(@lines,2,$#lines);
-    $buf = "$buf2\n" . join("\n",@lines) . "\n";
-  }
-  $rXML = $buf;
+  $rXML .= removeTopLines($$pcXML, 1) . "\n";   # remove first line <?xml/> 
 }
 
-# Thang Mar 10: add sectLabel
-if (($mode & $SECTLABEL) == $SECTLABEL) {			     # SECTLABEL
-  $rXML .= sectLabel($in, $inputType);
-}
+$rXML .= "</result>";
 
 if (defined $out) {
   open (OUT, ">$out") or die "$progname fatal\tCould not open \"$out\" for writing: $!";
@@ -157,12 +148,26 @@ sub parseMode {
     return $PARSCIT;
   } elsif ($arg eq "extract_section") {
     return $SECTLABEL;
+  } elsif ($arg eq "extract_all") {
+    return ($PARSCIT | $SECTLABEL);  
   } else {
     Help();
     exit(-1);
   }
 }
 
+# Thang Mar 10: remove top n lines
+sub removeTopLines {
+  my ($input, $topN) = @_;
+  # remove first line <?xml/> 
+  my @lines = split (/\n/,$input);
+  for(my $i=0; $i<$topN; $i++){
+    shift(@lines);
+  }
+
+  return join("\n",@lines);
+}
+  
 # Thang Mar 10: generate section info
 sub sectLabel {
   my ($in, $inputType) = @_;
@@ -174,6 +179,13 @@ sub sectLabel {
   my $isXmlInput = ($inputType eq "xml") ?  1 : 0;
   my $modelFile = $isXmlInput? $SectLabel::Config::modelXmlFile : $SectLabel::Config::modelFile;
   $modelFile = "$FindBin::Bin/../$modelFile";
+
+  my $dictFile = $SectLabel::Config::dictFile;
+  $dictFile = "$FindBin::Bin/../$dictFile";
+
+  my $funcFile = $SectLabel::Config::funcFile;
+  $funcFile = "$FindBin::Bin/../$funcFile";
+
   my $configFile = $isXmlInput ? $SectLabel::Config::configXmlFile : $SectLabel::Config::configFile;
   $configFile = "$FindBin::Bin/../$configFile";
 
@@ -187,7 +199,7 @@ sub sectLabel {
   }
 
   # classify section
-  my $slXML = SectLabel::Controller::extractSection($in, $isXmlOutput, $modelFile, $configFile, $isXmlInput, $isDebug);
+  my $slXML = SectLabel::Controller::extractSection($in, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
 
   # remove xml feature file if any
   if($isXmlInput){

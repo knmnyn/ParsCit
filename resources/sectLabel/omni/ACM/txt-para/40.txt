@@ -1,0 +1,1258 @@
+# Para 0 2
+Automatic Extraction of Titles from General Documents
+using Machine Learning
+# Para 2 1
+Yunhua Hu1
+# Para 3 4
+Computer Science Department
+Xi’an Jiaotong University
+No 28, Xianning West Road
+Xi&apos;an, China, 710049
+# Para 7 1
+yunhuahu@mail.xjtu.edu.cn
+# Para 8 1
+Hang Li, Yunbo Cao
+# Para 9 4
+Microsoft Research Asia
+5F Sigma Center,
+No. 49 Zhichun Road, Haidian,
+Beijing, China, 100080
+# Para 13 1
+{hangli,yucao}@microsoft.com
+# Para 14 1
+Dmitriy Meyerzon
+# Para 15 4
+Microsoft Corporation
+One Microsoft Way
+Redmond, WA,
+USA, 98052
+# Para 19 1
+dmitriym@microsoft.com
+# Para 20 1
+Qinghua Zheng
+# Para 21 4
+Computer Science Department
+Xi’an Jiaotong University
+No 28, Xianning West Road
+Xi&apos;an, China, 710049
+# Para 25 1
+qhzheng@mail.xjtu.edu.cn
+# Para 26 1
+ABSTRACT
+# Para 27 25
+In this paper, we propose a machine learning approach to title 
+extraction from general documents. By general documents, we 
+mean documents that can belong to any one of a number of 
+specific genres, including presentations, book chapters, technical 
+papers, brochures, reports, and letters. Previously, methods have 
+been proposed mainly for title extraction from research papers. It 
+has not been clear whether it could be possible to conduct 
+automatic title extraction from general documents. As a case study, 
+we consider extraction from Office including Word and 
+PowerPoint. In our approach, we annotate titles in sample 
+documents (for Word and PowerPoint respectively) and take them 
+as training data, train machine learning models, and perform title 
+extraction using the trained models. Our method is unique in that 
+we mainly utilize formatting information such as font size as 
+features in the models. It turns out that the use of formatting 
+information can lead to quite accurate extraction from general 
+documents. Precision and recall for title extraction from Word is 
+0.810 and 0.837 respectively, and precision and recall for title 
+extraction from PowerPoint is 0.875 and 0.895 respectively in an 
+experiment on intranet data. Other important new findings in this 
+work include that we can train models in one domain and apply 
+them to another domain, and more surprisingly we can even train 
+models in one language and apply them to another language. 
+Moreover, we can significantly improve search ranking results in 
+document retrieval by using the extracted titles.
+# Para 52 1
+Categories and Subject Descriptors
+# Para 53 2
+H.3.3 [Information Storage and Retrieval]: Information Search 
+and Retrieval - Search Process; H.4.1 [Information Systems
+# Para 55 6
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, or 
+republish, to post on servers or to redistribute to lists, requires prior specific 
+permission and/or a fee.
+# Para 61 1
+JCDL’05, June 7–11, 2005, Denver, Colorado, USA
+# Para 62 1
+Copyright 2005 ACM 1-58113-876-8/05/0006...$5.00. 
+# Para 63 3
+Applications]: Office Automation - Word processing; D.2.8 
+[Software Engineering]: Metrics - complexity measures, 
+performance measures
+# Para 66 1
+General Terms
+# Para 67 1
+Algorithms, Experimentation, Performance.
+# Para 68 1
+Keywords
+# Para 69 2
+information extraction, metadata extraction, machine learning, 
+search
+# Para 71 1
+1. INTRODUCTION
+# Para 72 8
+Metadata of documents is useful for many kinds of document 
+processing such as search, browsing, and filtering. Ideally, 
+metadata is defined by the authors of documents and is then used 
+by various systems. However, people seldom define document 
+metadata by themselves, even when they have convenient 
+metadata definition tools [26]. Thus, how to automatically extract 
+metadata from the bodies of documents turns out to be an 
+important research issue.
+# Para 80 7
+Methods for performing the task have been proposed. However, 
+the focus was mainly on extraction from research papers. For 
+instance, Han et al. [10] proposed a machine learning based 
+method to conduct extraction from research papers. They 
+formalized the problem as that of classification and employed 
+Support Vector Machines as the classifier. They mainly used 
+linguistic features in the model.
+# Para 87 5
+In this paper, we consider metadata extraction from general 
+documents. By general documents, we mean documents that may 
+belong to any one of a number of specific genres. General 
+documents are more widely available in digital libraries, intranets 
+and the internet, and thus investigation on extraction from them is
+# Para 92 2
+1 The work was conducted when the first author was visiting 
+Microsoft Research Asia.
+# Para 94 1
+145
+# Para 95 4
+sorely needed. Research papers usually have well-formed styles 
+and noticeable characteristics. In contrast, the styles of general 
+documents can vary greatly. It has not been clarified whether a 
+machine learning based approach can work well for this task.
+# Para 99 5
+There are many types of metadata: title, author, date of creation, 
+etc. As a case study, we consider title extraction in this paper. 
+General documents can be in many different file formats: 
+Microsoft Office, PDF (PS), etc. As a case study, we consider 
+extraction from Office including Word and PowerPoint.
+# Para 104 8
+We take a machine learning approach. We annotate titles in 
+sample documents (for Word and PowerPoint respectively) and 
+take them as training data to train several types of models, and 
+perform title extraction using any one type of the trained models. 
+In the models, we mainly utilize formatting information such as 
+font size as features. We employ the following models: Maximum 
+Entropy Model, Perceptron with Uneven Margins, Maximum 
+Entropy Markov Model, and Voted Perceptron.
+# Para 112 2
+In this paper, we also investigate the following three problems, 
+which did not seem to have been examined previously.
+# Para 114 2
+(1) Comparison between models: among the models above, which 
+model performs best for title extraction;
+# Para 116 4
+(2) Generality of model: whether it is possible to train a model on 
+one domain and apply it to another domain, and whether it is 
+possible to train a model in one language and apply it to another 
+language;
+# Para 120 2
+(3) Usefulness of extracted titles: whether extracted titles can 
+improve document processing such as search.
+# Para 122 9
+Experimental results indicate that our approach works well for 
+title extraction from general documents. Our method can 
+significantly outperform the baselines: one that always uses the 
+first lines as titles and the other that always uses the lines in the 
+largest font sizes as titles. Precision and recall for title extraction 
+from Word are 0.810 and 0.837 respectively, and precision and 
+recall for title extraction from PowerPoint are 0.875 and 0.895 
+respectively. It turns out that the use of format features is the key 
+to successful title extraction.
+# Para 131 7
+(1) We have observed that Perceptron based models perform 
+better in terms of extraction accuracies. (2) We have empirically 
+verified that the models trained with our approach are generic in 
+the sense that they can be trained on one domain and applied to 
+another, and they can be trained in one language and applied to 
+another. (3) We have found that using the extracted titles we can 
+significantly improve precision of document retrieval (by 10%).
+# Para 138 3
+We conclude that we can indeed conduct reliable title extraction 
+from general documents and use the extracted results to improve 
+real applications.
+# Para 141 7
+The rest of the paper is organized as follows. In section 2, we 
+introduce related work, and in section 3, we explain the 
+motivation and problem setting of our work. In section 4, we 
+describe our method of title extraction, and in section 5, we 
+describe our method of document retrieval using extracted titles. 
+Section 6 gives our experimental results. We make concluding 
+remarks in section 7.
+# Para 148 1
+2. RELATED WORK
+# Para 149 1
+2.1 Document Metadata Extraction
+# Para 150 3
+Methods have been proposed for performing automatic metadata 
+extraction from documents; however, the main focus was on 
+extraction from research papers.
+# Para 153 2
+The proposed methods fall into two categories: the rule based 
+approach and the machine learning based approach.
+# Para 155 9
+Giuffrida et al. [9], for instance, developed a rule-based system for 
+automatically extracting metadata from research papers in 
+Postscript. They used rules like “titles are usually located on the 
+upper portions of the first pages and they are usually in the largest 
+font sizes”. Liddy et al. [14] and Yilmazel el al. [23] performed 
+metadata extraction from educational materials using rule-based 
+natural language processing technologies. Mao et al. [16] also 
+conducted automatic metadata extraction from research papers 
+using rules on formatting information.
+# Para 164 3
+The rule-based approach can achieve high performance. However, 
+it also has disadvantages. It is less adaptive and robust when 
+compared with the machine learning approach.
+# Para 167 7
+Han et al. [10], for instance, conducted metadata extraction with 
+the machine learning approach. They viewed the problem as that 
+of classifying the lines in a document into the categories of 
+metadata and proposed using Support Vector Machines as the 
+classifier. They mainly used linguistic information as features. 
+They reported high extraction accuracy from research papers in 
+terms of precision and recall.
+# Para 174 1
+2.2 Information Extraction
+# Para 175 7
+Metadata extraction can be viewed as an application of 
+information extraction, in which given a sequence of instances, we 
+identify a subsequence that represents information in which we 
+are interested. Hidden Markov Model [6], Maximum Entropy 
+Model [1, 4], Maximum Entropy Markov Model [17], Support 
+Vector Machines [3], Conditional Random Field [12], and Voted 
+Perceptron [2] are widely used information extraction models.
+# Para 182 3
+Information extraction has been applied, for instance, to part-of-
+speech tagging [20], named entity recognition [25] and table 
+extraction [19].
+# Para 185 1
+2.3 Search Using Title Information
+# Para 186 1
+Title information is useful for document retrieval.
+# Para 187 3
+In the system Citeseer, for instance, Giles et al. managed to 
+extract titles from research papers and make use of the extracted 
+titles in metadata search of papers [8].
+# Para 190 6
+In web search, the title fields (i.e., file properties) and anchor texts 
+of web pages (HTML documents) can be viewed as ‘titles’ of the 
+pages [5]. Many search engines seem to utilize them for web page 
+retrieval [7, 11, 18, 22]. Zhang et al., found that web pages with 
+well-defined metadata are more easily retrieved than those without 
+well-defined metadata [24].
+# Para 196 3
+To the best of our knowledge, no research has been conducted on 
+using extracted titles from general documents (e.g., Office 
+documents) for search of the documents.
+# Para 199 1
+146
+# Para 200 2
+3. MOTIVATION AND PROBLEM 
+SETTING
+# Para 202 2
+We consider the issue of automatically extracting titles from 
+general documents.
+# Para 204 7
+By general documents, we mean documents that belong to one of 
+any number of specific genres. The documents can be 
+presentations, books, book chapters, technical papers, brochures, 
+reports, memos, specifications, letters, announcements, or resumes. 
+General documents are more widely available in digital libraries, 
+intranets, and internet, and thus investigation on title extraction 
+from them is sorely needed.
+# Para 211 6
+Figure 1 shows an estimate on distributions of file formats on 
+intranet and internet [15]. Office and PDF are the main file 
+formats on the intranet. Even on the internet, the documents in the 
+formats are still not negligible, given its extremely large size. In 
+this paper, without loss of generality, we take Office documents as 
+an example.
+# Para 217 1
+Figure 1. Distributions of file formats in internet and intranet.
+# Para 218 13
+For Office documents, users can define titles as file properties 
+using a feature provided by Office. We found in an experiment, 
+however, that users seldom use the feature and thus titles in file 
+properties are usually very inaccurate. That is to say, titles in file 
+properties are usually inconsistent with the ‘true’ titles in the file 
+bodies that are created by the authors and are visible to readers. 
+We collected 6,000 Word and 6,000 PowerPoint documents from 
+an intranet and the internet and examined how many titles in the 
+file properties are correct. We found that surprisingly the accuracy 
+was only 0.265 (cf., Section 6.3 for details). A number of reasons 
+can be considered. For example, if one creates a new file by 
+copying an old file, then the file property of the new file will also 
+be copied from the old file.
+# Para 231 7
+In another experiment, we found that Google uses the titles in file 
+properties of Office documents in search and browsing, but the 
+titles are not very accurate. We created 50 queries to search Word 
+and PowerPoint documents and examined the top 15 results of 
+each query returned by Google. We found that nearly all the titles 
+presented in the search results were from the file properties of the 
+documents. However, only 0.272 of them were correct.
+# Para 238 5
+Actually, ‘true’ titles usually exist at the beginnings of the bodies 
+of documents. If we can accurately extract the titles from the 
+bodies of documents, then we can exploit reliable title information 
+in document processing. This is exactly the problem we address in 
+this paper.
+# Para 243 5
+More specifically, given a Word document, we are to extract the 
+title from the top region of the first page. Given a PowerPoint 
+document, we are to extract the title from the first slide. A title 
+sometimes consists of a main title and one or two subtitles. We 
+only consider extraction of the main title.
+# Para 248 3
+As baselines for title extraction, we use that of always using the 
+first lines as titles and that of always using the lines with largest 
+font sizes as titles.
+# Para 251 1
+Figure 2. Title extraction from Word document.
+# Para 252 1
+Figure 3. Title extraction from PowerPoint document.
+# Para 253 3
+Next, we define a ‘specification’ for human judgments in title data 
+annotation. The annotated data will be used in training and testing 
+of the title extraction methods.
+# Para 256 8
+Summary of the specification: The title of a document should be 
+identified on the basis of common sense, if there is no difficulty in 
+the identification. However, there are many cases in which the 
+identification is not easy. There are some rules defined in the 
+specification that guide identification for such cases. The rules 
+include “a title is usually in consecutive lines in the same format”, 
+“a document can have no title”, “titles in images are not 
+considered”, “a title should not contain words like ‘draft’,
+# Para 264 1
+147
+# Para 265 5
+‘whitepaper’, etc”, “if it is difficult to determine which is the title, 
+select the one in the largest font size”, and “if it is still difficult to 
+determine which is the title, select the first candidate”. (The 
+specification covers all the cases we have encountered in data 
+annotation.)
+# Para 270 7
+Figures 2 and 3 show examples of Office documents from which 
+we conduct title extraction. In Figure 2, ‘Differences in Win32 
+API Implementations among Windows Operating Systems’ is the 
+title of the Word document. ‘Microsoft Windows’ on the top of 
+this page is a picture and thus is ignored. In Figure 3, ‘Building 
+Competitive Advantages through an Agile Infrastructure’ is the 
+title of the PowerPoint document.
+# Para 277 2
+We have developed a tool for annotation of titles by human 
+annotators. Figure 4 shows a snapshot of the tool.
+# Para 279 1
+Figure 4. Title annotation tool.
+# Para 280 2
+4. TITLE EXTRACTION METHOD 
+4.1 Outline
+# Para 282 3
+Title extraction based on machine learning consists of training and 
+extraction. The same pre-processing step occurs before training 
+and extraction.
+# Para 285 11
+During pre-processing, from the top region of the first page of a 
+Word document or the first slide of a PowerPoint document a 
+number of units for processing are extracted. If a line (lines are 
+separated by ‘return’ symbols) only has a single format, then the 
+line will become a unit. If a line has several parts and each of 
+them has its own format, then each part will become a unit. Each 
+unit will be treated as an instance in learning. A unit contains not 
+only content information (linguistic information) but also 
+formatting information. The input to pre-processing is a document 
+and the output of pre-processing is a sequence of units (instances). 
+Figure 5 shows the units obtained from the document in Figure 2.
+# Para 296 1
+Figure 5. Example of units.
+# Para 297 7
+In learning, the input is sequences of units where each sequence 
+corresponds to a document. We take labeled units (labeled as 
+title_begin, title_end, or other) in the sequences as training data 
+and construct models for identifying whether a unit is title_begin 
+title_end, or other. We employ four types of models: Perceptron, 
+Maximum Entropy (ME), Perceptron Markov Model (PMM), and 
+Maximum Entropy Markov Model (MEMM).
+# Para 304 5
+In extraction, the input is a sequence of units from one document. 
+We employ one type of model to identify whether a unit is 
+title_begin, title_end, or other. We then extract units from the unit 
+labeled with ‘title_begin’ to the unit labeled with ‘title_end’. The 
+result is the extracted title of the document.
+# Para 309 7
+The unique characteristic of our approach is that we mainly utilize 
+formatting information for title extraction. Our assumption is that 
+although general documents vary in styles, their formats have 
+certain patterns and we can learn and utilize the patterns for title 
+extraction. This is in contrast to the work by Han et al., in which 
+only linguistic features are used for extraction from research 
+papers.
+# Para 316 1
+4.2 Models
+# Para 317 3
+The four models actually can be considered in the same metadata 
+extraction framework. That is why we apply them together to our 
+current problem.
+# Para 320 3
+Each input is a sequence of instances x1x2 L xk together with a 
+sequence of labels y1 y2 L yk . xi and yi represents an instance 
+and its label, respectively (i =1,2, L , k ). Recall that an instance
+# Para 323 2
+here represents a unit. A label represents title_begin, title_end, or 
+other. Here, k is the number of units in a document.
+# Para 325 2
+In learning, we train a model which can be generally denoted as a 
+conditional probability distribution P(Y1 L Yk | X1 L Xk) where
+# Para 327 1
+Xi and Yi denote random variables taking instance xi and label
+# Para 328 1
+yi as values, respectively ( i =1,2, L ,k).
+# Para 329 2
+x11 x12 L x1k → y11y12 L y1k 
+x21x22 L x2k → y21y22 L y2k
+# Para 331 1
+L L
+# Para 332 1
+xn1xn 2 L x1k → yn1yn2 L ynk
+# Para 333 1
+Learning Tool
+# Para 334 1
+xm1xm2 L xmk	Extraction Tool
+# Para 335 1
+arg max P(ymLym k | xm1 L xmk
+# Para 336 1
+Figure 6. Metadata extraction model.
+# Para 337 2
+We can make assumptions about the general model in order to 
+make it simple enough for training.
+# Para 339 2
+Conditional 
+Distribution
+# Para 341 1
+P(Y1L Yk | X1LXk)
+# Para 342 1
+)
+# Para 343 1
+148
+# Para 344 1
+For example, we can assume that Y1 , ... , Yk are independent of
+# Para 345 1
+each other given X 1 ,... ,X k . Thus, we have
+# Para 346 1
+P(Y1 ... Yk|X1 ... Xk)
+# Para 347 1
+=P ( Y 1 | X 1)... P(Yk | Xk)
+# Para 348 3
+In this way, we decompose the model into a number of classifiers. 
+We train the classifiers locally using the labeled data. As the 
+classifier, we employ the Perceptron or Maximum Entropy model.
+# Para 351 1
+We can also assume that the first order Markov property holds for
+# Para 352 1
+Y1 , ... , Yk given X1 ,... ,Xk . Thus, we have
+# Para 353 6
+Again, we obtain a number of classifiers. However, the classifiers 
+are conditioned on the previous label. When we employ the 
+Percepton or Maximum Entropy model as a classifier, the models 
+become a Percepton Markov Model or Maximum Entropy Markov 
+Model, respectively. That is to say, the two models are more 
+precise.
+# Para 359 3
+In extraction, given a new sequence of instances, we resort to one 
+of the constructed models to assign a sequence of labels to the 
+sequence of instances, i.e., perform extraction.
+# Para 362 5
+For Perceptron and ME, we assign labels locally and combine the 
+results globally later using heuristics. Specifically, we first 
+identify the most likely title_begin. Then we find the most likely 
+title _end within three units after the title _begin. Finally, we 
+extract as a title the units between the title_begin and the title_end.
+# Para 367 2
+For PMM and MEMM, we employ the Viterbi algorithm to find 
+the globally optimal label sequence.
+# Para 369 5
+In this paper, for Perceptron, we actually employ an improved 
+variant of it, called Perceptron with Uneven Margin [13]. This 
+version of Perceptron can work well especially when the number 
+of positive instances and the number of negative instances differ 
+greatly, which is exactly the case in our problem.
+# Para 374 4
+We also employ an improved version of Perceptron Markov 
+Model in which the Perceptron model is the so-called Voted 
+Perceptron [2]. In addition, in training, the parameters of the 
+model are updated globally rather than locally.
+# Para 378 1
+4.3 Features
+# Para 379 3
+There are two types of features: format features and linguistic 
+features. We mainly use the former. The features are used for both 
+the title-begin and the title-end classifiers.
+# Para 382 1
+4.3.1 Format Features
+# Para 383 3
+Font Size: There are four binary features that represent the 
+normalized font size of the unit (recall that a unit has only one 
+type of font).
+# Para 386 5
+If the font size of the unit is the largest in the document, then the 
+first feature will be 1, otherwise 0. If the font size is the smallest 
+in the document, then the fourth feature will be 1, otherwise 0. If 
+the font size is above the average font size and not the largest in 
+the document, then the second feature will be 1, otherwise 0. If the
+# Para 391 2
+font size is below the average font size and not the smallest, the 
+third feature will be 1, otherwise 0.
+# Para 393 3
+It is necessary to conduct normalization on font sizes. For 
+example, in one document the largest font size might be ‘12pt’, 
+while in another the smallest one might be ‘18pt’.
+# Para 396 2
+Boldface: This binary feature represents whether or not the 
+current unit is in boldface.
+# Para 398 3
+Alignment: There are four binary features that respectively 
+represent the location of the current unit: ‘left’, ‘center’, ‘right’, 
+and ‘unknown alignment’.
+# Para 401 2
+The following format features with respect to ‘context’ play an 
+important role in title extraction.
+# Para 403 3
+Empty Neighboring Unit: There are two binary features that 
+represent, respectively, whether or not the previous unit and the 
+current unit are blank lines.
+# Para 406 3
+Font Size Change: There are two binary features that represent, 
+respectively, whether or not the font size of the previous unit and 
+the font size of the next unit differ from that of the current unit.
+# Para 409 3
+Alignment Change: There are two binary features that represent, 
+respectively, whether or not the alignment of the previous unit and 
+the alignment of the next unit differ from that of the current one.
+# Para 412 3
+Same Paragraph: There are two binary features that represent, 
+respectively, whether or not the previous unit and the next unit are 
+in the same paragraph as the current unit.
+# Para 415 1
+4.3.2 Linguistic Features
+# Para 416 1
+The linguistic features are based on key words.
+# Para 417 6
+Positive Word: This binary feature represents whether or not the 
+current unit begins with one of the positive words. The positive 
+words include ‘title:’, ‘subject:’, ‘subject line:’ For example, in 
+some documents the lines of titles and authors have the same 
+formats. However, if lines begin with one of the positive words, 
+then it is likely that they are title lines.
+# Para 423 3
+Negative Word: This binary feature represents whether or not the 
+current unit begins with one of the negative words. The negative 
+words include ‘To’, ‘By’, ‘created by’, ‘updated by’, etc.
+# Para 426 2
+There are more negative words than positive words. The above 
+linguistic features are language dependent.
+# Para 428 1
+Word Count: A title should not be too long. We heuristically
+# Para 429 3
+create four intervals: [1, 2], [3, 6], [7, 9] and [9, ∞ ) and define one 
+feature for each interval. If the number of words in a title falls into 
+an interval, then the corresponding feature will be 1; otherwise 0.
+# Para 432 3
+Ending Character: This feature represents whether the unit ends 
+with ‘:’, ‘-’, or other special characters. A title usually does not 
+end with such a character.
+# Para 435 1
+5. DOCUMENT RETRIEVAL METHOD
+# Para 436 2
+We describe our method of document retrieval using extracted 
+titles.
+# Para 438 3
+Typically, in information retrieval a document is split into a 
+number of fields including body, title, and anchor text. A ranking 
+function in search can use different weights for different fields of
+# Para 441 1
+P (Y1... Yk | X1... Xk
+# Para 442 1
+=X0... P(Yk | Yk,Xk)
+# Para 443 1
+)
+# Para 444 1
+P(Y1 |
+# Para 445 1
+149
+# Para 446 7
+the document. Also, titles are typically assigned high weights, 
+indicating that they are important for document retrieval. As 
+explained previously, our experiment has shown that a significant 
+number of documents actually have incorrect titles in the file 
+properties, and thus in addition of using them we use the extracted 
+titles as one more field of the document. By doing this, we attempt 
+to improve the overall precision.
+# Para 453 6
+In this paper, we employ a modification of BM25 that allows field 
+weighting [21]. As fields, we make use of body, title, extracted 
+title and anchor. First, for each term in the query we count the 
+term frequency in each field of the document; each field 
+frequency is then weighted according to the corresponding weight 
+parameter:
+# Para 459 1
+wtf, =∑wftfe
+# Para 460 1
+f
+# Para 461 3
+Similarly, we compute the document length as a weighted sum of 
+lengths of each field. Average document length in the corpus 
+becomes the average of all weighted document lengths.
+# Para 464 1
+wdl =∑wfdlf
+# Para 465 1
+f
+# Para 466 1
+w
+# Para 467 1
+t k1 ((1−b)+b wdl )+wtf	n
+# Para 468 1
+avwdl
+# Para 469 1
+6. EXPERIMENTAL RESULTS
+# Para 470 1
+Inourexperiments we used
+# Para 471 1
+k1
+# Para 472 1
+ =1.8, b = 0.75. Weightforcontent
+# Para 473 1
+was 1.0, title was 10.0, anchorwas 10.0, andextractedtitle was
+# Para 474 1
+5.0.
+# Para 475 1
+6.1 Data Sets and Evaluation Measures
+# Para 476 1
+We usedtwo datasets inourexperiments.
+# Para 477 1
+First, we downloadedandrandomly selected5,000 Word
+# Para 478 1
+documents and5,000 PowerPointdocuments fr
+# Para 479 1
+om an intranet of
+# Para 480 1
+Microsoft. We call it MS hereafter.
+# Para 481 1
+Second, we downloadedandrandomlyselected500 Wordand500
+# Para 482 1
+PowerPointdocuments fromthe DotGov andDotComdomains on
+# Para 483 1
+the
+# Para 484 1
+ internet,
+# Para 485 1
+ respectively.
+# Para 486 1
+Figure 7 shows the distributions ofthe genres ofthedocuments.
+# Para 487 1
+We see thatthe documents are indeed
+# Para 488 1
+ ‘generaldocuments’
+# Para 489 1
+ as
+# Para 490 1
+ we
+# Para 491 1
+define them.
+# Para 492 1
+internet.
+# Para 493 1
+d 500 PowerPoint documents
+# Para 494 1
+in Chinese.
+# Para 495 1
+Wemanuallylabeledthe titles ofall the documents, onthe basis
+# Para 496 1
+ofourspecification.
+# Para 497 5
+Notall the documents inthe two datasets have titles. Table 1 
+shows the percentages ofthe documents having titles. Wesee that 
+DotComandDotGov have more PowerPointdocuments with titles 
+thanMS. This mightbebecausePowerPointdocuments published 
+onthe
+# Para 502 1
+internet
+# Para 503 1
+aremore formal thanthose onthe
+# Para 504 1
+intranet.
+# Para 505 1
+Table 1. The portion of documents with titles
+# Para 506 3
+Inourexperiments, we conductedevaluations ontitle extractionin 
+terms ofprecision, recall, andF-measure. The evaluation 
+measures aredefinedas
+# Para 509 1
+ follows:
+# Para 510 1
+Precision:	P = A/
+# Para 511 1
+ ( A
+# Para 512 1
+ + B )
+# Para 513 1
+Recall:
+# Para 514 1
+R = A / ( A + C )
+# Para 515 1
+F-measure:
+# Para 516 1
+F1
+# Para 517 1
+ = 2PR/
+# Para 518 1
+ ( P
+# Para 519 1
+ +
+# Para 520 1
+R )
+# Para 521 1
+Here, A, B, C, andD are numbers ofdocuments as
+# Para 522 1
+ those defined
+# Para 523 1
+in Table 2.
+# Para 524 1
+Table 2. Contingence table with regard to title extraction
+# Para 525 1
+6.2 Baselines
+# Para 526 1
+Wetestthe accuracies ofthe two baselines describedinsection
+# Para 527 1
+4.2. Theyare denotedas
+# Para 528 1
+‘largest
+# Para 529 1
+font
+# Para 530 1
+ size’
+# Para 531 1
+ an
+# Para 532 1
+d ‘first line’
+# Para 533 1
+respectively.
+# Para 534 1
+6.3 Accuracy ofTitles in File Properties
+# Para 535 1
+Weinvestigate howmanytitles inthe file properties ofthe
+# Para 536 1
+documents arereliable. We viewthe titles annotatedbyhumans as
+# Para 537 1
+true titles andtesthowmanytitles inthe fileproperties can
+# Para 538 1
+approximatelymatch with the truetitles. We useEditDistance to
+# Para 539 1
+conductthe approximate match. (Approximate match is onlyused
+# Para 540 1
+inthis evaluation). This is becausesometimes humanannotated
+# Para 541 1
+titles canbe slightlydifferentfromthe titles infile properties on
+# Para 542 1
+the surface, e.g., containextraspaces).
+# Para 543 1
+GivenstringA andstringB:
+# Para 544 1
+if ( (D == 0) or ( D / ( La + Lb ) &lt; θ ) ) then
+# Para 545 1
+string
+# Para 546 1
+A =
+# Para 547 1
+ string B
+# Para 548 1
+D:	EditDistan
+# Para 549 1
+ce between string A and string B
+# Para 550 1
+La:	length of string A
+# Para 551 1
+Lb:	length of string B
+# Para 552 1
+e:	0.1
+# Para 553 1
+BM25F = ∑ 	`	× log( N)
+# Para 554 1
+tf, (k, 1)
+# Para 555 3
+Domain		MSDotComDotGovType	
+		Word	75.7%	77.8%	75.6%	
+	PowerPoint	82.1%	93.4%	96.4%		
+# Para 558 1
+Figure 7. Distributions of document genres.
+# Para 559 5
+	Is title	Is not title
+Extracted	Third, adatasetinChinese was also downloadedfromthe	B
+	A	
+Itincludes 500 Worddocuments an	C	D
+Not extracted		
+# Para 564 1
+150
+# Para 565 1
+Table 3. Accuracies of titles in file properties
+# Para 566 7
+File Type	Domain	Precision	Recall	F1
+Word	MS	0.299	0.311	0.305
+	DotCom	0.210	0.214	0.212
+	DotGov	0.182	0.177	0.180
+PowerPoint	MS	0.229	0.245	0.237
+	DotCom	0.185	0.186	0.186
+	DotGov	0.180	0.182	0.181
+# Para 573 1
+6.4 Comparison with Baselines
+# Para 574 2
+We conducted title extraction from the first data set (Word and 
+PowerPoint in MS). As the model, we used Perceptron.
+# Para 576 5
+We conduct 4-fold cross validation. Thus, all the results reported 
+here are those averaged over 4 trials. Tables 4 and 5 show the 
+results. We see that Perceptron significantly outperforms the 
+baselines. In the evaluation, we use exact matching between the 
+true titles annotated by humans and the extracted titles.
+# Para 581 1
+Table 4. Accuracies of title extraction with Word
+# Para 582 4
+		Precision	Recall	F1
+Model	Perceptron	0.810	0.837	0.823
+Baselines	Largest font size	0.700	0.758	0.727
+	First line	0.707	0.767	0.736
+# Para 586 1
+Table 5. Accuracies of title extraction with PowerPoint
+# Para 587 4
+		Precision	Recall	F1
+Model	Perceptron	0.875	0. 895	0.885
+Baselines	Largest font size	0.844	0.887	0.865
+	First line	0.639	0.671	0.655
+# Para 591 5
+We see that the machine learning approach can achieve good 
+performance in title extraction. For Word documents both 
+precision and recall of the approach are 8 percent higher than 
+those of the baselines. For PowerPoint both precision and recall of 
+the approach are 2 percent higher than those of the baselines.
+# Para 596 5
+We conduct significance tests. The results are shown in Table 6. 
+Here, ‘Largest’ denotes the baseline of using the largest font size, 
+‘First’ denotes the baseline of using the first line. The results 
+indicate that the improvements of machine learning over baselines 
+are statistically significant (in the sense p-value &lt; 0.05)
+# Para 601 1
+Table 6. Sign test results
+# Para 602 5
+Documents Type	Sign test between	p-value
+Word	Perceptron vs. Largest	3.59e-26
+	Perceptron vs. First	7.12e-10
+PowerPoint	Perceptron vs. Largest	0.010
+	Perceptron vs. First	5.13e-40
+# Para 607 4
+We see, from the results, that the two baselines can work well for 
+title extraction, suggesting that font size and position information 
+are most useful features for title extraction. However, it is also 
+obvious that using only these two features is not enough. There
+# Para 611 8
+are cases in which all the lines have the same font size (i.e., the 
+largest font size), or cases in which the lines with the largest font 
+size only contain general descriptions like ‘Confidential’, ‘White 
+paper’, etc. For those cases, the ‘largest font size’ method cannot 
+work well. For similar reasons, the ‘first line’ method alone 
+cannot work well, either. With the combination of different 
+features (evidence in title judgment), Perceptron can outperform 
+Largest and First.
+# Para 619 4
+We investigate the performance of solely using linguistic features. 
+We found that it does not work well. It seems that the format 
+features play important roles and the linguistic features are 
+supplements..
+# Para 623 13
+We conducted an error analysis on the results of Perceptron. We 
+found that the errors fell into three categories. (1) About one third 
+of the errors were related to ‘hard cases’. In these documents, the 
+layouts of the first pages were difficult to understand, even for 
+humans. Figure 8 and 9 shows examples. (2) Nearly one fourth of 
+the errors were from the documents which do not have true titles 
+but only contain bullets. Since we conduct extraction from the top 
+regions, it is difficult to get rid of these errors with the current 
+approach. (3). Confusions between main titles and subtitles were 
+another type of error. Since we only labeled the main titles as 
+titles, the extractions of both titles were considered incorrect. This 
+type of error does little harm to document processing like search, 
+however.
+# Para 636 1
+6.5 Comparison between Models
+# Para 637 2
+To compare the performance of different machine learning models, 
+we conducted another experiment. Again, we perform 4-fold cross
+# Para 639 1
+Figure 8. An example Word document.
+# Para 640 1
+Figure 9. An example PowerPoint document.
+# Para 641 1
+151
+# Para 642 2
+validation on the first data set (MS). Table 7, 8 shows the results 
+of all the four models.
+# Para 644 9
+It turns out that Perceptron and PMM perform the best, followed 
+by MEMM, and ME performs the worst. In general, the 
+Markovian models perform better than or as well as their classifier 
+counterparts. This seems to be because the Markovian models are 
+trained globally, while the classifiers are trained locally. The 
+Perceptron based models perform better than the ME based 
+counterparts. This seems to be because the Perceptron based 
+models are created to make better classifications, while ME 
+models are constructed for better prediction.
+# Para 653 2
+Table 7. Comparison between different learning models for
+title extraction with Word
+# Para 655 5
+Model	Precision	Recall	F1
+Perceptron	0.810	0.837	0.823
+MEMM	0.797	0.824	0.810
+PMM	0.827	0.823	0.825
+ME	0.801	0.621	0.699
+# Para 660 2
+Table 8. Comparison between different learning models for
+title extraction with PowerPoint
+# Para 662 5
+Model	Precision	Recall	F1
+Perceptron	0.875	0. 895	0. 885
+MEMM	0.841	0.861	0.851
+PMM	0.873	0.896	0.885
+ME	0.753	0.766	0.759
+# Para 667 1
+6.6 Domain Adaptation
+# Para 668 3
+We apply the model trained with the first data set (MS) to the 
+second data set (DotCom and DotGov). Tables 9-12 show the 
+results.
+# Para 671 1
+Table 9. Accuracies of title extraction with Word in DotGov
+# Para 672 4
+		Precision	Recall	F1
+Model	Perceptron	0.716	0.759	0.737
+Baselines	Largest font size	0.549	0.619	0.582
+	First line	0.462	0.521	0.490
+# Para 676 2
+Table 10. Accuracies of title extraction with PowerPoint in
+DotGov
+# Para 678 4
+		Precision	Recall	F1
+Model	Perceptron	0.900	0.906	0.903
+Baselines	Largest font size	0.871	0.888	0.879
+	First line	0.554	0.564	0.559
+# Para 682 1
+Table 11. Accuracies of title extraction with Word in DotCom
+# Para 683 5
+		Precisio	Recall	F1
+		n		
+Model	Perceptron	0.832	0.880	0.855
+Baselines	Largest font size	0.676	0.753	0.712
+	First line	0.577	0.643	0.608
+# Para 688 2
+Table 12. Performance of PowerPoint document title
+extraction in DotCom
+# Para 690 5
+		Precisio	Recall	F1
+		n		
+Model	Perceptron	0.910	0.903	0.907
+Baselines	Largest font size	0.864	0.886	0.875
+	First line	0.570	0.585	0.577
+# Para 695 5
+From the results, we see that the models can be adapted to 
+different domains well. There is almost no drop in accuracy. The 
+results indicate that the patterns of title formats exist across 
+different domains, and it is possible to construct a domain 
+independent model by mainly using formatting information.
+# Para 700 1
+6.7 Language Adaptation
+# Para 701 2
+We apply the model trained with the data in English (MS) to the 
+data set in Chinese.
+# Para 703 1
+Tables 13-14 show the results.
+# Para 704 1
+Table 13. Accuracies of title extraction with Word in Chinese
+# Para 705 4
+		Precision	Recall	F1
+Model	Perceptron	0.817	0.805	0.811
+Baselines	Largest font size	0.722	0.755	0.738
+	First line	0.743	0.777	0.760
+# Para 709 2
+Table 14. Accuracies of title extraction with PowerPoint in
+Chinese
+# Para 711 4
+		Precision	Recall	F1
+Model	Perceptron	0.766	0.812	0.789
+Baselines	Largest font size	0.753	0.813	0.782
+	First line	0.627	0.676	0.650
+# Para 715 5
+We see that the models can be adapted to a different language. 
+There are only small drops in accuracy. Obviously, the linguistic 
+features do not work for Chinese, but the effect of not using them 
+is negligible. The results indicate that the patterns of title formats 
+exist across different languages.
+# Para 720 3
+From the domain adaptation and language adaptation results, we 
+conclude that the use of formatting information is the key to a 
+successful extraction from general documents.
+# Para 723 1
+6.8 Search with Extracted Titles
+# Para 724 5
+We performed experiments on using title extraction for document 
+retrieval. As a baseline, we employed BM25 without using 
+extracted titles. The ranking mechanism was as described in 
+Section 5. The weights were heuristically set. We did not conduct 
+optimization on the weights.
+# Para 729 7
+The evaluation was conducted on a corpus of 1.3 M documents 
+crawled from the intranet of Microsoft using 100 evaluation 
+queries obtained from this intranet’s search engine query logs. 50 
+queries were from the most popular set, while 50 queries other 
+were chosen randomly. Users were asked to provide judgments of 
+the degree of document relevance from a scale of 1to 5 (1 
+meaning detrimental, 2 – bad, 3 – fair, 4 – good and 5 – excellent).
+# Para 736 1
+152
+# Para 737 5
+Figure 10 shows the results. In the chart two sets of precision 
+results were obtained by either considering good or excellent 
+documents as relevant (left 3 bars with relevance threshold 0.5), or 
+by considering only excellent documents as relevant (right 3 bars 
+with relevance threshold 1.0)
+# Para 742 1
+Name All
+# Para 743 1
+Figure 10. Search ranking results.
+# Para 744 3
+Figure 10 shows different document retrieval results with different 
+ranking functions in terms of precision @10, precision @5 and 
+reciprocal rank:
+# Para 747 2
+•	Blue bar – BM25 including the fields body, title (file 
+property), and anchor text.
+# Para 749 1
+•	Purple bar – BM25 including the fields body, title (file
+# Para 750 1
+property), anchor text, and extracted title.
+# Para 751 4
+With the additional field of extracted title included in BM25 the 
+precision @10 increased from 0.132 to 0.145, or by ~10%. Thus, 
+it is safe to say that the use of extracted title can indeed improve 
+the precision of document retrieval.
+# Para 755 1
+7. CONCLUSION
+# Para 756 3
+In this paper, we have investigated the problem of automatically 
+extracting titles from general documents. We have tried using a 
+machine learning approach to address the problem.
+# Para 759 10
+Previous work showed that the machine learning approach can 
+work well for metadata extraction from research papers. In this 
+paper, we showed that the approach can work for extraction from 
+general documents as well. Our experimental results indicated that 
+the machine learning approach can work significantly better than 
+the baselines in title extraction from Office documents. Previous 
+work on metadata extraction mainly used linguistic features in 
+documents, while we mainly used formatting information. It 
+appeared that using formatting information is a key for 
+successfully conducting title extraction from general documents.
+# Para 769 8
+We tried different machine learning models including Perceptron, 
+Maximum Entropy, Maximum Entropy Markov Model, and Voted 
+Perceptron. We found that the performance of the Perceptorn 
+models was the best. We applied models constructed in one 
+domain to another domain and applied models trained in one 
+language to another language. We found that the accuracies did 
+not drop substantially across different domains and across 
+different languages, indicating that the models were generic. We
+# Para 777 6
+also attempted to use the extracted titles in document retrieval. We 
+observed a significant improvement in document ranking 
+performance for search when using extracted title information. All 
+the above investigations were not conducted in previous work, and 
+through our investigations we verified the generality and the 
+significance of the title extraction approach.
+# Para 783 1
+8. ACKNOWLEDGEMENTS
+# Para 784 5
+We thank Chunyu Wei and Bojuan Zhao for their work on data 
+annotation. We acknowledge Jinzhu Li for his assistance in 
+conducting the experiments. We thank Ming Zhou, John Chen, 
+Jun Xu, and the anonymous reviewers of JCDL’05 for their 
+valuable comments on this paper.
+# Para 789 1
+9. REFERENCES
+# Para 790 3
+[1] Berger, A. L., Della Pietra, S. A., and Della Pietra, V. J. A 
+maximum entropy approach to natural language processing. 
+Computational Linguistics, 22:39-71, 1996.
+# Para 793 4
+[2] Collins, M. Discriminative training methods for hidden 
+markov models: theory and experiments with perceptron 
+algorithms. In Proceedings of Conference on Empirical 
+Methods in Natural Language Processing, 1-8, 2002.
+# Para 797 2
+[3] Cortes, C. and Vapnik, V. Support-vector networks. Machine 
+Learning, 20:273-297, 1995.
+# Para 799 4
+[4] Chieu, H. L. and Ng, H. T. A maximum entropy approach to 
+information extraction from semi-structured and free text. In 
+Proceedings of the Eighteenth National Conference on 
+Artificial Intelligence, 768-791, 2002.
+# Para 803 4
+[5] Evans, D. K., Klavans, J. L., and McKeown, K. R. Columbia 
+newsblaster: multilingual news summarization on the Web. 
+In Proceedings of Human Language Technology conference / 
+North American chapter of the Association for
+# Para 807 1
+Computational Linguistics annual meeting, 1-4, 2004.
+# Para 808 2
+[6] Ghahramani, Z. and Jordan, M. I. Factorial hidden markov 
+models. Machine Learning, 29:245-273, 1997.
+# Para 810 3
+[7] Gheel, J. and Anderson, T. Data and metadata for finding and 
+reminding, In Proceedings of the 1999 International 
+Conference on Information Visualization, 446-451,1999.
+# Para 813 6
+[8] Giles, C. L., Petinot, Y., Teregowda P. B., Han, H., 
+Lawrence, S., Rangaswamy, A., and Pal, N. eBizSearch: a 
+niche search engine for e-Business. In Proceedings of the 
+26th Annual International ACM SIGIR Conference on 
+Research and Development in Information Retrieval, 413- 
+414, 2003.
+# Para 819 3
+[9] Giuffrida, G., Shek, E. C., and Yang, J. Knowledge-based 
+metadata extraction from PostScript files. In Proceedings of 
+the Fifth ACM Conference on Digital Libraries, 77-84, 2000.
+# Para 822 5
+[ 10] Han, H., Giles, C. L., Manavoglu, E., Zha, H., Zhang, Z., and 
+Fox, E. A. Automatic document metadata extraction using 
+support vector machines. In Proceedings of the Third 
+ACM/IEEE-CS Joint Conference on Digital Libraries, 37-48, 
+2003.
+# Para 827 2
+[1 1 ] Kobayashi, M., and Takeda, K. Information retrieval on the 
+Web. ACM Computing Surveys, 32:144-173, 2000.
+# Para 829 2
+[ 12] Lafferty, J., McCallum, A., and Pereira, F. Conditional 
+random fields: probabilistic models for segmenting and
+# Para 831 1
+0.45
+# Para 832 1
+BM25 AnchorTitle, Body
+# Para 833 1
+BM25 AnchorTitle, Body ExtractedTitle
+# Para 834 8
+0.4 
+0.35 
+0.3 
+0.25 
+0.2 
+0.15 
+0.1 
+0.05
+# Para 842 1
+0
+# Para 843 1
+P@10	P@5	ReciprocalP@10	P@5	Reciprocal
+# Para 844 1
+0.5	1
+# Para 845 1
+RelevanceThreshold Data
+# Para 846 1
+Description
+# Para 847 1
+153
+# Para 848 3
+labeling sequence data. In Proceedings of the Eighteenth 
+International Conference on Machine Learning, 282-289, 
+2001.
+# Para 851 4
+[13] Li, Y., Zaragoza, H., Herbrich, R., Shawe-Taylor J., and 
+Kandola, J. S. The perceptron algorithm with uneven margins. 
+In Proceedings of the Nineteenth International Conference 
+on Machine Learning, 379-386, 2002.
+# Para 855 6
+[14] Liddy, E. D., Sutton, S., Allen, E., Harwell, S., Corieri, S., 
+Yilmazel, O., Ozgencil, N. E., Diekema, A., McCracken, N., 
+and Silverstein, J. Automatic Metadata generation &amp; 
+evaluation. In Proceedings of the 25th Annual International 
+ACM SIGIR Conference on Research and Development in 
+Information Retrieval, 401-402, 2002.
+# Para 861 5
+[15] Littlefield, A. Effective enterprise information retrieval 
+across new content formats. In Proceedings of the Seventh 
+Search Engine Conference, 
+http://www.infonortics.com/searchengines/sh02/02prog.html, 
+2002.
+# Para 866 5
+[16] Mao, S., Kim, J. W., and Thoma, G. R. A dynamic feature 
+generation system for automated metadata extraction in 
+preservation of digital materials. In Proceedings of the First 
+International Workshop on Document Image Analysis for 
+Libraries, 225-232, 2004.
+# Para 871 4
+[17] McCallum, A., Freitag, D., and Pereira, F. Maximum entropy 
+markov models for information extraction and segmentation. 
+In Proceedings of the Seventeenth International Conference 
+on Machine Learning, 591-598, 2000.
+# Para 875 3
+[ 18] Murphy, L. D. Digital document metadata in organizations: 
+roles, analytical approaches, and future research directions. 
+In Proceedings of the Thirty-First Annual Hawaii
+# Para 878 1
+International Conference on System Sciences, 267-276, 1998. 
+# Para 879 5
+[19] Pinto, D., McCallum, A., Wei, X., and Croft, W. B. Table 
+extraction using conditional random fields. In Proceedings of 
+the 26th Annual International ACM SIGIR Conference on 
+Research and Development in Information Retrieval, 235- 
+242, 2003.
+# Para 884 4
+[20] Ratnaparkhi, A. Unsupervised statistical models for 
+prepositional phrase attachment. In Proceedings of the 
+Seventeenth International Conference on Computational 
+Linguistics. 1079-1085, 1998.
+# Para 888 4
+[21] Robertson, S., Zaragoza, H., and Taylor, M. Simple BM25 
+extension to multiple weighted fields, In Proceedings of 
+ACM Thirteenth Conference on Information and Knowledge 
+Management, 42-49, 2004.
+# Para 892 4
+[22] Yi, J. and Sundaresan, N. Metadata based Web mining for 
+relevance, In Proceedings of the 2000 International 
+Symposium on Database Engineering &amp; Applications, 113- 
+121, 2000.
+# Para 896 4
+[23] Yilmazel, O., Finneran, C. M., and Liddy, E. D. MetaExtract: 
+An NLP system to automatically assign metadata. In 
+Proceedings of the 2004 Joint ACM/IEEE Conference on 
+Digital Libraries, 241-242, 2004.
+# Para 900 3
+[24] Zhang, J. and Dimitroff, A. Internet search engines&apos; response 
+to metadata Dublin Core implementation. Journal of 
+Information Science, 30:310-320, 2004.
+# Para 903 5
+[25] Zhang, L., Pan, Y., and Zhang, T. Recognising and using 
+named entities: focused named entity recognition using 
+machine learning. In Proceedings of the 27th Annual 
+International ACM SIGIR Conference on Research and 
+Development in Information Retrieval, 281-288, 2004.
+# Para 908 1
+[26] http://dublincore.org/groups/corporate/Seattle/
+# Para 909 1
+154

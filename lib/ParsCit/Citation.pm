@@ -269,8 +269,9 @@ sub toXML {
 	$xml .= "<contexts>\n";
 	foreach my $context (@contexts) {
 	    cleanAll(\$context);
-		my $pos = shift(@positions);
-		my $citStr = shift(@citStrs); # Thang 29/11/09
+	    my $pos = shift(@positions);
+	    my $citStr = shift(@citStrs); # Thang 29/11/09
+	    cleanAll(\$citStr);
 	    $xml .= "<context";
 	    $xml .= " position=\"".$pos."\"";
 	    $xml .= " citStr=\"".$citStr."\""; # Thang 29/11/09
