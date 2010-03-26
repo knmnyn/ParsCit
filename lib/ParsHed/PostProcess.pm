@@ -23,6 +23,7 @@ sub wrapHeaderXml {
   my $msg = "";
   my $xml = "";
   my $lastTag = "";
+  my $variant = "";
   my $overallConfidence = "1.0"; # Thang Nov 09: rename $confidence -> $overallConfidence
 
   ## output XML file for display
@@ -43,11 +44,14 @@ sub wrapHeaderXml {
     if (/^\s*$/) { # end of a header, output (useful to handle multiple header classification
       addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);      # add the last field
 
-      ### generate XML output
-      my $output = generateOutput(\@fields, $confInfo);
-      my $l_algVersion = $ParsCit::Config::algorithmVersion;
-      $xml .= "<algorithm name=\"ParsHed\" version=\"$l_algVersion\" confidence=\"$overallConfidence\">\n". $output . "</algorithm>\n";
-
+      if ($variant eq "") {
+	### generate XML output
+	my $output = generateOutput(\@fields, $confInfo);
+	my $l_algName = $ParsHed::Config::algorithmName;
+	my $l_algVersion = $ParsHed::Config::algorithmVersion;
+	$xml .= "<algorithm name=\"$l_algName\" version=\"$l_algVersion\">\n". "<variant no=\"0\" confidence=\"$overallConfidence\">\n". $output . "</variant>\n</algorithm>\n";
+      }
+      
       @fields = (); #reset
       $lastTag = "";
     } else { # in a middle of a header

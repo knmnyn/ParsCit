@@ -61,10 +61,10 @@ $envPath = untaintPath($envPath);
 $ENV{'PATH'} = $envPath;
 ### End untaint ###
 
-my $allOutput = "/home/lmthang/RA/sectLabel/experiments/$inFile/all.out";
-execute("/home/lmthang/RA/sectLabel/bin/conlleval.pl -r -c -d \"\t\" < $allOutput");
+my $allOutput = "$path/../experiments/$inFile/all.out";
+execute("$path/conlleval.pl -r -c -d \"\t\" < $allOutput");
 
-$inFile = "/home/lmthang/RA/sectLabel/experiments/$inFile/evaluation.stdout";
+$inFile = "$path/../experiments/$inFile/evaluation.stdout";
 processFile($inFile);
 
 sub processFile{
@@ -107,11 +107,11 @@ sub processFile{
   
   my $P = ($totalP/$count);
   my $R = ($totalR/$count);
-  my $F = (2*$P*$R)/($P + $R);
+#  my $F = (2*$P*$R)/($P + $R);
   my $FB1 = ($totalFB1/$count);
 
-  print STDERR "$P\t$R\t$F\n";
-  print STDERR round($P)."%\t".round($R)."%\t".round($F)."%\t".round($FB1)."\n";
+#  print STDERR "$P\t$R\t$F\n";
+  print STDERR "avgP = ".round($P)."%\tavgR = ".round($R)."%\tavgFB1 = ".round($FB1)."\n";
   print STDERR $output;
   close IF;
 }

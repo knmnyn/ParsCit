@@ -19,7 +19,7 @@ use CSXUtil::SafeText qw(cleanXML);
 
 ##
 # Main API method for generating an XML document including all
-# header data.  Returns a reference XML document.
+# section data.  Returns a reference XML document.
 #
 sub extractSection {
     my ($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug) = @_;
@@ -40,11 +40,11 @@ sub extractSection {
 	return \$error;
     }
 
-} # extractHeader
+} # extractSection
 
 ##
 # Main script for actually walking through the steps of
-# header processing.  Returns a status code (0 for failure),
+# document processing.  Returns a status code (0 for failure),
 # an error message (may be blank if no error), a reference to
 # an XML document.
 #
@@ -99,16 +99,24 @@ sub extractSectionImpl {
   if($isDebug){ print STDERR "\n# Decoding $tmpFile ... "; }
   if (SectLabel::Tr2crfpp::decode($tmpFile, $modelFile, $outFile)) {
     if($isDebug){ print STDERR " Done! Output to $outFile\n"; }
+
+    my %sectionHeaders = (); 
+    $sectionHeaders{"header"} = (); # array of section headers
+    $sectionHeaders{"lineId"} = (); # array of corresponding line ids (0-based)
     if(!$isXmlOutput){
-      $xml = SectLabel::PostProcess::wrapHeader($outFile, \%blankLines);
+      $xml = SectLabel::PostProcess::wrapDocument($outFile, \%blankLines);
     } else {
-      $xml = SectLabel::PostProcess::wrapHeaderXml($outFile);
+      $xml = SectLabel::PostProcess::wrapDocumentXml($outFile, \%sectionHeaders);
+    }
+    
+    my $numHeaders = scalar(@{$sectionHeaders{"header"}});
+    for(my $i=0; $i<$numHeaders; $i++){
+      print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\n";
     }
   }
 
   unlink($tmpFile);
 #  print STDERR "$outFile\n";
-
   unlink($outFile);
   return ($status, $msg, $xml);
 }

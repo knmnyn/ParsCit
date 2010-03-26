@@ -41,7 +41,7 @@ my $PARSHED = 2;
 my $SECTLABEL = 4; # Thang Mar 10
 my $defaultMode = $PARSCIT;
 my $defaultInputType = "raw"; 
-my $outputVersion = "090625";
+my $outputVersion = "100326";
 ### END user customizable section
 
 ### Ctrl-C handler
@@ -97,34 +97,34 @@ my $mode = (!defined $opt_m) ? $defaultMode : parseMode($opt_m);
 my $phModel = ($opt_t == 1) ? 1 : 0;
 my $in = shift;						  # input file
 my $out = shift;					# if available
-my $rXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<result>\n";       # output buffer
+my $rXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"$outputVersion\">\n";       # output buffer
 
-my $confLevel = 1; # Thang Nov 09: add confidence score option --- 1: enable, 0: disable
 my $inputType = (!defined $opt_i) ? $defaultInputType : $opt_i; # Thang Mar 10: add input type option
 if($inputType ne "raw" && $inputType ne "xml"){
   print STDERR "Input type needs to be either \"raw\" or \"xml\"\n";
   Help(); exit (0);
 }
 
-if (($mode & $PARSHED) == $PARSHED) {
+if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
-  my $phXML = ParsHed::Controller::extractHeader($in, $phModel, $confLevel); # Thang Nov 09: $confLevel to add confidence score
+  my $phXML = ParsHed::Controller::extractHeader($in, $phModel); 
   $rXML .= removeTopLines($$phXML, 1) . "\n"; # remove first line <?xml/> 
 }
 
-# Thang Mar 10: add sectLabel
-if (($mode & $SECTLABEL) == $SECTLABEL) {			     # SECTLABEL
-  my $slXML .= sectLabel($in, $inputType);
-  $rXML .= removeTopLines($slXML, 1) . "\n"; # remove first line <?xml/> 
-}
-
-if (($mode & $PARSCIT) == $PARSCIT) {			     # PARSCIT
+if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
   use ParsCit::Controller;
   my $pcXML = ParsCit::Controller::extractCitations($in);
   $rXML .= removeTopLines($$pcXML, 1) . "\n";   # remove first line <?xml/> 
 }
 
-$rXML .= "</result>";
+# Thang Mar 10: add sectLabel
+if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
+  my $slXML .= sectLabel($in, $inputType);
+  $rXML .= removeTopLines($slXML, 1) . "\n"; # remove first line <?xml/> 
+}
+
+
+$rXML .= "</algorithms>";
 
 if (defined $out) {
   open (OUT, ">$out") or die "$progname fatal\tCould not open \"$out\" for writing: $!";
@@ -149,7 +149,7 @@ sub parseMode {
   } elsif ($arg eq "extract_section") {
     return $SECTLABEL;
   } elsif ($arg eq "extract_all") {
-    return ($PARSCIT | $SECTLABEL);  
+    return ($PARSHED | $PARSCIT | $SECTLABEL);  
   } else {
     Help();
     exit(-1);

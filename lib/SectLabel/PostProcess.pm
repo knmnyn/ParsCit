@@ -14,20 +14,21 @@ use ParsCit::PostProcess; # qw(normalizeAuthorNames stripPunctuation);
 use ParsCit::Config;
 
 ##
-# Main method for processing header data. Specifically, it reads CRF output, performs normalization to individual fields, and outputs to XML
+# Main method for processing document data. Specifically, it reads CRF output, performs normalization to individual fields, and outputs to XML
 ##
-sub wrapHeaderXml {
-  my ($inFile, $isTokenLevel) = @_;
+sub wrapDocumentXml {
+  my ($inFile, $sectionHeaders) = @_;
 
   my $status = 1;
   my $msg = "";
   my $xml = "";
-  my $line = 0;
+  my $docCount = 0;
+  my $variant = "";
   my $lastTag = "";
 
   my $overallConfidence = "1.0";
   my $curConfidence = 0; # for lines of the same label
-  my $count = 0;
+  my $count = 0; # count the number of lines in the current same label
 
   ## output XML file for display
   $xml .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -36,27 +37,32 @@ sub wrapHeaderXml {
   my $curContent = "";
   
   open(IN, "<:utf8", $inFile) or return (undef, undef, 0, "couldn't open infile: $!");
+  my $lineId = -1;
   while (<IN>) {
-    if (/^\# ([\.\d]+)/) { # confidence info
+    if (/^\# ([\.\d]+)/) { # overall confidence info
       $overallConfidence = $1;
       next;
     }
 
-#    elsif (/^\#/) { next; }                              # skip comments
+    $lineId++;
     
-    if (/^\s*$/) { # end of a sentence, output (useful to handle multiple header classification
+    if (/^\s*$/) { # end of a sentence, output (useful to handle multiple document classification
       # add the last field
       addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);      # add the last field
 
-      ### generate XML output
-      my $output = generateOutput(\@fields);      
-      my $l_algVersion = $ParsCit::Config::algorithmVersion;
-      $xml .= "<algorithm name=\"SectLabel\" version=\"$l_algVersion\" confidence=\"$overallConfidence\">\n".$output."</algorithm>\n";
-      $line++;
-      
+      if ($variant eq "") {
+	### generate XML output
+	my $output = generateOutput(\@fields);      
+	my $l_algName = $SectLabel::Config::algorithmName;
+	my $l_algVersion = $SectLabel::Config::algorithmVersion;
+	$xml .= "<algorithm name=\"$l_algName\" version=\"$l_algVersion\">\n". "<variant no=\"0\" confidence=\"$overallConfidence\">\n". $output . "</variant>\n</algorithm>\n";
+      }
+
+      $docCount++;      
       @fields = (); #reset
       $lastTag = "";
-    } else { # in a middle of a header
+      $lineId = -1;
+    } else { # in a middle of a document
       chop;
       my @tokens = split (/\t/);
       
@@ -65,16 +71,16 @@ sub wrapHeaderXml {
       my $gold = $tokens[-2];
 
       my $confidence = 0; # for this line
-      # train at line level, get the original line
+      ## train at line level, get the original line
       @tokens = split(/\|\|\|/, $line);
       $line = join(" ", @tokens);
 
-      if($sys =~ /^(.+)\/([\d\.]+)$/){
+      if($sys =~ /^(.+)\/([\d\.]+)$/){ #process confidence info in the format e.g, sectionHeader/0.989046
 	$sys = $1;
 	$confidence += $2;
 #	print STDERR "$line\t$sys\t$2\n";
       } else {
-	die "Die in SectLabel:PostProcess::wrapHeaderXml : incorrect format \"tag/prob\" $sys\n";
+	die "Die in SectLabel:PostProcess::wrapDocumentXml : incorrect format \"tag/prob\" $sys\n";
       }
 
       if ($sys ne $lastTag && $lastTag ne "") { # start a new tag, not an initial value, output
@@ -85,6 +91,12 @@ sub wrapHeaderXml {
 	$curConfidence = 0;
 	$count = 0;
       } # end if ($lastTag ne "")
+
+      ### store section headers to classify generic sections later
+      if($sys eq "sectionHeader"){
+	push(@{$sectionHeaders->{"header"}}, $line);
+	push(@{$sectionHeaders->{"lineId"}}, $lineId);
+      }
 
       $curContent .= "$line\n";
       $curConfidence += $confidence;
@@ -130,7 +142,7 @@ sub generateOutput {
     my $confStr = " confidence=\"".$_->{"confidence"}."\"";
     if($content =~ /^\s*$/) { next; };
     
-    ($tag, $content) = normalizeHeaderField($tag, $content);
+    ($tag, $content) = normalizeDocumentField($tag, $content);
     
     if($tag eq "authors"){ # handle multiple authors in a line
       foreach my $author (@{$content}){
@@ -148,8 +160,8 @@ sub generateOutput {
   return $output;
 }
 
-## Wrap header into non-XML form
-sub wrapHeader {
+## Wrap document into non-XML form
+sub wrapDocument {
   my ($inFile, $blankLines, $isTokenLevel) = @_;
 
   my $status = 1;
@@ -171,14 +183,10 @@ sub wrapHeader {
       $lineId++;
     }
 
-    if (/^\s*$/) { # end of a sentence, output (useful to handle multiple header classification
+    if (/^\s*$/) { # end of a sentence, output (useful to handle multiple document classification
       # add the last field
       $lineId = -1;
-
-      if ($variant eq "") {
-      }
-      $lineId = -1;
-    } else { # in a middle of a header
+    } else { # in a middle of a document
       chop;
       my @tokens = split (/\t/);
       
@@ -190,7 +198,7 @@ sub wrapHeader {
       @tokens = split(/\|\|\|/, $line);
       $line = join(" ", @tokens);
 
-      ($sys, $line) = normalizeHeaderField($sys, $line);
+      ($sys, $line) = normalizeDocumentField($sys, $line);
       $xml .= "$sys $line\n";
     }
   }
@@ -220,9 +228,9 @@ sub simpleNormalize {
   return ($tag, $content);
 }
 ##
-# Header normalization subroutine.  Reads in a tag and its content, perform normalization based on that tag.
+# Document normalization subroutine.  Reads in a tag and its content, perform normalization based on that tag.
 ##
-sub normalizeHeaderField {
+sub normalizeDocumentField {
   my ($tag, $content) = @_;;
 
   # remove keyword at the beginning and strip leading spaces
