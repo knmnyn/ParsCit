@@ -97,6 +97,7 @@ sub extractSectionImpl {
   my $outFile = $tmpFile."_dec";
   my $xml;
   if($isDebug){ print STDERR "\n# Decoding $tmpFile ... "; }
+
   if (SectLabel::Tr2crfpp::decode($tmpFile, $modelFile, $outFile)) {
     if($isDebug){ print STDERR " Done! Output to $outFile\n"; }
 
@@ -110,15 +111,27 @@ sub extractSectionImpl {
     }
     
     my $numHeaders = scalar(@{$sectionHeaders{"header"}});
+    my $headerFile = newTmpFile();
+    open(OF, ">:utf8", $headerFile);
     for(my $i=0; $i<$numHeaders; $i++){
-      print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\n";
+#      print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\n";
+      print OF $sectionHeaders{"header"}->[$i]."\n";
     }
+    close OF;
+    print STDERR "$headerFile\n";
   }
 
   unlink($tmpFile);
 #  print STDERR "$outFile\n";
   unlink($outFile);
   return ($status, $msg, $xml);
+}
+
+# Thang Mar 10: method to generate tmp file name
+sub newTmpFile {
+  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
+  chomp($tmpFile);
+  return $tmpFile;
 }
 
 1;
