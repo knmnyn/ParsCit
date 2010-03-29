@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 require 'find'
 
-Dir.chdir(File.dirname(__FILE__))
-pwd = Dir.getwd
+pwd = File.dirname(__FILE__)
 
 @CRFPP  = "#{pwd}/../crfpp"
 @SRC    = "#{pwd}/genericSect"
