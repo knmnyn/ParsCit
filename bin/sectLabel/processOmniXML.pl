@@ -18,9 +18,9 @@ sub License {
 
 ### HELP Sub-procedure
 sub Help {
-  print STDERR "Parse tagged header file into line-level data\n";
+  print STDERR "Process Omnipage XML output (concatenated results fromm all pages of a PDF file), and extract text lines together with other XML infos\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in xmlFile -out outFile [-tag tagFile -xmlFeature -markup -para -noEmpty -log]\n";
+  print STDERR "       $progname -in xmlFile -out outFile [-tag tagFile -xmlFeature -markup -para -noEmpty -log -paraFeature]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-tag: print out tags available\n";
@@ -37,6 +37,7 @@ my $isAllowEmpty = 0;
 my $isDebug = 0;
 my $isMarkup = 0;
 my $isParaDelimiter = 0;
+my $isParaFeature = 0;
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'tag=s' => \$tagFile,
@@ -44,6 +45,7 @@ $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'empty' => \$isAllowEmpty,
 			    'markup' => \$isMarkup,
 			    'para' => \$isParaDelimiter,
+			    'paraFeature' => \$isParaFeature,
 			    'debug' => \$isDebug,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
@@ -395,10 +397,22 @@ sub processFile {
 #	$spaceFeature = "xmlSpace_".$gSpaceLabels{$gSpace[$id]};
 #      }
 
-      $output .= " |XML| $locFeature $alignFeature $fontFaceFeature $fontFaceChangeFeature $fontSizeFeature $fontSizeChangeFeature $boldFeature $italicFeature $ddFeature $cellFeature $bulletFeature $indentFeature\n"; # xmlIndentNum_$gIndent[$id] $spaceFeature xmlSpaceNum_$gSpace[$id]\n";
+      $output .= " |XML| $locFeature $alignFeature $fontFaceFeature $fontFaceChangeFeature $fontSizeFeature $fontSizeChangeFeature $boldFeature $italicFeature $ddFeature $cellFeature $bulletFeature $indentFeature"; # xmlIndentNum_$gIndent[$id] $spaceFeature xmlSpaceNum_$gSpace[$id]\n";
 #      print OF "$line |XML| $locFeature $alignFeature $boldFeature $italicFeature\n";
 
-#      print OF "$line |XML| $locFeature $alignFeature\n";
+      # para feature
+      if($isParaFeature){
+	my $paraFeature;
+	if($gPara[$id] eq "yes"){
+	  $paraFeature = "xmlPara_new";
+	} else {
+	  $paraFeature = "xmlPara_same";
+	}
+	$output .= " $paraFeature";
+      }
+
+      $output .= "\n";
+      #      print OF "$line |XML| $locFeature $alignFeature\n";
     } else {
       $output .= "\n";
     }

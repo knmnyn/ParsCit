@@ -62,7 +62,7 @@ $ENV{'PATH'} = $envPath;
 ### End untaint ###
 
 my $allOutput = "$path/../experiments/$inFile/all.out";
-execute("$path/conlleval.pl -r -c -d \"\t\" < $allOutput");
+execute("$path/../../../bin/sectLabel/conlleval_modified.pl -r -c -d \"\t\" < $allOutput");
 
 $inFile = "$path/../experiments/$inFile/evaluation.stdout";
 processFile($inFile);

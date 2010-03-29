@@ -1,0 +1,1084 @@
+# Para 0 1
+Corpus-driven Metaphor Harvesting
+# Para 1 5
+Astrid Reining
+Institute of Romance Languages
+University of Hamburg
+20146 Hamburg, Germany
+astrid.reining@uni-hamburg.de
+# Para 6 5
+Birte L¨onneker-Rodman
+International Computer Science Institute
+1947 Center Street, Suite 600
+Berkeley, CA 94704, USA
+loenneke@icsi.berkeley.edu
+# Para 11 1
+Abstract
+# Para 12 7
+The paper presents a corpus-based method 
+for finding metaphorically used lex-
+emes and prevailing semantico-conceptu-
+al source domains, given a target domain 
+corpus. It is exemplified by a case study 
+on the target domain of European politics, 
+based on a French 800,000 token corpus.
+# Para 19 1
+1 Introduction
+# Para 20 12
+This investigation is situated within the frame-
+work of the Hamburg Metaphor Database1 (HMD) 
+(L¨onneker and Eilts, 2004), which collects manual 
+annotations of metaphors in context. HMD anno-
+tation terminology refers to cognitive linguistic ac-
+counts of metaphor. These suggest that abstract 
+“target” concepts are often thought and talked of in 
+terms of less abstract “source” concepts (Section 2). 
+On these accounts, the paper presents a method for 
+finding metaphorically used lexical items and char-
+acterizing the conceptual source domains they be-
+long to, given a target domain corpus.
+# Para 32 9
+After mentioning related work on metaphor an-
+notation (Section 3), we exemplify our method by a 
+case study on the target domain of European pol-
+itics, for which a French 800,000 token corpus is 
+prepared and imported into a corpus manager (Sec-
+tion 4). Using corpus manager functions, a small 
+set of highly salient collocates of Europe are classi-
+fied as candidates of metaphorical usages; after as-
+sessing their metaphoricity in context, these lexemes
+# Para 41 1
+1http://www1.uni-hamburg.de/metaphern
+# Para 42 1
+5
+# Para 43 9
+are grouped into semantico-conceptual domains for 
+which, in a final step, additional lexical instanti-
+ations are searched (Section 5). Two important 
+source domains (BUILDING and MOTION) are de-
+tected, which are supported by over 1,000 manual 
+corpus annotations. The domains can be charac-
+terized as small networks of EuroWordNet synsets 
+(nodes) and lexical as well as conceptual relations 
+(Section 6). Section 7 concludes the paper.
+# Para 52 1
+2 Theoretical Aspects
+# Para 53 9
+The Conceptual Theory of Metaphor (CTM) worked 
+out originally by (Lakoff and Johnson, 1980) claims 
+that conceptual metaphors such as GOOD IS UP 
+and TIME IS MONEY structure the way we think 
+and influence the way we use language. Concep-
+tual metaphors are mappings between conceptual 
+domains, for example between the target domain 
+GOOD and the less abstract source domain UP, or 
+between TIME (target) and MONEY (source).
+# Para 62 10
+Conceptual metaphors are rarely directly referred 
+to in speech or writing: Whereas time is money is a 
+standing expression in English, this is much less so 
+for many other conceptual mappings (cf. ?good is 
+up). Consequently, corpus analysis cannot have as a 
+goal finding conceptual mappings as such. Rather, it 
+can find their manifestations through non-literal us-
+ages of lexical items – i.e., contexts in which source 
+domain words are used to refer to elements in the 
+target domain.
+# Para 72 4
+For example, high (a word from the UP source do-
+main) means ‘good’ in the expression high marks; 
+and spend or save, used in the source domain to re-
+fer to actions involving money, refer to actions in the
+# Para 76 1
+Proceedings of the Workshop on Computational Approaches to Figurative Language, pages 5–12,
+# Para 77 1
+Rochester, NY, April 26, 2007. c�2007 Association for Computational Linguistics
+# Para 78 2
+target domain of TIME when used in contexts such as 
+spend time or save time.
+# Para 80 6
+Adopting a broad notion of metaphor based on 
+CTM, we refer to such non-literal usages (though 
+often conventionalized) as lexical metaphors in this 
+paper. Prominent conceptual metaphors are illus-
+trated by a larger number of lexical metaphors, 
+which support the systematicity of their mapping.
+# Para 86 1
+3 Related Work
+# Para 87 3
+Earlier projects annotating metaphor in corpora in-
+clude (Martin, 1994) and (Barnden et al., 2002). In 
+what follows, we give two examples of recent work.
+# Para 90 13
+Gedigian et al. (2006) annotated a subset of the 
+Wall Street Journal for the senses of verbs from 
+Motion-related, Placing, and Cure frames which 
+were extracted from FrameNet (Fillmore et al., 
+2003). The annotation shows that more than 90% 
+of the 4,186 occurrences of these verbs in the corpus 
+data are lexical metaphors in the above sense. Gedi-
+gian et al. (2006) conclude that in the domain of eco-
+nomics, Motion-related metaphors are used conven-
+tionally to describe market fluctuations and policy 
+decisions. A classifier trained on the annotated cor-
+pus can discriminate between literal and metaphori-
+cal usages of the verbs.
+# Para 103 7
+Lee (2006) compiled a 42,000 word corpus of 
+transcribed doctor-patient dialogues, exhaustively 
+hand-annotated for stretches of metaphorical lan-
+guage. These are provided with conceptual labels 
+enabling the author to identify prevalent and inter-
+related metaphorical mappings used as part of com-
+municative strategies in this domain.
+# Para 110 1
+4 The European Constitution Corpus
+# Para 111 8
+Exploration and annotation of a corpus to find infor-
+mation regarding its predominant conceptual source 
+domains is most productive when applied to an ab-
+stract and novel target domain. Abstractness calls 
+for ways to make the topic cognitively accessible, 
+and novelty entails a certain openness about the par-
+ticular source domains that might be activated for 
+this purpose.
+# Para 119 4
+Abstractness and novelty are criteria fulfilled by 
+the target domain selected for our study: European 
+Constitutional politics. The domain is represented 
+by the public discourse on the possible introduction 
+# Para 123 6
+of a European Constitution and on the corresponding 
+French referendum (29 May 2005). The referendum 
+allowed voters to accept or refuse the proposed Con-
+stitution text (the result being refusal). The remain-
+der of this section describes the sources of the corpus 
+(4. 1), its acquisition (4.2), and pre-processing (4.3).
+# Para 129 1
+4.1 Sources
+# Para 130 7
+The corpus consists of two sub-corpora, collected 
+from online versions of two French dailies, Le 
+Monde and Le Figaro. The site lemonde.fr con-
+tains each article published in the printed version of 
+the socialist-liberal newspaper Le Monde, whereas 
+lefigaro.fr contains articles from the conser-
+vative newspaper Le Figaro.
+# Para 137 1
+4.2 Collection
+# Para 138 15
+From 27 April to 5 June, 2005, the above men-
+tioned web sites were screened for articles on Eu-
+rope and the European Constitution on a daily basis. 
+For the case study presented in this paper, only arti-
+cles dealing with the Constitution and discussing the 
+referendum are retained. Each of these articles is a 
+document of the European Constitution corpus and 
+contains information on its publication date, author, 
+and newspaper section (e.g. editorial). The selection 
+of relevant articles is performed manually. This is 
+labor-intensive but keeps noise to a minimum. As a 
+guideline for distinguishing between “general” Eu-
+ropean topics and the referendum on the European 
+Constitution, key words including (European) Con-
+stitution and referendum are used.
+# Para 153 1
+4.3 Preprocessing
+# Para 154 10
+The collected documents are converted into text for-
+mat and annotated with a simple SGML tagset rep-
+resenting document meta data (in the header), para-
+graph boundaries, and sentence boundaries. Sen-
+tence detection is performed reusing TreeTagger 
+scripts2 because we POS-tag and lemmatize the 
+texts using the TreeTagger (Schmid, 1994) and its 
+French parameter file (Stein and Schmid, 1995). Fi-
+nally, the corpus is verticalized for use with the 
+Manatee/Bonito corpus manager (Rychl´y and Smrˇz,
+# Para 164 4
+2Tokenizer perl script for modern French, available on 
+Achim Stein’s web page, http: //www.uni-stuttgart. 
+de/lingrom/stein/forschung/resource.html 
+[accessed 4 September 2006].
+# Para 168 1
+6
+# Para 169 2
+2004), run in single platform mode on a Linux com-
+puter.
+# Para 171 12
+Table 1 gives an overview of the two sub-corpora. 
+When collecting the corpus, relevance to the topic 
+had been our only criterion. Interestingly, the two 
+newspaper corpora are very similar in size. This 
+means that the selected topic was assigned equal im-
+portance by the different newspaper teams. Tables 2 
+and 3 show absolute frequencies of the top ten lem-
+mas, filtered by a list of 725 French stop words3 but 
+still including oui - ‘yes’ and non - ‘no’, buzz-words 
+during the political debate on the European Consti-
+tution. The frequent words also give an impression 
+of the domain centeredness of the corpus.
+# Para 183 8
+	Le Monde	Le Figaro
+Size (tokens)	411,066	396,791
+Distinct word forms	23,112	23,516
+Distinct lemmas	13,093	13,618
+Documents	410	489
+Paragraphs	7,055	6,175
+Subdocuments	59	n.a.
+Sentences	17,421	17,210
+# Para 191 2
+Table 1: Size of the European Constitution corpus. 
+5 Lexical Metaphors and Source Domains
+# Para 193 15
+Our aim is to determine empirically salient 
+metaphorical source domains used in the target do-
+main of European politics, combined with the prac-
+tical interest in speeding up the detection and anno-
+tation of lexical metaphors. In Subsection 3 above, 
+two approaches to corpus annotation for metaphor 
+were mentioned. Due to the size of the corpus 
+and limited annotator resources, we cannot follow 
+the full-text annotation approach adopted by Lee 
+(2006). Neither do we proceed as Gedigian et al. 
+(2006), because that approach pre-selects source do-
+mains and lemmas. In our approach, we search for 
+metaphorically used lexical items from initially un-
+known source domains, so interesting lemmas can-
+not be listed a priori.
+# Para 208 5
+Therefore, we developed a new method which 
+makes efficient use of existing corpus manager func-
+tions. The only constant is the representation of the 
+target domain, predefined at a high level by the se-
+lection of our corpus. We fixed the lemma Europe
+# Para 213 1
+3Developed by Jean V´eronis:	http://www.up.
+# Para 214 2
+univ-mrs.fr/veronis/data/antidico.txt [ac-
+cessed 4 September 2006].
+# Para 216 1
+Occurrences
+# Para 217 1
+europ´een - ‘European’
+# Para 218 1
+non -‘no’
+# Para 219 1
+Europe - ‘Europe’
+# Para 220 1
+politique - ‘political; politics’
+# Para 221 1
+oui - ‘yes’
+# Para 222 1
+France - ‘France’
+# Para 223 1
+constitution - ‘Constitution’
+# Para 224 1
+trait´e - ‘treaty’
+# Para 225 1
+monsieur - ‘mister’
+# Para 226 1
+mai -‘May’
+# Para 227 1
+Table 2: Frequent words in the Monde sub-corpus.
+# Para 228 1
+Table 3: Frequent words in the Figaro sub-corpus.
+# Para 229 2
+as a low-level anchor of the target domain.4 The in-
+vestigation proceeds in three steps:
+# Para 231 4
+1. Statistically weighted lists of collocates of the 
+target domain lemma Europe are calculated and 
+screened for candidates of metaphorical lan-
+guage use (5.1).
+# Para 235 4
+2. For the obtained candidate collocates, the cor-
+pus is concordanced in order to discriminate us-
+ages and assign a source domain to each collo-
+cate (5.2).
+# Para 239 3
+3. The source domains are extended lexically, 
+making use of EuroWordNet synsets and rela-
+tions (5.3).
+# Para 242 4
+Corpus data drives the discovery of relevant lemmas 
+in step 1. In steps 2 and 3, the corpus is used to 
+increasingly refine and evaluate findings regarding 
+relevant lemmas and source domains.
+# Para 246 1
+5.1 Collocate analysis
+# Para 247 2
+At this stage, it is necessary to set a range (span) 
+within which candidate lemmas are to appear, mea-
+# Para 249 4
+4We could have started with a larger set of target domain 
+lemmas, e.g. europ´een -‘European’, Bruxelles - ‘Brussels’, UE 
+- ‘EU’ etc. However, the results for Europe quickly proved to 
+be sufficient in number and variety to illustrate the method.
+# Para 253 1
+Lemma
+# Para 254 1
+europ´een - ‘European’
+# Para 255 1
+non - ‘no’
+# Para 256 1
+Europe - ‘Europe’
+# Para 257 1
+France - ‘France’
+# Para 258 3
+politique - ‘political; politics’ 
+constitution - ‘Constitution’ 
+oui - ‘yes’
+# Para 261 1
+ministre - ‘minister’
+# Para 262 1
+trait´e - ‘treaty’
+# Para 263 1
+devoir - ‘have to; obligation’
+# Para 264 1
+Occurrences
+# Para 265 1
+2,148
+# Para 266 1
+1,690
+# Para 267 1
+1,646
+# Para 268 1
+1,150
+# Para 269 1
+969
+# Para 270 1
+921
+# Para 271 1
+917
+# Para 272 1
+885
+# Para 273 1
+856
+# Para 274 1
+817
+# Para 275 1
+1.  Lemma
+# Para 276 1
+2,033 
+# Para 277 10
+2,306 
+1,568 
+1,159 
+1,124 
+1,110 
+1,099 
+906 
+872 
+781
+7
+# Para 287 1
+1.  . . .
+# Para 288 1
+20.
+# Para 289 1
+. . .
+# Para 290 1
+100.
+# Para 291 1
+sured in lemma counts starting with the anchor word 
+# Para 292 1
+Europe. Sample concordances show that Europe is 
+# Para 293 8
+often preceded by an article and sometimes by an 
+additional preposition. Based on this insight, we 
+heuristically restrict the context range for collocates 
+to four (i.e. three words are allowed to occur be-
+tween it and Europe). For example, m`ere ‘mother’ 
+in Example (1) is retained as a collocate:
+(1) Parce qu’elle a ´et´e la m`ere4 fondatrice3 del 
+l1’Europe unie. (‘Because she [i.e. France] 
+# Para 301 4
+has been the founding mother of the unified 
+Europe.’)
+The minimum absolute frequency of the collocate 
+within the specified context range is set to 3, which 
+# Para 305 5
+ensures results of at least three example sentences 
+per co-occurring lemma. Intentionally, no restriction 
+is applied to the part of speech of the collocate.
+For both sub-corpora, lists of the top 100 collo-
+cate lemmas for Europe are calculated in the Man-
+# Para 310 11
+atee/Bonito corpus manager. We use the MI-score 
+for ranking; it is based on the relative frequency of 
+the co-occurring lemmas. Choosing MI-score over 
+T-score is driven by an interest in salient collocates 
+of Europe, whether or not they are common in the 
+entire corpus. (T-score would tend to prefer collo-
+cates that occur frequently throughout the corpus.) 
+The top collocates and their MI-scores are given in 
+Tables 4 and 5.
+MI-scores of the 100 top-ranked collocates are be-
+tween 7.297 and 4.575 in the Monde corpus and be-
+# Para 321 5
+tween 7.591 and 4.591 in the Figaro corpus. Em-
+pirically, a threshold of MI &gt;= 6 retains the most 
+salient collocates of Europe in both corpora. These
+MI Abs. f
+attacher - ‘attach’
+# Para 326 1
+Table 5: Collocates of Europe in Le Figaro.
+# Para 327 1
+are 26 collocate lemmas from Le Monde and 20 from 
+# Para 328 1
+Le Figaro.
+# Para 329 2
+These highly salient collocates are evaluated for 
+the potential of being used metaphorically in the tar-
+# Para 331 10
+get domain. The guideline underlying this evalua-
+tion is as follows: Those lexemes which, in at least 
+one of their usages, designate entities belonging to 
+domains more concrete than POLITICS (for exam-
+ple, BUILDING or FAMILY) are likely to be used 
+metaphorically in the corpus. Specifically, among 
+those collocates with MI &gt;= 6, we identify the 
+following metaphor candidates:
+Le Monde panne - ‘breakdown’, r´eveil - ‘awak-
+ening; alarm clock’, construire - ‘construct’, 
+# Para 341 4
+otage - ‘hostage’, bˆatir - ‘build’, m`ere - 
+‘mother’, r´evolte - ‘revolt’;
+Le Figaro panne, bouc - ‘goat’, ruine - ‘ruin’, tra-
+verser - ‘traverse’, racine - ‘root’, visage - 
+# Para 345 3
+‘face’, reconstruire - ‘reconstruct’.
+Merging the lists yields 13 distinct candidate words, 
+which are now evaluated based on contexts from 
+# Para 348 9
+within the corpus. There are a total of 112 occur-
+rences of these lemmas co-occurring with Europe in 
+a range of 4, the setting used to calculate collocate 
+lists. Each of them is inspected in a context of at 
+least one sentence. An annotator decides whether 
+the usage is metaphorical, and confirms this in al-
+most all of the cases (cf. Table 6).
+5.2 Source domain identification
+While disambiguating the 13 candidate lemmas in 
+# Para 357 1
+context, the annotator also assigns a source domain
+# Para 358 2
+MI
+Abs. f
+# Para 360 1
+Lemma
+# Para 361 1
+panne - ‘breakdown’ 
+# Para 362 1
+uni - ‘unified’
+# Para 363 2
+r´eveil - ‘awakening; alarm clock’ 
+unification - ‘unification’ 
+# Para 365 3
+paradoxe - ‘paradox’
+construire - ‘construct’ 
+r´esolument - ‘decidedly’ 
+# Para 368 3
+otage - ‘hostage’
+utopie - ‘utopia’
+d´efier - ‘defy, challenge’
+# Para 371 1
+. . .
+# Para 372 1
+r´evolte - ‘revolt’
+# Para 373 1
+. . .
+# Para 374 1
+maintenant - ‘now’
+# Para 375 1
+7.297	6
+# Para 376 1
+7.275	13
+# Para 377 14
+7.034	3
+6.864	4
+6.812	3
+6.799	31
+6.619	3
+6.619	3
+6.619	3
+6.619	3
+.	.	.	.	.	.
+6.034	3
+.	.	.	.	.	.
+4.575	6
+Table 4: Collocates of Europe in Le Monde.
+. . .
+# Para 391 1
+26.
+# Para 392 1
+. . .
+# Para 393 1
+100.
+# Para 394 1
+Lemma
+# Para 395 1
+oriental - ‘oriental, east’
+# Para 396 1
+unifier - ‘unify’ 
+# Para 397 1
+Forum - ‘Forum’
+# Para 398 2
+occidental - ‘occidental, west’ 
+panne - ‘breakdown’
+# Para 400 2
+ouest - ‘west’
+prosp`ere - ‘prosperous’
+# Para 402 1
+bouc - ‘goat’
+# Para 403 1
+patrie - ‘fatherland, home coun-
+# Para 404 1
+try’
+# Para 405 2
+ruine - ‘ruin’
+. . .
+# Para 407 1
+doter - ‘endow’
+# Para 408 1
+. . .
+# Para 409 1
+7.591	8
+# Para 410 1
+7.498	6
+# Para 411 16
+7.176	3
+7.065	5
+6.913	8
+6.691	3
+6.591	4
+6.498	3
+6.498	3
+6.498	3
+	.	.	..
+		.	.
+6.006	8
+	.	.	..
+		.	.
+4.591	3
+8
+	Monde	Figaro	Total	Metaphor
+# Para 427 1
+construire	31	13	44	44
+# Para 428 15
+reconstruire	0	3	3	3
+bˆatir	5	1	6	6
+ruine	0	3	3	0or3
+panne	5	7	12	12
+traverser	2	7	9	9
+m`ere	3	1	4	4
+racine	2	5	7	7
+visage	2	5	7	7
+r´eveil	3	0	3	3
+r´evolte	3	0	3	3
+otage	3	2	5	5
+bouc	3	3	6	6
+Total	62	50	112	109 or 112
+Table 6: Co-occurrences of candidate lemmas.
+label to each occurrence. Actually, to hold the sta-
+# Para 443 1
+tus of source domain in a conceptual mapping, a 
+# Para 444 6
+conceptual domain should be instantiated systemat-
+ically by a number of lexical metaphors. Therefore, 
+as long as this systematicity has not been verified, 
+the assigned source domains are tentative.
+Four tentative source domains are postulated, 
+two of which might need to be split into subdo-
+# Para 450 10
+mains. The general domains are BUILDING, MO-
+TION, FIGHT, and LIVING BEING. Verbs (.V) and 
+nouns (.N) instantiating them are listed in Table 7. 
+The table also contains further (though still ambigu-
+ous) lemmas from the Top-100 collocate list sup-
+porting the source domains. Observations regarding 
+the source domains, based on the 112 annotated lex-
+ical metaphors, are summarized in what follows.
+The BUILDING source domain has the highest
+	Domain	Disambiguated Lemmas	Futher collocates (Top 100)
+# Para 460 1
+	BUILDING	construire.V, reconstruire. V, bˆatir. V, ruine.N ?	maison.N- ‘house’, fonder. V - ‘found’
+# Para 461 8
+	MOTION –FORWARD MOTION	panne.N, traverser. V	progresser.V - ‘pro- gress’, avancer. V -‘advance’ moteur.N-‘motor’
+	–MOTOR VEHICLE	panne.N	
+	FIGHT	otage.N, r´evolte.N	lutter. V - ‘fight’
+	LIVING BEING – PROCRE- ATION	m`ere.N, racine.N visage.N	p`ere.N- ‘father’, naitre. V - ‘be born’ dos.N- ‘back’, coeur.N- ‘heart’
+	– BODY	r´eveil.N	–
+	– REST		
+Table 7: Tentative source domains.
+number of lexical metaphor instantiations. The am-
+# Para 469 1
+biguity of ruine - ‘ruin’, however, is unresolvable: 
+# Para 470 8
+The texts talk about “ruins of Europe” after World 
+War II; if understood as “ruins of cities/buildings in 
+Europe,” all of these occurrences are literal, but if 
+interpreted as “ruins of the European political sys-
+tem,” all of them are metaphorical. The ambiguity 
+might be deliberate.
+Also the MOTION domain has been assigned to 
+a large number of disambiguated occurrences. The 
+# Para 478 7
+noun panne - ‘breakdown’ might instantiate a sub- 
+domain, such as (MOTION IN A) MOTORIZED VEHI-
+CLE; in some cases, it has been assigned MACHINE 
+as source domain, purposely underspecified as to its 
+motion-relatedness.
+The LIVING BEING source domain is multi-
+faceted, comprising PROCREATION, BODY, and 
+# Para 485 19
+REST, obviously personifying Europe. However, the 
+frequency of lexical metaphors in these domains is 
+in large part due to recurring quotations: For ex-
+ample, m`ere - ‘mother’ is used exclusively within 
+the expression la m`ere fondatrice de l’Europe - ‘the 
+founding mother of Europe,’ attributed to J. L. Ro-
+driguez Zapatero; and r´eveil - ‘awakening; alarm 
+clock’ (pointing to an action of a living being) oc-
+curs only as part of the expression sonner le r´eveil 
+de l’Europe - ‘ring the awakening/alarm of Europe,’ 
+coined by Ph. de Villiers. Finally, bouc - ‘goat’ is 
+always part of the idiom le bouc ´emissaire - ‘scape-
+goat’. Although it could be grouped under LIVING 
+BEING, this expression is based on particular cul-
+tural knowledge rather than on systematic exploita-
+tion of general world knowledge about the source 
+domain.
+The FIGHT domain has the lowest count of lexical 
+metaphors in the annotated co-occurrences of Eu-
+# Para 504 6
+rope. Also, the noun otage - ‘hostage’ occurs three 
+times out of five within the expression (ne pas) pren-
+dre l’Europe en otage - ‘(not) take Europe hostage,’ 
+coined by N. Sarkozy and quoted as such.
+To summarize, we observe that the most salient 
+lexical metaphors co-occurring with Europe in the 
+# Para 510 8
+European Constitution corpus either refer to the 
+source domains of BUILDING or MOTION, well- 
+known source domains of conventional metaphors, 
+or the lexical metaphors are sparse, referring to 
+much less clearly delimited source domains such as 
+LIVING BEING or FIGHT. Within the second group,
+9
+there are a number of newly coined expressions, 
+# Para 518 1
+“one shot rich image metaphors,” (Lakoff, 1987) 
+# Para 519 5
+which evoke entire scenes but do not necessarily 
+contribute to a wide-spread systematic exploitation 
+of the source domain.
+5.3 Lexical extension
+Corpus annotation is now extended to a larger list 
+# Para 524 1
+of lemmas from the source domains of BUILDING 
+# Para 525 15
+and MOTION. The challenge here is finding addi-
+tional lemmas that might exploit the postulated map-
+pings, given a small set of disambiguated lemmas 
+and ambiguous collocates (cf. Table 7). A lexical 
+resource for French containing information on con-
+ceptual domains would be helpful here. EuroWord-
+Net (EWN) could go in this direction. It defines 
+many relation types, including the synonym relation 
+inside synsets, as well as hyponym, near-antonym 
+and meronym relations between synsets. Apart from 
+these lexical relations, EWN also recognizes a fam-
+ily of semantico-conceptual INVOLVED relations, 
+which relate a verb synset Y to a noun synset X if
+“X is the one/that who/which is typically involved 
+in Ying” (Vossen, 1999) (our emphasis). Unfortu-
+# Para 540 4
+nately, there are almost no actual instantiations of 
+INVOLVED relations in the French part of EWN.
+Taking our previously identified collocates of Eu-
+rope as seeds, we extend our lemma list resorting to 
+# Para 544 3
+EuroWordNet synsets, as follows:
+•	lemmas in synsets lexically related by EWN re-
+lations to synsets containing our seed lemmas 
+# Para 547 3
+(hypo-, hyper-, anto-, mero- and synonyms);
+•	lemmas in synsets lexically related across 
+part of speech to synsets containing our seed 
+# Para 550 5
+lemmas, by adding missing XPOS NEAR- 
+SYNONYM and XPOS NEAR ANTONYM 
+relations ourselves;
+•	lemmas in synsets that are conceptually related 
+to the seed synsets, by adding INVOLVED re-
+# Para 555 3
+lations ourselves.
+A reiteration of these steps (using encountered 
+lemmas as new seeds) could lead very soon to gen-
+# Para 558 5
+eral or peripheral lemmas. Ideally, one would set 
+up a limit of reiteration per operation and consider 
+all encountered lemmas as possible keywords of the 
+domain. However, annotator resources being lim-
+ited, we reduced the list of key lemmas to about 20 
+# Para 563 4
+per domain (22 for BUILDING and 19 for MOTION), 
+using human judgment.
+At this stage, the restriction on the keyword of 
+being a collocate of Europe is lifted. This results 
+# Para 567 10
+in search, disambiguation, and annotation being per-
+formed on the entire corpus. The annotator finds 663 
+lexical metaphors among the 1,237 occurrences of 
+22 BUILDING keywords, and 409 lexical metaphors 
+among the 1,307 occurrences of 19 MOTION key-
+words. Each key lemma contributes positively to the 
+count of lexical metaphors. Two consequences fol-
+low from these figures:
+1. Both postulated source domains are systemati-
+cally exploited by lexical metaphors.
+# Para 577 2
+2. Every second or third investigated occurrence 
+is a lexical metaphor.5 Collection and annota-
+# Para 579 5
+tion of metaphors can thus proceed consider-
+ably faster on the key lemmas than it would on 
+full text or randomly selected sentences.
+For each lexical metaphor, the annotator provides 
+EuroWordNet synset information. For the actual 
+# Para 584 6
+meaning in context, the synset belonging to the tar-
+get domain is encoded. Additionally, the synset con-
+taining the metaphorically used lexeme in its source 
+domain sense is indicated (“source synset”).
+6 Source domain structure
+The information on source synsets underlies con-
+# Para 590 1
+ceptual maps of the two source domains. This is 
+# Para 591 11
+exemplified here by Figure 1, which represents the 
+MOTION domain. Lexical metaphors are prefixed 
+by M ; those word senses not encoded in EWN are 
+marked with an asterisk at the end. Synsets shaded 
+gray in Figure 1 contain at least one lemma that is 
+exploited as a lexical metaphor, and as such attested 
+in the European Constitution corpus. Ovals rep-
+resent verb synsets, boxes show noun synsets, and 
+hexagons depict events.
+Relations between synsets illustrate the internal 
+structure of the domain. Solid lines represent rela-
+# Para 602 4
+tions encoded in EuroWordNet. For legibility rea-
+sons, labels of hyponym relations have been omitted.
+5In the vicinity of Europe, the ratio continues to be higher, 
+with at least three quarters of the contexts being metaphorical.
+# Para 606 2
+10
+Mprogresser:2 
+# Para 608 1
+Mavancer:4 
+# Para 609 3
+’advance’
+Mcontinuer:2 Mpoursuivre:5
+M avancer:12
+# Para 612 3
+’continue, pursue’
+Mpoursuite:5 persécution:2
+’pursuit’
+# Para 615 2
+changer de place:1 se d6placer:2
+’get around’
+# Para 617 2
+XPOS NEAR SYN
+Marrêt:6 stop:1
+# Para 619 1
+’halt’
+# Para 620 2
+souffler:1 reprendre haleine:1
+’catch one’s breath’
+# Para 622 2
+NEAR ANT
+faire une pause:1 s’arreter:4
+# Para 624 1
+’pause’
+# Para 625 2
+Marrêt:2 immobilisation:1
+immobilization’
+# Para 627 2
+route:4 
+Mvoie:2 
+# Para 629 3
+’route’
+d6placer:5 bouger:2 ’move’
+INVLVD DIRECTION
+# Para 632 1
+panne de moteur:1 M panne:1*
+# Para 633 1
+’engine failure, breakdown’
+# Para 634 2
+XPOS NEAR SYN
+passer:16 
+# Para 636 1
+’pass’
+# Para 637 2
+CAUSES
+se déplacer:1 se mouvoir:1 M aller:3
+# Para 639 1
+’move, go’
+# Para 640 2
+moteur $ combustion interne:1 Mmoteur:2*
+internal combustion engine’
+# Para 642 2
+HAS HYPONYM
+M moteur:1
+# Para 644 1
+’motor’
+# Para 645 2
+INVLVD PATIENT
+Mtraverser:5 
+# Para 647 1
+Mparcourir:3 
+# Para 648 3
+’pass through’
+moteur thermique:1 
+’combustion engine’
+# Para 651 2
+M chemin:1 
+M direction:1 
+# Para 653 3
+_ ’path’
+M direction:6 
+M cours:2 
+# Para 656 3
+’direction’
+CAUSES
+M traverser:4
+# Para 659 1
+’traverse’
+# Para 660 2
+Mancrer:2 mouiller l’ancre:1
+mouiller:2
+# Para 662 3
+’moor; anchor’
+passer $ travers:1 
+Mfranchir:2 
+# Para 665 3
+Mtraverser:2
+’trespass’
+vaisseau:2 M bateau:2
+# Para 668 1
+avion:2
+# Para 669 3
+’vessel’
+M boussole:1*
+’compass’
+# Para 672 2
+Mavancer:8 
+traverser:3 
+# Para 674 3
+’advance’
+RELATION?
+HAS MEROPART
+# Para 677 1
+INVLVD LOCATION
+# Para 678 1
+Mroute:2 Mchemin:4
+# Para 679 1
+’way’
+# Para 680 2
+Mpassage:9 
+M chemin:3 
+# Para 682 3
+Mparcours:1*
+’passage’
+Mbateau:1
+# Para 685 1
+’boat’
+# Para 686 2
+véhicule $ moteur:1 
+’motor vehicle’
+# Para 688 2
+v6hicule:2 
+’vehicle’
+# Para 690 2
+HAS MEROPART
+INVLVD INSTR
+# Para 692 1
+moyen de transport:1
+# Para 693 1
+véhicule:1
+# Para 694 4
+’means of
+transportation’
+transports
+en commun:1
+# Para 698 3
+’public transportation’
+Mtrain:2 
+’train’
+# Para 701 2
+Figure 1: The MOTION source domain with corpus-specific highlights.
+Dotted lines stand for relations that we added. These 
+# Para 703 1
+were labeled using EWN relation types (Vossen, 
+# Para 704 9
+1999), where possible. As obvious from Figure 1, 
+the domain graph would be separate partitions with-
+out our additional relations, especially those of 
+the INVOLVED type. Conceptual relations (“typi-
+cally... ”) are thus a necessary addition to lexical re-
+lations (“necessarily...”) in order to represent con-
+ceptual source domains.
+The map representing the source domain is a re-
+sult of our corpus investigation of this specific tar-
+# Para 713 11
+get domain corpus. The structure of the source do-
+main is not intended to be a general representation of 
+this domain, nor does it imply fixed domain bound-
+aries. Rather, the network shows the elements of the 
+source domain that mapped onto the target domain 
+from corpus attestations. If the same source domain 
+were to be mapped onto some other target domain, 
+other synsets might be used. A lexico-conceptual re-
+source encoding general information on this source 
+domain would thus have to contain more synsets and 
+relations than those displayed in Figure 1.
+# Para 724 2
+The choice of source domains as well as of cer-
+tain lexical items from within a source domain has 
+# Para 726 5
+the effect of “highlighting and hiding” certain as-
+pects of the target domain. For example, among 
+the numerous hyponyms of the central ‘move’ synset
+{se d´eplacer: 1 se mouvoir:1 aller: 3}–most of which
+are not displayed in Figure 1–, the European Con-
+# Para 731 1
+stitution corpus shows a tendency towards lexi-
+# Para 732 12
+cal metaphors in synsets containing the verb tra-
+verser - ‘traverse’. This profiles the path compo-
+nent of the motion event. The path itself is fur-
+ther emphasized by lexical metaphors related to 
+the ‘move’ synset by INVOLVED LOCATION and 
+INVOLVED DIRECTION. Also vehicles as instru-
+ments play a role in the conceptualization, but not 
+all vehicles have metaphorical attestations in the cor-
+pus: only train - ‘train’ and bateau - ‘boat’ are found 
+during a cross-check. Finally, synsets referring to
+11
+the contrary of ‘move’ are contained within the map 
+# Para 744 1
+of the source domain. Even the ‘motor’ (as a vehi-
+# Para 745 5
+cle part) and its ‘breakdown’ (causing ‘immobiliza-
+tion’) are thus lexically and conceptually integrated 
+in the MOTION domain derived from our corpus.
+All these highlightings and hidings can be inter-
+preted with respect to the situation of Europe before 
+# Para 750 7
+the referendum on its Constitution: Europe is made 
+cognitively accessible as a multi-passenger vehicle 
+in motion on a path, which has not yet arrived but is 
+facing obstacles to its motion, possibly resulting in 
+being stopped.
+7 Conclusion and Outlook
+A method for quickly finding large amounts of lex-
+# Para 757 1
+ical metaphors and characterizing their source do-
+# Para 758 11
+mains has been exemplified, given a target domain 
+corpus. The method makes use of collocate explo-
+ration of a target domain keyword, in order to iden-
+tify the most promising source domains. Over 1,000 
+manual annotations have been obtained and will be 
+integrated into the Hamburg Metaphor Database. 
+This outnumbers by far the results of previous stud-
+ies filed within HMD, which originated under simi-
+lar conditions but did not resort to a corpus manager.
+Our method is different from automated work on 
+metaphor recognition such as (Mason, 2004) and 
+# Para 769 10
+(Gedigian et al., 2006) in that it includes nouns as 
+parts of speech. Implementing it in an automated 
+system would require more sophisticated lexical- 
+conceptual resources, representing information on 
+concrete domains (possible source domains). In par-
+ticular, the addition of lexical and conceptual links 
+between verb and noun synsets is crucial for estab-
+lishing a connected source domain graph.
+Acknowledgements
+Thanks to Patrick Hanks, Jana Klawitter, and three 
+# Para 779 1
+anonymous reviewers for their helpful comments. – 
+# Para 780 6
+This work was supported by a fellowship within the 
+Postdoc-Programme of the German Academic Ex-
+change Service (DAAD), granted to the second au-
+thor.
+References
+John A. Barnden, Sheila Glasbey, Mark Lee, and Alan M. 
+# Para 786 1
+Wallington. 2002. Reasoning in metaphor under-
+# Para 787 6
+standing: The ATT-Meta approach and system. In 
+Proceedings of the 19th International Conference on 
+Computational Linguistics (COLING 2002), pages 
+1188–1193, Taipei, Taiwan.
+Charles J. Fillmore, Christopher R. Johnson, and Miriam 
+R. L. Petruck. 2003. Background to FrameNet. Inter-
+# Para 793 3
+national Journal ofLexicography, 16(3):235–250.
+Matt Gedigian, John Bryant, Srini Narayanan, and Bran-
+imir Ciric. 2006. Catching metaphors. In Proceedings 
+# Para 796 4
+of the 3rd Workshop on Scalable Natural Language 
+Understanding, pages 41–48, New York City.
+George Lakoff and Mark Johnson. 1980. Metaphors we 
+live by. University of Chicago Press, Chicago.
+# Para 800 2
+George Lakoff. 1987. Women, fire, and dangerous 
+things: what categories reveal about the mind. Uni-
+# Para 802 3
+versity of Chicago Press, Chicago.
+Mark Lee. 2006. Methodological issues in build-
+ing a corpus of doctor-patient dialogues annotated for 
+# Para 805 6
+metaphor. In Cognitive-linguistic approaches: What 
+can we gain by computational treatment of data? A 
+Theme Session at DGKL-06/GCLA-06, pages 19–22, 
+Munich, Germany.
+Birte L¨onneker and Carina Eilts. 2004. A current re-
+source and future perspectives for enriching WordNets 
+# Para 811 5
+with metaphor information. In Proceedings of the 2nd 
+International Conference of the Global WordNet Asso-
+ciation, pages 157–162, Brno, Czech Republic.
+James H. Martin. 1994. MetaBank: A knowledge-base 
+of metaphoric language conventions. Computational 
+# Para 816 3
+Intelligence, 10(2):134–149.
+Zachary J. Mason. 2004. CorMet: A computational, 
+corpus-based conventional metaphor extraction sys-
+# Para 819 3
+tem. Computational Linguistics, 30(1):23–44.
+Pavel Rychl´y and Pavel Smrˇz. 2004. Manatee, Bonito 
+and Word Sketches for Czech. In Proceedings of the 
+# Para 822 4
+Second International Conference on Corpus Linguis-
+tics, pages 124–132, Saint-Petersburg.
+Helmut Schmid. 1994. Probabilistic part-of-speech tag-
+ging using decision trees. In International Conference 
+# Para 826 4
+on New Methods in Language Processing, Manchester, 
+UK.
+Achim Stein and Helmut Schmid. 1995. Etiquetage 
+morphologique de textes franc¸ais avec un arbre de 
+# Para 830 4
+d´ecisions. Traitement automatique des langues, 36(1- 
+2):23–35.
+Piek Vossen. 1999. EuroWordNet General Document. 
+Version 3. Technical report, University of Amsterdam.
+# Para 834 1
+12

@@ -1,0 +1,1095 @@
+<?xml version="1.0"?>
+<!--XML document generated using OCR technology from ScanSoft, Inc.-->
+<document xmlns="http://www.scansoft.com/omnipage/xml/ssdoc-schema3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<page ocr-vers="OmniPage 16" app-vers="OmniPage 16">
+<description>
+<source file="C:\forecite\in\W95-0102.pdf" dpix="300" dpiy="300" sizex="2550" sizey="3300"/>
+<theoreticalPage size="Letter" marginLeft="1628" marginTop="1392" marginRight="1272" marginBottom="1210" offsetX="-178" width="12240" height="15840"/>
+</description>
+<styleTable>
+<style styleID="paraStyle_1_7_63" alignment="left" lsp="single" underlined="none" subsuperscript="none" fontSize="1000" fontFace="Times New Roman" spacing="0" scale="1000">
+</style>
+<style styleID="charStyle_1_7_62" underlined="none" subsuperscript="none" fontSize="1000" fontFace="Times New Roman" spacing="0" scale="1000">
+</style>
+</styleTable>
+<body>
+<section l="1613" t="1380" r="10973" b="14467">
+<column l="1613" t="1380" r="10973" b="14467">
+<para l="1646" t="1392" r="10930" b="2410" alignment="justified" lsp="exactly" lspExact="264" language="en" styleRef="paraStyle_1_7_63">
+<ln l="1666" t="1392" r="10930" b="1608" baseLine="1559" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="11">
+<wd l="1666" t="1392" r="2021" b="1555">One</wd>
+<space/>
+<wd l="2112" t="1392" r="2453" b="1550">fact</wd>
+<space/>
+<wd l="2549" t="1402" r="2678" b="1555">is</wd>
+<space/>
+<wd l="2774" t="1397" r="3912" b="1598">immediately</wd>
+<space/>
+<wd l="4022" t="1402" r="4771" b="1608">striking:</wd>
+<space/>
+<wd l="4906" t="1454" r="5309" b="1560">even</wd>
+<space/>
+<wd l="5405" t="1406" r="5803" b="1560">with</wd>
+<space/>
+<wd l="5904" t="1406" r="6302" b="1565">such</wd>
+<space/>
+<wd l="6408" t="1406" r="6984" b="1603">simple</wd>
+<space/>
+<wd l="7085" t="1435" r="7939" b="1565">sentences</wd>
+<space/>
+<wd l="8040" t="1406" r="8371" b="1565">and</wd>
+<space/>
+<wd l="8467" t="1406" r="8813" b="1565">rule</wd>
+<space/>
+<wd l="8914" t="1430" r="9307" b="1603">sets,</wd>
+<space/>
+<wd l="9403" t="1459" r="9864" b="1565">more</wd>
+<space/>
+<wd l="9955" t="1406" r="10421" b="1565">often</wd>
+<space/>
+<wd l="10512" t="1406" r="10930" b="1565">than</wd>
+<space/>
+</ln>
+<ln l="1656" t="1666" r="10930" b="1877" baseLine="1827" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="11">
+<wd l="1656" t="1690" r="1944" b="1824">not</wd>
+<space/>
+<wd l="2050" t="1666" r="2333" b="1824">the</wd>
+<space/>
+<wd l="2429" t="1670" r="3696" b="1829">inside-outside</wd>
+<space/>
+<wd l="3806" t="1675" r="4699" b="1872">algorithm</wd>
+<space/>
+<wd l="4800" t="1728" r="5678" b="1872">converges</wd>
+<space/>
+<wd l="5779" t="1699" r="5957" b="1829">to</wd>
+<space/>
+<wd l="6058" t="1733" r="6154" b="1829">a</wd>
+<space/>
+<wd l="6245" t="1675" r="7277" b="1872">suboptimal</wd>
+<space/>
+<wd l="7373" t="1728" r="8280" b="1877">grammar.</wd>
+<space/>
+<wd l="8429" t="1675" r="8659" b="1829">To</wd>
+<space/>
+<wd l="8755" t="1675" r="9802" b="1834">understand</wd>
+<space/>
+<wd l="9902" t="1675" r="10315" b="1867">why,</wd>
+<space/>
+<wd l="10411" t="1675" r="10637" b="1829">let</wd>
+<space/>
+<wd l="10742" t="1728" r="10930" b="1829">us</wd>
+<space/>
+</ln>
+<ln l="1646" t="1930" r="10925" b="2150" baseLine="2090" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12">
+<wd l="1646" t="1934" r="2208" b="2136">ignore</wd>
+<space/>
+<wd l="2290" t="1939" r="3110" b="2088">recursive</wd>
+<space/>
+<wd l="3192" t="1934" r="3619" b="2088">rules</wd>
+<space/>
+<wd l="3720" t="1930" r="4051" b="2146">(ZP</wd>
+<space/>
+<wd l="4430" t="1939" r="4680" b="2093">ZP</wd>
+<space/>
+<wd l="4771" t="1934" r="5141" b="2150">YP)</wd>
+<space/>
+<wd l="5227" t="1934" r="5477" b="2093">for</wd>
+<space/>
+<wd l="5563" t="1939" r="5846" b="2093">the</wd>
+<space/>
+<wd l="5928" t="1963" r="6730" b="2093">moment.</wd>
+<space/>
+<wd l="6850" t="1939" r="7320" b="2098">Then</wd>
+<space/>
+<wd l="7411" t="1939" r="7877" b="2093">there</wd>
+<space/>
+<wd l="7963" t="1997" r="8237" b="2093">are</wd>
+<space/>
+<wd l="8314" t="1934" r="8683" b="2093">four</wd>
+<space/>
+<wd l="8765" t="1939" r="9490" b="2141">possible</wd>
+<space/>
+<wd l="9576" t="1992" r="10147" b="2136">parses</wd>
+<space/>
+<wd l="10229" t="1939" r="10411" b="2093">of</wd>
+<space/>
+<wd l="10474" t="1934" r="10925" b="2098">ABC</wd>
+<space/>
+</ln>
+<ln l="1661" t="2189" r="8026" b="2410" baseLine="2357" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="9">
+<wd l="1661" t="2189" r="2971" b="2410">(cross-entropy</wd>
+<space/>
+<wd l="3053" t="2218" r="3418" b="2362">rate</wd>
+<space/>
+<wd l="3504" t="2198" r="3902" b="2362">with</wd>
+<space/>
+<wd l="3994" t="2256" r="4570" b="2362">source</wd>
+<space/>
+<wd l="4651" t="2203" r="5126" b="2405">given</wd>
+<space/>
+<wd l="5222" t="2198" r="5808" b="2362">below-</wd>
+<space/>
+<wd l="5899" t="2198" r="6384" b="2362">lower</wd>
+<space/>
+<wd l="6470" t="2203" r="6595" b="2357">is</wd>
+<space/>
+<wd l="6686" t="2203" r="7243" b="2362">better</wd>
+<space/>
+<wd l="7334" t="2194" r="8026" b="2410">model):</wd>
+</ln>
+</para>
+<para l="2966" t="2875" r="10003" b="3029" alignment="left" li="1296" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="2966"/>
+<tabs alignment="right" position="3029" leaderChar=" "/>
+<tabs alignment="right" position="8299" leaderChar=" "/>
+<ln l="2966" t="2875" r="10003" b="3029" baseLine="3025" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="2966" t="2880" r="3053" b="3024">S</wd>
+<tab position="3053"/>
+<wd l="5165" t="2880" r="5256" b="3024">S</wd>
+<tab position="5256"/>
+<wd l="7680" t="2880" r="7771" b="3024">S</wd>
+<tab position="7771"/>
+<wd l="9912" t="2880" r="10003" b="3029">S</wd>
+</ln>
+</para>
+<para l="3000" t="3091" r="9974" b="3274" alignment="left" li="1368" lsp="exactly" lspExact="182" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="3000"/>
+<tabs alignment="right" position="3274" leaderChar=" "/>
+<tabs alignment="right" position="8299" leaderChar=" "/>
+<ln l="3000" t="3091" r="9974" b="3274" baseLine="3265" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="3000" t="3101" r="3014" b="3274">I</wd>
+<tab position="3014"/>
+<wd l="5203" t="3101" r="5222" b="3274">I</wd>
+<tab position="5222"/>
+<wd l="7718" t="3101" r="7733" b="3274">I</wd>
+<tab position="7733"/>
+<wd l="9955" t="3101" r="9974" b="3274">I</wd>
+</ln>
+</para>
+<para l="2870" t="3293" r="10090" b="3451" alignment="left" li="1224" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="2870"/>
+<tabs alignment="right" position="3451" leaderChar=" "/>
+<tabs alignment="right" position="8477" leaderChar=" "/>
+<ln l="2870" t="3293" r="10090" b="3451" baseLine="3443" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="2870" t="3298" r="3134" b="3442">AP</wd>
+<tab position="3134"/>
+<wd l="5078" t="3302" r="5342" b="3442">AP</wd>
+<tab position="5342"/>
+<wd l="7598" t="3298" r="7853" b="3446">CP</wd>
+<tab position="7853"/>
+<wd l="9830" t="3302" r="10090" b="3451">CF</wd>
+</ln>
+</para>
+<para l="1982" t="3710" r="10411" b="3917" alignment="left" li="360" lsp="exactly" lspExact="206" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="1982"/>
+<tabs alignment="left" position="3917" leaderChar=" "/>
+<tabs alignment="left" position="2544" leaderChar=" "/>
+<tabs alignment="left" position="3144" leaderChar=" "/>
+<tabs alignment="right" position="4109" leaderChar=" "/>
+<tabs alignment="left" position="4747" leaderChar=" "/>
+<tabs alignment="right" position="5856" leaderChar=" "/>
+<tabs alignment="left" position="6437" leaderChar=" "/>
+<tabs alignment="left" position="7008" leaderChar=" "/>
+<tabs alignment="left" position="7833" leaderChar=" "/>
+<tabs alignment="right" position="8798" leaderChar=" "/>
+<ln l="1982" t="3710" r="10411" b="3917" baseLine="3880">
+<run underlined="none" subsuperscript="none" fontSize="850" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="1982" t="3710" r="2174" b="3912">(I)</wd>
+<tab position="2174"/>
+<wd l="2549" t="3739" r="2683" b="3883">A</wd>
+<tab position="2683"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="3264" t="3744" r="3514" b="3888">BP</wd>
+<tab position="3514"/>
+</run>
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1150" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-28">
+<wd l="4157" t="3715" r="4378" b="3912">(J)</wd>
+<tab position="4378"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="4757" t="3744" r="4886" b="3883">A</wd>
+<tab position="4886"/>
+<wd l="5467" t="3749" r="5722" b="3893">CP</wd>
+<tab position="5722"/>
+<wd l="6360" t="3715" r="6638" b="3912">(K)</wd>
+<tab position="6638"/>
+<wd l="7205" t="3749" r="7469" b="3888">AP</wd>
+<tab position="7469"/>
+<wd l="8050" t="3744" r="8174" b="3888">C</wd>
+<tab position="8174"/>
+<wd l="8621" t="3715" r="8870" b="3917">(L)</wd>
+<tab position="8870"/>
+<wd l="9446" t="3749" r="9701" b="3893">BP</wd>
+<tab position="9701"/>
+<wd l="10286" t="3739" r="10411" b="3888">C</wd>
+</run>
+</ln>
+</para>
+<para l="3134" t="3917" r="9845" b="4128" alignment="left" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="3134"/>
+<tabs alignment="left" position="4128" leaderChar=" "/>
+<tabs alignment="right" position="6067" leaderChar=" "/>
+<tabs alignment="right" position="8299" leaderChar=" "/>
+<ln l="3134" t="3917" r="9845" b="4128" baseLine="4081">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<tab position="0"/>
+<wd l="3134" t="3984" r="3658" b="4123">.---&quot;,..</wd>
+<tab position="3658"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-37">
+<wd l="5342" t="3989" r="5866" b="4123">,.......------„_</wd>
+<tab position="5866"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-22">
+<wd l="7085" t="3989" r="7613" b="4128">„....----...,</wd>
+<tab position="7613"/>
+<wd l="9322" t="3984" r="9845" b="4128">..,.....---...„</wd>
+</run>
+</ln>
+</para>
+<para l="3072" t="4133" r="9893" b="4291" alignment="left" li="1440" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="3072"/>
+<tabs alignment="right" position="4291" leaderChar=" "/>
+<tabs alignment="right" position="8299" leaderChar=" "/>
+<ln l="3072" t="4133" r="9893" b="4291" baseLine="4285">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-12">
+<wd l="3072" t="4142" r="3187" b="4282">B</wd>
+<space/>
+<wd l="3518" t="4142" r="3773" b="4286">CP</wd>
+<tab position="3773"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-18">
+<wd l="5213" t="4147" r="5462" b="4286">BP</wd>
+<space/>
+<wd l="5789" t="4142" r="5914" b="4291">C</wd>
+<tab position="5914"/>
+<wd l="7018" t="4142" r="7147" b="4282">A</wd>
+<space/>
+<wd l="7474" t="4147" r="7728" b="4291">BP</wd>
+<tab position="7728"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="18">
+<wd l="9182" t="4147" r="9446" b="4286">AP</wd>
+<space/>
+<wd l="9778" t="4142" r="9893" b="4282">B</wd>
+</run>
+</ln>
+</para>
+<para l="3643" t="4349" r="9326" b="4541" alignment="left" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="3643"/>
+<tabs alignment="left" position="4541" leaderChar=" "/>
+<tabs alignment="right" position="6067" leaderChar=" "/>
+<tabs alignment="right" position="7713" leaderChar=" "/>
+<ln l="3643" t="4349" r="9326" b="4541" baseLine="4528" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<tab position="0"/>
+<wd l="3643" t="4363" r="3658" b="4536">I</wd>
+<tab position="3658"/>
+<wd l="5333" t="4368" r="5347" b="4536">I</wd>
+<tab position="5347"/>
+<wd l="7594" t="4373" r="7613" b="4541">I</wd>
+<tab position="7613"/>
+<wd l="9312" t="4368" r="9326" b="4541">I</wd>
+</ln>
+</para>
+<para l="3590" t="4555" r="9384" b="4709" alignment="left" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="3590"/>
+<tabs alignment="left" position="4709" leaderChar=" "/>
+<tabs alignment="right" position="6067" leaderChar=" "/>
+<tabs alignment="right" position="7771" leaderChar=" "/>
+<ln l="3590" t="4555" r="9384" b="4709" baseLine="4706" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<tab position="0"/>
+<wd l="3590" t="4560" r="3710" b="4709">C</wd>
+<tab position="3710"/>
+<wd l="5280" t="4565" r="5395" b="4704">B</wd>
+<tab position="5395"/>
+<wd l="7546" t="4570" r="7661" b="4709">B</wd>
+<tab position="7661"/>
+<wd l="9250" t="4565" r="9384" b="4704">A</wd>
+</ln>
+</para>
+<para l="2496" t="4776" r="10061" b="4968" alignment="left" li="864" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="2496"/>
+<tabs alignment="right" position="4968" leaderChar=" "/>
+<tabs alignment="right" position="8477" leaderChar=" "/>
+<ln l="2496" t="4776" r="10061" b="4968" baseLine="4960">
+<wd l="2496" t="4776" r="2654" b="4958"><run italic="true" underlined="none" subsuperscript="none" fontSize="1450" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-10">
+A</run>
+<run italic="true" underlined="none" subsuperscript="superscript" fontSize="300" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-10">
+-</run>
+</wd>
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1450" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-10">
+<space/>
+<wd l="2736" t="4872" r="2861" b="4934">=</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="850" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-10">
+<wd l="2942" t="4819" r="3384" b="4963">2.604</wd>
+<tab position="3384"/>
+</run>
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1450" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-4">
+<wd l="4690" t="4776" r="4843" b="4958">k</wd>
+<space/>
+<wd l="4925" t="4877" r="5054" b="4944">=</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-4">
+<wd l="5136" t="4819" r="5573" b="4963">2.937</wd>
+<tab position="5573"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="6917" t="4781" r="7075" b="4963">ft</wd>
+<space/>
+<wd l="7157" t="4877" r="7286" b="4939">=</wd>
+<space/>
+<wd l="7368" t="4824" r="7810" b="4968">2.667</wd>
+<tab position="7810"/>
+</run>
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1150" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-8" scale="1850">
+<wd l="9168" t="4776" r="9326" b="4958">li</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-8">
+<wd l="9403" t="4882" r="9538" b="4944">=</wd>
+<space/>
+<wd l="9614" t="4819" r="10061" b="4963">2.604</wd>
+</run>
+</ln>
+</para>
+<para l="1627" t="5462" r="10949" b="6965" alignment="justified" fli="360" lsp="exactly" lspExact="266" language="en" styleRef="paraStyle_1_7_63">
+<ln l="1973" t="5462" r="10939" b="5678" baseLine="5626" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="8">
+<wd l="1973" t="5472" r="2611" b="5674">During</wd>
+<space/>
+<wd l="2707" t="5467" r="2995" b="5621">the</wd>
+<space/>
+<wd l="3086" t="5467" r="3446" b="5626">first</wd>
+<space/>
+<wd l="3542" t="5525" r="3926" b="5669">pass</wd>
+<space/>
+<wd l="4022" t="5467" r="4210" b="5626">of</wd>
+<space/>
+<wd l="4286" t="5472" r="4574" b="5630">the</wd>
+<space/>
+<wd l="4661" t="5472" r="5933" b="5630">inside-outside</wd>
+<space/>
+<wd l="6038" t="5472" r="6998" b="5678">algorithm,</wd>
+<space/>
+<wd l="7099" t="5472" r="7958" b="5674">assuming</wd>
+<space/>
+<wd l="8054" t="5472" r="9274" b="5630">near-uniform</wd>
+<space/>
+<wd l="9360" t="5467" r="9902" b="5630">initial</wd>
+<space/>
+<wd l="10003" t="5467" r="10354" b="5630">rule</wd>
+<space/>
+<wd l="10450" t="5462" r="10939" b="5669">prob-</wd>
+</ln>
+<ln l="1642" t="5731" r="10944" b="5938" baseLine="5889" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1642" t="5731" r="2400" b="5928">abilities,</wd>
+<space/>
+<wd l="2520" t="5731" r="2923" b="5890">each</wd>
+<space/>
+<wd l="3029" t="5736" r="3211" b="5890">of</wd>
+<space/>
+<wd l="3298" t="5731" r="3768" b="5890">these</wd>
+<space/>
+<wd l="3869" t="5789" r="4435" b="5933">parses</wd>
+<space/>
+<wd l="4546" t="5736" r="4862" b="5890">will</wd>
+<space/>
+<wd l="4968" t="5736" r="5386" b="5894">have</wd>
+<space/>
+<wd l="5491" t="5736" r="5976" b="5938">equal</wd>
+<space/>
+<wd l="6082" t="5741" r="6912" b="5938">posterior</wd>
+<space/>
+<wd l="7013" t="5736" r="8218" b="5938">probabilities.</wd>
+<space/>
+<wd l="8405" t="5736" r="8880" b="5938">They</wd>
+<space/>
+<wd l="8986" t="5794" r="9264" b="5890">are</wd>
+<space/>
+<wd l="9365" t="5736" r="10027" b="5938">equally</wd>
+<space/>
+<wd l="10138" t="5731" r="10944" b="5938">probable</wd>
+<space/>
+</ln>
+<ln l="1637" t="5981" r="10949" b="6211" baseLine="6163">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12">
+<wd l="1637" t="6005" r="2342" b="6163">because</wd>
+<space/>
+<wd l="2448" t="6005" r="2846" b="6202">they</wd>
+<space/>
+<wd l="2942" t="6058" r="3230" b="6163">use</wd>
+<space/>
+<wd l="3331" t="6005" r="3619" b="6163">the</wd>
+<space/>
+<wd l="3720" t="6058" r="4176" b="6163">same</wd>
+<space/>
+<wd l="4267" t="6005" r="4973" b="6168">number</wd>
+<space/>
+<wd l="5069" t="6005" r="5256" b="6168">of</wd>
+<space/>
+</run>
+<wd l="5328" t="5981" r="6418" b="6206"><run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12">
+expansions</run>
+<run underlined="none" subsuperscript="superscript" fontSize="700" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12" scale="1250">
+5</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12">
+<space/>
+<wd l="6538" t="6010" r="6869" b="6168">and</wd>
+<space/>
+<wd l="6965" t="6010" r="7680" b="6168">because</wd>
+<space/>
+<wd l="7786" t="6010" r="8237" b="6168">word</wd>
+<space/>
+<wd l="8338" t="6005" r="9072" b="6211">bigrams</wd>
+<space/>
+<wd l="9178" t="6058" r="9456" b="6163">are</wd>
+<space/>
+<wd l="9547" t="6005" r="10282" b="6163">uniform</wd>
+<space/>
+<wd l="10382" t="6029" r="10555" b="6163">at</wd>
+<space/>
+<wd l="10661" t="6005" r="10949" b="6163">the</wd>
+<space/>
+</run>
+</ln>
+<ln l="1632" t="6269" r="10939" b="6475" baseLine="6427" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="6">
+<wd l="1632" t="6293" r="2059" b="6427">start</wd>
+<space/>
+<wd l="2136" t="6269" r="2323" b="6422">of</wd>
+<space/>
+<wd l="2386" t="6274" r="2669" b="6427">the</wd>
+<space/>
+<wd l="2746" t="6278" r="3418" b="6475">parsing</wd>
+<space/>
+<wd l="3499" t="6326" r="4219" b="6466">process.</wd>
+<space/>
+<wd l="4339" t="6274" r="4862" b="6466">Thus,</wd>
+<space/>
+<wd l="4939" t="6274" r="5227" b="6427">the</wd>
+<space/>
+<wd l="5309" t="6274" r="6211" b="6427">estimated</wd>
+<space/>
+<wd l="6293" t="6274" r="7310" b="6475">probability</wd>
+<space/>
+<wd l="7392" t="6274" r="7574" b="6427">of</wd>
+<space/>
+<wd l="7642" t="6331" r="7742" b="6427">a</wd>
+<space/>
+<wd l="7810" t="6274" r="8160" b="6427">rule</wd>
+<space/>
+<wd l="8242" t="6269" r="8669" b="6427">after</wd>
+<space/>
+<wd l="8746" t="6274" r="9034" b="6432">the</wd>
+<space/>
+<wd l="9110" t="6269" r="9475" b="6427">first</wd>
+<space/>
+<wd l="9557" t="6326" r="9946" b="6470">pass</wd>
+<space/>
+<wd l="10022" t="6278" r="10157" b="6427">is</wd>
+<space/>
+<wd l="10243" t="6269" r="10939" b="6466">directly</wd>
+<space/>
+</ln>
+<ln l="1632" t="6533" r="10949" b="6739" baseLine="6696" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1632" t="6538" r="2794" b="6734">proportional</wd>
+<space/>
+<wd l="2870" t="6557" r="3053" b="6691">to</wd>
+<space/>
+<wd l="3134" t="6538" r="3499" b="6696">how</wd>
+<space/>
+<wd l="3576" t="6590" r="4080" b="6734">many</wd>
+<space/>
+<wd l="4162" t="6538" r="4349" b="6696">of</wd>
+<space/>
+<wd l="4406" t="6542" r="4872" b="6696">these</wd>
+<space/>
+<wd l="4954" t="6590" r="5438" b="6739">parse</wd>
+<space/>
+<wd l="5520" t="6562" r="5947" b="6696">trees</wd>
+<space/>
+<wd l="6034" t="6538" r="6322" b="6696">the</wd>
+<space/>
+<wd l="6403" t="6538" r="6749" b="6701">rule</wd>
+<space/>
+<wd l="6821" t="6538" r="7555" b="6701">features</wd>
+<space/>
+<wd l="7637" t="6542" r="7858" b="6696">in.</wd>
+<space/>
+<wd l="7978" t="6538" r="8338" b="6696">The</wd>
+<space/>
+<wd l="8419" t="6538" r="8846" b="6696">rules</wd>
+<space/>
+<wd l="8938" t="6533" r="9317" b="6696">that</wd>
+<space/>
+<wd l="9398" t="6590" r="9902" b="6696">occur</wd>
+<space/>
+<wd l="9989" t="6590" r="10450" b="6696">more</wd>
+<space/>
+<wd l="10526" t="6538" r="10949" b="6696">than</wd>
+<space/>
+</ln>
+<ln l="1627" t="6806" r="2851" b="6965" baseLine="6962" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1627" t="6859" r="1944" b="6965">one</wd>
+<space/>
+<wd l="2026" t="6806" r="2434" b="6965">time</wd>
+<space/>
+<wd l="2525" t="6859" r="2851" b="6965">are:</wd>
+</ln>
+</para>
+<para l="5083" t="7421" r="7435" b="7618" alignment="centered" lsp="exactly" lspExact="196" language="en" styleRef="paraStyle_1_7_63">
+<ln l="5083" t="7421" r="7435" b="7618" baseLine="7573" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="20">
+<wd l="5083" t="7430" r="5347" b="7574">AP</wd>
+<space/>
+<wd l="5698" t="7430" r="5832" b="7574">A</wd>
+<space/>
+<wd l="5918" t="7430" r="6168" b="7574">BP</wd>
+<space/>
+<wd l="6432" t="7421" r="7018" b="7618">(parses</wd>
+<space/>
+<wd l="7099" t="7426" r="7435" b="7613">LK)</wd>
+</ln>
+</para>
+<para l="5088" t="7656" r="7440" b="7858" alignment="left" li="3456" lsp="exactly" lspExact="201" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="5088"/>
+<ln l="5088" t="7656" r="7440" b="7858" baseLine="7808">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="5088" t="7666" r="5347" b="7814">CF</wd>
+<tab position="5347"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="14">
+<wd l="5702" t="7666" r="5952" b="7810">BP</wd>
+<space/>
+<wd l="6038" t="7666" r="6163" b="7810">C</wd>
+<space/>
+<wd l="6437" t="7656" r="7018" b="7853">(parses</wd>
+<space/>
+<wd l="7104" t="7666" r="7440" b="7858">J,L)</wd>
+</run>
+</ln>
+</para>
+<para l="5088" t="7891" r="7469" b="8098" alignment="left" li="3456" lsp="exactly" lspExact="206" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="5088"/>
+<tabs alignment="right" position="8098" leaderChar=" "/>
+<ln l="5088" t="7891" r="7469" b="8098" baseLine="8044">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="5088" t="7901" r="5338" b="8045">BP</wd>
+<tab position="5338"/>
+<wd l="5698" t="7906" r="5813" b="8045">B</wd>
+<tab position="5813"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="2">
+<wd l="6432" t="7891" r="7018" b="8093">(parses</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="2">
+<wd l="7099" t="7891" r="7469" b="8098">J,K)</wd>
+</run>
+</ln>
+</para>
+<para l="1632" t="8544" r="10954" b="10299" alignment="justified" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<ln l="1637" t="8544" r="10944" b="8746" baseLine="8703" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1637" t="8544" r="2587" b="8746">Therefore,</wd>
+<space/>
+<wd l="2674" t="8606" r="2890" b="8707">on</wd>
+<space/>
+<wd l="2981" t="8549" r="3269" b="8707">the</wd>
+<space/>
+<wd l="3360" t="8549" r="3970" b="8707">second</wd>
+<space/>
+<wd l="4056" t="8554" r="4915" b="8746">iteration,</wd>
+<space/>
+<wd l="5011" t="8549" r="5477" b="8707">these</wd>
+<space/>
+<wd l="5568" t="8549" r="6038" b="8707">three</wd>
+<space/>
+<wd l="6125" t="8554" r="6557" b="8707">rules</wd>
+<space/>
+<wd l="6648" t="8549" r="6970" b="8707">will</wd>
+<space/>
+<wd l="7066" t="8549" r="7483" b="8707">have</wd>
+<space/>
+<wd l="7570" t="8549" r="8146" b="8746">higher</wd>
+<space/>
+<wd l="8237" t="8544" r="9384" b="8746">probabilities</wd>
+<space/>
+<wd l="9490" t="8544" r="9912" b="8702">than</wd>
+<space/>
+<wd l="10003" t="8549" r="10291" b="8702">the</wd>
+<space/>
+<wd l="10373" t="8549" r="10944" b="8702">others</wd>
+<space/>
+</ln>
+<ln l="1637" t="8803" r="10944" b="9029" baseLine="8971">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1637" t="8813" r="1968" b="8971">and</wd>
+<space/>
+<wd l="2050" t="8813" r="2366" b="8971">will</wd>
+<space/>
+<wd l="2458" t="8866" r="2947" b="8971">cause</wd>
+<space/>
+<wd l="3024" t="8866" r="3590" b="9014">parses</wd>
+<space/>
+<wd l="3682" t="8818" r="3768" b="8976">J</wd>
+<space/>
+<wd l="3859" t="8813" r="4190" b="8976">and</wd>
+<space/>
+<wd l="4272" t="8818" r="4421" b="8971">K</wd>
+<space/>
+<wd l="4502" t="8837" r="4690" b="8976">to</wd>
+<space/>
+<wd l="4762" t="8813" r="4968" b="8971">be</wd>
+<space/>
+<wd l="5050" t="8813" r="5731" b="8976">favored</wd>
+<space/>
+<wd l="5808" t="8866" r="6192" b="8976">over</wd>
+<space/>
+<wd l="6269" t="8818" r="6336" b="8976">I</wd>
+<space/>
+<wd l="6413" t="8813" r="6744" b="8976">and</wd>
+<space/>
+<wd l="6835" t="8818" r="6950" b="8976">L</wd>
+<space/>
+<wd l="7042" t="8808" r="7526" b="9029">(with</wd>
+<space/>
+<wd l="7613" t="8813" r="7762" b="8976">K</wd>
+<space/>
+<wd l="7838" t="8808" r="8525" b="8971">favored</wd>
+<space/>
+<wd l="8597" t="8866" r="8986" b="8971">over</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="9062" t="8813" r="9154" b="8976">J</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="9235" t="8813" r="9955" b="8971">because</wd>
+<space/>
+</run>
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1150" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="10037" t="8803" r="10450" b="9019">I(A,</wd>
+<space/>
+<wd l="10507" t="8803" r="10944" b="9024">B)+</wd>
+<space/>
+</run>
+</ln>
+<ln l="1632" t="9067" r="10949" b="9293" baseLine="9239">
+<run italic="true" underlined="none" subsuperscript="none" fontSize="1150" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="7">
+<wd l="1632" t="9072" r="2040" b="9288">I(A,</wd>
+<space/>
+<wd l="2098" t="9067" r="2328" b="9288">C)</wd>
+<space/>
+<wd l="2419" t="9115" r="2539" b="9245">&gt;</wd>
+<space/>
+<wd l="2630" t="9067" r="3528" b="9293">I(B,C)+</wd>
+<space/>
+<wd l="3571" t="9072" r="4406" b="9293">I(A,C)).</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="7">
+<wd l="4507" t="9086" r="4646" b="9240">It</wd>
+<space/>
+<wd l="4723" t="9082" r="4853" b="9240">is</wd>
+<space/>
+<wd l="4934" t="9101" r="5117" b="9240">to</wd>
+<space/>
+<wd l="5179" t="9082" r="5386" b="9240">be</wd>
+<space/>
+<wd l="5462" t="9082" r="6274" b="9283">expected</wd>
+<space/>
+<wd l="6355" t="9082" r="6821" b="9278">then,</wd>
+<space/>
+<wd l="6893" t="9082" r="7272" b="9240">that</wd>
+<space/>
+<wd l="7354" t="9082" r="7642" b="9240">the</wd>
+<space/>
+<wd l="7709" t="9082" r="8986" b="9240">inside-outside</wd>
+<space/>
+<wd l="9067" t="9077" r="9970" b="9283">algorithm</wd>
+<space/>
+<wd l="10037" t="9082" r="10589" b="9240">favors</wd>
+<space/>
+<wd l="10661" t="9077" r="10949" b="9240">the</wd>
+<space/>
+</run>
+</ln>
+<ln l="1632" t="9346" r="10949" b="9552" baseLine="9504" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1632" t="9346" r="2669" b="9547">suboptimal</wd>
+<space/>
+<wd l="2750" t="9398" r="3235" b="9547">parse</wd>
+<space/>
+<wd l="3317" t="9350" r="3523" b="9504">K:</wd>
+<space/>
+<wd l="3614" t="9365" r="3782" b="9504">at</wd>
+<space/>
+<wd l="3864" t="9350" r="4080" b="9504">its</wd>
+<space/>
+<wd l="4166" t="9365" r="4598" b="9504">start</wd>
+<space/>
+<wd l="4680" t="9346" r="4968" b="9504">the</wd>
+<space/>
+<wd l="5040" t="9346" r="6312" b="9509">inside-outside</wd>
+<space/>
+<wd l="6408" t="9346" r="7310" b="9552">algorithm</wd>
+<space/>
+<wd l="7387" t="9350" r="7522" b="9504">is</wd>
+<space/>
+<wd l="7603" t="9346" r="8213" b="9552">guided</wd>
+<space/>
+<wd l="8299" t="9350" r="8515" b="9542">by</wd>
+<space/>
+<wd l="8597" t="9365" r="8947" b="9509">tree</wd>
+<space/>
+<wd l="9029" t="9350" r="9830" b="9552">counting</wd>
+<space/>
+<wd l="9912" t="9370" r="10949" b="9552">arguments,</wd>
+<space/>
+</ln>
+<ln l="1637" t="9614" r="10939" b="9826" baseLine="9772" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="13">
+<wd l="1637" t="9634" r="1925" b="9773">not</wd>
+<space/>
+<wd l="2030" t="9614" r="2688" b="9773">mutual</wd>
+<space/>
+<wd l="2779" t="9614" r="3874" b="9773">information</wd>
+<space/>
+<wd l="3984" t="9614" r="4733" b="9778">between</wd>
+<space/>
+<wd l="4834" t="9614" r="5424" b="9778">words.</wd>
+<space/>
+<wd l="5587" t="9619" r="5986" b="9778">This</wd>
+<space/>
+<wd l="6096" t="9638" r="6854" b="9826">suggests</wd>
+<space/>
+<wd l="6960" t="9619" r="7339" b="9778">that</wd>
+<space/>
+<wd l="7445" t="9619" r="7733" b="9778">the</wd>
+<space/>
+<wd l="7829" t="9614" r="9106" b="9778">inside-outside</wd>
+<space/>
+<wd l="9221" t="9619" r="10123" b="9826">algorithm</wd>
+<space/>
+<wd l="10219" t="9619" r="10354" b="9773">is</wd>
+<space/>
+<wd l="10454" t="9619" r="10939" b="9811">likely</wd>
+<space/>
+</ln>
+<ln l="1637" t="9878" r="10954" b="10085" baseLine="10037" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="11">
+<wd l="1637" t="9902" r="1814" b="10032">to</wd>
+<space/>
+<wd l="1920" t="9883" r="2122" b="10037">be</wd>
+<space/>
+<wd l="2232" t="9878" r="2794" b="10085">highly</wd>
+<space/>
+<wd l="2909" t="9883" r="3691" b="10037">sensitive</wd>
+<space/>
+<wd l="3802" t="9907" r="3989" b="10042">to</wd>
+<space/>
+<wd l="4090" t="9883" r="4378" b="10037">the</wd>
+<space/>
+<wd l="4478" t="9883" r="4910" b="10042">form</wd>
+<space/>
+<wd l="5016" t="9883" r="5198" b="10042">of</wd>
+<space/>
+<wd l="5285" t="9936" r="6134" b="10085">grammar</wd>
+<space/>
+<wd l="6240" t="9883" r="6571" b="10042">and</wd>
+<space/>
+<wd l="6682" t="9883" r="7046" b="10042">how</wd>
+<space/>
+<wd l="7152" t="9936" r="7661" b="10085">many</wd>
+<space/>
+<wd l="7771" t="9883" r="8534" b="10042">different</wd>
+<space/>
+<wd l="8654" t="9878" r="9413" b="10080">analyses</wd>
+<space/>
+<wd l="9523" t="9888" r="9648" b="10042">it</wd>
+<space/>
+<wd l="9768" t="9883" r="10469" b="10080">permits</wd>
+<space/>
+<wd l="10579" t="9883" r="10766" b="10037">of</wd>
+<space/>
+<wd l="10858" t="9936" r="10954" b="10037">a</wd>
+<space/>
+</ln>
+<ln l="1637" t="10157" r="2458" b="10306" baseLine="10304" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="1637" t="10181" r="2458" b="10306">sentence.</wd>
+</ln>
+</para>
+<para l="1632" t="10648" r="10954" b="11645" alignment="justified" spaceBefore="36" fli="360" lsp="exactly" lspExact="268" language="en" styleRef="paraStyle_1_7_63">
+<ln l="1978" t="10627" r="10954" b="10838" baseLine="10789" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="12">
+<wd l="1978" t="10627" r="2453" b="10829">Why,</wd>
+<space/>
+<wd l="2544" t="10627" r="3034" b="10824">later,</wd>
+<space/>
+<wd l="3139" t="10627" r="3538" b="10786">does</wd>
+<space/>
+<wd l="3638" t="10632" r="3926" b="10790">the</wd>
+<space/>
+<wd l="4027" t="10627" r="4925" b="10834">algorithm</wd>
+<space/>
+<wd l="5026" t="10651" r="5323" b="10790">not</wd>
+<space/>
+<wd l="5424" t="10690" r="5904" b="10795">move</wd>
+<space/>
+<wd l="6000" t="10632" r="6725" b="10790">towards</wd>
+<space/>
+<wd l="6821" t="10690" r="6922" b="10790">a</wd>
+<space/>
+<wd l="7008" t="10632" r="7565" b="10838">global</wd>
+<space/>
+<wd l="7666" t="10632" r="8597" b="10829">optimum?</wd>
+<space/>
+<wd l="8755" t="10632" r="9115" b="10790">The</wd>
+<space/>
+<wd l="9221" t="10685" r="9854" b="10790">answer</wd>
+<space/>
+<wd l="9946" t="10637" r="10075" b="10790">is</wd>
+<space/>
+<wd l="10181" t="10632" r="10560" b="10790">that</wd>
+<space/>
+<wd l="10666" t="10632" r="10954" b="10790">the</wd>
+<space/>
+</ln>
+<ln l="1632" t="10901" r="10944" b="11107" baseLine="11059" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="9">
+<wd l="1632" t="10901" r="2904" b="11059">inside-outside</wd>
+<space/>
+<wd l="2995" t="10901" r="3893" b="11102">algorithm</wd>
+<space/>
+<wd l="3970" t="10910" r="4099" b="11059">is</wd>
+<space/>
+<wd l="4186" t="10906" r="5126" b="11102">supremely</wd>
+<space/>
+<wd l="5213" t="10906" r="6000" b="11064">unsuited</wd>
+<space/>
+<wd l="6086" t="10930" r="6269" b="11059">to</wd>
+<space/>
+<wd l="6341" t="10906" r="7090" b="11107">learning</wd>
+<space/>
+<wd l="7171" t="10906" r="7579" b="11059">with</wd>
+<space/>
+<wd l="7661" t="10906" r="7992" b="11064">this</wd>
+<space/>
+<wd l="8078" t="10910" r="9470" b="11102">representation.</wd>
+<space/>
+<wd l="9586" t="10906" r="9821" b="11059">To</wd>
+<space/>
+<wd l="9898" t="10901" r="10944" b="11059">understand</wd>
+<space/>
+</ln>
+<ln l="1637" t="11160" r="10944" b="11390" baseLine="11327">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1637" t="11160" r="2026" b="11366">this,</wd>
+<space/>
+<wd l="2112" t="11165" r="2669" b="11323">notice</wd>
+<space/>
+<wd l="2755" t="11160" r="3134" b="11323">that</wd>
+<space/>
+<wd l="3221" t="11184" r="3403" b="11328">to</wd>
+<space/>
+<wd l="3485" t="11222" r="3965" b="11328">move</wd>
+<space/>
+<wd l="4042" t="11165" r="4474" b="11328">from</wd>
+<space/>
+<wd l="4555" t="11165" r="4843" b="11328">the</wd>
+<space/>
+<wd l="4925" t="11170" r="5630" b="11371">initially</wd>
+<space/>
+<wd l="5722" t="11170" r="6403" b="11333">favored</wd>
+<space/>
+<wd l="6485" t="11227" r="6974" b="11376">parse</wd>
+<space/>
+<wd l="7066" t="11160" r="7373" b="11390">(K)</wd>
+<space/>
+<wd l="7464" t="11194" r="7646" b="11333">to</wd>
+<space/>
+<wd l="7723" t="11227" r="8040" b="11328">one</wd>
+<space/>
+<wd l="8122" t="11170" r="8309" b="11333">of</wd>
+<space/>
+<wd l="8366" t="11165" r="8659" b="11328">the</wd>
+<space/>
+<wd l="8741" t="11170" r="9456" b="11376">optimal</wd>
+<space/>
+<wd l="9542" t="11227" r="9941" b="11333">ones</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="10032" t="11165" r="10181" b="11390">(I</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="10262" t="11170" r="10594" b="11333">and</wd>
+<space/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="10685" t="11160" r="10944" b="11386">L),</wd>
+<space/>
+</run>
+</ln>
+<ln l="1642" t="11438" r="7853" b="11645" baseLine="11599" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="11">
+<wd l="1642" t="11438" r="2107" b="11597">three</wd>
+<space/>
+<wd l="2189" t="11443" r="3398" b="11602">nonterminals</wd>
+<space/>
+<wd l="3490" t="11462" r="3936" b="11597">must</wd>
+<space/>
+<wd l="4027" t="11438" r="4450" b="11602">have</wd>
+<space/>
+<wd l="4531" t="11438" r="4963" b="11602">their</wd>
+<space/>
+<wd l="5045" t="11462" r="5491" b="11602">most</wd>
+<space/>
+<wd l="5582" t="11443" r="6389" b="11645">probable</wd>
+<space/>
+<wd l="6475" t="11443" r="6902" b="11602">rules</wd>
+<space/>
+<wd l="6998" t="11443" r="7853" b="11602">switched:</wd>
+</ln>
+</para>
+<para l="4805" t="12096" r="6950" b="12302" alignment="left" li="3168" spaceBefore="360" spaceAfter="72" lsp="exactly" lspExact="204" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="4805"/>
+<ln l="4805" t="12096" r="6950" b="12302" baseLine="12249" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="4805" t="12096" r="5078" b="12298">(K)</wd>
+<tab position="5078"/>
+<wd l="6706" t="12096" r="6950" b="12302">(L)</wd>
+</ln>
+</para>
+<rulerline l="4675" t="12322" r="7915" b="12322" type="single" width="14" color="000000"/>
+<para l="4795" t="12341" r="7445" b="12490" alignment="left" li="3168" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="4795"/>
+<ln l="4795" t="12341" r="7445" b="12490" baseLine="12488">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="4795" t="12346" r="5059" b="12485">AP</wd>
+<space/>
+<wd l="5410" t="12346" r="5544" b="12490">A</wd>
+<space/>
+<wd l="5630" t="12350" r="5880" b="12490">BP</wd>
+<tab position="5880"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="2">
+<wd l="6696" t="12350" r="6960" b="12490">AP</wd>
+<space/>
+<wd l="7051" t="12350" r="7445" b="12490">=A</wd>
+</run>
+</ln>
+</para>
+<para l="4805" t="12576" r="7776" b="12730" alignment="left" li="3168" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="4805"/>
+<ln l="4805" t="12576" r="7776" b="12730" baseLine="12727">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="4805" t="12586" r="5054" b="12725">BP</wd>
+<space/>
+<wd l="5150" t="12586" r="5525" b="12725">=B</wd>
+<tab position="5525"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="20">
+<wd l="6706" t="12590" r="6955" b="12730">BP</wd>
+<space/>
+<wd l="7306" t="12586" r="7574" b="12730">AP</wd>
+<space/>
+<wd l="7661" t="12590" r="7776" b="12730">B</wd>
+</run>
+</ln>
+</para>
+<para l="4805" t="12816" r="7776" b="12970" alignment="left" li="3168" spaceAfter="288" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<tabs position="4805"/>
+<ln l="4805" t="12816" r="7776" b="12970" baseLine="12966">
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="2">
+<wd l="4805" t="12816" r="5059" b="12965">CP</wd>
+<space/>
+<wd l="5410" t="12821" r="5674" b="12960">AP</wd>
+<space/>
+<wd l="5760" t="12821" r="5885" b="12970">C</wd>
+<tab position="5885"/>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="22">
+<wd l="6701" t="12821" r="6960" b="12970">CP</wd>
+<space/>
+<wd l="7315" t="12826" r="7565" b="12965">BP</wd>
+<space/>
+<wd l="7656" t="12821" r="7776" b="12970">C</wd>
+</run>
+</ln>
+</para>
+<rulerline l="1613" t="13339" r="5366" b="13339" type="single" width="19" color="000000"/>
+<para l="1646" t="13397" r="10954" b="13810" alignment="left" spaceBefore="72" spaceAfter="648" fli="216" lsp="single" language="en" styleRef="paraStyle_1_7_63">
+<ln l="1891" t="13397" r="10954" b="13598" baseLine="13555">
+<wd l="1891" t="13397" r="2314" b="13550"><run underlined="none" subsuperscript="superscript" fontSize="550" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10" scale="1450">
+5</run>
+<run underlined="none" subsuperscript="none" fontSize="850" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+This</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="850" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<space/>
+<wd l="2386" t="13421" r="2496" b="13546">is</wd>
+<space/>
+<wd l="2568" t="13426" r="2875" b="13579">why</wd>
+<space/>
+<wd l="2952" t="13469" r="3149" b="13550">we</wd>
+<space/>
+<wd l="3211" t="13469" r="3470" b="13555">can</wd>
+<space/>
+<wd l="3547" t="13426" r="3979" b="13584">safely</wd>
+<space/>
+<wd l="4051" t="13426" r="4526" b="13589">ignore</wd>
+<space/>
+<wd l="4603" t="13430" r="5285" b="13555">recursive</wd>
+<space/>
+<wd l="5362" t="13430" r="5717" b="13555">rules</wd>
+<space/>
+<wd l="5789" t="13430" r="5928" b="13555">in</wd>
+<space/>
+<wd l="6005" t="13430" r="6283" b="13555">this</wd>
+<space/>
+<wd l="6355" t="13430" r="7171" b="13560">discussion.</wd>
+<space/>
+<wd l="7291" t="13430" r="7603" b="13589">Any</wd>
+<space/>
+<wd l="7675" t="13474" r="8078" b="13594">parse</wd>
+<space/>
+<wd l="8150" t="13430" r="8472" b="13560">that</wd>
+<space/>
+<wd l="8544" t="13430" r="9154" b="13560">involves</wd>
+<space/>
+<wd l="9230" t="13474" r="9494" b="13560">one</wd>
+<space/>
+<wd l="9566" t="13426" r="9835" b="13555">will</wd>
+<space/>
+<wd l="9912" t="13430" r="10258" b="13560">have</wd>
+<space/>
+<wd l="10330" t="13474" r="10411" b="13555">a</wd>
+<space/>
+<wd l="10483" t="13430" r="10954" b="13598">bigger</wd>
+<space/>
+</run>
+</ln>
+<ln l="1646" t="13637" r="4685" b="13810" baseLine="13767" underlined="none" subsuperscript="none" fontSize="850" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="10">
+<wd l="1646" t="13651" r="1934" b="13766">tree</wd>
+<space/>
+<wd l="2011" t="13637" r="2285" b="13766">and</wd>
+<space/>
+<wd l="2371" t="13637" r="2539" b="13766">be</wd>
+<space/>
+<wd l="2611" t="13637" r="3542" b="13810">significantly</wd>
+<space/>
+<wd l="3629" t="13642" r="3893" b="13771">less</wd>
+<space/>
+<wd l="3970" t="13642" r="4685" b="13805">probable.</wd>
+</ln>
+</para>
+</column>
+</section>
+<dd l="6216" t="14467" r="6466" b="14630">
+<para l="6216" t="14467" r="6461" b="14626" alignment="left" lsp="exactly" lspExact="188" language="en" styleRef="paraStyle_1_7_63">
+<ln l="6216" t="14467" r="6461" b="14626" baseLine="14624" underlined="none" subsuperscript="none" fontSize="1050" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="0">
+<wd l="6216" t="14467" r="6461" b="14626">20</wd>
+</ln>
+</para>
+</dd>
+</body>
+</page>
+</document>

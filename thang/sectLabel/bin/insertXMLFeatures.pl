@@ -33,7 +33,7 @@ sub License {
 ### HELP Sub-procedure
 sub Help {
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in inFile -xml xmlFile -out outFile\n";
+  print STDERR "       $progname -in inFile -xml xmlFile -out outFile [-log logFile]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 }
@@ -42,10 +42,11 @@ my $HELP = 0;
 my $inFile = undef;
 my $xmlFile = undef;
 my $outFile = undef;
-
+my $logFile = "";
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'xml=s' => \$xmlFile,
 			    'out=s' => \$outFile,
+			    'log=s' => \$logFile,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
 
@@ -62,15 +63,16 @@ if (!$QUIET) {
 $inFile = untaintPath($inFile);
 $xmlFile = untaintPath($xmlFile);
 $outFile = untaintPath($outFile);
+$logFile = untaintPath($logFile);
 my $envPath = $ENV{'PATH'};
 $envPath = untaintPath($envPath);
 $ENV{'PATH'} = $envPath;
 ### End untaint ###
 
-processFile($inFile, $xmlFile, $outFile);
+processFile($inFile, $xmlFile, $outFile, $logFile);
 
 sub processFile{
-  my ($inFile, $xmlFile, $outFile) = @_;
+  my ($inFile, $xmlFile, $outFile, $logFile) = @_;
   
   #file I/O
   if(! (-e $inFile)){
@@ -83,11 +85,19 @@ sub processFile{
   open(XML, "<:utf8", $xmlFile) || die "#Can't open file \"$xmlFile\"";
 
   open(OF, ">:utf8", $outFile) || die "#Can't open file \"$outFile\"";
-  
+
+  if($logFile ne ""){
+    open(INLOG, ">>:utf8", "$logFile.in") || die "#Can't open file \"$logFile.in\"";
+    open(XMLLOG, ">>:utf8", "$logFile.xml") || die "#Can't open file \"$logFile.xml\"";
+    print INLOG "\n### $inFile ###\n";
+    print XMLLOG "\n### $inFile ###\n";
+  }
+
   my $inLine;
   my $xmlLine;
 
   #process input file
+  binmode(STDERR, ":utf8");
   my $id = -1;
   while(<IF>){
     $id++;
@@ -115,8 +125,9 @@ sub processFile{
       $xmlContent =~ s/^\s+//;
       $xmlContent =~ s/\s+$//;
       
-      if($inContent ne $xmlContent){
-        print "#! Warning: different \"$inContent\" vs. \"$xmlContent\"\n";
+      if($inContent ne $xmlContent && $logFile ne ""){
+	print INLOG "$inContent\n";
+	print XMLLOG "$xmlContent\n";
       }
       print OF "$inLine |XML| $xmlFeature\n";
     } else {
@@ -127,6 +138,11 @@ sub processFile{
   if(!eof(XML)){
     die "Die: lack value in in file at line id $id\n";
   }
+  if($logFile ne ""){
+    close INLOG;
+    close XMLLOG;
+  }
+
   close IF;
   close OF;
 }
