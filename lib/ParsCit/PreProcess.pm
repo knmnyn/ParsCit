@@ -36,7 +36,9 @@ sub findCitationText {
     my $bodyText = '0';
     my $citeText = '0';
 
-    while ($text =~ m/\b(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCE?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*\n+/sg) {
+# Corrected by Cheong Chi Hong <chcheong@cse.cuhk.edu.hk> 2 Feb 2010
+#    while ($text =~ m/\b(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCE?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*\n+/sg) {
+    while ($text =~ m/\b(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCES?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*\n+/sg) {
 	$bodyText = substr $text, 0, pos $text;
 	$citeText = substr $text, pos $text unless (pos $text < 1);
     }
