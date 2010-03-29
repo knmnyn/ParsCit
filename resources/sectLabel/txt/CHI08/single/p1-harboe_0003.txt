@@ -1,0 +1,75 @@
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Figure 1: The Social TV 2 system in use. The ambient
+orb is visible in the upper left, above the television.
+addition of ambient displays helped to fulfill the design 
+objectives of the system.
+In the following sections, we describe the design of our 
+Social TV 2 prototype, which we then put in the context of 
+existing work in both the social television and ambient 
+display literature. We outline unanswered questions that led 
+us to initiate this work and describe the mixed-method 
+approach to our field study. We then present our results, 
+describing how the ambient devices functioned as 
+traditional presence displays and as components of a more 
+complex communication system. Lastly, we show how 
+these findings bear on other social applications in the home, 
+and outline our future goals for social television research 
+and design.
+SOCIAL TV 2
+Social TV 2 follows Social TV, the system previously 
+described in Harboe et al. [15]. It is a prototype system that 
+allows remotely located friends and family to experience 
+some of the benefits of sitting next to one another on the 
+couch and watching a TV program together (Figure 1). To 
+provide this experience, we supplement typical TV 
+functions with two additional features: TV presence 
+information, and the ability to send and receive lightweight 
+messages. The features were selected to specifically 
+investigate people’s behaviors at the boundaries of the 
+social television experience, as they begin and end their 
+interactions, rather than the details of how they acted while 
+fully engaged in the communication experience.
+The prototype is implemented as a PC application running 
+on top of GBPVR1 media center software. The system uses 
+on-screen displays to communicate which of the user’s 
+friends or family (‘buddies’) are currently watching, what 
+they are watching, and what they have watched in the past.
+1 http://www.gbpvr.com/
+The laptop running the Social TV 2 software is connected 
+to a television, and all interaction with the system is 
+performed with a standard remote control. For our field 
+tests we chose to use a TiVo® remote that had several keys 
+relabeled to correspond to the features of our system.
+TV Presence
+A key requirement for encouraging participation in social 
+television is the ability to make users aware of when their 
+friends and family are logged into the system and watching 
+programs on TV. This information can be viewed from an 
+on-screen buddy list (Figure 2). The deployed system has 
+two presence states: ‘watching TV’ and ‘away’. The ‘away’ 
+state is intended to inform buddies that a user is not 
+currently watching TV. It is set automatically when the TV 
+is turned off or when no interactions with the system are 
+detected for some time after a program has ended. Users 
+can also disconnect from the social component of the 
+system if they wish to watch TV in privacy, and will then 
+appear to others to be ‘away.’ However, in this state many 
+of the features of the system are disabled, preserving a ‘see 
+and be seen’ information reciprocity.
+Users can change to the same program that their buddy is 
+watching from the buddy list. Additionally, whenever the 
+channel is changed, a list of buddies who are also watching 
+that program is displayed as part of the transient channel 
+information banner.
+Ambient Devices
+While Social TV 2’s on-screen display provides presence 
+awareness on the television, we wanted another means to 
+convey this information when the TV wasn’t on, or when 
+users were in a different room and unable to see the TV. 
+We chose to use two separate displays capable of 
+communicating information unobtrusively, visible from 
+anywhere in a room, and which would fit in as household 
+objects. The system has two different display devices to 
+meet these needs (Figure 3).
+Figure 2: The Social TV 2 on-screen buddy list.
+2

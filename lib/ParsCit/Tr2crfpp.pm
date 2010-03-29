@@ -31,15 +31,12 @@ $modelFile = "$FindBin::Bin/../$modelFile";
 ### END user customizable section
 
 my %dict = ();
-readDict($dictFile);
-
 
 sub prepData {
     my ($rCiteText, $filename) = @_;
     my $tmpfile = buildTmpFile($filename);
-#    $tmpfile = "$tmpDir/$tmpfile";
 
-#    print $$rCiteText;
+    readDict($dictFile); # Thang Mar 10: move inside the method, only load when running
 
     unless (open(TMP, ">:utf8", $tmpfile)) {
 	fatal("Could not open tmp file $tmpDir/$tmpfile for writing.");

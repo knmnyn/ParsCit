@@ -1,0 +1,131 @@
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+selected as the neighborhood for the purpose of recom-
+mendation; these are the more shaded nodes in Figures 
+2 and 3. Our benchmark CF prediction algorithm uses 
+Resnick’s formula which is reproduced below as Equa-
+tion 1; see also [5]. In this formula c(i) is the rating to 
+be predicted for item i for an active profile c (the user 
+receiving the recommendation), and p(i) is the rating 
+for item i by a peer profile p who has rated i. c and 
+p refer to the mean ratings for c and p respectively. 
+The weighting factor rim(c, p) is a measure of the sim-
+ilarity between profiles c and p, which is traditionally 
+calculated as Pearson’s correlation coefficient and has 
+a range of -1 to +1. In our evaluation section we test 
+the performance of this standard benchmark algorithm 
+against our visualization-based approaches, which allow 
+user hints to influence the similarity values used during 
+recommendations as we shall now discuss.
+(p(i) — p)rim(c, p)
+lrim(c,p)l	(1)
+Distance Weighting 
+To incorporate user hints into the recommendation pro-
+cess we simply replace the standard similarity values 
+(based on user-user ratings correlations) with a new 
+similarity value that is based on the inverse Euclidean 
+distance between the active user node and each of the 
+k peer nodes that have been manipulated by the user. 
+This is our ephemeral similarity value and is given by 
+Equation 2. Here, Euclidean distance between pixels 
+on the graph is normalized to the Pearson’s correlation 
+range of (-1, +1), max dirt is the maximum possible 
+distance between the active user node and a peer node, 
+while node dirt is the distance between the active node 
+(ie: the center of the graph) and each peer node. Equa-
+tion 3 shows the original Resnick prediction formula us-
+ing ephemeral similarity in place of the standard Pear-
+son correlation. The nomenclature is similar to that in 
+Equation 1 with c(i) being the predicted rating for an 
+active user c on item i.
+(p(i) — p)eph rim(c, p)
+E eph rim(c, p)	(3)
+EVALUATION	pEP;
+The majority of experiments involving recommender 
+system algorithms are based on some form of automated 
+testing, for example, predicting ratings for some “hid-
+den” subset of the rated data. This is only possible in 
+absence of interactive components such as the ones of 
+our PeerChooser system. Visualization and interaction 
+are additional “tiers” to the process of collaborative fil-
+tering which prohibit the standard automated testing 
+procedure since real people must explore the graph and 
+interact with it to attain results.
+Procedure
+To test the performance of our system we conducted 
+twenty five user trials which examined four techniques 
+for generating recommendations with PeerChooser, two
+with interaction (hints) and two without. The source 
+data for this survey was the smaller MovieLens[3] dataset, 
+which contains 943 users ratings on 1682 items. Partic-
+ipants were asked to generate recommendations using 
+the techniques listed below. Three values per recom-
+mendation were recorded: the predicted rating, the ac-
+tual rating, and the average rating for that item across 
+the entire database.
+1. Average Layout - (non-interactive) The graph was laid out based 
+on an “average user”. This profile was created by taking the av-
+erage rating for the 50 most rated items. Participants were then 
+asked to rate recommendations generated for this user. This tech-
+nique was expected to yield the worst results as it contained no 
+personalized information.
+2. Profile-Based Layout - (non-interactive) This is our benchmark 
+CF algorithm. Users rated 30 items in the right hand panel. Cor-
+relations computed from these were used to generate predictions.
+3. Profile-Based Layout with Manipulation - (interactive) Same as 
+above but the user can manipulate the graph to provide informa-
+tion on current requirements.
+4. Profile-Based Layout with Manipulation and Feedback - (inter-
+active) Same as above except the user receives dynamic recom-
+mendations on their salient items with each graph movement. We 
+expected this to exhibit the best performance.
+In all cases, the system’s predicted rating was not shown 
+to participants until after they had provided their rat-
+ing for each predicted item. This follows from work 
+by Swearingen et al. in [6] which suggests that users 
+tend to rate towards the machine-provided ratings. In 
+all cases the number of neighbors was set to k=30, an 
+optimal value for CF on our dataset reported in [4] For 
+associating or clustering non-active user nodes to genre 
+nodes we used a liked-item threshold of 3 (ie: liked- 
+items had a rating of 4 or 5). For each test, the 400 
+most similar users based on Pearson’s correlation were 
+displayed on the graph. In all tasks where the user in-
+teracted with the graph, predictions were made using 
+our distance-based version of Resnick’s prediction for-
+mula, given by Equation 3, in all others the standard 
+Resnick prediction formula, Equation 1 was used.
+In the final task, Profile-Based Layout with Manipula-
+tion and Feedback the graph layout was initially built 
+from correlation over the profile data. Users were asked 
+to select checkboxes next to the 5 movies they really 
+liked and the 5 that they disliked. Users selected a but-
+ton marked “specific predictions” to see the benchmark 
+CF predictions on those items. Users were then told to 
+take some time to manipulate the graph of connected 
+peers to try and tweak the recommendations for their 
+chosen items to a value that most suited their needs 
+and preferences. With no time constraints imposed, all 
+users in the survey reported that they had arrived at 
+a satisfactory position within 2 mins. With each in-
+teraction users were provided with dynamic recommen-
+dations based on their “salient” item-set and accord-
+ing to the current neighborhood configuration. This 
+allowed the users to dynamically assess the goodness 
+of the evolving neighborhood space as each interaction 
+was performed. Once satisfied with predictions that the 
+“tweaked” graph generated on the salient item sets, a 
+list of top-n recommendations was presented and the 
+user was asked to rate them individually.
+h sim c	1 — 2(node dirt)
+ep	( ,F
+_
+max dirt	(2)
+c(i) = c+
+E
+pEP(i)
+E
+pEP;
+c(i) = c +
+11
+pEP(i)
+1087

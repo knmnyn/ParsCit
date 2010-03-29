@@ -1,0 +1,416 @@
+1_1 Integration of Speech and Vision in a small mobile robot
+2_2 Dominique ESTIVAL
+3_3 Department of Linguistics and Applied Linguistics
+4_4 University of Melbourne
+5_5 Parkville VIC 3052, Australia
+6_6 D.Estival@linguistics.unimelb.edu.au
+7_7 Abstract
+8_8 This paper reports on the integration of a
+9_9 speech recognition component into a small
+10_10 robot, J. Edgar, which was developed in the
+11_11 Al Vision Lab at the University of
+12_12 Melbourne. While the use of voice
+13_13 commands was fairly easy to implement,
+14_14 the interaction of the voice commands with
+15_15 the existing navigation system of the robot
+16_16 turned out to pose a number of problems.
+17_17 Introduction .
+18_18 J. Edgar is a small autonomous mobile robot
+19_19 developed in the AT Vision Lab at the
+20_20 University of Melbourne, which is primarily
+21_21 used as a platform for research in vision and
+22_22 navigation. The project which we describe in
+23_23 this paper consists in the addition of some
+24_24 language capabilities to the existing system, in
+25_25 particular the recognition of voice commands
+26_26 and the integration of the speech recognition
+27_27 component with the navigation system.
+28_28 While the vision and navigation work is mainly
+29_29 carried out by Ph.D. students in Computer
+30_30 Science, adding speech and language
+31_31 capabilities to the J.Edgar robot has been a
+32_32 collaborative project between the two
+33_33 Departments of Computer Science and of
+34_34 Linguistics and Applied Linguistics, and the
+35_35 work has been performed by several linguistics
+36_36 students hosted by the Computer Science
+37_37 department and working in tandem with CS
+38_38 students.
+39_39 The paper is organized as follows: section
+40_40 ldescribes the capabilities and restrictions of
+41_41 the robot J. Edgar, section 2 is an overview of
+42_42 the speech recognition and language
+43_43 understanding system we have added to the
+44_44 robot, section 3 goes through the different
+45_45 stages of the integration and section 4 briefly
+46_46 describes the generation component.
+47_47 1 Description of J. Edgar
+48_48 1.1 Moving around
+49_49 The J.Edgar robot is rather limited in the types
+50_50 of movement it can perform. Its twin wheels
+51_51 allow it to move forward in a straight line, and
+52_52 to turn around, either right or left, up to 3600,
+53_53 but it cannot move backwards. Its speed can be
+54_54 varied, but is usually kept very low to avoid
+55_55 accidents.
+56_56 1 . 2 Vision and Navigation
+57_57 1.2.1 Vision
+58_58 The vision system of J.Edgar consists in a one-
+59_59 eye monochrome camera mounted on a small
+60_60 frame with two independent drive wheels and a
+61_61 pan head. Its spatial representation is two-
+62_62 dimensional and relies on edge detection.
+63_63 More specifically, it interprets discontinuities
+64_64 as boundaries between surfaces, which
+65_65 constitute obstacles.
+66_66 1.2.2 Navigation
+67_67 The J.Edgar robot uses MYNORCA, a vision-
+68_68 based navigation system developed in the
+69_69 University Melbourne Al Vision Lab (Howard
+70_70 and Kitchen, 1997a, 1997b). This navigation
+71_71 system is divided into two levels:
+72_72 • The local navigation system uses visual
+73_73 clues for obstacle detection and to form
+74_74 local maps. It allows the robot to navigate
+75_75 in its immediate environment and to reach
+76_76 local goals without colliding with
+77_77 obstacles. Most solid objects are
+78_78 recognized as obstacles, but obstacles can
+79_79 also be recognized as walls, corners or
+80_80 doorways (see section 3.3).
+81_81 • The global navigation system detects
+82_82 significant landmarks and uses a global
+83_83 map to determine its location in the
+84_84 environment. It allows the robot to reach
+85_85 distant goals specified according to the
+86_86 global map. The detection of landmarks
+87_87 also requires a level of object recognition
+88_88 109
+89_89 and the interpretation of visual cues
+90_90 needed at the local level.
+91_91 Figure 1 shows a series of snapshots for the
+92_92 local and global navigation systems during a
+93_93 given time period. Both systems are based on
+94_94 the production of occupancy maps generated
+95_95 by a visual mapping system based on the
+96_96 detection of boundaries.
+97_97 This project has so far been able to interface
+98_98 only with the vision-based navigation system at
+99_99 the local level, but we hope we will soon be
+100_100 able to extend it to the object recognition
+101_101 aspect and interact with the global level.
+102_102 r--rrrrvrrrr-i
+103_103 :
+104_104 4 Ini4-----i.
+105_105 ■....110 i..
+106_106 h 10
+107_107 r..
+108_108 &apos;;.f.
+109_109 .4
+110_110 .4,
+111_111 Ir. 44.
+112_112 II
+113_113 5 i;
+114_114 .,,,,Nec
+115_115 L,.........i..........,; .. .. t. .,..,.L: ...:
+116_116 r .n 0 vK
+117_117 F.----11.itrITirrrrx-)
+118_118 .....: . .
+119_119 .-.&quot;,.,,,,..•,.........,..,,,,,,.-...,......,4
+120_120 e r ,..ro.. - r
+121_121 `-&apos;4U3 ....K.,L4&apos;;i&apos;. 4
+122_122 ,..:,..; &amp;ol
+123_123 t• r., r.,./..r.r.......„,..Ar.,&quot;„,4
+124_124 .,{
+125_125 4
+126_126 .1
+127_127 Figure 1: The upper set of images is a series of snapshots of the local occupancy
+128_128 map indicating the robots current location and path. The lower set of images is a
+129_129 series of snapshots showing the evolution of the estimated global position
+130_130 (global pose estimate). The cross-hatched region indicates possible robot
+131_131 locations in the global model. [from Howard &amp; Kitchen 19974
+132_132 110
+133_133 The vision and navigation systems are installed
+134_134 on a base-station which communicates via a
+135_135 UHF data-link with the on-board computer.
+136_136 The on-board computer performs the low-
+137_137 level hardware functions and supports the
+138_138 obstacle detection agent (see below).
+139_139 2 Speech and Language
+140_140 The first step towards integrating some sort of
+141_141 Natural Language capabilities into the robot
+142_142 was to install a speech recognition component.
+143_143 The second step was to develop a grammar to
+144_144 analyze voice commands and to map those
+145_145 commands onto the actual actions which the
+146_146 robot can perform.
+147_147 In the next stage of the project, we are now
+148_148 working towards the development of a
+149_149 dialogue system, with which J.Edgar can
+150_150 respond according to its internal status and
+151_151 make appropriate answers to the voice
+152_152 commands it recognizes. Until the speech
+153_153 synthesizer component is fully incorporated
+154_154 into the system, we are using canned speech
+155_155 for the answers.
+156_156 The speech recognition system is installed on
+157_157 the base-station and communicates with the
+158_158 robot via the UHF modem.
+159_159 2.1 Speech Recognition
+160_160 The main factor taken into consideration in
+161_161 choosing an off-the-shelf speech recognition
+162_162 system was the possibility of building an
+163_163 application on top of it, and the IBM
+164_164 VoiceType system was first chosen because of
+165_165 the availability of development tools. Despite
+166_166 some initial problems, these tools have proven
+167_167 useful and have allowed us to develop our own
+168_168 grammar and interface with the robot. We
+169_169 have now migrated to the IBM ViaVoice Gold
+170_170 system, which provides better speech
+171_171 recognition performance and the same
+172_172 development tools as VoiceType. In addition,
+173_173 ViaVoice includes a speech synthesizer, which
+174_174 we are currently incorporating in our system.
+175_175 In the remainder of this paper, I will describe
+176_176 the work that has been carried out using the
+177_177 IBM VoiceType system and ported to the
+178_178 ViaVoice system.
+179_179 The system is speaker-independent and so far
+180_180 has been trained with more than 15 people.
+181_181 Care has been taken not to overtrain it with
+182_182 any one particular person in order to maintain
+183_183 speaker-independence.
+184_184 In general terms, the lexicon used in the
+185_185 system maps onto the actions which the robot
+186_186 can perform and the entities it can recognize.
+187_187 The lexicon is thus as limited as the world of
+188_188 the robot, but it includes as many variant
+189_189 lexical items as might be plausibly used (e.g.
+190_190 turn, rotate, spin etc. for TURN). These
+191_191 actions and entities are described in section 3.
+192_192 The IBM VoiceType or ViaVoice system can
+193_193 be used either as a dictation system with
+194_194 discrete words, or in continuous speech mode.
+195_195 Taking advantage of the grammar
+196_196 development tools, we are using it in
+197_197 continuous mode, and the voice commands are
+198_198 parsed by the grammar described in section
+199_199 2.2.
+200_200 2.2. Commands Grammar
+201_201 In addition to the baseline word recognition
+202_202 capability, the development tools in the IBM
+203_203 VoiceType or ViaVoice systems all the
+204_204 developer to write a BNF grammar for parsing
+205_205 input strings of recognized words. We have
+206_206 thus developed a grammar mapping voice
+207_207 commands to the actions J. Edgar is capable of
+208_208 performing.
+209_209 2.2.1. Semantics
+210_210 Each item in the lexicon is annotated with an
+211_211 &quot;annodata&quot;, which can be thought of as its
+212_212 semantic interpretation for this domain.
+213_213 Recognized input strings are thus transformed
+214_214 into strings of &quot;annodata&quot;, which are further
+215_215 parsed and sent to the communication
+216_216 protocol. A command such as (1) will be
+217_217 recognized as (2) and the string of annodata
+218_218 (3) will be then parsed to produce the
+219_219 sequence of commands (4).
+220_220 (1) J. Edgar before turning left and
+221_221 moving forward please turn around
+222_222 (2) J.Edgar:&quot;INITIALIZE&quot; before:&quot;INIT2&quot;
+223_223 turning:&quot;TURN&quot; /eft:&quot;LEFT&quot;
+224_224 and:&quot;SEQUENCE&quot; moving :&quot;MOVE&quot;
+225_225 forward :&quot;FORWARD&quot; please :&quot;INIT1&quot;
+226_226 turn:&quot;TURN&quot; around:&quot;BACKW ARDS&quot;
+227_227 (3) INITIALIZE INIT2 TURN LEFT
+228_228 SEQUENCE MOVE FORWARD
+229_229 INIT1 TURN BACKWARDS
+230_230 (4) INITIALIZE INIT1 TURN
+231_231 BACKWARDS INIT2 TURN LEFT
+232_232 SEQUENCE MOVE FORWARD
+233_233 111
+234_234 2.2.2. Syntactic analysis
+235_235 All commands to the robot are in the
+236_236 imperative. However, some structures for
+237_237 complex commands have been implemented.
+238_238 These concern mainly the coordination of
+239_239 commands and temporal sequence. As shown
+240_240 in the example above, conjunctions such as
+241_241 before and after will trigger the recognition of
+242_242 a temporal sequence and the possible
+243_243 reordering of the commands. Other
+244_244 recognized constructions include:
+245_245 (5) IF „.. COMMAND
+246_246 If there is a wall to your left, turn
+247_247 right and move forward.
+248_248 (6) WHEN .... COMMAND
+249_249 When you get to a all, go along it.
+250_250 3. Integration
+251_251 3.1. Movements only
+252_252 In the first stage of this project, the natural
+253_253 language system was only interfacing with the
+254_254 movement commands of the robot, and not
+255_255 with the navigation system (either local or
+256_256 global). That is, the robot was either
+257_257 performing in the voice command modality,
+258_258 or in the navigation modality. The main
+259_259 reason for this limitation was that the
+260_260 navigation system was still under development
+261_261 and not robust enough to ensure safe
+262_262 manoeuvering in case of voice commands
+263_263 leading to potentially damaging situations.
+264_264 As a result, only commands relating to
+265_265 movements (MOVE or TURN), and their
+266_266 specifications (FORWARD, LEFT, RIGHT, and
+267_267 specific distances) were understood and there
+268_268 was no need for representing objects or
+269_269 entities.
+270_270 3.2. Low-level vision
+271_271 In the second stage of the project, we only
+272_272 integrated the language capabilities with the
+273_273 low-level vision system of the local navigation
+274_274 system. In practical terms this means that while
+275_275 the robot can both accept spoken commands
+276_276 and scan its environment, it can only recognize
+277_277 local movement commands and will only obey
+278_278 them if they do not lead to a collision.
+279_279 Thus, this stage also did not require the
+280_280 addition of any semantic representation for
+281_281 objects. However, to avoid a collision with an
+282_282 obstacle, we need the local vision system for
+283_283 obstacle recognition. We use the
+284_284 &quot;careForward&quot; function, which overrides the
+285_285 default distance of 1 meter if there is an
+286_286 obstacle in the path of the robot and ensures
+287_287 that the robot will only move to a safe
+288_288 distance from it.
+289_289 3.3. Local navigation
+290_290 Further integration consists in issuing
+291_291 commands that involve locations and objects
+292_292 the robot knows about, as in (7):
+293_293 (7) Go down the corridor and go through
+294_294 the first doorway on the right.
+295_295 This stage involves referring to objects and
+296_296 entities recognized by the robot.
+297_297 There are five types of primitive objects in the
+298_298 world which the robot can identify:
+299_299 - WALL
+300_300 a straight line;
+301_301 - DOORWAY
+302_302 a gap between two walls;
+303_303 - INSIDE CORNER (&quot;in the corner&quot;)
+304_304 two lines meeting at an angle and
+305_305 enclosing the robot;
+306_306 - OUTSIDE CORNER (&quot;around the corner&quot;)
+307_307 two lines meeting at an angle and
+308_308 going away from the robot;
+309_309 - LUMP
+310_310 a bounded solid object.
+311_311 From combining these primitive objects, the
+312_312 robot can also create representations far
+313_313 complex objects:
+314_314 - INTERSECTION:
+315_315 two outside corners that form an
+316_316 opening;
+317_317 - CORRIDOR:
+318_318 two parallel walls.
+319_319 Both types of objects can be used as referents
+320_320 in commands and can be queried.
+321_321 It is worth emphasising that obstacles are not
+322_322 recognized as a separate categorie, but are
+323_323 either walls, lumps, corners, or doorways which
+324_324 are not wide enough for the robot to pass
+325_325 through.
+326_326 For instance, in Figure 2, the robot recognizes
+327_327 an opening in the wall on its right and might
+328_328 later recognize an outside corner to its left.
+329_329 i.12
+330_330 The white area corresponds to the area the
+331_331 robot has already recognized as being empty
+332_332 and the black areas to recognized walls.
+333_333 3.4. Global navigation
+334_334 The next stage of the project is the integration
+335_335 with the whole navigation system, including
+336_336 the recognition of objects and locations. In
+337_337 this mode, the robot will not only stop when
+338_338 there is an obstacle, but will be able to decide
+339_339 whether to try to go around it. The objects to
+340_340 be used as referents will include locations such
+341_341 as Office 214, Andrew&apos;s office, or Corridor A,
+342_342 which have specific coordinates on the robot&apos;s
+343_343 global map. This is on-going work and we
+344_344 hope to have achieved this level of integration
+345_345 in the next few months.
+346_346 4. Generation
+347_347 In the meantime, the robot can return
+348_348 information about its perception of the
+349_349 environment, including the obstacles which
+350_350 were recognized, and can ask for further
+351_351 instructions. We have identified four situations
+352_352 for the generation of questions by the robot:
+353_353 1. when a command is not recognized,
+354_354 2, when a command is incomplete,
+355_355 3. when a command cannot be completed,
+356_356 4. when an object referred to in a command
+357_357 cannot be located.
+358_358 The first and second situations only require
+359_359 input from the speech recognition system,
+360_360 including the mapping to robot commands.
+361_361 However, the third situation requires access to
+362_362 the local navigation system, or at least to
+363_363 obstacle detection, and the fourth situation
+364_364 requires access to either the local or global
+365_365 navigation system, depending on whether the
+366_366 object is a primitive object or whether it
+367_367 requires coordinates on the global map. In
+368_368 these last two situations, the generation of
+369_369 questions by the robot involves a mapping
+370_370 between the robot&apos;s internal representations of
+371_371 the recognized environment and the actual
+372_372 expressions used both in the commands and in
+373_373 returning answers.
+374_374 Conclusion
+375_375 While this project has been a successful
+376_376 collaboration between vision-based navigation
+377_377 and natural language processing, the J.Edgar
+378_378 robot is still far from having achieved a
+379_379 convincing level of speech understanding.
+380_380 Some of the challenges of such a project
+381_381 reside in the successful communication
+382_382 between the speech recognition system and the
+383_383 robot, but the more interesting aspect is that of
+384_384 the correspondence between the entities used
+385_385 by the navigation system and the phrases
+386_386 recognized by the speech system.
+387_387 Since the speech system is independent of the
+388_388 physical robot, it can be interfaced with a
+389_389 number of robots. One of the extensions of
+390_390 this project is to install a natural language
+391_391 interface for some of the other robots being
+392_392 built in the Al lab and eventually to use the
+393_393 same natural language interface with more
+394_394 than one robot at a time.
+395_395 Acknowledgments
+396_396 We thank Leon Sterling and Liz Sonnenberg
+397_397 for the support of the Computer Science
+398_398 Department for this project, Andrew Howard
+399_399 for letting us use J.Edgar and for his help and
+400_400 advice throughout, Elise Dettman, Meladel
+401_401 Mistica and John Moore for their enthusiasm
+402_402 and dedication, and all the people in the AI
+403_403 Vision Lab for their help.
+404_404 References
+405_405 Colleen Crangle and Patrick Suppes (1994).
+406_406 Language and learning for robots. CSLI lecture
+407_407 notes 41. Stanford: CSLI.
+408_408 Andrew Howard and Les Kitchen (1997a). Vision-
+409_409 Based navigation Using Natural Landmarks,
+410_410 FSR&apos;97 International Conference on Field and
+411_411 Service Robotics. Canberra, Australia.
+412_412 Andrew Howard and Les Kitchen (1997b). Fast Visual
+413_413 mapping for Mobile Robot Navigation, ICIPS&apos;97
+414_414 IEEE International Conference on Intelligent
+415_415 Processing Systems, Beijing.
+416_416 113

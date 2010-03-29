@@ -1,0 +1,378 @@
+An expressive aspect language for system applications
+with Arachne
+R´emi Douence, Thomas Fritz, Nicolas Loriant,
+Jean-Marc Menaud, Marc S´egura-Devillechaise, Mario S¨udholt
+OBASCO project
+´Ecole des Mines de Nantes/INRIA
+4 rue Alfred Kastler
+44307 Nantes Cedex 3, France
+{douence,tfritz,nloriant,jmenaud,msegura,sudholt}@emn.fr
+ABSTRACT
+C applications, in particular those using operating system +L+ level services, frequently comprise multiple crosscutting con- +L+ cerns: network protocols and security are typical examples +L+ of such concerns. While these concerns can partially be ad- +L+ dressed during design and implementation of an application, +L+ they frequently become an issue at runtime, e.g., to avoid +L+ server downtime. A deployed network protocol might not be +L+ efficient enough and may thus need to be replaced. Buffer +L+ overflows might be discovered that imply critical breaches in +L+ the security model of an application. A prefetching strategy +L+ may be required to enhance performance.
+While aspect-oriented programming seems attractive in +L+ this context, none of the current aspect systems is expres- +L+ sive and efficient enough to address such concerns. This +L+ paper presents a new aspect system to provide a solution to +L+ this problem. While efficiency considerations have played +L+ an important part in the design of the aspect language, the +L+ language allows aspects to be expressed more concisely than +L+ previous approaches. In particular, it allows aspect pro- +L+ grammers to quantify over sequences of execution points as +L+ well as over accesses through variable aliases. We show how +L+ the former can be used to modularize the replacement of net- +L+ work protocols and the latter to prevent buffer overflows. +L+ We also present an implementation of the language as an +L+ extension of Arachne, a dynamic weaver for C applications. +L+ Finally, we present performance evaluations supporting that +L+ Arachne is fast enough to extend high performance applica- +L+ tions, such as the Squid web cache.
+Keywords
+aspect language, sequence pointcut, dynamic weaving, sys- +L+ tem applications
+Permission to make digital or hard copies of all or part of this work for +L+ personal or classroom use is granted without fee provided that copies are +L+ not made or distributed for profit or commercial advantage and that copies +L+ bear this notice and the full citation on the first page. To copy otherwise, to +L+ republish, to post on servers or to redistribute to lists, requires prior specific +L+ permission and/or a fee.
+AOSD 05 Chicago Illinois USA
+Copyright 2005 ACM 1-59593-042-6/05/03 ...$ 5.00.
+1. INTRODUCTION
+Real-world applications typically comprise multiple cross- +L+ cutting concerns. This applies, in particular, to C applica- +L+ tions using operating system level services. We have exam- +L+ ined three concerns which are typical for this domain in the +L+ context of a large application, the open source web cache +L+ Squid [36]. More concretely, we have considered translation +L+ of network protocols (which may be necessary for efficiency +L+ reasons), insertion of checks for buffer overflows (which are +L+ at the heart of many of today’s security issues), and in- +L+ troduction of prefetching strategies within the cache (which +L+ can be used to enhance efficiency of the web cache). We +L+ have found that all these concerns are scattered over large +L+ portions of the code of Squid.
+Hence, the three concerns are crosscutting in the sense +L+ of Aspect-Oriented Programming (AOP) [24] and aspects +L+ should therefore be a means of choice for their modular- +L+ ization. The concerns have three important characteristics. +L+ First, they must frequently be applied at runtime, e.g., in +L+ order to rapidly fix a buffer overflow and thus prevent secu- +L+ rity breaches without incurring server downtime. A dynamic +L+ aspect weaver is therefore needed. Second, they expose in- +L+ tricate relationships between execution points, e.g., network +L+ protocols are most concisely expressed in terms of sequences +L+ of execution points, not individual ones. The aspect system +L+ must therefore support expressive means for the definition of +L+ aspects, in particular pointcuts. Third, efficiency is crucial +L+ in the application domain we consider.
+To our knowledge, none of the current aspect systems for +L+ C meet these three requirements and is suitable for the mod- +L+ ularization of such concerns. Moreover, requirements for +L+ dynamic weaving and efficiency often trade off with expres- +L+ sivity. Squid should be as efficient as possible and therefore +L+ exploit any suitable operating system and hardware partic- +L+ ularity. Its code base is therefore difficult to understand and +L+ manipulate, thus hindering in particular modularization ef- +L+ forts. It is therefore highly questionable that the considered +L+ modularization problems can be solved without aspects.
+In this paper we propose a solution to the aspectization of +L+ such concerns of C applications. More concretely, we provide +L+ three main contributions. First, we provide a new expressive +L+ aspect language featuring a construct for quantification over +L+ sequences of execution points as well as over accesses to lo- +L+ cal aliases of global variables. We show how this aspect lan-
+27
+guage permits concise expression of the considered concerns +L+ as aspects. Second, we present how the aspect language can +L+ be implemented efficiently through runtime weaving into bi- +L+ nary code. Concretely, this is done by integrating the aspect +L+ language into our tool Arachne, a dynamic weaver for C ap- +L+ plications. Furthermore, we present how Arachne improves +L+ on our previous work µDyner [32]. Finally, we give evidence +L+ that our approach meets strong efficiency requirements by +L+ showing performance evaluations in the context of Squid.
+The paper is structured as follows. Section 2 presents the +L+ motivating concerns we identified within Squid. Section 3 +L+ shows how to modularize these concerns as aspects and de- +L+ fines our aspect language. Section 4 describes its implemen- +L+ tation within Arachne. Section 5 assesses the performance +L+ of our implementation. Section 6 describes related work. +L+ Section 7 concludes and suggests futures work.
+2. MOTIVATIONS
+Legacy C applications involve multiple crosscutting con- +L+ cerns. Many of them remain challenging, both in terms +L+ of expressiveness required to handle them properly in an +L+ aspect-oriented language and in terms of constraints posed +L+ on the weaver. This section describes three such concerns +L+ in C applications: switching the network protocol, buffer +L+ overflows and prefetching. The network protocol concern is +L+ typically scattered through the entire application. It is an +L+ issue when administrators discover at runtime that the re- +L+ tained protocol is not efficient enough. Likewise the security +L+ threats posed by buffer overflows is a real concrete problem +L+ for administrators. While guarding all buffers against over- +L+ flows might decrease performance considerably, administra- +L+ tors are left with no other option than accepting the trade- +L+ off between security and performance chosen at application’s +L+ design time. Prefetching is another well-known crosscutting +L+ concern [12]. Since prefetching aims at increasing perfor- +L+ mance, prefetching aspects make only sense with an efficient +L+ weaver. Yet, it is still difficult to modularize these three con- +L+ cerns in today’s aspect-oriented language. In this section, +L+ we first describe the context in which the concerns arise be- +L+ fore showing their crosscutting nature and finally explaining +L+ the lack in current aspect-oriented languages to handle them +L+ properly.
+2.1 TCP to UDP protocol
+HTTP was essentially designed as a file transfer proto- +L+ col running on top of TCP, a connection-oriented protocol +L+ ensuring communication reliability. While the average Web +L+ page size does not exceed 8 KB [4], the cost of retrieving +L+ a Web page is often dominated by data exchanged for con- +L+ trol purposes of TCP rather than by the page content itself. +L+ This is not a new problem, many researches have already +L+ pointed out that TCP is not suitable for short-lived connec- +L+ tions. While HTTP 1.1 has introduced persistent connec- +L+ tions allowing a client to retrieve multiple pages from the +L+ same server through the same TCP connection, the number +L+ of simultaneous TCP connections is limited by operating +L+ systems. Servers have a strong incentive to close HTTP +L+ connections as soon as possible. Hence, despite the per- +L+ sistent connection mechanism, many studies conclude that +L+ TCP should be replaced by UDP to retrieve short pages [10, +L+ 29, 7]. In spite of its performance improvements, the number +L+ of legacy Web applications has prevented a wide adoption +L+ of this solution. Typical legacy Web applications have to be
+Figure 1: Typical usage of the TCP and UDP APIs.
+stopped to switch the protocol. The traditional approach +L+ to avoid depriving a subnetwork from Internet connectivity +L+ while stopping the cache is to swap the application between +L+ different machines. This approach is not only expensive in +L+ terms of hardware, it complicates the administrative task of +L+ the Web cache administrator and poses the problem of con- +L+ sistently transferring the runtime state of the application +L+ before restarting it. Stopping an e-commerce Web server +L+ means a loss of money and many small companies can not +L+ afford the cost of redundant servers. For a wide acceptance, +L+ a HTTP dialect using UDP as transport protocol should +L+ thus be deployable on demand at runtime.
+In addition, replacing TCP by UDP in an application is +L+ relatively difficult. The choice of a transport protocol is +L+ usually based on standards believed to be ever-lasting and +L+ made at an early design stage. Hence no particular effort is +L+ made to localize this design decision in a single piece of code. +L+ For example, despite a modularization effort, the TCP API +L+ provided by the operating system is used directly in 7 of the +L+ 104 ” . c” source files of the Squid Web cache.
+As shown in Fig. 1, the TCP API is built around a set of +L+ C functions to be invoked sequentially by the application. In +L+ a properly written program, TCP functions are first used to +L+ establish the connection (typically with socket, connect, +L+ bind and listen), exchange data through the connection +L+ (typically with read and write) and then close it (typically +L+ close). UDP uses similar but less functions. UDP applica- +L+ tions first direct the operating system to dedicate the appro- +L+ priate resources to exchange data (typically with socket and +L+ bind), then exchange data through these resources (typically +L+ with sendto and recvfrom) before releasing them (typically +L+ with close). Hence, the problem is not only difficult be- +L+ cause TCP-related function invocations are scattered but +L+ because the relative order of each invocation is important in +L+ order to map it onto the appropriate UDP function.
+This example is typical of protocol based APIs. When +L+ such an API is used in an undisciplined way, it becomes +L+ quickly impossible to replace it by another one. Today, +L+ aspect-oriented systems lack an appropriate sequencing con- +L+ struct in their language. Moreover, many do not provide the +L+ ability to weave aspects dynamically.
+2.2 Buffer overflows
+In C, the size of an array is fixed at allocation time. Ac- +L+ cording to ISO and ANSI standards [2], an invalid array +L+ access does not result in an immediate error but leads to +L+ an implementation-dependent behavior. Such behavior is +L+ increasingly exploited by hackers to circumvent security re-
+TCP Protocol	Time	UDP Protocol
+Server Network Client	Server Network Client
+bind
+listen
+accept
+read
+write
+close
+socket
+connect
+write
+read
+close
+socket
+socket
+bind
+recvfrom
+sendto
+close
+socket
+recvfrom
+close
+sendto
+28
+strictions [37]. It is therefore crucial for C programmers to +L+ ensure every access to an array to be valid. On the other +L+ hand, bound checking code is error prone: it is easy to for- +L+ get to check an access and even when the access is checked, +L+ it is easy to compare the index locating the access with an +L+ inappropriate bound. Therefore, researchers have proposed +L+ to make compilers responsible for enforcing proper array ac- +L+ cess [22, 31]. The problem is that even the most efficient +L+ system (CRED [31]) slows down an application up to 130%. +L+ Moreover, most frequently used compilers like gcc do not +L+ support bound checking.
+Today, administrators discovering a buffer overflow in pro- +L+ duction software are left with no other option than stopping +L+ the application and restarting a bug free version. This was +L+ the solution chosen when a buffer overflow was discovered +L+ in Squid in [6]. While widely used, this solution suffers from +L+ three major drawbacks. First, it does not enforce continuous +L+ servicing since the service delivered by the application is not +L+ available during the update. Second, this solution entails an +L+ important information loss: an administrator has no means +L+ to learn whether the buffer overflow has been exploited by +L+ a hacker or not. Third, it misunderstands the performance +L+ trade-off, i.e. it is not necessary to check every array access, +L+ it is only necessary to perform enough checking to discour- +L+ age hackers. Therefore, bound checking code should only +L+ run when an environment becomes hostile [23].
+Bound checking code tends to crosscut the entire applica- +L+ tion. For example, properly written C functions accepting +L+ an array argument commonly take a second argument hold- +L+ ing the array size: the first one allows the function to access +L+ the array while the second is used to ensure correctness of +L+ accesses. In Squid, bound checking code can be found in +L+ any of the 104 ” . c” files of its source code. On the 57635 +L+ lines composing these ” . c” files, at least 485 check bounds.
+This problem fails to be handled properly in current as- +L+ pect languages as they lack the ability to trigger advices +L+ upon access made through the alias of a variable. Again, +L+ many aspect-oriented systems offer only static weaving ca- +L+ pabilities preventing the administrator to choose the trade- +L+ off security/performance suiting his needs.
+2.3 From fetching to prefetching
+Operations like retrieving a file on a local disk or over the +L+ Web can be sped up if the underlying software anticipates +L+ user requests and start to fetch documents beforehand. Such +L+ prefetching schemes distinguish themselves from each other +L+ in the way they predict future user requests. These ”ora- +L+ cles” actually prevent a clean encapsulation of prefetching +L+ in a single module communicating with the rest of the appli- +L+ cation through well-defined interfaces since predictions are +L+ based on information meant to be private to other modules. +L+ In addition, it is very likely that there is no universal per- +L+ fect oracle [19]. A statically linked prefetching module is +L+ therefore inappropriate, but prefetching modules along with +L+ the necessary oracles should be loaded and unloaded on the +L+ fly. Due to their crosscutting nature, prefetching modules +L+ including such oracles are better written with aspects [32].
+Coady et al. have already pointed out the crosscutting +L+ nature of prefetching in the FreeBSD OS [12]. In our pre- +L+ vious work considering the Squid Web cache, we reached a +L+ similar conclusion [32]. We have previously shown that this +L+ concern can be addressed with cflow-like constructs.
+Despite potential performance improvements, prefetching
+also increases resource consumption (e.g. network prefetch- +L+ ing consumes local storage and bandwidth). When the pres- +L+ sure on resources is too high, prefetching computation com- +L+ petes for them against regular user requests, and slows down +L+ their treatment instead of speeding it up. In such cases, +L+ prefetching should therefore be, temporarily, disabled. Squid +L+ essentially manages file descriptors, a resource only available +L+ in a limited quantity. A file descriptor is used between the +L+ underlying operating system and applications to describe a +L+ network connection or a file on the disk. Squid’s file descrip- +L+ tor management is based on a global variable that tracks the +L+ number of file descriptors currently in use. By comparing +L+ its value with the maximum number of file descriptors al- +L+ lowed by the operating system, it is possible to estimate that +L+ prefetching should be disabled or resumed.
+For this problem of file descriptor consumption, the cur- +L+ rent practice of checking if prefetching should be disabled or +L+ not within the advice, is a bad practice that impedes both +L+ readability and maintainability. A mechanism is needed +L+ within the aspect language to restraint the advice execu- +L+ tion at times where the pressure on resources is too high. +L+ This problem were not addressed in our previous work.
+3. AN EXPRESSIVE ASPECT LANGUAGE
+FOR SYSTEM PROGRAMMING IN C
+While AOP seems to be the obvious choice to tackle the +L+ crosscutting concerns introduced above, none of the existing +L+ AO systems provides explicit support for some of their es- +L+ sential elements, in particular, join point sequences for pro- +L+ tocols, and references to aliases which are local to a function.
+In this section we introduce a new aspect language for +L+ system programming in C that allows such crosscutting con- +L+ cerns to be expressed concisely. In order to make this point, +L+ we first revisit the examples by concisely aspectizing them +L+ using our language. (Note that our aspect language is ex- +L+ pressive in the sense of enabling the concise definition of cer- +L+ tain types of aspects, especially compared to other tools for +L+ system-level manipulations, but not necessarily more expres- +L+ sive than existing approaches in a language-theoretic sense.) +L+ We then define the join point model underlying our language +L+ precisely, followed by the definition of its syntax and infor- +L+ mal semantics. Finally, we illustrate how its semantics can +L+ be formally defined in terms of a small-step operational se- +L+ mantics using the framework introduced in [14].
+3.1 Example crosscutting concerns revisited
+We now revisit the concerns discussed in section 2 in order +L+ to show our language in action and give evidence that it +L+ allows such concerns to be concisely modularized.
+The aspect shown in Fig. 2 translates transport protocols +L+ from TCP to UDP. A protocol defines a sequence of func- +L+ tion calls, so the top-level operator of this aspect is seq. +L+ The sequence aspect syntactically consists of a list of pairs +L+ of pointcut and advice (separated by then). In the exam- +L+ ple, the TCP protocol starts with a call to socket() with +L+ three constant arguments: AF INET, SOCK STREAM and +L+ 0. When such a call is matched, the second parameter is +L+ replaced by SOCK DGRAM as required by the UDP proto- +L+ col. The result of this transformed call, the file descriptor, +L+ is bound to fd by return(fd). Then the next call to con- +L+ nect() with the same file descriptor fd as its first parameter +L+ is matched. In this case the values of the other parameters
+29
+seq( call(int socket(int, int, int)) &amp;&amp; args(AF INET, SOCK STREAM, 0) &amp;&amp; return(fd) +L+ then socket(AF INET, SOCK DGRAM, 0);
+call(int connect(int, struct socketaddr*, socklen t)) &amp;&amp; args(fd, address, length) +L+ then returnZero(); // where int returnZero() { return 0; }
+( call(size t read(int, void*, size t)) &amp;&amp; args(fd, readBuffer, readLength) +L+ then recvfrom(fd, readBuffer, readLength, 0, address, length);
+11call(size t write(int, void*, size t)) &amp;&amp; args(fd, writeBuffer, writeLength) +L+ then sendto(fd, writeBuffer, writeLength, 0, address, length);) *
+call(int close(int)) &amp;&amp; args(fd) ; )
+Figure 2: An Aspect for Switching Transport Protocols, from TCP to UDP
+seq( call(void * malloc(size t))
+&amp;&amp; args(allocatedSize) &amp;&amp; return(buffer) ; +L+ write(buffer) &amp;&amp; size(writtenSize)
+&amp;&amp; if(writtenSize &gt; allocatedSize) +L+ then reportOverflow(); *
+call(void free(void*)) )
+Figure 3: An Aspect for Detecting Buffer Overflow
+are bound to arguments address and length, and the original +L+ call is replaced by returnZero(). Indeed, there is no connect +L+ step in the UDP protocol. After that, calls to read() and +L+ write() (using the ‘or’ on aspects: 11) on the same file de- +L+ scriptor fd are translated to UDP recvfrom() and sendto(), +L+ respectively. Note that sequences of such access are poten- +L+ tially translated (due to use of the repetition operator *). +L+ Finally, a call to close() on fd terminates the TCP protocol +L+ as well as the UDP protocol and thus is not modified (i.e., +L+ there is no then clause). This last step is required to free +L+ the variables used in the sequence (here, fd, address and +L+ length). Indeed, this aspect can use numerous (instances of +L+ these) variables when it deals with interleaved sequences, as +L+ each call to socket() creates a new instance of the sequence.
+The aspect shown in Fig. 3 detects buffer overflows. The +L+ corresponding sequence starts when the function malloc() +L+ returns the buffer address which is then bound to buffer. +L+ Then, each time this address is accessed (through a global +L+ variable or a local alias) the size of the data to be written is +L+ compared with the size of the initially allocated memory. If +L+ the former exceeds the latter, an overflow is indicated. The +L+ sequence ends when the memory is deallocated using free().
+The aspect in Fig. 4 introduces prefetching in a web cache. +L+ The first controlf low phrase initializes prefetching when +L+ an HTTP response is built (clientBuildReply()) within the +L+ control flow of a client request (clientSendMoreData()). The +L+ until clause stops prefetching when the number of connec- +L+ tion becomes too large, a situation where prefetching would +L+ effectively degrade performance. The second controlf low +L+ phrase analyzes hyperlinks in a page being transmitted (i.e., +L+ when comm write mbuf() is called within the control flow +L+ of clientSendMoreData()). Finally, the last call phrase pre- +L+ fetches hyperlinks analyzed by the second aspect. It does so +L+ by replacing the method call to clientWriteComplete() with +L+ retrieveHyperlinks(). Finally, note that the two require +L+ clauses at the top of the aspect declare the types of the +L+ global variables of the base program used in the aspects.
+3.2 Join points
+A join point model defines the points in the execution +L+ of the base program to which pointcuts may refer. In our
+JP::= callJP(valfunId( −→val)) +L+ readGlobalJP(varId,val)
+readJP(@, val)
+writeGlobalJP(varId, val, size) +L+ writeJP(@, val, size)
+controlflowJP(−−−−→
+funId, cfEnd)
+controlflowstarJP(−−−−→
+funId, cfEnd)
+cfEnd::= callJP(val funId(−→val))
+1readGlobalJP(varId,val)
+1writeGlobalJP(varId, val, size) +L+ val::= 011121...	//int
+1@0 1 @1 1 @2 1 ... // int*
+1... // values of other C types +L+ Figure 5: Join point model
+case, join points are defined by JP in the grammar shown +L+ in Fig. 5. A join point is either:
+•	A call of a function callJP(v1 funId(−→v2)) with function +L+ name funId, return value vi and a vector of arguments →−v2.
+•	A read access which comes in two variants: +L+ readGlobalJP(varId,v) denotes reading a global vari- +L+ able with name varId holding the value v; readJP(@, v) +L+ denotes reading a global variable or a local alias with +L+ address @ holding the value v.
+•	Write access which also comes in two variants: +L+ writeGlobalJP(varId, v, size) denotes assignment to a global +L+ variable with name varId of the value v of size size. +L+ writeJP(@, v, size) denotes assignment to a global variable +L+ or a local alias with address @ of the value v of size size.
+•	A cflow expression controlflowJP( f Inu d, c), where +L+ f Inu d = [funId1, .., funIda] is a stack of function names, and +L+ c (either a function call or an access to a global variable) oc-
+curs within the body of function funId�. Such a join point
+requires a call to funId�+1 within the body of funId�.
+•	A cflow expression controlflowstarJP( f unId, c), where +L+ −−−−→
+f Inu d = [funId1, .., funIda] is a partial stack of function +L+ names, and c (either a function call or an access to a global
+variable) occurs within the control flow of function funId�. +L+ Such a join point requires a call to funId�+1 within the +L+ control flow of (i.e., not necessarily in the body of) funId�.
+Two features of this join point model may be surprising +L+ at first sight: distinction of accesses to aliases from those to +L+ global variables and explicit representation of control flow
+30
+require Number Of Fd as int*; +L+ require Squid MaxFd as int*;
+controlflow(call(void clientSendMoreData(void*, char*, size t)),
+call(HttpReply * clientBuildReply(clientHttpRequest*, char*, size t))
+&amp;&amp; args( request, buffer, buffer Size ))
+then startPrefetching(request, buffer, bufferSize);
+&amp;&amp; until(writeGlobal(int * Number Of Fd) &amp;&amp; if((*Number Of Fd) * 100/(*Squid MaxFd) ≥ 75) ; )
+controlflow( call(void clientSendMoreData(void*, char*, size t)),
+call(void comm write mbuf(int, MemBuf, void*, void*))
+&amp;&amp; args(fd, mb, handler, handlerData) &amp;&amp; if (! isPre f etch(handler)) ) +L+ then parseHyperlinks(fd, mb, handler, handlerData);
+call(void clientWriteComplete(int, char*, size t, int, void*))
+&amp;&amp; args(fd, buf, size, error, data) &amp;&amp; if(! isPre f etch(handler)) +L+ then retrieveHyperlinks(fd, buf, size, error, data);
+Figure 4: An Aspect for Prefetching
+expressions. Both are motivated by our quest for efficiency +L+ and are grounded in strong implementation constraints in +L+ the context of dynamic weaving of binary C code: an access +L+ to a local alias is several magnitudes slower than that to a +L+ global variable and matching of control flow join points can +L+ be done using an atomic test on the implementation level.
+3.3 Pointcuts
+We now present a pointcut language (see Fig. 6) that pro- +L+ vides constructs to match individual join points.
+Primitive pointcuts are defined by PPrim and comprise +L+ three basic pointcuts matching calls, global variable accesses, +L+ and control flow join points. Primitive pointcuts can also be +L+ combined using a logical “or” noted I I.
+A call pointcut PCall selects all function call join points +L+ −→
+callJP(val funId(val)), i.e., all calls to a function matching +L+ the signature type funId(t pe), where the arguments of the +L+ function can be bound to pointcut variables using argument +L+ binder args( −−−−−→
+pattern ) and the return value can be bound to +L+ a pointcut variable using a return clause return( pattern ). +L+ The two constructs args( −−−−−→
+pattern ) and return( pattern ) +L+ can also provide pattern matching by using values (or al- +L+ ready bound pointcut variables) in pattern. Pointcuts can +L+ also depend on a boolean condition using the if-constructor.
+A global access pointcut PAccGlobal selects either all read +L+ join points readGlobalJP(varId, val) or all write join points +L+ writ eGlobalJP(varId, val, size) on the global base program +L+ variable varId. In these cases, the read or written value can +L+ be bound to a variable using value(pattern); in addition, the +L+ size of the written value can be bound with size(varName). +L+ Pattern matching can also be used for variable access.
+A control flow pointcut PCf of the form controlflow( +L+ PCallSig1,..., PCallSign, PCfEnd) matches all join points +L+ of the form controlflowJP(funId1, ..., funIdn, cfEnd), where +L+ the function identifier in PCallSigi is funIdi. Similarly, a +L+ control flow pointcut may match a global variable access +L+ for a given stack configuration. The pointcuts of the form +L+ controlflowstar(... ) select calls or global variable accesses +L+ in a stack context allowing for calls that are not directly +L+ nested within one another.
+Finally, PAcc, an access pointcut for a global variable or +L+ all of its local aliases, matches all join points of the form +L+ readJP or writeJP.
+Asp::= AspPrim [ &amp;&amp; until( AspPrim) ] +L+ IAspSeq [ &amp;&amp; until( AspPrim ) ]
+AspPrim::= PPrim Advice
+AspSeq::= seq( AspPrim
+AspSeqElts
+AspSeqElt )
+AspSeqElts ::_ [AspSeqElts] AspSeqElt [ * ] +L+ AspSeqElt::= AspPrim
+IPAcc Advice
+I(AspSeqElt II AspSeqElt)
+Advice::= [ then funId(pat�) ] ; +L+ Figure 7: Aspect language
+3.4 Aspect Language
+The aspect language we propose is defined in Fig. 7. As- +L+ pects Asp are either primitive AspPrim, or sequences of +L+ primitive aspects AspSeq.
+A primitive aspect AspPrim combines a primitive point- +L+ cut with an advice that will be applied to all join points +L+ selected by the pointcut. If the primitive pointcut has the +L+ form p1 II p2, then all variables used in the advice have to +L+ be bound in both, p1 and p2.
+An advice (Advice) is a C function call that replaces a join +L+ point in the base program execution (similarly to around in +L+ AspectJ). It must have the same return type as the join +L+ point it replaces: the type of the global variable in case of a +L+ read access, void for a write access and the return type of +L+ the function for a call. When the advice is empty (no then +L+ clause), the original join point is executed. The original join +L+ point can be skipped by calling an empty C function.
+A sequence aspect is composed of a sequence of primitive +L+ aspects. A sequence starts when the first primitive aspect +L+ matches. Then the second primitive aspect becomes active +L+ instead of the first one. When it matches, the third aspect +L+ becomes active instead of the second one. And so on, until +L+ the last primitive aspect in the sequence. All but the first +L+ and last primitive aspects can be repeated zero or multiple +L+ times by using *: in this case, the primitive aspect is ac-
+31
+PPrim	
+PCall	
+PCallSig	
+PIf	
+PAccGlobal	
+PCf	::=
+1controlflowstar( PCallSigList, PCfEnd ) +L+ PCallSigList ::= PCallSig [ , PCallSigList]
+PCall 1 PAccGlobal
+PCall +L+ 1PAccGlobal +L+ 1PCf +L+ 1PPrim11 PPrim
+::=
+PCallSig [ &amp;&amp; args(−−−−−→
+pattern) ] [ &amp;&amp; return( pattern) ] [ &amp;&amp; PIf ]
+call( type funId(t pe) )
+if( expr ) [ &amp;&amp; PIf ]
+readGlobal( type varId) [ &amp;&amp; value( pattern) ] [ &amp;&amp; PIf ]
+1writeGlobal( type varId) [ &amp;&amp; value( pattern) ] [ &amp;&amp; size( pattern) ] [ &amp;&amp; PIf ] +L+ ::=
+::=
+::=
+::=
+controlflow( PCallSigList, PCfEnd )
+PCf End	::=
+PAcc	
+pattern	::=
+var 1 val
+read( var ) [ &amp;&amp; value(pattern ) ] [ &amp;&amp; PIf ]
+1write( var ) [ &amp;&amp; value( pattern ) ] [ &amp;&amp; size( pattern) ] [ &amp;&amp; PIf ] +L+ ::=
+Figure 6: Pointcut language
+A::= A&apos;
+1A 11 A	; parallelism
+A&apos;::= µa.A&apos;	; recursive definition (a E Rec)
+1C D I; A	; prefixing
+1C D I; a	; end of sequence (a E Rec)
+1C D I; STOP ; halting aspect
+1A&apos; ❑ A&apos;	; choice
+Figure 8: Tiny aspect language
+tive as long as the following one in the sequence does not +L+ match. Branching, i.e., a logical ‘or’ between two primitive +L+ aspects, can be introduced in a sequence by the operator 11. +L+ An element of the sequence can also match a global vari- +L+ able of the base program and accesses to its local aliases, as +L+ soon as its address is known (i.e., a previous primitive point- +L+ cut has already bound its address to a pointcut variable). +L+ Hence, an aspect matching accesses cannot start a sequence. +L+ Every join point matching the first primitive pointcut of a +L+ sequence starts a new instance of the sequence. The different +L+ instances are matched in parallel.
+A primitive or a sequence aspect a can be used in combi- +L+ nation with an expression until (a1 ), to restrict its scope. In +L+ this case, once a join point has been matched by a, the execu- +L+ tion of a proceeds as previously described until a1 matches.
+To conclude the presentation of our language, note that it +L+ does not include some features, such as named pointcuts as +L+ arguments to controlf lows and conjunctive terms, which +L+ are not necessary for the examples we considered but which +L+ could easily be added. (As an aside, note that such exten- +L+ sions of the pointcut language may affect the computability +L+ of advanced algorithmic problems, such as whether a point- +L+ cut matches some part of any base program [25].)
+3.5 Towards a formal semantics for expressive +L+ aspects
+In the previous sections, we have given an informal se- +L+ mantics of our aspect language. We now illustrate how the +L+ aspect language could be formally defined by translating one +L+ of the example aspects into formal aspect language by ex- +L+ tension of that used in the formal framework of [14].
+The original formal language must be extended in order to +L+ deal with halting aspects, an unbounded number of sequen- +L+ tial aspects and arbitrary join point predicates. The gram- +L+ mar of the extension, our tiny aspect language, is defined in +L+ Figure 8. In this language, aspect expressions A consists of +L+ parallel combinations of aspects, C is a join point predicate +L+ (similar to our pointcut language) expressed as a conjunc- +L+ tion of a term pattern and possibly an expression from the +L+ constraint logic programming language CLP(R) [20].
+An aspect A&apos; is either:
+•	A recursive definition.
+•	A sequence formed using the prefix operation C D I; X, +L+ where X is an aspect or a recursion variable and I a piece +L+ of code (i.e., an advice).
+•	A choice construction A1 ❑ A2 which chooses the first +L+ aspect that matches a join point (the other is thrown away). +L+ If both match the same join point, A1 is chosen.
+•	A parallel composition of two aspects A1 11 A2 that +L+ cannot occur in choice construction.
+•	A halting aspect STOP.
+The semantics of the protocol translation aspect (from +L+ TCP to UDP) is given in Fig. 9. A sequence can have sev- +L+ eral instances. This is translated into the language A by the +L+ expression a1 11 ... which starts a new sequence a1 once +L+ the first join point has been matched and continue to match +L+ the rest of the sequence in progress. The repetition oper- +L+ ator ∗ is translated into recursion on variable the a2. The +L+ branching operator 11 is translated into the choice operator
+32
+µa1. callJP(fd socket(AF INET,  SOCK  STREAM, 0)) D socket(AF INET, SOCK DGRAM, 0);
+a1 ( callJP(a connect(fd, address, length)) D returnZero();
+µa2. callJP(b close(fd)) D skip; STOP 
+❑	callJP(c read(fd, readBuffer, readLength)) D recvfrom(fd, readBuffer, readLength, 0, address, length); a2
+❑	callJP(d write(fd, writeBuffer, writeLength)) D recvfrom(fd, writeBuffer, writeLength, 0, address, length); a2
+Figure 9: Definition of the protocol translation using the tiny aspect language
+❑. Finally, the last primitive aspect of the sequence occurs +L+ as the first aspect of a choice to get priority over the join +L+ points read and write because of the *. Note that we use +L+ pattern matching in A and that an overbar marks the first +L+ occurrence of a variable (i.e., its definition not a use).
+Note that formal definitions such as that of the protocol +L+ translation aspect precisely define several important issues, +L+ in particular, when new instances of the sequence aspect are +L+ created, and disambiguate of potentially non-deterministic +L+ situations, e.g., when two pointcuts of consecutive primitive +L+ aspects in the sequence match at the same time.
+4. DYNAMIC WEAVING WITH ARACHNE
+Arachne is built around two tools, an aspect compiler and +L+ a runtime weaver. The aspect compiler translates the aspect +L+ source code into a compiled library that, at weaving time, di- +L+ rects the weaver to place the hooks in the base program. The +L+ hooking mechanisms used in Arachne are based on improved +L+ techniques originally developed for µDyner [32]. These tech- +L+ niques allow to rewrite the binary code of executable files +L+ on the fly i.e.without pausing the base program, as long +L+ as these files conform to the mapping defined by the Unix +L+ standard [35] between the C language and x86 assembly lan- +L+ guage. Arachne’s implementation is structured as an open +L+ framework that allows to experiment with new kinds of join +L+ points and pointcut constructs. Another important differ- +L+ ence between Arachne and µDyner is, that µDyner requires +L+ a compile time preparation of the base program, whereas +L+ Arachne does not. Hence Arachne is totally transparent for +L+ the base program while µDyner is not.
+4.1 The Arachne Open Architecture
+The Arachne open architecture is structured around three +L+ main entities: the aspect compiler, the instrumentation ker- +L+ nel, and the different rewriting strategies. The aspect com- +L+ piler translates the aspect source code into C before com- +L+ piling it. Weaving is accomplished through a command line +L+ tool weave that acts as a front end for the instrumentation +L+ kernel. weave relays weaving requests to the instrumen- +L+ tation kernel loaded in the address space of the program +L+ through Unix sockets. Upon reception of a weaving request, +L+ the instrumentation kernel selects the appropriate rewriting +L+ strategies referred by the aspects to be woven and instru- +L+ ments the base program accordingly. The rewriting strat- +L+ egy consults the pointcut analysis performed by the aspect +L+ compiler to locate the places where the binary code of the +L+ base program needs to be rewritten. It finally modifies the +L+ binary code to actually tie the aspects to the base program.
+With this approach, the Arachne core is independent of +L+ a particular aspect, of the aspect language, of the particu- +L+ lar processor architecture, and of a particular base program. +L+ In fact, all dependencies to aspect language implementation +L+ are limited to the aspect compiler. All dependencies to the +L+ operating system are localized in the instrumentation ker- +L+ nel and finally all dependencies to the underlying hardware +L+ architecture are modularized in the rewriting strategies.
+4.1.1 The Arachne aspect compilation process
+The aspect compilation scheme is relatively straightfor- +L+ ward: it transforms advices into regular C functions. Point- +L+ cuts are rewritten as C code driving hook insertions into +L+ the base program at weaving time. There are however cases +L+ where the sole introduction of hooks is insufficient to deter- +L+ mine whether an advice should be executed. In this case, +L+ the aspect compiler generates functions that complement +L+ the hooks with dynamic tests on the state of the base pro- +L+ gram. These dynamic tests are called residues in AspectJ +L+ and the rewritten instructions within the base program the +L+ shadow [16]. Once the aspects have been translated into C, +L+ the Arachne compiler uses a legacy C compiler to generate a +L+ dynamically linked library (DLL) for the compiled aspects.
+4.1.2 The Arachne weaving process
+From a user viewpoint, the Arachne weave and deweave +L+ command line programs the same syntax than µDyner’s ver- +L+ sion. They both take two arguments. The first identifies the +L+ process to weave aspects in or deweave aspects from, and +L+ the second indicates the aspect DLL. However, Arachne can +L+ target potentially any C application running on the machine +L+ while µDyner was limited to applications compiled with it +L+ running on the machine. When Arachne’s weave receives a +L+ request to weave an aspect in a process that does not con- +L+ tain the Arachne instrumentation kernel, it loads the kernel +L+ in the process address space using standard techniques [11].
+The instrumentation kernel is transparent for the base +L+ program as the latter cannot access the resources (mem- +L+ ory and sockets essentially) used by the former. Once in- +L+ jected, the kernel creates a thread with the Linux system +L+ call: clone. This thread handles the different weaving re- +L+ quests. Compared to the POSIX pthread create function, +L+ the usage of clone allows the instrumentation thread to pre- +L+ vent the base program to access its sockets. The instrumen- +L+ tation kernel allocates memory by using side effect free allo- +L+ cation routines (through the Linux mmap API). Because the +L+ allocation routines are side effect free, Arachne’s memory is +L+ totally invisible to the base program. It is up to the aspect +L+ to use Arachne’s memory allocation routines or base pro- +L+ gram specific allocation functions. This transparency turns +L+ out to be crucial in our experiments. Legacy applications +L+ such as Squid use dedicated resource management routines +L+ and expect any piece of code they run to use these routines. +L+ Failures will result in an application crash.
+After loading an aspect, the instrumentation kernel rewrites +L+ the binary code of the base program. These rewriting strate- +L+ gies are not included in the kernel and must be fetched on +L+ demand by each loaded aspect.
+4.2 Rewriting strategies
+Rewriting strategies are responsible for transforming the +L+ binary code of the base program to effectively tie aspects to
+33
+Figure 10: Generic hook operations.
+the base program at weaving time. These strategies localize +L+ Arachne’s main dependencies to the underlying hardware +L+ architecture. In general, rewriting strategies need to col- +L+ lect information about the base program. These information +L+ typically consist of the addresses of the different shadows, +L+ their size, the symbol (i.e.function or global variable name) +L+ they manipulate, their length etc. In order to keep compiled +L+ aspects independent from the base program, this informa- +L+ tion is gathered on demand at runtime. The mapping be- +L+ tween a symbol name in the base program source code and +L+ its address in memory is inferred from linking information +L+ contained in the base program executable. However because +L+ these information can be costly to retrieve, Arachne collects +L+ and stores it into meta-information DLLs. these DLLs be- +L+ have as a kind of cache and lessen the problem of collecting +L+ the information required to instrument the base program. +L+ To implement our aspect language, Arachne provides a set +L+ of eight rewriting strategies that might eventually use each +L+ other.
+4.2.1 Strategiesfor call, readGlobal and writeGlobal
+In Arachne, call, readGlobal and writeGlobal allow an +L+ advice to be triggered upon a function call, a read on a +L+ global variable or a write respectively. While the implemen- +L+ tation of readGlobal and writeGlobal in Arachne is close +L+ to the one in µDyner, Arachne implements the strategy for +L+ call by rewriting function invocations found in the base +L+ program. µDyner instead rewrites the function body of the +L+ callee. On the Intel architecture, function calls benefit from +L+ the direct mapping to the x86 call assembly instruction +L+ that is used by almost, if not all, compilers. Write and read +L+ accesses to global variables are translated into instructions +L+ using immediate, hard coded addresses within the binary +L+ code of the base program. By comparing these addresses +L+ with linking information contained in the base program ex- +L+ ecutable, Arachne can determine where the global variable +L+ is being accessed. Therefore those primitive pointcuts do +L+ not involve any dynamic tests. The sole rewriting of the +L+ binary base program code is enough to trigger advice and +L+ residue1 executions at all appropriate points.
+The size of the x86 call instruction and the size of an x86 +L+ jump (jmp) instruction are the same. Since the instruction +L+ performing an access to a global variable involves a hard +L+ coded address, x86 instructions that read or write a global
+1Residues (i.e. dynamic tests on the base program state) are +L+ required when these primitive pointcuts are combined with +L+ conditional pointcuts or when pattern matching is involved.
+variable have at least the size of a x86 jmp instruction. Hence +L+ at weaving time, Arachne rewrites them as a jmp instruction +L+ to a hook. Hooks are generated on the fly on freshly allo- +L+ cated memory. As shown in figure 10, hooks contain a few +L+ assembly instructions that save and restore the appropriate +L+ registers before and after an advice (or shadow) execution. +L+ A generic approach is to have hooks save the whole set of +L+ registers, then execute the appropriate residue and/or ad- +L+ vice code before restoring the whole set of registers; finally +L+ the instructions found at the join point shadow are executed +L+ to perform the appropriate side effects on the processor reg- +L+ isters. This is accomplished by relocating the instructions +L+ found at the join point shadow. Relocating the instructions +L+ makes the rewriting strategies handling read and write ac- +L+ cess to global variable independent from the instruction gen- +L+ erated by the compiler to perform the access 2. The limited +L+ number of x86 instructions used to invoke a function allows +L+ Arachne’s rewriting strategy to exploit more efficient, relo- +L+ cation free, hooks.
+4.2.2 Strategiesfor controlf low and controlflowstar
+Every time a C function is called, the Linux runtime +L+ creates an activation record on the call stack [35]. Like +L+ µDyner, Arachne’s implementation of the rewriting strat- +L+ egy for controlf low uses the most deeply nested function +L+ call (or global read or write access) in the control flow point- +L+ cut as shadow. This shadow triggers a residue. This residue +L+ uses the activation record’s chaining to check whether the +L+ remaining function calls of the control flow, are on the call +L+ stack maintained by the Linux runtime. An appropriate +L+ usage of hashtables that store the linking information con- +L+ tained in the base program executables can thereby de- +L+ crease the cost of determining if a specific function is the +L+ caller of another to a pointer comparison. Therefore, the +L+ residue for a controlf low with n directly nested functions +L+ implies exactly n pointer comparisons. However, the residue +L+ worst case runtime for the indirect control flow operator +L+ controlflowstar that allows for not directly nested func- +L+ tions, is proportional to the base program stack depth.
+4.2.3 Strategiesfor read and write
+read and write are new join points not included in µDyner +L+ that have been added to the latest version of Arachne. Their +L+ implementation relays on a page memory protection as al- +L+ lowed by the Linux operating system interface (i.e. mprotect) +L+ and the Intel processor specifications [18]. A read or write +L+ pointcut triggers a residue to relocate the bound variable +L+ into a memory page that the base program is not allowed +L+ to access and adds a dedicated signal handler. Any attempt +L+ made by the base program to access the bound variable iden- +L+ tified will then trigger the execution of the previously added +L+ signal handler. This handler will then inspect the binary +L+ instruction trying to access the protected page to determine +L+ whether it was a read or a write access before eventually +L+ executing the appropriate advice.
+4.2.4 Strategiesfor seq
+Like read and write, seq is a new language feature of +L+ Arachne. µDyner offers no equivalent construct. Arachne’s +L+ rewriting strategy of this operator associates a linked list to
+2About 250 x86 instruction mnemonics can directly manip- +L+ ulate a global variable. This corresponds to more than one +L+ thousand opcodes.
+execution flow
+Legacy base program
+shadow: rewriting
+site replaced by a
+jump
+B���piled baof sethe
+program
+x86 instruction
+x86 instruction
+x86 instruction
+x86 instruction
+Relocated tailored +L+ ���tructio�� +L+ up���ng re���ters
+Hooks generated at weavingAspect DLL
+time	generated at aspect compile time
+Entry hook +L+ save registers
+Return hook +L+ Restore registers
+Residue (dynamic tests)
+and/or advices
+34
+every stage inside the sequence except the last one. Each +L+ stage in a sequence triggers a residue that updates these +L+ linked lists to reflect state transitions of currently match- +L+ ing execution flows. Upon matching of the first pointcut +L+ of the first primitive aspect in the seq, a node is allocated +L+ and added to the associated linked list. This node con- +L+ tains a structure holding variables shared among the dif- +L+ ferent pointcuts within the sequence. Once a join point +L+ matches a pointcut of an primitive aspect denoting a stage +L+ in the sequence, Arachne consults every node in the linked +L+ list associated with the previous stage and executes the cor- +L+ responding advice 3. Arachne eventually updates the node +L+ and in the absence of a * moves it to the list associated +L+ with the currently matched pointcut.If the matching point- +L+ cut corresponds to the end of the sequence, structures are +L+ not moved into another list but freed. Our aspect compiler +L+ includes an optimization where structures are allocated from +L+ a resizable pool and upon a sequence termination, structures +L+ are not freed but returned to the pool.
+4.3 Arachne limitations
+Aggressive optimizations of the base program might pre- +L+ vent Arachne to seamlessly weave aspects. Two optimiza- +L+ tions are not yet supported by Arachne. First if the compiler +L+ inlines a function in another one within the binary code of +L+ the base program, the Arachne weaver will fail to properly +L+ handle pointcuts referring to that function. Second, con- +L+ trol flow pointcuts are based on the chaining of activation +L+ records. On the x86 architecture, in leaf functions, opti- +L+ mizing compilers sometimes do not maintain this chaining +L+ to free one register for the rest of the computation. This +L+ however has not been a problem during our experiments +L+ as we used the open source C compiler gcc. Arachne sup- +L+ ports two of the three optimization levels proposed by gcc. +L+ Stripping that removes linking information and aggressive +L+ optimizations that break the interoperability between com- +L+ pilers and/or debuggers are incompatible with Arachne. In +L+ practice, Arachne can be used on applications compiled like +L+ squid with two of the three gcc optimization level.
+5. PERFORMANCE EVALUATION
+Aspect-oriented solutions will be used if the aspect sys- +L+ tem’s language is expressive enough and if the aspect system +L+ overhead is low enough, for the task at hand. The purpose +L+ of this section is to study Arachne’s performance. We first +L+ present the speed of each Arachne language construct and +L+ compare it to similar C language constructs. We then study +L+ the overhead of extending Squid with a prefetching policy. +L+ This case study shows that even if the cost of some Arachne +L+ aspect language constructs might be high compared to C +L+ language constructs, this overhead is largely amortized in +L+ real applications.
+5.1 Evaluation of the language constructs
+This performance evaluation focuses on studying the cost +L+ of each construct of our aspect language. To estimate the +L+ cost for each construct of our aspect language, we wrote an +L+ aspect using this construct that behaves as an interpreter of
+3In case the previous stage pointcut was used with a star +L+ *, Arachne examines nodes from linked list associated with +L+ the last two previous stages, and so on, until a not starred +L+ primitive aspect in the sequence is reached.
+Execution times (cycles)
+call	Arachne	Native	Ratio
+	28±2.3%	21±1.9%	1.3
+seq	201±0.5%	63±1.7%	3.2
+cflow	228±1.6%	42±1.8%	5.4
+readGlobal	2762±4.3%	1±0.2%	2762
+read	9729±4.9%	1±0.6%	9729
+Table 1: Speed of each language construct used to +L+ interpret the base program compared to a native +L+ execution.
+the base program. For example, to study the performance +L+ of readGlobal, we wrote an aspect whose action returns the +L+ value of the global variable referred in the pointcut, i.e., we +L+ wrote aspects behaving like the base program. For each of +L+ these aspects, we compare the time required to perform the +L+ operation matching the pointcut, in case the operation is +L+ interpreted by the woven aspect with the time required to +L+ carry out the operation natively (without the woven aspect). +L+ For example, to study the performance of readGlobal, we +L+ first evaluate the time needed to retrieve the global variable +L+ value through the code generated by the C compiler gcc +L+ without any aspect woven and compare this value to the +L+ time needed to retrieve the global variable value through +L+ the aspect once it has been woven in the base program. +L+ We express our measurements as a ratio between these two +L+ durations to abstract from the experimentation platform.
+This approach requires the ability to measure short peri- +L+ ods of time. For instance, a global variable value is usually +L+ retrieved (readGlobal in our aspect language) in a single +L+ clock tick. Since standard time measurement APIs were +L+ not precise enough, our benchmarking infrastructure relies +L+ on the rdtsc assembly instruction [18]. This instruction re- +L+ turns the number of clock cycles elapsed since power up. The +L+ Pentium 4 processor has the ability to dynamically reorder +L+ the instructions it executes. To ensure the validity of our +L+ measurement, we thus insert mfence instructions in the gen- +L+ erated code whose execution speed is being measured. An +L+ mfence forces the preceding instructions to be fully executed +L+ before going on. The pipeline mechanism in the Pentium 4 +L+ processor entails that the speed of a piece of assembly code +L+ depends from the preceding instructions. To avoid such hid- +L+ den dependencies, we place the operation whose execution +L+ time is being measured in a loop. We use gcc to unroll the +L+ loop at compile time and we measure the time to execute +L+ the complete loop. This measure divided by the number of +L+ loop repetitions yields an estimation of the time required +L+ to execute the operation. The number of times the loop is +L+ executed is chosen after the relative variations of the mea- +L+ sures ,i.e., we increased the number of repetitions until ten +L+ runs yields an average relative variation not exceeding 5%. +L+ To check the correctness of our experimental protocol, we +L+ measured the time needed to execute a nop assembly in- +L+ struction, that requires one processor cycle according to the +L+ Intel specification. The measures of nop presented a relative +L+ variation of 1.6%.
+Table 1 summarizes our experimental results. Using the +L+ aspect language to replace a function that returns immedi- +L+ ately is only 1.3 times slower than a direct, aspect-less, call +L+ to that empty function. Since the aspect compiler packages +L+ advices as regular C functions, and because a call pointcut +L+ involves no residue, this good result is not surprising. When
+35
+Figure 11: controlflow, seq, and read performances
+an access to a global variable is replaced by an advice exe- +L+ cution, the hooks generated by the rewriting strategy need +L+ to prepare the processor to call the advice function. This +L+ increases the time spent in the hooks. In addition, while +L+ an access to a global variable is often performed by a sin- +L+ gle x86 instruction, an empty function is often composed +L+ of four instructions. Hence the relative cost of an aspect +L+ triggered upon a global variable access and a direct, aspect- +L+ less, access to a global variable is slightly higher than the +L+ corresponding ratio for functions. A seq of three invoca- +L+ tions of empty functions is only 3.2 time slower than the +L+ direct, aspect-less, three successive functions calls. Com- +L+ pared to the pointcuts used to delimit the different stages, +L+ the seq overhead is limited to a few pointer exchanges be- +L+ tween the linked lists holding the bound variable. On Intel +L+ x86, global variable accesses benefit from excellent hardware +L+ support. In the absence of aspects, a direct global variable +L+ read is usually carried out in a single unique cycle. To trig- +L+ ger the advice execution, the Arachne runtime has to save +L+ and restore the processor state to ensure the execution co- +L+ herency, as advices are packaged as regular C functions (see +L+ also 4.2.1). It is therefore not surprising that a global vari- +L+ able readGlobal appears as being 2762 times slower than +L+ a direct, aspect-less global variable read. read performance +L+ can be accounted in the same way: in the absence of aspect, +L+ local variables are accessed in a single unique cycle. The +L+ signal mechanism used in the read requires that the oper- +L+ ating system detects the base program attempt to read into +L+ a protected memory page before locating and triggering the +L+ signal handler set up by Arachne, as shown in 4.2.3. Such +L+ switches to and from kernel space remain slow. Using read +L+ to read a local variable is 9729 times slower than retrieving +L+ the local variable value directly, without aspects.
+seq and controlf low can refer to several points in the exe- +L+ cution of the base program (i.e. different stages for seq and +L+ different function invocations for the controlflow). The +L+ runtime of these pointcuts grows linearly with the number +L+ of execution points they refer to and with the number of +L+ matching instances. Figure 11 summarizes a few experimen- +L+ tal results for controlf low and seq proving these points.
+5.2 Case Study on a real application
+Since, depending on the aspect construct used, interpret- +L+ ing the base program with aspects can slow it down by a fac- +L+ tor ranging between 1.3 and 9729, we studied Arachne’s per- +L+ formance on a real world application, the Web cache Squid.
+	Arachne	Manual	Diff
+			(%)
+	Top1	Top1	
+	Top2	Top2	
+Throughput	5.59	5.59	
+(request/s)	5.58	5.59	
+Response Time (ms)	1131.42	1146.07	1.2–-1
+	1085.31	1074.55	
+Miss response time (ms)	2533.50	2539.52	0.2– 1.8
+	2528.35	2525.34	
+Hit response time (ms)	28.96	28.76	-0.6 – 3.8
+	30.62	31.84	
+Hit ratio	59.76	59.35	-0.6 – 0.7
+	61.77	62.22	
+Errors	0.51	0.50	-1.9–0
+	0.34	0.34	
+Table 2: Performances comparison between manual +L+ modification and Arachne, for prefechting policy in- +L+ tegration in Squid
+We extended Squid with a prefetching policy [9]. As de- +L+ scribed in section 3.1, we implemented this policy as a set +L+ of aspects and made a second implementation of this policy +L+ by editing the Squid source code and recompiling it. This +L+ section compares the performance of these two implemen- +L+ tations using standard Web cache performance indicators: +L+ throughput, response time and hit ratio.
+Obtaining access traces adequate to study a Web cache +L+ performance is difficult. The trace must be long enough to +L+ fill the cache. Due to privacy issues, traces are usually not +L+ publicly available. Since traces do not include the content of +L+ the accessed pages, these pages must be downloaded again. +L+ In the meantime the page contents may have changed and +L+ even the URLs may have disappeared.
+Instead of traces, we based our evaluation on Web Poly- +L+ graph [30]. Polygraph is a benchmarking tool developed by +L+ the Squid team and featuring a realistic HTTP and SSL +L+ traffic generator and a flexible content simulator.
+We filled up the cache and simulated a one day workload +L+ with its two request rate peaks observed in real life environ- +L+ ments [30]. Table 2 shows results of our simulation. Mea- +L+ sures have been made during the two request peaks. The +L+ hit time and the miss time, time needed to deliver a docu- +L+ ment present, respectively not present, in the cache are very +L+ similar. It shows that differences are imperceptible between +L+ the version of Squid extended by Arachne and the one ex- +L+ tended manually (less than 1%). Hence, even if the cost +L+ of Arachne’s aspect language constructs might seem high, +L+ they are largely amortized in real applications. To give a +L+ typical example observed on our experimental platform: in +L+ case of a cache hit, a 3.8 MB page was retrieved in a single +L+ second, the time spent in prefetching advices amounted to +L+ 1801 µsec, and the time spent within Arachne to execute the +L+ hooks and dynamic tests to 0.45 µsec. In a miss case, on +L+ the average, a client retrieved the same page in 1.3 seconds, +L+ 16679 µsec were spent in the advices and 0.67 µsec within +L+ Arachne itself.
+6. RELATED WORK
+Our work is directly related to other aspect weavers for +L+ C, approaches for expressive aspect languages, and dynamic +L+ weaving, in particular for C. In this section, we consider +L+ related work in each of these fields in turn.
+Apart from µDyner and Arachne, there are few aspect
+Sequence
+1	2	3	4	5
+1	2	3	4	5
+Number of imbricated calls	Number of matching instances
+Controlflow
+10
+3000
+2000
+30
+20
+5
+1000
+10
+36
+weavers for C (or even C like languages); some notewor- +L+ thy exceptions are AspectC [12] (no available implementa- +L+ tion), AspectC++ and [33]. All of these rely on source-code +L+ transformation and thus cannot apply aspects to running
+C applications as required by the applications we consider. +L+ Furthermore, none of these systems provides explicit sup- +L+ port for aspects over join point sequences.
+There is quite a large body of work now on the notion of +L+ expressive aspect languages where “more expressive” typi- +L+ cally compares to w.r.t. AspectJ’s pointcut and advice mod- +L+ els. Our work has been inspired by Event-based AOP [15], +L+ which aims at the definition of pointcuts in terms of arbi- +L+ trary relations between events. Nevertheless, many other +L+ approaches to expressive aspect languages exist: e.g., data- +L+ flow relations [26], logic programming [13], process algebras +L+ [3], graphs [5], and temporal logics [1], have all been pro- +L+ posed as a basis for the definition of expressive aspect lan- +L+ guages. However, few of these encompass dynamic weaving +L+ and only the latter has been applied to C code under effi- +L+ ciency considerations similar to our setting.
+Dynamic weaving is commonly realized in Java through +L+ preprocessing at load-time like [8] or through the JVM De- +L+ bugging Interface [28]. These tools rely on bytecode rewrit- +L+ ing techniques, have typically limited expressivity (some do +L+ not support field accesses) and incur a huge performance +L+ overhead. Dynamic weaving through modification at run- +L+ time is found infrequently for compiled languages. An ex- +L+ ception for Java is JasCo [21] whose most recent version (0.7) +L+ supports dynamic weaving through the new instrumentation +L+ API of Java 5.
+Many instrumentation techniques have been proposed to +L+ rewrite binary code on the fly. In these approaches, dif- +L+ ficulty issues range from the complexity to rewrite binary +L+ code to the lack of a well-defined relationship between source +L+ code and the compiler generated binary code. Hence many +L+ approaches work on an intermediate representation of the +L+ binary code and source language [34]. Producing this repre- +L+ sentation first and then regenerating the appropriate binary +L+ executable code has proven to be costly both in terms of +L+ memory consumption and in CPU time.
+A few other approaches have considered a direct rewrit- +L+ ing of the binary code at runtime. Dyninst [17] and dynamic +L+ probes [27] allow programmers to modify any binary instruc- +L+ tion belonging to an executable. Dyninst however relies on +L+ the Unix debugging API: ptrace. ptrace allows a third +L+ party process to read and write the base program memory. +L+ It is however highly inefficient: before using ptrace, the +L+ third party process has to suspend the execution of the base +L+ program and resume its execution afterwards. In compari- +L+ son, Arachne uses ptrace at most once, to inject its kernel +L+ DLL into the base program process. In addition, Dyninst +L+ does not free the programmer from dealing with low level +L+ details. For example, it seems difficult to trigger an advice +L+ execution upon a variable access with Dyninst: the transla- +L+ tion from the variable identifier to an effective address is left +L+ to the user. Worse, Dyninst does not grant that the manip- +L+ ulation of the binary instructions it performs will succeed. +L+ Dyninst uses an instrumentation strategy where several ad- +L+ jacent instructions are relocated. This is unsafe as one of +L+ the relocated instructions can be the target of branching +L+ instructions. In comparison, Arachne join point model has +L+ been carefully chosen to avoid these kind of issues; if an as- +L+ pect can be compiled with Arachne, it can always be woven. +L+ 7. CONCLUSION AND FUTURE WORK
+In this paper we have discussed three different crosscut- +L+ ting concerns which are typical for C applications using OS- +L+ level services and which frequently need to be applied at +L+ runtime. We have motivated that such concerns can be ex- +L+ pressed as aspects and have defined a suitable aspect lan- +L+ guage. This language is more expressive than those used in +L+ other aspect weavers for C in that it provides support for +L+ aspects defined over sequences of execution points as well as +L+ for variable aliases. We have presented an integration of this +L+ language into Arachne, a weaver for runtime weaving of as- +L+ pects in C applications. Finally, we have provided evidence +L+ that the integration is efficient enough to apply such aspects +L+ dynamically to high-performance applications, in particular +L+ the web cache “squid.”
+As future work, we intend to investigate the suitability of +L+ the proposed aspect language for other C-applications. We +L+ also intend to investigate Arachne extension to the C++ +L+ language. Indeed, object-oriented programming heavily uses +L+ protocol-based interfaces collaboration (hence sequence as- +L+ pects). Along with its open architecture, extending Arachne +L+ to support C++, will pave the way to a relatively language +L+ independent aspect and weaving infrastructure. Finally, +L+ Arachne’s toolbox should be extended with support for as- +L+ pect interactions (e.g., analyses and composition operators).
+8. REFERENCES
+[1] R. A. ºAberg, J. L. Lawall, M. SÄudholt, G. Muller, and +L+ A.-F. L. Meur. On the automatic evolution of an os +L+ kernel using temporal logic and AOP. In Proceedings +L+ of Automated Software Engineering (ASE’03), pages +L+ 196{204. IEEE, 2003.
+[2] American National Standards Institute. +L+ ANSI/ISO/IEC 9899-1999: Programming Languages +L+ — C. American National Standards Institute, 1430 +L+ Broadway, New York, NY 10018, USA, 1999.
+[3] J. H. Andrews. Process-algebraic foundations of +L+ aspect-oriented programming. In Proceedings of the +L+ 3rd International Conference on Metalevel +L+ Architectures and Separation of Crosscutting +L+ Concerns, volume 2192 of LNCS. Springer Verlag, +L+ Sept. 2001.
+[4] M. Arlitt and T. Jin. A workload characterization +L+ study of the 1998 world cup web site. IEEE Network, +L+ 14(3):30{37, May 2000.
+[5] U. ABmann and A. Ludwig. Aspect weaving by graph +L+ rewriting. In U. W. Eisenecker and K. Czarnecki, +L+ editors, Generative Component-based Software +L+ Engineering (GCSE), Erfurt, Oct. 1999.
+[6] CERT - Carnegie Mellon University. Vulnerability +L+ note vu#613459, Feb. 2002. published on line:
+http://www.kb.cert.org/vuls/id/613459.
+[7] H. Chen and P. Mohapatra. Catp: A context-aware
+transportation protocol for http. In International
+Workshop on New Advances in Web Servers and
+Proxy Technologies Held with ICDCS, 2003.
+[8] S. Chiba and K. Nakagawa. Josh: An open +L+ AspectJ-like language. In Proceedings of the third
+37
+international conference on Aspect-oriented software +L+ development, pages 102–111. ACM Press, Mar. 2004.
+[9] K.-I. Chinen and S. Yamaguchi. An interactive +L+ prefetching proxy server for improvement of WWW +L+ latency. In Seventh Annual Conference of the Internet +L+ Society (INET’97), Kuala Lumpur, June 1997.
+[10] I. Cidon, A. Gupta, R. Rom, and C. Schuba. Hybrid +L+ tcp-udp transport for web traffic. In Proceedings of the +L+ 18th IEEE International Performance, Computing, +L+ and Communications Conference (IPCCC’99), pages +L+ 177–184, Feb. 1990.
+[11] S. Clowes. Injectso: Modifying and spying on running +L+ processes under linux. In Black hat briefings, 2001.
+[12] Y. Coady, G. Kiczales, M. Feeley, and G. Smolyn. +L+ Using AspectC to improve the modularity of +L+ Path-Specific customization in operating system code. +L+ In V. Gruhn, editor, Proc. of the Joint 8th European +L+ Software Engeneering Conference and 9th ACM +L+ SIGSOFT Symposium on the Foundation of Software +L+ Engeneering (ESEC/FSE-01), volume 26, 5 of +L+ SOFTWARE ENGINEERING NOTES, pages 88–98, +L+ New York, Sept. 10–14 2001. ACM Press.
+[13] K. de Volder. Aspect-oriented logic meta +L+ programming. In P. Cointe, editor, Meta-Level +L+ Architectures and Reflection, 2nd International +L+ Conference on Reflection, volume 1616 of LNCS, +L+ pages 250–272. Springer Verlag, 1999.
+[14] R. Douence, P. Fradet, and M. SÄudholt. A framework +L+ for the detection and resolution of aspect interactions. +L+ In Proceedings of the ACM SIGPLAN/SIGSOFT +L+ Conference on Generative Programming and +L+ Component Engineering (GPCE’02), volume 2487 of +L+ LLNCS, pages 173–188. Springer-Verlag, Oct. 2002.
+[15] R. Douence, O. Motelet, and M. SÄudholt. A formal +L+ definition of crosscuts. In Proceedings of the 3rd +L+ International Conference on Metalevel Architectures +L+ and Separation of Crosscutting Concerns, volume 2192 +L+ of LNCS, pages 170–186. Springer Verlag, Sept. 2001.
+[16] E. Hilsdale and J. Hugunin. Advice weaving in +L+ aspectj. In Proceedings of the 3rd international +L+ conference on Aspect-oriented software development, +L+ pages 26–35. ACM Press, 2004.
+[17] J. K. Hollingsworth, B. P. Miller, M. J. R. Goncalves, +L+ O. Naim, Z. Xu, and L. Zheng. MDL: A language and +L+ compiler for dynamic program instrumentation. In +L+ IEEE Conference on Parallel Architectures and +L+ Compilation Techniques (PACT), pages 201–213, Nov. +L+ 1997.
+[18] Intel Corportation. IA-32 Intel Architecture Software +L+ Developer’s Manual. Intel Corportation, 2001.
+[19] V. Issarny, M. Ban^atre, B. Charpiot, and J.-M. +L+ Menaud. Quality of service and electronic newspaper: +L+ The Etel solution. Lecture Notes in Computer Science, +L+ 1752:472–496, 2000.
+[20] J. Jaffar, S. Michaylov, P. J. Stuckey, and R. H. C. +L+ Yap. The clp( r ) language and system. ACM Trans. +L+ Program. Lang. Syst., 14(3):339–395, 1992.
+[21] JasCo home page. http://ssel.vub.ac.be/jasco/.
+[22] R. Jones and P. Kelly. Backwards-compatible bounds +L+ checking for arrays and pointers in c programs. In
+M. Kamkar, editor, Proceedings of the Third +L+ International Workshop on Automatic Debugging,
+volume 2, pages 13–26, May 1997.
+[23] A. D. Keromytis. ”Patch on Demand” Saves Even +L+ More Time? IEEE Computer, 37(8):94–96, 2004.
+[24] G. Kiczales, J. Lamping, A. Menhdhekar, C. Maeda, +L+ C. Lopes, J.-M. Loingtier, and J. Irwin. +L+ Aspect-oriented programming. In M. Ak»sit and +L+ S. Matsuoka, editors, Proceedings European +L+ Conference on Object-Oriented Programming, volume +L+ 1241, pages 220–242. JyvÄaskylÄa, Finland, June 1997.
+[25] K. J. Lieberherr, J. Palm, and R. Sundaram. +L+ Expressiveness and complexity of crosscut languages. +L+ Technical Report NU-CCIS-04-10, Northeastern +L+ University, Sept. 2004.
+[26] H. Masuhara and K. Kawauchi. Dataflow pointcut in +L+ aspect-oriented programming. In First Asian +L+ Symposium on Programming Languages and Systems +L+ (APLAS’03), 2003.
+[27] R. J. Moore. Dynamic probes and generalised kernel +L+ hooks interface for Linux. In USENIX, editor, +L+ Proceedings of the 4th Annual Linux Showcase and +L+ Conference, Atlanta, October 10–14, 2000, Atlanta, +L+ Georgia, USA, Berkeley, CA, USA, 2000. USENIX.
+[28] A. Popovici, G. Alonso, and T. Gross. Just-in-time +L+ aspects: efficient dynamic weaving for Java. In +L+ Proceedings of the 2nd international conference on +L+ Aspect-oriented software development, pages 100–109, +L+ Boston, Massachusetts, Mar. 2003. ACM Press.
+[29] M. Rabinovich and H. Wang. DHTTP: An efficient +L+ and cache-friendly transfer protocol for web traffic. In +L+ INFOCOM, pages 1597–1606, 2001.
+[30] A. Rousskov and D. Wessels. High-performance +L+ benchmarking with Web Polygraph. Software Practice +L+ and Experience, 34(2):187–211, Feb. 2004.
+[31] O. Ruwase and M. S. Lam. A practical dynamic buffer +L+ overflow detector. In Proceedings of the 11th Annual +L+ Network and Distributed System Security Symposium. +L+ Internet Society, Feb. 2004.
+[32] M. S¶egura-Devillechaise, J.-M. Menaud, G. Muller, +L+ and J. Lawall. Web cache prefetching as an aspect: +L+ Towards a dynamic-weaving based solution. In +L+ Proceedings of the 2nd international conference on +L+ Aspect-oriented software development, pages 110–119, +L+ Boston, MA, USA, Mar. 2003. ACM Press.
+[33] O. Spinczyk, A. Gal, and W. Schroeder-Preikschat. +L+ AspectC++: an aspect-oriented extension to the C++ +L+ programming language. In Proceedings of the Fortieth +L+ International Conference on Tools Pacific, pages +L+ 53–60. Australian Computer Society, Inc., 2002.
+[34] A. Srivastava and A. Edwards. Vulcan: Binary +L+ transformation in a distributed environment. Microsoft +L+ Research Tech. Rpt. MSR-TR-2001-50, 2001.
+[35] U. S. L. System Unix. System V Application Binary +L+ Interface Intel 386 Architecture Processor Supplement. +L+ Prentice Hall Trade, 1994.
+[36] D. Wessels. Squid: The Definitive Guide. O’Reilly and +L+ Associates, Jan. 2004.
+[37] J. Wilander and M. Kamkar. A comparison of publicly +L+ available tools for dynamic buffer overflow prevention. +L+ In Proceedings of the 10th Network and Distributed +L+ System Security Symposium, pages 149–162, San +L+ Diego, California, February 2003.
+38

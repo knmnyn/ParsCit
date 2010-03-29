@@ -1,0 +1,95 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+Figure 1. SONARBuddies UI
+SonarBuddies is just one example of a potential SONAR 
+client. Below, are a few examples of more advanced 
+scenarios that SONAR may support:
+•	Expertise location (e.g., [14,18,31]) – SONAR, integrated 
+with search, may be used for scenarios of expertise location, 
+such as the basic “who knows about &lt;topic&gt;?”, but also 
+“who do I know that knows about &lt;topic&gt;?”, and the related 
+“who do I mostly communicate with about &lt;topic&gt;?”
+•	Automatic completion of names (e.g., [21]) and groups–
+completing a single string to a name may sort alternatives by 
+strength of social ties and relevance to the context. Moreover, 
+the completion of a whole group can be supported - e.g., if 
+one participates in a project of 10 people, typing the names of 
+3 of them may automatically be completed to the entire 
+group. This may also be useful for resolving “who&apos;s missing 
+from the mail I’m about to send?”
+•	Finding social paths to someone who is not directly related
+to the user (e.g., [15])
+•	Enhancing SN services by recommending people to connect
+to based on other evidence and by enriching information 
+about existing friends: connection strength, evidence, and 
+temporal characteristics of relationships
+SONAR EXPERIMENTS
+SonarBuddies has been made available for download at the 
+IBM intranet and over 1800 users downloaded and used it. 
+SonarBuddies is mainly an egocentric application and it 
+could be assumed that its success is due to heavy usage of 
+private data sources by the users. However, from the usage 
+data it is evident that public sources are explored. We 
+envision the SONAR API as being heavily used by 
+sociocentric applications and thus the interest in public data 
+sources was encouraging.
+This section states our hypotheses, describes our 
+experiments, and discusses the results.
+Hypotheses
+Public Data Sources
+The first group of hypotheses focuses on public data 
+sources and their influence on the users’ SN. Public data 
+sources are different in nature, ranging from social 
+bookmarking systems to blogs and therefore we assume:
+(1) Public data sources provide diverse SN information. 
+There is no single public data source that holds all SN 
+information, and each public source makes a 
+significant contribution to the overall SN information.
+Moreover, as part of the user activities are performed 
+“outside the mailbox”, the public sources provide valuable 
+SN information which is not reflected in private sources. 
+We thus raise the following 2 hypotheses:
+(2) Public data sources provide SN information that is 
+valuable to the user.
+(3) Public data sources enrich egocentric SN information. 
+By combining private sources with public sources, one 
+can potentially get a more complete picture of the SN.
+Data Source Aggregation
+An additional hypothesis focuses on aggregation of SN 
+information. A key concept behind SONAR is the ability to 
+consolidate social information from multiple data sources, 
+assuming that there is real value in such aggregation. The 
+following hypothesis is explored:
+(4) Aggregated SN information is of greater value to users 
+than information that originates from any single source.
+A SONAR client based on this hypothesis would need to 
+use some weight combination in order to aggregate the 
+different sources. While the user may have control over the 
+weights, a SONAR client should have a default weight 
+combination that would be reasonably good for all users for 
+the most common scenario (such as finding the people the 
+user communicates with the most). During our experiments, 
+we wish to study the following hypothesis:
+(5) For a basic scenario, there exists a weighting scheme 
+by which an aggregation of data sources most 
+reasonably represents most users’ SN.
+If this hypothesis is correct, our experiments may reveal the 
+weighting scheme that we should use as default.
+Finally, an even more valuable aggregation of SNs can be 
+achieved if users would share some of their private SN with 
+others. While people are hesitant to share their private 
+information, they may agree to share the buddylists created 
+based on it, and thus allow a sociocentric view that is 
+enhanced by private information. We hypothesize:
+(6) People would be willing to share the buddylists created 
+based on their private sources
+Research Method
+In order to examine our hypotheses, we conducted three 
+experiments on SN information collected by SONAR.
+Experiment 1: Information from Public Sources
+For the first experiment we gathered information from the 
+four public sources. Our goal was to compare the lists of 
+connected people from the different sources (hypothesis 
+(1)) and show that no source covers the others and may thus 
+serve as a single source of information (hypothesis (4)). The 
+collaboration tools in IBM, like many Web 2.0 services on
+1021

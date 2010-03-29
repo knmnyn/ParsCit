@@ -1,0 +1,971 @@
+# Para 0 1
+Unsupervised Multilingual Grammar Induction
+# Para 1 3
+Benjamin Snyder, Tahira Naseem, and Regina Barzilay
+Computer Science and Artificial Intelligence Laboratory
+Massachusetts Institute of Technology
+# Para 4 1
+{bsnyder, tahira, regina}@csail.mit.edu
+# Para 5 1
+Abstract
+# Para 6 25
+We investigate the task of unsupervised 
+constituency parsing from bilingual par-
+allel corpora. Our goal is to use bilin-
+gual cues to learn improved parsing mod-
+els for each language and to evaluate these 
+models on held-out monolingual test data. 
+We formulate a generative Bayesian model 
+which seeks to explain the observed par-
+allel data through a combination of bilin-
+gual and monolingual parameters. To this 
+end, we adapt a formalism known as un-
+ordered tree alignment to our probabilistic 
+setting. Using this formalism, our model 
+loosely binds parallel trees while allow-
+ing language-specific syntactic structure. 
+We perform inference under this model us-
+ing Markov Chain Monte Carlo and dy-
+namic programming. Applying this model 
+to three parallel corpora (Korean-English, 
+Urdu-English, and Chinese-English) we 
+find substantial performance gains over 
+the CCM model, a strong monolingual 
+baseline. On average, across a variety of 
+testing scenarios, our model achieves an 
+8.8 absolute gain in F-measure. 1
+# Para 31 1
+1 Introduction
+# Para 32 10
+In this paper we investigate the task of unsuper-
+vised constituency parsing when bilingual paral-
+lel text is available. Our goal is to improve pars-
+ing performance on monolingual test data for each 
+language by using unsupervised bilingual cues at 
+training time. Multilingual learning has been suc-
+cessful for other linguistic induction tasks such as 
+lexicon acquisition, morphological segmentation, 
+and part-of-speech tagging (Genzel, 2005; Snyder 
+and Barzilay, 2008; Snyder et al., 2008; Snyder
+# Para 42 2
+1Code and the outputs of our experiments are available at 
+http://groups.csail.mit.edu/rbg/code/multiling induction. 
+# Para 44 5
+et al., 2009). We focus here on the unsupervised 
+induction of unlabeled constituency brackets. This 
+task has been extensively studied in a monolingual 
+setting and has proven to be difficult (Charniak 
+and Carroll, 1992; Klein and Manning, 2002).
+# Para 49 11
+The key premise of our approach is that am-
+biguous syntactic structures in one language may 
+correspond to less uncertain structures in the other 
+language. For instance, the English sentence I 
+saw [the student [from MIT]] exhibits the classic 
+problem of PP-attachment ambiguity. However, 
+its Urdu translation, literally glossed as I [[MIT of] 
+student] saw, uses a genitive phrase that may only 
+be attached to the adjacent noun phrase. Know-
+ing the correspondence between these sentences 
+should help us resolve the English ambiguity.
+# Para 60 16
+One of the main challenges of unsupervised 
+multilingual learning is to exploit cross-lingual 
+patterns discovered in data, while still allowing 
+a wide range of language-specific idiosyncrasies. 
+To this end, we adapt a formalism known as un-
+ordered tree alignment (Jiang et al., 1995) to 
+a probabilistic setting. Under this formalism, 
+any two trees can be embedded in an alignment 
+tree. This alignment tree allows arbitrary parts 
+of the two trees to diverge in structure, permitting 
+language-specific grammatical structure to be pre-
+served. Additionally, a computational advantage 
+of this formalism is that the marginalized probabil-
+ity over all possible alignments for any two trees 
+can be efficiently computed with a dynamic pro-
+gram in linear time.
+# Para 76 9
+We formulate a generative Bayesian model 
+which seeks to explain the observed parallel data 
+through a combination of bilingual and mono-
+lingual parameters. Our model views each pair 
+of sentences as having been generated as fol-
+lows: First an alignment tree is drawn. Each 
+node in this alignment tree contains either a soli-
+tary monolingual constituent or a pair of coupled 
+bilingual constituents. For each solitary mono-
+# Para 85 1
+73
+# Para 86 1
+Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 73–81,
+# Para 87 1
+Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+# Para 88 9
+lingual constituent, a sequence of part-of-speech 
+tags is drawn from a language-specific distribu-
+tion. For each pair of coupled bilingual con-
+stituents, a pair of part-of-speech sequences are 
+drawn jointly from a cross-lingual distribution. 
+Word-level alignments are then drawn based on 
+the tree alignment. Finally, parallel sentences are 
+assembled from these generated part-of-speech se-
+quences and word-level alignments.
+# Para 97 5
+To perform inference under this model, we use 
+a Metropolis-Hastings within-Gibbs sampler. We 
+sample pairs of trees and then compute marginal-
+ized probabilities over all possible alignments us-
+ing dynamic programming.
+# Para 102 14
+We test the effectiveness of our bilingual gram-
+mar induction model on three corpora of parallel 
+text: English-Korean, English-Urdu and English- 
+Chinese. The model is trained using bilingual 
+data with automatically induced word-level align-
+ments, but is tested on purely monolingual data 
+for each language. In all cases, our model out-
+performs a state-of-the-art baseline: the Con-
+stituent Context Model (CCM) (Klein and Man-
+ning, 2002), sometimes by substantial margins. 
+On average, over all the testing scenarios that we 
+studied, our model achieves an absolute increase 
+in F-measure of 8.8 points, and a 19% reduction 
+in error relative to a theoretical upper bound.
+# Para 116 1
+2 Related Work
+# Para 117 11
+The unsupervised grammar induction task has 
+been studied extensively, mostly in a monolin-
+gual setting (Charniak and Carroll, 1992; Stolcke 
+and Omohundro, 1994; Klein and Manning, 2002; 
+Seginer, 2007). While PCFGs perform poorly on 
+this task, the CCM model (Klein and Manning, 
+2002) has achieved large gains in performance and 
+is among the state-of-the-art probabilistic models 
+for unsupervised constituency parsing. We there-
+fore use CCM as our basic model of monolingual 
+syntax.
+# Para 128 10
+While there has been some previous work on 
+bilingual CFG parsing, it has mainly focused on 
+improving MT systems rather than monolingual 
+parsing accuracy. Research in this direction was 
+pioneered by (Wu, 1997), who developed Inver-
+sion Transduction Grammars to capture cross- 
+lingual grammar variations such as phrase re- 
+orderings. More general formalisms for the same 
+purpose were later developed (Wu and Wong, 
+1998; Chiang, 2005; Melamed, 2003; Eisner, 
+# Para 138 7
+2003; Zhang and Gildea, 2005; Blunsom et al., 
+2008). We know of only one study which eval-
+uates these bilingual grammar formalisms on the 
+task of grammar induction itself (Smith and Smith, 
+2004). Both our model and even the monolingual 
+CCM baseline yield far higher performance on the 
+same Korean-English corpus.
+# Para 145 14
+Our approach is closer to the unsupervised 
+bilingual parsing model developed by Kuhn 
+(2004), which aims to improve monolingual per-
+formance. Assuming that trees induced over paral-
+lel sentences have to exhibit certain structural reg-
+ularities, Kuhn manually specifies a set of rules 
+for determining when parsing decisions in the two 
+languages are inconsistent with GIZA++ word- 
+level alignments. By incorporating these con-
+straints into the EM algorithm he was able to im-
+prove performance over a monolingual unsuper-
+vised PCFG. Still, the performance falls short of 
+state-of-the-art monolingual models such as the 
+CCM.
+# Para 159 14
+More recently, there has been a body of work 
+attempting to improve parsing performance by ex-
+ploiting syntactically annotated parallel data. In 
+one strand of this work, annotations are assumed 
+only in a resource-rich language and are projected 
+onto a resource-poor language using the parallel 
+data (Hwa et al., 2005; Xi and Hwa, 2005). In 
+another strand of work, syntactic annotations are 
+assumed on both sides of the parallel data, and a 
+model is trained to exploit the parallel data at test 
+time as well (Smith and Smith, 2004; Burkett and 
+Klein, 2008). In contrast to this work, our goal 
+is to explore the benefits of multilingual grammar 
+induction in a fully unsupervised setting.
+# Para 173 7
+We finally note a recent paper which uses pa-
+rameter tying to improve unsupervised depen-
+dency parse induction (Cohen and Smith, 2009). 
+While the primary performance gains occur when 
+tying related parameters within a language, some 
+additional benefit is observed through bilingual ty-
+ing, even in the absence of a parallel corpus.
+# Para 180 1
+3 Model
+# Para 181 7
+We propose an unsupervised Bayesian model for 
+learning bilingual syntactic structure using paral-
+lel corpora. Our key premise is that difficult-to-
+learn syntactic structures of one language may cor-
+respond to simpler or less uncertain structures in 
+the other language. We treat the part-of-speech 
+tag sequences of parallel sentences, as well as their
+# Para 188 1
+74
+# Para 189 1
+(ii)
+# Para 190 1
+(iii)
+# Para 191 1
+(i)
+# Para 192 3
+Figure 1: A pair of trees (i) and two possible alignment trees. In (ii), no empty spaces are inserted, but 
+the order of one of the original tree’s siblings has been reversed. In (iii), only two pairs of nodes have 
+been aligned (indicated by arrows) and many empty spaces inserted.
+# Para 195 3
+word-level alignments, as observed data. We ob-
+tain these word-level alignments using GIZA++ 
+(Och and Ney, 2003).
+# Para 198 9
+Our model seeks to explain this observed data 
+through a generative process whereby two aligned 
+parse trees are produced jointly. Though they 
+are aligned, arbitrary parts of the two trees are 
+permitted to diverge, accommodating language- 
+specific grammatical structure. In effect, our 
+model loosely binds the two trees: node-to-node 
+alignments need only be used where repeated 
+bilingual patterns can be discovered in the data.
+# Para 207 1
+3.1 Tree Alignments
+# Para 208 12
+We achieve this loose binding of trees by adapting 
+unordered tree alignment (Jiang et al., 1995) to a 
+probabilistic setting. Under this formalism, any 
+two trees can be aligned using an alignment tree. 
+The alignment tree embeds the original two trees 
+within it: each node is labeled by a pair (x, y), 
+(A, y), or (x, A) where x is a node from the first 
+tree, y is a node from the second tree, and A is an 
+empty space. The individual structure of each tree 
+must be preserved under the embedding with the 
+exception of sibling order (to allow variations in 
+phrase and word order).
+# Para 220 9
+The flexibility of this formalism can be demon-
+strated by two extreme cases: (1) an alignment be-
+tween two trees may actually align none of their 
+individual nodes, instead inserting an empty space 
+A for each of the original two trees’ nodes. (2) 
+if the original trees are isomorphic to one an-
+other, the alignment may match their nodes ex-
+actly, without inserting any empty spaces. See 
+Figure 1 for an example. 
+# Para 229 1
+3.2 Model overview
+# Para 230 24
+As our basic model of syntactic structure, we 
+adopt the Constituent-Context Model (CCM) of 
+Klein and Manning (2002). Under this model, 
+the part-of-speech sequence of each span in a sen-
+tence is generated either as a constituent yield 
+— if it is dominated by a node in the tree — 
+or otherwise as a distituent yield. For example, 
+in the bracketed sentence [John/NNP [climbed/VB 
+[the/DT tree/NN]]], the sequence VB DT NN is gen-
+erated as a constituent yield, since it constitutes a 
+complete bracket in the tree. On the other hand, 
+the sequence VB DT is generated as a distituent, 
+since it does not. Besides these yields, the con-
+texts (two surrounding POS tags) of constituents 
+and distituents are generated as well. In this exam-
+ple, the context of the constituent VB DT NN would 
+be (NNP, #), while the context of the distituent VB 
+DT would be (NNP, NN). The CCM model em-
+ploys separate multinomial distributions over con-
+stituents, distituents, constituent contexts, and dis-
+tituent contexts. While this model is deficient — 
+each observed subsequence of part-of-speech tags 
+is generated many times over — its performance 
+is far higher than that of unsupervised PCFGs.
+# Para 254 8
+Under our bilingual model, each pair of sen-
+tences is assumed to have been generated jointly in 
+the following way: First, an unlabeled alignment 
+tree is drawn uniformly from the set of all such 
+trees. This alignment tree specifies the structure 
+of each of the two individual trees, as well as the 
+pairs of nodes which are aligned and those which 
+are not aligned (i.e. paired with a A).
+# Para 262 4
+For each pair of aligned nodes, a correspond-
+ing pair of constituents and contexts are jointly 
+drawn from a bilingual distribution. For unaligned 
+nodes (i.e. nodes paired with a A in the alignment
+# Para 266 1
+75
+# Para 267 6
+tree), a single constituent and context are drawn, 
+from language-specific distributions. Distituents 
+and their contexts are also drawn from language- 
+specific distributions. Finally, word-level align-
+ments are drawn based on the structure of the 
+alignment tree.
+# Para 273 4
+In the next two sections, we describe our model 
+in more formal detail by specifying the parame-
+ters and generative process by which sentences are 
+formed.
+# Para 277 1
+3.3 Parameters
+# Para 278 2
+Our model employs a number of multinomial dis-
+tributions:
+# Para 280 1
+•	7r�D : over constituent yields of language i,
+# Para 281 1
+•	7r�D : over distituent yields of language i,
+# Para 282 1
+•	��D : over constituent contexts of language i,
+# Para 283 1
+•	��D : over distituent contexts of language i,
+# Para 284 3
+•	w : over pairs of constituent yields, one from 
+the first language and the other from the sec-
+ond language,
+# Para 287 4
+•	Gzpair : over a finite set of integer val-
+ues {—m, ... , —2, —1, 0,1, 2, ... , m}, mea-
+suring the Giza-score of aligned tree node 
+pairs (see below),
+# Para 291 1
+•	Gznode : over a finite set of integer values
+# Para 292 2
+{—m, . . ., —2, —1, 01, measuring the Giza- 
+score of unaligned tree nodes (see below).
+# Para 294 10
+The first four distributions correspond exactly to 
+the parameters of the CCM model. Parameter w is 
+a “coupling parameter” which measures the com-
+patibility of tree-aligned constituent yield pairs. 
+The final two parameters measure the compatibil-
+ity of syntactic alignments with the observed lexi-
+cal GIZA++ alignments. Intuitively, aligned nodes 
+should have a high density of word-level align-
+ments between them, and unaligned nodes should 
+have few lexical alignments.
+# Para 304 9
+More formally, consider a tree-aligned node 
+pair (n1, n2) with corresponding yields (y1, y2). 
+We call a word-level alignment good if it aligns 
+a word in y1 with a word in y2. We call a word- 
+level alignment bad if it aligns a word in y1 with 
+a word outside y2, or vice versa. The Giza- 
+score for (n1, n2) is the number of good word 
+alignments minus the number of bad word align-
+ments. For example, suppose the constituent my 
+# Para 313 11
+long name is node-aligned to its Urdu translation 
+mera lamba naam. If only the word-pairs my/mera 
+and name/naam are aligned, then the Giza-score 
+for this node-alignment would be 2. If however, 
+the English word long were (incorrectly) aligned 
+under GIZA++ to some Urdu word outside the cor-
+responding constituent, then the score would drop 
+to 1. This score could even be negative if the num-
+ber of bad alignments exceeds those that are good. 
+Distribution Gzpair provides a probability for these 
+scores (up to some fixed absolute value).
+# Para 324 8
+For an unaligned node n with corresponding 
+yield y, only bad GIZA++ alignments are possible, 
+thus the Giza-score for these nodes will always be 
+zero or negative. Distribution Gznode provides a 
+probability for these scores (down to some fixed 
+value). We want our model to find tree alignments 
+such that both aligned node pairs and unaligned 
+nodes have high Giza-score.
+# Para 332 1
+3.4 Generative Process
+# Para 333 4
+Now we describe the stochastic process whereby 
+the observed parallel sentences and their word- 
+level alignments are generated, according to our 
+model.
+# Para 337 7
+As the first step in the Bayesian generative pro-
+cess, all the multinomial parameters listed in the 
+previous section are drawn from their conjugate 
+priors — Dirichlet distributions of appropriate di-
+mension. Then, each pair of word-aligned parallel 
+sentences is generated through the following pro-
+cess:
+# Para 344 12
+1. A pair of binary trees T1 and T2 along with 
+an alignment tree A are drawn according to 
+P(T1, T2, A). A is an alignment tree for T1 
+and T2 if it can be obtained by the follow-
+ing steps: First insert blank nodes (labeled by 
+A) into T1 and T2. Then permute the order 
+of sibling nodes such that the two resulting 
+trees T10 and T20 are identical in structure. Fi-
+nally, overlay T10 and T20 to obtain A. We ad-
+ditionally require that A contain no extrane-
+ous nodes – that is no nodes with two blank 
+labels (A, A). See Figure 1 for an example.
+# Para 356 3
+We define the distribution P(T1, T2, A) to be 
+uniform over all pairs of binary trees and their 
+alignments.
+# Para 359 2
+2. For each node in A of the form (n1, A) (i.e. 
+nodes in T1 left unaligned by A), draw
+# Para 361 1
+(i) a constituent yield according to 7r�1 ,
+# Para 362 1
+76
+# Para 363 1
+(ii) a constituent context according to 0C1,
+# Para 364 1
+(iii) a Giza-score according to Gznode.
+# Para 365 2
+3. For each node in A of the form (A, n2) (i.e. 
+nodes in T2 left unaligned by A), draw
+# Para 367 1
+(i) a constituent yield according to 7rC2 ,
+# Para 368 2
+(ii) a constituent context according to 0C2, 
+(iii) a Giza-score according to Gznode.
+# Para 370 2
+4. For each node in A of the form (n1, n2) (i.e. 
+tree-aligned node pairs), draw
+# Para 372 2
+(i) a pair of constituent yields (y1, y2) ac-
+cording to:
+# Para 374 1
+0C1 (y1) - 0C2(y2) - W (y1, y2)	(1)
+# Para 375 1
+Z
+# Para 376 4
+which is a product of experts combining 
+the language specific context-yield dis-
+tributions as well as the coupling distri-
+bution W with normalization constant Z,
+# Para 380 3
+(ii) a pair of contexts according to the ap-
+propriate language-specific parameters, 
+(iii) a Giza-score according to Gzpair.
+# Para 383 4
+5. For each span in TZ not dominated by a node 
+(for each language i E 11, 2}), draw a dis-
+tituent yield according to 7r�Z and a distituent 
+context according to 0�Z.
+# Para 387 3
+6. Draw actual word-level alignments consis-
+tent with the Giza-scores, according to a uni-
+form distribution.
+# Para 390 4
+In the next section we turn to the problem of 
+inference under this model when only the part-
+of-speech tag sequences of parallel sentences and 
+their word-level alignments are observed.
+# Para 394 1
+3.5 Inference
+# Para 395 2
+Given a corpus of paired part-of-speech tag se-
+quences (s1, s2) and their GIZA++ alignments
+# Para 397 11
+g, we would ideally like to predict the set of 
+tree pairs (T1, T2) which have highest proba-
+bility when conditioned on the observed data:
+P(T1, T2Is1, s2, g). We could rewrite this by
+explicitly integrating over the yield, context, cou-
+pling, Giza-score parameters as well as the align-
+ment trees. However, since maximizing this in-
+tegral directly would be intractable, we resort to
+standard Markov chain sampling techniques. We
+use Gibbs sampling (Hastings, 1970) to draw trees
+for each sentence conditioned on those drawn for
+# Para 408 3
+all other sentences. The samples form a Markov 
+chain which is guaranteed to converge to the true 
+joint distribution over all sentences.
+# Para 411 10
+In the monolingual setting, there is a well- 
+known tree sampling algorithm (Johnson et al., 
+2007). This algorithm proceeds in top-down fash-
+ion by sampling individual split points using the 
+marginal probabilities of all possible subtrees. 
+These marginals can be efficiently pre-computed 
+and form the “inside” table of the famous Inside- 
+Outside algorithm. However, in our setting, trees 
+come in pairs, and their joint probability crucially 
+depends on their alignment.
+# Para 421 15
+For the i1h parallel sentence, we wish to jointly 
+sample the pair of trees (T1,T2)Z together with 
+their alignment AZ. To do so directly would in-
+volve simultaneously marginalizing over all pos-
+sible subtrees as well as all possible alignments 
+between such subtrees when sampling upper-level 
+split points. We know of no obvious algorithm 
+for computing this marginal. We instead first sam-
+ple the pair of trees (T1, T2)Z from a simpler pro-
+posal distribution Q. Our proposal distribution as-
+sumes that no nodes of the two trees are aligned 
+and therefore allows us to use the recursive top- 
+down sampling algorithm mentioned above. After 
+a new tree pair T* _ (T1*, T2* )Z is drawn from Q, 
+we accept the pair with the following probability:
+# Para 436 1
+� �
+# Para 437 1
+min 1,
+# Para 438 1
+P(T* T—Z, A—Z) Q(TIT—Z, A—Z)
+# Para 439 1
+P(T IT—Z, A—Z) Q(T* IT—Z, A—Z)
+# Para 440 7
+where T is the previously sampled tree-pair for 
+sentence i, P is the true model probability, and 
+Q is the probability under the proposal distribu-
+tion. This use of a tractable proposal distribution 
+and acceptance ratio is known as the Metropolis- 
+Hastings algorithm and it preserves the conver-
+gence guarantee of the Gibbs sampler (Hastings,
+# Para 447 2
+1970). To compute the terms P(T*IT—Z,A—Z) 
+and P(T IT—Z, A—Z) in the acceptance ratio above,
+# Para 449 2
+we need to marginalize over all possible align-
+ments between tree pairs.
+# Para 451 10
+Fortunately, for any given pair of trees T1 and 
+T2 this marginalization can be computed using 
+a dynamic program in time O (I T1 I I T2 I) . Here 
+we provide a very brief sketch. For every pair 
+of nodes n1 E T1, n2 E T2, a table stores the 
+marginal probability of the subtrees rooted at n1 
+and n2, respectively. A dynamic program builds 
+this table from the bottom up: For each node pair 
+n1, n2, we sum the probabilities of all local align-
+ment configurations, each multiplied by the appro-
+# Para 461 1
+77
+# Para 462 5
+priate marginals already computed in the table for 
+lower-level node pairs. This algorithm is an adap-
+tation of the dynamic program presented in (Jiang 
+et al., 1995) for finding minimum cost alignment 
+trees (Fig. 5 of that publication).
+# Para 467 9
+Once a pair of trees (T1, T2) has been sam-
+pled, we can proceed to sample an alignment tree 
+AIT1, T2.2 We sample individual alignment deci-
+sions from the top down, at each step using the 
+alignment marginals for the remaining subtrees 
+(already computed using the afore-mentioned dy-
+namic program). Once the triple (T1, T2, A) has 
+been sampled, we move on to the next parallel sen-
+tence.
+# Para 476 13
+We avoid directly sampling parameter val-
+ues, instead using the marginalized closed forms 
+for multinomials with Dirichlet conjugate-priors 
+using counts and hyperparameter pseudo-counts 
+(Gelman et al., 2004). Note that in the case of 
+yield pairs produced according to Distribution 1 
+(in step 4 of the generative process) conjugacy is 
+technically broken, since the yield pairs are no 
+longer produced by a single multinomial distribu-
+tion. Nevertheless, we count the produced yields 
+as if they had been generated separately by each 
+of the distributions involved in the numerator of 
+Distribution 1.
+# Para 489 1
+4 Experimental setup
+# Para 490 11
+We test our model on three corpora of bilin-
+gual parallel sentences: English-Korean, English- 
+Urdu, and English-Chinese. Though the model is 
+trained using parallel data, during testing it has ac-
+cess only to monolingual data. This set-up ensures 
+that we are testing our model’s ability to learn bet-
+ter parameters at training time, rather than its abil-
+ity to exploit parallel data at test time. Following 
+(Klein and Manning, 2002), we restrict our model 
+to binary trees, though we note that the alignment 
+trees do not follow this restriction.
+# Para 501 8
+Data The Penn Korean Treebank (Han et al., 
+2002) consists of 5,083 Korean sentences trans-
+lated into English for the purposes of language 
+training in a military setting. Both the Korean 
+and English sentences are annotated with syntactic 
+trees. We use the first 4,000 sentences for training 
+and the last 1,083 sentences for testing. We note 
+that in the Korean data, a separate tag is given for
+# Para 509 3
+2Sampling the alignment tree is important, as it provides 
+us with counts of aligned constituents for the coupling pa-
+rameter. 
+# Para 512 17
+each morpheme. We simply concatenate all the 
+morpheme tags given for each word and treat the 
+concatenation as a single tag. This procedure re-
+sults in 199 different tags. The English-Urdu par-
+allel corpus3 consists of 4,325 sentences from the 
+first three sections of the Penn Treebank and their 
+Urdu translations annotated at the part-of-speech 
+level. The Urdu side of this corpus does not pro-
+vide tree annotations so here we can test parse ac-
+curacy only on English. We use the remaining 
+sections of the Penn Treebank for English test-
+ing. The English-Chinese treebank (Bies et al., 
+2007) consists of 3,850 Chinese newswire sen-
+tences translated into English. Both the English 
+and Chinese sentences are annotated with parse 
+trees. We use the first 4/5 for training and the final 
+1/5 for testing.
+# Para 529 11
+During preprocessing of the corpora we remove 
+all punctuation marks and special symbols, fol-
+lowing the setup in previous grammar induction 
+work (Klein and Manning, 2002). To obtain lex-
+ical alignments between the parallel sentences we 
+employ GIZA++ (Och and Ney, 2003). We use in-
+tersection alignments, which are one-to-one align-
+ments produced by taking the intersection of one-
+to-many alignments in each direction. These one- 
+to-one intersection alignments tend to have higher 
+precision.
+# Para 540 5
+We initialize the trees by making uniform split 
+decisions recursively from the top down for sen-
+tences in both languages. Then for each pair of 
+parallel sentences we randomly sample an initial 
+alignment tree for the two sampled trees.
+# Para 545 14
+Baseline We implement a Bayesian version of 
+the CCM as a baseline. This model uses the same 
+inference procedure as our bilingual model (Gibbs 
+sampling). In fact, our model reduces to this 
+Bayesian CCM when it is assumed that no nodes 
+between the two parallel trees are ever aligned 
+and when word-level alignments are ignored. We 
+also reimplemented the original EM version of 
+CCM and found virtually no difference in perfor-
+mance when using EM or Gibbs sampling. In both 
+cases our implementation achieves F-measure in 
+the range of 69-70% on WSJ10, broadly in line 
+with the performance reported by Klein and Man-
+ning (2002).
+# Para 559 2
+Hyperparameters Klein (2005) reports using 
+smoothing pseudo-counts of 2 for constituent
+# Para 561 1
+3 http://www.crulp.org
+# Para 562 1
+78
+# Para 563 3
+Figure 2: The F-measure of the CCM baseline (dotted line) and bilingual model (solid line) plotted on 
+the y-axis, as the maximum sentence length in the test set is increased (x-axis). Results are averaged over 
+all training scenarios given in Table 1.
+# Para 566 10
+yields and contexts and 8 for distituent yields and 
+contexts. In our Bayesian model, these similar 
+smoothing counts occur as the parameters of the 
+Dirichlet priors. For Korean we found that the 
+baseline performed well using these values. How-
+ever, on our English and Chinese data, we found 
+that somewhat higher smoothing values worked 
+best, so we utilized values of 20 and 80 for con-
+stituent and distituent smoothing counts, respec-
+tively.
+# Para 576 20
+Our model additionally requires hyperparam-
+eter values for w (the coupling distribution for 
+aligned yields), Gzpair and Gznode (the distribu-
+tions over Giza-scores for aligned nodes and un-
+aligned nodes, respectively). For w we used a 
+symmetric Dirichlet prior with parameter 1. For 
+Gzpair and Gznode, in order to create a strong bias 
+towards high Giza-scores, we used non-symmetric 
+Dirichlet priors. In both cases, we capped the ab-
+solute value of the scores at 3, to prevent count 
+sparsity. In the case of Gzpair we gave pseudo- 
+counts of 1,000 for negative values and zero, and 
+pseudo-counts of 1,000,000 for positive scores. 
+For Gznode we gave a pseudo-count of 1,000,000 
+for a score of zero, and 1,000 for all nega-
+tive scores. This very strong prior bias encodes 
+our intuition that syntactic alignments which re-
+spect lexical alignments should be preferred. Our 
+method is not sensitive to these exact values and 
+any reasonably strong bias gave similar results.
+# Para 596 2
+In all our experiments, we consider the hyper- 
+parameters fixed and observed values.
+# Para 598 5
+Testing and evaluation As mentioned above, 
+we test our model only on monolingual data, 
+where the parallel sentences are not provided to 
+the model. To predict the bracketings of these 
+monolingual test sentences, we take the smoothed
+# Para 603 6
+counts accumulated in the final round of sampling 
+over the training data and perform a maximum 
+likelihood estimate of the monolingual CCM pa-
+rameters. These parameters are then used to pro-
+duce the highest probability bracketing of the test 
+set.
+# Para 609 12
+To evaluate both our model as well as the base-
+line, we use (unlabeled) bracket precision, re-
+call, and F-measure (Klein and Manning, 2002). 
+Following previous work, we include the whole- 
+sentence brackets but ignore single-word brack-
+ets. We perform experiments on different subsets 
+of training and testing data based on the sentence- 
+length. In particular we experimented with sen-
+tence length limits of 10, 20, and 30 for both the 
+training and testing sets. We also report the upper 
+bound on F-measure for binary trees. We average 
+the results over 10 separate sampling runs.
+# Para 621 1
+5 Results
+# Para 622 8
+Table 1 reports the full results of our experiments. 
+In all testing scenarios the bilingual model out-
+performs its monolingual counterpart in terms of 
+both precision and recall. On average, the bilin-
+gual model gains 10.2 percentage points in preci-
+sion, 7.7 in recall, and 8.8 in F-measure. The gap 
+between monolingual performance and the binary 
+tree upper bound is reduced by over 19%.
+# Para 630 9
+The extent of the gain varies across pairings. 
+For instance, the smallest improvement is ob-
+served for English when trained with Urdu. The 
+Korean-English pairing results in substantial im-
+provements for Korean and quite large improve-
+ments for English, for which the absolute gain 
+reaches 28 points in F-measure. In the case of Chi-
+nese and English, the gains for English are fairly 
+minimal whereas those for Chinese are quite sub-
+# Para 639 1
+79
+# Para 640 32
+	Max Sent. Length		Monolingual			Bilingual			Upper Bound
+	Test	Train	Precision	Recall	F1	Precision	Recall	F1	F1
+		10	52.74	39.53	45.19	57.76	43.30	49.50	85.6
+	10	20	41.87	31.38	35.87	61.66	46.22	52.83	85.6
+		30	33.43	25.06	28.65	64.41	48.28	55.19	85.6
+	20	20	35.12	25.12	29.29	56.96	40.74	47.50	83.3
+		30	26.26	18.78	21.90	60.07	42.96	50.09	83.3
+	30	30	23.95	16.81	19.76	58.01	40.73	47.86	82.4
+		10	71.07	62.55	66.54	75.63	66.56	70.81	93.6
+	10	20	71.35	62.79	66.80	77.61	68.30	72.66	93.6
+		30	71.37	62.81	66.82	77.87	68.53	72.91	93.6
+	20	20	64.28	54.73	59.12	70.44	59.98	64.79	91.9
+		30	64.29	54.75	59.14	70.81	60.30	65.13	91.9
+	30	30	63.63	54.17	58.52	70.11	59.70	64.49	91.9
+		10	50.09	34.18	40.63	37.46	25.56	30.39	81.0
+	10	20	58.86	40.17	47.75	50.24	34.29	40.76	81.0
+		30	64.81	44.22	52.57	68.24	46.57	55.36	81.0
+	20	20	41.90	30.52	35.31	38.64	28.15	32.57	84.3
+		30	52.83	38.49	44.53	58.50	42.62	49.31	84.3
+	30	30	46.35	33.67	39.00	51.40	37.33	43.25	84.1
+		10	39.87	27.71	32.69	40.62	28.23	33.31	81.9
+	10	20	43.44	30.19	35.62	47.54	33.03	38.98	81.9
+		30	43.63	30.32	35.77	54.09	37.59	44.36	81.9
+	20	20	29.80	23.46	26.25	36.93	29.07	32.53	88.0
+		30	30.05	23.65	26.47	43.99	34.63	38.75	88.0
+	30	30	24.46	19.41	21.64	39.61	31.43	35.05	88.4
+		10	57.98	45.68	51.10	73.43	57.85	64.71	88.1
+	10	20	70.57	55.60	62.20	80.24	63.22	70.72	88.1
+		30	75.39	59.40	66.45	79.04	62.28	69.67	88.1
+	20	20	57.78	43.86	49.87	67.26	51.06	58.05	86.3
+		30	63.12	47.91	54.47	64.45	48.92	55.62	86.3
+	30	30	57.36	43.02	49.17	57.97	43.48	49.69	85.7
+# Para 672 4
+Table 1: Unlabeled precision, recall and F-measure for the monolingual baseline and the bilingual model 
+on several test sets. We report results for different combinations of maximum sentence length in both the 
+training and test sets. The right most column, in all cases, contains the maximum F-measure achievable 
+using binary trees. The best performance for each test-length is highlighted in bold.
+# Para 676 3
+stantial. This asymmetry should not be surprising, 
+as Chinese on its own seems to be quite a bit more 
+difficult to parse than English.
+# Para 679 12
+We also investigated the impact of sentence 
+length for both the training and testing sets. For 
+our model, adding sentences of greater length to 
+the training set leads to increases in parse accu-
+racy for short sentences. For the baseline, how-
+ever, adding this additional training data degrades 
+performance in the case of English paired with Ko-
+rean. Figure 2 summarizes the performance of 
+our model for different sentence lengths on sev-
+eral of the test-sets. As shown in the figure, the 
+largest improvements tend to occur at longer sen-
+tence lengths. 
+# Para 691 1
+6 Conclusion
+# Para 692 9
+We have presented a probabilistic model for bilin-
+gual grammar induction which uses raw parallel 
+text to learn tree pairs and their alignments. Our 
+formalism loosely binds the two trees, using bilin-
+gual patterns when possible, but allowing substan-
+tial language-specific variation. We tested our 
+model on three test sets and showed substantial 
+improvement over a state-of-the-art monolingual 
+baseline.4
+# Para 701 6
+4The authors acknowledge the support of the NSF (CA-
+REER grant IIS-0448168, grant IIS-0835445, and grant IIS-
+0835652). Thanks to Amir Globerson and members of the 
+MIT NLP group for their helpful suggestions. Any opinions, 
+findings, or conclusions are those of the authors, and do not 
+necessarily reflect the views of the funding organizations
+# Para 707 1
+80
+# Para 708 1
+References
+# Para 709 3
+Ann Bies, Martha Palmer, Justin Mott, and Colin 
+Warner. 2007. English Chinese translation treebank 
+v 1.0. LDC2007T02.
+# Para 712 3
+Phil Blunsom, Trevor Cohn, and Miles Osborne. 2008. 
+Bayesian synchronous grammar induction. In Pro-
+ceedings of NIPS.
+# Para 715 3
+David Burkett and Dan Klein. 2008. Two languages 
+are better than one (for syntactic parsing). In Pro-
+ceedings of EMNLP, pages 877–886.
+# Para 718 5
+Eugene Charniak and Glen Carroll. 1992. Two exper-
+iments on learning probabilistic dependency gram-
+mars from corpora. In Proceedings of the AAAI 
+Workshop on Statistically-Based NLP Techniques, 
+pages 1–13.
+# Para 723 3
+David Chiang. 2005. A hierarchical phrase-based 
+model for statistical machine translation. In Pro-
+ceedings of the ACL, pages 263–270.
+# Para 726 4
+Shay B. Cohen and Noah A. Smith. 2009. Shared lo-
+gistic normal distributions for soft parameter tying 
+in unsupervised grammar induction. In Proceedings 
+of the NAACL/HLT.
+# Para 730 4
+Jason Eisner. 2003. Learning non-isomorphic tree 
+mappings for machine translation. In The Compan-
+ion Volume to the Proceedings of the ACL, pages 
+205–208.
+# Para 734 3
+Andrew Gelman, John B. Carlin, Hal S. Stern, and 
+Donald B. Rubin. 2004. Bayesian data analysis. 
+Chapman and Hall/CRC.
+# Para 737 3
+Dmitriy Genzel. 2005. Inducing a multilingual dictio-
+nary from a parallel multitext in related languages. 
+In Proceedings of EMNLP/HLT, pages 875–882.
+# Para 740 4
+C. Han, N.R. Han, E.S. Ko, H. Yi, and M. Palmer. 
+2002. Penn Korean Treebank: Development and 
+evaluation. In Proc. Pacific Asian Conf. Language 
+and Comp.
+# Para 744 3
+W. K. Hastings. 1970. Monte carlo sampling meth-
+ods using Markov chains and their applications. 
+Biometrika, 57:97–109.
+# Para 747 4
+R. Hwa, P. Resnik, A. Weinberg, C. Cabezas, and 
+O. Kolak. 2005. Bootstrapping parsers via syntactic 
+projection across parallel texts. Journal of Natural 
+Language Engineering, 11(3):311–325.
+# Para 751 3
+T. Jiang, L. Wang, and K. Zhang. 1995. Alignment of 
+trees – an alternative to tree edit. Theoretical Com-
+puter Science, 143(1):137–148.
+# Para 754 4
+M. Johnson, T. Griffiths, and S. Goldwater. 2007. 
+Bayesian inference for PCFGs via Markov chain 
+Monte Carlo. In Proceedings of the NAACL/HLT, 
+pages 139–146.
+# Para 758 4
+Dan Klein and Christopher D. Manning. 2002. A 
+generative constituent-context model for improved 
+grammar induction. In Proceedings of the ACL, 
+pages 128–135.
+# Para 762 3
+D. Klein. 2005. The Unsupervised Learning of Natu-
+ral Language Structure. Ph.D. thesis, Stanford Uni-
+versity.
+# Para 765 3
+Jonas Kuhn. 2004. Experiments in parallel-text based 
+grammar induction. In Proceedings of the ACL, 
+pages 470–477.
+# Para 768 1
+I. Dan Melamed. 2003. Multitext grammars
+# Para 769 2
+and synchronous parsers. In Proceedings of the 
+NAACL/HLT, pages 79–86.
+# Para 771 3
+Franz Josef Och and Hermann Ney. 2003. A sys-
+tematic comparison of various statistical alignment 
+models. Computational Linguistics, 29(1):19–51.
+# Para 774 2
+Yoav Seginer. 2007. Fast unsupervised incremental 
+parsing. In Proceedings of the ACL, pages 384–391.
+# Para 776 4
+David A. Smith and Noah A. Smith. 2004. Bilingual 
+parsing with factored estimation: Using English to 
+parse Korean. In Proceeding of EMNLP, pages 49– 
+56.
+# Para 780 4
+Benjamin Snyder and Regina Barzilay. 2008. Un-
+supervised multilingual learning for morphological 
+segmentation. In Proceedings of the ACL/HLT, 
+pages 737–745.
+# Para 784 4
+Benjamin Snyder, Tahira Naseem, Jacob Eisenstein, 
+and Regina Barzilay. 2008. Unsupervised multi-
+lingual learning for POS tagging. In Proceedings of 
+EMNLP, pages 1041–1050.
+# Para 788 5
+Benjamin Snyder, Tahira Naseem, Jacob Eisenstein, 
+and Regina Barzilay. 2009. Adding more languages 
+improves unsupervised multilingual part-of-speech 
+tagging: A Bayesian non-parametric approach. In 
+Proceedings of the NAACL/HLT.
+# Para 793 3
+Andreas Stolcke and Stephen M. Omohundro. 1994. 
+Inducing probabilistic grammars by Bayesian model 
+merging. In Proceedings of ICGI, pages 106–118.
+# Para 796 4
+Dekai Wu and Hongsing Wong. 1998. Machine 
+translation with a stochastic grammatical channel. 
+In Proceedings of the ACL/COLING, pages 1408– 
+1415.
+# Para 800 3
+Dekai Wu. 1997. Stochastic inversion transduction 
+grammars and bilingual parsing of parallel corpora. 
+Computational Linguistics, 23(3):377–403.
+# Para 803 4
+Chenhai Xi and Rebecca Hwa. 2005. A backoff 
+model for bootstrapping resources for non-english 
+languages. In Proceedings of EMNLP, pages 851 – 
+858.
+# Para 807 3
+Hao Zhang and Daniel Gildea. 2005. Stochastic lex-
+icalized inversion transduction grammar for align-
+ment. In Proceedings of the ACL, pages 475–482.
+# Para 810 1
+81

@@ -1,0 +1,119 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+used” [23]. A “good” TUI for HRI should take advantage of 
+its physical and spatial characteristics to reflect the physical 
+state or function of robots.
+Another quality of TUIs that can make them an interesting 
+choice for HRI tasks is I/O unification, or the natural 
+coupling of action and perception space [23]. TUIs, like any 
+physical object, can allow the user to perceive and act at the 
+same place and at the same time. This quality is often lost 
+in orthodox interfaces that usually separate action space 
+(e.g. mouse) from perception space (e.g. display). By 
+capturing this natural quality of physical objects, TUIs can 
+allow the user to be more attentive and focus on the task at 
+hand.
+Beaudouin-Lafon [4] discusses measures for the mapping of 
+physical controllers to their use in digital applications. He 
+defines &quot;degree of integration&quot; as the ratio between the degrees 
+of freedom of the controller to the degrees of freedom of the 
+entity being controlled. “Degree of compatibility” is defined as 
+the similarity between the actions performed on the controller 
+to the reaction of the entity being controlled [4]. Although 
+Beaudouin-Lafon does not discuss mapping between TUIs to 
+robotic tasks, we believe the measures introduced in his work 
+can be adapted to HRI and we use them later in this paper to 
+evaluate the different mappings we implemented.
+Using gestures to interact with robots is not a new idea. A 
+significant amount of work has been done using either 
+vision based [12] or glove based mechanisms [24] to 
+capture human arm and hand gestures. Among these efforts, 
+we found that Korenkamp et al.’s [15] work is somewhat 
+similar in approach to the gesture recognition technique we 
+used. Their paper presented a vision-based technique to 
+monitor the angles between a person’s forearm and upper 
+arm to predict the gesture that the person is performing. 
+Korenkamp et al.’s efforts were based on a single arm-only 
+interaction, mapped to two main robotic actions: “stop” and 
+“point-at-target”. For our approach, we used the Wiimote 
+and Nunchuk to detect the rotation angle of a person’s 
+shoulder and elbow joints in relation to the arm rest 
+position. Moreover, our system supports simultaneous 
+movements of two arms with eight different gesture-to-
+action mappings.
+Another interesting approach to the integration of the 
+human body as a robotic input device is exoskeletons 
+system [5, 14]. Kazerooni et al.’s [14] research was focused 
+on augmenting the human body with robotic arms to extend 
+the physical strength of an individual. The human operator 
+wore a robotic arm to directly apply mechanical power and 
+information signals [14] to the robot. By measuring the 
+dynamic contact force applied by the human operator, the 
+robotic limbs are able to amplify that force for performing 
+heavy duty tasks that normal human strength would not be 
+able to perform. The Robotnaut project [5] uses similar 
+concept but a different approach to interact with robots. 
+Bluethmann et al. adopted a master-slave system approach 
+which requires the human operator to wear gloves equipped 
+with Polhemus trackers for detecting arm and hand 
+positions [5]. The Robonaut operator remotely controls the 
+Robonaut from a distance without physically touching it. 
+Both of the interaction techniques mentioned above allow
+human operators to directly manipulate a robot that is either 
+collocated or remotely located.
+To extend the notion of TUI to the field of HRI, two 
+projects have demonstrated the potential of using physical 
+objects to manipulate robots. The Topobo toy application 
+[21] allows kids to assemble static and motorized plastic 
+components to dynamically created biomorphic forms. The 
+system is able to replay motions created by twisting and 
+pulling the motorized components to animate users&apos; 
+creations. By combining physical input and output within 
+the system itself, Topobo allows kids to learn about 
+mechanics and kinematics through rapid trial-and-error. 
+[21] A pioneering effort that utilizes physical object for 
+controlling a robot is presented by Quigley et al. [20]. In 
+one of the studies presented in their paper the authors 
+suggest the use of a physical icon (Phicon [13]) to directly 
+manipulate the roll and pitch angle of a mini-unmanned 
+aerial vehicle (mini-UAV).
+SYSTEM DESIGN AND IMPLEMENTATION
+In order to explore the possibility of using gestures for HRI, 
+we were looking for a robotic platform that would allow us 
+to have full and flexible control in lab settings. The robot 
+should be able to response to both high level commands 
+(such as walking or turning) and low-level commands (such 
+as rotate a specific joint by a certain number of degrees) to 
+match the meaning of both abstract gestures (such as 
+arbitrary hand gestures used in a speech) and specific 
+gestures (such as teaching others a specific movement by 
+demonstrating a similar gesture). Moreover, we were 
+searching for an anthropomorphic or zoomorphic robot that 
+resembles the human skeletal structure to a degree in order 
+to achieve an intuitive mapping between the user interface 
+and the robot. In search for robots that satisfy the above 
+criteria, we found that the AIBO robotic dog can be a 
+suitable platform for our studies. The AIBO is a 
+zoomorphic robot that resembles parts of the human 
+skeletal structure. For instance, the AIBO has “shoulder” 
+and “elbow” joints on its forelegs which act similarly to 
+human’s shoulder and elbow joints. By using the Tekkotsu 
+framework [25], developers can gain full control over the 
+low-level actuators and high-level body gestures and 
+movements of the AIBO.
+To evaluate the usability of gesture input for HRI in 
+contrast with a generic input device we have designed two 
+interaction techniques for manipulating an AIBO in a 
+collocated setup. One of the interaction techniques supports 
+human gesture input through a Wiimote and Nunchuk 
+interfaces, another input technique uses a keypad as the 
+basis for interacting with the AIBO. During the selection of 
+TUIs, the Nintendo Wiimote came to our attention. The 
+Wiimote clearly differentiates itself from other generic 
+controllers in terms of the interaction style. Instead of 
+pressing buttons, the Wiimote allows players to use motions 
+such as, swing, shake and thrust to interact with the virtual 
+objects on the TV screen. Players feel more immersed and 
+satisfied when using the Wiimote due to the fact that virtual 
+entities in games react to their physical inputs. Although the 
+Wiimote does not qualify as a highly specialized TUI, we
+123

@@ -1,0 +1,44 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Figure 1: TALC showing graffiti on the user&apos;s desktop along with a popup description of the threat.
+with the patch management system as a secondary task, but 
+with sufficient persuasion that users do not ignore it 
+completely.
+There have also been a number of research efforts intended 
+to address the problem of excessive dependence on user 
+interaction for security. For example, systems such as the 
+Chameleon System for Desktop Security [23] attempt to 
+categorize software into activity roles in an effort to reduce 
+impinging on the user’s attention. However, most such 
+tools are incomplete, or focus on a narrow range of threats. 
+For example, Chameleon is a low-fi, paper-based prototype 
+intended to address only the threat of malware.
+TALC is designed in response to the need for better patch 
+management on end-user systems. It aims to strike a 
+balance between proactive and interactive support, in order 
+to provide users with awareness and control over security 
+risks without excessive attention costs or disruption to their 
+workflow. TALC uses “calm” notifications, rather than 
+intrusive techniques such as popups, to motivate specific 
+user behaviors, and to provide awareness of overall system 
+risk from software vulnerabilities. TALC also provides a
+holistic approach to patch management, by assisting with 
+patch management across the heterogeneous variety of 
+applications and software components that may be installed 
+on a user’s machine.
+DESCRIPTION
+In this section, we describe how the user sees TALC, as 
+well as how TALC detects and assists in repairing software 
+vulnerabilities.
+TALC paints graffiti on the user’s desktop to indicate the 
+presence of unpatched software on the user’s system (see 
+Figure 1). Unlike intrusive techniques such as popups, this 
+is meant to be a “low-distraction” technique, designed to 
+make users aware of potential problems, while allowing 
+them to act on them in their own time. In contrast to 
+warning dialogs that interrupt users’ activities (“Your 
+patches are out of date!”), this awareness function is 
+intended to serve as a constant but gentle reminder, 
+allowing users to finish their primary tasks without letting 
+them forget about the security maintenance tasks that need 
+their attention.
+1057

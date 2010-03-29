@@ -1,0 +1,98 @@
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+The Adaptation of Visual Search Strategy to Expected
+Information Gain
+Yuan-Chi Tseng
+The University of Manchester
+MBS Crawford House 2.30, Booth Street West,
+Manchester, M15 6PB, UK
+yuan-chi.tseng@postgrad.manchester.ac.uk
+ABSTRACT
+An important question for Human-Computer Interaction is 
+to understand how and why visual search strategy is 
+adapted to the demands imposed by the task of searching 
+the results of a search engine. There is emerging evidence 
+that a key part of the answer concerns the expected 
+information gain of each of the set of available information 
+gathering actions. We build on previous research to show 
+that people are acutely sensitive to differences in the density 
+and in the number of items returned by the search engine. 
+These factors cause shifts in the efficiency of the available 
+information gathering actions. We focus on an image 
+browsing task, and show that, as a consequence of changes 
+to the efficiency of available actions, people make small but 
+significant changes to eye-movement strategy.
+Author Keywords
+Visual Search, Visual Exploration, Strategy, Cognitive 
+Models, Decision Making, Image Search Results, 
+Thumbnails, Eye Movement, Density, Spacing
+ACM Classification Keywords
+H.5.2 Information Interfaces and Presentation: User 
+Interfaces – Theory and methods; H.1.2 Models and 
+Principles: User/Machine Systems – Human Information 
+Processing; H.3.3 Information Storage and Retrieval: 
+Information Search and Retrieval – Selection process
+INTRODUCTION
+An important question for Human-Computer Interaction 
+(HCI) is how to design the presentation of search results to 
+facilitate visual search behaviour [9,20,35]. Researchers 
+have proposed many alternatives to the standard list of 
+results. They include Space-filling thumbnails of text [7], 
+Tabular interface [36], Faceted category interface [42], and 
+Textually-enhanced thumbnails [41].
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+Andrew Howes
+The University of Manchester
+MBS East F31, Booth Street West, Manchester,
+M15 6PB, UK
+howesa@manchester.ac.uk
+The number of proposals is, in part, a reflection of the scale 
+of the design space. Identifying which of the potentially 
+hundreds of interesting points in this space is best might be 
+informed by a theory of how people choose to search 
+through results, e.g. an ACT-R or EPIC theory of the 
+cognitive, motor, and perceptual processing required to 
+achieve the task [2,18,22,23]. Recent efforts to understand, 
+what Payne, Howes and Reader [28] call interactive search 
+tasks, have included [5,6,8,13,31]. However, it is 
+sometimes difficult to ascertain which interface will be best 
+when the details of the strategy that people will use given a 
+particular task environment are unclear [10,14,17,19]. In 
+this paper we are interested in the strategy choices that 
+people make about visual search, i.e. how they choose to 
+look at search results. Our focus is on the assumption that 
+people attempt to maximise expected utility given the 
+constraints of the human visual system [8,39] and that 
+design changes which change the efficiency of information 
+gathering actions will lead to changes in observed 
+behaviour.
+There is some evidence in the visual perception and 
+cognition literature that visual search strategy is adapted to 
+the demands imposed by particular task environments 
+[4,26,40]. It appears that people seek to maximise the 
+efficiency of visual search in the context of the particular 
+display layout. For example, longer fixations enable more 
+information to be gathered from fovea and peripheral 
+vision, although longer fixations can only be effective if the 
+information is available within the perceptual span [26]. 
+Moreover, people need to manage the trade-off between the 
+increased information gain of longer fixations and the effort 
+and time cost of holding a fixation.
+Some evidence that people adapt their strategy to the task 
+can also be found in the HCI literature. For example, trade-
+offs in the use of wide versus narrow spacing between icons 
+[11], in more but smaller text versus fewer but bigger text 
+in the same space [15] and in the use of Hyperbolic browser 
+versus standard browser [30]. Even in a standard results 
+layout, such as a simple list of links, there is evidence that 
+search strategy is affected by the context in which the 
+relevance of items is assessed [5,6,8,13]. The position of a 
+target item in a list and relationship between the relevance 
+of this target and distractor items affects search behaviour
+1075

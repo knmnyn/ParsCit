@@ -1,0 +1,109 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+facilitated by various interactions such as dynamic query 
+[30], overview + detail [28], direct manipulation [11], focus 
++ context [15] and so on. These interactions enable the ana-
+lyst to view the data in different ways during the exploration 
+process. The exploration evolves based on the analyst’s prior 
+knowledge, and clues or findings in each visualization state. 
+It is similar to berrypicking [2] in which the evolution of the 
+navigation is opportunistic, and information is gathered in 
+bits and pieces. In this context, the knowledge creation pro-
+cess is unsystematic, continuously evolving and emergent 
+[6]. Hence, the analyst must be aware of what has been done 
+and found during the exploration process to perform effec-
+tive reasoning.
+During data analysis, the user looks for evidence from the 
+data to construct, confirm or contradict a claim. Based on 
+the relations that the evidence have with the data in context 
+of the analysis’ purpose, the user’s mind constructs men-
+tal models of the information structure [20]. In the context 
+of interactive information visualization, the evidence can be 
+found in terms of patterns or outliers by changing views and 
+data specifications. If the argumentation process is complex, 
+it is important to externalize the evidence and causal links 
+between them for effective reasoning [25].
+To further understand the requirements for the analytical rea-
+soning process in information visualization, we looked at 
+traditional well-founded reasoning theories. Johnson-Laird 
+and Byrne [21] observed that there are three basic stages in 
+different reasoning theories such as spatial reasoning, propo-
+sitional inferences, syllogisms, and so forth. They are model 
+construction, revision and falsification. In the first stage, the 
+argument premises are understood and mental models are 
+constructed based on the premises’ content. In the second 
+stage, the model is scanned to formulate a putative conclu-
+sion. In the third stage, alternate models are searched for 
+to contradict the putative conclusion. If there are no alter-
+nate models, the conclusion is accepted; otherwise, the an-
+alyst returns to the second stage to assert the validity of the 
+other conclusions against the alternate models. Therefore, 
+it is clear that externalization of the mental models is not 
+enough to support the entire reasoning process. The other 
+two analytical reasoning phases — revision and falsification 
+— have to also be supported.
+Further, it is important to communicate what has been found 
+during the exploration process to others for a collaborative 
+decision making process. Viegas and Wattenberg strong ar-
+guments for communicating insights along with visualiza-
+tion to others through their communication-minded visual-
+ization framework [35]. Further design considerations for 
+sharing insights in collaborative visual analytics are discussed 
+by Heer and Agarwal [17].
+From the above discussion, we set out the following require-
+ments for the analytical reasoning process in information vi-
+sualization. The user has to be enabled to:
+1. externalize the analysis artifacts such as evidence, hypothe-
+ses, assertions and causal links between them;
+2. organize the analysis artifacts and the causal links between 
+them to support or contradict a claim;
+3. review and revise the exploration process;
+4. link externalized analysis artifacts and visualizations to 
+support these;
+5. present his findings along with his analysis process to oth-
+ers.
+In summary, for effective reasoning process, the user must 
+have an overview of what has been done and found. There-
+fore, to keep track of the exploration process and insights, a 
+history tracking mechanism and a knowledge externalization 
+mechanism respectively are essential. Hence, to support the 
+analytical reasoning process in information visualization, a 
+framework with both a history tracking mechanism and a 
+knowledge externalization mechanism is required.
+RELATED WORK
+We now present previous work in history tracking and in 
+knowledge externalization.
+History Tracking
+A common approach to automatically record the exploration 
+process is to capture low-level user actions such as mouse 
+events, keyboard events and to provide a linear history. The 
+user can revisit the linear history using an undo-redo mech-
+anism. It is used for recovery and reversal operations [1]. 
+After backtracking, on performance of a new action by the 
+user, the recent forward actions are deleted. Hence, the com-
+plete navigation is not captured.
+Another approach is to use a tree structure to capture the ex-
+ploration process. In GRASPARC [7], a problem solving 
+framework which integrates the computation and visualiza-
+tion process, a history tree is used to model the search for an 
+optimal solution to numerical simulations. The nodes of the 
+history tree hold snapshots of the parameters, raw data and 
+image representation at various stages of the analysis, and 
+edges represent the user navigation. It allows the user to se-
+lect a snapshot as a new branch point, or to select a sequence 
+of snapshots for visualization.
+In image-graphs [24], a graph representation is used to cap-
+ture the parameter settings during visual data exploration. 
+The edges hold parameters, nodes display the resulting im-
+ages. The user can perform operations on the edges and 
+nodes to produce new visualizations. Since the image graph 
+is a parameter-based interface, the rate of growth of param-
+eter settings makes it difficult to display and compare re-
+sulting images. A branching time model is used in Visage 
+[13] to capture direct manipulation tasks during visual data 
+exploration. A time-travel interface is used to visualize the 
+branching time model that allows the user to revisit the anal-
+ysis and reuse a sequence of direct manipulations on a new 
+branch timeline.
+In scientific visualization, there is a growing interest in the 
+management of the scientific data and visualization process.
+1238

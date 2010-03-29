@@ -1,0 +1,106 @@
+CHI 2008 Proceedings · Tangibles: Input &amp; Output	April 5-10, 2008 · Florence, Italy
+RELATED WORK
+Most in-vehicle systems research focus on how to minimize 
+driver workload and how to reduce visual attention on such 
+systems [2]. As touch sensitive interfaces are finding their 
+way into more vehicles (i.e. where drivers typically can 
+control media centres, climate controls etc.), a characteristic 
+assumption is that we need to look past the capabilities of 
+tactile feedback and search for new techniques that require 
+no (or very limited) visual attention. Traditionally, the car 
+requires little visual attention to master i.e. gear selection, 
+throttle control, or steering wheels.
+Touch-based and tactile-based interaction techniques have 
+been investigated on their abilities to support drivers when 
+interacting with in-vehicle systems. Several studies explore 
+opportunities and limitations of these techniques [5, 17, 24]. 
+Bellotti et al. compared a haptic-based force-feedback 
+knobble against a touch-based interface on a configurable 
+touch screen. They found that the tactile interface 
+performed better on visual demanding tasks and also in 
+relation to eyes-off-the-road frequency and duration [5]. 
+Tsimhoni and Green identified a similar result where touch- 
+based interaction required higher visual attention, but it also 
+involved lowered driving performance [24]. They noticed 
+that drivers wandered more in their lane and departed from 
+their lane more frequently. Also, drivers made shorter 
+glances at the interface, had a higher number of glances, but 
+waited longer between glances. If driving conditions got 
+difficult and thus visual demands for driving were high, 
+task completion times increased. Finally, Noy et al. found 
+that manipulation tasks performed on a touch screen were 
+significantly more mentally demanding than radio tuning 
+tasks simply because it required significant visual attention 
+as a consequence of the lack of tactile and kinaesthetic 
+feedback [17].
+While touch-based and tactile-based techniques seem to 
+suffer from a number of inherent limitations in terms of 
+reducing visual attention, two other techniques potentially 
+provide attention low interaction – i.e. speech recognition 
+and gesture-based interaction. Speech recognition stands 
+out as a potentially useful technique for in-vehicle systems 
+interaction as it provides both hands-free and eye attention 
+free interaction (at least in theory). Barón and Green [4] 
+state, however, that speech recognition is highly cognitive 
+demanding and it has been characterized as both impractical 
+and flawed in regard to in-vehicle interaction [8].
+Gesture-based interaction, on the other hand, could provide 
+a suitable alternative to speech recognition as it overcomes 
+some of the inherent impracticalities of spoken language 
+while driving. Alpen and Minardo explored gesture-based 
+interaction with in-vehicle systems [1]. In an experiment 
+using driving simulators, subjects performed entertainment 
+tasks, (e.g. find a song, search presets, adjust volume) with 
+both a gesture interface on the windshield and a 
+conventional radio. Subjects in the gesture condition made 
+fewer driving errors than radio interface subjects, however 
+not significantly fewer errors. Further, subjects preferred
+the gesture interface to the radio, because it allowed them to 
+keep eyes and attention on the driving. Subjects did not 
+have to reach and touch anything and gesture interaction 
+allowed them to be less accurate while being successful.
+Pirhonen et al. compared a gesture-based interface to a 
+touch-based interface for an on-the-go MP3 music player 
+[19]. They stressed the importance for mobile users to focus 
+their visual attention on the world around them and not on 
+the device (drivers are typically in a similar situation). They 
+found that overall workload was significantly reduced as 
+well as overall task completion time for the gesture-based 
+interface. Further, gesture interaction facilitated the primary 
+task (of walking) as the walking speed was closer to the 
+participants’ preferred walking speed. No difference was 
+found in the number of errors made between the two types 
+of interfaces.
+IN-VEHICLE SYSTEM INTERACTION
+Based on previous research on interaction techniques for in- 
+vehicle systems and inspired by Pirhonen et al. [19], we 
+present tactile, touch, and gesture interaction as alternatives 
+to in-vehicle interaction techniques. The three techniques 
+(tactile, touch and gesture) are represented by individual 
+systems in order to demonstrate and compare the qualities 
+and problems regarding attention.
+One type of well-established in-vehicle systems is common 
+car stereos or music players. For this experiment, we opted 
+to use music players as case systems to represent the three 
+interaction techniques (i.e. [1, 19]). The different types of 
+interaction are not unique to the domain of music players 
+and were chosen as case systems to allow direct comparison 
+of the interaction techniques. The terms tactile interaction, 
+touch interaction and gesture interaction will be used when 
+discussing the three music players that manifest the 
+respective interaction techniques.
+Tactile Interaction
+The tactile interaction was represented by an off-the-shelf 
+car stereo with CD functionality. The product was a xZound 
+CDX5 and is illustrated in figure 1.
+Figure 1. The conventional car stereo (Xzound CDX5) used for 
+the tactile interaction. Play/pause is located at the lower 
+middle part (1), skip forward/back is located in the lower right 
+(2), and the volume is controlled via the knob to the left (3).
+Prior to selecting the specific model standard functionalities 
+were investigated in car stereos to ensure that any model we 
+would select was both representative and intuitive. The car 
+stereo was selected due to its traditional looks and its 
+conventional interface. The car stereo operates via tactile 
+interaction with either the buttons at the lower part of the
+1140

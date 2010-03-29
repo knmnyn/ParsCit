@@ -1,0 +1,989 @@
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Ambient Social TV:
+Drawing People into a Shared Experience
+Gunnar Harboe, Crysta J. Metcalf, Frank Bentley,
+Joe Tullio, Noel Massey, Guy Romano
+Motorola Labs
+1295 E. Algonquin Rd., Schaumburg, IL 60196
+{gunnar.harboe, crysta.metcalf, f.bentley, joe.tullio, noel.massey, guy} @motorola.com
+ABSTRACT
+We examine how ambient displays can augment social 
+television. Social TV 2 is an interactive television solution 
+that incorporates two ambient displays to convey to 
+participants an aggregate view of their friends’ current TV- 
+watching status. Social TV 2 also allows users to see which 
+television shows friends and family are watching and send 
+lightweight messages from within the TV-viewing 
+experience. Through a two-week field study we found the 
+ambient displays to be an integral part of the experience. 
+We present the results of our field study with a discussion 
+of the implications for future social systems in the home.
+Author Keywords
+Social television, interactive television, social presence 
+awareness, ambient displays, field trial
+ACM Classification Keywords
+H5.m. Information interfaces and presentation (e.g., HCI): 
+Miscellaneous.
+INTRODUCTION
+Although Internet use is gaining importance, TV watching 
+is still the primary recreational activity of American adults, 
+accounting for half of all leisure time [7]. Although there is 
+great social potential in TV watching as a shared activity 
+and a topic for conversation [20], at least half of all people 
+usually watch alone [10].
+Many technologies coming out of the interactive television 
+(iTV) field, such as Video-On-Demand and Personal Video 
+Recorders (PVRs), focus on providing personalization and 
+greater individual control. They cater to viewers as isolated 
+individuals, and fragment audiences further [16].
+However, in recent years ‘social television,’ the idea of 
+using communication technology to connect TV viewers, in 
+order to create remotely shared experiences around TV
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+content, has received much attention. Proponents of this 
+idea see television as a social experience capable of 
+reinforcing bonds in strong-tie relationships. TV 
+programming can provide the common, shared experience 
+that serves as a basis for socialization, even for groups who 
+are already fairly close [29]. Social television systems 
+typically integrate some combination of text chat, voice 
+chat or video chat with TV programming, and use presence 
+to provide awareness of the status and context of other users 
+of the system [5, 9, 15, 23]. These efforts tie into earlier 
+CMC work on telepresence and co-viewing, but come at the 
+design and research questions from a different angle.
+In previous work we noted that users of social television 
+systems would benefit from features that indicate favorable 
+times for shared viewing [15]. One solution is to use 
+always-on ambient displays to let users be aware of when 
+others are watching TV. From a research standpoint, we can 
+then examine how this kind of awareness helps or 
+encourages people to get in touch through their social 
+televisions, and in particular, how it is used to initiate and 
+escalate communication sessions. As no extended field 
+trials of social television systems have been reported to 
+date, these important issues remain largely unexplored.
+In this paper, we present results from a two-week field 
+study of Social TV 2, an experimental social television 
+system that incorporates an ambient display component to 
+provide awareness of remote viewers. Two groups of five 
+households participated, with the members of each group 
+comprising an existing social circle. In addition to standard 
+social television functionality, Social TV 2 incorporates 
+ambient displays in order to keep users aware of the 
+participation of their friends and family. We found that the 
+ambient displays proved to be a defining component of the 
+system. The displays were effective indicators of good 
+times to use Social TV 2, increased participants’ awareness 
+of others’ TV-viewing schedules, and encouraged 
+participation in the system. This participation often began 
+as a glance at the ambient display – a quick check on the 
+status of a participant’s social network, but would 
+frequently escalate to deeper or more extended 
+communication. In this way, participants began treating TV 
+watching as a fundamentally social activity. Thus, the
+1
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Figure 1: The Social TV 2 system in use. The ambient
+orb is visible in the upper left, above the television.
+addition of ambient displays helped to fulfill the design 
+objectives of the system.
+In the following sections, we describe the design of our 
+Social TV 2 prototype, which we then put in the context of 
+existing work in both the social television and ambient 
+display literature. We outline unanswered questions that led 
+us to initiate this work and describe the mixed-method 
+approach to our field study. We then present our results, 
+describing how the ambient devices functioned as 
+traditional presence displays and as components of a more 
+complex communication system. Lastly, we show how 
+these findings bear on other social applications in the home, 
+and outline our future goals for social television research 
+and design.
+SOCIAL TV 2
+Social TV 2 follows Social TV, the system previously 
+described in Harboe et al. [15]. It is a prototype system that 
+allows remotely located friends and family to experience 
+some of the benefits of sitting next to one another on the 
+couch and watching a TV program together (Figure 1). To 
+provide this experience, we supplement typical TV 
+functions with two additional features: TV presence 
+information, and the ability to send and receive lightweight 
+messages. The features were selected to specifically 
+investigate people’s behaviors at the boundaries of the 
+social television experience, as they begin and end their 
+interactions, rather than the details of how they acted while 
+fully engaged in the communication experience.
+The prototype is implemented as a PC application running 
+on top of GBPVR1 media center software. The system uses 
+on-screen displays to communicate which of the user’s 
+friends or family (‘buddies’) are currently watching, what 
+they are watching, and what they have watched in the past.
+1 http://www.gbpvr.com/
+The laptop running the Social TV 2 software is connected 
+to a television, and all interaction with the system is 
+performed with a standard remote control. For our field 
+tests we chose to use a TiVo® remote that had several keys 
+relabeled to correspond to the features of our system.
+TV Presence
+A key requirement for encouraging participation in social 
+television is the ability to make users aware of when their 
+friends and family are logged into the system and watching 
+programs on TV. This information can be viewed from an 
+on-screen buddy list (Figure 2). The deployed system has 
+two presence states: ‘watching TV’ and ‘away’. The ‘away’ 
+state is intended to inform buddies that a user is not 
+currently watching TV. It is set automatically when the TV 
+is turned off or when no interactions with the system are 
+detected for some time after a program has ended. Users 
+can also disconnect from the social component of the 
+system if they wish to watch TV in privacy, and will then 
+appear to others to be ‘away.’ However, in this state many 
+of the features of the system are disabled, preserving a ‘see 
+and be seen’ information reciprocity.
+Users can change to the same program that their buddy is 
+watching from the buddy list. Additionally, whenever the 
+channel is changed, a list of buddies who are also watching 
+that program is displayed as part of the transient channel 
+information banner.
+Ambient Devices
+While Social TV 2’s on-screen display provides presence 
+awareness on the television, we wanted another means to 
+convey this information when the TV wasn’t on, or when 
+users were in a different room and unable to see the TV. 
+We chose to use two separate displays capable of 
+communicating information unobtrusively, visible from 
+anywhere in a room, and which would fit in as household 
+objects. The system has two different display devices to 
+meet these needs (Figure 3).
+Figure 2: The Social TV 2 on-screen buddy list.
+2
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Figure 3: The orb and Chumby devices displaying a 
+purple color (more than one friend is watching TV).
+As our primary ambient display, we chose the Ambient 
+Orb, a color changing lamp from Ambient Devices,2 and 
+configured it to display the current number of buddies 
+watching television. Different colors are used to indicate 
+whether one (blue), more than one (purple), or no other 
+buddies (yellow) are currently watching TV.
+The orb was connected via serial cable to our prototype, 
+and therefore had to be placed close to the TV. As people 
+often spend much of their time outside of the living room 
+[1], we wanted to include a second display for times when 
+users could not see the primary ambient display. The 
+Chumby3 is a WiFi-enabled internet appliance with a 3.5&quot; 
+LCD color display Though we would have preferred to use 
+a second orb, the Chumby provided faster updates and more 
+reliable wireless reception than the orb’s pager-based 
+network alternative. We wrote a Flash widget for the 
+Chumby that follows the color of the living room orb in 
+near-synchronization (within 15 seconds).
+Besides providing information about the number of buddies 
+online, we wanted to use the displays to attract users to the 
+system when a friend or family member invited them to 
+watch a show with them. To signal this, we designed the 
+displays to pulse slowly between the current color and 
+black. We did not want the flashing to be too distracting, 
+but wanted users to notice it so that they could come to their 
+televisions if they desired.
+Messaging
+We provided no voice or freeform text communication 
+features. However, users can send ‘suggestions’ to invite a 
+buddy to watch their current show together. If the buddy 
+accepts the suggestion, the system automatically changes 
+the channel to that program.
+When two or more buddies are watching the same program, 
+the prototype allows them to send messages to each other. 
+In the first round of this study, the system allowed only 
+three expressions, in the form of graphical thumbs-up, 
+thumbs-down, or ‘shout-out’ emoticons. After this 
+deployment, we received feedback that our participants 
+wanted to send a wider variety of messages. Therefore, for
+2 http://www.ambientdevices.com/
+3 http://www.chumby.com/
+the second group, we implemented a new feature that 
+replaced the generic ‘shout-out’ message with 
+approximately 20 pre-determined messages such as “How 
+is this show?”, “This sucks!”, or “Call me”. A number of 
+possible replies are available (“Good!”, “Bad!”, etc.), as 
+well as the thumbs-up and thumbs-down emoticons.
+RELATED WORK
+Social Television Systems and Studies
+The idea of communicating and sharing awareness through 
+the television set has been explored by a number of 
+different researchers. However, social television systems as 
+yet remain confined to labs and limited trials. AmigoTV, 
+described by Coppens et al. [9], was an early social 
+television system that included presence, a buddy list, 
+invitations, emoticons, and voice chat, but no facilities for 
+indicating presence while offline. Telebuddies, by Luyten et 
+al. [21], takes a different approach to the challenge of 
+drawing users into the experience, using a friend-of-a-friend 
+profile of interests and social relationships to match users 
+with suitable communication partners. A more 
+comprehensive review of social television systems can be 
+found in Harboe et al. [14].
+Geerts [14] and Baillie et al. [2] conducted user studies of 
+AmigoTV, both of them lab experiments comparing voice 
+communication to other modalities. Weisz et al. [29] and 
+Regan and Todd [24] examined groups or pairs of friends 
+and strangers using text chat while watching videos or TV 
+together. Similarly, Oehlberg et al. studied groups of 
+friends and acquaintances watching television, both in 
+collocated groups and connected via an audio link [23]. 
+Finally, In Harboe et al. we examined friends and family 
+watching TV in a voice chat setting; this in the participants’ 
+homes rather than the lab [15].
+All these studies were based on single-session events. None 
+of them looked at the process by which a shared viewing 
+experience is initiated or how the systems are used over 
+time. However, Boertjes has announced a prolonged in- 
+home study of a social television system called ConnecTV 
+[5], and we await those results with interest.
+Building on this existing work, we are extending the social 
+television concept by including additional facilities for 
+offline awareness of TV presence information. In addition, 
+we are presenting results from the field that that throw light 
+on the real-world use of television-based sociability, and 
+which suggest design considerations for future social 
+television systems.
+Social Awareness Systems for the Home
+Hindus et al. created and evaluated a number of social and 
+communication systems, with varying levels of media 
+richness, for the home [18]. They note that consumers 
+wanted devices with multiple communication modes.
+In the context of domestic video calling over the TV, 
+Hemmeryckx-Deleersnijder and Thorne integrated an
+3
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+awareness component that displayed images automatically 
+captured from the environment [17]. In their scenario, they 
+seek to provide background awareness and help negotiate 
+conversation engagement.
+De Ruyter et al. compared different degrees of peripheral 
+awareness of remote friends (displayed as video) while 
+watching a shared TV program [27]. The system in their 
+study only supported awareness while in a shared viewing 
+session. Markopoulos et al. provide an overview of other 
+awareness systems [22].
+Evaluation of Ambient Displays
+While the ambient display literature contains a wealth of 
+design examples, it contains few reports of field 
+evaluations. CareNet [8], a combination ambient/interactive 
+display for elder care, arrived at a number of useful findings 
+for the design of effective ambient displays for the home. 
+Rowan et al. showed how an ambient display can foster 
+connectedness and promote communication between elders 
+and their adult children [26]. In addition to these studies, 
+other researchers have shown how ambient displays can 
+maintain a sense of connectedness between friends and 
+loved ones [12, 28]. The Whereabouts clock [6] shows how 
+simple location and messaging capabilities can enhance 
+connectedness and allow family members make inferences 
+about each others’ activities using their existing knowledge 
+of one another. In this work, we build on these findings to 
+demonstrate how ambient displays can be designed into a 
+larger social application to promote use of that system and 
+fulfill its goals of strengthening social bonds.
+METHODS
+In the design of our field study, we were interested to see 
+whether the ambient displays met our design goal of 
+encouraging social television participation during those 
+periods when a participant’s friends and family were also 
+using the system, if it led to other forms of communication, 
+and how it would ultimately affect the feelings of 
+connectedness between our participants. Striving to 
+understand these patterns of behavior is an essentially 
+qualitative question, and our approach was largely 
+exploratory. We ran two separate in-home trials. Five 
+households were recruited for each trial, and each trial 
+lasted 14 days.
+Recruitment
+Participants were recruited using an independent recruiting 
+agency that was instructed to find social groups in which 
+the various household members were mutual friends, and 
+all had strong ties with one another. The actual relationships 
+between the recruited households varied (Figure 4). In both 
+trials there was a central ‘hub’ (A1, B1), a person who 
+knew and recruited all the other participants, but there were 
+also at least two households who were more peripheral, 
+without strong ties to the rest of the group. In both trials the
+Figure 4: Social ties between households in our field
+trials. Dashed lines represent acquaintances.
+central hub was a woman, and the four friends she recruited 
+female. However, in each group some of the husbands 
+knew each other, and in the second group two of the 
+husbands were best friends.
+Group A, our first group, consisted of four couples living in 
+their own households, two with (very young) children. The 
+fifth participant was recently engaged, but still living with 
+her parents and brother. Ages of the main participants 
+ranged from 26 to 33. A2 and A5 are sisters, and A3 is the 
+cousin of A1’s husband. A5 was not friends with anyone 
+else in the study except her sister, and A3 and A4 knew 
+each other only tangentially from having attended the same 
+parties.
+In Group B, our second group, all five nuclear families 
+were living in their own households, and all five households 
+included teenage children. Ages of the main participants 
+ranged from 46 to 53. B1 was very close friends with B2 
+and B4, and knew B3 and B5 well. Again we had a pair of 
+sisters: B4 and B5, but B2, B3, and B4 only see each other 
+at the parties of mutual friends, and B5 did not remember 
+ever meeting B2 and B3.
+While there were some husbands in both groups who knew 
+each other well, and some of the teenage children in Group 
+B knew each other, their relationships, for the most part, 
+mirrored those of our female main participants. Thus, we 
+had a number of different kinds of relationships represented 
+in the two social groups, but neither group was uniformly 
+tight-knit.
+Deployment
+For each household, the Social TV 2 system was installed 
+in the room participants reported as being the most common 
+place for watching TV. As mentioned earlier, Groups A and 
+B received slightly different versions of the software, as a 
+result of an iterative design process on the basis of Group 
+A’s feedback. Each household was given one orb and one 
+Chumby. We asked participants to place the Chumby in any 
+part of their home where they spent a significant amount of 
+time or passed by frequently. Six participants put it in the
+4
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+kitchen, two in a hallway, and one in a bedroom. The last 
+Chumby malfunctioned and was not used. Participants were 
+given a brief (20 minute) introduction to the system and its 
+features, and a phone number for technical support that they 
+could call at any time. We asked each participant to use the 
+system the way they would if they were not in a study, and 
+explained that they did not have to use every feature, or any 
+feature, unless they wanted to. Other household members 
+were also welcome to use the system, and generally did so.
+Data Collection
+We used multiple methods for data collection, including 
+interviews, usage logs, and voice mail diaries.
+There were three sets of semi-structured interviews for each 
+household. The initial interview lasted about half an hour 
+and was used to collect background information. In a phone 
+interview after the first week, lasting between 15 and 30 
+minutes, we gathered data about the participants’ use of and 
+reactions to the prototype during the first week. And the 
+final interview, lasting from an hour to an hour and half, 
+was structured to collect more detailed information on a 
+number of topics. Whenever possible, we asked other 
+household members to participate in the interviews. We 
+recorded a total of 22 hours of interview data, but much of 
+the material falls outside the scope of this paper.
+We logged all interactions with the system, in order to 
+document actual usage and to allow us to examine 
+interesting incidents in detail later. The logs, then, provide 
+support for some of the events described in the interviews. 
+Cameras or sensors in the home would have been useful to 
+put the system use in context, but we felt this would be too 
+intrusive and technically complex for this study.
+Instead, voice mail diaries were used to collect information 
+on behaviors we could neither log nor directly observe, and 
+which we were afraid would be forgotten prior to the 
+interviews. We devised questions about behaviors 
+surrounding the ambient presence/awareness features, 
+communications with other people in the study, and their 
+reactions to, as well as use of, the various features. So that 
+the questions would not influence our participants’ behavior 
+in advance, the participants were given 14 sealed envelopes, 
+one for each day of the study, each containing that day’s 
+questions. Thus, participants had the questions in front of 
+them as they provided their feedback. Participants left 3 
+hours and 41 minutes of voice mail messages in total.
+Analysis
+From the log data we extracted some basic measures of 
+system use (Table 1). Given the small scale and non- 
+experimental design of the study, we did not attempt further 
+statistical treatment of the quantitative data.
+The bulk of the analysis was instead qualitative, using a 
+variation of the affinity diagram method. We reviewed the 
+interview and voice mail data, and extracted observations, 
+statements (which we transcribed) and behavioral
+Activity	A	B
+TV watched, connected (hrs)	154.27	180.77
+TV watched, disconnected (hrs)	21.81	0.34
+Buddy list views	185	390
+Joined show through buddy list	62	160
+Emoticons sent	59	120
+Canned messages sent	N/A	185
+Table 1: Aggregate usage data by group.
+descriptions relating to ambient presence and awareness. 
+These items were printed out as sticky notes.
+Then, working as a team, we put these items together into 
+groups or categories, a process of “comparison, contrast, 
+and integration” [19]. To efficiently organize the data we 
+used an affinity-like post-it chart [4]. Here we followed 
+Bernard: As the categories were identified we would “pull 
+all the data (that is, exemplars) from those categories 
+together and compare them, considering not only what 
+[items belong] in each emerging category but also how the 
+categories are linked together” [3]. The patterns that 
+emerged from this analysis process form the basis of the 
+results that follow.
+RESULTS
+Our analysis identified several themes around the effect and 
+effectiveness of our ambient displays. We first discuss their 
+basic ability to communicate presence information, and 
+then go on to talk about how they functioned as part of the 
+larger Social TV 2 system. Throughout, we use quotes from 
+the interviews and voice mail diaries to illustrate each 
+particular theme in our participants’ own words.
+Effectiveness as Ambient Displays
+In considering how the ambient information interacted with 
+the other components of the Social TV 2 system, the orb 
+and Chumby would only be relevant if they actually 
+functioned as ambient displays. Fortunately, they did.
+Noticing and interpreting the displays
+Our participants saw and noticed the changing colors of the 
+orb, and by and large understood what they signified. B3: “I 
+notice when the color’s on, whether it’s purple or blue, I 
+know that someone else is actually on the system.” In fact, 
+several participants commented on the orb consistently 
+drawing their attention. B 1 mentioned in the final interview 
+that “every time I passed by, a thousand times a day, I 
+would look to see what color it was.” Only one participant, 
+B4, could not account for the meaning of the different 
+colors. When asked if she knew what they signified, she 
+answered: “[My daughter] does, I don’t.”
+The pulsing signal that the ambient devices sent when a 
+suggestion was received was less widely understood. Many
+5
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+participants confused pulsing with just changing colors. For 
+example, B3 said “I’m not sure if it was pulsating or just 
+changing purple to blue, to purple to blue [ ... ] I honestly 
+don’t know...” This may partly have been a problem of 
+terminology. More substantially, at least part of the reason 
+for the confusion was that few participants saw the pulsing 
+happen. Most invitations were sent to people who were 
+already watching TV, and who accepted or declined them 
+before they had a chance to notice the ambient devices 
+pulsing. Another likely contributing factor was the subtlety 
+of the signal: “I love the orb, but when it flashes, I wish it 
+flashed a different color or did something crazy. I can’t tell 
+when it’s flashing sometimes.” (A2)
+A number of participants reported that they were less aware 
+of the Chumby than of the orb. As B3 said: “I think it&apos;s kind 
+of a non-entity, the Chumby.” A few different factors 
+appeared to contribute to this. In daylight, the Chumby’s 
+small LCD screen was only clearly readable from certain 
+angles, so participants were unable to see it from some 
+areas of the room where it was installed. In a few 
+households, the Chumby was redundant because 
+participants could also see the orb from most places where 
+they could see the Chumby. Finally, the Chumbies used 
+were pre-production models prone to technical glitches and 
+service interruptions, so for nearly all of the participants the 
+Chumby did not work properly for parts of the study. 
+Nevertheless, the Chumby played an important part of the 
+experience for certain participants: For example, A1 told us 
+“Since I had [the Chumby] in the kitchen it was just while I 
+was cooking...it was like ‘oh, I wonder who’s on.’ ”
+Placement
+As noted by others [8, 26], we found that the ambient 
+displays needed to be located where they would frequently 
+be seen. B1 mentioned, “The physical positioning in my 
+house [for the Chumby] was the perfect spot, because I 
+spend most of my day in the kitchen when I’m home.” In 
+two households, participants chose locations for the 
+Chumby where they rarely spent time or passed by. “The 
+orb was a lot more helpful than the Chumby. [ ... ] Because 
+we’re down here more.” (B2) A5 did not regard the 
+displays as particularly useful. This may have been the 
+result of physical context, as both were put in her brother’s 
+bedroom. When we asked her if she ever saw the orb go 
+purple when she wasn’t watching TV, she replied “Uh, no, 
+because if I was in that room, I knew I’m gonna be 
+watching TV.”
+Acceptability of form factor
+The majority of our participants liked the form factor of the 
+displays. We received numerous comments such as “I love 
+the orb” (B5), and “I like the orb, I like the Chumby... the 
+colors and the blinking” (A2). A3 and A4 both called the 
+orb “cool” and B4 said it was “neat.” Even when the 
+novelty of the system wore off and some participants were 
+saying that interacting with the on-screen application was a 
+“chore” (B5), their enjoyment of the orb continued to the
+end. It should be noted that the acceptance wasn’t universal; 
+A1’s husband complained that the orb did not go with their 
+décor, but “if it was a little bit smaller I think it would look 
+fine.”
+Drawing Users into Communication
+Although the ambient devices provided effective social 
+presence, our participants felt that the orb and Chumby 
+would not be useful by themselves without the rest of the 
+information the Social TV 2 system provided. “It would be 
+pretty, but I couldn’t see what people were doing,” said A3. 
+B1 commented that “There’d be no reason to have an orb 
+and then I can’t turn it on and see who it’s connected to.” 
+A2 thought that without the additional information of who 
+was watching, and what they were watching, “it would be a 
+tease.” Balancing this, several of our participants said that 
+at times they were just interested in learning that a friend 
+was at home and available, not specifically whether he or 
+she was watching television.
+We saw further evidence that the ambient information did 
+help to involve them in the social television experience. 
+Many of our participants told us of occasions when they 
+turned on the TV because the orb indicated that others were 
+watching. For example, A2 told us “as soon as I come into 
+the house or I wake up or come into the room, that’s the 
+first thing. It draws my attention, and the first thing I do is 
+turn on the TV.” In a voice mail, A3 told us that the orb 
+“has made me a little bit more aware, makes me want to, 
+when it does change colors, to see which of my buddies are 
+on.”
+In some cases the participants switched on the TV just to 
+see who was there, then turned it off. However, more often 
+they would contact or be contacted by one of their friends, 
+or simply go on watching the TV show. A2 told us that she 
+would turn on the TV “just to see who’s on, and then most 
+of the time we would all end up watching the same thing.” 
+This usually involved exchanging lightweight messages: 
+“Find out what other people are watching, flip to what 
+they’re watching, and then talking to some of the people to 
+throw comments out.” (B3)
+In a number of cases, the people who described watching 
+TV with their buddies and messaging them were people 
+who were doing similar things prior to the study. For 
+example, the sisters A2 and A5 told us that they often 
+watched TV shows together, and A2 mentioned receiving a 
+text message from her sister while they were both watching 
+the season finale of Gilmore Girls. Regarding our system, 
+she said: “The first thing I do is see what my buddies are 
+watching, and then I tend to sometimes watch what they’re 
+watching and then give suggestions or thumbs up or down 
+depending on how I feel toward their program.”
+Interestingly, people who used to watch TV with others 
+remotely found themselves doing so again once the Social 
+TV 2 system was in their homes. B 1 told us how, years ago, 
+she and her close friend B2 would “watch Saturday Night
+6
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+8:01:48 PM B5 watching TV, B1 turns TV on
+8:06:24 PM B5 joins B1 at Desperate Housewives 
+8:07:00 PM B 1: “How are you?”
+8:08:38 PM B5: “Good!”
+8:09:05 PM B1: t, [thumbs-up] 
+8:09:18 PM B5: t, [thumbs-up] 
+8:10:20 PM B5: “I really like this!” 
+8:17:26 PM B1: “Call me!”
+Table 2: Sample interaction sequence from logs.
+Live together,” while they talked on the phone. However, 
+they haven’t done anything like that since their children 
+were little. Until they participated in this study:
+“I noticed the orb was blue, so I knew somebody had their 
+television on, and sure enough, it was [B2’s household]. 
+And I knew that her husband’s at work and her kids were at 
+school, so I deduced it was [B2]. And so without even 
+saying ‘Who’s there?’ I immediately went to her channel, 
+which was Oprah, and I sent her a thumbs-up. And then 
+she thumbs-upped me, and then two seconds later I said [to 
+myself], ‘This is dumb!’ And then [I called her, and] we 
+had a whole conversation.”
+In this story, we can see that the ambient display serves to 
+initially draw the participant into an interaction which then 
+becomes progressively deeper, culminating in a direct voice 
+conversation. This is a pattern we can see repeated with 
+different variations in the logs (Table 2).
+It should be pointed out that although turning the TV on in 
+response to the orb was one of the most commonly reported 
+behavior patterns in our study, some participants did not 
+have a desire to turn on the television and dig deeper into 
+the presence information. B3 said: “[The orb is] kind of 
+interesting, but once again, what do I care if somebody is 
+watching TV?”
+Other participants were curious, but had little interest in 
+talking about it. B2’s husband said he would “turn it on just 
+to see what they’re watching, and then probably send them 
+a message saying that ‘it sucks’ or something.” To put this 
+in context, he rarely socializes around TV content anyway; 
+although B1’s husband is his best friend, he has only once 
+been over there to watch TV, for a Super Bowl party.
+Meeting the Goal of Connectedness
+Our participants reported that when they saw the ambient 
+colors, they found themselves thinking about the fact that 
+others were watching TV. In some cases this translated into 
+a feeling that they could “know what’s going on,” (B2’s 
+husband) with others in the study. Said A3: “I still think the 
+orb is kinda the coolest part of the whole thing because it’s 
+really neat to see it change color and then know that 
+something is going on on the other end to cause it to do 
+that.” The husband of A1 said: “Even before I turned on the 
+TV, I knew that someone was on there.” B1 put it this way:
+“I liked the different colors, I liked coming in the house and 
+saying ‘oh, someone’s home watching TV too now.’ I don’t 
+know, it was like a friendly feeling, like someone else is 
+home and I’m not the only one home tonight.”
+While B1 knew all the other participants in her trial, that 
+was not true for the others. Participants on the periphery of 
+the group could only imagine what it would be like to use 
+the system with people closer to them. For example B5, 
+who expressed dismay with the system overall, said “it’s a 
+love connection. You have feelings for these people and 
+you care more. My parents could be blue, my sisters could 
+be pink, orange, green.” While B3 did not find the orb 
+useful during the study, when she was asked if she would 
+be more interested if the orb was telling her about different 
+people, she answered:
+“Oh, yeah, yeah, yeah. Probably. If it’s somebody I was 
+closer to. [ ... ] It’s almost like a communication light 
+bulb. You know what I mean? Like the fire bell goes off, 
+and ‘Ding, ding, ding!’ If I saw that, I’d be ‘Hmm, Dad’s 
+watching,’ or, I feel like ‘Hmm, I’m connecting with 
+somebody.’ It sounds so stupid, but maybe you’re 
+connecting with somebody.”
+Inference and Learning about Presence
+Despite the fact that our ambient displays only showed 
+three colors, our participants were able to combine the 
+information conveyed with previous social knowledge in 
+order to draw rich inferences about the other people in the 
+study. In some cases it inspired them to leaps of 
+imagination, like when B2’s husband saw the orb turn blue 
+when someone turned the TV on at 2 am: “I just figured 
+somebody was watching, maybe fell asleep on the couch, 
+maybe some guy got thrown out of the bedroom for the 
+night.” At other times the speculations were more mundane, 
+as when B 1 looked at the orb one morning: “The orb was 
+yellow and no one was on, so I&apos;m assuming everyone was 
+already at work.” This statement also exemplifies another 
+use our participants found for the ambient information: 
+Whether or not someone was watching TV was used as a 
+proxy for whether they were home. Naturally, the presence 
+information in the buddy list was a helpful supplement to 
+the ambient devices for this purpose. A5 put it this way: 
+“It’d be interesting when I’d be on at night, like ‘Oh, let me 
+see if she’s on. Is she watching TV, is she home, is she 
+out?’ So that was one way to know, ‘Yeah, she’s home, 
+she’s watching TV.’ ”
+We saw evidence that over the course of the study, our 
+participants learned more about each other’s viewing habits, 
+and used that knowledge to interpret the ambient signals 
+with more confidence, guessing who might be on at any 
+given time. Most of our participants knew little about the 
+TV viewing habits of the rest of their group before the 
+study commenced. To take just one example, A1 was only 
+able to make general guesses about her friends’ viewing 
+habits when the study started. At the end, on the other hand, 
+she told us: “Yeah, I think as the two weeks progressed I 
+kinda had a feel; like on Fridays I know [A4] works from
+7
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+home so, like, this past Friday the light was blue, and I was 
+like ‘the only person who’s going to be watching TV right 
+now is her.’ So I kinda got a feel. Late night would be [A5], 
+daytime would be [A3] because of the kids.”
+By allowing participants to leverage their existing 
+knowledge of one another to learn more detail about their 
+viewing habits, the ambient information conveyed by Social 
+TV 2 became more powerful. Participants were soon able to 
+use the orb to glean (with some degree of uncertainty) 
+information that they had initially needed to look up in the 
+buddy list. One indication of the meaning that our 
+participants attributed to the ambient devices’ output is the 
+power the displays had to puzzle them. When B1 sat down 
+to watch TV on a rainy evening, she noted to her surprise 
+that no one else was logged on: “The oddest thing, it’s a 
+nice night to be in... and not one person is on Social TV 
+tonight!”
+Presence seemed to lead to an expectation that someone 
+who was watching TV was available for interaction. 
+Unfortunately, our participants were often disappointed. B2 
+told us in a voice mail: “We’ve not really heard back from 
+people, the orb is blue, I don’t know if they’re getting them 
+or if they’re just not sending back or what the problem is.” 
+In the phone interview she said that when people weren’t 
+responding, perhaps “they just wanted to watch their show, 
+and they were ignoring you.” B1 said that when she notices 
+the orb turning blue or purple and turns on the TV, she felt 
+like “they’re on for a few minutes, we say hello, and then 
+someone turns it off or they have to go.”
+DISCUSSION
+An Integral Component of Social TV 2
+If we consider the ambient devices in isolation, they appear 
+as fairly ordinary displays for peripheral presence 
+awareness. And indeed, the results show that they 
+successfully functioned as such. This, along with the fact 
+that the orb, at least, was on the whole so well liked, goes 
+some way towards validating our design, but it is not by 
+itself a particularly novel finding. Far more interesting are 
+the ways in which the ambient devices and the other Social 
+TV 2 features interacted. Our findings reveal and hint at a 
+number of interesting behaviors emerging, and these are 
+particularly relevant to the design and understanding of 
+future social systems in the home.
+Our system was designed so that the ambient devices only 
+worked while the Social TV 2 client remained connected to 
+the network. And as we have noted, people, in general, 
+liked the ambient lights, both because of the information 
+they provided and for the aesthetic appeal. Although the 
+design of our study didn’t allow us to conclusively test this, 
+it does seem to indicate that the ambient devices would 
+therefore encourage people to stay logged on, and serve as a 
+reminder, if they ever do leave, to return as soon as 
+possible, thereby ensuring the presence conduit remains 
+open.
+The orb and the Chumby were effective at conveying when 
+other people were watching TV, and this allowed our 
+participants to be aware of others’ availability even when 
+their own TV sets were turned off and they were engaged in 
+other activities. In this way, it reduced the risk of an 
+opportunity for interaction going by unnoticed.
+Together, these effects expand the interface between the 
+system and the environment. For one thing, the chances of 
+making contact are greatly increased. Also, the social 
+television experience is no longer something that only takes 
+place during the time you are actually watching TV. The 
+ambient devices keep users engaged with the system while 
+they go about other activities, thereby creating an ‘out-of-
+the-box’ social experience.
+Multiple Levels of Engagement
+Our findings indicate that while it extended the social 
+experience beyond the TV, the awareness provided by the 
+ambient displays also helped draw our participants into the 
+television experience and encourage them to use the 
+system. This result supports previous efforts to use 
+peripheral social awareness to lower the barriers to 
+communication [17, 11].
+We can generalize the steps reported by our users (and 
+corroborated by the logs): the participants become aware of 
+their friends’ availability through the ambient devices, turn 
+on their TV (thereby themselves showing up as available to 
+the other participants), look at their buddy list, and either 
+join what one of their friends were watching or suggest that 
+their friend join them. Once they were viewing together, 
+they would usually send messages or emoticons, and 
+sometimes this would culminate with a phone call. From 
+this idealized flow, we can define different stages of 
+interaction (Table 3). This can be viewed as an extension of 
+Eggen et al.’s three interaction states [13].
+We can see that as we move down the levels, the user 
+becomes progressively more engaged with the experience, 
+going from peripheral presence awareness to immersive 
+participation through a number of intermediate levels. Part 
+of the reason for this is that at each stage, the user has 
+access to more detailed information. This is similar to a 
+“ramping interface” model of information design and 
+interaction [25], and allows users to drill down to the level 
+they are interested in. In particular, each step provides more 
+specific presence and richer contextual awareness. The 
+ambient device provides only aggregate presence, and only 
+conveys that a TV is on. The buddy list shows presence per 
+household, and what they are watching. By watching the 
+same thing, common ground is established, and by 
+communicating it is possible to identify the other person at 
+an individual level. However, the most interesting thing to 
+note may be that as users become more deeply engaged, 
+they also become increasingly present to, and eventually 
+connected to, their buddies.
+8
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Interaction	Information	Presence specificity	Context detail	What others experience	Degree of
+	amount				participation
+Noticing ambient display	Bite	Aggregate buddy list (+inferences)	TV is on/off	No presence info	Peripheral awareness
+					Full involvement
+Viewing buddy list	Snack	Aggregate household (+inferences)	The program(s) being watched	TV is on/watching program	
+Co-viewing program			Shared viewing context (common ground)	Sharing the viewing experience	
+Exchanging lightweight messages	Meal	Aggregate	Reactions to show, responses to	In contact, communicating	
+		household or individual	messages		
+Talking on the phone	Feast	Individual	Two-way audio stream	Rich conversation	
+Table 3: Different stages of interaction with the system, along with some notable characteristics.
+Users can move freely between the various interaction 
+levels, as their needs and interest dictate. However, each 
+stage provides impulses that encourage deeper engagement, 
+playing on such traits as curiosity and desire to express 
+opinions, and guides users towards the ultimate state of live 
+conversation, which here takes the form of phone calls.
+Improving the Quality of Time Spent Watching TV
+We see that the ambient information is intimately bound up 
+with the social functionality available on the TV. Although 
+our participants found the ambient data interesting in the 
+context of the Social TV 2 system, the information would 
+be nearly meaningless on its own; “a tease.” If the ambient 
+displays extend the social television experience outside of 
+the TV set, the other features help users interpret the 
+ambient signals and provide the information with a purpose. 
+They make it actionable.
+Furthermore, as social presence information is made 
+actionable through the TV, turning on the TV becomes 
+redefined as a social act: “Even before I turned on the TV, I 
+knew that someone was on there.” Because the ambient 
+devices provide users with at least peripheral awareness of 
+their buddies’ presence information, there is now an 
+unavoidable social dimension to pressing that button, such 
+as expectations of availability. And even if users should be 
+oblivious, turning on the TV affects their buddies’ ambient 
+displays and presence view, making them aware. We saw 
+this social consideration give rise to new behaviors such as 
+turning on the TV when the ambient devices showed other 
+people online.
+The methods of our study do not allow us to say with 
+confidence whether Social TV 2 caused our participants to 
+watch more TV, or keep their TV on more. For that, a 
+control condition would be required. Certainly some of our 
+findings suggest that it might be the case. However, in light 
+of the above, direct comparisons may not be particularly 
+meaningful. To watch Social TV 2 is not merely to 
+consume entertainment, but to engage in communication
+with friends and family that can bring you closer together, 
+reaffirm social ties, and let you get to know each other 
+better. The ambient displays provide a first point of contact 
+for TV-based conversations, and help establish a social 
+mindset around the very notion of television.
+This insight suggests that different systems could use 
+ambient displays to emphasize specific features, by 
+preparing the user’s frame of mind in advance of their 
+active interactions.
+CONCLUSIONS
+In this paper we have presented results from testing a social 
+television system with an ambient component for social 
+presence. On the whole, our participants liked the idea of 
+having the TV watching activities of their social groups 
+represented in ambient displays. Presence information was 
+understood and used as a proxy for who was home and 
+available. More importantly, it worked to support the 
+experience of communicating through the television.
+Most social television research to date has focused on what 
+happens once people are engaged in a social television 
+experience. There has been little research into how such 
+sessions would be initiated, and how they can be made to fit 
+into the context of everyday activities. Our study addresses 
+these issues: Designs based on ambient displays offer a 
+credible answer, and our field study showed one such 
+design to perform well in practice. Since the same concerns 
+are relevant to a wide class of other in-home social systems, 
+this finding holds more general interest.
+FUTURE WORK
+One of the most interesting questions raised by this study is 
+how the addition of social awareness will affect pre-existing 
+patterns of behavior around TV viewing. The effect is 
+profound, and some simple examples are clearly evident in 
+the data. However, we suspect that the altered social 
+dynamic of TV viewing could have far more complex and 
+subtle effects, especially as the presence awareness 
+increases the visibility of TV viewing habits to oneself and
+9
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+others. Understanding these changes in perception and 
+behavior is a rich area for further research.
+While our data collection provided a great deal of 
+qualitative information on how participants used Social TV 
+2, we have no data on when participants were home, when 
+they were in a room from which they could observe the 
+ambient indicators, or who was using the system at any 
+particular moment in time. This limits our ability to 
+interpret the log data. In upcoming studies we plan to 
+include a control condition, to provide a baseline against 
+which changes in behavior can be detected.
+We continue to iterate on the design of the Social TV 
+prototype. Given the tendency of our participants to seek 
+progressively deeper engagement and richer 
+communication, we have now integrated support for voice 
+and text chatting, and are currently preparing another field 
+trial with these features included. We are also considering 
+other form factors for the ambient devices, and changing 
+the kinds of information these devices display. However, 
+one change we are not going to make is eliminating the 
+ambient information. Our findings spoke clearly to us about 
+the attractive nature of ambient awareness, and we intend to 
+keep using this feature to promote TV-based sociability.
+ACKNOWLEDGMENTS
+We thank Ambient Devices, Inc. and Chumby Industries for 
+providing the ambient devices, and Seonyoung Park and 
+Elaine Huang for their contributions to the study and paper.
+REFERENCES
+1. Aipperspach, R., Rattenbury, T., Woodruff, A., Canny, J. 
+(2006) A Quantitative Method for Revealing and 
+Comparing Places in the Home. Proc. Ubicomp 2006.
+2. Baillie, L., Fröhlich, P., Schatz, R. (2007) Exploring Social 
+TV. In Proc. ITI 2007: 215–220.
+3. Bernard, H.R. (1998) Handbook of Methods in Cultural 
+Anthropology. Walnut Creek, CA : Altamira Press.
+4. Beyer, H., &amp; Holtzblatt, K. (1998). Contextual design: 
+Defining customer-centered systems. San Francisco, CA : 
+Morgan Kaufmann Publishers.
+5. Boertjes, E. (2007) ConnecTV: Share the Experience. In 
+EuroITV 2007 Adj. Proc.
+6. Brown, B., Taylor, A., Izadi, S., Sellen, A., Kaye, J. (2007) 
+Locating Family Values: A Field Trial of the Whereabouts 
+Clock. In Proc. Ubicomp 2007.
+7. Bureau of Labor Statistics (2006) American Time Use 
+Survey. ftp://ftp.bls.gov/pub/news.release/atus.txt
+8. Consolvo, S., Roessler, P., Shelton, B.E. (2004) The 
+CareNet Display: Lessons Learned from an In Home 
+Evaluation of an Ambient Display. Proc. Ubicomp 2004.
+9. Coppens, T., Trappeniers, L. Godon, M. (2004).
+AmigoTV: towards a social TV experience. In Proc. 
+EuroITV 2004.
+10. Crispell, D. (1997) “TV soloists – Statistics on number of 
+television sets owned in households from SRI Consulting’s
+Media Futures Program”, American Demographics, May 
+1997.
+11. DeGuzman, E.S., Yau, M., Gagliano, A., Park, A., Dey, 
+A.K. (2004) Exploring the design and use of peripheral 
+displays of awareness information. CHI 04 Ext. Abstracts.
+12. Dey, A.K. and DeGuzman, E.S. (2006) From Awareness to 
+Connectedness: The Design and Deployment of Presence 
+Displays. In Proc. CHI ’06: 899–908.
+13. Eggen, B., Rozendaal, M., Schimmel, O. (2003) Home 
+Radio: Extending the Home Experience beyond the 
+Physical Boundaries of the House. In Proc. HOIT 2003.
+14. Geerts, D. (2006) Comparing voice chat and text chat in a 
+communication tool for interactive television. In Proc. 
+NordiCHI 2006: 461–464.
+15. Harboe, G., Massey, N., Metcalf, C.J., Wheatley, D., 
+Romano, G. (2008) The Uses of Social Television. In 
+Comput. Entertain. 6, 1 (Jan 2008).
+16. Harrison, C. and Amento, B. (2007) CollaboraTV – 
+Making TV Social Again. In EuroITV 2007 Adj. Proc.
+17. Hemmeryckx-Deleersnijder, B. and Thorne, J.M. (2007) 
+Awareness and Conversational Context Sharing to Enrich 
+TV Based Communication, In Proc. EuroITV 2007: 1–10.
+18. Hindus, D., Mainwaring, S.D., Leduc, N., Hagström, A.E., 
+Bayley, O. (2001) Casablanca: Designing Social 
+Communication Devices for the Home. In Proc. CHI ’01.
+19. LeCompte, M. and Schensul, J. (1999) Designing and 
+Conducting Ethnographic Research. Walnut Creek, CA : 
+Altamira Press.
+20. Lull, J. (1990). Inside family viewing: Ethnographic 
+research on television&apos;s audiences. London: Routledge.
+21. Luyten, K., Thys, K., Huypens, S., Coninx, K. (2006) 
+Telebuddies: Social Stitching with Interactive Television. 
+In CHI 2006 Extended Abstracts.
+22. Markopoulos, P., de Ruyter, B., Mackay, W.E. (2005) 
+Awareness Systems: Known Results, Theory, Concepts 
+and Future Challenges. CHI 05 Ext. Abstracts.
+23. Oehlberg, L., Ducheneaut, N., Thornton, J. D., Moore, R. 
+J., Nickell, E. (2006). Social TV: Designing for
+Distributed, Sociable Television Viewing. In Proc. 
+EuroITV 2006: 25–26.
+24. Regan, T. and Todd, I. (2004) Media Center Buddies: 
+Instant Messaging around a Media Center. In Proc. 
+NordiCHI 2004: 141–144.
+25. Rhodes, B. and Maes, P. (2000) Just-in-time information 
+retrieval agents. IBM Systems Journal 39(3–4).
+26. Rowan, J. and Mynatt, E. D. (2005) Digital Family Portrait 
+Field Trial: Support for Aging in Place. In Proc. CHI ’05: 
+521–530.
+27. de Ruyter, B., Huijnen, C., Markopoulos, P., IJsselstein, 
+W. (2003) Creating social presence through peripheral 
+awareness. In Proc. HCI International 2003.
+28. Vetere et al. (2005) Mediating Intimacy: Designing 
+Technologies to Support Strong-Tie Relationships. In 
+Proc. CHI ’05: 471–480.
+29. Weisz, J. D., Kiesler, S., Zhang, H., Ren, Y., Kraut, R. E., 
+Konstan, J. A. (2007) Watching together: integrating text 
+chat with video. In Proc. CHI ’07: 877–886.
+10

@@ -1,0 +1,940 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Exploring Multi-session Web Tasks
+Bonnie MacKay and Carolyn Watters
+Faculty of Computer Science, Dalhousie University
+Halifax, NS, B3H 1W5, Canada
+{bmackay, watters }@cs.dal.ca
+ABSTRACT
+Users are now performing more sophisticated web tasks. In 
+this work, we explore web tasks that require multiple web 
+sessions to complete (multi-session tasks) to satisfy a goal. 
+We conducted a web-based diary study and a field study 
+that used a customized version of Firefox which logged the 
+participants’ interactions for multi-session tasks and all 
+their web activity. We found that multi-session tasks occur 
+frequently and that users utilize a variety of browser tools 
+and actions to help complete these tasks.
+Author Keywords
+Web tasks, diary study, field study, multi-session tasks.
+ACM Classification Keywords
+H5.m. Information interfaces and presentation (e.g., HCI): 
+Miscellaneous.
+INTRODUCTION
+There has been a growth of information available on the 
+Web and as result there has been an evolution of the type of 
+tasks that people perform. For example, today many tasks 
+can be performed using services available on the Web (e.g., 
+booking a flight, or buying a new dress). Despite this 
+growth in how the Web is being used, most tools provided 
+by the popular browsers have not changed much. Browser 
+tools tend to still focus on supporting tasks that can be 
+completed in a single web browser session and there are 
+few standard browser tools available to users to support 
+tasks that require multiple web sessions to complete.
+While research has been conducted on user behaviour for 
+single web session tasks, for specific web tasks, and for 
+monitoring web information, we are exploring non- 
+monitoring tasks that take multiple web sessions to 
+complete (multi-session tasks). A multi-session task is goal- 
+based, requires more than one web session to complete and, 
+has a definable point as to when the task is over, such as a 
+specific date, an event that occurs (e.g., you finally 
+purchase the computer), or that it is abandoned. It is not a
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+routine task (e.g., reading the news every day or checking 
+your email on a regular basis).
+In this research, we are interested in learning about the type 
+of tasks that cross multiple web sessions, in finding out how 
+users are performing these tasks (i.e., what browser tools 
+they are using) and in determining what problems they 
+encounter while performing these tasks. We anticipate that 
+users will have some difficulties performing multi-session 
+tasks while also doing other web activities in a single 
+session (i.e., multi-tasking) and in resuming their task when 
+they return to it at a later time. We expect that most multi- 
+session tasks are expected, that is that when the user begins 
+the task they know that it will continue over several 
+sessions. We also expect that there will be occasions when 
+a user begins a task that they assume will take a single 
+session to complete but it unexpectedly turns into a multi- 
+session task (i.e., there is not enough time to finish or the 
+task is more complex than originally thought). We also 
+anticipate that when users are performing these tasks, they 
+use particular browser tools and possibly other applications 
+to help organize the information that they find (such as print 
+web pages), and that users may use other applications to 
+interpret information (such as a calculator).
+We use the results of a diary study and field study to 
+determine how to better support users performing multi- 
+session tasks. The contribution of this research includes a 
+characterization of how users perform multi-session tasks, a 
+characterization of these tasks, and it provides 
+recommendations for browser tool features to help support 
+multi-session tasks.
+RELATED WORK
+Web Tasks
+There has been a lot of research conducted on user 
+behaviour on the Web to try to understand and/or categorize 
+the different types of web tasks in which people perform [1, 
+4, 5, 6, 7, 8, 12, 17]. For example, Choo et al. [6] outlined 
+four task categories for the Web, and Sellen et al. [15] 
+found six web task categories based on observation. Kellar, 
+et al. [12], classified web tasks, similar to Sellen et al. [15] 
+as fact finding (e.g., looking for specific information), 
+information gathering (e.g., researching a paper), browsing 
+(e.g., entertainment or passing time), transactions (e.g., 
+online banking), communications (e.g., emailing), and 
+maintenance (e.g., updating a web page). Kellar et al. [1 1] 
+also explored web monitoring and found that monitoring of
+1187
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+information exists across all task types and involves 
+revisiting web pages to view new or updated information 
+(e.g., reading the news or checking Facebook).
+Revisitation Web Activity
+Some web tasks can be completed within a single session. 
+Other web tasks need multiple sessions and may require a 
+users to return to an already seen page or pages to continue 
+with the task, complete the task or repeat the task (e.g., to 
+monitor a page). Tauscher and Greenberg [17] found that 
+58% of pages visited by users had been previously 
+accessed. Cockburn and MacKenzie [8] and Cockburn et al. 
+[7] reported that 81% of visits to web pages are to pages 
+that have been previously seen. Sellen et al. [15] found that 
+many information gathering tasks (40%) took more than 
+one session to complete and Kellar et al. [12] reported that 
+59% of information gathering tasks were repeated. Brown 
+and Sellen [3] also found that many users’ information 
+needs spanned across several web pages which may be 
+accessed in more than one session.
+Current Web Browser Revisitation Tools
+Despite the explosive growth of the Web and an increase in 
+the number and type of web users the current browsers and 
+the tools have changed little. For example, the web browser 
+Mosaic (http://www.ncsa.uiuc.edu/Projects/mosaic.html) 
+that was available with support from 1993 to 1997 had tools 
+that were very similar to the tools found in most freeware 
+browsers today (e.g., history list, hotlist, hotlist manager, 
+home page, and forward/back buttons).
+Some browser tools are designed to aid people to revisit 
+web pages during a single session (i.e., to find pages in the 
+current session) and others help users revisit pages over 
+multiple sessions (i.e., to return to pages at a later date) [9]. 
+The two most common browser tools for revisiting pages 
+over multiple sessions are history lists and bookmarks.
+History lists keep a record of all previously seen pages for a 
+set period of time. Many studies have shown [2, 5, 7, 8, 12, 
+17] that users tend not to use history lists as problems exist 
+such as, duplicate entries and inconsistent page names [7, 
+8]. Bookmarks (or Favorites) provide access to previously 
+visited web pages. While bookmarks provide advantages as 
+they can be grouped by categories and act as placeholders 
+[1], there are disadvantages such as the need for managing 
+these links [1] or refinding pages can be quite difficult. 
+Despite these shortcomings people still use bookmarks [1, 
+2, 3, 4, 11, 12, 17], and other strategies [2, 3, 4, 15] 
+including using search engines to relocate pages, printing or 
+saving web pages, or emailing links to themselves or others.
+There has been recent research into developing new tools to 
+help users revisit and organize their information for use 
+over several sessions, such as Session Highlights [2, 9] and 
+Webscrapbooks [15]. Other tools stand alone or combine 
+existing tools into one providing single or multi-session 
+support (or both). For example, Kaasten and Greenberg 
+[10] integrated the back key, history list and bookmarks
+into a single tool and provided a visual representation of 
+how often pages were visited. Landmarks [14] can be used 
+to enhance the revisitation of a web page with the refinding 
+of information on the page by automatically scrolling to the 
+exact location of user marked text when the page is 
+reopened.
+METHODOLOGY
+We designed a mixed methodology to better validate the 
+results using two approaches: a diary study and a field 
+study. A diary study has the advantage of allowing us to 
+collect information in an unobtrusive manner as participants 
+self report their behaviour to identify and discover patterns 
+of user behaviour [16]. We performed interviews at the end 
+of the diary study to help verify the diary entries [16]. In 
+the diary study [13], participants self-reported their multi- 
+session tasks using a web-based diary. In particular, we 
+were interested in finding out how often participants engage 
+in multi-session tasks, how often participants return to work 
+on the task during the study period, the types of tasks that 
+participants classify as multi-session, which browser 
+functions or tools participants use for these tasks and the 
+frequency of use of these tools.
+We used the data in the diary study to help us better define 
+multi-session tasks and to help in the design of the logging 
+feature for the customized version of Firefox for the field 
+study. For both studies, we tried to minimize the effort of 
+the participants by providing tools to make the recording of 
+tasks easier (a web-based diary for the diary study and a 
+customized toolbar in Firefox for the field study). While 
+we acknowledged that having participants explicitly record 
+their multi-session tasks may influence their behaviour, we 
+felt that this was a necessary trade off to gather the relevant 
+data relating specifically to multi-session tasks.
+We use the qualitative and quantitative data collected 
+during the diary study, the field study and the interviews to 
+determine how the participants are performing multi- 
+session tasks. We also consider a set of relevant findings 
+for developers and researchers to use when designing 
+browser tool features to help support multi-session tasks.
+The Diary Study
+Twenty-two participants (12 male and 10 female) from a 
+university community of students, faculty and staff took 
+part in the web-based diary study. Half the participants 
+used Internet Explorer (IE) as their main browser and half 
+used Firefox. Participants ranged in age from 19 years old 
+to 50 years old, with the average age being 28 years. There 
+were 16 students (11 graduate and 5 undergraduates), and 
+six university employees (1 being a faculty member). The 
+majority of the students (11/16) were in computer science. 
+Seventy-seven percent (17/22) of the participants indicated 
+that they use the Web several times a day and about 64% 
+(14/22) of participants reported that they spend at least 11 
+hours a week using the Web. Participants were 
+compensated $25 for each week they took part in the study.
+1188
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Figure 1: A Sample List of active Multi-session Tasks
+Participants recorded their multi-session tasks using a web- 
+based diary over the study period (18 participants for a one 
+week study period, and four participants for a two week 
+study period). We met with participants at the beginning to 
+describe the study. We explained multi-session tasks (both 
+expected and not expected) and demonstrated the web 
+diary. Recorded multi-session tasks could be both expected 
+and unexpected. For this study, participants were asked to 
+record, as a session, each time they visited the Web to work 
+on the task. Participants were asked to use their web diary 
+each time they began and returned to a multi-session task. 
+The tasks could have begun previously to the study and 
+could continue after the study. At the end of the study, 
+participants took part in a semi-structured interview.
+We provided a password protected web-based worksheet to 
+minimize the effort of the participants to record task 
+information. The diary worksheet contained radio buttons, 
+checks, comment boxes, and drop-down lists for easy input. 
+When users added a new task, the task was added to their 
+active task list for later selection (Figure 1).
+Participants were encouraged to keep the diary open in a 
+separate browser window or tab when they used the Web 
+and to fill in the diary as the task occurred (although they 
+could enter the information at a later time). The diary 
+recorded: the task name, task description, if the task was 
+expected or not, estimated finish date or time when the task 
+would end, reason to stop working on the task, where the 
+task was performed, what was worked on during the 
+session, the browser tools they used during the session and 
+finally if the overall task was complete. The name, 
+description, expected finish date and whether it was 
+expected or unexpected were only recorded once during the 
+initial session of the task.
+At the end of the study, participants took part in a semi- 
+structured interview. Participants were asked to go through 
+one of their multi-session tasks in detail and were asked 
+questions regarding the concept of multi-session tasks in 
+general (e.g., “Are the tools you use for multi-session tasks 
+different than other tasks?”). We demonstrated up to four 
+tools to get the participants’ feedback as to their 
+appropriateness for multi-session tasks: tabs to the IE users, 
+session saver, Landmarks [14], and an annotation tool.
+Based on the participants’ diary entries and comments 
+during the interviews, we were able to further refine our 
+definition of multi-session tasks. We expanded our original 
+definition of multi-session to be a task that is goal based,
+that often requires sub-tasks to complete, and that has a 
+temporal element (i.e., the task has a deadline or is finished 
+once the goal is achieved).
+Field Study
+We then ran a four week field study where participants used 
+a customized version of Firefox for all of their web 
+browsing sessions. This customized version logged all of 
+their interactions in the browser. Twenty-four university 
+students (20 male and 4 female) were recruited to 
+participate. We recruited participants who used the Web 
+daily, and who used Firefox as their main web browser. 
+There were 14 computer science students, 6 commerce 
+students, and 4 were from health profession studies 
+(kinesiology, occupational therapy, health informatics, 
+health and human performance). Six of the 24 participants 
+were graduate students. The age of participants ranged 
+from 18 to 35 years old with an average age of 24. A large 
+majority of participants (21/24) indicated that they use the 
+Web several times a day, and 58% (14/24) checked that 
+they used the Web at least 11 hours a week. Participants 
+were compensated $50 for finishing the study.
+We met with participants at the beginning of the study to 
+explain the details of the study, to demonstrate and install 
+our browser and to define multi-session tasks. We used the 
+modified definition from the diary study. For this study, a 
+session was logged each time they opened and closed the 
+browser. Consequently, we captured both the times of all 
+activities and periods of inactivity.
+Over the study period, participants used our browser for all 
+their web use. The browser not only logged all of the 
+participants’ interactions with the browser but also had an 
+additional toolbar Figure 2 (a) that was used by participants
+only when they worked on multi-session tasks. Participants
+were asked to submit daily web logs using a submit button 
+built into the toolbar. If there were any problems with 
+submitting the log electronically, the log was stored on their 
+hard drive, although no problems occurred during the study.
+Our customized version of Firefox captured all user 
+interactions in a log format as shown in Table 1. All logged 
+data was stored on a secure server only accessible by the 
+researchers. Each participant accessed the browser with a 
+unique username/password to ensure that the logs only 
+contained the study participants’ data. The log contained 
+the following information: Computer, Event Id, Window Id, 
+Tab Id, Date, Time, Name, URL and Session Description.
+Participants could install the browser on multiple computers 
+thereby providing access to their multi-session tasks from 
+any location. Computer was a self chosen name by the 
+participant representing the computer that the browser was 
+installed on. Each action that the participant did on the 
+browser was given a unique Event Id number. When a new 
+window or tab was opened during a session they were 
+numbered (Window Id and Tab Id respectively) starting at 
+0. The Date and Time were recorded for each action. The
+1189
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+comp- uter	event	window	tab id	date	time	name	url	session (description)
+	Id	Id						
+Laptop	2506	0	0	22-Oct-06	5:01:36 PM	Included this tab in the current task: Switched into task		
+Laptop	2506	0	0	22-Oct-06	5:01:36 PM	Resumed Task		Autism Centre of Nova Scotia
+Laptop	2508	3	0	22-Oct-06	5:01:38 PM	Window Popped Up at	https://my3.dal.ca/webmail/imp/ compose.php	
+Laptop	2509	3	0	22-Oct-06	5:01:46 PM	Closed Window		
+Laptop	2510	0	0	22-Oct-06	5:01:47 PM	Followed Link	javascript:openMailW in(&apos;https:// my3.dal.ca/webmail/imp/redirec	
+Laptop	2511	4	0	22-Oct-06	5:01:48 PM	Window Poped Up at	https://my3.dal.ca/webmail/imp/ redirect.php	
+Laptop	2512	4	0	22-Oct-06	5:01:51 PM	Opened Find In Page Bar		
+Laptop	2513	4	0	22-Oct-06	5:01:57 PM	Looked In Page For		Judie
+Laptop	2514	4	0	22-Oct-06	5:02:44 PM	Followed Link	javascript:open_com pose_wi n(&apos;t o=jd roos%40dal.ca&amp;th ismail box	
+Laptop	2515	5	0	22-Oct-06	5:02:49 PM	Included this tab in the current task: Switched into task		
+Laptop	2516	4	0	22-Oct-06	5:02:51 PM	Included this tab in the current task: Switched into task		
+Laptop	2517	5	0	22-Oct-06	5:03:12 PM	(Context Menu) Paste from		Word
+Laptop	2518	5	0	22-Oct-06	5:04:28 PM	Closed Window		
+Laptop	2519	4	0	22-Oct-06	5:04:33 PM	Closed Window		
+Laptop	2520	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Autism Centre of Nova Scotia
+Laptop	2521	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Subtask: None given
+Laptop	2522	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Subtask complete? No
+Laptop	2523	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Stop Reason: None given
+Laptop	2524	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Other Applications Used: None
+Laptop	2525	0	0	22-Oct-06	5:04:38 PM	Stopped Task		Is Stopped Task6-Finished? No
+Laptop	2526	0	0	22-Oct-06	5:04:40 PM	Followed Link	https://my3.dal.ca/uPortal/tag.2 758ff563ea092da.render...	
+Table 1. An Excerpt from a Log File (Event Id 2506 to 2525 represent the continuation of a multi-session
+task and at Event Id 2526 the participant returns to their other web activities)
+name was the actual action that the participant performed 
+(e.g., opened bookmark or followed link) and, when 
+appropriate, how the action was performed (e.g., from the 
+menu, using control keys, from the toolbar, etc.). The URL 
+is the web page address for any pages visited on a browser 
+action. Session Description recorded additional 
+information on the multi-session tasks (e.g., when they 
+were started, resumed and stopped).
+In addition to capturing the user interactions, participants 
+indicated when they started and continued to work on a 
+multi-session task by using the interactive toolbar. To start 
+a new task, participants pressed the “Start New Transient 
+Task” button (note, for this study, we used our earlier label 
+‘transient task’ to refer to multi-session task). Participants 
+then filled in a web form shown in Figure 2 (b) that 
+described the multi-session task (task title, task description, 
+whether it was expected or not and estimated completion 
+date). Once they selected the “Start” button on the web 
+form, the name of the task would appear on the toolbar 
+highlighted in yellow (Figure 2 (c)). Participants also 
+indicated when a window or tab was included in the task 
+with the “include/exclude” toggle buttons on the toolbar.
+When the participants stopped the task (“Stop Task” 
+button), another web form appeared in which the 
+participants recorded information on the task they just 
+worked on (what sub-task they worked on, whether they
+finished the sub-task, why they stopped for that session, 
+other applications used and if the task was finished). To 
+resume a task later, the participant could select a task name 
+from a drop-down list of active tasks that appeared when 
+they selected the “Resume Task” button.
+Participants also used the toolbar to submit their web logs. 
+To submit their daily logs, they pressed the “Submit Log” 
+button on the toolbar. Participants could view their logs 
+(“View Log”) and could delete any URLs they did not want 
+the researchers to see with the “Manage Log URLs” button.
+At the end of the study, we met again with participants for a 
+semi-structured interview that was formatted similarly to 
+the interview given after the diary study, to discuss one of 
+their multi-session tasks in more detail and multi-session 
+tasks in general. This interview also gave us the opportunity 
+to demonstrate and receive feedback for possible types of 
+tools that may be useful for multi-session tasks. We 
+demonstrated the same tools as in the diary study (with the 
+exception of tabs) and also included ‘Google Notebook’.
+Limitations of the Studies
+While we did use a ‘convenient sample’, this provided us 
+with an experienced set of web users. Our population and 
+sample numbers are comparable to other studies [3, 6, 12, 
+15] which also reported on experienced users (office 
+workers or students) to acquire a deeper understanding of
+1190
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+(a) The Interactive Toolbar
+(c) The task title is highlighted in yellow and the user can check if a web page from a tab or window is included/excluded from the task
+Figure 2. The customized toolbar for recording multi-session tasks
+(b) Start a new multi-session task web form
+how these users perform web tasks. Students tend to be 
+early adaptors of technologies and are heavy users of the 
+Web. We felt for an initial exploration into multi-session 
+tasks, that this population would provide a robust picture 
+with a mix of techniques and approaches to the task.
+There are trade offs when designing studies. While web 
+server logs can contain large amounts of quantitative data 
+on a large population, the data does not include an 
+understanding of the motivation of the user. Our studies 
+were selected to record a rich data set consisting of self- 
+motivated tasks collected within the participants’ own 
+environment. Our results established that there are different 
+types of multi-session tasks that often contain several sub- 
+tasks. We also captured other interesting data points, such 
+as reasons to stop and restart the tasks and task switching 
+within each session. The interviews helped to refine how 
+we can support experienced users perform these tasks.
+RESULTS
+We present the results according to User Behaviour and 
+Task Characteristics. Where appropriate we report on the 
+self-reported web diary entries, the field study automatic 
+system logs and the interviews from both studies. Before 
+presenting the results, we have included a sample of both a 
+dairy and a field study log to show what multi-session task 
+information was recorded and to also display how 
+participants approached multi-session tasks.
+Multi-session Task Samples
+Diary Study
+In the Diary Study, there was an expected task named 
+“Planning a Vacation to PEI” (see Table 2). The task was 
+first recorded on May 19th (although this task actually 
+started before the study) and was expected to be finished in
+1191
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Title:	Planning a Vacation to PEI [Prince Edward Island]
+Short Description:	To start planning a family trip to PEI in the summer
+Date	May 19 (11:00) for 10-15 minutes
+Subtask (ST):	Checked PEI site for accommodations available
+ST complete:	No
+Stop Reason:	Need to wait for a response from an email to get more information and review the web site further when have more time
+Tools/Actions:	Opened windows, used history, typed URL, used a search engine, searched within the page, Email to others.
+Task Finished:	No
+Date	May 19 (11:11) for 5-10 minutes
+Subtask (ST):	Found another link within the residence web page that provides more tourist related information that want to review and realized that I had sent an email to the wrong place
+ST complete:	No
+Stop Reason:	Need more time to review new links found. Waiting for response to email
+Tools/Actions:	Opened windows, added a bookmark, searched within page
+Task Finished:	No
+Date	May 19 (3:15) for 10-15 minutes
+Subtask (ST):	Received response to previous email. Checked information on prices and accommodations
+ST complete:	No
+Stop Reason:	Need to review with family
+Tools/Actions:	Opened windows, used history, printed a page, searched within page
+Task Finished:	No
+Table 2. A Sample of a Task recorded in the Diary Study
+June (after the study period). The participant recorded 
+working on the task three times during the study, at 
+different times during the day. For example, on May 19th at 
+11:00 the participant submitted their web diary information. 
+The participant worked on the task for 5-15 minutes each 
+time to look for accommodations. The participant indicated 
+that they opened windows, used their history list, typed a 
+web address, used a search engine, searched within a page 
+and emailed someone else during these sessions. It is 
+interesting to note that on the last entry, it would seem as 
+though a response to a previous email prompted the 
+participant to return to the task.
+Field Study
+In the field study, one participant recorded a task titled 
+“Physics A4” (see Table 3). This was an expected task, 
+described as “4th Physics Assignment”. The task started on 
+September 30th and finished on October 6th. The participant 
+worked on the task five times. Table 3 contains 
+information that the participant recorded each time they 
+stopped working on the task (using the interactive toolbar). 
+Using the logged data, we determined what actions they 
+performed during each visit. For example, on September
+Title:	Physics A4		
+Short Description:	4th Physics assignment		
+Date:	Sept. 30	Date:	Oct. 6
+Subtask (ST):	Several problems	Subtask (ST):	All remaining problems
+ST complete:	No	ST complete::	Yes
+Stop Reason:	None given	Stop Reason:	Class
+Other Apps:	Calculator	Other Apps:	Calculator
+Task Finished:	No	Task Finished:	No
+Date:	Oct. 3	Date:	Oct. 6
+Subtask (ST):	Problems 1-9	Subtask (ST):	remaining two problems
+ST complete:	Yes	ST complete:	Yes
+Stop Reason:	Sleep required	Stop Reason:	None given
+Other Apps:	Calculator	Other Apps:	Calculator
+Task Finished:	No	Task Finished:	Yes
+Date:	Oct. 5		
+Subtask (ST):	Problems 2-33		
+ST complete:	Yes		
+Stop Reason:	Dinner		
+Other Apps:	Calculator		
+Task Finished:	No		
+Table 3. A Sample of a Task recorded in the Field Study
+30th the participant worked on the task for about an hour 
+and a half and submitted a form 20 times, followed links 15 
+times, copied into the browser two times, excluded a tab 
+once and switched back into the task once (that is went 
+from an excluded tab to an included tab). We can also 
+anticipate from the gaps in time between the actions 
+recorded in the browser (at most, 10 minutes) that the 
+participant, while working on the task, was also either 
+reading material on the Web related to the task (as there 
+was only one occurrence of switching from the task), 
+working on the assignment (e.g., they recorded also using a 
+calculator while working on the task), or perhaps doing 
+something unrelated to the task (e.g., taking a short break).
+User Behaviour
+We explored the behaviour of participants with respect to 
+multi-session tasks. We examined how many multi-session 
+tasks participants recorded, the number of web sessions in 
+which participants performed multi-session tasks and how 
+often participants executed multi-session tasks while 
+working on other web tasks We also examined the actual 
+browser tools and actions that participants used to perform 
+multi-session tasks.
+Multi-Session Tasks and Web Sessions
+Diary Study
+As can be seen in Table 4, in the diary study, participants 
+(22 total) recorded 85 different multi-session tasks (80 tasks
+1192
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Study	Total Tasks	Total Visits	Total Repeat Visits	Avg. # of	Avg. # of
+				Tasks/	Sessions/
+				Participant	Task
+Diary Study	85	204	119	3.86	2.40
+Field Study	150	391	241	6.25	2.61
+Table 4. Multi-session Tasks and Web Sessions
+for the Diary and Field Studies
+during the first week). Ten of these tasks were recorded as 
+unexpected. The average number of multi-session tasks for 
+each participant was 3.86 tasks. The tasks (85) were worked 
+on over a total of 204 sessions (the number of web sessions 
+that participants worked on multi-session tasks). 
+Participants worked on each task on average over 2.4 
+sessions.
+Field Study
+Over the field study, 150 multi-session tasks were recorded 
+(see Table 4), with 16 reported as unexpected. The average 
+number of tasks per participant was 6.25. Participants 
+worked on each task over an average of 2.61 sessions.
+Since the field study was run over a four week period, it 
+makes sense that there would be more tasks recorded and 
+that number of tasks per participant was larger. It is 
+interesting that the average number of sessions per task did 
+not increase much, indicating that multi-session tasks for 
+both studies are similar in the number of times the 
+participants worked on a multi-session task.
+In the diary study, we were only able to count how often a 
+participant worked on their multi-session tasks. In the field 
+study, however, we were also able to determine the total 
+number of web sessions that took place over the study and 
+what proportion of sessions contained multi-session tasks. 
+There were a total of 1183 web sessions (which for this 
+study, was each time the browser was opened and closed), 
+of which 391 sessions contained multi-session tasks. There 
+were 226 sessions in which participants worked solely on 
+multi-session tasks, although occasionally they worked on 
+more than one multi-session task during these sessions.
+We were also able to determine when participants switched 
+between a multi-session task and other web activities from 
+the log that captured the toggling of the include/exclude 
+radio buttons on the toolbar (see Figure 2 (c)). All 24 
+participants switched from their multi-session tasks during 
+the study. When a participant was working on a multi- 
+session task they could include or exclude a web page in a 
+tab or window from that task (see Table 1 for an example in 
+the log of including a tab into the task). For example, when 
+the participant had a web page open that was not being used 
+for the current multi-session task they would exclude that 
+tab. By default, the tab or window that a multi-session task 
+was started or continued from was included in the current 
+task along with any tabs or windows opened from an 
+included tab/window. We logged four different actions that 
+indicated a switch between tasks (see Table 5).
+Logged Action	Count
+Included this tab in the current task: Switched into task	196
+Excluded	this	tab	from	the	current	task:	129
+Switched away from task	
+Switched into task	136
+Switched away from task	166
+TOTAL	627
+Table 5. Switching between Tasks
+The action “Included this tab...” and “Excluded this tab...” 
+was logged every time a participant used the include/ 
+exclude button on the toolbar. The “Switched into task” 
+and “Switched away from task” was logged every time a 
+participant switched to a previously defined tab/window 
+(included or excluded). In total, 627 task switching actions 
+were recorded.
+Browser Tools and Actions
+The results presented below are based on diary entries (in 
+terms of counts as recorded by participants), field study 
+logs (actual counts as recorded by the browser logger) and 
+post-study interviews (for specific revisitation tools).
+Diary Study
+For the diary study, participants were asked to record which 
+browser tools or actions that they used while working on 
+their multi-session tasks. While we can not track how often 
+the tools or actions were used within each session, it does 
+indicate what tools/actions were used for the multi-session 
+tasks. This was useful in deciding what tools and actions we 
+needed to track during the field study, and it did give us an 
+indication as to the most common tools and actions used for 
+their multi-session tasks. Overall there were 35 different 
+tools or actions recorded by participants. Table 6 shows the 
+top twelve tools and actions. Opening a window was the 
+most often reported action during a multi-session task, as 
+recorded 62 times by a variety of participants, followed by 
+using a search engine and typing in a web page address.
+In the post study interviews, we questioned participants on 
+their use of bookmarks or other tools that they may have 
+used to revisit information while working on multi-session 
+tasks. Similar to other studies [1, 2, 3, 4, 15], the use of 
+bookmarks and reasons for not using them varied among 
+the participants. Half of the participants had used 
+bookmarks for the task which was examined in the 
+interview. Firefox users (whether they frequently used
+Tool/Action	Num.	Tool/Action	Num.
+Open Window	62	Open Tabs	24
+Use a Search Engine	57	Add Bookmarks	23
+Type a URL	42	Use auto complete	18
+Search within a Web Page	37	Save a Web Page	18
+Paste To	31	Print a Web Page	17
+Open a Bookmark	26	Use History	16
+Table 6. Top Tool or Actions Reported in the Diary Study
+1193
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+bookmarks or not) used Firefox’s toolbar bookmarks for 
+sites they revisit regularly but not, interestingly, for the 
+multi-session tasks we were interested in (as they did not 
+want to clutter their toolbar with sites that were considered 
+temporary). Participants who did not use bookmarks 
+tended to revisit pages by retyping URLs (often with auto 
+complete) and re-searching terms. Participants also used 
+other applications to help with their tasks. For example, 
+several participants cut and pasted information into Word or 
+Notepad to compare details and in order to store only 
+relevant information.
+Field Study
+During the field study, 102 different browser tools and 
+actions were captured (as recorded in Name in the logs, as 
+seen in Table 1) which also included the way the action or 
+tool was used (e.g., if a new tab was opened from the menu, 
+control keys or buttons). In Table 7, we present the most 
+common actions and tools as recorded in the field study 
+logs. We also organized the use of tools and the actions 
+used by multi-session tasks and by all other web activity. 
+We present the counts and the percentage of the actions.
+While the tools and actions recorded for other web 
+activities tended to be higher than for multi-session tasks, 
+there were fewer multi-session tasks in relation to the other 
+logged web activities. Following a link was the most 
+common activity logged. This count included links 
+followed in the current page, links opened in a new 
+window, and links opened in a new tab. Submitting a form 
+commonly indicated when a participant was performing a 
+search. The two most common forms submitted were to 
+Google and to Google Scholar (93.55% for multi-session 
+tasks) (both of which were used more often for multi- 
+session tasks). Participants recorded using a number of 
+different web search bars (e.g., IMDb and Wikipedia) but 
+the most common was Google. Participants used cut/copy 
+and paste into outside documents and into the browser itself 
+in both single and multi-session tasks. Participants used the 
+search within a page more often for multi-session tasks 
+(53.27% vs. 46.73%) but typed in URLs less frequently for 
+multi-session tasks (28.91% vs. 71.09%).
+Using post-study interviews and the logs, we found similar 
+results to the diary study with regard to participants using 
+bookmarks. Only half of the participants said that they use 
+bookmarks, and many of these participants indicated that 
+they did not use bookmarks for multi-session tasks as they 
+considered them too temporary and for some they did not 
+want to clutter their bookmark list with transitory pages. 
+Almost all of those who said that they use Firefox’s toolbar 
+bookmarks reserved these for those pages that were 
+frequently accessed. In the browser logs, the most common 
+way that the participants opened their bookmarks was from 
+the toolbar (987 of the 1441 incidences). We found support 
+for the interview comments as only 15% of opening toolbar 
+bookmarks were logged during multi-session tasks. Similar 
+to the diary study interview comments, participants who did
+Browser Tool or Action	All	For other Web use	For multi- session tasks	% other Web Use	% of Multi- session
+	Counts				
+Followed Link	31028	23388	7640	75.38%	24.62%
+Go Back to	6672	3829	2843	57.39%	42.61%
+Go Forward to	188	94	94	50.00%	50.00%
+Submitted form	5843	4244	1599	72.63%	27.37%
+Used Search Engine (Google)	3538	1526	2012	43.13%	56.87%
+Used Google Scholar	279	18	261	6.45%	93.55%
+New Tab	5820	4377	1443	75.21%	24.79%
+New Window	4134	3202	932	77.46%	22.54%
+Used Bookmarks	1629	1274	355	78.21%	21.79%
+Opened Bookmark	1441	1187	254	82.37%	17.63%
+Created Bookmark	154	69	85	44.81%	55.19%
+Managed Bookmarks	34	18	16	52.94%	47.06%
+Opened User Typed URL	1207	858	349	71.09%	28.91%
+Opened Auto- complete URL	926	661	265	71.38%	28.62%
+Cut, Copy and Paste	1049	550	499	52.43%	47.57%
+Look for in page	978	457	521	46.73%	53.27%
+Used Web Search Bar	503	341	162	67.79%	32.21%
+Used Google Web Search Bar	375	253	122	67.47%	32.53%
+Table 7. Browser Tools and Actions Recorded in the Logs
+not use bookmarks reported using other means to revisit 
+web information (e.g., typing in the URL from memory, re-
+searching the topic in Google, saving links, printing pages, 
+coping information to a text editor, or using their history).
+Task Characteristics
+For Task Classification we used the information that the 
+participants self-reported on their multi-session tasks. As 
+such we were to compare and report results from both the 
+diary study and the field study. We found that participants 
+from both studies reported comparable task characteristics. 
+Using this information we were able to organize the multi- 
+session tasks into eight types according to common themes. 
+Furthermore, we found that the sub-tasks for the multi- 
+session tasks could be classified using the web tasks 
+categories as defined by Kellar et al. [12].
+Task Types
+Although the specific goals of the tasks recorded (235 tasks 
+total from both studies) varied we were able to group the 
+tasks using their task title and description into eight general 
+types: school work (67), general topic search (66), research 
+(25), travel/tourism (21), projects (19), action-based (18), 
+shopping (14), and status checking (5). As Table 8 shows, 
+the largest task type was school work (28.51%), which is 
+not surprising as the majority of participants were students. 
+There is a large difference between tasks classified as 
+school work by the diary participants (7.06% of diary study
+1194
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Task Categories	Diary Study		Field Study		Totals	
+	#	%	#	%	#	%
+school work	6	7.06%	61	40.67%	67	28.51%
+general topic search	29	34.12%	37	24.67%	66	28.09%
+Instruction or directions	19	22.35%	14	9.33%	33	-
+Looking up Information	0	0.00%	23	15.33%	23	-
+Relocation	9	10.59%	0	0.00%	9	-
+Entertainment	1	1.18%	0	0.00%	1	-
+research	11	12.94%	14	9.33%	25	10.64%
+travel/tourism	13	15.29%	8	5.33%	21	8.94%
+projects	12	14.12%	7	4.67%	19	8.09%
+action-based	5	5.88%	13	8.67%	18	7.66%
+shopping	7	8.24%	7	4.67%	14	5.96%
+status checking	2	2.35%	3	2.00%	5	2.13%
+Totals	85	100%	150	100%	235	100%
+Table 8. Task Types
+tasks) and the field study participants (40.67% of field 
+study tasks) which we believe is due to the timing of each 
+study; the diary study was run after a winter/spring term 
+and the field study was run in the middle of a fall term.
+We subdivided general topic search (28.09% of the tasks) 
+into four sub-groups: looking for instructions or directions 
+(e.g., how to use Skype or how to start a university society), 
+looking up information, relocation (e.g., job hunting), and 
+entertainment (e.g., reading up on world soccer). Research 
+tasks (10.64% of the total tasks) had longer time lines and 
+involved searching for a similar topic over several sessions. 
+Travel/tourism tasks (8.94%) involved such actions as 
+planning vacations and making conference arrangements. 
+Project tasks (8.09%) lasted for longer periods and always 
+contained sub-tasks. Action-based tasks (7.66%) involved 
+transactions, such as completing online surveys and 
+transferring money. Shopping (5.96%) included a variety of 
+products, such as sandals and a laptop and involved actions 
+such as price comparisons between web sites, bidding on 
+eBay, emailing friends for feedback, and tracking 
+shipments. For status checking (2.13%), participants 
+continually checked on some information (e.g., watching 
+for a cheque that was to be deposited to their bank account 
+or checking for an updated course schedule).
+Sub-task Types
+When examining how participants worked on the task 
+during each web session, we found there to be a series of 
+sub-tasks within each task (for example, see Table 2 and 
+Table 3 for sample study tasks and their sub-tasks). As 
+Table 9 illustrates, there were a total of 428 sub-tasks 
+recorded over both studies and interestingly, some of these 
+sub-tasks also occurred over more than one session (e.g., 
+booking flights was often done over several sessions in 
+order to compare schedules and cost). The sub-tasks were
+Task Type	Diary Study		Field Study		Totals	
+	#	%	#	%	#	%
+Information Gathering	129	55.13%	99	51.03%	228	53.27%
+Fact Finding	54	23.08%	65	33.51%	119	27.80%
+Transactions	27	11.54%	19	9.79%	46	10.75%
+Commun- ication	11	4.70%	10	5.15%	21	4.91%
+Maintenance	13	5.55%	1	0.52%	14	3.27%
+Totals	234	100%	194	100%	428	100%
+Table 9. Sub-task Types
+classified using the previously defined categories of web 
+tasks of Kellar et al.[12]. We arranged these sub-tasks as 
+follows: 228 as information gathering (53.27%), 119 as fact 
+finding tasks (27.80%), 46 as transactions (10.75%), 21 as 
+communication (4.91%), and 14 as maintenance (3.27%). 
+We did not include browsing as it is considered a 
+serendipitous act [11] usually performed for entertainment 
+purposes. While some counts differed, we saw similar 
+numbers for the different types of subtasks in the studies. 
+One reason for the larger number of maintenance type 
+subtasks in the diary study may be because there were 
+university employees who were responsible for tasks 
+involving the Web. In some cases, more than one type of 
+sub-task occurred during a single session (e.g., during one 
+session for the task “Attend Conference” in the diary study, 
+the participant filled in the registration form and gathered 
+accommodation details).
+DISCUSSION
+The main goal of the diary study and field study was to gain 
+a better understanding of how participants perform multi- 
+session tasks and to help characterize these tasks. A 
+secondary goal of these studies was to provide data for 
+researchers, including ourselves, to help in designing 
+browser tools and/or in designing improvements for 
+existing browser tools for multi-session tasks.
+For both studies, we conducted post-study interviews where 
+we demonstrated browser tools that we felt might be useful 
+when working on multi-session tasks. This demonstration 
+of the tools prompted participants into a discussion on the 
+types of tools or features of tools that they thought would 
+be helpful in performing multi-session tasks. We 
+demonstrated tabs (to diary study participants who never 
+used tabs), session saver (a Firefox extension that saves and 
+reopens tabs), Landmarks [14], page annotations 
+(www.mystickies.com) and Google Notebook (adds 
+snippets of different web pages that can be shared) to the 
+field study participants only.
+Many of the suggestions for tools were repeated by the 
+participants. The different suggestions for tools included 
+improving bookmarks to include an automated system to 
+create bookmark folders (e.g., based on search terms) and to 
+remove bookmarks based on a user inputted expiry date. 
+Other suggestions included having text editors in the 
+browser, associating and organizing different types of
+1195
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+documents (e.g., emails, web pages, word files) together 
+based on a topic, a reminder tool or task scheduler for the 
+tasks that you are working on, combining session saver with 
+Landmarks to indicate not only the pages that you last saw 
+but where you were on the pages, keeping a history of web 
+pages where you could go back to where you were in the 
+page, having a project management system, and having 
+access to a log of web pages that you can visit from any 
+computer.
+Using the comments from the post-study interviews, and 
+the information collected during the diary study and field 
+study, we have identified three main features for browser 
+tools that may assist users perform their multi-session tasks. 
+First, participants indicated that they would like a reminder 
+feature, such as the one shown in Figure 2 (c) to keep them 
+on task and to remind themselves of tasks in progress 
+during the current session. Participants liked using the 
+browser for multi-session tasks because seeing the task 
+name in the toolbar helped to keep them on task. Second, 
+we found that participants, especially with the addition of 
+tabbed browsing, typically worked on several tasks during a 
+single web session and that any new tool should support 
+multi-tasking. Third, participants commented that they 
+would like to be able to manage their tasks between 
+sessions, including being able to quickly return to viewed 
+pages in their last seen state, to be able to better organize 
+information associated with the task, and to easily manage 
+the removal of saved web pages at the end of the task.
+CONCLUSIONS
+Using the information that we collected during the diary 
+study, the field study, and the interviews we have been able 
+to identify how experienced web users perform multi- 
+session tasks and classify multi-session tasks.
+While asking participants to self-report their multi-session 
+tasks may have added bias into the studies; we felt it was 
+necessary in order to gain a greater understanding of how 
+users perform these tasks. We asked the field study 
+participants if the customized browser influenced their web 
+behaviour and the majority responded that it did not. The 
+others mainly noted (as mentioned before) that the toolbar 
+helped keep them on task. A few participants noted some 
+technical difficulties that they experienced as well (such as 
+the bookmark manager not working properly).
+In the future, we will analyze the logged data from the field 
+study to examine more closely how users switched between 
+multi-session tasks and other web activities and to explore a 
+better definition of session using the time data. We also 
+plan to develop prototype tools based on our above findings 
+and evaluate these in a field study.
+REFERENCES
+1. Abrams, D., Baecker, R., Chignell, M. (1998). 
+Information Archiving with Bookmarks: Personal Web 
+Space Construction and Organization, In Proc. of 
+SIGCHI 1998, Los Angeles, CA, Apr. 1998, 41-48.
+2. Aula, A., Jhaveri, N., Käki, M. (2005). Information 
+Search and Re-access Strategies of Experienced Web 
+Users, In Proc. of WWW 2005, Chiba Japan, 583-592.
+3. Brown, B., Sellen, A. (2005). Exploring Users’ 
+Experiences of the Web, FirstMonday, Oct. 2005, 10(6).
+4. Bruce, H., Jones, W., Dumais, S. (2004). Keeping and 
+Re-finding Information on the Web: What Do People 
+Do and What Do They Need? In Proc. of 67th ASIS&amp;T 
+Annual Meeting, Chicago, IL, Oct. 2004.
+5. Catledge, L.D., Pitkow, J.E. (1995). Characterizing 
+Browsing Strategies in the World-Wide Web, Computer 
+Networks and ISDN Systems, 27(6): 1065-1073.
+6. Choo, C.W., Detlor, B., Turnbull, D. (2000). 
+Information Seeking on the Web: An Integrated Model 
+of Browsing and Searching, FirstMonday, 5(2).
+7. Cockburn, A., Greenberg, S., Jones, S., McKenzie, B., 
+Moyle, M. (2003). Improving Web Page Revisitation: 
+Analysis, Design and Evaluation, It&amp;Society, Winter 
+2003, 1(3): 159-183.
+8. Cockburn, A., McKenzie, B. (2001). What do Web 
+Users do? An Empirical Analysis of Web Use, Internat. 
+Journal of Human-Computer Studies, Apr. 54: 903-922.
+9. Jhaveri, N. Räihä, K. (2005). The Advantages of a 
+Cross-Session Web Workspace. In Proc. of SIGCHI 
+2005, Portland, OR, Apr. 2005, 1949-1952.
+10. Kaasten, S., Greenberg, S (2001). Integrating Back, 
+History and Bookmarks in Web Browsers, In Proc. of 
+SIGCHI 2001, Seattle, WA, 379-380.
+11. Kellar, M., Watters, C. &amp; Inkpen, K. (2007). An 
+Exploration of Web-based Monitoring: Implications for 
+Design. In Proc. of the SIGCHI 2007, San Jose, CA. 
+377-386.
+12. Kellar, M., Watters, C. and Shepherd, M. (2006). A 
+Goal-Based Classification of Web Information Tasks. In 
+Proc. of ASIS&amp;T, Austin, TX, Nov. 2006.
+13. MacKay, B., and Watters, C. (2007). An Examination of 
+Multi-Session Web Tasks. Accepted in ASIS&amp;T Annual 
+Meeting, Milwaukee, WI, Oct. 2007.
+14. MacKay, B., Kellar, M., Watters, C. (2005). An 
+Evaluation of Landmarks for Re-finding information on 
+the Web, In Proc. of SIGCHI 2005, Portland, OR, Apr. 
+2005, 1609 – 1612.
+15. Sellen, A., Murphy, R., Shaw, K. (2002). How 
+Knowledge Workers Use the Web, In Proc. of SIGCHI 
+2002, Minneapolis, MN, Apr. 2002, 227-234.
+16. Sommer, R., Sommer, B. (1986). The Practical Guide to 
+Behavioral Research: Tools and Techniques (2nd 
+Edition), Oxford University Press: New York.
+17. Tauscher, L., Greenberg, S. (1997). How People Revisit 
+Web Pages: Empirical Findings and Implications for the 
+Design of History Systems, International Journal of 
+Human-Computer Studies, 47(1): 97-137.
+1196

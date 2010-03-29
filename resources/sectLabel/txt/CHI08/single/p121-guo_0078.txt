@@ -1,0 +1,86 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+asked to perform the easier set first followed by the harder 
+set.
+Similar to task 1, we measure the task completion time and 
+the number of errors. The task completion time in this task 
+is defined as the time that elapsed since a new posture 
+image was displayed on the screen till the time the 
+participants completed the correct robotic posture. 
+Completion time was measured automatically by the 
+software according to the user sensed gestured, with a 
+manual measurement for backup. The error in this case is 
+defined as performing a posture that is different from the 
+posture displayed on the screen. If a participant fails to 
+perform the correct posture, then he/she needs to correct 
+themselves. The time it takes the participants to think and 
+correct their postures is also taken into account as part of 
+the task completion time. Since the harder posture set 
+requires the participants to move both forelegs of the AIBO, 
+the actions can be preformed either sequentially or 
+simultaneously. In this case, we did not constrain the 
+participants to any of the input styles, allowing them to 
+gesture either sequentially or simultaneously, as long as 
+they feel it is the fastest and most intuitive way to complete 
+the postures.
+Interaction Techniques
+For this task, the function mapping for the Wiimote 
+interface is presented in Figure 7 and the mapping for the 
+keypad interface is presented in Figure 8.
+For the gesture input technique, the participants directly 
+adjust the position of the forelegs of the AIBO using their 
+own arms. Compare to the navigation task, the gesture-to-
+robot action mapping in this case has an almost prefect 
+degree of integration, and a high degree of compatibility [4].
+For the keypad-to-robot action mapping, the four letter keys
+Figure 9. Posture 1-6 is the easier posture group. Posture
+7-12 is the harder posture group.
+on the OQO control the right foreleg of the AIBO. The four 
+number keys control the left foreleg of the AIBO. By 
+pressing either X or 8, the AIBO will perform Posture 1 
+(Figure 6) with either its right foreleg or left foreleg. By 
+pressing either Z or 9, the AIBO will perform Posture 2. By 
+pressing either A or 6, the AIBO will perform Posture 3. By 
+pressing either Q or 3, the AIBO will perform Posture 4 
+(Figure 6).
+The Data collected from this task was analyzed using a 2 x 
+2 within-subjects ANOVA for the following two factors:
+•	Technique: Wiimote/Nunchuk, Keypad
+•	Posture: posture 1 to 12 (Figure 9).
+RESULTS
+Task 1 - Navigation
+Task Completion Time
+A 2 x 2 (Technique X Difficulty) ANOVA, with repeated 
+measures on both factors, revealed no significant Technique 
+X Difficulty interaction (F1,19 = 1.54, p = 0.23), which 
+suggests that performance with the techniques is not 
+substantially influenced by the difficulty level. There was a 
+significant main effect for Technique, F1,19 = 12.19, p 
+&lt;.001, indicating that overall task completion time for the 
+Wiimote technique (M = 43.2s, SD = 6.9s) was 10% faster 
+than for the keypad technique (M = 48.5 s SD = 6.7s) 
+(Figure 10). As we expected, the main effect of Difficulty 
+was significant, F1,19 = 115.61, p &lt; .001, with the mean 
+jumping from M = 38.7s, SD = 4.6s for the easy trail to M = 
+53.0s, SD = 8.1s for the hard trail.
+Error
+A two-way ANOVA was used to determine if there were 
+differences on the number of errors (dependent variable) 
+participants made using the Wiimote and keypad techniques 
+when performed the navigation task under different 
+difficulty levels. The result of the ANOVA showed no 
+significant Technique X Difficulty interaction (F1,19 = 0.03, 
+p = .87), which suggests that the number of errors made 
+using different techniques is not significantly influenced by 
+the difficulty level. There was a significant main effect for 
+Technique, F1,19 = 9.81, p &lt; .01, indicating the errors that 
+participants made using the Wiimote technique (M = 0.35, 
+SD = 0.4) is 43% less than using the keypad technique (M = 
+0.83, SD = 0.6). The result also showed a marginally 
+significant main effect for Difficulty (F1,19 = 3.96, p = .06), 
+with mean varying from M = 0.43, SD = 0.4 for the easy 
+trail to M = 0.75, SD = 0.6 for the hard trail.
+Figure 10. Mean Task Completion Time for Navigation Task.
+Figure 7. Arm posture input. These postures correspond to
+the four AIBO postures showed in Figure 6.
+Figure 8. Key-Posture Mapping.
+127

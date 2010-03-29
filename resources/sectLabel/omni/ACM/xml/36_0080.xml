@@ -1,0 +1,1503 @@
+<?xml version="1.0"?>
+<!--XML document generated using OCR technology from ScanSoft, Inc.-->
+<document xmlns="http://www.scansoft.com/omnipage/xml/ssdoc-schema3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<page ocr-vers="OmniPage 16" app-vers="OmniPage 16">
+<description>
+<source file="C:\forecite\in\36.pdf" dpix="300" dpiy="300" sizex="2550" sizey="3300"/>
+<theoreticalPage size="Letter" marginLeft="1100" marginTop="999" marginRight="1079" marginBottom="666" offsetX="-11" width="12240" height="15840"/>
+<language>en</language>
+</description>
+<styleTable>
+<style styleID="paraStyle_1_5_54" alignment="justified" ri="144" lsp="single" underlined="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable">
+</style>
+<style styleID="paraStyle_1_5_55" alignment="left" lsp="single" underlined="none" subsuperscript="none" fontSize="1000" fontFace="Times New Roman" spacing="0" scale="1000">
+</style>
+<style styleID="charStyle_1_5_52" underlined="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable">
+</style>
+<style styleID="charStyle_1_5_53" underlined="none" subsuperscript="none" fontSize="1000" fontFace="Times New Roman" spacing="0" scale="1000">
+</style>
+</styleTable>
+<body>
+<section l="1062" t="998" r="11192" b="14338">
+<column l="1062" t="998" r="6006" b="14338">
+<para l="1099" t="1094" r="5894" b="2515" spaceBefore="72" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_54">
+<ln l="1104" t="1094" r="5875" b="1262" baseLine="1226">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1104" t="1114" r="1666" b="1229">nearest</wd>
+<space/>
+<wd l="1752" t="1142" r="2299" b="1229">neuron</wd>
+<space/>
+<wd l="2381" t="1094" r="2534" b="1229">of</wd>
+<space/>
+<wd l="2602" t="1104" r="3019" b="1262">input</wd>
+<space/>
+<wd l="3106" t="1099" r="3456" b="1229">data</wd>
+<space/>
+<wd l="3533" t="1114" r="4061" b="1229">vector.</wd>
+<space/>
+<wd l="4200" t="1099" r="4661" b="1229">These</wd>
+<space/>
+<wd l="4742" t="1099" r="5438" b="1229">variables</wd>
+<space/>
+<wd l="5525" t="1099" r="5875" b="1229">have</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="1306" r="5880" b="1469" baseLine="1433">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="7">
+<wd l="1104" t="1349" r="1723" b="1435">nonzero</wd>
+<space/>
+<wd l="1800" t="1306" r="2208" b="1435">mask</wd>
+<space/>
+<wd l="2280" t="1306" r="2746" b="1435">which</wd>
+<space/>
+<wd l="2822" t="1349" r="3091" b="1435">can</wd>
+<space/>
+<wd l="3168" t="1306" r="3470" b="1435">also</wd>
+<space/>
+<wd l="3547" t="1306" r="3730" b="1435">be</wd>
+<space/>
+<wd l="3806" t="1306" r="4642" b="1435">considered</wd>
+<space/>
+<wd l="4718" t="1349" r="4872" b="1435">as</wd>
+<space/>
+<wd l="4954" t="1349" r="5040" b="1435">a</wd>
+<space/>
+<wd l="5112" t="1306" r="5880" b="1469">weighting</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="1512" r="5894" b="1680" baseLine="1644">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<wd l="1104" t="1512" r="1560" b="1646">factor</wd>
+<space/>
+<wd l="1656" t="1522" r="1805" b="1642">in</wd>
+<space/>
+<wd l="1896" t="1560" r="1982" b="1646">a</wd>
+<space/>
+<wd l="2074" t="1517" r="2563" b="1646">search</wd>
+<space/>
+<wd l="2659" t="1512" r="2870" b="1646">for</wd>
+<space/>
+<wd l="2962" t="1517" r="3211" b="1646">the</wd>
+<space/>
+<wd l="3307" t="1517" r="4435" b="1680">best-matching</wd>
+<space/>
+<wd l="4531" t="1560" r="5117" b="1646">neuron.</wd>
+<space/>
+<wd l="5290" t="1517" r="5635" b="1646">Rest</wd>
+<space/>
+<wd l="5736" t="1512" r="5894" b="1646">of</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="24">
+<space/>
+</run>
+</ln>
+<ln l="1099" t="1723" r="5880" b="1886" baseLine="1850">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="12">
+<wd l="1099" t="1723" r="1349" b="1853">the</wd>
+<space/>
+<wd l="1435" t="1723" r="2131" b="1853">variables</wd>
+<space/>
+<wd l="2222" t="1723" r="2578" b="1853">have</wd>
+<space/>
+<wd l="2669" t="1766" r="2990" b="1853">zero</wd>
+<space/>
+<wd l="3077" t="1723" r="3523" b="1886">mask,</wd>
+<space/>
+<wd l="3624" t="1723" r="4090" b="1853">which</wd>
+<space/>
+<wd l="4176" t="1766" r="4666" b="1853">means</wd>
+<space/>
+<wd l="4752" t="1723" r="5083" b="1853">that</wd>
+<space/>
+<wd l="5170" t="1723" r="5525" b="1886">they</wd>
+<space/>
+<wd l="5611" t="1766" r="5880" b="1853">can</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="22">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="1930" r="5880" b="2098" baseLine="2062">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="12">
+<wd l="1104" t="1934" r="1282" b="2064">be</wd>
+<space/>
+<wd l="1358" t="1934" r="2141" b="2064">visualized</wd>
+<space/>
+<wd l="2218" t="1934" r="2506" b="2064">and</wd>
+<space/>
+<wd l="2582" t="1934" r="3235" b="2098">updated</wd>
+<space/>
+<wd l="3312" t="1939" r="3725" b="2098">using</wd>
+<space/>
+<wd l="3806" t="1930" r="4205" b="2064">SOM</wd>
+<space/>
+<wd l="4286" t="1934" r="5098" b="2098">algorithm,</wd>
+<space/>
+<wd l="5189" t="1934" r="5448" b="2064">but</wd>
+<space/>
+<wd l="5530" t="1934" r="5880" b="2098">they</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="22">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="2141" r="5880" b="2309" baseLine="2273">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="2146" r="1291" b="2275">do</wd>
+<space/>
+<wd l="1373" t="2160" r="1627" b="2275">not</wd>
+<space/>
+<wd l="1718" t="2146" r="2069" b="2275">have</wd>
+<space/>
+<wd l="2160" t="2189" r="2347" b="2275">an</wd>
+<space/>
+<wd l="2429" t="2141" r="2842" b="2275">effect</wd>
+<space/>
+<wd l="2928" t="2189" r="3120" b="2275">on</wd>
+<space/>
+<wd l="3202" t="2150" r="4186" b="2309">organization</wd>
+<space/>
+<wd l="4272" t="2141" r="4426" b="2275">of</wd>
+<space/>
+<wd l="4488" t="2146" r="4742" b="2275">the</wd>
+<space/>
+<wd l="4834" t="2141" r="5232" b="2275">SOM</wd>
+<space/>
+<wd l="5318" t="2146" r="5606" b="2275">and</wd>
+<space/>
+<wd l="5693" t="2189" r="5880" b="2275">on</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="2347" r="5506" b="2515" baseLine="2479">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="2352" r="1786" b="2482">selection</wd>
+<space/>
+<wd l="1853" t="2347" r="2006" b="2482">of</wd>
+<space/>
+<wd l="2054" t="2352" r="2309" b="2482">the</wd>
+<space/>
+<wd l="2376" t="2352" r="2904" b="2482">cluster</wd>
+<space/>
+<wd l="2971" t="2357" r="3120" b="2477">in</wd>
+<space/>
+<wd l="3182" t="2352" r="3648" b="2482">which</wd>
+<space/>
+<wd l="3710" t="2352" r="3960" b="2482">the</wd>
+<space/>
+<wd l="4032" t="2352" r="4574" b="2515">sample</wd>
+<space/>
+<wd l="4646" t="2352" r="5237" b="2515">belongs</wd>
+<space/>
+<wd l="5299" t="2366" r="5506" b="2482">to.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="1099" t="2558" r="5894" b="4402" alignment="justified" ri="144" spaceAfter="288" fli="216" lsp="exactly" lspExact="206" language="en" styleRef="paraStyle_1_5_55">
+<ln l="1282" t="2558" r="5875" b="2726" baseLine="2690" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1282" t="2563" r="1445" b="2688">In</wd>
+<space/>
+<wd l="1507" t="2563" r="2021" b="2726">Figure</wd>
+<space/>
+<wd l="2088" t="2568" r="2170" b="2693">3</wd>
+<space/>
+<wd l="2237" t="2563" r="2424" b="2693">all</wd>
+<space/>
+<wd l="2486" t="2563" r="2899" b="2693">other</wd>
+<space/>
+<wd l="2966" t="2578" r="3830" b="2726">component</wd>
+<space/>
+<wd l="3902" t="2563" r="4392" b="2726">planes</wd>
+<space/>
+<wd l="4459" t="2558" r="4613" b="2693">of</wd>
+<space/>
+<wd l="4670" t="2558" r="5069" b="2693">SOM</wd>
+<space/>
+<wd l="5131" t="2563" r="5491" b="2693">with</wd>
+<space/>
+<wd l="5554" t="2606" r="5875" b="2726">pos-</wd>
+</ln>
+<ln l="1104" t="2760" r="5875" b="2942" baseLine="2897">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="7">
+<wd l="1104" t="2774" r="1440" b="2899">itive</wd>
+<space/>
+<wd l="1512" t="2770" r="1920" b="2899">mask</wd>
+<space/>
+<wd l="1982" t="2813" r="2218" b="2899">are</wd>
+<space/>
+<wd l="2285" t="2770" r="2818" b="2933">shown,</wd>
+<space/>
+<wd l="2894" t="2784" r="3398" b="2933">except</wd>
+</run>
+<run underlined="none" subsuperscript="subscript" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+</run>
+<wd l="3470" t="2760" r="3970" b="2942"><run underlined="none" subsuperscript="subscript" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+E</run>
+<run underlined="none" subsuperscript="subscript" fontSize="500" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17" scale="1200">
+c</run>
+<run underlined="none" subsuperscript="subscript" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+/N</run>
+<run underlined="none" subsuperscript="subscript" fontSize="550" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17" scale="1150">
+0</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="7">
+<space/>
+<wd l="4051" t="2765" r="4805" b="2899">difference</wd>
+<space/>
+<wd l="4872" t="2770" r="5875" b="2899">distributions</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+</run>
+</ln>
+<ln l="1099" t="2981" r="5875" b="3144" baseLine="3108" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="1099" t="2981" r="1565" b="3110">which</wd>
+<space/>
+<wd l="1646" t="3024" r="1882" b="3110">are</wd>
+<space/>
+<wd l="1973" t="2981" r="2462" b="3110">shown</wd>
+<space/>
+<wd l="2544" t="2986" r="2693" b="3106">in</wd>
+<space/>
+<wd l="2774" t="2981" r="3288" b="3144">Figure</wd>
+<space/>
+<wd l="3374" t="2986" r="3499" b="3110">6.</wd>
+<space/>
+<wd l="3648" t="2981" r="3811" b="3106">In</wd>
+<space/>
+<wd l="3893" t="2995" r="4762" b="3144">component</wd>
+<space/>
+<wd l="4853" t="2981" r="5270" b="3144">plane</wd>
+<space/>
+<wd l="5352" t="2981" r="5875" b="3110">visual-</wd>
+</ln>
+<ln l="1104" t="3182" r="5875" b="3365" baseLine="3319">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1104" t="3197" r="1680" b="3355">ization,</wd>
+<space/>
+<wd l="1771" t="3192" r="2774" b="3322">distributions</wd>
+<space/>
+<wd l="2856" t="3187" r="3010" b="3322">of</wd>
+<space/>
+<wd l="3077" t="3206" r="4018" b="3355">components</wd>
+<space/>
+<wd l="4109" t="3182" r="4325" b="3365">(or</wd>
+<space/>
+<wd l="4402" t="3182" r="5160" b="3365">variables)</wd>
+<space/>
+<wd l="5251" t="3187" r="5405" b="3322">of</wd>
+<space/>
+<wd l="5477" t="3187" r="5875" b="3322">SOM</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="3394" r="5875" b="3562" baseLine="3526" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="4">
+<wd l="1104" t="3398" r="1853" b="3528">codebook</wd>
+<space/>
+<wd l="1901" t="3413" r="2462" b="3528">vectors</wd>
+<space/>
+<wd l="2515" t="3442" r="2755" b="3528">are</wd>
+<space/>
+<wd l="2808" t="3398" r="3341" b="3528">shown.</wd>
+<space/>
+<wd l="3442" t="3394" r="4354" b="3562">Component</wd>
+<space/>
+<wd l="4406" t="3398" r="4886" b="3528">values</wd>
+<space/>
+<wd l="4944" t="3394" r="5098" b="3528">of</wd>
+<space/>
+<wd l="5141" t="3442" r="5405" b="3528">one</wd>
+<space/>
+<wd l="5462" t="3398" r="5875" b="3528">code-</wd>
+<space/>
+</ln>
+<ln l="1104" t="3610" r="5875" b="3773" baseLine="3737">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1104" t="3610" r="1493" b="3739">book</wd>
+<space/>
+<wd l="1546" t="3624" r="2030" b="3739">vector</wd>
+<space/>
+<wd l="2093" t="3653" r="2328" b="3739">are</wd>
+<space/>
+<wd l="2381" t="3610" r="3163" b="3739">visualized</wd>
+<space/>
+<wd l="3221" t="3614" r="3634" b="3773">using</wd>
+<space/>
+<wd l="3691" t="3610" r="4579" b="3773">grayscaling</wd>
+<space/>
+<wd l="4632" t="3610" r="4925" b="3739">and</wd>
+<space/>
+<wd l="4978" t="3610" r="5352" b="3739">their</wd>
+<space/>
+<wd l="5410" t="3610" r="5875" b="3739">locate</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="3811" r="5894" b="3979" baseLine="3943">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="3821" r="1253" b="3941">in</wd>
+<space/>
+<wd l="1320" t="3816" r="1570" b="3946">the</wd>
+<space/>
+<wd l="1651" t="3859" r="2040" b="3946">same</wd>
+<space/>
+<wd l="2117" t="3821" r="2750" b="3979">position</wd>
+<space/>
+<wd l="2827" t="3830" r="2976" b="3946">at</wd>
+<space/>
+<wd l="3058" t="3816" r="3403" b="3946">each</wd>
+<space/>
+<wd l="3480" t="3816" r="3941" b="3979">plane.</wd>
+<space/>
+<wd l="4066" t="3816" r="4325" b="3946">For</wd>
+<space/>
+<wd l="4402" t="3816" r="5093" b="3979">example,</wd>
+<space/>
+<wd l="5179" t="3816" r="5659" b="3946">values</wd>
+<space/>
+<wd l="5736" t="3811" r="5894" b="3946">of</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="4027" r="5880" b="4190" baseLine="4154">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="5">
+<wd l="1104" t="4070" r="1368" b="4157">one</wd>
+<space/>
+<wd l="1430" t="4027" r="2179" b="4157">codebook</wd>
+<space/>
+<wd l="2232" t="4042" r="2717" b="4157">vector</wd>
+<space/>
+<wd l="2774" t="4070" r="3014" b="4157">are</wd>
+<space/>
+<wd l="3072" t="4027" r="3562" b="4157">shown</wd>
+<space/>
+<wd l="3619" t="4042" r="3768" b="4157">at</wd>
+<space/>
+<wd l="3830" t="4070" r="4286" b="4190">upper</wd>
+<space/>
+<wd l="4344" t="4027" r="4714" b="4190">right</wd>
+<space/>
+<wd l="4781" t="4070" r="5270" b="4157">corner</wd>
+<space/>
+<wd l="5333" t="4032" r="5477" b="4152">in</wd>
+<space/>
+<wd l="5534" t="4027" r="5880" b="4157">each</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="15">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="4238" r="1565" b="4402" baseLine="4366">
+<wd l="1104" t="4238" r="1565" b="4402" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="4">plane.</wd>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<picture l="1152" t="4680" r="5909" b="8290" alignment="centered" li="90" ri="97" spaceAfter="648">
+</picture>
+<para l="1104" t="8947" r="5880" b="9706" language="en" styleRef="paraStyle_1_5_54">
+<ln l="1104" t="8947" r="5875" b="9115" baseLine="9079" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="25">
+<wd l="1104" t="8952" r="1694" b="9115">Figure</wd>
+<space/>
+<wd l="1800" t="8957" r="1949" b="9082">3:</wd>
+<space/>
+<wd l="2107" t="8947" r="3163" b="9115">Component</wd>
+<space/>
+<wd l="3274" t="8952" r="3840" b="9115">planes</wd>
+<space/>
+<wd l="3946" t="8947" r="4128" b="9082">of</wd>
+<space/>
+<wd l="4214" t="8947" r="4680" b="9082">SOM</wd>
+<space/>
+<wd l="4781" t="8952" r="5189" b="9082">with</wd>
+<space/>
+<wd l="5290" t="8952" r="5875" b="9082">denor-</wd>
+</ln>
+<ln l="1104" t="9154" r="5880" b="9288" baseLine="9286">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<wd l="1104" t="9158" r="1805" b="9288">malized</wd>
+<space/>
+<wd l="1882" t="9158" r="2448" b="9288">scales.</wd>
+<space/>
+<wd l="2563" t="9154" r="3158" b="9288">Shown</wd>
+<space/>
+<wd l="3240" t="9158" r="4037" b="9288">variables</wd>
+<space/>
+<wd l="4123" t="9158" r="4531" b="9288">have</wd>
+<space/>
+<wd l="4613" t="9202" r="5328" b="9288">nonzero</wd>
+<space/>
+<wd l="5410" t="9158" r="5880" b="9288">mask</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="29">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="9355" r="5875" b="9538" baseLine="9497">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<wd l="1104" t="9370" r="1435" b="9499">and</wd>
+<space/>
+<wd l="1512" t="9370" r="1920" b="9533">they</wd>
+<space/>
+<wd l="2002" t="9413" r="2280" b="9499">are</wd>
+<space/>
+<wd l="2366" t="9379" r="2654" b="9499">not</wd>
+<space/>
+<wd l="2746" t="9370" r="3682" b="9533">describing</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+<space/>
+</run>
+<wd l="3763" t="9355" r="4258" b="9538"><run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+E</run>
+<run underlined="none" subsuperscript="none" fontSize="500" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27" scale="1200">
+c</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+/N</run>
+<run underlined="none" subsuperscript="none" fontSize="550" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27" scale="1150">
+0</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+<wd l="4358" t="9365" r="5242" b="9499">difference</wd>
+<space/>
+<wd l="5328" t="9370" r="5875" b="9499">distri-</wd>
+</run>
+</ln>
+<ln l="1104" t="9576" r="1834" b="9706" baseLine="9704">
+<wd l="1104" t="9576" r="1834" b="9706" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">butions.</wd>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="1099" t="9979" r="5880" b="10982" alignment="justified" ri="144" spaceBefore="252" fli="216" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_55">
+<ln l="1286" t="9979" r="5875" b="10147" baseLine="10111">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="10">
+<wd l="1286" t="9979" r="1704" b="10114">Some</wd>
+<space/>
+<wd l="1810" t="9998" r="2678" b="10147">component</wd>
+<space/>
+<wd l="2784" t="9984" r="3264" b="10114">values</wd>
+<space/>
+<wd l="3370" t="9984" r="3835" b="10114">which</wd>
+<space/>
+<wd l="3931" t="10027" r="4291" b="10114">were</wd>
+<space/>
+<wd l="4402" t="9998" r="4651" b="10114">not</wd>
+<space/>
+<wd l="4762" t="9984" r="5117" b="10114">used</wd>
+<space/>
+<wd l="5222" t="9989" r="5366" b="10109">in</wd>
+<space/>
+<wd l="5477" t="9979" r="5875" b="10114">SOM</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="20">
+<space/>
+</run>
+</ln>
+<ln l="1099" t="10186" r="5875" b="10368" baseLine="10322">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<wd l="1099" t="10200" r="1733" b="10358">training</wd>
+<space/>
+<wd l="1834" t="10186" r="2112" b="10368">(i.e.</wd>
+<space/>
+<wd l="2213" t="10195" r="2563" b="10358">they</wd>
+<space/>
+<wd l="2654" t="10238" r="3010" b="10325">were</wd>
+<space/>
+<wd l="3106" t="10195" r="3696" b="10325">masked</wd>
+<space/>
+<wd l="3787" t="10186" r="4104" b="10368">out)</wd>
+<space/>
+<wd l="4210" t="10238" r="4450" b="10325">are</wd>
+<space/>
+<wd l="4546" t="10195" r="5035" b="10325">shown</wd>
+<space/>
+<wd l="5126" t="10200" r="5275" b="10320">in</wd>
+<space/>
+<wd l="5366" t="10195" r="5875" b="10358">Figure</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="24">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="10397" r="5880" b="10565" baseLine="10528">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="10402" r="1229" b="10526">4.</wd>
+<space/>
+<wd l="1325" t="10397" r="2112" b="10565">Although,</wd>
+<space/>
+<wd l="2179" t="10402" r="2530" b="10565">they</wd>
+<space/>
+<wd l="2587" t="10402" r="2942" b="10531">have</wd>
+<space/>
+<wd l="3000" t="10445" r="3192" b="10531">no</wd>
+<space/>
+<wd l="3250" t="10397" r="3658" b="10531">effect</wd>
+<space/>
+<wd l="3725" t="10445" r="3912" b="10531">on</wd>
+<space/>
+<wd l="3974" t="10397" r="4373" b="10531">SOM</wd>
+<space/>
+<wd l="4435" t="10406" r="5462" b="10565">organization,</wd>
+<space/>
+<wd l="5530" t="10402" r="5880" b="10565">they</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="10613" r="5880" b="10776" baseLine="10741">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="10">
+<wd l="1104" t="10656" r="1339" b="10742">are</wd>
+<space/>
+<wd l="1421" t="10613" r="2059" b="10776">adapted</wd>
+<space/>
+<wd l="2126" t="10627" r="2290" b="10742">to</wd>
+<space/>
+<wd l="2366" t="10613" r="2544" b="10742">be</wd>
+<space/>
+<wd l="2621" t="10613" r="2942" b="10742">able</wd>
+<space/>
+<wd l="3014" t="10627" r="3178" b="10742">to</wd>
+<space/>
+<wd l="3250" t="10656" r="3917" b="10776">compare</wd>
+<space/>
+<wd l="3994" t="10613" r="4363" b="10742">their</wd>
+<space/>
+<wd l="4445" t="10613" r="5448" b="10742">distributions</wd>
+<space/>
+<wd l="5530" t="10656" r="5880" b="10742">even</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="20">
+<space/>
+</run>
+</ln>
+<ln l="1099" t="10814" r="4296" b="10982" baseLine="10946">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="1099" t="10819" r="1454" b="10949">with</wd>
+<space/>
+<wd l="1517" t="10819" r="1934" b="10949">those</wd>
+<space/>
+<wd l="2006" t="10819" r="2357" b="10949">used</wd>
+<space/>
+<wd l="2424" t="10824" r="2573" b="10944">in</wd>
+<space/>
+<wd l="2640" t="10824" r="3461" b="10982">organizing</wd>
+<space/>
+<wd l="3523" t="10819" r="3778" b="10949">the</wd>
+<space/>
+<wd l="3850" t="10814" r="4296" b="10949">SOM.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="21">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="1099" t="11026" r="5880" b="13507" fli="216" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_54">
+<ln l="1282" t="11026" r="5880" b="11194" baseLine="11157">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="5">
+<wd l="1282" t="11030" r="1507" b="11194">By</wd>
+<space/>
+<wd l="1550" t="11030" r="2011" b="11160">visual</wd>
+<space/>
+<wd l="2064" t="11035" r="2966" b="11194">comparison</wd>
+<space/>
+<wd l="3014" t="11026" r="3173" b="11160">of</wd>
+<space/>
+<wd l="3202" t="11030" r="3898" b="11160">variables</wd>
+<space/>
+<wd l="3950" t="11035" r="4099" b="11155">in</wd>
+<space/>
+<wd l="4147" t="11030" r="4728" b="11194">Figures</wd>
+<space/>
+<wd l="4781" t="11035" r="4862" b="11160">3</wd>
+<space/>
+<wd l="4915" t="11030" r="5208" b="11160">and</wd>
+<space/>
+<wd l="5256" t="11030" r="5381" b="11194">4,</wd>
+<space/>
+<wd l="5443" t="11035" r="5554" b="11160">it</wd>
+<space/>
+<wd l="5611" t="11074" r="5880" b="11160">can</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="15">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="11237" r="5875" b="11405" baseLine="11369">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="29">
+<wd l="1104" t="11242" r="1282" b="11371">be</wd>
+<space/>
+<wd l="1474" t="11285" r="1805" b="11371">seen</wd>
+<space/>
+<wd l="1982" t="11242" r="2314" b="11371">that</wd>
+<space/>
+<wd l="2501" t="11242" r="2750" b="11371">the</wd>
+<space/>
+<wd l="2933" t="11242" r="3307" b="11371">total</wd>
+<space/>
+<wd l="3494" t="11242" r="4094" b="11371">number</wd>
+<space/>
+<wd l="4282" t="11237" r="4435" b="11371">of</wd>
+<space/>
+<wd l="4613" t="11237" r="4978" b="11371">SHO</wd>
+<space/>
+<wd l="5170" t="11256" r="5875" b="11405">attempts</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="39">
+<space/>
+</run>
+</ln>
+<ln l="1114" t="11438" r="5875" b="11621" baseLine="11576">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<wd l="1114" t="11438" r="1546" b="11621">(SHO</wd>
+<space/>
+<wd l="1627" t="11448" r="2002" b="11578">total</wd>
+<space/>
+<wd l="2078" t="11438" r="2366" b="11621">att)</wd>
+<space/>
+<wd l="2582" t="11448" r="2875" b="11578">and</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+<space/>
+</run>
+<wd l="3077" t="11438" r="3576" b="11621"><run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+E</run>
+<run underlined="none" subsuperscript="none" fontSize="500" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27" scale="1200">
+c</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+/N</run>
+<run underlined="none" subsuperscript="none" fontSize="550" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27" scale="1150">
+0</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+<wd l="3797" t="11443" r="4546" b="11578">difference</wd>
+<space/>
+<wd l="4752" t="11462" r="5875" b="11578">measurements</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="27">
+<space/>
+</run>
+</ln>
+<ln l="1114" t="11650" r="5875" b="11832" baseLine="11785" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="13">
+<wd l="1114" t="11650" r="2323" b="11832">(EcnoDiffNum)</wd>
+<space/>
+<wd l="2414" t="11664" r="2530" b="11789">is</wd>
+<space/>
+<wd l="2616" t="11659" r="3106" b="11822">higher</wd>
+<space/>
+<wd l="3192" t="11664" r="3341" b="11784">in</wd>
+<space/>
+<wd l="3418" t="11702" r="3874" b="11822">upper</wd>
+<space/>
+<wd l="3960" t="11674" r="4282" b="11822">part</wd>
+<space/>
+<wd l="4373" t="11654" r="4526" b="11789">of</wd>
+<space/>
+<wd l="4589" t="11659" r="4843" b="11789">the</wd>
+<space/>
+<wd l="4930" t="11654" r="5376" b="11789">SOM.</wd>
+<space/>
+<wd l="5467" t="11659" r="5875" b="11789">How-</wd>
+</ln>
+<ln l="1104" t="11861" r="5870" b="12029" baseLine="11993">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1104" t="11909" r="1464" b="12029">ever,</wd>
+<space/>
+<wd l="1536" t="11866" r="1954" b="11995">when</wd>
+<space/>
+<wd l="2016" t="11866" r="2266" b="11995">the</wd>
+<space/>
+<wd l="2333" t="11866" r="2765" b="11995">latter</wd>
+<space/>
+<wd l="2832" t="11870" r="2947" b="11995">is</wd>
+<space/>
+<wd l="3014" t="11866" r="3490" b="11995">scaled</wd>
+<space/>
+<wd l="3557" t="11866" r="3744" b="12029">by</wd>
+<space/>
+<wd l="3802" t="11866" r="4176" b="11995">total</wd>
+<space/>
+<wd l="4243" t="11866" r="4843" b="11995">number</wd>
+<space/>
+<wd l="4910" t="11861" r="5064" b="11995">of</wd>
+<space/>
+<wd l="5117" t="11880" r="5870" b="12029">attempts,</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="12067" r="5870" b="12250" baseLine="12203">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="10">
+<wd l="1104" t="12077" r="1594" b="12240">higher</wd>
+<space/>
+<wd l="1661" t="12091" r="1968" b="12206">rate</wd>
+<space/>
+<wd l="2030" t="12072" r="2184" b="12206">of</wd>
+<space/>
+<wd l="2232" t="12091" r="3355" b="12206">measurements</wd>
+<space/>
+<wd l="3427" t="12067" r="3552" b="12250">(r</wd>
+<space/>
+<wd l="3634" t="12067" r="4622" b="12250">EcnoDNum)</wd>
+<space/>
+<wd l="4694" t="12082" r="4805" b="12206">is</wd>
+<space/>
+<wd l="4867" t="12082" r="5016" b="12202">in</wd>
+<space/>
+<wd l="5074" t="12077" r="5486" b="12206">lower</wd>
+<space/>
+<wd l="5549" t="12091" r="5870" b="12240">part</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="20">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="12283" r="5875" b="12451" baseLine="12415" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<wd l="1104" t="12283" r="1258" b="12418">of</wd>
+<space/>
+<wd l="1330" t="12288" r="1579" b="12418">the</wd>
+<space/>
+<wd l="1675" t="12331" r="2054" b="12451">map.</wd>
+<space/>
+<wd l="2222" t="12283" r="2611" b="12451">Also,</wd>
+<space/>
+<wd l="2712" t="12288" r="2962" b="12418">the</wd>
+<space/>
+<wd l="3048" t="12288" r="3427" b="12418">total</wd>
+<space/>
+<wd l="3518" t="12288" r="4114" b="12418">number</wd>
+<space/>
+<wd l="4210" t="12283" r="4363" b="12418">of</wd>
+<space/>
+<wd l="4440" t="12283" r="5107" b="12451">failuring</wd>
+<space/>
+<wd l="5198" t="12283" r="5563" b="12418">SHO</wd>
+<space/>
+<wd l="5659" t="12302" r="5875" b="12418">at-</wd>
+</ln>
+<ln l="1099" t="12485" r="5870" b="12667" baseLine="12621" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="12">
+<wd l="1099" t="12509" r="1646" b="12658">tempts</wd>
+<space/>
+<wd l="1738" t="12485" r="2141" b="12667">(pfail</wd>
+<space/>
+<wd l="2218" t="12485" r="2654" b="12667">total)</wd>
+<space/>
+<wd l="2741" t="12499" r="2856" b="12624">is</wd>
+<space/>
+<wd l="2933" t="12494" r="3274" b="12658">high</wd>
+<space/>
+<wd l="3350" t="12499" r="3494" b="12619">in</wd>
+<space/>
+<wd l="3571" t="12538" r="4027" b="12658">upper</wd>
+<space/>
+<wd l="4104" t="12494" r="4478" b="12658">right</wd>
+<space/>
+<wd l="4560" t="12538" r="5093" b="12658">corner,</wd>
+<space/>
+<wd l="5184" t="12494" r="5443" b="12624">but</wd>
+<space/>
+<wd l="5525" t="12494" r="5870" b="12624">scal-</wd>
+</ln>
+<ln l="1104" t="12701" r="5875" b="12869" baseLine="12833">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="12">
+<wd l="1104" t="12710" r="1344" b="12869">ing</wd>
+<space/>
+<wd l="1402" t="12706" r="1694" b="12835">this</wd>
+<space/>
+<wd l="1766" t="12706" r="1954" b="12869">by</wd>
+<space/>
+<wd l="2021" t="12706" r="2616" b="12835">number</wd>
+<space/>
+<wd l="2688" t="12701" r="2842" b="12835">of</wd>
+<space/>
+<wd l="2894" t="12720" r="3600" b="12869">attempts</wd>
+<space/>
+<wd l="3667" t="12706" r="3989" b="12835">tells</wd>
+<space/>
+<wd l="4056" t="12749" r="4224" b="12835">us</wd>
+<space/>
+<wd l="4286" t="12706" r="4613" b="12835">that</wd>
+<space/>
+<wd l="4685" t="12706" r="4934" b="12835">the</wd>
+<space/>
+<wd l="5002" t="12701" r="5501" b="12835">failure</wd>
+<space/>
+<wd l="5568" t="12720" r="5875" b="12835">rate</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="22">
+<space/>
+</run>
+</ln>
+<ln l="1114" t="12902" r="5870" b="13085" baseLine="13039">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="13">
+<wd l="1114" t="12902" r="1238" b="13085">(r</wd>
+<space/>
+<wd l="1320" t="12902" r="1622" b="13085">fail)</wd>
+<space/>
+<wd l="1728" t="12917" r="1877" b="13037">in</wd>
+<space/>
+<wd l="1968" t="12955" r="2424" b="13075">upper</wd>
+<space/>
+<wd l="2520" t="12912" r="2890" b="13075">right</wd>
+<space/>
+<wd l="2990" t="12955" r="3485" b="13042">corner</wd>
+<space/>
+<wd l="3581" t="12917" r="3696" b="13042">is</wd>
+<space/>
+<wd l="3792" t="12917" r="4186" b="13075">quite</wd>
+<space/>
+<wd l="4282" t="12912" r="5069" b="13042">moderate.</wd>
+<space/>
+<wd l="5246" t="12912" r="5870" b="13075">Instead,</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="23">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="13118" r="5875" b="13286" baseLine="13250" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="13123" r="1594" b="13286">higher</wd>
+<space/>
+<wd l="1670" t="13118" r="2170" b="13253">failure</wd>
+<space/>
+<wd l="2242" t="13138" r="2626" b="13253">rates</wd>
+<space/>
+<wd l="2698" t="13128" r="3134" b="13253">exists</wd>
+<space/>
+<wd l="3211" t="13128" r="3360" b="13248">in</wd>
+<space/>
+<wd l="3432" t="13123" r="3797" b="13253">both</wd>
+<space/>
+<wd l="3869" t="13123" r="4282" b="13253">lower</wd>
+<space/>
+<wd l="4358" t="13166" r="4920" b="13253">corners</wd>
+<space/>
+<wd l="4997" t="13128" r="5213" b="13253">i.e.</wd>
+<space/>
+<wd l="5299" t="13128" r="5443" b="13248">in</wd>
+<space/>
+<wd l="5515" t="13123" r="5875" b="13253">clus-</wd>
+</ln>
+<ln l="1099" t="13325" r="3274" b="13507" baseLine="13463">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="1099" t="13349" r="1392" b="13464">ters</wd>
+<space/>
+<wd l="1464" t="13339" r="1546" b="13464">5</wd>
+<space/>
+<wd l="1618" t="13334" r="1906" b="13464">and</wd>
+<space/>
+<wd l="1973" t="13339" r="2054" b="13464">8</wd>
+<space/>
+<wd l="2136" t="13325" r="2424" b="13507">(see</wd>
+<space/>
+<wd l="2496" t="13334" r="3005" b="13498">Figure</wd>
+<space/>
+<wd l="3077" t="13325" r="3274" b="13507">5).</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="1104" t="13536" r="5880" b="14333" spaceAfter="72" fli="216" language="en" styleRef="paraStyle_1_5_54">
+<ln l="1282" t="13536" r="5875" b="13704" baseLine="13668" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="6">
+<wd l="1282" t="13541" r="1896" b="13670">Trained</wd>
+<space/>
+<wd l="1978" t="13536" r="2376" b="13670">SOM</wd>
+<space/>
+<wd l="2458" t="13541" r="3211" b="13670">codebook</wd>
+<space/>
+<wd l="3283" t="13555" r="3840" b="13670">vectors</wd>
+<space/>
+<wd l="3922" t="13584" r="4157" b="13670">are</wd>
+<space/>
+<wd l="4238" t="13541" r="4949" b="13670">clustered</wd>
+<space/>
+<wd l="5026" t="13546" r="5443" b="13704">using</wd>
+<space/>
+<wd l="5515" t="13541" r="5875" b="13670">hier-</wd>
+</ln>
+<ln l="1104" t="13752" r="5880" b="13915" baseLine="13879">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="1104" t="13752" r="1714" b="13882">archical</wd>
+<space/>
+<wd l="1790" t="13752" r="2227" b="13882">Ward</wd>
+<space/>
+<wd l="2304" t="13752" r="3115" b="13915">algorithm.</wd>
+<space/>
+<wd l="3240" t="13752" r="3547" b="13882">The</wd>
+<space/>
+<wd l="3629" t="13752" r="4402" b="13915">clustering</wd>
+<space/>
+<wd l="4474" t="13752" r="4910" b="13882">result</wd>
+<space/>
+<wd l="4997" t="13752" r="5616" b="13882">selected</wd>
+<space/>
+<wd l="5693" t="13752" r="5880" b="13915">by</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="13949" r="5861" b="14131" baseLine="14085">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="6">
+<wd l="1104" t="13958" r="2323" b="14088">Davies-Bouldin</wd>
+<space/>
+<wd l="2386" t="13958" r="2813" b="14088">index</wd>
+<space/>
+<wd l="2875" t="13963" r="2990" b="14088">is</wd>
+<space/>
+<wd l="3058" t="13958" r="3547" b="14088">shown</wd>
+<space/>
+<wd l="3610" t="13963" r="3758" b="14083">in</wd>
+<space/>
+<wd l="3821" t="13958" r="4330" b="14122">Figure</wd>
+<space/>
+<wd l="4397" t="13963" r="4522" b="14088">5.</wd>
+<space/>
+<wd l="4622" t="13958" r="4982" b="14088">Four</wd>
+<space/>
+<wd l="5050" t="13958" r="5299" b="14088">bin</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+<space/>
+</run>
+<wd l="5362" t="13949" r="5861" b="14131"><run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+E</run>
+<run underlined="none" subsuperscript="none" fontSize="500" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16" scale="1200">
+c</run>
+<run underlined="none" subsuperscript="none" fontSize="900" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+/N</run>
+<run underlined="none" subsuperscript="none" fontSize="550" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16" scale="1150">
+0</run>
+</wd>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+<space/>
+</run>
+</ln>
+<ln l="1104" t="14165" r="5875" b="14333" baseLine="14297">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="6">
+<wd l="1104" t="14165" r="1858" b="14299">difference</wd>
+<space/>
+<wd l="1915" t="14170" r="2774" b="14333">histograms</wd>
+<space/>
+<wd l="2832" t="14213" r="3067" b="14299">are</wd>
+<space/>
+<wd l="3120" t="14170" r="3902" b="14299">visualized</wd>
+<space/>
+<wd l="3955" t="14213" r="4147" b="14299">on</wd>
+<space/>
+<wd l="4195" t="14184" r="4454" b="14333">top</wd>
+<space/>
+<wd l="4512" t="14165" r="4666" b="14299">of</wd>
+<space/>
+<wd l="4709" t="14170" r="5419" b="14299">clustered</wd>
+<space/>
+<wd l="5477" t="14165" r="5875" b="14299">SOM</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+</column>
+<column l="6248" t="998" r="11192" b="14338">
+<picture l="6346" t="998" r="11088" b="4685" alignment="centered" li="98" ri="104" spaceAfter="648">
+</picture>
+<para l="6365" t="5342" r="11131" b="5717" alignment="left" li="72" ri="72" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_55">
+<ln l="6365" t="5342" r="11131" b="5510" baseLine="5474" underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="22">
+<wd l="6365" t="5347" r="6955" b="5510">Figure</wd>
+<space/>
+<wd l="7051" t="5352" r="7200" b="5472">4:</wd>
+<space/>
+<wd l="7339" t="5347" r="8611" b="5477">Denormalized</wd>
+<space/>
+<wd l="8702" t="5357" r="9706" b="5510">component</wd>
+<space/>
+<wd l="9806" t="5347" r="10373" b="5510">planes</wd>
+<space/>
+<wd l="10469" t="5342" r="10651" b="5477">of</wd>
+<space/>
+<wd l="10728" t="5347" r="11131" b="5477">vari-</wd>
+</ln>
+<ln l="6365" t="5549" r="10440" b="5717" baseLine="5681">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="23">
+<wd l="6365" t="5554" r="6811" b="5683">ables</wd>
+<space/>
+<wd l="6898" t="5554" r="7426" b="5683">which</wd>
+<space/>
+<wd l="7502" t="5597" r="7920" b="5683">were</wd>
+<space/>
+<wd l="8002" t="5563" r="8294" b="5683">not</wd>
+<space/>
+<wd l="8381" t="5554" r="8789" b="5683">used</wd>
+<space/>
+<wd l="8866" t="5554" r="9034" b="5678">in</wd>
+<space/>
+<wd l="9120" t="5549" r="9581" b="5683">SOM</wd>
+<space/>
+<wd l="9658" t="5554" r="10440" b="5717">training.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="33">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="6360" t="6168" r="11150" b="7176" alignment="justified" li="72" ri="72" spaceBefore="324" spaceAfter="756" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_55">
+<ln l="6365" t="6168" r="11136" b="6350" baseLine="6305">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="6365" t="6182" r="6514" b="6302">in</wd>
+<space/>
+<wd l="6586" t="6178" r="7094" b="6341">Figure</wd>
+<space/>
+<wd l="7176" t="6182" r="7301" b="6307">6.</wd>
+<space/>
+<wd l="7421" t="6178" r="7896" b="6307">When</wd>
+<space/>
+<wd l="7968" t="6192" r="8837" b="6341">component</wd>
+<space/>
+<wd l="8914" t="6178" r="9394" b="6307">values</wd>
+<space/>
+<wd l="9475" t="6173" r="9629" b="6307">of</wd>
+<space/>
+<wd l="9696" t="6173" r="10099" b="6307">SOM</wd>
+<space/>
+<wd l="10186" t="6168" r="10474" b="6350">(see</wd>
+<space/>
+<wd l="10555" t="6178" r="11136" b="6341">Figures</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="21">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="6379" r="11136" b="6562" baseLine="6516">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="10">
+<wd l="6365" t="6394" r="6490" b="6552">3,</wd>
+<space/>
+<wd l="6571" t="6389" r="6658" b="6514">4</wd>
+<space/>
+<wd l="6730" t="6389" r="7018" b="6518">and</wd>
+<space/>
+<wd l="7090" t="6379" r="7234" b="6562">6)</wd>
+<space/>
+<wd l="7320" t="6432" r="7555" b="6518">are</wd>
+<space/>
+<wd l="7632" t="6389" r="8400" b="6552">compared</wd>
+<space/>
+<wd l="8467" t="6389" r="8822" b="6518">with</wd>
+<space/>
+<wd l="8894" t="6389" r="9667" b="6552">clustering</wd>
+<space/>
+<wd l="9739" t="6389" r="10176" b="6518">result</wd>
+<space/>
+<wd l="10262" t="6379" r="10550" b="6562">(see</wd>
+<space/>
+<wd l="10627" t="6389" r="11136" b="6552">Figure</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="20">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="6586" r="11150" b="6768" baseLine="6723">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="6">
+<wd l="6365" t="6586" r="6509" b="6768">5)</wd>
+<space/>
+<wd l="6581" t="6595" r="7118" b="6725">several</wd>
+<space/>
+<wd l="7171" t="6610" r="7594" b="6758">types</wd>
+<space/>
+<wd l="7656" t="6590" r="7810" b="6725">of</wd>
+<space/>
+<wd l="7853" t="6638" r="8347" b="6725">source</wd>
+<space/>
+<wd l="8405" t="6610" r="8875" b="6758">target</wd>
+<space/>
+<wd l="8942" t="6600" r="9322" b="6758">pairs</wd>
+<space/>
+<wd l="9384" t="6638" r="9658" b="6725">can</wd>
+<space/>
+<wd l="9715" t="6595" r="9893" b="6725">be</wd>
+<space/>
+<wd l="9955" t="6590" r="10445" b="6725">found.</wd>
+<space/>
+<wd l="10541" t="6595" r="10930" b="6725">Most</wd>
+<space/>
+<wd l="10997" t="6590" r="11150" b="6725">of</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+<space/>
+</run>
+</ln>
+<ln l="6360" t="6802" r="11131" b="6970" baseLine="6934">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="4">
+<wd l="6360" t="6806" r="6768" b="6936">them</wd>
+<space/>
+<wd l="6830" t="6850" r="7066" b="6936">are</wd>
+<space/>
+<wd l="7133" t="6806" r="7848" b="6970">behaving</wd>
+<space/>
+<wd l="7910" t="6850" r="8069" b="6936">as</wd>
+<space/>
+<wd l="8136" t="6806" r="8875" b="6970">expected,</wd>
+<space/>
+<wd l="8952" t="6806" r="9211" b="6936">but</wd>
+<space/>
+<wd l="9283" t="6850" r="9672" b="6936">some</wd>
+<space/>
+<wd l="9739" t="6802" r="9893" b="6936">of</wd>
+<space/>
+<wd l="9941" t="6806" r="10349" b="6936">them</wd>
+<space/>
+<wd l="10411" t="6821" r="11131" b="6970">represent</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="7008" r="10354" b="7176" baseLine="7140">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="6365" t="7013" r="7085" b="7142">handover</wd>
+<space/>
+<wd l="7157" t="7027" r="7862" b="7176">attempts</wd>
+<space/>
+<wd l="7930" t="7013" r="8290" b="7142">with</wd>
+<space/>
+<wd l="8357" t="7018" r="8899" b="7142">certain</wd>
+<space/>
+<wd l="8966" t="7027" r="9312" b="7176">type</wd>
+<space/>
+<wd l="9384" t="7008" r="9538" b="7142">of</wd>
+<space/>
+<wd l="9595" t="7013" r="10354" b="7176">problems.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="21">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<picture l="7560" t="7901" r="10018" b="10968" alignment="centered" li="1312" ri="1174" spaceAfter="864">
+</picture>
+<para l="6365" t="11861" r="11141" b="12202" alignment="left" li="72" ri="72" lsp="exactly" lspExact="205" language="en" styleRef="paraStyle_1_5_55">
+<ln l="6365" t="11861" r="11141" b="12029" baseLine="11992">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<wd l="6365" t="11866" r="6955" b="12029">Figure</wd>
+<space/>
+<wd l="7032" t="11870" r="7176" b="11995">5:</wd>
+<space/>
+<wd l="7286" t="11861" r="7752" b="11995">SOM</wd>
+<space/>
+<wd l="7824" t="11866" r="8352" b="11995">which</wd>
+<space/>
+<wd l="8424" t="11866" r="8554" b="11995">is</wd>
+<space/>
+<wd l="8626" t="11866" r="9456" b="11995">clustered</wd>
+<space/>
+<wd l="9528" t="11866" r="10003" b="12029">using</wd>
+<space/>
+<wd l="10075" t="11866" r="11141" b="11995">hierarchical</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="29">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="12072" r="11131" b="12202" baseLine="12199">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="23">
+<wd l="6365" t="12072" r="6869" b="12202">Ward</wd>
+<space/>
+<wd l="6946" t="12072" r="7642" b="12202">method</wd>
+<space/>
+<wd l="7718" t="12072" r="8050" b="12202">and</wd>
+<space/>
+<wd l="8126" t="12072" r="9528" b="12202">Davies-Bouldin</wd>
+<space/>
+<wd l="9605" t="12072" r="10507" b="12202">validation</wd>
+<space/>
+<wd l="10584" t="12072" r="11131" b="12202">index.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="33">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="6360" t="12490" r="11136" b="14122" alignment="justified" li="72" ri="72" spaceBefore="144" fli="216" lsp="exactly" lspExact="207" language="en" styleRef="paraStyle_1_5_55">
+<ln l="6542" t="12490" r="11136" b="12658" baseLine="12622">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="9">
+<wd l="6542" t="12494" r="6749" b="12624">To</wd>
+<space/>
+<wd l="6821" t="12490" r="7123" b="12624">find</wd>
+<space/>
+<wd l="7195" t="12509" r="7450" b="12624">out</wd>
+<space/>
+<wd l="7526" t="12494" r="7776" b="12624">the</wd>
+<space/>
+<wd l="7858" t="12509" r="8232" b="12624">most</wd>
+<space/>
+<wd l="8314" t="12499" r="9154" b="12658">interesting</wd>
+<space/>
+<wd l="9226" t="12494" r="9826" b="12624">clusters</wd>
+<space/>
+<wd l="9902" t="12490" r="10056" b="12624">of</wd>
+<space/>
+<wd l="10114" t="12494" r="10363" b="12624">the</wd>
+<space/>
+<wd l="10450" t="12490" r="10848" b="12624">SOM</wd>
+<space/>
+<wd l="10925" t="12490" r="11136" b="12624">for</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="19">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="12701" r="11136" b="12869" baseLine="12833">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="6365" t="12701" r="6912" b="12835">further</wd>
+<space/>
+<wd l="6979" t="12710" r="8102" b="12869">investigations,</wd>
+<space/>
+<wd l="8179" t="12706" r="9115" b="12835">distribution</wd>
+<space/>
+<wd l="9178" t="12701" r="9331" b="12835">of</wd>
+<space/>
+<wd l="9384" t="12706" r="9734" b="12835">data</wd>
+<space/>
+<wd l="9797" t="12706" r="10416" b="12869">samples</wd>
+<space/>
+<wd l="10483" t="12749" r="10670" b="12835">on</wd>
+<space/>
+<wd l="10738" t="12701" r="11136" b="12835">SOM</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="21">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="12907" r="11136" b="13075" baseLine="13039">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="7">
+<wd l="6365" t="12917" r="6480" b="13042">is</wd>
+<space/>
+<wd l="6538" t="12912" r="7358" b="13042">visualized.</wd>
+<space/>
+<wd l="7454" t="12912" r="7618" b="13037">In</wd>
+<space/>
+<wd l="7680" t="12912" r="8189" b="13075">Figure</wd>
+<space/>
+<wd l="8256" t="12912" r="8429" b="13042">7a</wd>
+<space/>
+<wd l="8491" t="12912" r="8779" b="13042">hits</wd>
+<space/>
+<wd l="8842" t="12907" r="8995" b="13042">of</wd>
+<space/>
+<wd l="9043" t="12912" r="9230" b="13042">all</wd>
+<space/>
+<wd l="9293" t="12912" r="9907" b="13075">samples</wd>
+<space/>
+<wd l="9974" t="12955" r="10162" b="13042">on</wd>
+<space/>
+<wd l="10229" t="12907" r="10627" b="13042">SOM</wd>
+<space/>
+<wd l="10690" t="12912" r="11136" b="13042">nodes</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="17">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="13118" r="11131" b="13286" baseLine="13250">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="11">
+<wd l="6365" t="13166" r="6600" b="13253">are</wd>
+<space/>
+<wd l="6682" t="13123" r="7464" b="13253">visualized</wd>
+<space/>
+<wd l="7550" t="13123" r="7838" b="13253">and</wd>
+<space/>
+<wd l="7925" t="13128" r="8069" b="13248">in</wd>
+<space/>
+<wd l="8155" t="13123" r="8664" b="13286">Figure</wd>
+<space/>
+<wd l="8755" t="13123" r="8933" b="13253">7b</wd>
+<space/>
+<wd l="9024" t="13123" r="9312" b="13253">hits</wd>
+<space/>
+<wd l="9398" t="13118" r="9552" b="13253">of</wd>
+<space/>
+<wd l="9624" t="13123" r="10238" b="13286">samples</wd>
+<space/>
+<wd l="10325" t="13123" r="10680" b="13253">with</wd>
+<space/>
+<wd l="10766" t="13118" r="11131" b="13253">SHO</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="21">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="13325" r="11136" b="13507" baseLine="13461">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="6">
+<wd l="6365" t="13330" r="6859" b="13464">failure</wd>
+<space/>
+<wd l="6931" t="13349" r="7238" b="13464">rate</wd>
+<space/>
+<wd l="7315" t="13325" r="7440" b="13507">(r</wd>
+<space/>
+<wd l="7522" t="13325" r="7829" b="13507">fail)</wd>
+<space/>
+<wd l="7906" t="13334" r="8357" b="13498">larger</wd>
+<space/>
+<wd l="8419" t="13334" r="8789" b="13464">than</wd>
+<space/>
+<wd l="8851" t="13325" r="9178" b="13474">22%</wd>
+<space/>
+<wd l="9250" t="13378" r="9485" b="13464">are</wd>
+<space/>
+<wd l="9557" t="13334" r="10085" b="13464">shown.</wd>
+<space/>
+<wd l="10190" t="13330" r="10829" b="13498">Samples</wd>
+<space/>
+<wd l="10901" t="13378" r="11136" b="13464">are</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="16">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="13541" r="11136" b="13704" baseLine="13668">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="10">
+<wd l="6365" t="13541" r="7238" b="13670">distributed</wd>
+<space/>
+<wd l="7334" t="13541" r="7522" b="13670">all</wd>
+<space/>
+<wd l="7618" t="13584" r="7939" b="13670">over</wd>
+<space/>
+<wd l="8030" t="13541" r="8285" b="13670">the</wd>
+<space/>
+<wd l="8381" t="13584" r="8760" b="13704">map,</wd>
+<space/>
+<wd l="8875" t="13541" r="9211" b="13704">only</wd>
+<space/>
+<wd l="9302" t="13584" r="9696" b="13670">some</wd>
+<space/>
+<wd l="9792" t="13541" r="10142" b="13704">edge</wd>
+<space/>
+<wd l="10238" t="13541" r="10685" b="13670">nodes</wd>
+<space/>
+<wd l="10781" t="13541" r="11136" b="13670">have</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="20">
+<space/>
+</run>
+</ln>
+<ln l="6365" t="13747" r="11136" b="13915" baseLine="13879">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="6365" t="13752" r="6941" b="13915">slightly</wd>
+<space/>
+<wd l="7003" t="13752" r="7454" b="13915">larger</wd>
+<space/>
+<wd l="7517" t="13752" r="7723" b="13882">hit</wd>
+<space/>
+<wd l="7790" t="13766" r="8146" b="13882">rate.</wd>
+<space/>
+<wd l="8242" t="13752" r="8712" b="13882">Lower</wd>
+<space/>
+<wd l="8774" t="13766" r="9101" b="13915">part</wd>
+<space/>
+<wd l="9168" t="13747" r="9322" b="13882">of</wd>
+<space/>
+<wd l="9365" t="13752" r="9614" b="13882">the</wd>
+<space/>
+<wd l="9677" t="13795" r="10013" b="13915">map</wd>
+<space/>
+<wd l="10075" t="13752" r="10334" b="13882">has</wd>
+<space/>
+<wd l="10397" t="13795" r="10786" b="13882">more</wd>
+<space/>
+<wd l="10848" t="13752" r="11136" b="13882">hits</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<space/>
+</run>
+</ln>
+<ln l="6360" t="13954" r="10877" b="14122" baseLine="14086">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="8">
+<wd l="6360" t="13958" r="6778" b="14088">when</wd>
+<space/>
+<wd l="6845" t="13958" r="7459" b="14122">samples</wd>
+<space/>
+<wd l="7526" t="13958" r="7886" b="14088">with</wd>
+<space/>
+<wd l="7954" t="13958" r="8683" b="14088">increased</wd>
+<space/>
+<wd l="8750" t="13954" r="9250" b="14088">failure</wd>
+<space/>
+<wd l="9317" t="13973" r="9629" b="14088">rate</wd>
+<space/>
+<wd l="9696" t="14002" r="9936" b="14088">are</wd>
+<space/>
+<wd l="10003" t="13958" r="10877" b="14088">considered.</wd>
+</run>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="18">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+<para l="6542" t="14165" r="11131" b="14333" alignment="right" ri="72" spaceAfter="72" lsp="single" language="en" styleRef="paraStyle_1_5_55">
+<ln l="6542" t="14165" r="11131" b="14333" baseLine="14296">
+<run underlined="none" subsuperscript="none" fontSize="800" fontFace="Arial" fontFamily="swiss" fontPitch="variable" spacing="14">
+<wd l="6542" t="14170" r="6706" b="14294">In</wd>
+<space/>
+<wd l="6802" t="14170" r="7310" b="14333">Figure</wd>
+<space/>
+<wd l="7406" t="14174" r="7488" b="14299">8</wd>
+<space/>
+<wd l="7589" t="14170" r="7872" b="14299">hits</wd>
+<space/>
+<wd l="7973" t="14165" r="8126" b="14299">of</wd>
+<space/>
+<wd l="8208" t="14170" r="8822" b="14333">samples</wd>
+<space/>
+<wd l="8918" t="14170" r="9379" b="14299">which</wd>
+<space/>
+<wd l="9475" t="14184" r="10195" b="14333">represent</wd>
+<space/>
+<wd l="10291" t="14184" r="10579" b="14299">two</wd>
+<space/>
+<wd l="10670" t="14165" r="11131" b="14299">differ-</wd>
+</run>
+<run fontFace="Arial" fontFamily="swiss" fontPitch="variable">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+</column>
+</section>
+<dd l="5990" t="15038" r="6254" b="15173">
+<para l="5990" t="15038" r="6250" b="15168" alignment="left" lsp="exactly" lspExact="154" language="en" styleRef="paraStyle_1_5_55">
+<ln l="5990" t="15038" r="6250" b="15168" baseLine="15165">
+<wd l="5990" t="15038" r="6250" b="15168" underlined="none" subsuperscript="none" fontSize="950" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-21" scale="1100">334</wd>
+<run underlined="none" subsuperscript="none" fontSize="300" fontFace="Times New Roman" fontFamily="roman" fontPitch="variable" spacing="-21">
+<nl orig="true"/>
+</run>
+</ln>
+</para>
+</dd>
+</body>
+</page>
+</document>

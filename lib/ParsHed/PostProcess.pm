@@ -17,85 +17,41 @@ use ParsCit::Config; # qw(normalizeAuthorNames stripPunctuation);
 ## XML
 ##
 sub wrapHeaderXml {
-  my ($inFile, $confLevel, $isTokenLevel) = @_; # Thang 10/11/09: $confLevel to add confidence info
+  my ($inFile, $confInfo, $isTokenLevel) = @_; # Thang Nov 09: $confInfo to add confidence info
 
   my $status = 1;
   my $msg = "";
   my $xml = "";
   my $lastTag = "";
   my $variant = "";
-  my $overallConfidence = "1.0"; # Thang 10/11/09: rename $confidence -> $overallConfidence
+  my $overallConfidence = "1.0"; # Thang Nov 09: rename $confidence -> $overallConfidence
 
   ## output XML file for display
   $xml .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-# Min - removed stylesheet (Fri Jul 17 23:02:42 SGT 2009)
-#  $xml .= "<?xml-stylesheet href=\"bibxml.xsl\" type=\"text/xsl\" ?>\n";
 
   my @fields = (); #array of hash: each element of fields correspond to a pairs of (tag, content) accessible through $fields[$i]->{"tag"} and $fields[$i]->{"content"}
   my $curContent = "";
-  my $curConfidence = 0;
+  my $curConfidence = 0; # for lines of the same label
   my $count = 0;
   open(IN, "<:utf8", $inFile) or return (undef, undef, 0, "couldn't open infile: $!");
   while (<IN>) {
-    if (/^\# ([\.\d]+)/) { # variant & confidence info
+    if (/^\# ([\.\d]+)/) { # confidence info
       $overallConfidence = $1;
       next;
     }
     elsif (/^\#/) { next; }                              # skip comments
 
     if (/^\s*$/) { # end of a header, output (useful to handle multiple header classification
-      # add the last field
-      my %tmpHash = ();
-      $tmpHash{"tag"} = $lastTag;
-      $tmpHash{"content"} = $curContent;
-
-      ### Thang 10/11/09: compute confidence score
-      if($count > 0){
-	$tmpHash{"confidence"} = $curConfidence/$count;
-      } else {
-	die "Die in PostProcess.pm::decode : count $count is <= 0\n";
-      }
-      ### End Thang 10/11/09: compute confidence score
-
-      push(@fields, \%tmpHash);
+      addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);      # add the last field
 
       if ($variant eq "") {
-	my $l_algVersion = $ParsCit::Config::algorithmVersion;
-	my $l_algName = $ParsCit::Config::algorithmName;
-	$xml .= "<algorithm name=\"$l_algName\" version=\"$l_algVersion\">\n<header>\n";
-
-	my $output = "";
-	foreach(@fields) {
-	  my $tag = $_->{"tag"};
-	  my $content = $_->{"content"};
-
-	  ### Thang 10/11/09: modify to output confidence score
-	  my $confStr = "";
-	  if($confLevel){
-	    $confStr = " confidence=\"".$_->{"confidence"}."\"";
-	  }
-	  if($content =~ /^\s*$/) { next; };
-
-	  ($tag, $content) = normalizeHeaderField($tag, $content);
-	  if($tag eq "authors"){ # handle multiple authors in a line
-	    foreach my $author (@{$content}){
-	      $output .= "PARSHED<author$confStr>$author</author>";
-	    }
-	  }elsif($tag eq "emails"){ # handle multiple emails at a time
-	    foreach my $email (@{$content}){
-	      $output .= "PARSHED<email$confStr>$email</email>";
-	    }
-	  } else {
-	    $output .= "PARSHED<$tag$confStr>$content</$tag>";
-	  }
-	  ### End Thang 10/11/09: modify to output confidence score
-
-	}
-	$output =~ s/PARSHED</\n</g;
-	$xml .= "<variant no=\"0\" confidence=\"$overallConfidence\">" . $output . "\n</variant>\n";
-	$xml .= "</header>\n</algorithm>\n";
+	### generate XML output
+	my $output = generateOutput(\@fields, $confInfo);
+	my $l_algName = $ParsHed::Config::algorithmName;
+	my $l_algVersion = $ParsHed::Config::algorithmVersion;
+	$xml .= "<algorithm name=\"$l_algName\" version=\"$l_algVersion\">\n". "<variant no=\"0\" confidence=\"$overallConfidence\">\n". $output . "</variant>\n</algorithm>\n";
       }
-
+      
       @fields = (); #reset
       $lastTag = "";
     } else { # in a middle of a header
@@ -107,52 +63,40 @@ sub wrapHeaderXml {
       my $gold = $tokens[-2];
       my $confidence = 0;
 
+      my $confidence = 0; # for this line
       if(!defined $isTokenLevel){ 
 	# train at line level, get the original line
 	my @tokens = split(/\|\|\|/, $token);
 	$token = join(" ", @tokens);
 
-	### Thang 10/11/09: process confidence output from CRFPP
-	if($confLevel){ #$sys contains probability info of the format "tag/prob"
+	### Thang Nov 09: process confidence output from CRFPP
+	if($confInfo){ #$sys contains probability info of the format "tag/prob"
 	  if($sys =~ /^(.+)\/([\d\.]+)$/){
 	    $sys = $1;
-	    $confidence = $2;
+	    $confidence += $2;
+#	    print STDERR "$token\t$sys\t$2\n";
 	  } else {
-	    die "Die in PostProcess.pm::decode : incorrect format \"tag/prob\" $sys\n";
+	    die "Die in ParsHed::PostProcess::wrapHeaderXml : incorrect format \"tag/prob\" $sys\n";
 	  }
 	}
-	### End Thang 10/11/09: process confidence output from CRFPP
+	### End Thang Nov 09: process confidence output from CRFPP
       }
 
-      if ($sys ne $lastTag) { # start a new tag
-	if ($lastTag ne "") { # not an initial value, output
-	  my %tmpHash = ();
-	  $tmpHash{"tag"} = $lastTag;
-	  $tmpHash{"content"} = $curContent;
-	
-	  ### Thang 10/11/09: compute confidence score
-	  if($count > 0){
-	    $tmpHash{"confidence"} = $curConfidence/$count;
-	  } else {
-	    die "Die in PostProcess.pm::decode : count $count is <= 0\n";
-	  }
-	  ### End Thang 10/11/09: compute confidence score
-
-	  push(@fields, \%tmpHash);
-
-	  $curContent = ""; #reset the value
-	  $curConfidence = 0;
-	  $count = 0;
-	}
-      }
-
-      $curConfidence+=$confidence;
+      if ($sys ne $lastTag && $lastTag ne "") { # start a new tag, not an initial value, output
+	addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);
+	  
+	#reset the value
+	$curContent = ""; 
+	$curConfidence = 0;
+	$count = 0;
+      } # end if ($lastTag ne "")
 
       if(defined $isTokenLevel && $token eq "+L+"){ 
 	next;
       }
 
       $curContent .= "$token ";
+      $curConfidence += $confidence;
       $count++;
       $lastTag = $sys; #update lastTag
     }
@@ -161,6 +105,58 @@ sub wrapHeaderXml {
   close (IN);
 
   return $xml;
+}
+
+## Thang Mar 10: refactor this part of code into a method, to add per-field info 
+sub addFieldInfo {
+  my ($fields, $lastTag, $curContent, $curConfidence, $count) = @_;
+
+  my %tmpHash = ();
+  $tmpHash{"tag"} = $lastTag;
+  $tmpHash{"content"} = $curContent;
+  
+  ### Thang Nov 09: compute confidence score
+  if($count > 0){
+    $tmpHash{"confidence"} = $curConfidence/$count;
+  }
+
+  push(@{$fields}, \%tmpHash);
+}
+
+## Thang Mar 10: refactor this part of code into a method, wrap all field infos into XML form
+sub generateOutput {
+  my ($fields, $confInfo) = @_;
+
+  my $output = "";
+  
+  foreach(@{$fields}) {
+    my $tag = $_->{"tag"};
+    my $content = $_->{"content"};
+    
+    ### Thang Nov 09: modify to output confidence score
+    my $confStr = "";
+    if($confInfo){
+      $confStr = " confidence=\"".$_->{"confidence"}."\"";
+    }
+    if($content =~ /^\s*$/) { next; };
+    
+    ($tag, $content) = normalizeHeaderField($tag, $content);
+    
+    if($tag eq "authors"){ # handle multiple authors in a line
+      foreach my $author (@{$content}){
+	$output .= "<author$confStr>$author</author>\n";
+      }
+    }elsif($tag eq "emails"){ # handle multiple emails at a time
+      foreach my $email (@{$content}){
+	$output .= "<email$confStr>$email</email>\n";
+      }
+    } else {
+      $output .= "<$tag$confStr>$content</$tag>\n";
+    }
+    ### End Thang Nov 09: modify to output confidence score
+  } # end for each fields
+  
+  return $output;    
 }
 
 ##

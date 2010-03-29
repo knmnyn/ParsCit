@@ -1,0 +1,1171 @@
+# Para 0 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 1 1
+‘Looking at’, ‘Looking up’ or ‘Keeping up with’ People?
+# Para 2 1
+Motives and Uses of Facebook
+# Para 3 7
+Adam N. Joinson
+School of Management
+University of Bath
+Bath
+United Kingdom
+BA2 7AA
+A.Joinson@Bath.ac.uk
+# Para 10 1
+ABSTRACT
+# Para 11 12
+This paper investigates the uses of social networking site 
+Facebook, and the gratifications users derive from those 
+uses. In the first study, 137 users generated words or 
+phrases to describe how they used Facebook, and what they 
+enjoyed about their use. These phrases were coded into 46 
+items which were completed by 241 Facebook users in 
+Study 2. Factor analysis identified seven unique uses and 
+gratifications: social connection, shared identities, content, 
+social investigation, social network surfing and status 
+updating. User demographics, site visit patterns and the use 
+of privacy settings were associated with different uses and 
+gratifications.
+# Para 23 1
+Author Keywords
+# Para 24 1
+Social networking sites, uses and gratifications, motivation
+# Para 25 1
+ACM Classification Keywords
+# Para 26 2
+H1. Models and Principles: User/Machine Systems; H5.m. 
+Information interfaces and presentation: Miscellaneous.
+# Para 28 1
+INTRODUCTION
+# Para 29 10
+Social networking sites such as MySpace, LinkedIn and 
+Facebook have become hugely popular in the last few 
+years. In July 2007, social networking sites occupied five of 
+the top fifteen visited websites according to Alexa.com. On 
+July 10, 2007, Facebook.com reported signing up its 30 
+millionth user, with a year on year increase in unique users 
+of 89% [12]. In the UK, use of Facebook increased by 
+500% between November 2006 and May 2007 [19]. 
+MySpace is reported (although disputed [10]) to have over 
+100 million users [4].
+# Para 39 6
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that 
+copies bear this notice and the full citation on the first page. To copy 
+otherwise, or republish, to post on servers or to redistribute to lists, 
+requires prior specific permission and/or a fee.
+# Para 45 1
+CHI 2008, April 5–10, 2008, Florence, Italy.
+# Para 46 1
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00. 
+# Para 47 8
+Social networking sites typically provide users with a 
+profile space, facilities for uploading content (e.g. photos, 
+music), messaging in various forms and the ability to make 
+connections to other people. These connections (or 
+‘friends’) are the core functionality of a social network site 
+[5, 6] although most also provide opportunities for 
+communication, the forming of groups, hosting of content 
+and small applications.
+# Para 55 5
+Given the growth of social networking sites, it is perhaps 
+unsurprising that their use has garnered media attention, 
+including the seemingly now obligatory scare stories 
+involving predatory child sex offenders [20], identity theft 
+[1], workplace usage levels [9] and even addiction [8].
+# Para 60 12
+In many recent cases, this coverage has focused on 
+Facebook.com, which was originally restricted to users with 
+an ‘.edu’ e-mail address. In September 2006, Facebook 
+opened registration to non-college based users. This change 
+led to rapid growth in the number of users, as well as 
+almost viral growth within non-educational organizations. 
+For instance, the British Broadcasting Corporation (BBC) 
+network (which requires a BBC email address) has circa 
+10,000 members, approximately 50% of employees [21]. 
+Since May 2007, Facebook has also allowed the 
+development and implementation of third-party applications 
+(see dev.facebook.com).
+# Para 72 9
+Before opening to non-academic (and non-US-based) users, 
+Facebook.com was peculiar amongst social networking 
+sites since many of the social networks its users built were 
+based on offline, geographically confined groups (e.g. a 
+campus). Termed ‘networks’ by the site (which have 
+recently expanded to include non-university based 
+geographic areas and workplaces), this reflection of the 
+offline community in the online environment may have led 
+to unique forms of use amongst users [17].
+# Para 81 1
+User motivation and social networking sites
+# Para 82 4
+Social networks serve a number of functions in offline life – 
+for instance, providing social and emotional support, 
+information resources and ties to other people [25]. Similar 
+kinds of social networks have been identified in online
+# Para 86 1
+1027
+# Para 87 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 88 4
+communities [7, 25], with users turning online for both 
+emotional support and as an information resource (e.g. via a 
+mailing list). In both cases, an online social network may 
+provide users with social capital [7].
+# Para 92 30
+Online social networking sites may also serve a number of 
+other purposes [5, 16]. Lampe et al. [16] draw a distinction 
+between the use of Facebook for ‘social searching’ – 
+finding out information about offline contacts, and ‘social 
+browsing’ – the use of the site to develop new connections, 
+sometimes with the aim of offline interaction. A survey of 
+over 2,000 students, found evidence that the primary use of 
+Facebook was for ‘social searching’ – that is, using 
+Facebook to find out more about people who they have met 
+offline, or who they attend class or share a dormitory with 
+[16]. The use of Facebook for ‘social browsing’, for 
+instance, to meet someone via the site with the intention of 
+a later offline meeting, or to attend an event organized 
+online, scored relatively low amongst their sample. The 
+main use reported by the sample studied by Lampe et al. 
+[16, see also 7] was to, “keep in touch with an old friend or 
+someone I knew from high school”, an activity that while 
+expressing the offline aspects of social searching, also 
+suggests a social capital function for Facebook. Golder et 
+al. [11] report that while the vast majority of messages are 
+sent to friends (90.6%), a large proportion (41.6%) is sent 
+to friends outside of one’s local network. This suggests that 
+messaging is used to maintain and build social ties across 
+distances. In comparison, ‘pokes’ (a form of content-free 
+messaging) were primarily exchanged within a network / 
+school (98.3% of all pokes were within a network). Golder 
+et al. [11] argue that friendship ties require little effort or 
+investment to maintain, while messaging with 
+geographically distant friends is used to build social capital 
+[7].
+# Para 122 14
+According to Lampe et al. [16], social networking sites like 
+Facebook may also serve a surveillance function, allowing 
+users to “track the actions, beliefs and interests of the larger 
+groups to which they belong” (p. 167). The surveillance and 
+‘social search’ functions of Facebook may, in part, explain 
+why so many Facebook users leave their privacy settings 
+relatively open [13]. If ‘social searching’ is a public good, 
+then reciprocity rules would dictate that by enabling a 
+degree of surveillance of oneself, one would should also be 
+able to engage in reciprocal surveillance of others. For 
+instance, Gross and Acquisti [13] report that only 1.2% of 
+users changed the default ‘search’ privacy setting, and less 
+than 1/2% of users changed the default ‘profile visibility’ 
+privacy settings.
+# Para 136 8
+Enabling Facebook users who are not currently linked as 
+friends to view personal aspects of one’s profile may also 
+be a strategy to increase the size of one’s social network. In 
+support of this view, [17] report that users completion of 
+profile fields that share a common referent (e.g. class, 
+hometown) is positively associated with more friends, 
+perhaps because such information encourages the 
+development of ties based on shared experiences. Profile
+# Para 144 2
+elements that focused on individual likes and dislikes did 
+not have an association with the number of friends.
+# Para 146 13
+As noted earlier, Facebook.com has undergone radical 
+change over the last twelve months. By moving outside of 
+the US-academic environment and embracing users 
+globally and outside of academia, it has not only changed 
+the profile of its users, but also the potential motivations for 
+their use. While tightly controlled, geographically bounded 
+networks based on university affiliation still exist, they are 
+dwarfed by networks based outside of academia – for 
+instance, as of September 2007, the ‘London’ network has 
+over 1 million members, New York over 355,000 and 
+Toronto over 800,000. The present paper examines the 
+motivations of Facebook users using a ‘uses and 
+gratifications’ framework.
+# Para 159 15
+Uses and gratifications refer to the ‘how and why’ of media 
+use [23]. Specifically, ‘uses and gratifications’ refer to the 
+motivations of specific uses, and the satisfaction people 
+gain from such use. These gratifications can be divided into 
+those based on the content of the media (content 
+gratifications) and those based on the actual experience of 
+using the media (process gratifications). Typically, content 
+gratifications are held to be related to the repeated use of a 
+media [18] which for the designers of such systems relates 
+to a site’s ‘stickiness’. However, the Internet, and social 
+networking sites in particular, also provide communication 
+and interaction, unlike many ‘old media’ (e.g. television). 
+This led Stafford et al. [23] to propose a third form of 
+gratification arising from Internet use: as a social 
+environment.
+# Para 174 7
+In the present study, the usual two stage approach to 
+studying uses and gratification is adopted [3]. In Study 1, 
+Facebook users are asked to generate lists of words or 
+phrases that describe their uses and gratifications in an 
+exploratory way. In Study 2, these terms are subjected to 
+factor analysis in order to form grouped profiles of specific 
+uses and gratifications.
+# Para 181 1
+STUDY 1: EXPLORATORY STAGE
+# Para 182 1
+Participants
+# Para 183 9
+Participants were 137 Facebook users who responded to a 
+request to complete a short online study. The sample 
+comprised 53 males and 88 females (Mean age = 26.3 
+years). Participants were recruited through a number of 
+different methods: postings to the ‘wall’ of three network 
+homepages on Facebook (two universities, one regional), a 
+paid flyer shown 10,000 times across all networks, and 
+links on academic survey websites. The survey was open 
+during the first two weeks of July 2007.
+# Para 192 1
+Materials
+# Para 193 4
+The online survey comprised a series of basic demographic 
+questions (e.g. age, gender, occupation, location), alongside 
+some measures of use of Facebook (time spent on site each 
+week, number of friends linked on site, history of use).
+# Para 197 1
+1028
+# Para 198 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 199 2
+Following this, participants were asked to respond to the 
+following questions adapted from [23] using free text entry:
+# Para 201 3
+•	What is the first thing that comes to mind when 
+you think about what you enjoy most when using 
+Facebook?
+# Para 204 1
+•	What other words describe what you enjoy about
+# Para 205 1
+using Facebook?
+# Para 206 1
+•	Using single, easy-to-understand terms, what do
+# Para 207 1
+you use Facebook for?
+# Para 208 1
+•	What uses of Facebook are most important to you?
+# Para 209 1
+Results
+# Para 210 7
+Two raters clustered the descriptive items and phrases 
+developed by Facebook users in response to the first 
+question. The raters worked collaboratively to develop the 
+clusters, and were instructed to ‘identify responses that are 
+related’. The author then discussed the themes with the 
+raters, and named them accordingly. The main themes 
+identified are outlined in Table 1.
+# Para 217 20
+Theme (sample user generated items)	Number
+	of
+	mentions
+‘Keeping in touch’	52
+Contacting friends who are away from home Chatting to people I otherwise would have lost contact with	
+Passive contact, social surveillance Virtual people-watching.	19
+‘Re-acquiring lost contacts’	15
+Reconnecting with people I’ve lost contact with	
+Finding people you haven&apos;t seen for a while	
+‘Communication’ Being poked	15
+Private messages Writing on walls	
+Photographs	11
+Tagged in picture Posting pictures Sharing pictures	
+Design related Ease of use	4
+Perpetual contact	4
+Seeing what people have put as their &apos;status&apos; The continuous updates	
+Seeing what my friends have been up to today	
+‘Making new contacts’ Talking to singles	5
+Getting new friends	
+Joining groups	
+# Para 237 1
+Table 1: Frequency of mentions (Question 1) 
+# Para 238 4
+In keeping with previous research [e.g. 16], the use of 
+Facebook to ‘keep in touch’ received the largest number of 
+mentions, with the use of the site to make new contacts 
+receiving a small number of mentions.
+# Para 242 1
+STUDY 2: IDENTIFYING USES AND GRATIFICATIONS
+# Para 243 1
+Item generation
+# Para 244 8
+A sample of items from each use and gratification proposed 
+by users was extracted from the exploratory list developed 
+in Study 1. Participants’ responses to items 2–4 were 
+examined, and any occurrences of other uses or 
+gratifications not mentioned in response to the first item 
+were added to the list. This led to a total of 46 items. Where 
+possible, the item was taken word for word from participant 
+responses to Study 1.
+# Para 252 1
+Participants
+# Para 253 11
+Participants were 241 Facebook users recruited using the 
+same methods outlined in Study 1. In addition, e-mails were 
+sent to selected mailing lists with a request for participation 
+(e.g. AIR-L). Participants were 80 males (33.2%) and 161 
+(66.8%) females (mean age = 25.97 years (SD = 9.30, range 
+15-66 years old). The majority of the sample were full time 
+students (n = 151, 62.7%), 6.6% (n = 16) were part-time 
+students and worked part- or full-time (or had carer 
+responsibilities), and 30.7% were in full-time work and not 
+studying (n = 78). The study was open during the final 
+week in July, and throughout August.
+# Para 264 1
+Measures
+# Para 265 6
+The same demographic and Facebook use measures 
+described in Study 1 were used in Study 2. Participants also 
+completed an item related to their use of Facebook privacy 
+settings, specifically if they had changed the default 
+settings, and if so, the degree to which they had made them 
+more private or more open.
+# Para 271 5
+Participants were finally asked to rate, using a 7-point 
+Likert scale, the 46 uses and gratifications derived from 
+Study 1 using the metric, “How important are the following 
+uses of Facebook to you personally?’ The scale was 
+anchored at 1 (very unimportant) and 7 (very important).
+# Para 276 1
+Results
+# Para 277 13
+Participants had an average of 124 friends linked to their 
+Facebook profile (Range 1-1000, Median = 85, SD = 
+129.97). Around half of the participants had been registered 
+on the site for less than six months (6.3% for less than one 
+month, 9.6% for between one and two months and 29.2% 
+for between two and six months). The remaining 
+participants had been signed up for between six months and 
+a year (21.7%), more than one year, but less than two 
+(21.7%) or for more than two years (10.8%). The majority 
+of participants visited the site either daily (38.8%) or more 
+than once a day (27.5%). Almost a quarter visited Facebook 
+several times a week (22.5%), with 6.7% visiting once a 
+week on average, and 4.2% visiting less than once a week.
+# Para 290 1
+1029
+# Para 291 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 292 7
+Amongst all respondents, the most common responses for 
+the time spent on the site each week were between 1 and 2 
+hours (33.3%) and between 2 and 5 hours (32.5%). A 
+relatively small proportion of users claimed to spend either 
+less than 1 hour a week (16.9%) or between 5 and 10 hours 
+(11.0%) on the site. The proportion of users claiming more 
+than 10 hours Facebook use per week was small (5.4%).
+# Para 299 11
+Unlike previous research [13], the majority of users claimed 
+to have changed the default privacy settings in Facebook, 
+with 25.6% (n = 61) reporting making their profile 
+‘somewhat’ more private, 21% (n = 50) ‘much more’ 
+private and 10.9% (n = 26) making it ‘as private as 
+possible. A smaller group claimed to have made their 
+profile either more ‘open’ (9.2%, n = 22) or ‘as open to 
+others as possible (9.2%, n = 22). The number of people 
+making no changes to their profile (23.5%, n = 56) was 
+substantially lower than that reported in previous studies 
+[ 14].
+# Para 310 6
+The most important uses of Facebook tended to be related 
+to the ‘social searching’ and surveillance functions (see 
+Tables 2-8), identified by [16]. Specifically, the use of the 
+site to learn about old friends and maintain or re-connect 
+relations scored consistently highly. This pattern repeats 
+previous findings from student samples [7, 16].
+# Para 316 11
+To investigate the nature of the various uses and 
+gratifications of Facebook in more depth, exploratory factor 
+analysis was conducted. The initial factor analysis (varimax 
+rotation) yielded 9 components with eigenvalues over 1, 
+explaining 64.8% of the variance. Examination of the scree 
+plot and unique loadings suggested that seven components 
+(explaining 59% of the variance) should be retained for 
+further analysis. Only four items did not load on any of the 
+factors: one was related to privacy settings, two about use 
+of the ‘poke’ facility and one about leaving messages on the 
+‘wall’.
+# Para 327 2
+INTERPRETATION OF FACTORS AND SCALE 
+DEVELOPMENT
+# Para 329 9
+To aid further analysis, scales were developed from each 
+factor. As a preliminary check, score distributions on each 
+item were examined to ensure that none suffered from 
+restricted range (i.e., the full range of response options was 
+being used). This was the case for all items. Items were 
+identified as markers of each factor based on the commonly 
+used benchmark of a loading greater than .5. Items that had 
+significant loadings on other factors were discounted as 
+marker items [22].
+# Para 338 4
+Application of these criteria led to identification of eight 
+marker items for Factor 1, three for Factors 2, four for 
+Factor 3, four each for Factor 4 and 5, and three each for 
+Factor 6 and 7.
+# Para 342 4
+Factor 1 (Table 2) contains items predominantly concerned 
+with ‘keeping in touch’ (the most often mentioned use of 
+Facebook in Study 1, and by [16]). The items have a clear 
+focus on re-connecting with lost contacts and maintaining
+# Para 346 12
+contact with existing friends. Some of the items loading on 
+this factor also clearly relate to the ‘surveillance’ function 
+identified by [16], for instance, ‘Finding out what old 
+friends are doing now”. Others are more closely related to 
+the creation or maintenance of ‘weak ties’ (e.g. 
+“Maintaining relationships with people you may not get to 
+see very often”). Because of the combination of 
+surveillance and social capital functions, this factor and 
+related scale is labeled ‘social connection’. Two items 
+loaded on this factor, but did not meet the criteria for factor 
+purity: ‘Reading messages on your wall’ and ‘Seeing how 
+old acquaintances look’).
+# Para 358 8
+Factor 1: Social connection (Cronbach’s Alpha = .89)	Item Mean (SD)	Loading
+Finding out what old friends are doing now	5.08 (1.71)	.753
+Reconnecting with people you’ve lost contact with	5.29 (1.79)	.783
+Connecting with people you otherwise would have lost contact with	5.53 (1.61)	.842
+Receiving a friend request	4.86 (1.68)	.601
+Finding people you haven’t seen for a while	5.41 (1.66)	.850
+Maintaining relationships with people you may not get to see very often	5.71 (1.56)	.764
+Contacting friends who are away from home	5.46 (1.83)	.522
+# Para 366 1
+Table 2: Items and loading (Factor 1)
+# Para 367 12
+The second factor is comprised of three items related to the 
+joining of groups, organization of events and meeting of 
+‘like-minded people’ (see Table 3). These activities are akin 
+to ‘social browsing’ identified by Lampe et al.; although 
+there is no reason to assume that they are necessarily 
+motivated by a desire to meet offline eventually. It also 
+contains related to the discovery of new music and new 
+groups via friends. As such, it seems to represent a ‘shared 
+identities’ function. Two items (‘Seeing what kinds of 
+networks and special interest groups your friends have’ and 
+‘Learning about new music’) loaded on the factor, but did 
+not meet the factor purity criteria.
+# Para 379 4
+Factor 2: Shared identities (Cronbach’s alpha .74)	Item Mean (SD)	Loading
+Organizing or joining events	3.42 (1.82)	.699
+Joining groups	3.52 (1.63)	.727
+Communication with likeminded people	3.82 (1.76)	.638
+# Para 383 1
+Table 3: Items and loading (Factor 2)
+# Para 384 1
+1030
+# Para 385 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 386 9
+The third factor is related to the posting and viewing of 
+photographs (see Table 4), although many of the items also 
+had loadings in the .3 region on the first factor. This 
+suggests that these activities within Facebook may fulfill a 
+number of gratifications. Specifically, the social uses of 
+photographs (e.g. sharing, tagging) may also play an 
+important role in ‘social connection’. However, by forming 
+a unique factor, they may also be a content gratification in 
+their own right.
+# Para 395 5
+Factor 3: Photographs (Cronbach’s alpha =.89)	Item Mean (SD)	Loading
+Viewing photos	5.03 (1.72)	.609
+Being tagged in photos	4.24 (1.90)	.668
+Tagging photos	3.96 (1.89)	.734
+Sharing / posting photographs	4.58 (1.89)	.701
+# Para 400 1
+Table 4: Items and loading (Factor 3)
+# Para 401 8
+Factor four contains items related to content within 
+Facebook – for instance, applications and quizzes (see 
+Table 5). This relates to the usual ‘content gratification’ 
+identified in previous media research. It is worthwhile 
+noting that while these items form a unique factor, the mean 
+scores are relatively low. A single item (‘Looking at posted 
+items’) loaded on the factor, but did not meet factor purity 
+criteria.
+# Para 409 5
+Factor 4: Content (Cronbach’s alpha = .74)	Item Mean (SD)	Loading
+Applications within Facebook	2.85 (1.65)	.826
+Playing games	1.86 (1.40)	.559
+Discovering apps because you see friends have added them	2.64 (1.58)	.756
+Quizzes	1.85 1.30)	.638
+# Para 414 1
+Table 5: Items and loading (Factor 4)
+# Para 415 5
+Factor five contains items akin to both social searching and 
+social browsing identified by Lampe et al [16]. The items 
+comprising this factor cover both the use of Facebook to 
+meet or view new people and to find out more about people 
+who are met offline (see Table 6).
+# Para 420 5
+Factor 5: Social investigation (Cronbach’s alpha =.75)	Item Mean (SD)	Loading
+Virtual people watching	3.31 (1.90)	.574
+Using advanced search to look for specific types of people	2.56 (1.70)	.508
+Meeting new people	2.91 (1.83)	.509
+Stalking other people	2.13 (1.71)	.755
+# Para 425 1
+Table 6: Items and loading (Factor 5)
+# Para 426 5
+One item (‘Looking up the profile of people you meet 
+offline’) loaded on the factor but did not meet the purity 
+criteria. The items do share a targeted investigation of 
+others, however. As such, the factor is termed ‘social 
+investigation’.
+# Para 431 11
+Factor six comprises items related to a unique affordance of 
+social networking sites – the ability to view other people’s 
+social networks and friends (see Table 7). This ability to 
+find out more about one’s acquaintances through their 
+social networks forms another important surveillance 
+function, and may also be a method for increasing the size 
+of one’s own social network. This specific use is termed 
+‘Social network surfing’ here to signify the ability of users 
+to move from one person to another via friend links, 
+although it may also relate closely to a ‘process 
+gratification’.
+# Para 442 4
+Factor 6: Social network surfing (Cronbach’s alpha =.79)	Item Mean (SD)	Loading
+Looking at the profiles of people you don’t know	2.48 (1.53)	.719
+Viewing other people’s friends	3.34 (1.74)	.785
+Browsing your friends’ friends	3.89 (1.65)	.724
+# Para 446 1
+Table 7: Items and loading (Factor 6)
+# Para 447 11
+The final factor comprises items related to the newsfeed 
+and status updates within Facebook. The newsfeed provides 
+updates on both ‘friends’ status, alongside recent activity 
+(e.g. the addition or removal of applications, changes in 
+relationship status, addition of ‘friends’). Given the outcry 
+when the newsfeed was introduced [2], the relative high 
+scores for this use suggest an increasing degree of 
+acceptance. Interestingly, a gratification (‘to keep up with 
+the latest gossip’) also loaded on this factor (although only 
+at the .4 level), suggesting a clear motivation for viewing 
+the newsfeed.
+# Para 458 4
+Factor 7: Status updates (Cronbach’s alpha = .71)	Item Mean (SD)	Loading
+Updating your own status	3.85 (1.77)	.568
+The news feed	3.79 (1.83)	.531
+Seeing what people have put as their status	3.84 (1.79)	.698
+# Para 462 1
+Table 8: Items and loading (Factor 7)
+# Para 463 6
+The pattern of loadings and internal reliability (Cronbach 
+alpha scores) suggests that the seven factors should be 
+considered suitable for use in further analysis, on the 
+assumption that they are interpretable. Scales were 
+developed for each factor by creating the mean score across 
+the marker items.
+# Para 469 1
+1031
+# Para 470 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 471 1
+Inter-relations of uses and gratifications
+# Para 472 3
+Despite the fact that these factors arise from an orthogonal 
+rotation and are separable in terms of item loadings, they 
+are correlated (see Table 9).
+# Para 475 3
+The Spearman correlations between the factors suggest that 
+the uses and gratifications identified are related, in some 
+cases relatively strongly.
+# Para 478 6
+Shared Identities	.24**	1				
+Photographs	.62**	.32**	1			
+Content	.03	.31**	.06	1		
+Social investigation	.37**	.43**	.42**	.37**	1	
+Social network surfing	.28**	.33**	.29**	.29**	.54**	1
+Status updates	.30**	.49**	.34**	.34**	.38**	.28**
+# Para 484 1
+Table 9: Spearman correlations between scales (n = 241)
+# Para 485 1
+User demographics and uses and gratifications
+# Para 486 16
+A MANOVA test found a significant difference between 
+males and females on their scores across the seven uses and 
+gratifications scales (F (7, 233) = 2.662, p &lt; 0.02). Further 
+analysis of the between-subjects effects on the dependent 
+variables showed that scores were significantly different on 
+the first factor – ‘social connection’ (F (1, 239) = 16.16, 
+p&lt;0.001, η2= .063), with females scoring higher on the 
+scale (M = 5.40, SD = 1.22) compared to males (M = 4.70, 
+SD = 1.37), on the third factor - ‘photographs’ (F (1, 239) = 
+8.95, p&lt;0.01, 112= .036), with females again scoring higher 
+on the scale (M = 4.67, SD = 1.61) compared to males (M = 
+4.02, SD = 1.51). There was a marginally significant 
+difference across the seventh factor – ‘status updates’ (F (1, 
+239) = 3.26, p=.072, r)2= .0 13), with females scoring higher 
+on the scale (M = 3.94, SD = 1.40) compared to males (M = 
+3.58, SD = 1.47).
+# Para 502 5
+A one-way between subjects ANOVA found a significant 
+effect of gender on profile privacy settings (F (1, 236) = 
+12.29, p &lt; .01), with females more likely to report making 
+their profile more private (Mean = 4.83, SD = 1.60) 
+compared to males (Mean = 4.01, SD = 1.86)
+# Para 507 7
+A further MANOVA test was conducted to compare 
+responses to the items in light of occupational status (i.e. 
+full-time student, full-time employed, part-time 
+student/employed). Given the relatively low number of 
+people working part-time / studying part-time, this group 
+was excluded from the analysis. The results showed a 
+significant overall effect of occupational status on uses and
+# Para 514 5
+gratifications of Facebook (F (7, 217) = 4.93, p &lt; .001), 
+with significant effects for Factor 1 (social connection – F 
+(1, 223) = 7.3 1, p&lt;.01), Factor 2 (shared identities – F (1, 
+223) = 4.90, p&lt;.05), and Factor 3 (photographs – F (1, 223) 
+= 7.85, p&lt; .01).
+# Para 519 9
+Full-time students scored higher on social connection and 
+photographs, and lower on shared identities, compared to 
+those in full-time work (Factor 1 Mean = 5.38 (SD = 1.16) 
+for students, Mean = 4.89 (SD = 1.45) for full-time 
+employment; Factor 2 Mean = 3.47 (SD = 1.37) for 
+students, Mean = 3.90 (SD = 1.40) for full-time 
+employment; Factor 3 Mean = 4.71 (SD = 1.53) for 
+students, Mean = 4.09 (SD = 1.57) for full-time 
+employment).
+# Para 528 5
+Age also correlated negatively with their scores on social 
+connection (rs(225) = -.27, p&lt;.001), and photographs (rs(225) = 
+-.32, p&lt;.001), with younger respondents scoring higher on 
+both scales. Age did not correlate with the other factor- 
+derived scales.
+# Para 533 8
+Age also correlated with the length of time users had been 
+registered on Facebook (rs(241) = -.17, p&lt;0.01), the regularity 
+with which they visited the site (rs(241) = -.18, p&lt;.01), the 
+number of hours they used the site in a week (rs(241) = -.22, 
+p&lt;.01) and the number of friends they had linked to their 
+profile (rs(219) = -.37, p&lt;.001). In all cases, a younger user 
+was associated with higher usage levels, and a greater 
+number of ‘friends’.
+# Para 541 5
+Age was also negatively correlated with the use of privacy 
+settings (rs(238) = -.17, p&lt;.01), such that younger users report 
+that they were more likely to have increased the privacy of 
+their profile. In part this may be due to the higher number 
+of friends amongst younger users.
+# Para 546 1
+Predicting Facebook use
+# Para 547 7
+A number of earlier researchers have predicted that certain 
+uses and gratifications of Facebook may be associated with 
+greater use of the site. For instance, [17] note that 
+completion of certain profile elements is associated with a 
+greater number of ‘friends’, while the findings of [16]) 
+suggest that the use of Facebook for social searching and 
+surveillance motivates use.
+# Para 554 10
+To examine possible motivators for use of Facebook, a 
+series of multiple regression equations were calculated 
+using scores on the seven factor-based scales to predict both 
+the frequency of visits to the site and the time spent on 
+Facebook during an average week. Age, occupation and 
+gender were also entered as covariates (part-time excluded). 
+The results of the regression analyses to predict the 
+frequency of site use are shown in Table 10. The overall 
+model was significant (F (10, 213) = 4.77, p&lt;0.001, R2 = 
+.15).
+# Para 564 2
+A second regression equation examined the same variables 
+predicting the amount of time spent on the site (see Table
+# Para 566 1
+1032
+# Para 567 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 568 2
+11). Again, the overall model was significant (F (10, 210) = 
+3.85, p&lt;0.001, R2 = .12).
+# Para 570 11
+Variable	J6	t	Sig
+Sex	.179	2.638	.009
+Age	.126	1.479	.141
+Occupation	.036	.430	.667
+F1 – ‘social connection’	-.055	-.619	.536
+F2 - ‘shared identities’	.015	.200	.842
+F3 – ‘photographs’	-.208	-2.295	.023
+F4 – ‘content gratifications’	.032	.455	.649
+F5 – ‘social investigation’	.156	1.819	.070
+F6 – ‘social network surfing’	-.043	-.561	.576
+F7 – ‘status updates’	-.296	-3.848	.000
+# Para 581 1
+Table 10: Predicting frequency of visits to Facebook
+# Para 582 8
+The regression equations show a differential pattern of uses 
+and gratifications motivating frequency of visits to the site, 
+and the time spent on the site. Gender (females visit more 
+frequently) and scores on the ‘photographs’ and ‘status 
+updates’ factors predict the frequency of visits to the site. 
+Higher scores on both scales predicted more frequent visits. 
+There was a marginally significant effect of ‘social 
+investigation’ (higher scores related to less frequent visits).
+# Para 590 6
+However, participants age (younger spend more time) and 
+scores on the content gratification scale predict the actual 
+number of hours spent online. This suggests that 
+surveillance gratifications motivate repeat visits, but that 
+content gratifications motivate people to spend longer on 
+the site when they do visit.
+# Para 596 11
+Variable	J6	t	Sig
+Sex	-.031	-.440	.660
+Age	-.265	-3.029	.003
+Occupation	.058	.669	.504
+F1 – ‘social connection’	-.090	-.983	.327
+F2 - ‘shared identities’	.011	.145	.885
+F3 – ‘photographs’	.134	1.442	.151
+F4 – ‘content gratifications’	.213	2.962	.003
+F5 – ‘social investigation’	-.040	-.448	.655
+F6 – ‘social network surfing’	.117	1.481	.140
+F7 – ‘status updates’	.086	1.092	.276
+# Para 607 1
+Table 11: Predicting time spent (hours) on Facebook
+# Para 608 7
+A final regression equation was calculated to predict the 
+number of ‘friends’ users reported on Facebook (see Table 
+12). Given that the number of friends should be related to 
+the length of time users had been registered on Facebook, 
+and the intensity of their use, the usage measures (length of 
+time, frequency of visit, time spent on site) were entered 
+alongside the remaining variables.
+# Para 615 2
+The overall model was significant (F (15, 196) = 8.48, p &lt; 
+.001, R2 = .31).
+# Para 617 14
+As might be expected, age was associated with the number 
+of ‘friends’ (younger have more ‘friends’), as was the 
+amount of time users had been registered on the site and the 
+frequency of their site visits (longer time registered, and 
+more frequent visits, associated with more friends). 
+Interestingly, scores on the ‘social connection’ scale were 
+not associated with ‘friend’ numbers, while scores on the 
+‘content gratification’ scale were negatively associated with 
+the number of ‘friends’ (i.e. higher scores associated with 
+smaller number of ‘friends’). Scores on the ‘social 
+investigation’ scale were positively associated with the 
+number of friends, while scores on the ‘photographs’ scale 
+were marginally significantly associated with an increased 
+number of friends.
+# Para 631 14
+Variable	J6	T	Sig
+Sex	.036	.584	.560
+Age	-.213	-2.936	.004
+Occupation	-.041	-.584	.560
+Time registered on site	.289	4.725	.000
+Frequency of visit	-.184	-2.805	.006
+Time spent on site	.062	.909	.364
+F1 – ‘social connection’	-.081	-.978	.329
+F2 - ‘shared identities’	.090	1.286	.200
+F3 – ‘photographs’	.138	1.610	.109
+F4 – ‘content gratifications’	-.139	-2.058	.041
+F5 – ‘social investigation’	.169	2.123	.035
+F6 – ‘social network surfing’	-.048	-.679	.498
+F7 – ‘status updates’	-.047	-.641	.523
+# Para 645 1
+Table 12: Predicting number of ‘friends’ on Facebook
+# Para 646 2
+Use of Facebook Privacy Settings and meeting new 
+people
+# Para 648 5
+A final set of analyses were conducted to examine the 
+relationship between specific uses and respondents’ 
+reported privacy profile settings. The privacy settings of 
+users were grouped, according to their responses, into those 
+who reported making their profile less private (n=44), those
+# Para 653 1
+1033
+# Para 654 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 655 22
+who reported leaving it at the default setting (n = 56), and 
+those who reported making it more private (n = 137). In the 
+main, privacy settings in Facebook allow users to hide their 
+profile from people who are neither listed as ‘friends’ or 
+members of the user’s own network. However, if the 
+motive for using Facebook is to meet new people, then such 
+privacy settings would be somewhat counter productive. To 
+test this proposition, a MANOVA was conducted with 
+privacy settings as the independent variable, and the 
+responses to items related to meeting new people set as the 
+dependent variables. The results showed a significant link 
+between privacy settings and the responses to the items (F 
+(8, 454) = 2.11, p &lt; .05). Analysis of the between subjects 
+effects found no difference in responses to the ‘joining 
+groups’ or ‘joining events’ items and privacy settings (ps &gt; 
+.3), but a significant effect of reported privacy settings on 
+responses to the item ‘meeting new people’ (F (2, 229) = 
+4.16, p &lt; .02), and a marginally significant effect on the 
+item ‘using advanced search to look for specific types of 
+people’ (F (2, 229) = 2.48, p = .08). The means for the 
+‘meeting new people’ item across the three privacy groups 
+are shown in Figure 1.
+# Para 677 2
+Figure 1: Scores on ‘meeting new people’ by privacy
+settings
+# Para 679 6
+These results suggest that for users wishing to use 
+Facebook to meet new people, the privacy settings may be 
+set at too stringent a level. Further analyses confirmed no 
+links between the social connection scales and privacy 
+settings, suggesting that a primary motivation for making 
+one’s profile less private is the desire to meet new people.
+# Para 685 1
+DISCUSSION
+# Para 686 7
+Social networking sites pose a number of challenges for 
+HCI researchers and practitioners. First, the actual uses and 
+gratifications of such sites are not well understood. The 
+present paper presents the first study of a social networking 
+site using a ‘uses and gratifications’ framework, and also 
+provides an empirically developed measurement tool for 
+future research.
+# Para 693 2
+Second, previous research that has been conducted has 
+tended to focus on campus-based use of Facebook [e.g. 7,
+# Para 695 11
+13, 6, 11, 17], which may limit the generalizability of any 
+findings. However, the results of the present research 
+support many of the conclusions of earlier research 
+conducted on student populations. For instance, the 
+distinction previously drawn between ‘social searching’ and 
+‘social browsing’ uses of Facebook [16] was similarly 
+evident in the present research. Moreover, in keeping with 
+prior student-users research [e.g. 7, 16], the use of 
+Facebook to ‘keep in touch’ was the most commonly 
+mentioned term in Study 1, and formed a large proportion 
+of the items comprising the first factor in Study 2.
+# Para 706 13
+However, the adoption of a uses and gratifications approach 
+enables us to begin to probe in more depth the exact nature 
+of ‘keeping in touch’ as both a use and a gratification. The 
+results of the present study suggest that ‘keeping in touch’ 
+comprises two main functions. The first is a surveillance 
+function as identified by Lampe and colleagues [16]. 
+Facebook is used to see what old contacts and friends are 
+‘up to’, how they look and how they behave. In keeping 
+with this use, there is evidence that Facebook profiles serve 
+an important self-presentation tool [26]. Associated with 
+this use is the social capital building gratification, where 
+Facebook is used to build, invest in and maintain ties with 
+distant friends and contacts [7, 11].
+# Para 719 14
+The ‘social search’ and ‘social browsing’ uses of Facebook 
+identified by Lampe and colleagues [16] were closely 
+related in the present study. The use of Facebook to search 
+for new people loaded on the same factor as the use of 
+Facebook to research offline contacts. This ‘virtual people 
+watching’ was represented in both Factors 5 and 6, with the 
+important distinction that Factor 6 relied primarily on 
+‘friend of friend’ connections, while Factor 5 represented 
+targeted investigation of people met offline, or searched for. 
+Symptomatic of this distinction is the difference between 
+‘looking up’ (Factor 5) and ‘looking at’ (Factor 6) people. 
+In the present study, only social investigation was 
+associated with a higher number of ‘friends’, not social 
+network browsing.
+# Para 733 15
+Interestingly, an increased score on the content gratification 
+scale was negatively related to the number of ‘friends’ 
+reported to be linked to one’s profile. This perhaps suggests 
+a sub-set of users gain gratification through the use of 
+applications within Facebook, rather than through the 
+accrual of ‘friends’. However, many of the applications 
+available in Facebook are social in nature (e.g. scrabble 
+games, ways to rate friends). But, at present these 
+applications tend to rely on existing contacts, rather than the 
+accrual of new ‘friends’. As such, they may serve to 
+strengthen social ties, rather than acting to increase the 
+overall size of a social network. Thus, investment of time 
+and effort in social applications within Facebook may be 
+akin to messaging between friends [11] – it solidifies ties, 
+rather than creating new links.
+# Para 748 2
+Users responses on the scales created from the factors also 
+predicted their pattern of use of the site. In keeping with
+# Para 750 8
+4 
+3.5 
+3 
+2.5 
+2 
+1.5 
+1 
+0.5
+# Para 758 1
+0
+# Para 759 1
+Less private	Default	More private
+# Para 760 1
+1034
+# Para 761 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 762 25
+earlier work on traditional media, content gratification 
+predicted the amount of time spent on the site. However, 
+the use of the site for social investigation, viewing and 
+posting photographs and viewing status updates predicted 
+the frequency of visits. It would seem from the present data 
+that ‘keeping in touch’ may in actuality refer to ‘checking 
+up on regularly’, while the ‘stickiness’ of the site (in terms 
+of time spent on it) depends on use of the content and 
+applications. This insight is clearly important for designers 
+of social networking sites and associated content. If repeat 
+visits are motivated by different uses and gratifications than 
+the amount of time spent on the site, it is important to 
+design content gratification alongside the ability to build 
+and maintain social connections. It also suggests that the 
+furor caused by the introduction of the newsfeed [2] has 
+subsided, and been replaced by its new role as a ‘killer 
+app’, at least in terms of repeat visits to the site. In many 
+ways, this use of Facebook reflects the desire for ‘perpetual 
+contact’ [15], and previously supplied by standalone 
+services like Twitter [24]. While the social implications of 
+this interest in perpetual contact and updates on ‘friends’ 
+are beyond the remit of the present paper, it is worth noting 
+that an increased awareness of others’ actions has 
+potentially important implications for how we relate to 
+others, and understand ourselves.
+# Para 787 1
+Design Implications
+# Para 788 13
+The designers of social networking sites should consider the 
+varied uses and gratifications reported by users, and need to 
+recognize that not all users have the same uses of a social 
+networking site, nor derive the same gratifications from 
+their use. For instance, there are clear distinctions between 
+the use of Facebook to maintain and re-create connections 
+with friends, its use as a surveillance tool and for content 
+delivery. There were also differences in reported uses by 
+age, gender and occupational status. It may be that different 
+demographic groups are motivated to use social networking 
+sites for different purposes, with social connectivity and 
+perpetual contact motivating younger (and female) users 
+more than older (and male) users.
+# Para 801 16
+The differing goals for the use of Facebook are reflected not 
+only in usage patterns, but also in users’ privacy settings. 
+People who have made their privacy settings more 
+permissive are more likely to want to meet new people 
+(they also score higher on the content gratifications scale). 
+This is a designed aspect of the system – in both cases, to 
+fulfill one’s goal often requires a more permissive approach 
+to profile privacy. Many of the applications are social in 
+nature (e.g. comparing oneself with others, asking questions 
+to ‘friends’, viewing people from one’s neighborhood), and 
+often circumvent elements of the default privacy settings. 
+Similarly, if the goal is to meet new people, making one’s 
+profile more open than by default allows others pursuing 
+the same gratification to view your profile, and presumably 
+increases the chances of an interaction. For these users, the 
+profile within Facebook is likely to become a key self-
+# Para 817 2
+presentation tool, rather than simply a way to ‘keep in 
+touch’ with others [6, 26].
+# Para 819 1
+Limitations and Further research
+# Para 820 19
+The present research is a ‘snap shot’ of Facebook users, and 
+further work should consider the possibility of researching 
+the development of use over time. In particular, it would be 
+of interest to see how people’s uses and gratifications of 
+Facebook develop, and if the frequency of visit is motivated 
+by ‘perpetual contact’ over time. There is, for instance, 
+considerable research in the field of habit formation that 
+could inform the study of social network site use. HCI 
+research should also consider ways in which the desire to 
+meet new people, and to allow oneself to be viewed by 
+strangers, can be accommodated in a privacy-protecting 
+manner [14]. At present, Facebook has reasonably nuanced 
+privacy controls. From the results of the present research, it 
+would seem that users are changing the default privacy 
+settings in a motivated manner. However, the present study 
+only collected reported privacy settings. It would be 
+prudent to complete research that actually examined 
+settings via automated querying of the site [e.g. 13], or by 
+studying a corpus of actual interactions [e.g. 11].
+# Para 839 6
+It should also be noted that the nature of the sampling 
+method, and the self-selection of respondents, may have 
+influenced the pattern of responses and overall levels of 
+activity. Future research may wish to study a wider group 
+of participants, or attempt to identify patterns of usage 
+amongst non-respondents compared to respondents
+# Para 845 1
+CONCLUSIONS
+# Para 846 13
+Users derive a variety of uses and gratifications from social 
+networking sites, including traditional content gratification 
+alongside building social capital, communication, 
+surveillance and social networking surfing. The different 
+uses and gratifications relate differentially to patterns of 
+usage, with social connection gratifications tending to lead 
+to increased frequency of use, and content gratifications to 
+increased time spent on the site. The variety of uses to 
+which Facebook is put by its users identifies particular 
+challenges for the designers of such sites. For instance, a 
+default privacy setting may be too restrictive for users 
+seeking to meet new people, or who wish to allow new 
+people to discover them.
+# Para 859 12
+Since user’s desire to engage in surveillance of their peers 
+also motivates the frequency of site visit, this also poses a 
+unique challenge in balancing user’s privacy concerns and 
+controls with a key raison d’être of social networking sites 
+like Facebook. At present, Facebook allows users to 
+manage their ‘feed’, removing ‘stories’ as they wish. This 
+solution not only provides a degree of privacy control to 
+users, but it also enables users to engage with the site as a 
+self-presentation tool [26] at numerous levels – not only via 
+their profile and network, but also through their activity 
+(and the removal of specific ‘stories’). As perpetual contact 
+continues to develop, designers will need to face the
+# Para 871 1
+1035
+# Para 872 1
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+# Para 873 3
+challenges of providing continual feeds between users, and 
+the desire of users to control their self-representation via 
+such sites.
+# Para 876 1
+ACKNOWLEDGEMENTS
+# Para 877 4
+Jeff Hancock, Mina Vasalou, Pam Briggs and Martin 
+Weller are thanked for their advice and comments on an 
+earlier draft of this paper, as are three anonymous reviewers 
+and the associate chair.
+# Para 881 1
+REFERENCES
+# Para 882 2
+1. BBC News. Web Networkers at risk of fraud. 27 July 
+2007. http://news.bbc.co.uk/1/hi/uk/6910826.stm
+# Para 884 3
+2. Boyd, D. Facebook&apos;s Privacy Trainwreck: Exposure, 
+Invasion, and Social Convergence. Convergence 14, 1 
+(2008).
+# Para 887 3
+3. Churchill, G. A paradigm for development of better 
+measures of marketing constructs. Journal of Marketing 
+Research, 16 (1979), 64-73.
+# Para 890 4
+4. Cashmore, P. MySpace hits 100 Million Accounts. 
+Mashable Social Networking News, (2006). Available 
+at: http://mashable.com/2006/08/09/myspace-hits-100- 
+million-accounts/
+# Para 894 2
+5. Donath, J. and Boyd, D. Public displays of connection&quot;. 
+BT Technology Journal, 2, 4 (2004), 71-82.
+# Para 896 4
+6. Ellison, N., Heino, R. and Gibbs, J. Managing 
+Impressions Online: Self-Presentation Processes in the 
+Online Dating Environment. Journal of Computer- 
+Mediated Communication, 11, 2 (2006).
+# Para 900 5
+7. Ellison, N., Steinfield, C. and Lampe, C. Spatially 
+Bounded Online Social Networks and Social Capital: 
+The Role of Facebook. Paper presented at the annual 
+meeting of the International Communication 
+Association, Dresden, June 2006.
+# Para 905 2
+8. Facebook Addiction. 
+http://www.facebookaddiction.com/
+# Para 907 4
+9. Flavelle, D. Worries follow rise of Facebook: 
+Employers not happy with time spent on site. Toronto 
+Star, May 04, 2007. Available at: 
+http://www.thestar.com/Business/article/210313
+# Para 911 4
+10. ForeverGeek. Debunking the MySpace Myth of 100 
+Million Users. 
+http://forevergeek.com/articles/debunking_the_myspace 
+_myth_of_100_million_users.php
+# Para 915 4
+11. Golder, S. A., Wilkinson, D. and Huberman, B.A. 
+Rhythms of Social Interaction: Messaging within a 
+Massive Online Network 3rd International Conference 
+on Communities and Technologies, (2007).
+# Para 919 4
+12. Gonzalez, N. Facebook users up 89% over last year; 
+Demographic shift (2007). 
+http://www.techcrunch.com/2007/07/06/facebook-users-
+up-89-over-last-year-demographic-shift/
+# Para 923 3
+13. Gross, R. and Acquisti, A. Information Revelation and 
+Privacy in Online Social Networks. In Workshop on 
+Privacy in the Electronic Society, ACM Press (2005).
+# Para 926 5
+14. Joinson, A.N. &amp; Paine, C.B. Self-Disclosure, Privacy 
+and the Internet. In A.N Joinson, K.Y.A McKenna, T. 
+Postmes and U-D. Reips (Eds). Oxford Handbook of 
+Internet Psychology (pp. 237-252). Oxford University 
+Press (2007).
+# Para 931 2
+15. Katz, J.E., and Aakhus, M.A. (Eds.). Perpetual contact: 
+mobile communication, private talk, public
+# Para 933 2
+performance. New York: Cambridge University Press 
+(2002).
+# Para 935 5
+16. Lampe, C., Ellison, N. and Steinfield, C. A Face(book) 
+in the Crowd: Social Searching vs. Social Browsing. In 
+proceedings of ACM Special Interest Group on 
+Computer-Supported Cooperative Work, ACM Press 
+(2006), 167 – 170.
+# Para 940 4
+17. Lampe, C., Ellison, N. and Steinfield, C. A Familiar 
+Face(book): Profile Elements as Signals in an Online 
+Social Network. In Proc. CHI 2007, ACM Press (2007), 
+435-444.
+# Para 944 1
+18. McGuire, W.J. Psychological motives and
+# Para 945 4
+communication gratification (pp. 167-196). In J.Blunder 
+&amp; E. Katz (Eds.), The uses of mass communications: 
+Current perspectives on gratifications research. Beverly 
+Hills, CA: Sage (1974).
+# Para 949 3
+19. Nielsen//NetRatings. Facebook and Bebo: The assault 
+on MySpace. Available from: http://www.nielsen-
+netratings.com/pr/pr_070628_UK.pdf
+# Para 952 4
+20. Rawstorne, T. How paedophiles prey on MySpace 
+children. Daily Mail (UK), 21 July 2006. Available at: 
+http://www.dailymail.co.uk/pages/live/femail/article.ht 
+ml?in_article_id=397026&amp;in_page_id=1879
+# Para 956 2
+21. http://sambrook.typepad.com/sacredfacts/2007/06/faceb 
+ook.html
+# Para 958 3
+22. Saucier, G. Mini-markers: A brief version of Goldberg’s 
+unipolar big-five markers. Journal of Personality 
+Assessment, 63, (1994), 506–516.
+# Para 961 3
+23. Stafford, T.F., Stafford, M.R., &amp; Schkade, L.L. 
+Determining uses and gratifications for the internet. 
+Decision Sciences, 35, (2004), 259–288.
+# Para 964 1
+24. Twitter. http://www.twitter.com
+# Para 965 4
+25. Wellman B and Gulia M. The network basis of social 
+support: A network is more than the sum of its ties, in 
+Wellman B (Ed): ‘Networks in the Global Village’, 
+Boulder, CO, Westview Press (1999).
+# Para 969 1
+26. Walther, J.B., Van Der Heide, B., Kim, S-Y.,
+# Para 970 4
+Westerman, D., Tong, S.T. The role of friends’ 
+appearance and behavior on evaluations of individuals 
+on Facebook: Are we known by the company we keep? 
+Human Communication Research, (in press).
+# Para 974 1
+1036

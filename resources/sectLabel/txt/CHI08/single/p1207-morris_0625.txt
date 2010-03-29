@@ -1,0 +1,105 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Table 3. Experimental group’s median Likert-scale ratings of the
+SearchBar tool after the first and second sessions.
+	Week	Week
+	1	2
+It was easy to learn how to use SearchBar.	4.5	N/A
+The organization by topics was helpful.	4	4.5
+The per-topic summaries were helpful.	4	4
+SearchBar	was	useful	for	accomplishing	3.5	5
+today’s tasks.		
+The “thumbs up” feature was helpful.	3.5	3.5
+The ability to take notes using SearchBar was helpful.	3	3
+SearchBar took up too much space in my browser window.	2	2
+SearchBar was confusing to use.	1.5	1.5
+It was difficult to remember to create a new topic.	4	4
+It	was	easy	to	remember	how	to	use	N/A	5
+SearchBar.		
+SearchBar helped me	remember what I	N/A	5
+accomplished last week.		
+SearchBar made it easy to re-find information about cameras, restaurants, and flu vaccines that I had encountered last week.	N/A	4.5
+organizational structure, the thumbs up feature, and the 
+summaries were seen as the most useful aspects of the tool; 
+the note-taking feature was less popular. Log file analysis 
+shows that participants indeed used the “thumbs up” feature 
+frequently, marking a mean of 8.25 pages each with a 
+thumbs up during the study.
+However, some participants stated that it was difficult to 
+remember to create a new topic before beginning a search 
+task. Log file analysis shows that participants did take the 
+time to create topics, creating a mean of 2.0 topics each 
+during the study. However, this average number of topics is 
+lower than the number of tasks completed, reflecting the 
+fact that participants used other methods, primarily the 
+maintenance of multiple tabs in their browsers, for 
+separating tasks during short-term interruptions and multi-
+tasking. Two of the eight experimental participants created 
+six topics each, while three did not create any topics; this 
+variance is not surprising given our survey findings 
+showing that people differ in whether they use active or 
+passive storage strategies during Web investigations. 
+However, even those who utilized a more passive approach 
+and didn’t take time to create their own topics still benefited 
+from SearchBar’s proactive capture and automatically- 
+imposed query/navigation structure.
+DISCUSSION
+The results presented in the previous section confirm that 
+SearchBar is intuitive and easy to use. Although they were 
+not explicitly required to use SearchBar during our study, 
+participants made extensive use of SearchBar for re- 
+executing queries and re-visiting Web pages and appeared
+to integrate SearchBar into their workflow thoroughly and 
+immediately. Questionnaire results also support this notion; 
+participants indicated that SearchBar was easy to learn and 
+easy to remember to use a week later. Perhaps most 
+importantly, participants indicated that SearchBar was 
+useful in accomplishing search tasks, particularly when 
+resuming a task after a long interruption.
+One of the major drawbacks of SearchBar is the need to 
+create topics manually. Questionnaire results confirmed that 
+participants found it difficult to remember to create a new 
+topic when initiating a new task, although several 
+participants did use this feature. The need to create new 
+topics before beginning a search task is reduced 
+significantly by the ability to create topics after the fact and 
+move existing queries into the new topic; this is likely to be 
+particularly common in long-term, real-world use, where 
+users may begin a search task expecting to use only a small 
+set of queries and later see that task evolve into a larger 
+investigation. Note that topic creation is not always 
+necessary: for smaller tasks, the automatic insertion of 
+search queries into the “Default” topic often suffices, and 
+will still provide SearchBar’s query-centric Web history 
+and representation of query iteration. Automatic creation of 
+new topics based on lexical, semantic, or temporal 
+relationships among queries remains as future work.
+Furthermore, SearchBar presently tracks only browsing 
+sequences which begin with a search query, when in fact 
+other browsing mechanisms, such as directly typing URLs 
+into a browser, could also be used to continue a search, 
+even without an intervening query. More sophisticated 
+mechanisms for associating continued browsing with recent 
+queries thus remain an important topic of future work; such 
+mechanisms might be based on semantic similarity between 
+a page and a recent query or temporal proximity between a 
+navigation event and a recent query.
+A longitudinal study assessing SearchBar’s scalability over 
+time was beyond the scope of the present evaluation. The 
+history and bookmarking systems in current browsers, for 
+example, typically become cluttered as a result of long-term 
+use. However, we aimed to make SearchBar more scalable 
+than current history tools by:
+(a) Using a hierarchical model centered around elements 
+(topics and queries) that are meaningful to the user, 
+which allows a user to browse a dense hierarchy more 
+efficiently than a date- or site-based hierarchy.
+(b) Enabling rating-based filtering of the history.
+(c) Highlighting a past topic if a query contained by that 
+topic is performed again later, thereby alleviating the 
+need to manually explore the hierarchy in many cases.
+In addition to studying the utility and usability of 
+SearchBar, our study allowed us to explore the mechanisms 
+used by both experimental and control participants to 
+conduct search tasks and to manage search tasks across 
+interruptions. One particularly surprising result was the
+1214

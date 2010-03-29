@@ -1,0 +1,1079 @@
+# Para 0 1
+Unsupervised Argument Identification for Semantic Role Labeling
+# Para 1 2
+Omri Abend&apos; Roi Reichart2 Ari Rappoport&apos;
+&apos;Institute of Computer Science, 2ICNC
+# Para 3 1
+Hebrew University of Jerusalem
+# Para 4 1
+{omria01|roiri|arir}@cs.huji.ac.il
+# Para 5 1
+Abstract
+# Para 6 24
+The task of Semantic Role Labeling 
+(SRL) is often divided into two sub-tasks: 
+verb argument identification, and argu-
+ment classification. Current SRL algo-
+rithms show lower results on the identifi-
+cation sub-task. Moreover, most SRL al-
+gorithms are supervised, relying on large 
+amounts of manually created data. In 
+this paper we present an unsupervised al-
+gorithm for identifying verb arguments, 
+where the only type of annotation required 
+is POS tagging. The algorithm makes use 
+of a fully unsupervised syntactic parser, 
+using its output in order to detect clauses 
+and gather candidate argument colloca-
+tion statistics. We evaluate our algorithm 
+on PropBank10, achieving a precision of 
+56%, as opposed to 47% of a strong base-
+line. We also obtain an 8% increase in 
+precision for a Spanish corpus. This is 
+the first paper that tackles unsupervised 
+verb argument identification without using 
+manually encoded rules or extensive lexi-
+cal or syntactic resources.
+# Para 30 1
+1 Introduction
+# Para 31 5
+Semantic Role Labeling (SRL) is a major NLP 
+task, providing a shallow sentence-level semantic 
+analysis. SRL aims at identifying the relations be-
+tween the predicates (usually, verbs) in the sen-
+tence and their associated arguments.
+# Para 36 5
+The SRL task is often viewed as consisting of 
+two parts: argument identification (ARGID) and ar-
+gument classification. The former aims at identi-
+fying the arguments of a given predicate present 
+in the sentence, while the latter determines the 
+# Para 41 10
+type of relation that holds between the identi-
+fied arguments and their corresponding predicates. 
+The division into two sub-tasks is justified by 
+the fact that they are best addressed using differ-
+ent feature sets (Pradhan et al., 2005). Perfor-
+mance in the ARGID stage is a serious bottleneck 
+for general SRL performance, since only about 
+81% of the arguments are identified, while about 
+95% of the identified arguments are labeled cor-
+rectly (M`arquez et al., 2008).
+# Para 51 12
+SRL is a complex task, which is reflected by the 
+algorithms used to address it. A standard SRL al-
+gorithm requires thousands to dozens of thousands 
+sentences annotated with POS tags, syntactic an-
+notation and SRL annotation. Current algorithms 
+show impressive results but only for languages and 
+domains where plenty of annotated data is avail-
+able, e.g., English newspaper texts (see Section 2). 
+Results are markedly lower when testing is on a 
+domain wider than the training one, even in En-
+glish (see the WSJ-Brown results in (Pradhan et 
+al., 2008)).
+# Para 63 8
+Only a small number of works that do not re-
+quire manually labeled SRL training data have 
+been done (Swier and Stevenson, 2004; Swier and 
+Stevenson, 2005; Grenager and Manning, 2006). 
+These papers have replaced this data with the 
+VerbNet (Kipper et al., 2000) lexical resource or 
+a set of manually written rules and supervised 
+parsers.
+# Para 71 5
+A potential answer to the SRL training data bot-
+tleneck are unsupervised SRL models that require 
+little to no manual effort for their training. Their 
+output can be used either by itself, or as training 
+material for modern supervised SRL algorithms.
+# Para 76 3
+In this paper we present an algorithm for unsu-
+pervised argument identification. The only type of 
+annotation required by our algorithm is POS tag-
+# Para 79 1
+28
+# Para 80 1
+Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 28–36,
+# Para 81 1
+Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+# Para 82 1
+ging, which needs relatively little manual effort.
+# Para 83 16
+The algorithm consists of two stages. As pre-
+processing, we use a fully unsupervised parser to 
+parse each sentence. Initially, the set of possi-
+ble arguments for a given verb consists of all the 
+constituents in the parse tree that do not contain 
+that predicate. The first stage of the algorithm 
+attempts to detect the minimal clause in the sen-
+tence that contains the predicate in question. Us-
+ing this information, it further reduces the possible 
+arguments only to those contained in the minimal 
+clause, and further prunes them according to their 
+position in the parse tree. In the second stage we 
+use pointwise mutual information to estimate the 
+collocation strength between the arguments and 
+the predicate, and use it to filter out instances of 
+weakly collocating predicate argument pairs.
+# Para 99 11
+We use two measures to evaluate the perfor-
+mance of our algorithm, precision and F-score. 
+Precision reflects the algorithm’s applicability for 
+creating training data to be used by supervised 
+SRL models, while the standard SRL F-score mea-
+sures the model’s performance when used by it-
+self. The first stage of our algorithm is shown to 
+outperform a strong baseline both in terms of F- 
+score and of precision. The second stage is shown 
+to increase precision while maintaining a reason-
+able recall.
+# Para 110 15
+We evaluated our model on sections 2-21 of 
+Propbank. As is customary in unsupervised pars-
+ing work (e.g. (Seginer, 2007)), we bounded sen-
+tence length by 10 (excluding punctuation). Our 
+first stage obtained a precision of 52.8%, which is 
+more than 6% improvement over the baseline. Our 
+second stage improved precision to nearly 56%, a 
+9.3% improvement over the baseline. In addition, 
+we carried out experiments on Spanish (on sen-
+tences of length bounded by 15, excluding punctu-
+ation), achieving an increase of over 7.5% in pre-
+cision over the baseline. Our algorithm increases 
+F–score as well, showing an 1.8% improvement 
+over the baseline in English and a 2.2% improve-
+ment in Spanish.
+# Para 125 3
+Section 2 reviews related work. In Section 3 we 
+detail our algorithm. Sections 4 and 5 describe the 
+experimental setup and results.
+# Para 128 1
+2 Related Work
+# Para 129 3
+The advance of machine learning based ap-
+proaches in this field owes to the usage of large 
+scale annotated corpora. English is the most stud-
+# Para 132 9
+ied language, using the FrameNet (FN) (Baker et 
+al., 1998) and PropBank (PB) (Palmer et al., 2005) 
+resources. PB is a corpus well suited for evalu-
+ation, since it annotates every non-auxiliary verb 
+in a real corpus (the WSJ sections of the Penn 
+Treebank). PB is a standard corpus for SRL eval-
+uation and was used in the CoNLL SRL shared 
+tasks of 2004 (Carreras and M`arquez, 2004) and 
+2005 (Carreras and M`arquez, 2005).
+# Para 141 8
+Most work on SRL has been supervised, requir-
+ing dozens of thousands of SRL annotated train-
+ing sentences. In addition, most models assume 
+that a syntactic representation of the sentence is 
+given, commonly in the form of a parse tree, a de-
+pendency structure or a shallow parse. Obtaining 
+these is quite costly in terms of required human 
+annotation.
+# Para 149 11
+The first work to tackle SRL as an indepen-
+dent task is (Gildea and Jurafsky, 2002), which 
+presented a supervised model trained and evalu-
+ated on FrameNet. The CoNLL shared tasks of 
+2004 and 2005 were devoted to SRL, and stud-
+ied the influence of different syntactic annotations 
+and domain changes on SRL results. Computa-
+tional Linguistics has recently published a special 
+issue on the task (M`arquez et al., 2008), which 
+presents state-of-the-art results and surveys the lat-
+est achievements and challenges in the field.
+# Para 160 12
+Most approaches to the task use a multi-level 
+approach, separating the task to an ARGID and an 
+argument classification sub-tasks. They then use 
+the unlabeled argument structure (without the se-
+mantic roles) as training data for the ARGID stage 
+and the entire data (perhaps with other features) 
+for the classification stage. Better performance 
+is achieved on the classification, where state- 
+of-the-art supervised approaches achieve about 
+81% F-score on the in-domain identification task, 
+of which about 95% are later labeled correctly 
+(M`arquez et al., 2008).
+# Para 172 11
+There have been several exceptions to the stan-
+dard architecture described in the last paragraph. 
+One suggestion poses the problem of SRL as a se-
+quential tagging of words, training an SVM clas-
+sifier to determine for each word whether it is in-
+side, outside or in the beginning of an argument 
+(Hacioglu and Ward, 2003). Other works have in-
+tegrated argument classification and identification 
+into one step (Collobert and Weston, 2007), while 
+others went further and combined the former two 
+along with parsing into a single model (Musillo
+# Para 183 1
+29
+# Para 184 1
+and Merlo, 2006).
+# Para 185 15
+Work on less supervised methods has been 
+scarce. Swier and Stevenson (2004) and Swier 
+and Stevenson (2005) presented the first model 
+that does not use an SRL annotated corpus. How-
+ever, they utilize the extensive verb lexicon Verb- 
+Net, which lists the possible argument structures 
+allowable for each verb, and supervised syntac-
+tic tools. Using VerbNet along with the output of 
+a rule-based chunker (in 2004) and a supervised 
+syntactic parser (in 2005), they spot instances in 
+the corpus that are very similar to the syntactic 
+patterns listed in VerbNet. They then use these as 
+seed for a bootstrapping algorithm, which conse-
+quently identifies the verb arguments in the corpus 
+and assigns their semantic roles.
+# Para 200 11
+Another less supervised work is that 
+of (Grenager and Manning, 2006), which presents 
+a Bayesian network model for the argument 
+structure of a sentence. They use EM to learn 
+the model’s parameters from unannotated data, 
+and use this model to tag a test corpus. However, 
+ARGID was not the task of that work, which dealt 
+solely with argument classification. ARGID was 
+performed by manually-created rules, requiring a 
+supervised or manual syntactic annotation of the 
+corpus to be annotated.
+# Para 211 6
+The three works above are relevant but incom-
+parable to our work, due to the extensive amount 
+of supervision (namely, VerbNet and a rule-based 
+or supervised syntactic system) they used, both in 
+detecting the syntactic structure and in detecting 
+the arguments.
+# Para 217 11
+Work has been carried out in a few other lan-
+guages besides English. Chinese has been studied 
+in (Xue, 2008). Experiments on Catalan and Span-
+ish were done in SemEval 2007 (M`arquez et al., 
+2007) with two participating systems. Attempts 
+to compile corpora for German (Burdchardt et al., 
+2006) and Arabic (Diab et al., 2008) are also un-
+derway. The small number of languages for which 
+extensive SRL annotated data exists reflects the 
+considerable human effort required for such en-
+deavors.
+# Para 228 7
+Some SRL works have tried to use unannotated 
+data to improve the performance of a base su-
+pervised model. Methods used include bootstrap-
+ping approaches (Gildea and Jurafsky, 2002; Kate 
+and Mooney, 2007), where large unannotated cor-
+pora were tagged with SRL annotation, later to 
+be used to retrain the SRL model. Another ap-
+# Para 235 8
+ proach used similarity measures either between 
+verbs (Gordon and Swanson, 2007) or between 
+nouns (Gildea and Jurafsky, 2002) to overcome 
+lexical sparsity. These measures were estimated 
+using statistics gathered from corpora augmenting 
+the model’s training data, and were then utilized 
+to generalize across similar verbs or similar argu-
+ments.
+# Para 243 12
+Attempts to substitute full constituency pars-
+ing by other sources of syntactic information have 
+been carried out in the SRL community. Sugges-
+tions include posing SRL as a sequence labeling 
+problem (M`arquez et al., 2005) or as an edge tag-
+ging problem in a dependency representation (Ha-
+cioglu, 2004). Punyakanok et al. (2008) provide 
+a detailed comparison between the impact of us-
+ing shallow vs. full constituency syntactic infor-
+mation in an English SRL system. Their results 
+clearly demonstrate the advantage of using full an-
+notation.
+# Para 255 12
+The identification of arguments has also been 
+carried out in the context of automatic subcatego-
+rization frame acquisition. Notable examples in-
+clude (Manning, 1993; Briscoe and Carroll, 1997; 
+Korhonen, 2002) who all used statistical hypothe-
+sis testing to filter a parser’s output for arguments, 
+with the goal of compiling verb subcategorization 
+lexicons. However, these works differ from ours 
+as they attempt to characterize the behavior of a 
+verb type, by collecting statistics from various in-
+stances of that verb, and not to determine which 
+are the arguments of specific verb instances.
+# Para 267 8
+The algorithm presented in this paper performs 
+unsupervised clause detection as an intermedi-
+ate step towards argument identification. Super-
+vised clause detection was also tackled as a sepa-
+rate task, notably in the CoNLL 2001 shared task 
+(Tjong Kim Sang and D`ejean, 2001). Clause in-
+formation has been applied to accelerating a syn-
+tactic parser (Glaysher and Moldovan, 2006).
+# Para 275 1
+3 Algorithm
+# Para 276 5
+In this section we describe our algorithm. It con-
+sists of two stages, each of which reduces the set 
+of argument candidates, which a-priori contains all 
+consecutive sequences of words that do not con-
+tain the predicate in question.
+# Para 281 1
+3.1 Algorithm overview
+# Para 282 2
+As pre-processing, we use an unsupervised parser 
+that generates an unlabeled parse tree for each sen-
+# Para 284 1
+30
+# Para 285 8
+tence (Seginer, 2007). This parser is unique in that 
+it is able to induce a bracketing (unlabeled pars-
+ing) from raw text (without even using POS tags) 
+achieving state-of-the-art results. Since our algo-
+rithm uses millions to tens of millions sentences, 
+we must use very fast tools. The parser’s high 
+speed (thousands of words per second) enables us 
+to process these large amounts of data.
+# Para 293 5
+The only type of supervised annotation we 
+use is POS tagging. We use the taggers MX- 
+POST (Ratnaparkhi, 1996) for English and Tree-
+Tagger (Schmid, 1994) for Spanish, to obtain POS 
+tags for our model.
+# Para 298 11
+The first stage of our algorithm uses linguisti-
+cally motivated considerations to reduce the set of 
+possible arguments. It does so by confining the set 
+of argument candidates only to those constituents 
+which obey the following two restrictions. First, 
+they should be contained in the minimal clause 
+containing the predicate. Second, they should be 
+k-th degree cousins of the predicate in the parse 
+tree. We propose a novel algorithm for clause de-
+tection and use its output to determine which of 
+the constituents obey these two restrictions.
+# Para 309 8
+The second stage of the algorithm uses point- 
+wise mutual information to rule out constituents 
+that appear to be weakly collocating with the pred-
+icate in question. Since a predicate greatly re-
+stricts the type of arguments with which it may 
+appear (this is often referred to as “selectional re-
+strictions”), we expect it to have certain character-
+istic arguments with which it is likely to collocate.
+# Para 317 1
+3.2 Clause detection stage
+# Para 318 16
+The main idea behind this stage is the observation 
+that most of the arguments of a predicate are con-
+tained within the minimal clause that contains the 
+predicate. We tested this on our development data 
+– section 24 of the WSJ PTB, where we saw that 
+86% of the arguments that are also constituents 
+(in the gold standard parse) were indeed contained 
+in that minimal clause (as defined by the tree la-
+bel types in the gold standard parse that denote 
+a clause, e.g., S, SBAR). Since we are not pro-
+vided with clause annotation (or any label), we at-
+tempted to detect them in an unsupervised manner. 
+Our algorithm attempts to find sub-trees within the 
+parse tree, whose structure resembles the structure 
+of a full sentence. This approximates the notion of 
+a clause.
+# Para 334 2
+VBP L 
+L
+# Para 336 1
+VBP L
+# Para 337 5
+Figure 1: An example of an unlabeled POS tagged 
+parse tree. The middle tree is the ST of ‘reach’ 
+with the root as the encoded ancestor. The bot-
+tom one is the ST with its parent as the encoded 
+ancestor.
+# Para 342 12
+Statistics gathering. In order to detect which 
+of the verb’s ancestors is the minimal clause, we 
+score each of the ancestors and select the one that 
+maximizes the score. We represent each ancestor 
+using its Spinal Tree (ST). The ST of a given 
+verb’s ancestor is obtained by replacing all the 
+constituents that do not contain the verb by a leaf 
+having a label. This effectively encodes all the k-
+th degree cousins of the verb (for every k). The 
+leaf labels are either the word’s POS in case the 
+constituent is a leaf, or the generic label “L” de-
+noting a non-leaf. See Figure 1 for an example.
+# Para 354 6
+In this stage we collect statistics of the occur-
+rences of STs in a large corpus. For every ST in 
+the corpus, we count the number of times it oc-
+curs in a form we consider to be a clause (positive 
+examples), and the number of times it appears in 
+other forms (negative examples).
+# Para 360 9
+Positive examples are divided into two main 
+types. First, when the ST encodes the root an-
+cestor (as in the middle tree of Figure 1); second, 
+when the ancestor complies to a clause lexico-
+syntactic pattern. In many languages there is a 
+small set of lexico-syntactic patterns that mark a 
+clause, e.g. the English ‘that’, the German ‘dass’ 
+and the Spanish ‘que’. The patterns which were 
+used in our experiments are shown in Figure 2.
+# Para 369 1
+For each verb instance, we traverse over its an-
+# Para 370 1
+L
+# Para 371 1
+L
+# Para 372 1
+L
+# Para 373 1
+L
+# Para 374 1
+IN
+# Para 375 1
+DT
+# Para 376 1
+NNS
+# Para 377 1
+The
+# Para 378 1
+materials
+# Para 379 1
+L
+# Para 380 1
+L
+# Para 381 1
+VBP
+# Para 382 1
+L
+# Para 383 1
+in	DT NN
+# Para 384 1
+NNS
+# Para 385 1
+IN
+# Para 386 1
+students
+# Para 387 1
+CD
+# Para 388 1
+about	90
+# Para 389 1
+each	set
+# Para 390 1
+reach
+# Para 391 1
+L
+# Para 392 1
+L
+# Para 393 1
+L	L
+# Para 394 1
+L	L
+# Para 395 1
+31
+# Para 396 8
+English
+TO + VB. The constituent starts with “to” followed by a verb in infinitive form.
+WP. The constituent is preceded by a Wh-pronoun.
+That. The constituent is preceded by a “that” marked by an “IN” POS tag indicating that it is a subordinating conjunction.
+Spanish
+CQUE. The constituent is preceded by a word with the POS “CQUE” which denotes the word “que” as a con-junction.
+INT. The constituent is preceded by a word with the POS “INT” which denotes an interrogative pronoun.
+CSUB. The constituent is preceded by a word with one of the POSs “CSUBF”, “CSUBI” or “CSUBX”, which denote a subordinating conjunction.
+# Para 404 2
+Figure 2: The set of lexico-syntactic patterns that 
+mark clauses which were used by our model.
+# Para 406 5
+cestors from top to bottom. For each of them we 
+update the following counters: sentence(5T) for 
+the root ancestor’s 5T, patternz (5T) for the ones 
+complying to the i-th lexico-syntactic pattern and 
+negative(5T) for the other ancestors1.
+# Para 411 11
+Clause detection. At test time, when detecting 
+the minimal clause of a verb instance, we use 
+the statistics collected in the previous stage. De-
+note the ancestors of the verb with A1 ... Am. 
+For each of them, we calculate clause(5TA, ) 
+and total (5TA, ). clause(5TA,) is the sum 
+of sentence(5TA,) and patternz (5TA,) if this 
+ancestor complies to the i-th pattern (if there 
+is no such pattern, clause(5TA,) is equal to 
+sentence (5TA, )). total (5TA,) is the sum of 
+clause(5TA,) and negative(5TA, ).
+# Para 422 1
+The selected ancestor is given by:
+# Para 423 1
+clause(STA, )
+# Para 424 1
+(1) Amax = argmaxA,  total(STA,)
+# Para 425 5
+An 5T whose total(5T) is less than a small 
+threshold2 is not considered a candidate to be the 
+minimal clause, since its statistics may be un-
+reliable. In case of a tie, we choose the low-
+est constituent that obtained the maximal score.
+# Para 430 6
+1If while traversing the tree, we encounter an ancestor 
+whose first word is preceded by a coordinating conjunction 
+(marked by the POS tag “CC”), we refrain from performing 
+any additional counter updates. Structures containing coor-
+dinating conjunctions tend not to obey our lexico-syntactic 
+rules.
+# Para 436 2
+2We used 4 per million sentences, derived from develop-
+ment data.
+# Para 438 6
+If there is only one verb in the sentence3 or if 
+clause(5TA,) = 0 for every 1 G j G m, we 
+choose the top level constituent by default to be 
+the minimal clause containing the verb. Other-
+wise, the minimal clause is defined to be the yield 
+of the selected ancestor.
+# Para 444 10
+Argument identification. For each predicate in 
+the corpus, its argument candidates are now de-
+fined to be the constituents contained in the min-
+imal clause containing the predicate. However, 
+these constituents may be (and are) nested within 
+each other, violating a major restriction on SRL 
+arguments. Hence we now prune our set, by keep-
+ing only the siblings of all of the verb’s ancestors, 
+as is common in supervised SRL (Xue and Palmer, 
+2004).
+# Para 454 1
+3.3 Using collocations
+# Para 455 5
+We use the following observation to filter out some 
+superfluous argument candidates: since the argu-
+ments of a predicate many times bear a semantic 
+connection with that predicate, they consequently 
+tend to collocate with it.
+# Para 460 8
+We collect collocation statistics from a large 
+corpus, which we annotate with parse trees and 
+POS tags. We mark arguments using the argu-
+ment detection algorithm described in the previous 
+two sections, and extract all (predicate, argument) 
+pairs appearing in the corpus. Recall that for each 
+sentence, the arguments are a subset of the con-
+stituents in the parse tree.
+# Para 468 5
+We use two representations of an argument: one 
+is the POS tag sequence of the terminals contained 
+in the argument, the other is its head word4. The 
+predicate is represented as the conjunction of its 
+lemma with its POS tag.
+# Para 473 8
+Denote the number of times a predicate x 
+appeared with an argument y by nxy. Denote 
+the total number of (predicate, argument) pairs 
+by N. Using these notations, we define the 
+following quantities: nx = Eynxy, ny = Exnxy, 
+p(x) = n�N , p(y) = n�N and p(x, y) = nx N . The 
+pointwise mutual information of x and y is then 
+given by:
+# Para 481 2
+3In this case, every argument in the sentence must be re-
+lated to that verb.
+# Para 483 4
+4Since we do not have syntactic labels, we use an approx-
+imate notion. For English we use the Bikel parser default 
+head word rules (Bikel, 2004). For Spanish, we use the left-
+most word.
+# Para 487 1
+32
+# Para 488 1
+(2) PMI(x, y) = log  p( x) P(y) =log n�y 
+# Para 489 1
+(n� �ny)/N
+# Para 490 4
+PMI effectively measures the ratio between 
+the number of times x and y appeared together and 
+the number of times they were expected to appear, 
+had they been independent.
+# Para 494 7
+At test time, when an (x, y) pair is observed, we 
+check if PMI (x, y), computed on the large cor-
+pus, is lower than a threshold a for either of x’s 
+representations. If this holds, for at least one rep-
+resentation, we prune all instances of that (x, y) 
+pair. The parameter a may be selected differently 
+for each of the argument representations.
+# Para 501 1
+In order to avoid using unreliable statistics,
+# Para 502 4
+we apply this for a given pair only if n .ny N&gt;
+r, for some parameter r. That is, we consider
+PMI (x, y) to be reliable, only if the denomina-
+tor in equation (2) is sufficiently large.
+# Para 506 1
+4 Experimental Setup
+# Para 507 20
+Corpora. We used the PropBank corpus for de-
+velopment and for evaluation on English. Section 
+24 was used for the development of our model, 
+and sections 2 to 21 were used as our test data. 
+The free parameters of the collocation extraction 
+phase were tuned on the development data. Fol-
+lowing the unsupervised parsing literature, multi-
+ple brackets and brackets covering a single word 
+are omitted. We exclude punctuation according 
+to the scheme of (Klein, 2005). As is customary 
+in unsupervised parsing (e.g. (Seginer, 2007)), we 
+bounded the lengths of the sentences in the cor-
+pus to be at most 10 (excluding punctuation). This 
+results in 207 sentences in the development data, 
+containing a total of 132 different verbs and 173 
+verb instances (of the non-auxiliary verbs in the 
+SRL task, see ‘evaluation’ below) having 403 ar-
+guments. The test data has 6007 sentences con-
+taining 1008 different verbs and 5130 verb in-
+stances (as above) having 12436 arguments.
+# Para 527 11
+Our algorithm requires large amounts of data 
+to gather argument structure and collocation pat-
+terns. For the statistics gathering phase of the 
+clause detection algorithm, we used 4.5M sen-
+tences of the NANC (Graff, 1995) corpus, bound-
+ing their length in the same manner. In order 
+to extract collocations, we used 2M sentences 
+from the British National Corpus (Burnard, 2000) 
+and about 29M sentences from the Dmoz cor-
+pus (Gabrilovich and Markovitch, 2005). Dmoz 
+is a web corpus obtained by crawling and clean- 
+# Para 538 4
+ing the URLs in the Open Directory Project 
+(dmoz.org). All of the above corpora were parsed 
+using Seginer’s parser and POS-tagged by MX- 
+POST (Ratnaparkhi, 1996).
+# Para 542 17
+For our experiments on Spanish, we used 3.3M 
+sentences of length at most 15 (excluding punctua-
+tion) extracted from the Spanish Wikipedia. Here 
+we chose to bound the length by 15 due to the 
+smaller size of the available test corpus. The 
+same data was used both for the first and the sec-
+ond stages. Our development and test data were 
+taken from the training data released for the Se-
+mEval 2007 task on semantic annotation of Span-
+ish (M`arquez et al., 2007). This data consisted 
+of 1048 sentences of length up to 15, from which 
+200 were randomly selected as our development 
+data and 848 as our test data. The development 
+data included 313 verb instances while the test 
+data included 1279. All corpora were parsed us-
+ing the Seginer parser and tagged by the “Tree-
+Tagger” (Schmid, 1994).
+# Para 559 13
+Baselines. Since this is the first paper, to our 
+knowledge, which addresses the problem of unsu-
+pervised argument identification, we do not have 
+any previous results to compare to. We instead 
+compare to a baseline which marks all k-th degree 
+cousins of the predicate (for every k) as arguments 
+(this is the second pruning we use in the clause 
+detection stage). We name this baseline the ALL 
+COUSINS baseline. We note that a random base-
+line would score very poorly since any sequence of 
+terminals which does not contain the predicate is 
+a possible candidate. Therefore, beating this ran-
+dom baseline is trivial.
+# Para 572 16
+Evaluation. Evaluation is carried out using 
+standard SRL evaluation software5. The algorithm 
+is provided with a list of predicates, whose argu-
+ments it needs to annotate. For the task addressed 
+in this paper, non-consecutive parts of arguments 
+are treated as full arguments. A match is consid-
+ered each time an argument in the gold standard 
+data matches a marked argument in our model’s 
+output. An unmatched argument is an argument 
+which appears in the gold standard data, and fails 
+to appear in our model’s output, and an exces-
+sive argument is an argument which appears in 
+our model’s output but does not appear in the gold 
+standard. Precision and recall are defined accord-
+ingly. We report an F-score as well (the harmonic 
+mean of precision and recall). We do not attempt
+# Para 588 1
+5http://www.lsi.upc.edu/—srlconll/soft.html#software.
+# Para 589 1
+33
+# Para 590 3
+to identify multi-word verbs, and therefore do not 
+report the model’s performance in identifying verb 
+boundaries.
+# Para 593 13
+Since our model detects clauses as an interme-
+diate product, we provide a separate evaluation 
+of this task for the English corpus. We show re-
+sults on our development data. We use the stan-
+dard parsing F-score evaluation measure. As a 
+gold standard in this evaluation, we mark for each 
+of the verbs in our development data the minimal 
+clause containing it. A minimal clause is the low-
+est ancestor of the verb in the parse tree that has 
+a syntactic label of a clause according to the gold 
+standard parse of the PTB. A verb is any terminal 
+marked by one of the POS tags of type verb ac-
+cording to the gold standard POS tags of the PTB.
+# Para 606 1
+5 Results
+# Para 607 8
+Our results are shown in Table 1. The left section 
+presents results on English and the right section 
+presents results on Spanish. The top line lists re-
+sults of the clause detection stage alone. The next 
+two lines list results of the full algorithm (clause 
+detection + collocations) in two different settings 
+of the collocation stage. The bottom line presents 
+the performance of the ALL COUSINS baseline.
+# Para 615 9
+In the “Collocation Maximum Precision” set-
+ting the parameters of the collocation stage (a and 
+r) were generally tuned such that maximal preci-
+sion is achieved while preserving a minimal recall 
+level (40% for English, 20% for Spanish on the de-
+velopment data). In the “Collocation Maximum F- 
+score” the collocation parameters were generally 
+tuned such that the maximum possible F-score for 
+the collocation algorithm is achieved.
+# Para 624 9
+The best or close to best F-score is achieved 
+when using the clause detection algorithm alone 
+(59.14% for English, 23.34% for Spanish). Note 
+that for both English and Spanish F-score im-
+provements are achieved via a precision improve-
+ment that is more significant than the recall degra-
+dation. F-score maximization would be the aim of 
+a system that uses the output of our unsupervised 
+ARGID by itself.
+# Para 633 7
+The “Collocation Maximum Precision” 
+achieves the best precision level (55.97% for 
+English, 21.8% for Spanish) but at the expense 
+of the largest recall loss. Still, it maintains a 
+reasonable level of recall. The “Collocation 
+Maximum F-score” is an example of a model that 
+provides a precision improvement (over both the 
+# Para 640 5
+baseline and the clause detection stage) with a 
+relatively small recall degradation. In the Spanish 
+experiments its F-score (23.87%) is even a bit 
+higher than that of the clause detection stage 
+(23.34%).
+# Para 645 5
+The full two–stage algorithm (clause detection 
++ collocations) should thus be used when we in-
+tend to use the model’s output as training data for 
+supervised SRL engines or supervised ARGID al-
+gorithms.
+# Para 650 14
+In our algorithm, the initial set of potential ar-
+guments consists of constituents in the Seginer 
+parser’s parse tree. Consequently the fraction 
+of arguments that are also constituents (81.87% 
+for English and 51.83% for Spanish) poses an 
+upper bound on our algorithm’s recall. Note 
+that the recall of the ALL COUSINS baseline is 
+74.27% (45.75%) for English (Spanish). This 
+score emphasizes the baseline’s strength, and jus-
+tifies the restriction that the arguments should be 
+k-th cousins of the predicate. The difference be-
+tween these bounds for the two languages provides 
+a partial explanation for the corresponding gap in 
+the algorithm’s performance.
+# Para 664 10
+Figure 3 shows the precision of the collocation 
+model (on development data) as a function of the 
+amount of data it was given. We can see that 
+the algorithm reaches saturation at about 5M sen-
+tences. It achieves this precision while maintain-
+ing a reasonable recall (an average recall of 43.1% 
+after saturation). The parameters of the colloca-
+tion model were separately tuned for each corpus 
+size, and the graph displays the maximum which 
+was obtained for each of the corpus sizes.
+# Para 674 10
+To better understand our model’s performance, 
+we performed experiments on the English cor-
+pus to test how well its first stage detects clauses. 
+Clause detection is used by our algorithm as a step 
+towards argument identification, but it can be of 
+potential benefit for other purposes as well (see 
+Section 2). The results are 23.88% recall and 40% 
+precision. As in the ARGID task, a random se-
+lection of arguments would have yielded an ex-
+tremely poor result.
+# Para 684 1
+6 Conclusion
+# Para 685 5
+In this work we presented the first algorithm for ar-
+gument identification that uses neither supervised 
+syntactic annotation nor SRL tagged data. We 
+have experimented on two languages: English and 
+Spanish. The straightforward adaptability of un-
+# Para 690 1
+34
+# Para 691 6
+	English (Test Data)			Spanish (Test Data)		
+	Precision	Recall	F1	Precision	Recall	F1
+Clause Detection	52.84	67.14	59.14	18.00	33.19	23.34
+Collocation Maximum F–score	54.11	63.53	58.44	20.22	29.13	23.87
+Collocation Maximum Precision	55.97	40.02	46.67	21.80	18.47	20.00
+ALL COUSINS baseline	46.71	74.27	57.35	14.16	45.75	21.62
+# Para 697 5
+Table 1: Precision, Recall and F 1 score for the different stages of our algorithm. Results are given for English (PTB, sentences 
+length bounded by 10, left part of the table) and Spanish (SemEval 2007 Spanish SRL task, right part of the table). The results 
+of the collocation (second) stage are given in two configurations, Collocation Maximum F-score and Collocation Maximum 
+Precision (see text). The upper bounds on Recall, obtained by taking all arguments output by our unsupervised parser, are 
+81.87% for English and 51.83% for Spanish.
+# Para 702 1
+Number of Sentences (Millions)
+# Para 703 8
+Figure 3: The performance of the second stage on English 
+(squares) vs. corpus size. The precision of the baseline (trian-
+gles) and of the first stage (circles) is displayed for reference. 
+The graph indicates the maximum precision obtained for each 
+corpus size. The graph reaches saturation at about 5M sen-
+tences. The average recall of the sampled points from there 
+on is 43.1%. Experiments were performed on the English 
+development data.
+# Para 711 8
+supervised models to different languages is one 
+of their most appealing characteristics. The re-
+cent availability of unsupervised syntactic parsers 
+has offered an opportunity to conduct research on 
+SRL, without reliance on supervised syntactic an-
+notation. This work is the first to address the ap-
+plication of unsupervised parses to an SRL related 
+task.
+# Para 719 8
+Our model displayed an increase in precision of 
+9% in English and 8% in Spanish over a strong 
+baseline. Precision is of particular interest in this 
+context, as instances tagged by high quality an-
+notation could be later used as training data for 
+supervised SRL algorithms. In terms of F–score, 
+our model showed an increase of 1.8% in English 
+and of 2.2% in Spanish over the baseline.
+# Para 727 7
+Although the quality of unsupervised parses is 
+currently low (compared to that of supervised ap-
+proaches), using great amounts of data in identi-
+fying recurring structures may reduce noise and 
+in addition address sparsity. The techniques pre-
+sented in this paper are based on this observation, 
+using around 35M sentences in total for English 
+# Para 734 1
+and 3.3M sentences for Spanish.
+# Para 735 8
+As this is the first work which addressed un-
+supervised ARGID, many questions remain to be 
+explored. Interesting issues to address include as-
+sessing the utility of the proposed methods when 
+supervised parses are given, comparing our model 
+to systems with no access to unsupervised parses 
+and conducting evaluation using more relaxed 
+measures.
+# Para 743 10
+Unsupervised methods for syntactic tasks have 
+matured substantially in the last few years. No-
+table examples are (Clark, 2003) for unsupervised 
+POS tagging and (Smith and Eisner, 2006) for un-
+supervised dependency parsing. Adapting our al-
+gorithm to use the output of these models, either to 
+reduce the little supervision our algorithm requires 
+(POS tagging) or to provide complementary syn-
+tactic information, is an interesting challenge for 
+future work.
+# Para 753 1
+References
+# Para 754 3
+Collin F. Baker, Charles J. Fillmore and John B. Lowe, 
+1998. The Berkeley FrameNet Project. ACL-
+COLING ’98.
+# Para 757 2
+Daniel M. Bikel, 2004. Intricacies of Collins’ Parsing 
+Model. Computational Linguistics, 30(4):479–511.
+# Para 759 3
+Ted Briscoe, John Carroll, 1997. Automatic Extraction 
+of Subcategorization from Corpora. Applied NLP 
+1997.
+# Para 762 1
+Aljoscha Burchardt, Katrin Erk, Anette Frank, Andrea
+# Para 763 1
+Kowalski, Sebastian Pad and Manfred Pinkal, 2006
+# Para 764 1
+The SALSA Corpus: a German Corpus Resource for
+# Para 765 1
+Lexical Semantics. LREC ’06.
+# Para 766 3
+Lou Burnard, 2000. User Reference Guide for the 
+British National Corpus. Technical report, Oxford 
+University.
+# Para 769 3
+Xavier Carreras and Lluis M`arquez, 2004. Intro-
+duction to the CoNLL–2004 Shared Task: Semantic 
+Role Labeling. CoNLL ’04.
+# Para 772 1
+0	2	4	6	8	10
+# Para 773 1
+48
+# Para 774 1
+46
+# Para 775 1
+44
+# Para 776 1
+42
+# Para 777 1
+52
+# Para 778 1
+50
+# Para 779 3
+Second Stage 
+First Stage 
+Baseline
+# Para 782 1
+35
+# Para 783 3
+Xavier Carreras and Lluis M`arquez, 2005. Intro-
+duction to the CoNLL –2005 Shared Task: Semantic 
+Role Labeling. CoNLL ’05.
+# Para 786 3
+Alexander Clark, 2003. Combining Distributional and 
+Morphological Information for Part of Speech In-
+duction. EACL ’03.
+# Para 789 3
+Ronan Collobert and Jason Weston, 2007. Fast Se-
+mantic Extraction Using a Novel Neural Network 
+Architecture. ACL ’07.
+# Para 792 4
+Mona Diab, Aous Mansouri, Martha Palmer, Olga 
+Babko-Malaya, Wajdi Zaghouani, Ann Bies and 
+Mohammed Maamouri, 2008. A pilot Arabic Prop- 
+Bank. LREC ’08.
+# Para 796 3
+Evgeniy Gabrilovich and Shaul Markovitch, 2005. 
+Feature Generation for Text Categorization using 
+World Knowledge. IJCAI ’05.
+# Para 799 3
+Daniel Gildea and Daniel Jurafsky, 2002. Automatic 
+Labeling of Semantic Roles. Computational Lin-
+guistics, 28(3):245–288.
+# Para 802 4
+Elliot Glaysher and Dan Moldovan, 2006. Speed-
+ing Up Full Syntactic Parsing by Leveraging Partial 
+Parsing Decisions. COLING/ACL ’06 poster ses-
+sion.
+# Para 806 3
+Andrew Gordon and Reid Swanson, 2007. Generaliz-
+ing Semantic Role Annotations across Syntactically 
+Similar Verbs. ACL ’07.
+# Para 809 2
+David Graff, 1995. North American News Text Cor-
+pus. Linguistic Data Consortium. LDC95T21.
+# Para 811 3
+Trond Grenager and Christopher D. Manning, 2006. 
+Unsupervised Discovery of a Statistical Verb Lexi-
+con. EMNLP ’06.
+# Para 814 2
+Kadri Hacioglu, 2004. Semantic Role Labeling using 
+Dependency Trees. COLING’04.
+# Para 816 3
+Kadri Hacioglu and Wayne Ward, 2003. Target Word 
+Detection and Semantic Role Chunking using Sup-
+port Vector Machines. HLT-NAACL ’03.
+# Para 819 3
+Rohit J. Kate and Raymond J. Mooney, 2007. Semi- 
+Supervised Learning for Semantic Parsing using 
+Support Vector Machines. HLT–NAACL ’07.
+# Para 822 3
+Karin Kipper, Hoa Trang Dang and Martha Palmer, 
+2000. Class-Based Construction of a Verb Lexicon. 
+AAAI ’00.
+# Para 825 3
+Dan Klein, 2005. The Unsupervised Learning ofNatu-
+ral Language Structure. Ph.D. thesis, Stanford Uni-
+versity.
+# Para 828 2
+Anna Korhonen, 2002. Subcategorization Acquisition. 
+Ph.D. thesis, University of Cambridge.
+# Para 830 2
+Christopher D. Manning, 1993. Automatic Acquisition 
+of a Large Subcategorization Dictionary. ACL ’93.
+# Para 832 4
+Lluis M`arquez, Xavier Carreras, Kenneth C. Lit-
+tkowski and Suzanne Stevenson, 2008. Semantic 
+Role Labeling: An introdution to the Special Issue. 
+Computational Linguistics, 34(2):145–159
+# Para 836 3
+Lluis M`arquez, Jesus Gim`enez Pere Comas and Neus 
+Catal`a, 2005. Semantic Role Labeling as Sequential 
+Tagging. CoNLL’05.
+# Para 839 5
+Lluis M`arquez, Lluis Villarejo, M. A. Marti and Mar-
+iona Taul`e, 2007. SemEval–2007 Task 09: Multi-
+level Semantic Annotation of Catalan and Spanish. 
+The 4th international workshop on Semantic Evalu-
+ations (SemEval ’07).
+# Para 844 2
+Gabriele Musillo and Paula Merlo, 2006. Accurate 
+Parsing of the proposition bank. HLT-NAACL ’06.
+# Para 846 4
+Martha Palmer, Daniel Gildea and Paul Kingsbury, 
+2005. The Proposition Bank: A Corpus Annotated 
+with Semantic Roles. Computational Linguistics, 
+31(1):71–106.
+# Para 850 5
+Sameer Pradhan, Kadri Hacioglu, Valerie Krugler, 
+Wayne Ward, James H. Martin and Daniel Jurafsky, 
+2005. Support Vector Learning for Semantic Argu-
+ment Classification. Machine Learning, 60(1):11– 
+39.
+# Para 855 3
+Sameer Pradhan, Wayne Ward, James H. Martin, 2008. 
+Towards Robust Semantic Role Labeling. Computa-
+tional Linguistics, 34(2):289–310.
+# Para 858 2
+Adwait Ratnaparkhi, 1996. Maximum Entropy Part-
+Of-Speech Tagger. EMNLP ’96.
+# Para 860 3
+Helmut Schmid, 1994. Probabilistic Part-of-Speech 
+Tagging Using Decision Trees International Confer-
+ence on New Methods in Language Processing.
+# Para 863 2
+Yoav Seginer, 2007. Fast Unsupervised Incremental 
+Parsing. ACL ’07.
+# Para 865 3
+Noah A. Smith and Jason Eisner, 2006. Annealing 
+Structural Bias in Multilingual Weighted Grammar 
+Induction. ACL ’06.
+# Para 868 2
+Robert S. Swier and Suzanne Stevenson, 2004. Unsu-
+pervised Semantic Role Labeling. EMNLP ’04.
+# Para 870 3
+Robert S. Swier and Suzanne Stevenson, 2005. Ex-
+ploiting a Verb Lexicon in Automatic Semantic Role 
+Labelling. EMNLP ’05.
+# Para 873 3
+Erik F. Tjong Kim Sang and Herv´e D´ejean, 2001. In-
+troduction to the CoNLL-2001 Shared Task: Clause 
+Identification. CoNLL ’01.
+# Para 876 2
+Nianwen Xue and Martha Palmer, 2004. Calibrating 
+Features for Semantic Role Labeling. EMNLP ’04.
+# Para 878 3
+Nianwen Xue, 2008. Labeling Chinese Predicates 
+with Semantic Roles. Computational Linguistics, 
+34(2):225–255.
+# Para 881 1
+36

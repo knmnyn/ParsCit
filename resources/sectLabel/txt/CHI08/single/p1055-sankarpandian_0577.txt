@@ -1,0 +1,112 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+For each threat found on the user’s machine by TALC a 
+single graffiti image is chosen out of a corpus of images, 
+and composited into a randomly selected area of the screen. 
+TALC uses the size of the graffiti image to convey the 
+relative severity of the threat: the graffiti is shown larger 
+for severe threats and smaller for more mild threats.
+Why Graffiti?
+We chose the graffiti visualization of software 
+vulnerabilities to convey a general sense of “decay” or 
+“threat” to the user, suggesting that their machine has 
+entered a state of risk. Such notions appear to be broadly 
+associated with graffiti in physical environments for many 
+people. Numerous studies have confirmed this association 
+across a number of cultures and communities; see, for 
+example Morin et al.’s study of US public health nursing 
+students’ perception of threat in their communities [22], 
+Bowling et al.’s study of risk perception in Britain [4] as 
+well as others [2, 13].
+We realize that this association may not hold across all 
+cultures, or even across individuals within a given culture. 
+(See, for instance, sources that reflect the artistic value in 
+graffiti such as Susan Farrell’s Art Crimes site, 
+http://www.graffiti.org, as well as academic work exploring 
+the appropriation of graffiti by various subcultures [11].) 
+However, even for those users that may not have negative 
+associations with graffiti, we hoped that their personal 
+inclinations would be outweighed by the minor annoyance 
+of having part of their desktop covered by the graffiti 
+(covering a personally selected photo for instance), and 
+therefore would still provide motivation to deal with the 
+software vulnerabilities.
+Our choice of a real world metaphor for visualizing 
+security threats stems from the observations made by 
+Redstrom, Skog and Hallnas in their work on informative 
+art [27]. We explored a number of other, non-graffiti 
+visualization approaches during prototyping, which we also 
+believed might convey a sense of risk to the user. These 
+included one that used bullet holes in the user’s background 
+image (deemed both to be too violent, and to 
+inappropriately convey a sense of active attack rather than 
+simple decay), and one that rendered increasingly large 
+piles of garbage and other debris along the bottom of the 
+user’s screen (deemed to appropriately convey a sense of 
+decay but perhaps be too easy to ignore). We believe using 
+graffiti walks the line between the ambient media and 
+diversion categories as described by McCrickard, et.al. in 
+their model for notification systems [18].
+Determining and Presenting Vulnerabilities
+TALC determines potential vulnerabilities through a multi-
+step process. First, we perform a periodic system-wide 
+audit to identify software versions installed on the user’s 
+machine. Next, this data is compared against the online 
+NIST National Vulnerability Database (NVD) [24], 
+resulting in an up-to-date list of installed software for 
+which patches exist.
+When the user’s cursor hovers over a graffiti area, a tooltip 
+displays the name of the software that is vulnerable, as well 
+as the threats posed by this vulnerability (see Figure 1).
+We parse the NVD at connection time to retrieve patch 
+information, as well as the descriptions presented to users, 
+as shown in Figure 1 above. The language used in the 
+descriptions in the National Vulnerability Database is often 
+highly technical, and may be confusing to home users. To 
+make the descriptions more palatable, we use a set of 
+heuristics to simplify the explanations. For example, an 
+NVD threat description such as the following:
+The do_change_cipher_specfunction in OpenSSL 
+0.9.6c to 0.9.6k, and 0.9.7a to 0.9.7c, allows remote 
+attackers to cause a denial of service (crash) via a 
+crafted SSL/TLS handshake that triggers a null 
+dereference
+would be presented by TALC as:
+Denial of service vulnerability that lets a remote 
+attacker slow down/crash your computer.
+The descriptions are scanned for a small set of keywords, 
+and predefined descriptions of the problems are presented 
+to the user. This provides a more readable description for a 
+large number of common classes of vulnerabilities; other 
+descriptions that do not match our heuristics are explained 
+with a generic message: “Other vulnerability.”
+We did not completely eliminate all information about the 
+vulnerability to allow users to learn about common types of 
+threats, and—if necessary—communicate such information 
+to any people or organizations they trust to help them keep 
+their computer safe. Thus, following Zurko [30], TALC 
+places emphasis on helping users understand these security 
+concepts through its use.
+Repairing Vulnerabilities
+In addition to supporting threat awareness, TALC also 
+allows users to take actions that mitigate threats. When the 
+user clicks the right mouse button on graffiti, a popup 
+context menu appears that allows them to repair the threats 
+posed by a vulnerable program. When the user chooses to 
+fix the program, TALC downloads and displays the 
+webpage that contain patches or workarounds for 
+vulnerabilities, and displays the control window shown in 
+Figure 2. TALC also shows system information and the 
+name and version number of the program with the 
+vulnerability.
+Unfortunately, different vendors require different processes 
+to acquire patches: some may require that users log in, 
+while others require a click-through license agreement, and 
+others may simply provide direct access to the patch itself. 
+Thus, while TALC automates the process offinding a patch 
+for the detected vulnerabilities, it leaves the task of actually 
+installing patches to individual users. This is not only 
+because of the difficulty involved in automatically dealing 
+with multiple vendors’ web sites, but also because users 
+must often be involved in the process of deciding whether a 
+particular patch is appropriate for them. Security is not
+1058

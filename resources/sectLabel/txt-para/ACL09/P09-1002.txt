@@ -1,0 +1,1011 @@
+# Para 0 1
+Investigations on Word Senses and Word Usages
+# Para 1 1
+Katrin Erk	Diana McCarthy	Nicholas Gaylord
+# Para 2 1
+University of Texas at Austin	University of Sussex	University of Texas at Austin
+# Para 3 1
+katrin.erk@mail.utexas.edu	dianam@sussex.ac.uk	nlgaylord@mail.utexas.edu
+# Para 4 1
+Abstract
+# Para 5 22
+The vast majority of work on word senses 
+has relied on predefined sense invento-
+ries and an annotation schema where each 
+word instance is tagged with the best fit-
+ting sense. This paper examines the case 
+for a graded notion of word meaning in 
+two experiments, one which uses WordNet 
+senses in a graded fashion, contrasted with 
+the “winner takes all” annotation, and one 
+which asks annotators to judge the similar-
+ity of two usages. We find that the graded 
+responses correlate with annotations from 
+previous datasets, but sense assignments 
+are used in a way that weakens the case for 
+clear cut sense boundaries. The responses 
+from both experiments correlate with the 
+overlap of paraphrases from the English 
+lexical substitution task which bodes well 
+for the use of substitutes as a proxy for 
+word sense. This paper also provides two 
+novel datasets which can be used for eval-
+uating computational systems.
+# Para 27 1
+1 Introduction
+# Para 28 13
+The vast majority of work on word sense tag-
+ging has assumed that predefined word senses 
+from a dictionary are an adequate proxy for the 
+task, although of course there are issues with 
+this enterprise both in terms of cognitive valid-
+ity (Hanks, 2000; Kilgarriff, 1997; Kilgarriff, 
+2006) and adequacy for computational linguis-
+tics applications (Kilgarriff, 2006). Furthermore, 
+given a predefined list of senses, annotation efforts 
+and computational approaches to word sense dis-
+ambiguation (WSD) have usually assumed that one 
+best fitting sense should be selected for each us-
+age. While there is usually some allowance made
+# Para 41 2
+for multiple senses, this is typically not adopted by 
+annotators or computational systems.
+# Para 43 13
+Research on the psychology of concepts (Mur-
+phy, 2002; Hampton, 2007) shows that categories 
+in the human mind are not simply sets with clear- 
+cut boundaries: Some items are perceived as 
+more typical than others (Rosch, 1975; Rosch and 
+Mervis, 1975), and there are borderline cases on 
+which people disagree more often, and on whose 
+categorization they are more likely to change their 
+minds (Hampton, 1979; McCloskey and Glucks-
+berg, 1978). Word meanings are certainly related 
+to mental concepts (Murphy, 2002). This raises 
+the question of whether there is any such thing as 
+the one appropriate sense for a given occurrence.
+# Para 56 22
+In this paper we will explore using graded re-
+sponses for sense tagging within a novel annota-
+tion paradigm. Modeling the annotation frame-
+work after psycholinguistic experiments, we do 
+not train annotators to conform to sense distinc-
+tions; rather we assess individual differences by 
+asking annotators to produce graded ratings in-
+stead of making a binary choice. We perform two 
+annotation studies. In the first one, referred to 
+as WSsim (Word Sense Similarity), annotators 
+give graded ratings on the applicability of Word- 
+Net senses. In the second one, Usim (Usage Sim-
+ilarity), annotators rate the similarity of pairs of 
+occurrences (usages) of a common target word. 
+Both studies explore whether users make use of 
+a graded scale or persist in making binary deci-
+sions even when there is the option for a graded 
+response. The first study additionally tests to what 
+extent the judgments on WordNet senses fall into 
+clear-cut clusters, while the second study allows 
+us to explore meaning similarity independently of 
+any lexicon resource.
+# Para 78 1
+10
+# Para 79 2
+Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 10–18,
+Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+# Para 81 1
+2 Related Work
+# Para 82 26
+Manual word sense assignment is difficult for 
+human annotators (Krishnamurthy and Nicholls, 
+2000). Reported inter-annotator agreement (ITA) 
+for fine-grained word sense assignment tasks has 
+ranged between 69% (Kilgarriff and Rosenzweig, 
+2000) for a lexical sample using the HECTOR dic-
+tionary and 78.6.% using WordNet (Landes et al., 
+1998) in all-words annotation. The use of more 
+coarse-grained senses alleviates the problem: In 
+OntoNotes (Hovy et al., 2006), an ITA of 90% is 
+used as the criterion for the construction of coarse- 
+grained sense distinctions. However, intriguingly, 
+for some high-frequency lemmas such as leave 
+this ITA threshold is not reached even after mul-
+tiple re-partitionings of the semantic space (Chen 
+and Palmer, 2009). Similarly, the performance 
+of WSD systems clearly indicates that WSD is not 
+easy unless one adopts a coarse-grained approach, 
+and then systems tagging all words at best perform 
+a few percentage points above the most frequent 
+sense heuristic (Navigli et al., 2007). Good perfor-
+mance on coarse-grained sense distinctions may 
+be more useful in applications than poor perfor-
+mance on fine-grained distinctions (Ide and Wilks, 
+2006) but we do not know this yet and there is 
+some evidence to the contrary (Stokoe, 2005).
+# Para 108 24
+Rather than focus on the granularity of clus-
+ters, the approach we will take in this paper 
+is to examine the phenomenon of word mean-
+ing both with and without recourse to predefined 
+senses by focusing on the similarity of uses of a 
+word. Human subjects show excellent agreement 
+on judging word similarity out of context (Ruben-
+stein and Goodenough, 1965; Miller and Charles, 
+1991), and human judgments have previously been 
+used successfully to study synonymy and near- 
+synonymy (Miller and Charles, 1991; Bybee and 
+Eddington, 2006). We focus on polysemy rather 
+than synonymy. Our aim will be to use WSsim 
+to determine to what extent annotations form co-
+hesive clusters. In principle, it should be possi-
+ble to use existing sense-annotated data to explore 
+this question: almost all sense annotation efforts 
+have allowed annotators to assign multiple senses 
+to a single occurrence, and the distribution of these 
+sense labels should indicate whether annotators 
+viewed the senses as disjoint or not. However, 
+the percentage of markables that received multi-
+ple sense labels in existing corpora is small, and it 
+varies massively between corpora: In the SemCor 
+# Para 132 19
+corpus (Landes et al., 1998), only 0.3% of all 
+markables received multiple sense labels. In the 
+SENSEVAL-3 English lexical task corpus (Mihal-
+cea et al., 2004) (hereafter referred to as SE-3), the 
+ratio is much higher at 8% of all markables1. This 
+could mean annotators feel that there is usually a 
+single applicable sense, or it could point to a bias 
+towards single-sense assignment in the annotation 
+guidelines and/or the annotation tool. The WSsim 
+experiment that we report in this paper is designed 
+to eliminate such bias as far as possible and we 
+conduct it on data taken from SemCor and SE-3 so 
+that we can compare the annotations. Although we 
+use WordNet for the annotation, our study is not a 
+study of WordNet per se. We choose WordNet be-
+cause it is sufficiently fine-grained to examine sub-
+tle differences in usage, and because traditionally 
+annotated datasets exist to which we can compare 
+our results.
+# Para 151 30
+Predefined dictionaries and lexical resources are 
+not the only possibilities for annotating lexical 
+items with meaning. In cross-lingual settings, the 
+actual translations of a word can be taken as the 
+sense labels (Resnik and Yarowsky, 2000). Re-
+cently, McCarthy and Navigli (2007) proposed 
+the English Lexical Substitution task (hereafter 
+referred to as LEXSUB) under the auspices of 
+SemEval-2007. It uses paraphrases for words in 
+context as a way of annotating meaning. The task 
+was proposed following a background of discus-
+sions in the WSD community as to the adequacy 
+of predefined word senses. The LEXSUB dataset 
+comprises open class words (nouns, verbs, adjec-
+tives and adverbs) with token instances of each 
+word appearing in the context of one sentence 
+taken from the English Internet Corpus (Sharoff, 
+2006). The methodology can only work where 
+there are paraphrases, so the dataset only contains 
+words with more than one meaning where at least 
+two different meanings have near synonyms. For 
+meanings without obvious substitutes the annota-
+tors were allowed to use multiword paraphrases or 
+words with slightly more general meanings. This 
+dataset has been used to evaluate automatic sys-
+tems which can find substitutes appropriate for the 
+context. To the best of our knowledge there has 
+been no study of how the data collected relates to 
+word sense annotations or judgments of semantic 
+similarity. In this paper we examine these relation-
+# Para 181 3
+1 This is even though both annotation efforts use balanced 
+corpora, the Brown corpus in the case of SemCor, the British 
+National Corpus for SE-3.
+# Para 184 1
+11
+# Para 185 3
+ships by re-using data from LEXSUB in both new 
+annotation experiments and testing the results for 
+correlation.
+# Para 188 1
+3 Annotation
+# Para 189 18
+We conducted two experiments through an on-
+line annotation interface. Three annotators partic-
+ipated in each experiment; all were native British 
+English speakers. The first experiment, WSsim, 
+collected annotator judgments about the applica-
+bility of dictionary senses using a 5-point rating 
+scale. The second, Usim, also utilized a 5-point 
+scale but collected judgments on the similarity in 
+meaning between two uses of a word. 2 The scale 
+was 1 – completely different, 2 – mostly different, 
+3 – similar, 4 – very similar and 5 – identical. In 
+Usim, this scale rated the similarity of the two uses 
+of the common target word; in WSsim it rated the 
+similarity between the use of the target word and 
+the sense description. In both experiments, the an-
+notation interface allowed annotators to revisit and 
+change previously supplied judgments, and a com-
+ment box was provided alongside each item.
+# Para 207 8
+WSsim. This experiment contained a total of 
+430 sentences spanning 11 lemmas (nouns, verbs 
+and adjectives). For 8 of these lemmas, 50 sen-
+tences were included, 25 of them randomly sam-
+pled from SemCor 3 and 25 randomly sampled 
+from SE-3 .4 The remaining 3 lemmas in the ex-
+periment each had 10 sentences taken from the 
+LEXSUB data.
+# Para 215 5
+WSsim is a word sense annotation task using 
+WordNet senses.5 Unlike previous word sense an-
+notation projects, we asked annotators to provide 
+judgments on the applicability of every WordNet 
+sense of the target lemma with the instruction: 6
+# Para 220 2
+2Throughout this paper, a target word is assumed to be a 
+word in a given PoS.
+# Para 222 3
+3The SemCor dataset was produced alongside WordNet, 
+so it can be expected to support the WordNet sense distinc-
+tions. The same cannot be said for SE-3.
+# Para 225 4
+4Sentence fragments and sentences with 5 or fewer words 
+were excluded from the sampling. Annotators were given 
+the sentences, but not the original annotation from these re-
+sources.
+# Para 229 6
+5WordNet 1.7.1 was used in the annotation of both SE-3 
+and SemCor; we used the more current WordNet 3.0 after 
+verifying that the lemmas included in this experiment had the 
+same senses listed in both versions. Care was taken addition-
+ally to ensure that senses were not presented in an order that 
+reflected their frequency of occurrence.
+# Para 235 4
+6The guidelines for both experiments are avail-
+able	at	http://comp.ling.utexas.edu/
+people/katrin erk/graded sense and usage 
+annotation
+# Para 239 3
+Your task is to rate, for each of these descriptions, 
+how well they reflect the meaning of the boldfaced 
+word in the sentence.
+# Para 242 19
+Applicability judgments were not binary, but were 
+instead collected using the five-point scale given 
+above which allowed annotators to indicate not 
+only whether a given sense applied, but to what 
+degree. Each annotator annotated each of the 430 
+items. By having multiple annotators per item and 
+a graded, non-binary annotation scheme we al-
+low for and measure differences between annota-
+tors, rather than training annotators to conform to 
+a common sense distinction guideline. By asking 
+annotators to provide ratings for each individual 
+sense, we strive to eliminate all bias towards either 
+single-sense or multiple-sense assignment. In tra-
+ditional word sense annotation, such bias could be 
+introduced directly through annotation guidelines 
+or indirectly, through tools that make it easier to 
+assign fewer senses. We focus not on finding the 
+best fitting sense but collect judgments on the ap-
+plicability of all senses.
+# Para 261 15
+Usim. This experiment used data from LEXSUB. 
+For more information on LEXSUB, see McCarthy 
+and Navigli (2007). 34 lemmas (nouns, verbs, ad-
+jectives and adverbs) were manually selected, in-
+cluding the 3 lemmas also used in WSsim. We se-
+lected lemmas which exhibited a range of mean-
+ings and substitutes in the LEXSUB data, with 
+as few multiword substitutes as possible. Each 
+lemma is the target in 10 LEXSUB sentences. For 
+our experiment, we took every possible pairwise 
+comparison of these 10 sentences for a lemma. We 
+refer to each such pair of sentences as an SPAIR. 
+The resulting dataset comprised 45 SPAIRs per 
+lemma, adding up to 1530 comparisons per anno-
+tator overall.
+# Para 276 4
+In this annotation experiment, annotators saw 
+SPAIRs with a common target word and rated the 
+similarity in meaning between the two uses of the 
+target word with the instruction:
+# Para 280 3
+Your task is to rate, for each pair of sentences, how 
+similar in meaning the two boldfaced words are on 
+a five -point scale.
+# Para 283 7
+In addition annotators had the ability to respond 
+with “Cannot Decide”, indicating that they were 
+unable to make an effective comparison between 
+the two contexts, for example because the mean-
+ing of one usage was unclear. This occurred in 
+9 paired occurrences during the course of anno-
+tation, and these items (paired occurrences) were
+# Para 290 1
+12
+# Para 291 1
+excluded from further analysis.
+# Para 292 5
+The purpose of Usim was to collect judgments 
+about degrees of similarity between a word’s 
+meaning in different contexts. Unlike WSsim, 
+Usim does not rely upon any dictionary resource 
+as a basis for the judgments.
+# Para 297 1
+4 Analyses
+# Para 298 13
+This section reports on analyses on the annotated 
+data. In all the analyses we use Spearman’s rank 
+correlation coefficient (p), a nonparametric test, 
+because the data does not seem to be normally 
+distributed. We used two-tailed tests in all cases, 
+rather than assume the direction of the relation-
+ship. As noted above, we have three annotators 
+per task, and each annotator gave judgments for 
+every sentence (WSsim) or sentence pair (Usim). 
+Since the annotators may vary as to how they use 
+the ordinal scale, we do not use the mean of judg-
+ments7 but report all individual correlations. All 
+analyses were done using the R package.8
+# Para 311 1
+4.1 WSsim analysis
+# Para 312 4
+In the WSsim experiment, annotators rated the ap-
+plicability of each WordNet 3.0 sense for a given 
+target word occurrence. Table 1 shows a sample 
+annotation for the target argument.n. 9
+# Para 316 19
+Pattern of annotation and annotator agree-
+ment. Figure 1 shows how often each of the five 
+judgments on the scale was used, individually and 
+summed over all annotators. (The y-axis shows 
+raw counts of each judgment.) We can see from 
+this figure that the extreme ratings 1 and 5 are used 
+more often than the intermediate ones, but annota-
+tors make use of the full ordinal scale when judg-
+ing the applicability of a sense. Also, the figure 
+shows that annotator 1 used the extreme negative 
+rating 1 much less than the other two annotators. 
+Figure 2 shows the percentage of times each judg-
+ment was used on senses of three lemmas, differ-
+ent.a, interest.n, and win.v. In WordNet, they have 
+5, 7, and 4 senses, respectively. The pattern for 
+win.v resembles the overall distribution of judg-
+ments, with peaks at the extreme ratings 1 and 5. 
+The lemma interest.n has a single peak at rating 
+1, partly due to the fact that senses 5 (financial
+# Para 335 3
+7We have also performed several of our calculations us-
+ing the mean judgment, and they also gave highly significant 
+results in all the cases we tested.
+# Para 338 1
+8http://www.r-project.org/
+# Para 339 1
+9We use word.PoS to denote a target word (lemma). 
+# Para 340 1
+Annotator 1 Annotator 2 Annotator 3 overall
+# Para 341 4
+Figure 1: WSsim experiment: number of times 
+each judgment was used, by annotator and 
+summed over all annotators. The y-axis shows raw 
+counts of each judgment.
+# Para 345 1
+different.a	interest.n	win.v
+# Para 346 4
+Figure 2: WSsim experiment: percentage of times 
+each judgment was used for the lemmas differ-
+ent.a, interest.n and win.v. Judgment counts were 
+summed over all three annotators.
+# Para 350 4
+involvement) and 6 (interest group) were rarely 
+judged to apply. For the lemma different.a, all 
+judgments have been used with approximately the 
+same frequency.
+# Para 354 5
+We measured the level of agreement between 
+annotators using Spearman’s p between the judg-
+ments of every pair of annotators. The pairwise 
+correlations were p = 0.506, p = 0.466 and p = 
+0.540, all highly significant with p &lt; 2.2e-16.
+# Para 359 8
+Agreement with previous annotation in 
+SemCor and SE-3. 200 of the items in WSsim 
+had been previously annotated in SemCor, and 
+200 in SE-3. This lets us compare the annotation 
+results across annotation efforts. Table 2 shows 
+the percentage of items where more than one 
+sense was assigned in the subset of WSsim from 
+SemCor (first row), from SE-3 (second row), and
+# Para 367 1
+1
+# Para 368 1
+2
+# Para 369 1
+3
+# Para 370 1
+5
+# Para 371 1
+13
+# Para 372 5
+Sentence	1	2	Senses	5	6	7	Annotator
+			3	4				
+This question provoked arguments in America about the	1	4	4	2	1	1	3	Ann. 1
+Norton Anthology of Literature by Women, some of the	4	5	4	2	1	1	4	Ann. 2
+contents of which were said to have had little value as literature.	1	4	5	1	1	1	1	Ann. 3
+# Para 377 2
+Table 1: A sample annotation in the WSsim experiment. The senses are: 1:statement, 2:controversy, 
+3:debate, 4:literary argument, 5:parameter, 6:variable, 7:line of reasoning
+# Para 379 1
+WSsim judgment
+# Para 380 1
+&gt;3 &gt;4 5
+# Para 381 3
+80.2 57.5 28.3 
+78.0 58.3 27.1 
+78.8 57.4 27.7
+# Para 384 4
+Data	Orig.
+W Ssim/SemCor	0.0
+WSsim/SE-3	24.0
+All WSsim	
+# Para 388 4
+	p&lt;0.05 pos	neg		p&lt;0.01 pos	neg	
+Ann. 1	30.8	11.4	23.2	5.9
+Ann. 2	22.2	24.1	19.6	19.6
+Ann. 3	12.7	12.0	10.0	6.0
+# Para 392 5
+Table 2: Percentage of items with multiple senses 
+assigned. Orig: in the original SemCor/SE-3 data. 
+WSsim judgment: items with judgments at or 
+above the specified threshold. The percentages for 
+WSsim are averaged over the three annotators.
+# Para 397 14
+all of WSsim (third row). The Orig. column 
+indicates how many items had multiple labels in 
+the original annotation (SemCor or SE-3)10. Note 
+that no item had more than one sense label in 
+SemCor. The columns under WSsim judgment 
+show the percentage of items (averaged over 
+the three annotators) that had judgments at or 
+above the specified threshold, starting from rating 
+3 – similar. Within WSsim, the percentage of 
+multiple assignments in the three rows is fairly 
+constant. WSsim avoids the bias to one sense 
+by deliberately asking for judgments on the 
+applicability of each sense rather than asking 
+annotators to find the best one.
+# Para 411 13
+To compute the Spearman’s correlation between 
+the original sense labels and those given in the 
+WSsim annotation, we converted SemCor and 
+SE-3 labels to the format used within WSsim: As-
+signed senses were converted to a judgment of 5, 
+and unassigned senses to a judgment of 1. For the 
+WSsim/SemCor dataset, the correlation between 
+original and WSsim annotation was p = 0.234, 
+p = 0.448, and p = 0.390 for the three anno-
+tators, each highly significant with p &lt; 2.2e-16. 
+For the WSsim/SE-3 dataset, the correlations were 
+p = 0.346, p = 0.449 and p = 0.338, each of them 
+again highly significant at p &lt; 2.2e-16.
+# Para 424 2
+Degree of sense grouping. Next we test to what 
+extent the sense applicability judgments in the
+# Para 426 3
+10Overall, 0.3% of tokens in SemCor have multiple labels, 
+and 8% of tokens in SE-3, so the multiple label assignment in 
+our sample is not an underestimate.
+# Para 429 4
+Table 3: Percentage of sense pairs that were sig-
+nificantly positively (pos) or negatively (neg) cor-
+related at p &lt; 0.05 and p &lt; 0.01, shown by anno-
+tator.
+# Para 433 4
+	j&gt;3	j&gt;4	j=5
+Ann. 1	71.9	49.1	8.1
+Ann. 2	55.3	24.7	8.1
+Ann. 3	42.8	24.0	4.9
+# Para 437 4
+Table 4: Percentage of sentences in which at least 
+two uncorrelated (p &gt; 0.05) or negatively corre-
+lated senses have been annotated with judgments 
+at the specified threshold.
+# Para 441 23
+WSsim task could be explained by more coarse- 
+grained, categorial sense assignments. We first 
+test how many pairs of senses for a given lemma 
+show similar patterns in the ratings that they re-
+ceive. Table 3 shows the percentage of sense pairs 
+that were significantly correlated for each anno-
+tator.11 Significantly positively correlated senses 
+can possibly be reduced to more coarse-grained 
+senses. Would annotators have been able to des-
+ignate a single appropriate sense given these more 
+coarse-grained senses? Call two senses groupable 
+if they are significantly positively correlated; in or-
+der not to overlook correlations that are relatively 
+weak but existent, we use a cutoff of p = 0.05 for 
+significant correlation. We tested how often anno-
+tators gave ratings of at least similar, i.e. ratings 
+&gt; 3, to senses that were not groupable. Table 4 
+shows the percentages of items where at least two 
+non-groupable senses received ratings at or above 
+the specified threshold. The table shows that re-
+gardless of which annotator we look at, over 40% 
+of all items had two or more non-groupable senses 
+receive judgments of at least 3 (similar). There
+# Para 464 3
+11 We exclude senses that received a uniform rating of 1 on 
+all items. This concerned 4 senses for annotator 2 and 6 for 
+annotator 3.
+# Para 467 1
+14
+# Para 468 4
+1) We study the methods and concepts that each writer uses to 
+defend the cogency of legal, deliberative, or more generally 
+political prudence against explicit or implicit charges that 
+practical thinking is merely a knack or form of cleverness.
+# Para 472 2
+2) Eleven CIRA members have been convicted of criminal 
+charges and others are awaiting trial.
+# Para 474 2
+Figure 3: An SPAIR for charge.n. Annotator judg-
+ments: 2,3,4
+# Para 476 8
+were even several items where two or more non-
+groupable senses each got a judgment of 5. The 
+sentence in table 1 is a case where several non-
+groupable senses got ratings &gt; 3. This is most 
+pronounced for Annotator 2, who along with sense 
+2 (controversy) assigned senses 1 (statement), 7 
+(line of reasoning), and 3 (debate), none of which 
+are groupable with sense 2.
+# Para 484 1
+4.2 Usim analysis
+# Para 485 5
+In this experiment, ratings between 1 and 5 were 
+given for every pairwise combination of sentences 
+for each target lemma. An example of an SPAIR 
+for charge.n is shown in figure 3. In this case the 
+verdicts from the annotators were 2, 3 and 4.
+# Para 490 16
+Pattern of Annotations and Annotator Agree-
+ment Figure 4 gives a bar chart of the judgments 
+for each annotator and summed over annotators. 
+We can see from this figure that the annotators 
+use the full ordinal scale when judging the simi-
+larity of a word’s usages, rather than sticking to 
+the extremes. There is variation across words, de-
+pending on the relatedness of each word’s usages. 
+Figure 5 shows the judgments for the words bar.n, 
+work.v and raw.a. We see that bar.n has predom-
+inantly different usages with a peak for category 
+1, work.v has more similar judgments (category 5) 
+compared to any other category and raw.a has a 
+peak in the middle category (3). 12 There are other 
+words, like for example fresh.a, where the spread 
+is more uniform.
+# Para 506 9
+To gauge the level of agreement between anno-
+tators, we calculated Spearman’s p between the 
+judgments of every pair of annotators as in sec-
+tion 4.1. The pairwise correlations are all highly 
+significant (p &lt; 2.2e-16) with Spearman’s p = 
+0.502, 0.641 and 0.501 giving an average corre-
+lation of 0.548. We also perform leave-one-out re- 
+sampling following Lapata (2006) which gave us 
+a Spearman’s correlation of 0.630.
+# Para 515 1
+12For figure 5 we sum the judgments over annotators. 
+# Para 516 3
+Figure 4: Usim experiment: number of times each 
+judgment was used, by annotator and summed 
+over all annotators
+# Para 519 1
+bar.n	raw.a	work.v
+# Para 520 2
+Figure 5: Usim experiment: number of times each 
+judgment was used for bar.n, work.v and raw. a
+# Para 522 16
+Comparison with LEXSUB substitutions Next 
+we look at whether the Usim judgments on sen-
+tence pairs (SPAIRs) correlate with LEXSUB sub-
+stitutes. To do this we use the overlap of substi-
+tutes provided by the five LEXSUB annotators be-
+tween two sentences in an SPAIR. In LEXSUB the 
+annotators had to replace each item (a target word 
+within the context of a sentence) with a substitute 
+that fitted the context. Each annotator was permit-
+ted to supply up to three substitutes provided that 
+they all fitted the context equally. There were 10 
+sentences per lemma. For our analyses we take 
+every SPAIR for a given lemma and calculate the 
+overlap (inter) of the substitutes provided by the 
+annotators for the two usages under scrutiny. Let 
+s1 and s2 be a pair of sentences in an SPAIR and
+# Para 538 1
+Annotator 4 Annotator 5 Annotator 6	overall
+# Para 539 1
+1
+# Para 540 1
+2
+# Para 541 1
+3
+# Para 542 1
+4
+# Para 543 1
+5
+# Para 544 1
+1
+# Para 545 1
+2
+# Para 546 1
+3
+# Para 547 1
+4
+# Para 548 1
+5
+# Para 549 1
+15
+# Para 550 4
+x1 and x2 be the multisets of substitutes for the 
+respective sentences. Let freq(w,x) be the fre-
+quency of a substitute w in a multiset x of sub-
+stitutes for a given sentence. 13 INTER(s1,s2) =
+# Para 554 1
+�wEx1f1x2 min (freq(w,x1), freq(w,x2))
+# Para 555 1
+max(1x1 1, 1x2 1)
+# Para 556 9
+Using this calculation for each SPAIR we can 
+now compute the correlation between the Usim 
+judgments for each annotator and the INTER val-
+ues, again using Spearman’s. The figures are 
+shown in the leftmost block of table 5. The av-
+erage correlation for the 3 annotators was 0.488 
+and the p-values were all &lt; 2.2e-16. This shows 
+a highly significant correlation of the Usim judg-
+ments and the overlap of substitutes.
+# Para 565 18
+We also compare the WSsim judgments against 
+the LEXSUB substitutes, again using the INTER 
+measure of substitute overlap. For this analysis, 
+we only use those WSsim sentences that are origi-
+nally from LEXSUB. In WSsim, the judgments for 
+a sentence comprise judgments for each WordNet 
+sense of that sentence. In order to compare against 
+INTER, we need to transform these sentence-wise 
+ratings in WSsim to a WSsim-based judgment of 
+sentence similarity. To this end, we compute the 
+Euclidean Distance14 (ED) between two vectors J1 
+and J2 of judgments for two sentences s1, s2 for the 
+same lemma E. Each of the n indexes of the vector 
+represent one of the n different WordNet senses 
+for E. The value at entry i of the vector J1 is the 
+judgment that the annotator in question (we do not 
+average over annotators here) provided for sense i 
+of E for sentence s1.
+# Para 583 1
+(J1[i]—J2[i])2) (1)
+# Para 584 8
+We correlate the Euclidean distances with 
+INTER. We can only test correlation for the subset 
+of WSsim that overlaps with the LEXSUB data: the 
+30 sentences for investigator.n, function.n and or-
+der.v, which together give 135 unique SPAIRs. We 
+refer to this subset as Wf1U. The results are given 
+in the third block of table 5. Note that since we are 
+measuring distance between SPAIRs for WSsim
+# Para 592 3
+13The frequency of a substitute in a multiset depends on 
+the number of LEXSUB annotators that picked the substitute 
+for this item.
+# Para 595 4
+14We use Euclidean Distance rather than a normalizing 
+measure like Cosine because a sentence where all ratings are 
+5 should be very different from a sentence where all senses 
+received a rating of 1.
+# Para 599 5
+Usim All		Usim Wf1U	WSsim Wf1U	
+ann.	p	p	ann.	p
+4	0.383	0.330	1	-0.520
+5	0.498	0.635	2	-0.503
+6	0.584	0.631	3	-0.463
+# Para 604 2
+Table 5: Annotator correlation with LEXSUB sub-
+stitute overlap (inter)
+# Para 606 17
+whereas INTER is a measure of similarity, the cor-
+relation is negative. The results are highly signif-
+icant with individual p-values from &lt; 1.067e-10 
+to &lt; 1.551e-08 and a mean correlation of -0.495. 
+The results in the first and third block of table 5 are 
+not directly comparable, as the results in the first 
+block are for all Usim data and not the subset of 
+LEXSUB with WSsim annotations. We therefore 
+repeated the analysis for Usim on the subset of 
+data in WSsim and provide the correlation in the 
+middle section of table 5. The mean correlation 
+for Usim on this subset of the data is 0.532, which 
+is a stronger relationship compared to WSsim, al-
+though there is more discrepancy between individ-
+ual annotators, with the result for annotator 4 giv-
+ing a p-value = 9.139e-05 while the other two an-
+notators had p-values &lt; 2.2e-16.
+# Para 623 6
+The LEXSUB substitute overlaps between dif-
+ferent usages correlate well with both Usim and 
+WSsim judgments, with a slightly stronger rela-
+tionship to Usim, perhaps due to the more compli-
+cated representation of word meaning in WSsim 
+which uses the full set of WordNet senses.
+# Para 629 1
+4.3 Correlation between WSsim and Usim
+# Para 630 18
+As we showed in section 4.1, WSsim correlates 
+with previous word sense annotations in SemCor 
+and SE-3 while allowing the user a more graded 
+response to sense tagging. As we saw in sec-
+tion 4.2, Usim and WSsim judgments both have a 
+highly significant correlation with similarity of us-
+ages as measured using the overlap of substitutes 
+from LEXSUB. Here, we look at the correlation 
+of WSsim and Usim, considering again the sub-
+set of data that is common to both experiments. 
+We again transform WSsim sense judgments for 
+individual sentences to distances between SPAIRs 
+using Euclidean Distance (ED). The Spearman’s 
+p range between —0.307 and —0.671, and all re-
+sults are highly significant with p-values between 
+0.0003 and &lt; 2.2e-16. As above, the correla-
+tion is negative because ED is a distance measure 
+between sentences in an SPAIR, whereas the judg-
+# Para 648 1
+ED(J1,J2) = V1(
+# Para 649 1
+n
+# Para 650 1
+�
+# Para 651 1
+i=1
+# Para 652 1
+16
+# Para 653 3
+ments for Usim are similarity judgments. We see 
+that there is highly significant correlation for every 
+pairing of annotators from the two experiments.
+# Para 656 1
+5 Discussion
+# Para 657 14
+Validity of annotation scheme. Annotator rat-
+ings show highly significant correlation on both 
+tasks. This shows that the tasks are well-defined. 
+In addition, there is a strong correlation between 
+WSsim and Usim, which indicates that the poten-
+tial bias introduced by the use of dictionary senses 
+in WSsim is not too prominent. However, we note 
+that WSsim only contained a small portion of 3 
+lemmas (30 sentences and 135 SPAIRs) in com-
+mon with Usim, so more annotation is needed to 
+be certain of this relationship. Given the differ-
+ences between annotator 1 and the other annota-
+tors in Fig. 1, it would be interesting to collect 
+judgments for additional annotators.
+# Para 671 15
+Graded judgments of use similarity and sense 
+applicability. The annotators made use of the 
+full spectrum of ratings, as shown in Figures 1 and 
+4. This may be because of a graded perception of 
+the similarity of uses as well as senses, or because 
+some uses and senses are very similar. Table 4 
+shows that for a large number of WSsim items, 
+multiple senses that were not significantly posi-
+tively correlated got high ratings. This seems to 
+indicate that the ratings we obtained cannot sim-
+ply be explained by more coarse-grained senses. It 
+may hence be reasonable to pursue computational 
+models of word meaning that are graded, maybe 
+even models that do not rely on dictionary senses 
+at all (Erk and Pado, 2008).
+# Para 686 7
+Comparison to previous word sense annotation. 
+Our graded WSsim annotations do correlate with 
+traditional “best fitting sense” annotations from 
+SemCor and SE-3; however, if annotators perceive 
+similarity between uses and senses as graded, tra-
+ditional word sense annotation runs the risk of in-
+troducing bias into the annotation.
+# Para 693 7
+Comparison to lexical substitutions. There is a 
+strong correlation between both Usim and WSsim 
+and the overlap in paraphrases that annotators gen-
+erated for LEXSUB. This is very encouraging, and 
+especially interesting because LEXSUB annotators 
+freely generated paraphrases rather than selecting 
+them from a list.
+# Para 700 1
+6 Conclusions
+# Para 701 24
+We have introduced a novel annotation paradigm 
+for word sense annotation that allows for graded 
+judgments and for some variation between anno-
+tators. We have used this annotation paradigm 
+in two experiments, WSsim and Usim, that shed 
+some light on the question of whether differences 
+between word usages are perceived as categorial 
+or graded. Both datasets will be made publicly 
+available. There was a high correlation between 
+annotator judgments within and across tasks, as 
+well as with previous word sense annotation and 
+with paraphrases proposed in the English Lex-
+ical Substitution task. Annotators made ample 
+use of graded judgments in a way that cannot 
+be explained through more coarse-grained senses. 
+These results suggest that it may make sense to 
+evaluate WSD systems on a task of graded rather 
+than categorial meaning characterization, either 
+through dictionary senses or similarity between 
+uses. In that case, it would be useful to have more 
+extensive datasets with graded annotation, even 
+though this annotation paradigm is more time con-
+suming and thus more expensive than traditional 
+word sense annotation.
+# Para 725 16
+As a next step, we will automatically cluster the 
+judgments we obtained in the WSsim and Usim 
+experiments to further explore the degree to which 
+the annotation gives rise to sense grouping. We 
+will also use the ratings in both experiments to 
+evaluate automatically induced models of word 
+meaning. The SemEval-2007 word sense induc-
+tion task (Agirre and Soroa, 2007) already allows 
+for evaluation of automatic sense induction sys-
+tems, but compares output to gold-standard senses 
+from OntoNotes. We hope that the Usim dataset 
+will be particularly useful for evaluating methods 
+which relate usages without necessarily producing 
+hard clusters. Also, we will extend the current 
+dataset using more annotators and exploring ad-
+ditional lexicon resources.
+# Para 741 5
+Acknowledgments. We acknowledge support 
+from the UK Royal Society for a Dorothy Hodkin 
+Fellowship to the second author. We thank Sebas-
+tian Pado for many helpful discussions, and An-
+drew Young for help with the interface.
+# Para 746 1
+References
+# Para 747 2
+E. Agirre and A. Soroa. 2007. SemEval-2007 
+task 2: Evaluating word sense induction and dis-
+# Para 749 1
+17
+# Para 750 4
+crimination systems. In Proceedings of the 4th 
+International Workshop on Semantic Evaluations 
+(SemEval-2007), pages 7–12, Prague, Czech Repub-
+lic.
+# Para 754 3
+J. Bybee and D. Eddington. 2006. A usage-based ap-
+proach to Spanish verbs of ’becoming’. Language, 
+82(2):323–355.
+# Para 757 6
+J. Chen and M. Palmer. 2009. Improving English 
+verb sense disambiguation performance with lin-
+guistically motivated features and clear sense dis-
+tinction boundaries. Journal of Language Resources 
+and Evaluation, Special Issue on SemEval-2007. in 
+press.
+# Para 763 3
+K. Erk and S. Pado. 2008. A structured vector space 
+model for word meaning in context. In Proceedings 
+of EMNLP-08, Waikiki, Hawaii.
+# Para 766 3
+J. A. Hampton. 1979. Polymorphous concepts in se-
+mantic memory. Journal of Verbal Learning and 
+Verbal Behavior, 18:441–461.
+# Para 769 2
+J. A. Hampton. 2007. Typicality, graded membership,
+and vagueness. Cognitive Science, 31:355–384.
+# Para 771 2
+P. Hanks. 2000. Do word meanings exist? Computers 
+and the Humanities, 34(1-2):205–215(11).
+# Para 773 1
+E. H. Hovy, M. Marcus, M. Palmer, S. Pradhan,
+# Para 774 5
+L. Ramshaw, and R. Weischedel. 2006. OntoNotes: 
+The 90% solution. In Proceedings of the Hu-
+man Language Technology Conference of the North 
+American Chapter of the ACL (NAACL-2006), pages 
+57–60, New York.
+# Para 779 4
+N. Ide and Y. Wilks. 2006. Making sense about 
+sense. In E. Agirre and P. Edmonds, editors, 
+Word Sense Disambiguation, Algorithms and Appli-
+cations, pages 47–73. Springer.
+# Para 783 3
+A. Kilgarriff and J. Rosenzweig. 2000. Framework 
+and results for English Senseval. Computers and the 
+Humanities, 34(1-2):15–48.
+# Para 786 2
+A. Kilgarriff. 1997. I don’t believe in word senses.
+Computers and the Humanities, 31(2):91–113.
+# Para 788 4
+A. Kilgarriff. 2006. Word senses. In E. Agirre 
+and P. Edmonds, editors, Word Sense Disambigua-
+tion, Algorithms and Applications, pages 29–46. 
+Springer.
+# Para 792 4
+R. Krishnamurthy and D. Nicholls. 2000. Peeling 
+an onion: the lexicographers’ experience of man-
+ual sense-tagging. Computers and the Humanities, 
+34(1-2).
+# Para 796 4
+S. Landes, C. Leacock, and R. Tengi. 1998. Build-
+ing semantic concordances. In C. Fellbaum, editor, 
+WordNet: An Electronic Lexical Database. The MIT 
+Press, Cambridge, MA.
+# Para 800 3
+M. Lapata. 2006. Automatic evaluation of information 
+ordering. Computational Linguistics, 32(4):471– 
+484.
+# Para 803 5
+D. McCarthy and R. Navigli. 2007. SemEval-2007 
+task 10: English lexical substitution task. In Pro-
+ceedings of the 4th International Workshop on Se-
+mantic Evaluations (SemEval-2007), pages 48–53, 
+Prague, Czech Republic.
+# Para 808 3
+M. McCloskey and S. Glucksberg. 1978. Natural cat-
+egories: Well defined or fuzzy sets? Memory &amp; 
+Cognition, 6:462–472.
+# Para 811 4
+R. Mihalcea, T. Chklovski, and A. Kilgarriff. 2004. 
+The Senseval-3 English lexical sample task. In 
+3rd International Workshop on Semantic Evalua-
+tions (SensEval-3) atACL-2004, Barcelona, Spain.
+# Para 815 3
+G. Miller and W. Charles. 1991. Contextual correlates 
+of semantic similarity. Language and cognitive pro-
+cesses, 6(1):1–28.
+# Para 818 2
+G. L. Murphy. 2002. The Big Book of Concepts. MIT 
+Press.
+# Para 820 6
+R. Navigli, K. C. Litkowski, and O. Hargraves. 
+2007. SemEval-2007 task 7: Coarse-grained En-
+glish all-words task. In Proceedings of the 4th 
+International Workshop on Semantic Evaluations 
+(SemEval-2007), pages 30–35, Prague, Czech Re-
+public.
+# Para 826 4
+P. Resnik and D. Yarowsky. 2000. Distinguishing 
+systems and distinguishing senses: New evaluation 
+methods for word sense disambiguation. Natural 
+Language Engineering, 5(3):113–133.
+# Para 830 3
+E. Rosch and C. B. Mervis. 1975. Family resem-
+blance: Studies in the internal structure of cate-
+gories. Cognitive Psychology, 7:573–605.
+# Para 833 3
+E. Rosch. 1975. Cognitive representations of seman-
+tic categories. Journal of Experimental Psychology: 
+General, 104:192–233.
+# Para 836 3
+H. Rubenstein and J. Goodenough. 1965. Contextual 
+correlates of synonymy. Computational Linguistics, 
+8:627–633.
+# Para 839 3
+S. Sharoff. 2006. Open-source corpora: Using the net 
+to fish for linguistic data. International Journal of 
+Corpus Linguistics, 11(4):435–462.
+# Para 842 4
+C. Stokoe. 2005. Differentiating homonymy and pol-
+ysemy in information retrieval. In Proceedings of 
+HLT/EMNLP-05, pages 403–410, Vancouver, B.C., 
+Canada.
+# Para 846 1
+18

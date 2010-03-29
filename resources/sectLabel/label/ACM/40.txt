@@ -1,0 +1,910 @@
+title ||| Automatic Extraction of Titles from General Documents
+title ||| using Machine Learning
+author ||| Yunhua Hu1
+affiliation ||| Computer Science Department
+affiliation ||| Xi’an Jiaotong University
+address ||| No 28, Xianning West Road
+address ||| Xi&apos;an, China, 710049
+email ||| yunhuahu@mail.xjtu.edu.cn
+author ||| Hang Li, Yunbo Cao
+affiliation ||| Microsoft Research Asia
+address ||| 5F Sigma Center,
+address ||| No. 49 Zhichun Road, Haidian,
+address ||| Beijing, China, 100080
+email ||| {hangli,yucao}@microsoft.com
+author ||| Dmitriy Meyerzon
+affiliation ||| Microsoft Corporation
+address ||| One Microsoft Way
+address ||| Redmond, WA,
+address ||| USA, 98052
+email ||| dmitriym@microsoft.com
+author ||| Qinghua Zheng
+affiliation ||| Computer Science Department
+affiliation ||| Xi’an Jiaotong University
+address ||| No 28, Xianning West Road
+address ||| Xi&apos;an, China, 710049
+email ||| qhzheng@mail.xjtu.edu.cn
+sectionHeader ||| ABSTRACT
+bodyText ||| In this paper, we propose a machine learning approach to title
+bodyText ||| extraction from general documents. By general documents, we
+bodyText ||| mean documents that can belong to any one of a number of
+bodyText ||| specific genres, including presentations, book chapters, technical
+bodyText ||| papers, brochures, reports, and letters. Previously, methods have
+bodyText ||| been proposed mainly for title extraction from research papers. It
+bodyText ||| has not been clear whether it could be possible to conduct
+bodyText ||| automatic title extraction from general documents. As a case study,
+bodyText ||| we consider extraction from Office including Word and
+bodyText ||| PowerPoint. In our approach, we annotate titles in sample
+bodyText ||| documents (for Word and PowerPoint respectively) and take them
+bodyText ||| as training data, train machine learning models, and perform title
+bodyText ||| extraction using the trained models. Our method is unique in that
+bodyText ||| we mainly utilize formatting information such as font size as
+bodyText ||| features in the models. It turns out that the use of formatting
+bodyText ||| information can lead to quite accurate extraction from general
+bodyText ||| documents. Precision and recall for title extraction from Word is
+bodyText ||| 0.810 and 0.837 respectively, and precision and recall for title
+bodyText ||| extraction from PowerPoint is 0.875 and 0.895 respectively in an
+bodyText ||| experiment on intranet data. Other important new findings in this
+bodyText ||| work include that we can train models in one domain and apply
+bodyText ||| them to another domain, and more surprisingly we can even train
+bodyText ||| models in one language and apply them to another language.
+bodyText ||| Moreover, we can significantly improve search ranking results in
+bodyText ||| document retrieval by using the extracted titles.
+sectionHeader ||| Categories and Subject Descriptors
+category ||| H.3.3 [Information Storage and Retrieval]: Information Search
+category ||| and Retrieval - Search Process; H.4.1 [Information Systems
+copyright ||| Permission to make digital or hard copies of all or part of this work for
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that copies
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise, or
+copyright ||| republish, to post on servers or to redistribute to lists, requires prior specific
+copyright ||| permission and/or a fee.
+note ||| JCDL’05, June 7–11, 2005, Denver, Colorado, USA
+copyright ||| Copyright 2005 ACM 1-58113-876-8/05/0006...$5.00.
+copyright ||| Applications]: Office Automation - Word processing; D.2.8
+copyright ||| [Software Engineering]: Metrics - complexity measures,
+copyright ||| performance measures
+sectionHeader ||| General Terms
+keyword ||| Algorithms, Experimentation, Performance.
+sectionHeader ||| Keywords
+keyword ||| information extraction, metadata extraction, machine learning,
+keyword ||| search
+sectionHeader ||| 1. INTRODUCTION
+bodyText ||| Metadata of documents is useful for many kinds of document
+bodyText ||| processing such as search, browsing, and filtering. Ideally,
+bodyText ||| metadata is defined by the authors of documents and is then used
+bodyText ||| by various systems. However, people seldom define document
+bodyText ||| metadata by themselves, even when they have convenient
+bodyText ||| metadata definition tools [26]. Thus, how to automatically extract
+bodyText ||| metadata from the bodies of documents turns out to be an
+bodyText ||| important research issue.
+bodyText ||| Methods for performing the task have been proposed. However,
+bodyText ||| the focus was mainly on extraction from research papers. For
+bodyText ||| instance, Han et al. [10] proposed a machine learning based
+bodyText ||| method to conduct extraction from research papers. They
+bodyText ||| formalized the problem as that of classification and employed
+bodyText ||| Support Vector Machines as the classifier. They mainly used
+bodyText ||| linguistic features in the model.
+bodyText ||| In this paper, we consider metadata extraction from general
+bodyText ||| documents. By general documents, we mean documents that may
+bodyText ||| belong to any one of a number of specific genres. General
+bodyText ||| documents are more widely available in digital libraries, intranets
+bodyText ||| and the internet, and thus investigation on extraction from them is
+footnote ||| 1 The work was conducted when the first author was visiting
+footnote ||| Microsoft Research Asia.
+page ||| 145
+bodyText ||| sorely needed. Research papers usually have well-formed styles
+bodyText ||| and noticeable characteristics. In contrast, the styles of general
+bodyText ||| documents can vary greatly. It has not been clarified whether a
+bodyText ||| machine learning based approach can work well for this task.
+bodyText ||| There are many types of metadata: title, author, date of creation,
+bodyText ||| etc. As a case study, we consider title extraction in this paper.
+bodyText ||| General documents can be in many different file formats:
+bodyText ||| Microsoft Office, PDF (PS), etc. As a case study, we consider
+bodyText ||| extraction from Office including Word and PowerPoint.
+bodyText ||| We take a machine learning approach. We annotate titles in
+bodyText ||| sample documents (for Word and PowerPoint respectively) and
+bodyText ||| take them as training data to train several types of models, and
+bodyText ||| perform title extraction using any one type of the trained models.
+bodyText ||| In the models, we mainly utilize formatting information such as
+bodyText ||| font size as features. We employ the following models: Maximum
+bodyText ||| Entropy Model, Perceptron with Uneven Margins, Maximum
+bodyText ||| Entropy Markov Model, and Voted Perceptron.
+bodyText ||| In this paper, we also investigate the following three problems,
+bodyText ||| which did not seem to have been examined previously.
+listItem ||| (1) Comparison between models: among the models above, which
+listItem ||| model performs best for title extraction;
+listItem ||| (2) Generality of model: whether it is possible to train a model on
+listItem ||| one domain and apply it to another domain, and whether it is
+listItem ||| possible to train a model in one language and apply it to another
+listItem ||| language;
+listItem ||| (3) Usefulness of extracted titles: whether extracted titles can
+listItem ||| improve document processing such as search.
+bodyText ||| Experimental results indicate that our approach works well for
+bodyText ||| title extraction from general documents. Our method can
+bodyText ||| significantly outperform the baselines: one that always uses the
+bodyText ||| first lines as titles and the other that always uses the lines in the
+bodyText ||| largest font sizes as titles. Precision and recall for title extraction
+bodyText ||| from Word are 0.810 and 0.837 respectively, and precision and
+bodyText ||| recall for title extraction from PowerPoint are 0.875 and 0.895
+bodyText ||| respectively. It turns out that the use of format features is the key
+bodyText ||| to successful title extraction.
+listItem ||| (1) We have observed that Perceptron based models perform
+listItem ||| better in terms of extraction accuracies. (2) We have empirically
+listItem ||| verified that the models trained with our approach are generic in
+listItem ||| the sense that they can be trained on one domain and applied to
+listItem ||| another, and they can be trained in one language and applied to
+listItem ||| another. (3) We have found that using the extracted titles we can
+listItem ||| significantly improve precision of document retrieval (by 10%).
+bodyText ||| We conclude that we can indeed conduct reliable title extraction
+bodyText ||| from general documents and use the extracted results to improve
+bodyText ||| real applications.
+bodyText ||| The rest of the paper is organized as follows. In section 2, we
+bodyText ||| introduce related work, and in section 3, we explain the
+bodyText ||| motivation and problem setting of our work. In section 4, we
+bodyText ||| describe our method of title extraction, and in section 5, we
+bodyText ||| describe our method of document retrieval using extracted titles.
+bodyText ||| Section 6 gives our experimental results. We make concluding
+bodyText ||| remarks in section 7.
+sectionHeader ||| 2. RELATED WORK
+subsectionHeader ||| 2.1 Document Metadata Extraction
+bodyText ||| Methods have been proposed for performing automatic metadata
+bodyText ||| extraction from documents; however, the main focus was on
+bodyText ||| extraction from research papers.
+bodyText ||| The proposed methods fall into two categories: the rule based
+bodyText ||| approach and the machine learning based approach.
+bodyText ||| Giuffrida et al. [9], for instance, developed a rule-based system for
+bodyText ||| automatically extracting metadata from research papers in
+bodyText ||| Postscript. They used rules like “titles are usually located on the
+bodyText ||| upper portions of the first pages and they are usually in the largest
+bodyText ||| font sizes”. Liddy et al. [14] and Yilmazel el al. [23] performed
+bodyText ||| metadata extraction from educational materials using rule-based
+bodyText ||| natural language processing technologies. Mao et al. [16] also
+bodyText ||| conducted automatic metadata extraction from research papers
+bodyText ||| using rules on formatting information.
+bodyText ||| The rule-based approach can achieve high performance. However,
+bodyText ||| it also has disadvantages. It is less adaptive and robust when
+bodyText ||| compared with the machine learning approach.
+bodyText ||| Han et al. [10], for instance, conducted metadata extraction with
+bodyText ||| the machine learning approach. They viewed the problem as that
+bodyText ||| of classifying the lines in a document into the categories of
+bodyText ||| metadata and proposed using Support Vector Machines as the
+bodyText ||| classifier. They mainly used linguistic information as features.
+bodyText ||| They reported high extraction accuracy from research papers in
+bodyText ||| terms of precision and recall.
+subsectionHeader ||| 2.2 Information Extraction
+bodyText ||| Metadata extraction can be viewed as an application of
+bodyText ||| information extraction, in which given a sequence of instances, we
+bodyText ||| identify a subsequence that represents information in which we
+bodyText ||| are interested. Hidden Markov Model [6], Maximum Entropy
+bodyText ||| Model [1, 4], Maximum Entropy Markov Model [17], Support
+bodyText ||| Vector Machines [3], Conditional Random Field [12], and Voted
+bodyText ||| Perceptron [2] are widely used information extraction models.
+bodyText ||| Information extraction has been applied, for instance, to part-of-
+bodyText ||| speech tagging [20], named entity recognition [25] and table
+bodyText ||| extraction [19].
+subsectionHeader ||| 2.3 Search Using Title Information
+bodyText ||| Title information is useful for document retrieval.
+bodyText ||| In the system Citeseer, for instance, Giles et al. managed to
+bodyText ||| extract titles from research papers and make use of the extracted
+bodyText ||| titles in metadata search of papers [8].
+bodyText ||| In web search, the title fields (i.e., file properties) and anchor texts
+bodyText ||| of web pages (HTML documents) can be viewed as ‘titles’ of the
+bodyText ||| pages [5]. Many search engines seem to utilize them for web page
+bodyText ||| retrieval [7, 11, 18, 22]. Zhang et al., found that web pages with
+bodyText ||| well-defined metadata are more easily retrieved than those without
+bodyText ||| well-defined metadata [24].
+bodyText ||| To the best of our knowledge, no research has been conducted on
+bodyText ||| using extracted titles from general documents (e.g., Office
+bodyText ||| documents) for search of the documents.
+page ||| 146
+sectionHeader ||| 3. MOTIVATION AND PROBLEM
+sectionHeader ||| SETTING
+bodyText ||| We consider the issue of automatically extracting titles from
+bodyText ||| general documents.
+bodyText ||| By general documents, we mean documents that belong to one of
+bodyText ||| any number of specific genres. The documents can be
+bodyText ||| presentations, books, book chapters, technical papers, brochures,
+bodyText ||| reports, memos, specifications, letters, announcements, or resumes.
+bodyText ||| General documents are more widely available in digital libraries,
+bodyText ||| intranets, and internet, and thus investigation on title extraction
+bodyText ||| from them is sorely needed.
+bodyText ||| Figure 1 shows an estimate on distributions of file formats on
+bodyText ||| intranet and internet [15]. Office and PDF are the main file
+bodyText ||| formats on the intranet. Even on the internet, the documents in the
+bodyText ||| formats are still not negligible, given its extremely large size. In
+bodyText ||| this paper, without loss of generality, we take Office documents as
+bodyText ||| an example.
+figureCaption ||| Figure 1. Distributions of file formats in internet and intranet.
+bodyText ||| For Office documents, users can define titles as file properties
+bodyText ||| using a feature provided by Office. We found in an experiment,
+bodyText ||| however, that users seldom use the feature and thus titles in file
+bodyText ||| properties are usually very inaccurate. That is to say, titles in file
+bodyText ||| properties are usually inconsistent with the ‘true’ titles in the file
+bodyText ||| bodies that are created by the authors and are visible to readers.
+bodyText ||| We collected 6,000 Word and 6,000 PowerPoint documents from
+bodyText ||| an intranet and the internet and examined how many titles in the
+bodyText ||| file properties are correct. We found that surprisingly the accuracy
+bodyText ||| was only 0.265 (cf., Section 6.3 for details). A number of reasons
+bodyText ||| can be considered. For example, if one creates a new file by
+bodyText ||| copying an old file, then the file property of the new file will also
+bodyText ||| be copied from the old file.
+bodyText ||| In another experiment, we found that Google uses the titles in file
+bodyText ||| properties of Office documents in search and browsing, but the
+bodyText ||| titles are not very accurate. We created 50 queries to search Word
+bodyText ||| and PowerPoint documents and examined the top 15 results of
+bodyText ||| each query returned by Google. We found that nearly all the titles
+bodyText ||| presented in the search results were from the file properties of the
+bodyText ||| documents. However, only 0.272 of them were correct.
+bodyText ||| Actually, ‘true’ titles usually exist at the beginnings of the bodies
+bodyText ||| of documents. If we can accurately extract the titles from the
+bodyText ||| bodies of documents, then we can exploit reliable title information
+bodyText ||| in document processing. This is exactly the problem we address in
+bodyText ||| this paper.
+bodyText ||| More specifically, given a Word document, we are to extract the
+bodyText ||| title from the top region of the first page. Given a PowerPoint
+bodyText ||| document, we are to extract the title from the first slide. A title
+bodyText ||| sometimes consists of a main title and one or two subtitles. We
+bodyText ||| only consider extraction of the main title.
+bodyText ||| As baselines for title extraction, we use that of always using the
+bodyText ||| first lines as titles and that of always using the lines with largest
+bodyText ||| font sizes as titles.
+figureCaption ||| Figure 2. Title extraction from Word document.
+figureCaption ||| Figure 3. Title extraction from PowerPoint document.
+bodyText ||| Next, we define a ‘specification’ for human judgments in title data
+bodyText ||| annotation. The annotated data will be used in training and testing
+bodyText ||| of the title extraction methods.
+bodyText ||| Summary of the specification: The title of a document should be
+bodyText ||| identified on the basis of common sense, if there is no difficulty in
+bodyText ||| the identification. However, there are many cases in which the
+bodyText ||| identification is not easy. There are some rules defined in the
+bodyText ||| specification that guide identification for such cases. The rules
+bodyText ||| include “a title is usually in consecutive lines in the same format”,
+bodyText ||| “a document can have no title”, “titles in images are not
+bodyText ||| considered”, “a title should not contain words like ‘draft’,
+page ||| 147
+bodyText ||| ‘whitepaper’, etc”, “if it is difficult to determine which is the title,
+bodyText ||| select the one in the largest font size”, and “if it is still difficult to
+bodyText ||| determine which is the title, select the first candidate”. (The
+bodyText ||| specification covers all the cases we have encountered in data
+bodyText ||| annotation.)
+bodyText ||| Figures 2 and 3 show examples of Office documents from which
+bodyText ||| we conduct title extraction. In Figure 2, ‘Differences in Win32
+bodyText ||| API Implementations among Windows Operating Systems’ is the
+bodyText ||| title of the Word document. ‘Microsoft Windows’ on the top of
+bodyText ||| this page is a picture and thus is ignored. In Figure 3, ‘Building
+bodyText ||| Competitive Advantages through an Agile Infrastructure’ is the
+bodyText ||| title of the PowerPoint document.
+bodyText ||| We have developed a tool for annotation of titles by human
+bodyText ||| annotators. Figure 4 shows a snapshot of the tool.
+figureCaption ||| Figure 4. Title annotation tool.
+sectionHeader ||| 4. TITLE EXTRACTION METHOD
+sectionHeader ||| 4.1 Outline
+bodyText ||| Title extraction based on machine learning consists of training and
+bodyText ||| extraction. The same pre-processing step occurs before training
+bodyText ||| and extraction.
+bodyText ||| During pre-processing, from the top region of the first page of a
+bodyText ||| Word document or the first slide of a PowerPoint document a
+bodyText ||| number of units for processing are extracted. If a line (lines are
+bodyText ||| separated by ‘return’ symbols) only has a single format, then the
+bodyText ||| line will become a unit. If a line has several parts and each of
+bodyText ||| them has its own format, then each part will become a unit. Each
+bodyText ||| unit will be treated as an instance in learning. A unit contains not
+bodyText ||| only content information (linguistic information) but also
+bodyText ||| formatting information. The input to pre-processing is a document
+bodyText ||| and the output of pre-processing is a sequence of units (instances).
+bodyText ||| Figure 5 shows the units obtained from the document in Figure 2.
+figureCaption ||| Figure 5. Example of units.
+bodyText ||| In learning, the input is sequences of units where each sequence
+bodyText ||| corresponds to a document. We take labeled units (labeled as
+bodyText ||| title_begin, title_end, or other) in the sequences as training data
+bodyText ||| and construct models for identifying whether a unit is title_begin
+bodyText ||| title_end, or other. We employ four types of models: Perceptron,
+bodyText ||| Maximum Entropy (ME), Perceptron Markov Model (PMM), and
+bodyText ||| Maximum Entropy Markov Model (MEMM).
+bodyText ||| In extraction, the input is a sequence of units from one document.
+bodyText ||| We employ one type of model to identify whether a unit is
+bodyText ||| title_begin, title_end, or other. We then extract units from the unit
+bodyText ||| labeled with ‘title_begin’ to the unit labeled with ‘title_end’. The
+bodyText ||| result is the extracted title of the document.
+bodyText ||| The unique characteristic of our approach is that we mainly utilize
+bodyText ||| formatting information for title extraction. Our assumption is that
+bodyText ||| although general documents vary in styles, their formats have
+bodyText ||| certain patterns and we can learn and utilize the patterns for title
+bodyText ||| extraction. This is in contrast to the work by Han et al., in which
+bodyText ||| only linguistic features are used for extraction from research
+bodyText ||| papers.
+subsectionHeader ||| 4.2 Models
+bodyText ||| The four models actually can be considered in the same metadata
+bodyText ||| extraction framework. That is why we apply them together to our
+bodyText ||| current problem.
+bodyText ||| Each input is a sequence of instances x1x2 L xk together with a
+bodyText ||| sequence of labels y1 y2 L yk . xi and yi represents an instance
+bodyText ||| and its label, respectively (i =1,2, L , k ). Recall that an instance
+bodyText ||| here represents a unit. A label represents title_begin, title_end, or
+bodyText ||| other. Here, k is the number of units in a document.
+bodyText ||| In learning, we train a model which can be generally denoted as a
+bodyText ||| conditional probability distribution P(Y1 L Yk | X1 L Xk) where
+bodyText ||| Xi and Yi denote random variables taking instance xi and label
+bodyText ||| yi as values, respectively ( i =1,2, L ,k).
+figure ||| x11 x12 L x1k → y11y12 L y1k
+figure ||| x21x22 L x2k → y21y22 L y2k
+figure ||| L L
+figure ||| xn1xn 2 L x1k → yn1yn2 L ynk
+figure ||| Learning Tool
+figure ||| xm1xm2 L xmk	Extraction Tool
+figure ||| arg max P(ymLym k | xm1 L xmk
+figureCaption ||| Figure 6. Metadata extraction model.
+bodyText ||| We can make assumptions about the general model in order to
+bodyText ||| make it simple enough for training.
+bodyText ||| Conditional
+bodyText ||| Distribution
+equation ||| P(Y1L Yk | X1LXk)
+equation ||| )
+page ||| 148
+bodyText ||| For example, we can assume that Y1 , ... , Yk are independent of
+bodyText ||| each other given X 1 ,... ,X k . Thus, we have
+equation ||| P(Y1 ... Yk|X1 ... Xk)
+equation ||| =P ( Y 1 | X 1)... P(Yk | Xk)
+bodyText ||| In this way, we decompose the model into a number of classifiers.
+bodyText ||| We train the classifiers locally using the labeled data. As the
+bodyText ||| classifier, we employ the Perceptron or Maximum Entropy model.
+bodyText ||| We can also assume that the first order Markov property holds for
+bodyText ||| Y1 , ... , Yk given X1 ,... ,Xk . Thus, we have
+bodyText ||| Again, we obtain a number of classifiers. However, the classifiers
+bodyText ||| are conditioned on the previous label. When we employ the
+bodyText ||| Percepton or Maximum Entropy model as a classifier, the models
+bodyText ||| become a Percepton Markov Model or Maximum Entropy Markov
+bodyText ||| Model, respectively. That is to say, the two models are more
+bodyText ||| precise.
+bodyText ||| In extraction, given a new sequence of instances, we resort to one
+bodyText ||| of the constructed models to assign a sequence of labels to the
+bodyText ||| sequence of instances, i.e., perform extraction.
+bodyText ||| For Perceptron and ME, we assign labels locally and combine the
+bodyText ||| results globally later using heuristics. Specifically, we first
+bodyText ||| identify the most likely title_begin. Then we find the most likely
+bodyText ||| title _end within three units after the title _begin. Finally, we
+bodyText ||| extract as a title the units between the title_begin and the title_end.
+bodyText ||| For PMM and MEMM, we employ the Viterbi algorithm to find
+bodyText ||| the globally optimal label sequence.
+bodyText ||| In this paper, for Perceptron, we actually employ an improved
+bodyText ||| variant of it, called Perceptron with Uneven Margin [13]. This
+bodyText ||| version of Perceptron can work well especially when the number
+bodyText ||| of positive instances and the number of negative instances differ
+bodyText ||| greatly, which is exactly the case in our problem.
+bodyText ||| We also employ an improved version of Perceptron Markov
+bodyText ||| Model in which the Perceptron model is the so-called Voted
+bodyText ||| Perceptron [2]. In addition, in training, the parameters of the
+bodyText ||| model are updated globally rather than locally.
+subsectionHeader ||| 4.3 Features
+bodyText ||| There are two types of features: format features and linguistic
+bodyText ||| features. We mainly use the former. The features are used for both
+bodyText ||| the title-begin and the title-end classifiers.
+subsubsectionHeader ||| 4.3.1 Format Features
+listItem ||| Font Size: There are four binary features that represent the
+listItem ||| normalized font size of the unit (recall that a unit has only one
+listItem ||| type of font).
+bodyText ||| If the font size of the unit is the largest in the document, then the
+bodyText ||| first feature will be 1, otherwise 0. If the font size is the smallest
+bodyText ||| in the document, then the fourth feature will be 1, otherwise 0. If
+bodyText ||| the font size is above the average font size and not the largest in
+bodyText ||| the document, then the second feature will be 1, otherwise 0. If the
+bodyText ||| font size is below the average font size and not the smallest, the
+bodyText ||| third feature will be 1, otherwise 0.
+bodyText ||| It is necessary to conduct normalization on font sizes. For
+bodyText ||| example, in one document the largest font size might be ‘12pt’,
+bodyText ||| while in another the smallest one might be ‘18pt’.
+listItem ||| Boldface: This binary feature represents whether or not the
+listItem ||| current unit is in boldface.
+listItem ||| Alignment: There are four binary features that respectively
+listItem ||| represent the location of the current unit: ‘left’, ‘center’, ‘right’,
+listItem ||| and ‘unknown alignment’.
+bodyText ||| The following format features with respect to ‘context’ play an
+bodyText ||| important role in title extraction.
+listItem ||| Empty Neighboring Unit: There are two binary features that
+listItem ||| represent, respectively, whether or not the previous unit and the
+listItem ||| current unit are blank lines.
+listItem ||| Font Size Change: There are two binary features that represent,
+listItem ||| respectively, whether or not the font size of the previous unit and
+listItem ||| the font size of the next unit differ from that of the current unit.
+listItem ||| Alignment Change: There are two binary features that represent,
+listItem ||| respectively, whether or not the alignment of the previous unit and
+listItem ||| the alignment of the next unit differ from that of the current one.
+listItem ||| Same Paragraph: There are two binary features that represent,
+listItem ||| respectively, whether or not the previous unit and the next unit are
+listItem ||| in the same paragraph as the current unit.
+subsubsectionHeader ||| 4.3.2 Linguistic Features
+bodyText ||| The linguistic features are based on key words.
+listItem ||| Positive Word: This binary feature represents whether or not the
+listItem ||| current unit begins with one of the positive words. The positive
+listItem ||| words include ‘title:’, ‘subject:’, ‘subject line:’ For example, in
+listItem ||| some documents the lines of titles and authors have the same
+listItem ||| formats. However, if lines begin with one of the positive words,
+listItem ||| then it is likely that they are title lines.
+listItem ||| Negative Word: This binary feature represents whether or not the
+listItem ||| current unit begins with one of the negative words. The negative
+listItem ||| words include ‘To’, ‘By’, ‘created by’, ‘updated by’, etc.
+bodyText ||| There are more negative words than positive words. The above
+bodyText ||| linguistic features are language dependent.
+listItem ||| Word Count: A title should not be too long. We heuristically
+bodyText ||| create four intervals: [1, 2], [3, 6], [7, 9] and [9, ∞ ) and define one
+bodyText ||| feature for each interval. If the number of words in a title falls into
+bodyText ||| an interval, then the corresponding feature will be 1; otherwise 0.
+listItem ||| Ending Character: This feature represents whether the unit ends
+listItem ||| with ‘:’, ‘-’, or other special characters. A title usually does not
+listItem ||| end with such a character.
+sectionHeader ||| 5. DOCUMENT RETRIEVAL METHOD
+bodyText ||| We describe our method of document retrieval using extracted
+bodyText ||| titles.
+bodyText ||| Typically, in information retrieval a document is split into a
+bodyText ||| number of fields including body, title, and anchor text. A ranking
+bodyText ||| function in search can use different weights for different fields of
+equation ||| P (Y1... Yk | X1... Xk
+equation ||| =X0... P(Yk | Yk,Xk)
+equation ||| )
+equation ||| P(Y1 |
+page ||| 149
+bodyText ||| the document. Also, titles are typically assigned high weights,
+bodyText ||| indicating that they are important for document retrieval. As
+bodyText ||| explained previously, our experiment has shown that a significant
+bodyText ||| number of documents actually have incorrect titles in the file
+bodyText ||| properties, and thus in addition of using them we use the extracted
+bodyText ||| titles as one more field of the document. By doing this, we attempt
+bodyText ||| to improve the overall precision.
+bodyText ||| In this paper, we employ a modification of BM25 that allows field
+bodyText ||| weighting [21]. As fields, we make use of body, title, extracted
+bodyText ||| title and anchor. First, for each term in the query we count the
+bodyText ||| term frequency in each field of the document; each field
+bodyText ||| frequency is then weighted according to the corresponding weight
+bodyText ||| parameter:
+equation ||| wtf, =∑wftfe
+equation ||| f
+bodyText ||| Similarly, we compute the document length as a weighted sum of
+bodyText ||| lengths of each field. Average document length in the corpus
+bodyText ||| becomes the average of all weighted document lengths.
+equation ||| wdl =∑wfdlf
+equation ||| f
+equation ||| w
+equation ||| t k1 ((1−b)+b wdl )+wtf	n
+equation ||| avwdl
+sectionHeader ||| 6. EXPERIMENTAL RESULTS
+bodyText ||| Inourexperiments we used
+none ||| k1
+none |||  =1.8, b = 0.75. Weightforcontent
+none ||| was 1.0, title was 10.0, anchorwas 10.0, andextractedtitle was
+none ||| 5.0.
+subsectionHeader ||| 6.1 Data Sets and Evaluation Measures
+bodyText ||| We usedtwo datasets inourexperiments.
+bodyText ||| First, we downloadedandrandomly selected5,000 Word
+bodyText ||| documents and5,000 PowerPointdocuments fr
+bodyText ||| om an intranet of
+bodyText ||| Microsoft. We call it MS hereafter.
+bodyText ||| Second, we downloadedandrandomlyselected500 Wordand500
+bodyText ||| PowerPointdocuments fromthe DotGov andDotComdomains on
+bodyText ||| the
+bodyText |||  internet,
+bodyText |||  respectively.
+figureCaption ||| Figure 7 shows the distributions ofthe genres ofthedocuments.
+bodyText ||| We see thatthe documents are indeed
+bodyText |||  ‘generaldocuments’
+bodyText |||  as
+bodyText |||  we
+bodyText ||| define them.
+bodyText ||| internet.
+bodyText ||| d 500 PowerPoint documents
+bodyText ||| in Chinese.
+bodyText ||| Wemanuallylabeledthe titles ofall the documents, onthe basis
+bodyText ||| ofourspecification.
+bodyText ||| Notall the documents inthe two datasets have titles. Table 1
+bodyText ||| shows the percentages ofthe documents having titles. Wesee that
+bodyText ||| DotComandDotGov have more PowerPointdocuments with titles
+bodyText ||| thanMS. This mightbebecausePowerPointdocuments published
+bodyText ||| onthe
+bodyText ||| internet
+bodyText ||| aremore formal thanthose onthe
+bodyText ||| intranet.
+tableCaption ||| Table 1. The portion of documents with titles
+bodyText ||| Inourexperiments, we conductedevaluations ontitle extractionin
+bodyText ||| terms ofprecision, recall, andF-measure. The evaluation
+bodyText ||| measures aredefinedas
+bodyText |||  follows:
+equation ||| Precision:	P = A/
+equation |||  ( A
+equation |||  + B )
+equation ||| Recall:
+equation ||| R = A / ( A + C )
+equation ||| F-measure:
+equation ||| F1
+equation |||  = 2PR/
+equation |||  ( P
+equation |||  +
+equation ||| R )
+bodyText ||| Here, A, B, C, andD are numbers ofdocuments as
+bodyText |||  those defined
+bodyText ||| in Table 2.
+tableCaption ||| Table 2. Contingence table with regard to title extraction
+subsectionHeader ||| 6.2 Baselines
+bodyText ||| Wetestthe accuracies ofthe two baselines describedinsection
+bodyText ||| 4.2. Theyare denotedas
+bodyText ||| ‘largest
+bodyText ||| font
+bodyText |||  size’
+bodyText |||  an
+bodyText ||| d ‘first line’
+bodyText ||| respectively.
+subsectionHeader ||| 6.3 Accuracy ofTitles in File Properties
+bodyText ||| Weinvestigate howmanytitles inthe file properties ofthe
+bodyText ||| documents arereliable. We viewthe titles annotatedbyhumans as
+bodyText ||| true titles andtesthowmanytitles inthe fileproperties can
+bodyText ||| approximatelymatch with the truetitles. We useEditDistance to
+bodyText ||| conductthe approximate match. (Approximate match is onlyused
+bodyText ||| inthis evaluation). This is becausesometimes humanannotated
+bodyText ||| titles canbe slightlydifferentfromthe titles infile properties on
+bodyText ||| the surface, e.g., containextraspaces).
+bodyText ||| GivenstringA andstringB:
+bodyText ||| if ( (D == 0) or ( D / ( La + Lb ) &lt; θ ) ) then
+bodyText ||| string
+bodyText ||| A =
+bodyText |||  string B
+bodyText ||| D:	EditDistan
+bodyText ||| ce between string A and string B
+bodyText ||| La:	length of string A
+bodyText ||| Lb:	length of string B
+equation ||| e:	0.1
+equation ||| BM25F = ∑ 	`	× log( N)
+equation ||| tf, (k, 1)
+table ||| Domain		MSDotComDotGovType	
+table ||| 		Word	75.7%	77.8%	75.6%	
+table ||| 	PowerPoint	82.1%	93.4%	96.4%		
+figureCaption ||| Figure 7. Distributions of document genres.
+table ||| 	Is title	Is not title
+table ||| Extracted	Third, adatasetinChinese was also downloadedfromthe	B
+table ||| 	A	
+table ||| Itincludes 500 Worddocuments an	C	D
+table ||| Not extracted		
+page ||| 150
+tableCaption ||| Table 3. Accuracies of titles in file properties
+table ||| File Type	Domain	Precision	Recall	F1
+table ||| Word	MS	0.299	0.311	0.305
+table ||| 	DotCom	0.210	0.214	0.212
+table ||| 	DotGov	0.182	0.177	0.180
+table ||| PowerPoint	MS	0.229	0.245	0.237
+table ||| 	DotCom	0.185	0.186	0.186
+table ||| 	DotGov	0.180	0.182	0.181
+subsectionHeader ||| 6.4 Comparison with Baselines
+bodyText ||| We conducted title extraction from the first data set (Word and
+bodyText ||| PowerPoint in MS). As the model, we used Perceptron.
+bodyText ||| We conduct 4-fold cross validation. Thus, all the results reported
+bodyText ||| here are those averaged over 4 trials. Tables 4 and 5 show the
+bodyText ||| results. We see that Perceptron significantly outperforms the
+bodyText ||| baselines. In the evaluation, we use exact matching between the
+bodyText ||| true titles annotated by humans and the extracted titles.
+tableCaption ||| Table 4. Accuracies of title extraction with Word
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.810	0.837	0.823
+table ||| Baselines	Largest font size	0.700	0.758	0.727
+table ||| 	First line	0.707	0.767	0.736
+tableCaption ||| Table 5. Accuracies of title extraction with PowerPoint
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.875	0. 895	0.885
+table ||| Baselines	Largest font size	0.844	0.887	0.865
+table ||| 	First line	0.639	0.671	0.655
+bodyText ||| We see that the machine learning approach can achieve good
+bodyText ||| performance in title extraction. For Word documents both
+bodyText ||| precision and recall of the approach are 8 percent higher than
+bodyText ||| those of the baselines. For PowerPoint both precision and recall of
+bodyText ||| the approach are 2 percent higher than those of the baselines.
+bodyText ||| We conduct significance tests. The results are shown in Table 6.
+bodyText ||| Here, ‘Largest’ denotes the baseline of using the largest font size,
+bodyText ||| ‘First’ denotes the baseline of using the first line. The results
+bodyText ||| indicate that the improvements of machine learning over baselines
+bodyText ||| are statistically significant (in the sense p-value &lt; 0.05)
+tableCaption ||| Table 6. Sign test results
+table ||| Documents Type	Sign test between	p-value
+table ||| Word	Perceptron vs. Largest	3.59e-26
+table ||| 	Perceptron vs. First	7.12e-10
+table ||| PowerPoint	Perceptron vs. Largest	0.010
+table ||| 	Perceptron vs. First	5.13e-40
+bodyText ||| We see, from the results, that the two baselines can work well for
+bodyText ||| title extraction, suggesting that font size and position information
+bodyText ||| are most useful features for title extraction. However, it is also
+bodyText ||| obvious that using only these two features is not enough. There
+bodyText ||| are cases in which all the lines have the same font size (i.e., the
+bodyText ||| largest font size), or cases in which the lines with the largest font
+bodyText ||| size only contain general descriptions like ‘Confidential’, ‘White
+bodyText ||| paper’, etc. For those cases, the ‘largest font size’ method cannot
+bodyText ||| work well. For similar reasons, the ‘first line’ method alone
+bodyText ||| cannot work well, either. With the combination of different
+bodyText ||| features (evidence in title judgment), Perceptron can outperform
+bodyText ||| Largest and First.
+bodyText ||| We investigate the performance of solely using linguistic features.
+bodyText ||| We found that it does not work well. It seems that the format
+bodyText ||| features play important roles and the linguistic features are
+bodyText ||| supplements..
+bodyText ||| We conducted an error analysis on the results of Perceptron. We
+bodyText ||| found that the errors fell into three categories. (1) About one third
+bodyText ||| of the errors were related to ‘hard cases’. In these documents, the
+bodyText ||| layouts of the first pages were difficult to understand, even for
+bodyText ||| humans. Figure 8 and 9 shows examples. (2) Nearly one fourth of
+bodyText ||| the errors were from the documents which do not have true titles
+bodyText ||| but only contain bullets. Since we conduct extraction from the top
+bodyText ||| regions, it is difficult to get rid of these errors with the current
+bodyText ||| approach. (3). Confusions between main titles and subtitles were
+bodyText ||| another type of error. Since we only labeled the main titles as
+bodyText ||| titles, the extractions of both titles were considered incorrect. This
+bodyText ||| type of error does little harm to document processing like search,
+bodyText ||| however.
+subsectionHeader ||| 6.5 Comparison between Models
+bodyText ||| To compare the performance of different machine learning models,
+bodyText ||| we conducted another experiment. Again, we perform 4-fold cross
+figureCaption ||| Figure 8. An example Word document.
+figureCaption ||| Figure 9. An example PowerPoint document.
+page ||| 151
+bodyText ||| validation on the first data set (MS). Table 7, 8 shows the results
+bodyText ||| of all the four models.
+bodyText ||| It turns out that Perceptron and PMM perform the best, followed
+bodyText ||| by MEMM, and ME performs the worst. In general, the
+bodyText ||| Markovian models perform better than or as well as their classifier
+bodyText ||| counterparts. This seems to be because the Markovian models are
+bodyText ||| trained globally, while the classifiers are trained locally. The
+bodyText ||| Perceptron based models perform better than the ME based
+bodyText ||| counterparts. This seems to be because the Perceptron based
+bodyText ||| models are created to make better classifications, while ME
+bodyText ||| models are constructed for better prediction.
+tableCaption ||| Table 7. Comparison between different learning models for
+table ||| title extraction with Word
+table ||| Model	Precision	Recall	F1
+table ||| Perceptron	0.810	0.837	0.823
+table ||| MEMM	0.797	0.824	0.810
+table ||| PMM	0.827	0.823	0.825
+table ||| ME	0.801	0.621	0.699
+tableCaption ||| Table 8. Comparison between different learning models for
+table ||| title extraction with PowerPoint
+table ||| Model	Precision	Recall	F1
+table ||| Perceptron	0.875	0. 895	0. 885
+table ||| MEMM	0.841	0.861	0.851
+table ||| PMM	0.873	0.896	0.885
+table ||| ME	0.753	0.766	0.759
+subsectionHeader ||| 6.6 Domain Adaptation
+bodyText ||| We apply the model trained with the first data set (MS) to the
+bodyText ||| second data set (DotCom and DotGov). Tables 9-12 show the
+bodyText ||| results.
+tableCaption ||| Table 9. Accuracies of title extraction with Word in DotGov
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.716	0.759	0.737
+table ||| Baselines	Largest font size	0.549	0.619	0.582
+table ||| 	First line	0.462	0.521	0.490
+tableCaption ||| Table 10. Accuracies of title extraction with PowerPoint in
+table ||| DotGov
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.900	0.906	0.903
+table ||| Baselines	Largest font size	0.871	0.888	0.879
+table ||| 	First line	0.554	0.564	0.559
+tableCaption ||| Table 11. Accuracies of title extraction with Word in DotCom
+table ||| 		Precisio	Recall	F1
+table ||| 		n		
+table ||| Model	Perceptron	0.832	0.880	0.855
+table ||| Baselines	Largest font size	0.676	0.753	0.712
+table ||| 	First line	0.577	0.643	0.608
+tableCaption ||| Table 12. Performance of PowerPoint document title
+table ||| extraction in DotCom
+table ||| 		Precisio	Recall	F1
+table ||| 		n		
+table ||| Model	Perceptron	0.910	0.903	0.907
+table ||| Baselines	Largest font size	0.864	0.886	0.875
+table ||| 	First line	0.570	0.585	0.577
+bodyText ||| From the results, we see that the models can be adapted to
+bodyText ||| different domains well. There is almost no drop in accuracy. The
+bodyText ||| results indicate that the patterns of title formats exist across
+bodyText ||| different domains, and it is possible to construct a domain
+bodyText ||| independent model by mainly using formatting information.
+subsectionHeader ||| 6.7 Language Adaptation
+bodyText ||| We apply the model trained with the data in English (MS) to the
+bodyText ||| data set in Chinese.
+bodyText ||| Tables 13-14 show the results.
+tableCaption ||| Table 13. Accuracies of title extraction with Word in Chinese
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.817	0.805	0.811
+table ||| Baselines	Largest font size	0.722	0.755	0.738
+table ||| 	First line	0.743	0.777	0.760
+tableCaption ||| Table 14. Accuracies of title extraction with PowerPoint in
+tableCaption ||| Chinese
+table ||| 		Precision	Recall	F1
+table ||| Model	Perceptron	0.766	0.812	0.789
+table ||| Baselines	Largest font size	0.753	0.813	0.782
+table ||| 	First line	0.627	0.676	0.650
+bodyText ||| We see that the models can be adapted to a different language.
+bodyText ||| There are only small drops in accuracy. Obviously, the linguistic
+bodyText ||| features do not work for Chinese, but the effect of not using them
+bodyText ||| is negligible. The results indicate that the patterns of title formats
+bodyText ||| exist across different languages.
+bodyText ||| From the domain adaptation and language adaptation results, we
+bodyText ||| conclude that the use of formatting information is the key to a
+bodyText ||| successful extraction from general documents.
+subsectionHeader ||| 6.8 Search with Extracted Titles
+bodyText ||| We performed experiments on using title extraction for document
+bodyText ||| retrieval. As a baseline, we employed BM25 without using
+bodyText ||| extracted titles. The ranking mechanism was as described in
+bodyText ||| Section 5. The weights were heuristically set. We did not conduct
+bodyText ||| optimization on the weights.
+bodyText ||| The evaluation was conducted on a corpus of 1.3 M documents
+bodyText ||| crawled from the intranet of Microsoft using 100 evaluation
+bodyText ||| queries obtained from this intranet’s search engine query logs. 50
+bodyText ||| queries were from the most popular set, while 50 queries other
+bodyText ||| were chosen randomly. Users were asked to provide judgments of
+bodyText ||| the degree of document relevance from a scale of 1to 5 (1
+bodyText ||| meaning detrimental, 2 – bad, 3 – fair, 4 – good and 5 – excellent).
+page ||| 152
+bodyText ||| Figure 10 shows the results. In the chart two sets of precision
+bodyText ||| results were obtained by either considering good or excellent
+bodyText ||| documents as relevant (left 3 bars with relevance threshold 0.5), or
+bodyText ||| by considering only excellent documents as relevant (right 3 bars
+bodyText ||| with relevance threshold 1.0)
+figure ||| Name All
+figureCaption ||| Figure 10. Search ranking results.
+bodyText ||| Figure 10 shows different document retrieval results with different
+bodyText ||| ranking functions in terms of precision @10, precision @5 and
+bodyText ||| reciprocal rank:
+listItem ||| •	Blue bar – BM25 including the fields body, title (file
+listItem ||| property), and anchor text.
+listItem ||| •	Purple bar – BM25 including the fields body, title (file
+bodyText ||| property), anchor text, and extracted title.
+bodyText ||| With the additional field of extracted title included in BM25 the
+bodyText ||| precision @10 increased from 0.132 to 0.145, or by ~10%. Thus,
+bodyText ||| it is safe to say that the use of extracted title can indeed improve
+bodyText ||| the precision of document retrieval.
+sectionHeader ||| 7. CONCLUSION
+bodyText ||| In this paper, we have investigated the problem of automatically
+bodyText ||| extracting titles from general documents. We have tried using a
+bodyText ||| machine learning approach to address the problem.
+bodyText ||| Previous work showed that the machine learning approach can
+bodyText ||| work well for metadata extraction from research papers. In this
+bodyText ||| paper, we showed that the approach can work for extraction from
+bodyText ||| general documents as well. Our experimental results indicated that
+bodyText ||| the machine learning approach can work significantly better than
+bodyText ||| the baselines in title extraction from Office documents. Previous
+bodyText ||| work on metadata extraction mainly used linguistic features in
+bodyText ||| documents, while we mainly used formatting information. It
+bodyText ||| appeared that using formatting information is a key for
+bodyText ||| successfully conducting title extraction from general documents.
+bodyText ||| We tried different machine learning models including Perceptron,
+bodyText ||| Maximum Entropy, Maximum Entropy Markov Model, and Voted
+bodyText ||| Perceptron. We found that the performance of the Perceptorn
+bodyText ||| models was the best. We applied models constructed in one
+bodyText ||| domain to another domain and applied models trained in one
+bodyText ||| language to another language. We found that the accuracies did
+bodyText ||| not drop substantially across different domains and across
+bodyText ||| different languages, indicating that the models were generic. We
+bodyText ||| also attempted to use the extracted titles in document retrieval. We
+bodyText ||| observed a significant improvement in document ranking
+bodyText ||| performance for search when using extracted title information. All
+bodyText ||| the above investigations were not conducted in previous work, and
+bodyText ||| through our investigations we verified the generality and the
+bodyText ||| significance of the title extraction approach.
+sectionHeader ||| 8. ACKNOWLEDGEMENTS
+bodyText ||| We thank Chunyu Wei and Bojuan Zhao for their work on data
+bodyText ||| annotation. We acknowledge Jinzhu Li for his assistance in
+bodyText ||| conducting the experiments. We thank Ming Zhou, John Chen,
+bodyText ||| Jun Xu, and the anonymous reviewers of JCDL’05 for their
+bodyText ||| valuable comments on this paper.
+sectionHeader ||| 9. REFERENCES
+reference ||| [1] Berger, A. L., Della Pietra, S. A., and Della Pietra, V. J. A
+reference ||| maximum entropy approach to natural language processing.
+reference ||| Computational Linguistics, 22:39-71, 1996.
+reference ||| [2] Collins, M. Discriminative training methods for hidden
+reference ||| markov models: theory and experiments with perceptron
+reference ||| algorithms. In Proceedings of Conference on Empirical
+reference ||| Methods in Natural Language Processing, 1-8, 2002.
+reference ||| [3] Cortes, C. and Vapnik, V. Support-vector networks. Machine
+reference ||| Learning, 20:273-297, 1995.
+reference ||| [4] Chieu, H. L. and Ng, H. T. A maximum entropy approach to
+reference ||| information extraction from semi-structured and free text. In
+reference ||| Proceedings of the Eighteenth National Conference on
+reference ||| Artificial Intelligence, 768-791, 2002.
+reference ||| [5] Evans, D. K., Klavans, J. L., and McKeown, K. R. Columbia
+reference ||| newsblaster: multilingual news summarization on the Web.
+reference ||| In Proceedings of Human Language Technology conference /
+reference ||| North American chapter of the Association for
+reference ||| Computational Linguistics annual meeting, 1-4, 2004.
+reference ||| [6] Ghahramani, Z. and Jordan, M. I. Factorial hidden markov
+reference ||| models. Machine Learning, 29:245-273, 1997.
+reference ||| [7] Gheel, J. and Anderson, T. Data and metadata for finding and
+reference ||| reminding, In Proceedings of the 1999 International
+reference ||| Conference on Information Visualization, 446-451,1999.
+reference ||| [8] Giles, C. L., Petinot, Y., Teregowda P. B., Han, H.,
+reference ||| Lawrence, S., Rangaswamy, A., and Pal, N. eBizSearch: a
+reference ||| niche search engine for e-Business. In Proceedings of the
+reference ||| 26th Annual International ACM SIGIR Conference on
+reference ||| Research and Development in Information Retrieval, 413-
+reference ||| 414, 2003.
+reference ||| [9] Giuffrida, G., Shek, E. C., and Yang, J. Knowledge-based
+reference ||| metadata extraction from PostScript files. In Proceedings of
+reference ||| the Fifth ACM Conference on Digital Libraries, 77-84, 2000.
+reference ||| [ 10] Han, H., Giles, C. L., Manavoglu, E., Zha, H., Zhang, Z., and
+reference ||| Fox, E. A. Automatic document metadata extraction using
+reference ||| support vector machines. In Proceedings of the Third
+reference ||| ACM/IEEE-CS Joint Conference on Digital Libraries, 37-48,
+reference ||| 2003.
+reference ||| [1 1 ] Kobayashi, M., and Takeda, K. Information retrieval on the
+reference ||| Web. ACM Computing Surveys, 32:144-173, 2000.
+reference ||| [ 12] Lafferty, J., McCallum, A., and Pereira, F. Conditional
+reference ||| random fields: probabilistic models for segmenting and
+figure ||| 0.45
+figure ||| BM25 AnchorTitle, Body
+figure ||| BM25 AnchorTitle, Body ExtractedTitle
+figure ||| 0.4
+figure ||| 0.35
+figure ||| 0.3
+figure ||| 0.25
+figure ||| 0.2
+figure ||| 0.15
+figure ||| 0.1
+figure ||| 0.05
+figure ||| 0
+figure ||| P@10	P@5	ReciprocalP@10	P@5	Reciprocal
+figure ||| 0.5	1
+figure ||| RelevanceThreshold Data
+figure ||| Description
+page ||| 153
+reference ||| labeling sequence data. In Proceedings of the Eighteenth
+reference ||| International Conference on Machine Learning, 282-289,
+reference ||| 2001.
+reference ||| [13] Li, Y., Zaragoza, H., Herbrich, R., Shawe-Taylor J., and
+reference ||| Kandola, J. S. The perceptron algorithm with uneven margins.
+reference ||| In Proceedings of the Nineteenth International Conference
+reference ||| on Machine Learning, 379-386, 2002.
+reference ||| [14] Liddy, E. D., Sutton, S., Allen, E., Harwell, S., Corieri, S.,
+reference ||| Yilmazel, O., Ozgencil, N. E., Diekema, A., McCracken, N.,
+reference ||| and Silverstein, J. Automatic Metadata generation &amp;
+reference ||| evaluation. In Proceedings of the 25th Annual International
+reference ||| ACM SIGIR Conference on Research and Development in
+reference ||| Information Retrieval, 401-402, 2002.
+reference ||| [15] Littlefield, A. Effective enterprise information retrieval
+reference ||| across new content formats. In Proceedings of the Seventh
+reference ||| Search Engine Conference,
+reference ||| http://www.infonortics.com/searchengines/sh02/02prog.html,
+reference ||| 2002.
+reference ||| [16] Mao, S., Kim, J. W., and Thoma, G. R. A dynamic feature
+reference ||| generation system for automated metadata extraction in
+reference ||| preservation of digital materials. In Proceedings of the First
+reference ||| International Workshop on Document Image Analysis for
+reference ||| Libraries, 225-232, 2004.
+reference ||| [17] McCallum, A., Freitag, D., and Pereira, F. Maximum entropy
+reference ||| markov models for information extraction and segmentation.
+reference ||| In Proceedings of the Seventeenth International Conference
+reference ||| on Machine Learning, 591-598, 2000.
+reference ||| [ 18] Murphy, L. D. Digital document metadata in organizations:
+reference ||| roles, analytical approaches, and future research directions.
+reference ||| In Proceedings of the Thirty-First Annual Hawaii
+reference ||| International Conference on System Sciences, 267-276, 1998.
+reference ||| [19] Pinto, D., McCallum, A., Wei, X., and Croft, W. B. Table
+reference ||| extraction using conditional random fields. In Proceedings of
+reference ||| the 26th Annual International ACM SIGIR Conference on
+reference ||| Research and Development in Information Retrieval, 235-
+reference ||| 242, 2003.
+reference ||| [20] Ratnaparkhi, A. Unsupervised statistical models for
+reference ||| prepositional phrase attachment. In Proceedings of the
+reference ||| Seventeenth International Conference on Computational
+reference ||| Linguistics. 1079-1085, 1998.
+reference ||| [21] Robertson, S., Zaragoza, H., and Taylor, M. Simple BM25
+reference ||| extension to multiple weighted fields, In Proceedings of
+reference ||| ACM Thirteenth Conference on Information and Knowledge
+reference ||| Management, 42-49, 2004.
+reference ||| [22] Yi, J. and Sundaresan, N. Metadata based Web mining for
+reference ||| relevance, In Proceedings of the 2000 International
+reference ||| Symposium on Database Engineering &amp; Applications, 113-
+reference ||| 121, 2000.
+reference ||| [23] Yilmazel, O., Finneran, C. M., and Liddy, E. D. MetaExtract:
+reference ||| An NLP system to automatically assign metadata. In
+reference ||| Proceedings of the 2004 Joint ACM/IEEE Conference on
+reference ||| Digital Libraries, 241-242, 2004.
+reference ||| [24] Zhang, J. and Dimitroff, A. Internet search engines&apos; response
+reference ||| to metadata Dublin Core implementation. Journal of
+reference ||| Information Science, 30:310-320, 2004.
+reference ||| [25] Zhang, L., Pan, Y., and Zhang, T. Recognising and using
+reference ||| named entities: focused named entity recognition using
+reference ||| machine learning. In Proceedings of the 27th Annual
+reference ||| International ACM SIGIR Conference on Research and
+reference ||| Development in Information Retrieval, 281-288, 2004.
+reference ||| [26] http://dublincore.org/groups/corporate/Seattle/
+page ||| 154

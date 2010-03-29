@@ -1,0 +1,1008 @@
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+title ||| Donât Look Now, But Weâve Created a Bureaucracy:
+title ||| The Nature and Roles of Policies and Rules
+title ||| in Wikipedia
+author ||| Brian Butler
+affiliation ||| Katz Graduate School of
+affiliation ||| Business, University of
+affiliation ||| Pittsburgh
+email ||| bbutler@katz.pitt.edu
+author ||| Elisabeth Joyce
+affiliation ||| Edinboro University of
+affiliation ||| Pennsylvania
+email ||| ejoyce@edinboro.edu
+author ||| Jacqueline Pike
+affiliation ||| Katz Graduate School of
+affiliation ||| Business, University of
+affiliation ||| Pittsburgh
+email ||| jpike@katz.pitt.edu
+sectionHeader ||| ABSTRACT
+bodyText ||| Wikis are sites that support the development of emergent,
+bodyText ||| collective infrastructures that are highly flexible and open,
+bodyText ||| suggesting that the systems that use them will be
+bodyText ||| egalitarian, free, and unstructured. Yet it is apparent that
+bodyText ||| the flexible infrastructure of wikis allows the development
+bodyText ||| and deployment of a wide range of structures. However, we
+bodyText ||| find that the policies in Wikipedia and the systems and
+bodyText ||| mechanisms that operate around them are multi-faceted. In
+bodyText ||| this descriptive study, we draw on prior work on rules and
+bodyText ||| policies in organizations to propose and apply a conceptual
+bodyText ||| framework for understanding the natures and roles of
+bodyText ||| policies in wikis. We conclude that wikis are capable of
+bodyText ||| supporting a broader range of structures and activities than
+bodyText ||| other collaborative platforms. Wikis allow for and, in fact,
+bodyText ||| facilitate the creation of policies that serve a wide variety of
+bodyText ||| functions.
+sectionHeader ||| Author Keywords
+keyword ||| Wikis, Wikipedia, community, collaboration, policy,
+keyword ||| policies, rules, dynamics.
+sectionHeader ||| ACM Classification Keywords
+category ||| K.4.3. [Computers and Society]: Organizational Impact â
+category ||| Computer-supported collaborative work, H.5.3
+category ||| [Information Interfaces]: Group and Organization Interfaces
+category ||| - Collaborative computing, Web-based interaction,
+category ||| Computer-supported cooperative work, H.3.5 [Information
+category ||| Storage and Retrieval]: Online Information Systems.
+sectionHeader ||| INTRODUCTION
+construct ||| âThe Wikipedia online encyclopedia â written by
+construct ||| thousands of individuals working without a boss â shows
+construct ||| the way... â [28]
+bodyText ||| Wikipedia is characterized by many as emergent, complex,
+copyright ||| Permission to make digital or hard copies of all or part of this work for
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that copies
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise,
+copyright ||| or republish, to post on servers or to redistribute to lists, requires prior
+copyright ||| specific permission and/or a fee.
+note ||| CHI 2008, April 5â10, 2008, Florence, Italy.
+copyright ||| Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00
+bodyText ||| messy, informal, popularly uncontrolled, non-
+bodyText ||| organizational, and radically different from traditional
+bodyText ||| organizations [5, 11, 22, 42, 52, 53]. Consistent with this
+bodyText ||| characterization, one of the founding principles of
+bodyText ||| Wikipedia is âIgnore all rules,â which states that if a rule
+bodyText ||| inhibits developing Wikipedia, the contributor should
+bodyText ||| ignore it [45].
+bodyText ||| Yet examination of the administrative structures of
+bodyText ||| Wikipedia reveals a complex structure of rules, processes,
+bodyText ||| policies, and roles. There are 44 wiki pages in the
+bodyText ||| âWikipedia Official Policyâ category as of September
+bodyText ||| 20071. There are 248 wiki pages categorized as âWikipedia
+bodyText ||| guidelinesâ which are organized into at least eight
+bodyText ||| subcategories. In addition, these do not seem to be
+bodyText ||| sufficient, since there are 45 pending proposals for
+bodyText ||| guidelines and policies, not to mention the 200 rejected
+bodyText ||| proposals for guidelines and policies.
+bodyText ||| Even the principle of âIgnore all rules,â labeled as one of
+bodyText ||| the official Wikipedia policies, is not immune from such
+bodyText ||| âdevelopmentâ [45]. While the âIgnore all rulesâ policy
+bodyText ||| itself is only sixteen words long, the page explaining what
+bodyText ||| the policy means contains over 500 words, refers readers to
+bodyText ||| seven other documents, has generated over 8,000 words of
+bodyText ||| discussion, and has been changed over 100 times in less
+bodyText ||| than a year.
+bodyText ||| Studies of Wikipedia activities [5, 11, 42, 43] and
+bodyText ||| anecdotal discussions among participants [49] suggest that
+bodyText ||| these policies, rules, and guidelines play an important part
+bodyText ||| in both the day-to-day operations and overall success of
+bodyText ||| Wikipedia. These arguments are consistent with findings
+bodyText ||| and arguments made with regard to other types of online
+bodyText ||| collective action, such as online communities [19, 24, 32],
+bodyText ||| open source development [15, 16, 26, 41, 44], and virtual
+bodyText ||| organizations [1].
+bodyText ||| The purpose of this study is to propose a conceptual
+bodyText ||| framework for understanding the nature and role of policies
+bodyText ||| and rules within wikis. Drawing from prior studies of rules
+footnote ||| 1 All references to Wikipedia content are based on data
+footnote ||| exported from the site in September 2007. Since the
+footnote ||| policies undergo perpetual re-editing and reconfiguring, the
+footnote ||| data presented here represents a snap-shot.
+page ||| 1101
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+bodyText ||| and policies in a variety of contexts, including teams,
+bodyText ||| traditional organizations, and legal systems [29], different
+bodyText ||| images of rules and policies are considered. In each case,
+bodyText ||| examples and evidence are drawn from Wikipedia to
+bodyText ||| illustrate that view of rules and policies. Following this we
+bodyText ||| discuss the implications of the framework for understanding
+bodyText ||| both the potential and likely outcomes of wiki efforts and
+bodyText ||| design implications of the different perspectives for both
+bodyText ||| wiki implementation and development of infrastructures for
+bodyText ||| supporting wiki-like initiatives.
+sectionHeader ||| RULES, POLICIES AND GUIDELINES
+bodyText ||| In the broadest scope, terms like rules, policies, and
+bodyText ||| guidelines all refer to the âexplicit and implicit norms,
+bodyText ||| regulations, and expectations that regulate the behavior of
+bodyText ||| individuals and interactions between themâ [29 p. 5].
+bodyText ||| Taken in its most general sense, this definition can also be
+bodyText ||| seen as including informal or implicit norms and constraints
+bodyText ||| that can significantly affect behavior and interaction, even
+bodyText ||| though they are not formally recognized or recorded.
+bodyText ||| Given the widely discussed importance of informal norms
+bodyText ||| in contexts such as open source projects [35, 41] and other
+bodyText ||| online social settings [3, 4], it may be beneficial to equate
+bodyText ||| formal and informal rules. In particular this approach
+bodyText ||| suggests that insights and results from the study of explicit,
+bodyText ||| formal rules and policies may be useful for understanding
+bodyText ||| the development, application, and impact of informal rules
+bodyText ||| and norms. However, in this study we focus on formal, or
+bodyText ||| written, policies, rules, and guidelines.
+bodyText ||| We use the terms rules, policies, and guidelines
+bodyText ||| interchangeably. While there are some contexts in which
+bodyText ||| these are clearly conceptually distinguishable, the
+bodyText ||| difference between and application of the terms vary from
+bodyText ||| context to context. This suggests that while some aspects
+bodyText ||| require distinguishing them from each other, there is not
+bodyText ||| ready agreement on what they are or how the terms should
+bodyText ||| be used. Furthermore, and for our purposes perhaps more
+bodyText ||| importantly, this conceptual equivalence is reflected in the
+bodyText ||| Wikipedia definitions which state:
+construct ||| âA guideline is any page that is: (1) actionable (i.e. it
+construct ||| recommends, or recommends against, an action to be taken
+construct ||| by editors) and (2) authorized by consensus. Guidelines are
+construct ||| not set in stone and should be treated with common sense
+construct ||| and the occasional exception.
+construct ||| A policy is similar to a guideline, only more official and
+construct ||| less likely to have exceptions.â [48]
+bodyText ||| This study focuses on formal written policies for both
+bodyText ||| practical and conceptual reasons. Practically, formal rules
+bodyText ||| are ideal for study because of the relative ease of
+bodyText ||| determining what the policy is, when it was put in place,
+bodyText ||| who participated in creating it, when it was referenced, and,
+bodyText ||| in some cases, when it was removed. This is particularly
+bodyText ||| true in the context of a wiki because of its facilities for
+bodyText ||| archiving and managing collaborative documents.
+bodyText ||| However, beyond the practical issues, formal written rules
+bodyText ||| and policies are significant because of their role as
+bodyText ||| boundary objects [33, 34], or as specifications of how the
+bodyText ||| content will be used and communication will occur. They
+bodyText ||| can serve a variety of purposes by virtue of the fact that
+bodyText ||| they are explicit and external. Because they are explicit and
+bodyText ||| visible, though, written policies and rules are often sites of
+bodyText ||| conflict [29 p. 18]. These same characteristics also mean
+bodyText ||| that written policies have greater potential as levers for
+bodyText ||| developers, designers, and managers to affect a community
+bodyText ||| or collaborative effort [10, 19].
+bodyText ||| Hence, while it may be the case that informal norms are
+bodyText ||| important, it makes sense to focus on the nature and role of
+bodyText ||| formal written rules and policies in the operation of a
+bodyText ||| distributed collaborative effort like Wikipedia.
+sectionHeader ||| IMAGES AND ROLES OF RULES AND POLICIES
+bodyText ||| Because of their centrality in so many aspects of society
+bodyText ||| and organizational and individual behaviors, rules and
+bodyText ||| policies have been studied by scholars in a wide variety of
+bodyText ||| fields, including law, sociology, political science,
+bodyText ||| economics, management science, anthropology, linguistics,
+bodyText ||| and organizational studies. While these scholars typically
+bodyText ||| adopt definitions similar to those described above, the
+bodyText ||| assumptions they make about the source, nature, and
+bodyText ||| implications of rules and policies can vary significantly.
+bodyText ||| While this lack of consensus can present challenges, it also
+bodyText ||| provides a basis for characterizing the multifaceted nature
+bodyText ||| of rules, policies, and guidelines.
+bodyText ||| In particular, prior work provides several perspectives
+bodyText ||| which can be used to view rules and policies, including
+bodyText ||| rules and policies as:
+listItem ||| â¢	Rational efforts to organize and coordinate
+listItem ||| â¢	Evolving, competing entities
+listItem ||| â¢	Constructions of meaning &amp; identity
+listItem ||| â¢	External signals
+listItem ||| â¢	Internal signals
+listItem ||| â¢	Negotiated settlements and trophies
+listItem ||| â¢	Control mechanisms
+bodyText ||| In the following sections, we consider each of these
+bodyText ||| perspectives. For each one we begin with a discussion of
+bodyText ||| the core assumptions that are made about the nature and
+bodyText ||| implications of policies playing this role with reference to
+bodyText ||| principles and examples drawn from studies of rules in
+bodyText ||| traditional organizational and social contexts. We then
+bodyText ||| consider examples from Wikipedia that illustrate how the
+bodyText ||| policies and guidelines there are consistent with the
+bodyText ||| perspective.
+bodyText ||| The purpose of these discussions and examples is to
+bodyText ||| illustrate how the guidelines and policies in Wikipedia, and
+bodyText ||| the systems and mechanisms that operate around them, are
+bodyText ||| multi-faceted. As such, these perspectives should not be
+page ||| 1102
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+figureCaption ||| Figure 2. Wikipedia
+figureCaption ||| Guideline Box
+bodyText ||| treated as a set of mutually exclusive categories, but rather
+bodyText ||| as a set of potentially overlapping lenses, each of which
+bodyText ||| highlights different aspects of the policies and guidelines
+bodyText ||| that exist within Wikipedia.
+subsectionHeader ||| Rules and Policies as Rational Efforts to Organize or
+subsectionHeader ||| Coordinate
+bodyText ||| All groups are faced with challenges created by
+bodyText ||| communication and coordination problems which must be
+bodyText ||| solved if the shared objectives are to be achieved [7, 13, 14,
+bodyText ||| 21, 38, 41]. In this view rules are conscious, intentional
+bodyText ||| actions put in place for the purpose of improving collective
+bodyText ||| performance. Rules and policies address, or at least
+bodyText ||| substantially increase the chance of addressing, the
+bodyText ||| problems of communication and coordination by creating a
+bodyText ||| context in which distributed actions are taken in reliable
+bodyText ||| and consistent ways [27]. In other words, rules and policies
+bodyText ||| are means of solving communication and coordination
+bodyText ||| problems by increasing the reliability and consistency of
+bodyText ||| action (i.e., eliminating the need to explicitly communicate
+bodyText ||| and coordinate) [29]. Rules in this role assume that all
+bodyText ||| parties have the same motivations and goals.
+bodyText ||| Rules and policies for coordination and communication
+bodyText ||| have been identified as particularly important in contexts
+bodyText ||| where there is high turnover (people coming and going on a
+bodyText ||| regular basis), where there is substantial autonomy of
+bodyText ||| action, and where explicit coordination is costly and yet
+bodyText ||| important to success of the activity [9, 25].
+subsubsectionHeader ||| Rational Efforts to Organize or Coordinate in Wikipedia
+bodyText ||| Wikipedia has high turnover in that a large majority of the
+bodyText ||| editors make only a few changes once, the editors are
+bodyText ||| distributed globally, and coordination is necessary in order
+bodyText ||| to continuously provide a functioning product (i.e., an
+bodyText ||| encyclopedia) on demand.
+bodyText ||| For Wikipedia, this perspective
+bodyText ||| on rules and policies suggests
+bodyText ||| that policies and guidelines are
+bodyText ||| being put in place to achieve
+bodyText ||| consistency and reliability in
+bodyText ||| terms of how things are
+bodyText ||| handled and coordinate efforts
+bodyText ||| [23], but also to confirm the
+bodyText ||| authority of those most likely
+bodyText ||| to implement the policies: the
+bodyText ||| administrators. For example, a
+bodyText ||| policy was created which
+bodyText ||| outlines the process which
+bodyText ||| should be taken to block a user
+bodyText ||| or delete an entry in
+bodyText ||| Wikipedia. The 48 policies
+bodyText ||| under consideration on the
+bodyText ||| Wikipedia Policy proposals
+bodyText ||| indicate the administratorsâ continual need to reinforce their
+bodyText ||| limited power over the dispersed population of this
+bodyText ||| community.
+bodyText ||| Because of the decentralized
+bodyText ||| nature of the role of user (i.e.,
+bodyText ||| editor) in Wikipedia and the high
+bodyText ||| turnover, more written policies
+bodyText ||| and guidelines are needed to
+bodyText ||| facilitate the transfer of
+bodyText ||| knowledge [40] from one user to
+bodyText ||| the next and maintain
+bodyText ||| consistency during the editing.
+bodyText ||| Alternatively, fewer policies will
+bodyText ||| be specified for administrators
+bodyText ||| than users. There are more
+bodyText ||| rules, therefore, for editors, since
+bodyText ||| their population experiences
+bodyText ||| greater turnover and their
+bodyText ||| activities are more dispersed
+bodyText ||| than those of the administrators
+bodyText ||| [13, 14]. Also, since this
+bodyText ||| population gains members more
+bodyText ||| frequently than the
+bodyText ||| administrators, written policies
+bodyText ||| assist new people by lending
+bodyText ||| them direction with their
+bodyText ||| contributions, in a similar
+bodyText ||| fashion as Frequently asked
+bodyText ||| questions pages in online
+bodyText ||| communities [6].
+bodyText ||| Most policy and guideline pages
+bodyText ||| provide a box with general
+bodyText ||| information about Wikipedia
+bodyText ||| policy or guidelines,
+bodyText ||| respectively, in the prominent
+bodyText ||| upper right hand corner, as
+bodyText ||| shown in Figures 1 and 2. The
+bodyText ||| policies selected for emphasis
+bodyText ||| are divided into two sections:
+bodyText ||| one discussing procedures for
+bodyText ||| editing articles and the other
+bodyText ||| reminding users about
+bodyText ||| behavioral standards.
+bodyText ||| These boxes serve to introduce first time participants to the
+bodyText ||| norms of the hybrid community/document paradigm and
+bodyText ||| remind more experienced and committed members about
+bodyText ||| the essential rules. After all, according to the Wikipedia
+bodyText ||| contributors, these policies and guidelines help make
+bodyText ||| Wikipedia successful [48]. Also, since the items in these
+bodyText ||| lists are links, they point readily to the written document for
+bodyText ||| each of these policies.
+bodyText ||| Wikipedia editors suggest that policy is often enacted after
+bodyText ||| it has been used in practice and recognized as important
+bodyText ||| [48], such as to increase the speed, efficiency, or reduce the
+bodyText ||| cost of administering the encyclopedia. These enactments
+bodyText ||| embody the rational efforts of this role of a policy or
+bodyText ||| guideline.
+figureCaption ||| Figure 1. Wikipedia
+figureCaption ||| Policy Box
+page ||| 1103
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+bodyText ||| A case where a process was âpolicy-fiedâ to accomplish
+bodyText ||| these goals is the policy outlining the Criteria for Speedy
+bodyText ||| Deletion [50]. The deletion policy is written exclusively for
+bodyText ||| administrators, for they are the only community members
+bodyText ||| empowered to determine what pages should remain in
+bodyText ||| Wikipedia and what pages should be removed. This policy
+bodyText ||| is written in extensive form and with multiple categorized
+bodyText ||| subsections to accommodate the autonomy of the
+bodyText ||| administrators and to support consistency in their decision
+bodyText ||| making. Written policies of this sort ensure coordination
+bodyText ||| among administrators and prevent arbitrary decisions.
+bodyText ||| Additionally, written policies establish guidelines for
+bodyText ||| behavior so that each decision does not require the endless
+bodyText ||| time expense of lengthy discussion and consensus
+bodyText ||| development.
+subsubsectionHeader ||| Implications for Rational Efforts to Organize or Coordinate
+bodyText ||| Wikipedia policies and guidelines can be seen as intentional
+bodyText ||| efforts to solve coordination and communication problems
+bodyText ||| by either eliminating the need for direct coordination or
+bodyText ||| communication or significantly reducing the costs of such
+bodyText ||| communication. Reduction of costs is often achieved by
+bodyText ||| codifying the interaction, and hence, reducing the effort
+bodyText ||| needed to engage in the exchanges. These mechanisms
+bodyText ||| remain important even though communication and
+bodyText ||| coordination costs are lower (at least theoretically) because
+bodyText ||| of the technology infrastructure due to issues such as
+bodyText ||| information overload [17]. At least for large scale wikis,
+bodyText ||| such as Wikipedia, the need for organizational mechanisms
+bodyText ||| to reduce communication and coordination cost remains.
+bodyText ||| Rules and Policies as Evolving, Competing, Self-
+bodyText ||| propagating Entities
+subsectionHeader ||| Rules can be seen as self-propagating entities that are the
+bodyText ||| result of an evolving, competitive process. This perspective
+bodyText ||| rejects the idea of intention, design, and agency as the
+bodyText ||| primary drivers of policy development, largely because of
+bodyText ||| the bounded rationality of individuals and high levels of
+bodyText ||| complexity in the organizational system. Instead it is
+bodyText ||| argued that rules are the result of competition for shifting
+bodyText ||| attention. This results in systems of policies in which
+bodyText ||| dynamics of rule development have the following features:
+listItem ||| â¢	Rules generate more rules (either exponentially, linearly,
+listItem ||| or at a declining rate)
+listItem ||| â¢	Areas or problems can be saturated, so modification or
+listItem ||| adaptation of rules will drop off as the space gets
+listItem ||| âpopulatedâ
+listItem ||| â¢	Developing manner rules in one area will draw attention
+listItem ||| and people from other areas [29]
+subsubsectionHeader ||| Evolving, Competing, Self-propagating Entities in Wikipedia
+bodyText ||| For Wikipedia, the basic conditions of this perspective
+bodyText ||| definitely apply. Wikipedia is an extremely complex system
+bodyText ||| of documents, people, roles, policies and guidelines, yet
+bodyText ||| individuals possess bounded rationality [39]. This suggests
+bodyText ||| that we should see these kinds of dynamics of rules in the
+bodyText ||| formation and modifications of the policies and guidelines
+bodyText ||| in Wikipedia, and the archives bear this out.
+bodyText ||| One useful measure of increased complexity is the change
+bodyText ||| in lengths in terms of word count alone of the policies from
+bodyText ||| the first version to most current. All policies studied grew
+bodyText ||| enormously.
+listItem ||| â¢	Copyrights: 341 words 4 3200 words: 938%
+listItem ||| â¢	What Wikipedia is not: 541 words 4 5031 words: 929%
+listItem ||| â¢	Civility: 1741 words 4 2131 words: 124%
+listItem ||| â¢	Consensus: 132 words 4 2054 words: 1557%
+listItem ||| â¢	Deletion: 405 words 4 2349 words: 580%
+listItem ||| â¢	Ignore all rules: exceptional case
+bodyText ||| The first version of the Ignore all rules policy is only 23
+bodyText ||| words long, stating, âIf rules make you nervous and
+bodyText ||| depressed, and not desirous of participating in the Wiki,
+bodyText ||| then ignore them and go about your businessâ [45]. The
+bodyText ||| current version is actually shorter, only 16 words, and says,
+bodyText ||| âIf a rule prevents you from working with others to improve
+bodyText ||| or maintain Wikipedia, ignore itâ [45]. However, as
+bodyText ||| suggested earlier in this paper, while the actual wording of
+bodyText ||| this policy declined 69% and it appears on the surface to be
+bodyText ||| the least bureaucratic of the policies, the supplemental page
+bodyText ||| directly linked to this policy contains 579 words, indicating
+bodyText ||| that the policy swelled over 3600% [45].
+bodyText ||| The Deletion policy appears to grow less than most of the
+bodyText ||| other policies, but this statistic is misleading as the deletion
+bodyText ||| policy is continually broken down into smaller
+bodyText ||| subcategories in order to prevent discussion of particular
+bodyText ||| instances of deletion decisions from appearing on the
+bodyText ||| general policy page. The Deletion policy, therefore, is a
+bodyText ||| policy of tremendous proliferation and complication.
+bodyText ||| Increased complexity is apparent in the Copyrights policy,
+bodyText ||| among others, where the diction and syntax emulate that of
+bodyText ||| legal documents. The first version of the policy, for
+bodyText ||| instance, starts with: âThe goal of Wikipedia is to create
+bodyText ||| information that is available to everyone.â The current
+bodyText ||| version, starting after a disclaimer note, begins: âThe
+bodyText ||| license Wikipedia uses grants free access to our content in
+bodyText ||| the same sense as free software is licensed freely.â The
+bodyText ||| earlier version uses simple sentence construction and
+bodyText ||| vernacular diction. The current one relies on words from the
+bodyText ||| legal profession, such as license, grants, access, and later in
+bodyText ||| the policy, permission, obligation, rights.
+subsubsectionHeader ||| Implications for Evolving, Competing, Self-propagating
+subsubsectionHeader ||| Entities
+bodyText ||| This role of rules and policies is necessary because it
+bodyText ||| attempts to take the complex system that is Wikipedia and
+bodyText ||| make it manageable. The evolutionary aspect of this role
+bodyText ||| also promotes the continuous updating and modification of
+bodyText ||| rules, which is needed in this type of dynamic environment.
+subsubsectionHeader ||| Rules and Policies as Constructions of Meaning and
+subsubsectionHeader ||| Identity
+bodyText ||| Rules and policies answer questions about âwho we areâ
+bodyText ||| [29]. They also indicate the way things âshould beâ (i.e.,
+bodyText ||| ideals). Lastly they serve to define and exemplify the âtalkâ
+page ||| 1104
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+bodyText ||| of the place. Previous work has looked at the role of shared
+bodyText ||| group and community identity [2, 12, 14] and individual
+bodyText ||| identity [18, 30, 37] construction.
+subsubsectionHeader ||| Constructions of Meaning and Identity in Wikipedia
+bodyText ||| For Wikipedia this includes policies that serve the purpose
+bodyText ||| of defining what Wikipedia is and is not, either explicitly
+bodyText ||| (e.g., What Wikipedia is not page) or through the
+bodyText ||| articulation of policy pages on community principles (e.g.,
+bodyText ||| Ignore all rules page).
+bodyText ||| Meaning and identity are also likely to be reflected in
+bodyText ||| discussions of policy changes that center on whether or not
+bodyText ||| something is consistent with the âcore principlesâ of
+bodyText ||| Wikipedia. An example of these discussions is that which
+bodyText ||| centers around the Neutral Point of View policy. This
+bodyText ||| policy contains detailed definitions of bias, carefully
+bodyText ||| organized guidelines for how to maintain neutrality in an
+bodyText ||| article, and specifically outlined procedures for handling
+bodyText ||| conflicts [51]. The archived discussion pages on this policy
+bodyText ||| are so voluminous that many of them contain the
+bodyText ||| discussions held within only one or two days [51].
+bodyText ||| The What Wikipedia is not policy sets up a clear sense of
+bodyText ||| identity, but less through a description or definition of it
+bodyText ||| (i.e., what we are) than through a negative approach. This
+bodyText ||| policy is divided into three sections: Style and Format,
+bodyText ||| Content, and Community. The first section differentiates
+bodyText ||| Wikipedia from printed and published encyclopedias that
+bodyText ||| are written by paid experts. The second section defines the
+bodyText ||| term encyclopedia. The third one is perhaps the most
+bodyText ||| illustrative of the identity of the group, however, for it lays
+bodyText ||| out explicitly norms for community behavior, and for the
+bodyText ||| purposes of this paper, âWikipedia is not a bureaucracyâ is
+bodyText ||| the section most directed towards policy. Interestingly, it
+bodyText ||| denies the bureaucratic nature of this organization:
+bodyText ||| âWikipedia is not a moot court, and rules are not the
+bodyText ||| purpose of the community. Instruction creep should be
+bodyText ||| avoided. A perceived procedural error made in posting
+bodyText ||| anything, such as an idea or nomination, is not grounds for
+bodyText ||| invalidating that post. Follow the spirit, not the letter, of
+bodyText ||| any rules, policies and guidelines if you feel they conflict. If
+bodyText ||| the rules prevent you from improving the encyclopedia, you
+bodyText ||| should ignore them. Disagreements should be resolved
+bodyText ||| through consensus-based discussion, rather than through
+bodyText ||| tightly sticking to rules and procedures.â
+bodyText ||| The irony of this statement is that discussion surrounding
+bodyText ||| policy development and modification turns to policy for
+bodyText ||| support on a regular basis. The Three-revert rule policy, for
+bodyText ||| instance, refers to the Copyrights, Spamming, Non-free
+bodyText ||| content, Biographies of living persons, Blocking, and
+bodyText ||| Consensus policies in its statement alone, with reference to
+bodyText ||| those and other policies and guidelines proliferating
+bodyText ||| through the discussion pages.
+subsubsectionHeader ||| Implications for Constructions of Meaning and Identity
+bodyText ||| Rules in this role allow the wiki and its users to develop a
+bodyText ||| sense of identity and meaning, which can be viewed,
+bodyText ||| literally and figuratively, by new and current editors. These
+bodyText ||| editors can then measure their fit with the community and
+bodyText ||| decide on their intended level of participation. For
+bodyText ||| example, someone looking for a wiki focused on social
+bodyText ||| interaction may not be satisfied with one which focuses on
+bodyText ||| purely identity formation [36]. In a volitional environment,
+bodyText ||| such statement of meaning, values, and identity can become
+bodyText ||| highly influential and rallying.
+subsectionHeader ||| Rules and Policies as External Signals
+bodyText ||| Sometimes rules are ways of indicating to outside
+bodyText ||| stakeholders or concerned parties that things that they care
+bodyText ||| about are being attended to. The rules can be symbolic; can
+bodyText ||| reflect action, or both. It is possible to discern these
+bodyText ||| responses through media coverage of Wikipedia that
+bodyText ||| provoked changes in policies or the creation of new ones.
+subsubsectionHeader ||| External Signals in Wikipedia
+bodyText ||| For Wikipedia, the Copyrights policy illustrates a rule
+bodyText ||| acting as an external signal. Based on an analysis of the
+bodyText ||| Copyrights guidelines, it appears they were developed in
+bodyText ||| response to external complaints or concerns about the
+bodyText ||| unpermitted use of protected material [47]. It is perhaps
+bodyText ||| because of this external stimulant that this policyâs
+bodyText ||| discussion pages, while devoted extensively to copyright
+bodyText ||| rules in general, often devolve into discussions of particular
+bodyText ||| cases, especially those concerning images [47]. Also,
+bodyText ||| perhaps because of the need to signal recognition of an
+bodyText ||| issue by Wikipedia, this page developed from a simply
+bodyText ||| stated list of rules into a more extensively organized but
+bodyText ||| also more linguistically complicated treatise, as mentioned
+bodyText ||| above. The language evolved from simple sentence
+bodyText ||| structures and vernacular style into the more complicated
+bodyText ||| grammars and dictions of the legal profession, possibly due
+bodyText ||| to the hiring of general counsel [8], but also as the need for
+bodyText ||| greater credibility and as a reflection of the communityâs
+bodyText ||| pressures to protect itself and its reputation from outside
+bodyText ||| attacks or influences.
+bodyText ||| Another example of a policy acting as an external signal, or
+bodyText ||| at least being heavily oriented toward external stakeholders,
+bodyText ||| is the Biographies of living persons policy [46]. Notable
+bodyText ||| characteristics of this policy include:
+listItem ||| â¢	It includes full contact information for Jimmy Wales as
+listItem ||| the âDesignated Agentâ (which references specific
+listItem ||| requirement of US Law) unlike the other policies. It also
+listItem ||| includes a link to the Wikimedia Foundations Board of
+listItem ||| Trustees in a related readings section.
+listItem ||| â¢	It explicitly references external legal structures
+listItem ||| requirements (âSuch material requires a high degree of
+listItem ||| sensitivity, and must adhere strictly to the law in Florida,
+listItem ||| United States and to our content policiesâ). The other
+page ||| 1105
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+listItem ||| policy that turns to this type of language is the Copyrights
+listItem ||| policy.
+listItem ||| â¢	It uses very insistent language (âEditors must take
+listItem ||| particular care...â, â...must adhere strictly to...â
+listItem ||| (emphasis in original), or âWe must get the article rightâ
+listItem ||| (emphasis in original)).
+listItem ||| â¢	In internal discussions, explanations for the policy and
+listItem ||| changes to the policy are described in the third person
+listItem ||| (they, them, he, her) not first person (we, us, I, me).
+listItem ||| â¢	External attention triggers changes to the policy and
+listItem ||| concerns of the external stakeholders are one of the
+listItem ||| factors referenced in discussions of the policy, such as a
+listItem ||| comment on the Biographies of living person page
+listItem ||| stating, âI started this due to the Daniel Brandt situation.â
+listItem ||| â¢	The policy is referenced in statements to external
+listItem ||| stakeholders and media.
+bodyText ||| While the Biography of living persons policy is an extreme
+bodyText ||| case, which came about because of a very high level of
+bodyText ||| external attention to a particular aspect of Wikipedia, other
+bodyText ||| examples do exist, such as the sock-puppeting of external
+bodyText ||| organizations that edit the content of the entries on them or
+bodyText ||| the revelations that editors were not as qualified as they
+bodyText ||| claimed.
+subsectionHeader ||| Implications for External Signals
+bodyText ||| External signals serve the role of demonstrating that the
+bodyText ||| wiki and its members recognize an issue as important or
+bodyText ||| significant. However, doing this too often can weaken the
+bodyText ||| impact or message that an external signal sends to the
+bodyText ||| external audience. It is important to note that rules which
+bodyText ||| act as external signals speak to external audiences and are
+bodyText ||| not necessarily meant for internal audiences, or members.
+bodyText ||| Theoretically, a rule which serves only as an external signal
+bodyText ||| could be removes and not change the internal dynamic of
+bodyText ||| the community.
+subsectionHeader ||| Rules and Policies as Internal Signals
+bodyText ||| Policies and rules can be used to signal to the community
+bodyText ||| what the community finds important, such as creating a
+bodyText ||| policy about a particular issue or behavior which is
+bodyText ||| significant to the community.
+subsubsectionHeader ||| Internal Signals in Wikipedia
+bodyText ||| An example of a policy developed as an internal signal is
+bodyText ||| the Civility policy. Its function is to promote polite
+bodyText ||| interactions between members of the community, rather
+bodyText ||| than to recognize or call significance to an issue for an
+bodyText ||| external audience. Perhaps as a result of its role, this
+bodyText ||| policyâs current form differs from its original form the least
+bodyText ||| of all the policies and generates the fewest discussions or
+bodyText ||| dissensions. Policies fitting into this category are not
+bodyText ||| threatened by outside forces, so their language can remain
+bodyText ||| less formal in contrast to rules acting as external signals. As
+bodyText ||| such, they also will not serve as the foci of editorial
+bodyText ||| pressures faced by those responding to external signals.
+bodyText ||| This policy also acts as an internal signal via its prominent
+bodyText ||| placement on the list of policies for first-time users [48].
+subsubsectionHeader ||| Implications for Internal Signals
+bodyText ||| Internal signals demonstrate values and identity to internal
+bodyText ||| stakeholders. It is significant to note that while internal
+bodyText ||| signals speak to the internal stakeholders, they can be
+bodyText ||| triggered by either internal members (e.g. via complaints or
+bodyText ||| problematic events) or external viewers.
+subsectionHeader ||| Rules and Policies as Negotiated Settlements and
+subsectionHeader ||| Trophies
+bodyText ||| People have different interests or perspectives. Rules and
+bodyText ||| policies are negotiated settlements or trophies. Settlements
+bodyText ||| are creating to avoid the cost of continued conflict, while
+bodyText ||| trophies are created to give credibility and influence to the
+bodyText ||| âwinnerâ in future discussions.
+subsubsectionHeader ||| Negotiated Settlements and Trophies in Wikipedia
+bodyText ||| In Wikipedia, references to âthat has already been decidedâ
+bodyText ||| or references to policy changes as having been determined
+bodyText ||| in one sideâs favor or another reflect this perspective. An
+bodyText ||| example of this âtrophyâ type situation occurs in the
+bodyText ||| Consensus policy. As mentioned previously, extensive
+figureCaption ||| Figure 3. Wikipedia consensus flowchart
+page ||| 1106
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+bodyText ||| discussion surrounds the development of written guidelines
+bodyText ||| to assist smooth negotiations and to achieve acceptable
+bodyText ||| compromises. For the Consensus policy, this type of
+bodyText ||| discussion focuses on whether to use specific numbers for
+bodyText ||| confirmation of consensus or not. That is, should the group
+bodyText ||| need 80% or 75% of the populationâs approval? Or should
+bodyText ||| the policy simply state that general agreement is all that is
+bodyText ||| required for consensus? An active member wants polling
+bodyText ||| results to determine consensus, but he âlosesâ this effort in
+bodyText ||| 2005; consensus is explained through the organizational
+bodyText ||| structure of the flowchart in Figure 3. In July 2007,
+bodyText ||| someone starts adding the numbers requirement back into
+bodyText ||| the Consensus policy, and the administrators talk about it
+bodyText ||| and remove it each time. In August, there is more
+bodyText ||| discussion of consensus versus the supermajority, and then
+bodyText ||| it appears that it might be the original participant who lost
+bodyText ||| the battle who is adding the numbers back to the policy, and
+bodyText ||| even if it is not, he is actively participating in discussions to
+bodyText ||| bring back the ânumbersâ [49].
+bodyText ||| As an example of the discussion leading away from
+bodyText ||| decisions through polling, one administrator says, âfor all
+bodyText ||| but uncontroversial trivial propositions, it is unusual for
+bodyText ||| decisions on Wikipedia talk pages to operate on a true
+bodyText ||| consensus. Instead they operate on a rough consensus
+bodyText ||| where it is recognised that a minority are in opposition. The
+bodyText ||| question then arises is how large must the majority be to
+bodyText ||| ignore the opinions of a minority?â [49].
+bodyText ||| When the policy is revised to respect the majority of
+bodyText ||| decision makers, the discussion is titled, âThe numbers
+bodyText ||| came back again.â The first comment reads, âSo I removed
+bodyText ||| them.â The response to it, by the âlosingâ contestant says,
+bodyText ||| âDid you not read the section above? There is not
+bodyText ||| consensus to remove them,â in an assertion that previous
+bodyText ||| decisions support this, but the response to this remark is: âI
+bodyText ||| have read the section above. There is clearly no consensus
+bodyText ||| to include them. Stop adding them,â reinforcing the
+bodyText ||| communityâs adherence to ârough consensusâ as opposed to
+bodyText ||| numerically-based decision-making.
+subsubsectionHeader ||| Implications for Negotiated Settlements and Trophies
+bodyText ||| Policies, therefore, reflect a continuous process of battles
+bodyText ||| engaged in and won or lost, so that no conclusion is
+bodyText ||| achieved. Much discussion of these policies includes a
+bodyText ||| continuous recycling of old fights and unresolved
+bodyText ||| contentions.
+subsectionHeader ||| Rules and Policies as Control Mechanisms
+bodyText ||| To complete tasks and meet goals, rules and policies are
+bodyText ||| often written to act as control mechanisms. Control is
+bodyText ||| defined as any effort made to ensure appropriate action
+bodyText ||| [31]. In the systems development literature, control has
+bodyText ||| been defined more specifically from the behavioral sense as
+bodyText ||| attempts to ensure that individuals on a project team act in
+bodyText ||| accordance with a previously agreed-upon strategy to
+bodyText ||| accomplish desired goals and objectives [21]. Control
+bodyText ||| mechanisms are âdevices used by controllers to ensure
+bodyText ||| proper controllee behaviorâ [20]. Both formal and informal
+bodyText ||| control modes rely on control mechanisms to influence
+bodyText ||| behavior, but formal modes control via performance
+bodyText ||| evaluation and rewards while informal modes control via
+bodyText ||| socialization to reduce goal differences [20]. Wikis draw
+bodyText ||| upon informal modes of control by writing policies which
+bodyText ||| describe ideal work output or behavior.
+bodyText ||| Explicitly highlighting this role of rules and policies also
+bodyText ||| allows for consideration of ways that rules are used to
+bodyText ||| manage divergence of individual and organizational goals, a
+bodyText ||| phenomenon that is an important element of organizational
+bodyText ||| evolution.
+subsubsectionHeader ||| Control Mechanisms in Wikipedia
+bodyText ||| Wikipediaâs hierarchy of roles creates a class of people who
+bodyText ||| apply the control mechanisms for the group: the
+bodyText ||| administrators. Though, it is sometimes claimed that this
+bodyText ||| hierarchy does not exist. Administrators are the only ones
+bodyText ||| who can, as the Wikipedia site suggests, âprotect and delete
+bodyText ||| pages, block other editors, and undo these actions as well.â
+bodyText ||| Also, in its categories of policies, Wikipedia devotes an
+bodyText ||| entire section to what it calls, âenforcement,â a term for
+bodyText ||| controlling the behavior of others. Two in this section that
+bodyText ||| require administrator participation are Deletion and
+bodyText ||| Blocking. Since control mechanisms ensure consistency
+bodyText ||| between the goals and actions of the individual and those of
+bodyText ||| the community, and since the goals of individuals are
+bodyText ||| sometimes destructive, such as vandalism, a policy like
+bodyText ||| Blocking prevents chronic disrupters from damaging the
+bodyText ||| group or its efforts. Blocking is the term for the prevention
+bodyText ||| of editing rights for those participants who refuse to support
+bodyText ||| the goals of the organization. An interesting feature of the
+bodyText ||| Blocking policy ameliorates its punitive approach: it is not
+bodyText ||| meant for âretaliation,â but instead for âencouragingâ
+bodyText ||| appropriate behavior. A control mechanism of this sort,
+bodyText ||| therefore, guides normative behavior rather than punishes
+bodyText ||| deviance.
+bodyText ||| The Three-Revert Rule (called a âruleâ but considered a
+bodyText ||| âpolicyâ by Wikipedia) is a community-specific control
+bodyText ||| mechanism. It states that an editor may not make more than
+bodyText ||| three changes to an encyclopedia page within a twenty-four
+bodyText ||| hour period. The stated purpose for this policy is to prevent
+bodyText ||| what the group calls âedit wars,&quot; or conflicts between two
+bodyText ||| or more editors over an entry that result in the constant
+bodyText ||| effort to assert the validity of one version of it over another.
+bodyText ||| Administrators established this rule because, as Wikipedia
+bodyText ||| founder Jimbo Wales says, ârevert warring has become an
+bodyText ||| absurd drain on us.â This control mechanism, therefore,
+bodyText ||| protects the administrators from overload created by editors
+bodyText ||| who refuse to negotiate about the contents of an entry.
+subsubsectionHeader ||| Implications for Control Mechanisms
+bodyText ||| Where coordination assumes that all participants in a
+bodyText ||| community have the same motives and merely need to
+bodyText ||| understand how to get something done in terms of sequence
+bodyText ||| or procedure, control suggests to the community what not to
+bodyText ||| do and establishes rules of prevention of behaviors that will
+bodyText ||| disrupt the process of the organization. These mechanisms
+page ||| 1107
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+bodyText ||| are exceptional, for they can largely be applied only by
+bodyText ||| administrators, by those with power acceded to them by the
+bodyText ||| group through their demonstrated degree of participation in
+bodyText ||| editing and through the acknowledgement of those efforts
+bodyText ||| by the other power holders and wielders in the system.
+sectionHeader ||| IMPLICATIONS FOR CREATION OF WIKI-BASED
+sectionHeader ||| SYSTEMS AND DESIGN OF PLATFORMS
+bodyText ||| We suggest, therefore, that pursuing the âpolicylessâ ideal
+bodyText ||| that wikis represent is a pipedream. Policy creation and
+bodyText ||| maintenance is an important aspect of the work that must be
+bodyText ||| done to keep the community running
+bodyText ||| Providing tools and infrastructure mechanisms that support
+bodyText ||| the development and management of policies is an
+bodyText ||| important part of creating social computing systems that
+bodyText ||| work. For example, work has been done on policy
+bodyText ||| extraction that focuses on identifying rules which can be
+bodyText ||| embedded in the infrastructure to support coordination and
+bodyText ||| organization. This study suggests that policies vary in their
+bodyText ||| intention to support coordination and organization, thus the
+bodyText ||| application of the work on policy extraction is narrowed.
+bodyText ||| For example, a rule acting as an external signal has less
+bodyText ||| intention for coordination and organization. As a result, it
+bodyText ||| may not be appropriate for it to be embedded in the
+bodyText ||| infrastructure to support coordination and organization.
+bodyText ||| Looking at the language used in writing the policy may
+bodyText ||| signal its intention to support coordination and organization
+bodyText ||| and, subsequently, whether it is a candidate for embedding
+bodyText ||| in the infrastructure. More detailed systematic studies can
+bodyText ||| provide insight into a policies candidacy for embedding in
+bodyText ||| the infrastructure.
+bodyText ||| While there is something to be said about treating policies
+bodyText ||| as coordination mechanisms that are automated or at least
+bodyText ||| embedded directly in the technology, that approach is not
+bodyText ||| without its pitfalls. Since policies can also be highly
+bodyText ||| symbolic or meaning-filled, embedding them or automating
+bodyText ||| them may not work because it could remove this function or
+bodyText ||| make it less effective for this purpose. Furthermore, it may
+bodyText ||| be possible that different rules playing different roles have
+bodyText ||| varying importance for the success of the wiki at specific
+bodyText ||| phases in the wiki lifecycle.
+bodyText ||| This work raises important questions for organizations
+bodyText ||| implementing wikis and collaborative technologies for
+bodyText ||| internal use. When organizations invest in these
+bodyText ||| technologies, such as Lotus Notes and Microsoft
+bodyText ||| Sharepoint, their first step is often to put in place a
+bodyText ||| collection of policies and guidelines regarding their use.
+bodyText ||| However, less attention is given to the policies and
+bodyText ||| guidelines created by the groups that use these systems â
+bodyText ||| which are often left to âemergeâ spontaneously. The
+bodyText ||| examples and concepts described in this paper highlight the
+bodyText ||| complexity of rule formation and suggest that support
+bodyText ||| should be provided to help collaborating groups create and
+bodyText ||| maintain effective rulespaces.
+bodyText ||| Lastly, the Wikipedia archives suggest that facilitating,
+bodyText ||| supporting, and managing this system of rules may not be
+bodyText ||| simply a matter of data collection. Rather, serving this
+bodyText ||| system well is a matter of promoting situational awareness
+bodyText ||| and strategic intervention in a complex, evolving system.
+sectionHeader ||| CONCLUSIONS
+bodyText ||| Wikis have captured the imagination of many because as a
+bodyText ||| technology they support unencumbered, highly flexible,
+bodyText ||| very visible, and accessible collaboration [5, 11, 22, 42, 52,
+bodyText ||| 53]. These features have led many commentators and
+bodyText ||| authors to wax eloquently about the possibility of new types
+bodyText ||| of work and organization which are peer-based, non-
+bodyText ||| hierarchical, non-bureaucratic, emergent, complex, and
+bodyText ||| communal.
+bodyText ||| While it may be the case that wikis do in fact provide a
+bodyText ||| basis for this type of work arrangement, the study reported
+bodyText ||| here suggests that the true power of wikis lies in the fact
+bodyText ||| that they are a platform that provides affordances which
+bodyText ||| allow for a wide variety of rich, multifaceted organizational
+bodyText ||| structures. Rather than assuming that rules, policies, and
+bodyText ||| guidelines are operating in only one fashion, wikis allow
+bodyText ||| for, and in fact facilitate, the creation of policies and
+bodyText ||| procedures that serve a wide variety of functions â and as a
+bodyText ||| result they are capable of truly supporting a much broader
+bodyText ||| range of structures and activities than many of the other
+bodyText ||| more structured, collaborative platforms.
+bodyText ||| This suggests that not only are wikis a platform that has
+bodyText ||| greater potential in organizational and public use, but also
+bodyText ||| that, from a design perspective, they provide a valuable
+bodyText ||| opportunity for using the âsidewalk design strategyâ of
+bodyText ||| providing a field of grass and watching where and how the
+bodyText ||| users walk, or so-called desire paths. This study provides a
+bodyText ||| basis for describing these paths. Future studies in particular
+bodyText ||| applications would do well to ask how these issues are
+bodyText ||| addressed, capabilities are used, and how the activities and
+bodyText ||| mechanisms that come into play can be helpfully reinforced
+bodyText ||| or supported through the interface and infrastructure.
+sectionHeader ||| ACKNOWLEDGEMENTS
+bodyText ||| The authors would like to thank the members of the Online
+bodyText ||| Community Research Group at Carnegie Mellon University
+bodyText ||| and especially Bob Kraut and John Levine.
+sectionHeader ||| REFERENCES
+reference ||| 1. Ahuja, M.K. and K.M. Carley, Network structure in
+reference ||| virtual organizations. Organization Science, 1999.
+reference ||| 10(6): p. 741-757.
+reference ||| 2. Barreto, M. and N. Ellemers, The impact of anonymity
+reference ||| and group identification on progroup behavior in
+reference ||| computer-mediated groups. Small Group Research,
+reference ||| 2002. 33(5): p. 590-610.
+reference ||| 3. Baym, N., Interpreting soap operas and creating
+reference ||| community: Inside a computer-mediate fan culture.
+reference ||| Journal of Folklore Research, 1993. 30: p. 143-176.
+reference ||| 4. Baym, N.K., Tune in, log on: Soaps, fandom, and
+reference ||| online community. 2000, Thousand Oaks, CA: Sage
+reference ||| Publications.
+reference ||| 5. Bryant, S.L., A. Forte, and A. Bruckman, Becoming
+reference ||| wikipedia: Transformation of participation in a
+page ||| 1108
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+reference ||| collaborative online encyclopedia, in GROUP. 2005:
+reference ||| Sanibel Island, FL.
+reference ||| 6. Burnett, G. and L. Bonnici, Beyond the faq: Explicit
+reference ||| and implicit norms in usenet newsgroups. Library &amp;
+reference ||| Information Science Research, 2003. 25(3): p. 333.
+reference ||| 7. Chidambaram, L. and L.L. Tung, Is out of sight, out of
+reference ||| mind? An empirical study of social loafing in
+reference ||| technology-supported groups. Information Systems
+reference ||| Research, 2005. 16(2): p. 149-168.
+reference ||| 8. Cohen, N., Defending wikipedia&apos;s impolite side, in The
+reference ||| New York TImes. 2007, The New York Times
+reference ||| Company: New York, NY.
+reference ||| 9. Connelly, T. and B.K. Thorn, Discretionary databases:
+reference ||| Theory, data, and implications, in Organizations and
+reference ||| communication technology, J. Fulk and C. Steinfield,
+reference ||| Editors. 1990, Sage Publications: Newbury Park, CA.
+reference ||| p. 219-233.
+reference ||| 10. Fogel, K., Producing open source software: How to
+reference ||| run a successful free software project 2005,
+reference ||| Sebastopol, CA O&apos;Reilly Media, Inc.
+reference ||| 11. Forte, A. and A. Bruckman, Why do people write for
+reference ||| wikipedia? Incentives to contribute to open-content
+reference ||| publishing, in Group 2005 Workshop - Sustaining
+reference ||| Community: The role and design of incentive
+reference ||| mechanisms in online systems. 2005: Sanibel Island,
+reference ||| FL.
+reference ||| 12. Galegher, J., L. Sproull, and S. Kiesler, Legitimacy,
+reference ||| authority, and community in electronic support groups.
+reference ||| Written Communication, 1998. 15(4): p. 493-530.
+reference ||| 13. Hinds, P.J. and D.E. Bailey, Out of sight, out of sync:
+reference ||| Understanding conflict in distributed teams.
+reference ||| Organization Science, 2003. 14(6): p. 515-632.
+reference ||| 14. Hinds, P.J. and M. Mortensen, Understanding conflict
+reference ||| in geographically distributed teams: The moderating
+reference ||| effects of shared identity, shared context, and
+reference ||| spontaneous communication. Organization Science,
+reference ||| 2005. 16(3): p. 290-307.
+reference ||| 15. Jensen, C. and W. Scacchi. Collaboration, leadership,
+reference ||| control, and conflict negotiation in the netbeans.Org
+reference ||| software development community. in Proceedings of
+reference ||| the 38th Hawaii International Conference on System
+reference ||| Sciences. 2005. Waikola Village, HI.
+reference ||| 16. Jensen, C. and W. Scacchi. Role migration and
+reference ||| advancement processes in ossd projects: A
+reference ||| comparative case study. in Proceedings of the 27th
+reference ||| International Conference on Software Engineerring.
+reference ||| 2007. Minneapolis, MN.
+reference ||| 17. Jones, Q., G. Ravid, and S. Rafaeli, Information
+reference ||| overload and the message dynamics of online
+reference ||| interaction spaces: A theoretical model and empirical
+reference ||| exploration. Information Systems Research, 2004.
+reference ||| 15(2): p. 194-210.
+reference ||| 18. Kennedy, H., Beyond anonymity, or future directions
+reference ||| for internet identity research. New Media &amp; Society,
+reference ||| 2006. 8(6): p. 859-876.
+reference ||| 19. Kim, A.J., Community building on the web: Secret
+reference ||| strategies for successful online communities. 1 ed.
+reference ||| 2000, Berkeley, CA Peachpit Press.
+reference ||| 20. Kirsch, L.J., Portfolios of control modes and is project
+reference ||| management. Information Systems Research, 1997.
+reference ||| 8(3): p. 215-239.
+reference ||| 21. Kirsch, L.J., et al., Controlling information systems
+reference ||| development projects: The view from the client.
+reference ||| Management Science, 2002. 48(4): p. 484-498.
+reference ||| 22. Kittur, A., et al., Power of the few vs. Wisdom of the
+reference ||| crowd: Wikipedia and the rise of the bourgeoisie, in
+reference ||| Conference on Human Factors in Computing Systems
+reference ||| (CHI). 2007: San Jose, CA.
+reference ||| 23. Kittur, A., et al., He says, she says: Conflict and
+reference ||| coordination in wikipedia, in Conference on Human
+reference ||| Factors in Computing Systems (CHI). 2007: San Jose,
+reference ||| CA.
+reference ||| 24. Kollock, P. and M. Smith, Managing the virtual
+reference ||| commons: Cooperation and conflict in computer
+reference ||| communities, in Computer-mediated communication:
+reference ||| Linguistic, social and cross-cultural perspectives, S.
+reference ||| Herring, Editor. 1996, John Benjamins: Amsterdam. p.
+reference ||| 109-128.
+reference ||| 25. Kuechler, W.L. and C. Vaishnavi, So, talk to me: The
+reference ||| effect of explicit goals on the comprehension of
+reference ||| business process narratives. MIS Quarterly, 2006.
+reference ||| 30(4): p. 961-A16.
+reference ||| 26. Lakhani, K.R. and E. von Hippel, How open source
+reference ||| software works: &quot;Free&quot; User-to-user assistance.
+reference ||| Research Policy, 2003. 32(6): p. 923-943.
+reference ||| 27. Malone, T., W. and K. Crowston, The interdisciplinary
+reference ||| study of coordination. ACM Computing Surveys, 1994.
+reference ||| 26(1): p. 87-119.
+reference ||| 28. Maney, K., Mass collaboration could change way
+reference ||| companies operate, in USA Today. 2006.
+reference ||| 29. March, J.G., M. Schulz, and X. Zhou, The dynamics of
+reference ||| rules: Change in written organizational codes. 2000,
+reference ||| Stanford, CA: Stanford University Press.
+reference ||| 30. McKenna, K.Y.A. and J.A. Bargh, Coming out in the
+reference ||| age of the internet: Identity &quot;Demarginalization&quot;
+reference ||| Through virtual group participation. Journal of
+reference ||| Personality &amp; Social Psychology. 75(3): p. 681.
+reference ||| 31. Nidumolu, S.R. and M.R. Subramani, The matrix of
+reference ||| control: Combining process and structure approaches
+reference ||| to managing software development. Journal of
+reference ||| Management Information Systems, 2003. 20(Issue 3):
+reference ||| p. 159.
+reference ||| 32. Ostrom, E., Collective action and the evolution of
+reference ||| social norms. Journal of Economic Perspectives, 2000.
+reference ||| 14(3): p. 137-158.
+reference ||| 33. Petronio, S., The boundaries of privacy: Praxis of
+reference ||| everyday life, in Balancing the secrets of private
+reference ||| disclosures, S. Petronio, Editor. 2000, Lawrence
+reference ||| Erlbaum Associates: Mahwah, N. J. p. 37-50.
+reference ||| 34. Petronio, S., et al., (mis)communicating across
+reference ||| boundaries. Communication Research, 1998: p. 571-
+reference ||| 595.
+page ||| 1109
+note ||| CHI 2008 Proceedings Â· Shared Authoring	April 5-10, 2008 Â· Florence, Italy
+reference ||| 35. Raymond, E., The cathedral and the bazaar.
+reference ||| Knowledge and Policy, 1999. 12(3).
+reference ||| 36. Ren, Y., R.E. Kraut, and S. Kiesler, Applying common
+reference ||| identity and bond theory to the design of online
+reference ||| communities. In press, 2006.
+reference ||| 37. Riva, G. and C. Galimberti, Computer-mediated
+reference ||| communication: Identity and social interaction in an
+reference ||| electronic environment. Genetic, Social &amp; General
+reference ||| Psychology Monographs, 1998. 124(4): p. 434-463.
+reference ||| 38. Roberts, J.A., I.-H. Hann, and S.A. Slaughter,
+reference ||| Understanding the motivations, participation, and
+reference ||| performance of open source software developers: A
+reference ||| longitudinal study of the apache projects. Management
+reference ||| Science, 2006. 52(7): p. 984-999.
+reference ||| 39. Simon, H., Bounded rationality and organizational
+reference ||| learning. Organization Science, 1991. 2(1): p. 125-134.
+reference ||| 40. Slaughter, S.A. and L.J. Kirsch, The effectiveness of
+reference ||| knowledge transfer portfolios on software process
+reference ||| improvement: A field study. Information Systems
+reference ||| Research, 2006. 17(3): p. 301-320.
+reference ||| 41. Stewart, K.J. and S. Gosain, The impact of ideology on
+reference ||| effectiveness in open source software development
+reference ||| teams. MIS Quarterly, 2006. 30(2): p. 291-314.
+reference ||| 42. Viegas, F., M. Wattenberg, and K. Dave, Studying
+reference ||| cooperation and conflict between authors with history
+reference ||| flow visualizations, in Conference on Human Factors
+reference ||| in Computing Systems (CHI). 2004: Vienna, Austria.
+reference ||| 43. Viegas, F.B., et al. Talk before you type: Coordination
+reference ||| in wikipedia. in Proceedings of the 40th Hawaii
+reference ||| International Conference on System Sciences. 2007.
+reference ||| Big Island, HI.
+reference ||| 44. von Krogh, G., S. Spaeth, and K.R. Lakhani,
+reference ||| Community, joining, and specialization in open source
+reference ||| software innovation: A case study. Research Policy,
+reference ||| 2003. 32(7): p. 1217-1241.
+reference ||| 45. Wikipedia contributors, Ignore all rules. 2006,
+reference ||| Wikipedia, The Free Encyclopedia.
+reference ||| 46. Wikipedia contributors, Wikipedia talk:Biographies of
+reference ||| living persons 2007, Wikipedia, The Free
+reference ||| Encyclopedia.
+reference ||| 47. Wikipedia contributors, Wikipedia talk: Copyrights
+reference ||| 2007, Wikipedia, The Free Encyclopedia.
+reference ||| 48. Wikipedia contributors, Wikipedia: Policies and
+reference ||| guidelines. 2007, Wikipedia, The Free Encyclopedia.
+reference ||| 49. Wikipedia contributors, Wikipedia: Consensus. 2007,
+reference ||| Wikipedia, The Free Encyclopedia.
+reference ||| 50. Wikipedia contributors, Wikipedia: Criteria for speedy
+reference ||| deletion. 2007, Wikipedia, The Free Encyclopedia.
+reference ||| 51. Wikipedia contributors, Wikipedia:Neutral point of
+reference ||| view. 2007, Wikipedia, The Free Encyclopedia.
+reference ||| 52. Zhang, X.M. and F. Zhu, Intrinsic motivation of open
+reference ||| content contributors: The case of wikipedia, in
+reference ||| Workshop on Information Systems and Economics.
+reference ||| 2006: Evanston, IL.
+reference ||| 53. ZlatiÄ, V., et al., Wikipedias: Collaborative web-based
+reference ||| encyclopedias as complex networks. Physical Review,
+reference ||| 2006. 74(016115).
+page ||| 1110

@@ -1,0 +1,1037 @@
+# Para 0 1
+A Machine Learning Based Approach for Table Detection
+# Para 1 1
+on The Web
+# Para 2 1
+Yalin Wang
+# Para 3 4
+Intelligent Systems Laboratory
+Dept. of Electrical Engineering
+Univ. of Washington
+Seattle, WA 98195 US
+# Para 7 1
+ylwang@u.washington.edu
+# Para 8 1
+Jianying Hu
+# Para 9 3
+Avaya Labs Research
+233, Mount Airy Road
+Basking Ridge, NJ 07920 US
+# Para 12 1
+jianhu@avaya.com
+# Para 13 1
+ABSTRACT
+# Para 14 10
+Table is a commonly used presentation scheme, especially 
+for describing relational information. However, table under-
+standing remains an open problem. In this paper, we con-
+sider the problem of table detection in web documents. Its 
+potential applications include web mining, knowledge man-
+agement, and web content summarization and delivery to 
+narrow-bandwidth devices. We describe a machine learning 
+based approach to classify each given table entity as either 
+genuine or non-genuine. Various features reflecting the lay-
+out as well as content characteristics of tables are studied.
+# Para 24 7
+In order to facilitate the training and evaluation of our 
+table classifier, we designed a novel web document table 
+ground truthing protocol and used it to build a large ta-
+ble ground truth database. The database consists of 1,393 
+HTML files collected from hundreds of different web sites 
+and contains 11,477 leaf &lt;TABLE&gt; elements, out of which 
+1,740 are genuine tables. Experiments were conducted us-
+# Para 31 1
+ing the cross validation method and an F-measure of 95.89%
+# Para 32 1
+was achieved.
+# Para 33 1
+Categories and Subject Descriptors
+# Para 34 2
+H.4.3 [Information Systems Applications]: Communi-
+cations Applications Information browsers
+# Para 36 1
+General Terms
+# Para 37 1
+Algorithms
+# Para 38 1
+Keywords
+# Para 39 2
+Table Detection, Layout Analysis, Machine Learning, Deci-
+sion tree, Support Vector Machine, Information Retrieval
+# Para 41 1
+1. INTRODUCTION
+# Para 42 7
+The increasing ubiquity of the Internet has brought about 
+a constantly increasing amount of online publications. As 
+a compact and efficient way to present relational informa-
+tion, tables are used frequently in web documents. Since 
+tables are inherently concise as well as information rich, the 
+automatic understanding of tables has many applications in-
+cluding knowledge management, information retrieval, web
+# Para 49 1
+Copyright is held by the author/owner(s).
+# Para 50 2
+WWW2002, May 7–11,2002, Honolulu, Hawaii, USA. 
+ACM 1-58113-449-5/02/0005.
+# Para 52 24
+mining, summarization, and content delivery to mobile de-
+vices. The processes of table understanding in web doc-
+uments include table detection, functional and structural 
+analysis and finally table interpretation [6]. In this paper, 
+we concentrate on the problem of table detection. The web 
+provides users with great possibilities to use their own style 
+of communication and expressions. In particular, people use 
+the &lt;TABLE&gt; tag not only for relational information display 
+but also to create any type of multiple-column layout to 
+facilitate easy viewing, thus the presence of the &lt;TABLE&gt; 
+tag does not necessarily indicate the presence of a relational 
+table. In this paper, we define genuine tables to be docu-
+ment entities where a two dimensional grid is semantically 
+significant in conveying the logical relations among the cells 
+[10]. Conversely, Non-genuine tables are document entities 
+where &lt;TABLE&gt; tags are used as a mechanism for grouping 
+contents into clusters for easy viewing only. Figure 1 gives 
+a few examples of genuine and non-genuine tables. While 
+genuine tables in web documents could also be created with-
+out the use of &lt;TABLE&gt; tags at all, we do not consider such 
+cases in this article as they seem very rare from our ex-
+perience. Thus, in this study, Table detection refers to the 
+technique which classifies a document entity enclosed by the 
+&lt;TABLE&gt;&lt;/TABLE&gt; tags as genuine or non-genuine tables.
+# Para 76 4
+Several researchers have reported their work on web table 
+detection [2, 10, 6, 14]. In [2], Chen et al. used heuris-
+tic rules and cell similarities to identify tables. They tested 
+their table detection algorithm on 918 tables from airline in-
+# Para 80 1
+formation web pages and achieved an F-measure of 86.50%.
+# Para 81 3
+Penn et al. proposed a set of rules for identifying genuinely 
+tabular information and news links in HTML documents 
+[10]. They tested their algorithm on 75 web site front-pages
+# Para 84 1
+and achieved an F-measure of 88.05%. Yoshida et al. pro-
+# Para 85 5
+posed a method to integrate WWW tables according to the 
+category of objects presented in each table [14]. Their data 
+set contains 35,232 table tags gathered from the web. They 
+estimated their algorithm parameters using all of table data 
+and then evaluated algorithm accuracy on 175 of the tables.
+# Para 90 1
+The average F-measure reported in their paper is 82.65%.
+# Para 91 6
+These previous methods all relied on heuristic rules and were 
+only tested on a database that is either very small [10], or 
+highly domain specific [2]. Hurst mentioned that a Naive 
+Bayes classifier algorithm produced adequate results but no 
+detailed algorithm and experimental information was pro-
+vided [6].
+# Para 97 1
+We propose a new machine learning based approach for
+# Para 98 1
+242
+# Para 99 1
+Figure 1: Examples of genuine and non-genuine tables.
+# Para 100 13
+table detection from generic web documents. In particu-
+lar, we introduce a set of novel features which reflect the 
+layout as well as content characteristics of tables. These 
+features are used in classifiers trained on thousands of ex-
+amples. To facilitate the training and evaluation of the table 
+classifiers, we designed a novel web document table ground 
+truthing protocol and used it to build a large table ground 
+truth database. The database consists of 1,393 HTML files 
+collected from hundreds of different web sites and contains 
+11,477 leaf &lt;TABLE&gt; elements, out of which 1,740 are gen-
+uine tables. Experiments on this database using the cross 
+validation method demonstrate significant performance im-
+provements over previous methods.
+# Para 113 7
+The rest of the paper is organized as follows. We describe 
+our feature set in Section 2, followed by a brief discussion 
+of the classifiers we experimented with in Section 3. In Sec-
+tion 4, we present a novel table ground truthing protocol 
+and explain how we built our database. Experimental re-
+sults are then reported in Section 5 and we conclude with 
+future directions in Section 6.
+# Para 120 2
+2. FEATURES FOR WEB TABLE 
+DETECTION
+# Para 122 6
+Feature selection is a crucial step in any machine learning 
+based methods. In our case, we need to find a combination 
+of features that together provide significant separation be-
+tween genuine and non-genuine tables while at the same time 
+constrain the total number of features to avoid the curse of 
+dimensionality. Past research has clearly indicated that lay- 
+# Para 128 10
+out and content are two important aspects in table under-
+standing [6]. Our features were designed to capture both of 
+these aspects. In particular, we developed 16 features which 
+can be categorized into three groups: seven layout features, 
+eight content type features and one word group feature. In 
+the first two groups, we attempt to capture the global com-
+position of tables as well as the consistency within the whole 
+table and across rows and columns. The last feature looks at 
+words used in tables and is derived directly from the vector 
+space model commonly used in Information Retrieval.
+# Para 138 9
+Before feature extraction, each HTML document is first 
+parsed into a document hierarchy tree using Java Swing 
+XML parser with W3C HTML 3.2 DTD [10]. A &lt;TABLE&gt; 
+node is said to be a leaf table if and only if there are no 
+&lt;TABLE&gt; nodes among its children [10]. Our experience in-
+dicates that almost all genuine tables are leaf tables. Thus 
+in this study only leaf tables are considered candidates for 
+genuine tables and are passed on to the feature extraction 
+stage. In the following we describe each feature in detail.
+# Para 147 1
+2.1 Layout Features
+# Para 148 9
+In HTML documents, although tags like &lt;TR&gt; and &lt;TD&gt; 
+(or &lt;TH&gt;) may be assumed to delimit table rows and table 
+cells, they are not always reliable indicators of the number 
+of rows and columns in a table. Variations can be caused 
+by spanning cells created using &lt;ROWSPAN&gt; and &lt;COLSPAN&gt; 
+tags. Other tags such as &lt;BR&gt; could be used to move con-
+tent into the next row. Therefore to extract layout features 
+reliably one can not simply count the number of &lt;TR&gt;&apos;s and 
+&lt;TD&gt;&apos;s. For this purpose, we maintain a matrix to record all
+# Para 157 1
+243
+# Para 158 3
+the cell spanning information and serve as a pseudo render-
+ing of the table. Layout features based on row or column 
+numbers are then computed from this matrix.
+# Para 161 3
+Given a table T, assuming its numbers of rows and columns 
+are rn and cn respectively, we compute the following layout 
+features:
+# Para 164 2
+•	Average number of columns, computed as the average 
+number of cells per row:
+# Para 166 7
+Here LCcl is defined as: LCcl = 0.5 — D, where D = 
+min{lcl — mil�mi,1.0}. Intuitively, LCcl measures the 
+degree of consistency between cl and the mean cell 
+length, with —0.5 indicating extreme inconsistency and 
+0.5 indicating extreme consistency. When most cells 
+within Ri are consistent, the cumulative measure CLCi 
+is positive, indicating a more or less consistent row.
+# Para 173 1
+3. Take the average across all rows:
+# Para 174 1
+ci,
+# Para 175 1
+c =
+# Para 176 2
+1 
+rn
+# Para 178 2
+Xrn 
+i�1
+# Para 180 1
+CLCr = 1
+# Para 181 1
+r
+# Para 182 2
+Xr CLCi . 
+i�1
+# Para 184 1
+where ci is the number of cells in row i, i = 1, ..., rn,
+# Para 185 1
+•	Standard deviation of number of columns:
+# Para 186 1
+(ci — c) x (ci — c);
+# Para 187 2
+•	Average number of rows, computed as the average 
+number of cells per column:
+# Para 189 1
+where ri is the number of cells in column i, i = 1, ..., cn,
+# Para 190 1
+•	Standard deviation of number of rows:
+# Para 191 1
+(ri — r) x (ri — r).
+# Para 192 3
+Since the majority of tables in web documents contain 
+characters, we compute three more layout features based on 
+cell length in terms of number of characters:
+# Para 195 3
+•	Average overall cell length: cl = en Pin1 cli, where en 
+is the total number of cells in a given table and cli is 
+the length of cell i, i = 1, ... , en,
+# Para 198 1
+•	Standard deviation of cell length:
+# Para 199 1
+(cli — cl) x (cli — cl)�
+# Para 200 1
+•	Average Cumulative length consistency, CLC.
+# Para 201 9
+The last feature is designed to measure the cell length con-
+sistency along either row or column directions. It is inspired 
+by the fact that most genuine tables demonstrate certain 
+consistency either along the row or the column direction, 
+but usually not both, while non-genuine tables often show 
+no consistency in either direction. First, the average cumu-
+lative within-row length consistency, CLCr, is computed as 
+follows. Let the set of cell lengths of the cells from row i be 
+Ri, i = 1, ... , r (considering only non-spanning cells):
+# Para 210 1
+1. Compute the mean cell length, mi, for row Ri.
+# Para 211 2
+2. Compute cumulative length consistency within each 
+Ri:
+# Para 213 1
+CLCi = X LCcl .
+# Para 214 1
+clERi
+# Para 215 4
+After the within-row length consistency CLCr is com-
+puted, the within-column length consistency CLCc is com-
+puted in a similar manner. Finally, the overall cumulative 
+length consistency is computed as CLC = max(CLCr, CLCc).
+# Para 219 1
+2.2 Content Type Features
+# Para 220 8
+Web documents are inherently multi-media and has more 
+types of content than any traditional documents. For ex-
+ample, the content within a &lt;TABLE&gt; element could include 
+hyperlinks, images, forms, alphabetical or numerical strings, 
+etc. Because of the relational information it needs to convey, 
+a genuine table is more likely to contain alpha or numeri-
+cal strings than, say, images. The content type feature was 
+designed to reflect such characteristics.
+# Para 228 3
+We define the set of content types T = {Image, Form, 
+Hyperlink, Alphabetical, Digit, Empty, Others}. Our content 
+type features include:
+# Para 231 2
+•	The histogram of content type for a given table. This 
+contributes 7 features to the feature set,
+# Para 233 1
+•	Average content type consistency, CTC.
+# Para 234 5
+The last feature is similar to the cell length consistency fea-
+ture. First, within-row content type consistency CTCr is 
+computed as follows. Let the set of cell type of the cells 
+from row i as Ti, i = 1,... , r (again, considering only non- 
+spanning cells):
+# Para 239 1
+1. Find the dominant type, DTi, for Ti.
+# Para 240 2
+2. Compute the cumulative type consistency with each 
+row Ri, i = 1,... ,r:
+# Para 242 1
+CTCi = X D,
+# Para 243 1
+ctERi
+# Para 244 2
+where D = 1 if ct is equal to DTi and D = —1, other-
+wise.
+# Para 246 1
+3. Take the average across all rows:
+# Para 247 1
+CTCr = 1
+# Para 248 1
+r
+# Para 249 3
+The within-column type consistency is then computed in 
+a similar manner. Finally, the overall cumulative type con-
+sistency is computed as: CTC = max(CTCr, CTCc).
+# Para 252 1
+tiv
+# Para 253 1
+dC =
+# Para 254 2
+1 
+rn
+# Para 256 2
+Xrn 
+i�1
+# Para 258 1
+ri,
+# Para 259 1
+r=
+# Para 260 2
+1 
+rn
+# Para 262 2
+Xcn 
+i�1
+# Para 264 1
+vt uu
+# Para 265 1
+dR =
+# Para 266 2
+1 
+cn
+# Para 268 2
+Xcn 
+i�1
+# Para 270 1
+tuuv
+# Para 271 1
+dCL =
+# Para 272 2
+1 
+en
+# Para 274 2
+Xen 
+i�1
+# Para 276 2
+Xr CT Ci 
+i�1
+# Para 278 1
+244
+# Para 279 1
+2.3 Word Group Feature
+# Para 280 6
+If we treat each table as a &quot;mini-document&quot; by itself, ta-
+ble classification can be viewed as a document categoriza-
+tion problem with two broad categories: genuine tables and 
+non-genuine tables. We designed the word group feature to 
+incorporate word content for table classification based on 
+techniques developed in information retrieval [7, 13].
+# Para 286 5
+After morphing [11] and removing the infrequent words, 
+we obtain the set of words found in the training data, W. 
+We then construct weight vectors representing genuine and 
+non-genuine tables and compare that against the frequency 
+vector from each new incoming table.
+# Para 291 2
+Let 3 represent the non-negative integer set. The follow-
+ing functions are defined on set W.
+# Para 293 2
+•	dfG : W —&gt; 3, where dfG (wi) is the number of genuine 
+tables which include word wi, i = 1, ..., 1W1;
+# Para 295 2
+•	t f G : W —&gt; 3, where t f G (wi) is the number of times
+word wi, i =1,...,1W1, appears in genuine tables;
+# Para 297 2
+•	dfN : W —&gt; 3, where dfN(wi) is the number of non-
+genuine tables which include word wi, i =1,...,1W1;
+# Para 299 2
+•	t f N : W —&gt; 3, where t f N (wi) is the number of times 
+word wi, i =1,...,1W1, appears in non-genuine tables.
+# Para 301 2
+•	t fT : W —&gt; 3, where t fT (wi) is the number of times 
+word wi, wi 2 W appears in a new test table.
+# Para 303 3
+To simplify the notations, in the following discussion, we 
+will use dfGi, t fGi , df N i and t f Ni to represent dfG (wi), t f G (wi), 
+df N (wi) and t f N (wi), respectively.
+# Para 306 5
+Let NG, NN be the number of genuine tables and non- 
+genuine tables in the training collection, respectively and let 
+C = max(NG, NN). Without loss of generality, we assume 
+NG =� 0 and NN =� 0. For each word wi in W, i = 1, ...,1W1, 
+two weights, pGi and pNi are computed:
+# Para 311 1
+N
+# Para 312 3
+tfGilog(N� fN +1), when df Ni :A 0 
+tfGilog(Ni C+1), when df i = 0 
+tfiNlog(NNN fG
+# Para 315 2
+G+1), when dfGi00 
+tfNilog(NNC+1),	when dfG=0
+# Para 317 4
+As can be seen from the formulas, the definitions of these 
+weights were derived from the traditional t f * idf measures 
+used in informational retrieval, with some adjustments made 
+for the particular problem at hand.
+# Para 321 13
+Given a new incoming table, let us denote the set includ-
+ing all the words in it as Wn. Since W is constructed using 
+thousands of tables, the words that are present in both W 
+and Wn are only a small subset of W. Based on the vector 
+space model, we define the similarity between weight vec-
+tors representing genuine and non-genuine tables and the 
+frequency vector representing the incoming table as the cor-
+responding dot products. Since we only need to consider the 
+words that are present in both W and Wn, we first compute 
+the effective word set: We = W n Wn. Let the words in 
+We be represented as wmk, where mk,k = 1, ..., 1We1, are 
+indexes to the words from set W = fw1, w2, ..., wIWI g. we 
+define the following vectors:
+# Para 334 1
+•	Weight vector representing the genuine table group:
+# Para 335 1
+i	pGmJ
+# Para 336 1
+GS=
+# Para 337 1
+U
+# Para 338 1
+where U is the cosine normalization term:
+# Para 339 1
+where V is the cosine normalization term:
+# Para 340 2
+NN
+pmk X pmk .
+# Para 342 1
+•	Frequency vector representing the new incoming table:
+# Para 343 3
+&apos;i	T T	T
+I	(tfml,tfmt,... tfT Wel I .
+Finally, the word group feature is defined as the ratio of
+# Para 346 1
+the two dot products:
+# Para 347 1
+3. CLASSIFICATION SCHEMES
+# Para 348 8
+Various classification schemes have been widely used in 
+document categorization as well as web information retrieval 
+[13, 8]. For the table detection task, the decision tree classi-
+fier is particularly attractive as our features are highly non- 
+homogeneous. We also experimented with Support Vector 
+Machines (SVM), a relatively new learning approach which 
+has achieved one of the best performances in text catego-
+rization [13].
+# Para 356 1
+3.1 Decision Tree
+# Para 357 4
+Decision tree learning is one of the most widely used and 
+practical methods for inductive inference. It is a method 
+for approximating discrete-valued functions that is robust 
+to noisy data.
+# Para 361 10
+Decision trees classify an instance by sorting it down the 
+tree from the root to some leaf node, which provides the clas-
+sification of the instance. Each node in a discrete-valued de-
+cision tree specifies a test of some attribute of the instance, 
+and each branch descending from that node corresponds to 
+one of the possible values for this attribute. Continuous- 
+valued decision attributes can be incorporated by dynami-
+cally defining new discrete-valued attributes that partition 
+the continuous attribute value into a discrete set of intervals 
+[9].
+# Para 371 4
+An implementation of the continuous-valued decision tree 
+described in [4] was used for our experiments. The decision 
+tree is constructed using a training set of feature vectors with 
+true class labels. At each node, a discriminant threshold
+# Para 375 1
+tuuv
+# Para 376 1
+IWeI
+# Para 377 1
+X
+# Para 378 1
+k=1
+# Para 379 1
+U=
+# Para 380 1
+pGmk X pGmk.
+# Para 381 1
+�,
+# Para 382 1
+pmt 
+# Para 383 1
+V
+# Para 384 1
+,
+# Para 385 2
+N
+pmlWel
+# Para 387 1
+V
+# Para 388 1
+iNS= pNm� 
+# Para 389 1
+V
+# Para 390 1
+•	Weight vector representing the non-genuine table group:
+# Para 391 1
+i i
+# Para 392 1
+,when IT . NS�= 0
+# Para 393 1
+i i
+# Para 394 1
+	1,	when IT . GS= 0 and
+# Para 395 1
+i
+# Para 396 1
+	10,	when IT .
+# Para 397 1
+i i
+# Para 398 1
+IT . NS= 0
+# Para 399 2
+i 
+NS= 0
+# Para 401 4
+� � 
+IT� GS 
+� � 
+IT&apos; NS
+# Para 405 1
+i	i
+# Para 406 1
+GS�=0and IT .
+# Para 407 1
+�����
+# Para 408 1
+����
+# Para 409 1
+wg =
+# Para 410 1
+��
+# Para 411 1
+�
+# Para 412 1
+G
+# Para 413 1
+pi =
+# Para 414 1
+I
+# Para 415 1
+N
+# Para 416 1
+pi =
+# Para 417 1
+,
+# Para 418 2
+G
+pmlWel
+# Para 420 1
+U
+# Para 421 1
+pmt 
+# Para 422 1
+U
+# Para 423 1
+�,
+# Para 424 1
+tuuv
+# Para 425 1
+V=
+# Para 426 1
+IWeI
+# Para 427 1
+X
+# Para 428 1
+k=1
+# Para 429 1
+245
+# Para 430 8
+is chosen such that it minimizes an impurity value. The 
+learned discriminant function splits the training subset into 
+two subsets and generates two child nodes. The process is 
+repeated at each newly generated child node until a stopping 
+condition is satisfied, and the node is declared as a terminal 
+node based on a majority vote. The maximum impurity 
+reduction, the maximum depth of the tree, and minimum 
+number of samples are used as stopping conditions.
+# Para 438 1
+3.2 SVM
+# Para 439 7
+Support Vector Machines (SVM) are based on the Struc-
+tural Risk Management principle from computational learn-
+ing theory [12]. The idea of structural risk minimization 
+is to find a hypothesis h for which the lowest true error is 
+guaranteed. The true error of h is the probability that h 
+will make an error on an unseen and randomly selected test 
+example.
+# Para 446 5
+The SVM method is defined over a vector space where the 
+goal is to find a decision surface that best separates the data 
+points in two classes. More precisely, the decision surface by 
+SVM for linearly separable space is a hyperplane which can 
+be written as
+# Para 451 1
+w�•x�—b=0
+# Para 452 5
+where x� is an arbitrary data point and the vector w&quot; and 
+the constant b are learned from training data. Let D = 
+(yz, �xz) denote the training set, and yz E {+1, —1} be the 
+classification for �xz, the SVM problem is to find w� and b 
+that satisfies the following constraints:
+# Para 457 2
+w� •�xz—b&gt;+1 for yz=+1 
+w�•�xz—b&lt;—1 for yz=—1
+# Para 459 1
+while minimizing the vector 2-norm of �w.
+# Para 460 6
+The SVM problem in linearly separable cases can be effi-
+ciently solved using quadratic programming techniques, while 
+the non-linearly separable cases can be solved by either in-
+troducing soft margin hyperplanes, or by mapping the orig-
+inal data vectors to a higher dimensional space where the 
+data points become linearly separable [12, 3].
+# Para 466 6
+One reason why SVMs are very powerful is that they are 
+very universal learners. In their basic form, SVMs learn lin-
+ear threshold functions. Nevertheless, by a simple &quot;plug-in&quot; 
+of an appropriate kernel function, they can be used to learn 
+polynomial classifiers, radial basis function (RBF) networks, 
+three-layer sigmoid neural nets, etc. [3].
+# Para 472 2
+For our experiments, we used the SVMlzght system im-
+plemented by Thorsten Joachims.1
+# Para 474 1
+4. DATA COLLECTION AND TRUTHING
+# Para 475 10
+Since there are no publicly available web table ground 
+truth database, researchers tested their algorithms in differ-
+ent data sets in the past [2, 10, 14]. However, their data 
+sets either had limited manually annotated table data (e.g., 
+918 table tags in [2], 75 HTML pages in [10], 175 manually 
+annotated table tags in [14]), or were collected from some 
+specific domains (e.g., a set of tables selected from airline 
+information pages were used in [2]). To develop our machine 
+learning based table detection algorithm, we needed to build 
+a general web table ground truth database of significant size.
+# Para 485 1
+1 http://svmlight.joachims.org
+# Para 486 1
+4.1 Data Collection
+# Para 487 15
+Instead of working within a specific domain, our goal of 
+data collection was to get tables of as many different varieties 
+as possible from the web. To accomplish this, we composed 
+a set of key words likely to indicate documents containing 
+tables and used those key words to retrieve and download 
+web pages using the Google search engine. Three directo-
+ries on Google were searched: the business directory and 
+news directory using key words: {table, stock, bonds, 
+figure, schedule, weather, score, service, results, 
+value}, and the science directory using key words {table, 
+results, value}. A total of 2,851 web pages were down-
+loaded in this manner and we ground truthed 1,393 HTML 
+pages out of these (chosen randomly among all the HTML 
+pages). These 1,393 HTML pages from around 200 web sites 
+comprise our database.
+# Para 502 1
+4.2 Ground Truthing
+# Para 503 15
+There has been no previous report on how to systemati-
+cally generate web table ground truth data. To build a large 
+web table ground truth database, a simple, flexible and com-
+plete ground truth protocol is required. Figure 4.2(a) shows 
+the diagram of our ground truthing procedure. We created 
+a new Document Type Definition(DTD) which is a super-
+set of W3C HTML 3.2 DTD. We added three attributes for 
+&lt;TABLE&gt; element, which are &quot;tabid&quot;, &quot;genuine table&quot; and 
+&quot;table title&quot;. The possible value of the second attribute is 
+yes or no and the value of the first and third attributes is a 
+string. We used these three attributes to record the ground 
+truth of each leaf &lt;TABLE&gt; node. The benefit of this design 
+is that the ground truth data is inside HTML file format. 
+We can use exactly the same parser to process the ground 
+truth data.
+# Para 518 10
+We developed a graphical user interface for web table 
+ground truthing using the Java [1] language. Figure 4.2(b) 
+is a snapshot of the interface. There are two windows. Af-
+ter reading an HTML file, the hierarchy of the HTML file is 
+shown in the left window. When an item is selected in the 
+hierarchy, the HTML source for the selected item is shown 
+in the right window. There is a panel below the menu bar. 
+The user can use the radio button to select either genuine 
+table or non-genuine table. The text window is used to input 
+table title.
+# Para 528 1
+4.3 Database Description
+# Para 529 10
+Our final table ground truth database consists of 1,393 
+HTML pages collected from around 200 web sites. There 
+are a total of 14,609 &lt;TABLE&gt; nodes, including 11,477 leaf 
+&lt;TABLE&gt; nodes. Out of the 11,477 leaf &lt;TABLE&gt; nodes, 
+1,740 are genuine tables and 9,737 are non-genuine tables. 
+Not every genuine table has its title and only 1,308 genuine 
+tables have table titles. We also found at least 253 HTML 
+files have unmatched &lt;TABLE&gt;, &lt;/TABLE&gt; pairs or wrong 
+hierarchy, which demonstrates the noisy nature of web doc-
+uments.
+# Para 539 1
+5. EXPERIMENTS
+# Para 540 5
+A hold-out method is used to evaluate our table classi-
+fier. We randomly divided the data set into nine parts. 
+Each classifier was trained on eight parts and then tested 
+on the remaining one part. This procedure was repeated 
+nine times, each time with a different choice for the test
+# Para 545 1
+246
+# Para 546 1
+HTML File
+# Para 547 1
+Hierarchy
+# Para 548 1
+Adding attributes
+# Para 549 1
+Parser
+# Para 550 2
+HTML with attributes and unique 
+index to each table(ground truth)
+# Para 552 1
+Validation
+# Para 553 1
+(a)	(b)
+# Para 554 1
+Figure 2: (a) The diagram of ground truthing procedure; (b) A snapshot of the ground truthing software.
+# Para 555 2
+part. Then the combined nine part results are averaged to 
+arrive at the overall performance measures [4].
+# Para 557 6
+For the layout and content type features, this procedure 
+is straightforward. However it is more complicated for the 
+word group feature training. To compute wg for training 
+samples, we need to further divide the training set into two 
+groups, a larger one (7 parts) for the computation of the 
+weights pGi and pNi, i =1�...�jWj, and a smaller one (1
+# Para 563 1
+i i i
+# Para 564 3
+part) for the computation of the vectors GS, NS, and IT. 
+This partition is again rotated to compute wg for each table 
+in the training set.
+# Para 567 2
+Table 1: Possible true- and detected-state combina-
+tions for two classes.
+# Para 569 4
+True Class	Assigned Class	
+	genuine table	non-genuine table
+genuine table	Ngg	Ngn
+non-genuine table	Nng	Nnn
+# Para 573 1
+lows:
+# Para 574 1
+Ngg	Ngg	R + P 
+# Para 575 1
+R	P 	 F Ngg + Ng&apos;	Ngg + Nng	= 2
+# Para 576 5
+For comparison among different features and learning al-
+gorithms we report the performance measures when the best 
+F-measure is achieved. First, the performance of various fea-
+ture groups and their combinations were evaluated using the 
+decision tree classifier. The results are given in Table 2.
+# Para 581 2
+Table 2: Experimental results using various feature 
+groups and the decision tree classifier.
+# Para 583 4
+	L	T	LT	LTW
+R (%)	87.24	90.80	94.20	94.25
+P (%)	88.15	95.70	97.27	97.50
+F (%)	87.70	93.25	95.73	95.88
+# Para 587 1
+L: Layout only.
+# Para 588 1
+T: Content type only.
+# Para 589 1
+LT: Layout and content type.
+# Para 590 1
+LTW: Layout, content type and word group.
+# Para 591 10
+The output of each classifier is compared with the ground 
+truth and a contingency table is computed to indicate the 
+number of a particular class label that are identified as mem-
+bers of one of two classes. The rows of the contingency table 
+represent the true classes and the columns represent the as-
+signed classes. The cell at row r and column c is the number 
+of tables whose true class is r while its assigned class is c. 
+The possible true- and detected-state combination is shown 
+in Table 1. Three performance measures Recall Rate(R), 
+Precision Rate(P) and F-measure(F) are computed as fol-
+# Para 601 7
+As seen from the table, content type features performed 
+better than layout features as a single group, achieving an 
+F-measure of 93.25%. However, when the two groups were 
+combined the F-measure was improved substantially to 95.73%, 
+reconfirming the importance of combining layout and con-
+tent features in table detection. The addition of the word 
+group feature improved the F-measure slightly more to 95.88%.
+# Para 608 3
+Table 3 compares the performances of different learning 
+algorithms using the full feature set. The leaning algorithms 
+tested include the decision tree classifier and the SVM al-
+# Para 611 1
+247
+# Para 612 2
+gorithm with two different kernels — linear and radial basis 
+function (RBF).
+# Para 614 2
+Table 3: Experimental results using different learn-
+ing algorithms.
+# Para 616 4
+	Tree	SVM (linear)	SVM (RBF)
+R (%)	94.25	93.91	95.98
+P (%)	97.50	91.39	95.81
+F (%)	95.88	92.65	95.89
+# Para 620 2
+As seen from the table, for this application the SVM with 
+radial basis function kernel performed much better than the
+# Para 622 2
+one with linear kernel. It achieved an F measure of 95.89%, 
+comparable to the 95.88% achieved by the decision tree clas-
+# Para 624 1
+sifier.
+# Para 625 3
+Figure 3 shows two examples of correctly classified tables, 
+where Figure 3(a) is a genuine table and Figure 3(b) is a 
+non-genuine table.
+# Para 628 24
+Figure 4 shows a few examples where our algorithm failed. 
+Figure 4(a) was misclassified as a non-genuine table, likely 
+because its cell lengths are highly inconsistent and it has 
+many hyperlinks which is unusual for genuine tables. The 
+reason why Figure 4(b) was misclassified as non-genuine is 
+more interesting. When we looked at its HTML source code, 
+we found it contains only two &lt;TR&gt; tags. All text strings 
+in one rectangular box are within one &lt;TD&gt; tag. Its author 
+used &lt;p&gt; tags to put them in different rows. This points 
+to the need for a more carefully designed pseudo-rendering 
+process. Figure 4(c) shows a non-genuine table misclassi-
+fied as genuine. A close examination reveals that it indeed 
+has good consistency along the row direction. In fact, one 
+could even argue that this is indeed a genuine table, with 
+implicit row headers of Title, Name, Company Affiliation 
+and Phone Number. This example demonstrates one of the 
+most difficult challenges in table understanding, namely the 
+ambiguous nature of many table instances (see [5] for a more 
+detailed analysis on that). Figure 4(d) was also misclassi-
+fied as a genuine table. This is a case where layout features 
+and the kind of shallow content features we used are not 
+enough deeper semantic analysis would be needed in or-
+der to identify the lack of logical coherence which makes it 
+a non-genuine table.
+# Para 652 15
+For comparison, we tested the previously developed rule- 
+based system [10] on the same database. The initial re-
+sults (shown in Table 4 under &quot;Original Rule Based&quot;) were 
+very poor. After carefully studying the results from the 
+initial experiment we realized that most of the errors were 
+caused by a rule imposing a hard limit on cell lengths in gen-
+uine tables. After deleting that rule the rule-based system 
+achieved much improved results (shown in Table 4 under 
+&quot;Modified Rule Based&quot;). However, the proposed machine 
+learning based method still performs considerably better in 
+comparison. This demonstrates that systems based on hand-
+crafted rules tend to be brittle and do not generalize well. 
+In this case, even after careful manual adjustment in a new 
+database, it still does not work as well as an automatically 
+trained classifier.
+# Para 667 2
+Figure 3: Examples of correctly classified tables. 
+(a): a genuine table; (b): a non-genuine table.
+# Para 669 2
+Table 4: Experimental results of a previously devel-
+oped rule based system.
+# Para 671 4
+	Original Rule Based	Modified Rule Based
+R (%)	48.16	95.80
+P (%)	75.70	79.46
+F (%)	61.93	87.63
+# Para 675 1
+248
+# Para 676 1
+(a)	(b)
+# Para 677 1
+(c)	(d)
+# Para 678 2
+Figure 4: Examples of misclassified tables. (a) and (b): Genuine tables misclassified as non-genuine; (c) and 
+(d): Non-genuine tables misclassified as genuine.
+# Para 680 5
+A direct comparison to other previous results [2, 14] is 
+not possible currently because of the lack of access to their 
+system. However, our test database is clearly more general 
+and far larger than the ones used in [2] and [14], while our 
+precision and recall rates are both higher.
+# Para 685 1
+6. CONCLUSION AND FUTURE WORK
+# Para 686 11
+Table detection in web documents is an interesting and 
+challenging problem with many applications. We present a 
+machine learning based table detection algorithm for HTML 
+documents. Layout features, content type features and word 
+group features were used to construct a novel feature set. 
+Decision tree and SVM classifiers were then implemented 
+and tested in this feature space. We also designed a novel ta-
+ble ground truthing protocol and used it to construct a large 
+web table ground truth database for training and testing. 
+Experiments on this large database yielded very promising 
+results.
+# Para 697 6
+Our future work includes handling more different HTML 
+styles in pseudo-rendering, detecting table titles of the rec-
+ognized genuine tables and developing a machine learning 
+based table interpretation algorithm. We would also like to 
+investigate ways to incorporate deeper language analysis for 
+both table detection and interpretation.
+# Para 703 1
+7. ACKNOWLEDGMENT
+# Para 704 3
+We would like to thank Kathie Shipley for her help in 
+collecting the web pages, and Amit Bagga for discussions on 
+vector space models. 
+# Para 707 1
+8. REFERENCES
+# Para 708 3
+[1] M. Campione, K. Walrath, and A. Huml. The 
+java(tm) tutorial: A short course on the basics (the 
+java(tm) series).
+# Para 711 2
+[2] H.-H. Chen, S.-C. Tsai, and J.-H. Tsai. Mining tables 
+from large scale html texts. In Proc. 18th
+# Para 713 1
+International Conference on Computational
+# Para 714 1
+Linguistics, Saabrucken, Germany, July 2000.
+# Para 715 2
+[3] C. Cortes and V. Vapnik. Support-vector networks. 
+Machine Learning, 20:273{296, August 1995.
+# Para 717 2
+[4] R. Haralick and L. Shapiro. Computer and Robot 
+Vision, volume 1. Addison Wesley, 1992.
+# Para 719 1
+[5] J. Hu, R. Kashi, D. Lopresti, G. Nagy, and
+# Para 720 4
+G. Wilfong. Why table ground-truthing is hard. In 
+Proc. 6th International Conference on Document 
+Analysis and Recognition (ICDAR01), pages 129{133, 
+Seattle, WA, USA, September 2001.
+# Para 724 4
+[6] M. Hurst. Layout and language: Challenges for table 
+understanding on the web. In Proc. 1st International 
+Workshop on Web Document Analysis, pages 27{30, 
+Seattle, WA, USA, September 2001.
+# Para 728 4
+[7] T. Joachims. A probabilistic analysis of the rocchio 
+algorithm with tfidf for text categorization. In Proc. 
+14th International Conference on Machine Learning, 
+pages 143{151, Morgan Kaufmann, 1997.
+# Para 732 4
+[8] A. McCallum, K. Nigam, J. Rennie, and K. Seymore. 
+Automating the construction of internet portals with 
+machine learning. In Information Retrieval Journal, 
+volume 3, pages 127{163, Kluwer, 2000.
+# Para 736 1
+249
+# Para 737 1
+[9] T. M. Mitchell. Machine Learning. McGraw-Hill, 1997.
+# Para 738 6
+[10] G. Penn, J. Hu, H. Luo, and R. McDonald. Flexible 
+web document analysis for delivery to narrow- 
+bandwidth devices. In Proc. 6th International 
+Conference on Document Analysis and Recognition 
+(ICDAR01), pages 1074{1078, Seattle, WA, USA, 
+September 2001.
+# Para 744 2
+[11] M. F. Porter. An algorithm for suffix stripping. 
+Program, 14(3):130-137, 1980.
+# Para 746 2
+[12] V. N. Vapnik. The Nature of Statistical Learning 
+Theory, volume 1. Springer, New York, 1995.
+# Para 748 3
+[13] Y. Yang and X. Liu. A re-examination of text 
+categorization methods. In Proc. SIGIR&apos;99, pages 
+42{49, Berkeley, California, USA, August 1999.
+# Para 751 4
+[14] M. Yoshida, K. Torisawa, and J. Tsujii. A method to 
+integrate tables of the world wide web. In Proc. 1st 
+International Workshop on Web Document Analysis, 
+pages 31{34, Seattle, WA, USA, September 2001.
+# Para 755 1
+250

@@ -1,0 +1,92 @@
+CHI 2008 Proceedings · On the Move	April 5-10, 2008 · Florence, Italy
+Performing Thrill: Designing Telemetry Systems
+and Spectator Interfaces for Amusement Rides
+Holger Schnädelbach 1, Stefan Rennick Egglestone 1, Stuart Reeves 1,
+Steve Benford 1, Brendan Walker 2 and Michael Wright 1
+1 Mixed Reality Laboratory	2 Aerial
+University of Nottingham	42 Murchison Road
+Computer Science	London
+Wollaton Road, Nottingham, NG8 11313, UK	E10 6NB, UK
+{hms,sre,str,sdb,maw}@cs.nott.ac.uk	info@aerial.fm
+ABSTRACT
+Fairground: Thrill Laboratory was a series of live events 
+that augmented the experience of amusement rides. A 
+wearable telemetry system captured video, audio, heart-rate 
+and acceleration data, streaming them live to spectator 
+interfaces and a watching audience. In this paper, we 
+present a study of this event, which draws on video 
+recordings and post-event interviews, and which highlights 
+the experiences of riders, spectators and ride operators. Our 
+study shows how the telemetry system transformed riders 
+into performers, spectators into an audience, and how the 
+role of ride operator began to include aspects of 
+orchestration, with the relationship between all three roles 
+also transformed. Critically, the introduction of a telemetry 
+system seems to have had the potential to re-connect 
+riders/performers back to operators/orchestrators and 
+spectators/audience, re-introducing a closer relationship that 
+used to be available with smaller rides. Introducing 
+telemetry to a real-world situation also creates significant 
+complexity, which we illustrate by focussing on a moment 
+of perceived crisis.
+Author Keywords
+Performance, theme-park, amusement, fairground, 
+telemetry, biosensing, spectator interface, wearable 
+computing, heart rate, orchestration.
+ACM Classification Keywords
+H1.2 User/Machine Systems; H5. Information Interfaces 
+and Presentation.
+INTRODUCTION
+The amusement park, spanning the theme park and the 
+fairground, is an historic form of entertainment that has 
+driven the development of entertainment technologies for
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+many years, from the first manually operated roundabouts 
+or ‘dobbies’, to today’s virtual reality simulations and 
+extreme roller coasters [15]. Computers are now routinely 
+used to design amusement rides, control their operation 
+[18], enable a rider’s interaction and immersion [12], and 
+increasingly to document their experience by automatically 
+producing still images or even videos as souvenirs.
+One of the most challenging problems facing modern 
+amusement parks today is that of spectators: accompanying 
+visitors, often the adults in a party, who are unable or 
+unwilling to go on the rides, but who nevertheless have to 
+spend a day at the park. These visitors are often left 
+‘holding the bags’. Given that they are often also the ones 
+who hold the purse strings, it is important to consider how 
+their experience might be improved. Inspired in part by the 
+increasing use of telemetry in sports such as motor racing 
+[5], our approach to this problem is to use a personal 
+wearable telemetry system to capture a rider’s experience 
+and broadcast it to spectators so that they can get a greater 
+sense of what it might be like to ride and can more closely 
+share in the reactions of friends and family. Such a system 
+also has the potential to extend the images (and in some 
+places videos) that are now being sold as ride souvenirs.
+HCI research has also begun to focus on the spectator. As 
+interfaces have moved into public settings such as 
+museums, galleries, clubs, performances and the city 
+streets, it has become increasingly important to consider 
+how interaction with computers operates as a public affair. 
+Inspired by ethnographic studies of interaction in such 
+settings [6,7,8,16], researchers have proposed new 
+approaches to designing interaction with spectators in mind, 
+for example choosing to reveal or hide the manipulations of 
+an interface and their consequent effects [13], or by 
+considering how to frame interaction in the public arena [2]. 
+This paper reports on a deliberate attempt to create such a 
+spectator interface and our study is therefore relevant to this 
+emerging discussion in HCI as we address later on.
+Our approach has involved the rapid development and 
+public deployment of a wearable telemetry system along 
+with a qualitative study – involving video recordings and 
+follow up interviews – in which we have developed an
+1167

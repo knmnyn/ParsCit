@@ -1,0 +1,107 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Firefox	20	20	13	4	17	19
+Active IE	20	19	10	10	10	12
+Passive IE	10	8	3	5	3	5
+Table 2. This table depicts the number of participants in each experi-
+mental condition, the number who saw at least one warning, the num-
+ber who completely read at least one warning, the number who recog-
+nized the warnings, the number who correctly understood the warn-
+ings, and the number who understood the choices that the warnings 
+presented.
+This was not the case with the passive warning in IE (Figure 
+2). This warning is a single dialog box with only the op-
+tion to dismiss it. We observed that it could take up to five 
+seconds for this warning to appear. If a user starts typing 
+during this period, the user’s keystrokes will inadvertently 
+dismiss the warning. Six of the ten participants in this con-
+dition never noticed the warning because their focus was on 
+either the keyboard or the input box. Two of these partic-
+ipants had this happen on both phishing websites, so they 
+had no idea they were ever exposed to any warnings. We 
+found no statistical significance between this condition and 
+the control group. Thus, this type of warning is effectively 
+useless.
+Effective warnings must also cause attention maintenance— 
+they must grab the users’ attention long enough for them to 
+attempt comprehension. We examined the number of partici-
+pants who read the warnings (as determined by self-reporting 
+and confirmed by the observations of the experimenter) in 
+order to determine their effectiveness at attention mainte-
+nance. Table 2 shows the number of warnings read and the 
+number of participants who claimed to have seen the warn-
+ings prior to this study, for each experimental condition.
+Not counting the two participants who failed to notice the 
+warnings entirely, and the participant in the active IE condi-
+tion who did not click on the URLs, we found that twenty-six 
+of the remaining forty-seven (55%) claimed to have com-
+pletely read at least one of the warnings that were displayed. 
+When asked, twenty-two of these twenty-six (85%) said they 
+decided to read the warning because it appeared to warn 
+about some sort of negative consequences.
+Upon seeing the warnings, two participants in the active IE 
+condition immediately closed the window. They went back 
+to the emails and clicked the links, were presented with the 
+same warnings, and then closed the windows again. They 
+repeated this process four or five times before giving up, 
+though never bothered to read the warnings. Both said that 
+the websites were not working. Despite not reading or un-
+derstanding the warnings, both were protected because the 
+warnings “failed safely.” Thus, if users do not read or under-
+stand the warnings, the warnings can still be designed such 
+that the user is likely to take the recommended action.
+Nineteen participants claimed to have previously seen these 
+particular warnings. A significantly higher proportion of 
+participants in the active IE condition (50%) claimed to have 
+recognized the warnings as compared to participants in the
+Firefox condition (20%; p &lt; 0.048 for Fisher’s exact test).
+Many of the participants who encountered the active IE warn-
+ing said that they had previously seen the same warning on 
+websites which they trusted, and thus they ignored it. It is 
+likely that they did not read this phishing warning because 
+IE uses a similar warning when it encounters an expired or 
+self-signed SSL certificate. Therefore they did not notice 
+that this was a slightly different and more serious warning.
+We found a significant negative Pearson correlation between 
+participants recognizing a warning message and their will-
+ingness to completely read it (r = —0.309, p &lt; 0.03).
+This implies that if a warning is recognized, a user is sig-
+nificantly less likely to bother to read it completely (i.e. ha-
+bituation). Thus, very serious warnings should be designed 
+differently than less serious warnings in order to increase the 
+likelihood that users will read them. This was also the basis 
+for Brustoloni and Villamar´ın-Salom´on’s work on dynamic 
+warnings [3].
+Warning Comprehension
+A well-designed warning must convey a sense of danger and 
+present suggested actions. In this study we asked partici-
+pants what they believed each warning meant. Twenty-seven 
+of the 47 participants (57%) who saw at least one of the 
+warnings correctly said they believed that they had some-
+thing to do with giving information to fraudulent websites 
+(Table 2). Of the 20 participants who did not understand the 
+meaning of the warnings, one said that she did not see it long 
+enough to have any idea, while the others had widely varying 
+answers. Examples include: “someone got my password,” 
+“[it] was not very serious like most window[s] warning[s],” 
+and “there was a lot of security because the items were cheap 
+and because they were international.”
+Using Fisher’s exact test, we found that those using Firefox 
+understood the meaning of the warnings significantly more
+than those exposed to the active IE warnings (p &lt; 0.041) 
+and the passive IE warnings (p &lt; 0.005), though we found
+no significant difference between the active and passive IE 
+warnings. We found a significant Pearson correlation be-
+tween completely reading a warning and understanding its
+meaning for the active IE warning (r = 0.478, p &lt; 0.039),
+but not for Firefox. Since all but one Firefox user correctly 
+understood what the warning wanted them to do, this im-
+plies that users did not need to completely read it to know 
+the appropriate actions to take.
+Overall, 31 of the 47 participants who noticed the warnings 
+mentioned that they thought they were supposed to leave 
+the website or refrain from entering personal information. 
+Those who did not understand the warnings provided re-
+sponses such as “panic and cancel my accounts,” “confirm 
+information about the orders,” and “put in my account infor-
+mation so that they could track it and use it for themselves.”
+1071

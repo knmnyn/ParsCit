@@ -1,0 +1,80 @@
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+1: Architecture of the PeerChooser Visual Interactive 
+Recommender System.
+on-screen distance is closely correlated with node simi-
+larity, thus providing the system user with an accurate 
+visual representation of their peer group or neighbor-
+hood.
+We are interested in allowing a user to manipulate a 
+neighborhood in order to allow then to benefit from im-
+proved recommendations that more accurately reflect 
+their current preferences and mood. To achieve this 
+the interface must convey meaningful information to the 
+user about their neighborhood structure and the inter-
+ests of their neighbors. This is a challenging problem 
+as each neighborhood represents a high-dimensionality 
+preference space which is difficult to render and even 
+more difficult for a user to interpret. To address this, 
+while maintaining ease of use for the end user, we have 
+chosen to map the complex ratings data onto the space 
+of movie genres, which are presented as a set of user- 
+connected genre nodes alongside their neighborhood rep-
+resentation; see Figures 2 and 3. Very briefly, an edge 
+is created between a genre node g and a user u if u 
+displays an affinity for g in their ratings; in practice we 
+use a simple thresholding technique to identify affini-
+ties between users and genres if more than 10% of the 
+user’s positive ratings reflect a given genre. These genre 
+nodes are also displayed using the force-directed graph 
+layout algorithm, which causes a natural clustering of 
+users to genres as shown in Figure 3; in this example 
+we allow each user to be connected to their two most 
+dominant genres but in principle each user can be con-
+nected to any number of genres, subject to presentation 
+clarity issues. The genre distribution in the MovieLens 
+data has a massive bias towards three genres: Drama, 
+Action, and Comedy. As a result, our initial clustered 
+graphs tended to only show connections between non- 
+active user nodes and nodes representing these three 
+genres. To counter this problem and provide a more 
+diverse set of neighbours we apply a scaling function 
+to our edge drawing threshold based on number of oc-
+currences of a genre in the database. In addition to 
+manipulating individual neighbour nodes on the graph, 
+users can also click and drag the genre nodes. These 
+actions are translated into neighbor-node movements as 
+follows: When a genre node is moved toward or away 
+from the active user’s avatar in the centre of the graph, 
+each connected person-node is moved by a relative dis-
+tance in the same direction. This allows users to make
+2: Annotated Screenshot of PeerChooser’s Interactive 
+Interface.
+3: MovieLens data visualized using PeerChooser with 
+multiple genre associations.
+more coarse-grained statements about current require-
+ments.
+PeerChooser uses OpenGL technology on a Java plat-
+form, making it visually appealing to the end user. An 
+active user can interact with the graph by moving or 
+deleting icons. Genre nodes are positioned around the 
+outside of the graph and can be clicked on and moved 
+freely. When this occurs, each connected neighbor node 
+is moved by a relative distance in the same direction. 
+This allows the user to make a bold statement about 
+her current opinion on a particular genre. For exam-
+ple, if the comedy icon is moved towards the active 
+user’s avatar then all users who like comedy will be 
+drawn closer and become “more similar” to the active 
+user for this session. We term this new value ephemeral 
+similarity. Furthermore, users can make fine-grained 
+statements by moving neighbor icons individually. On 
+mouseover, nodes are highlighted and associated ratings 
+are displayed in the right panel, shown in Figure 2.
+GRAPH-BASED PREDICTION
+We now explain how “hints” provided by the user through 
+the interface translate in to actual recommendation in-
+fluences. In PeerChooser the k nearest user nodes are
+Oitim
+rithnq
+Peerg
+1086

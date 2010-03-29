@@ -1,0 +1,112 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Thus, the information we depict includes:
+•	Process characteristics, including depictions of which 
+windows are associated with a given process, average and 
+current CPU usage, putative vendor, whether that vendor 
+can be confirmed, and process installation date;
+•	Network characteristics, including incoming and outgoing
+connections;
+•	Remote systems, including domain, putative owning
+organization, and putative geographical location.
+Although far from comprehensive, the above data set pro-
+vides enough information to identify and potentially mitigate 
+many variants of the three types of attacks on which we 
+focus. Spyware, for example, could be identified by routine 
+attempts at establishing connections from suspicious proc-
+esses targeted at suspicious remote servers. A bot infection 
+could be detected similarly, except in some cases the remote 
+systems would be initiating the connections. In this sense, 
+Sesame goes further than current firewalls, enabling users to 
+proactively explore security risks. For example, some phish-
+ing scams could be identified by observing one’s web 
+browser connecting to servers that appear unaffiliated with 
+the nominal proprietor of the website. We used situations 
+like these to evaluate Sesame as described below in our User 
+Study section.
+Formative Study
+To get feedback on potential approaches for visual presenta-
+tion and terminology, we conducted a small formative study 
+early in our design process. This formative study was in-
+tended to provide feedback on (1) user preferences with 
+respect to concrete versus abstract representations of system 
+information, (2) ability of users to decipher relationships 
+among system information, and (3) preferred terminology for 
+technical concepts. We showed three users paper prototypes 
+of two designs, one using a concrete, spatial visualization 
+similar to that of figure 1, and another using more a more 
+abstract presentation. Participants overwhelmingly preferred 
+the more concrete representation, and understood many of 
+the relationships being conveyed (such as relationships 
+between processes and windows) without explanation by the 
+experimenters.
+This brief, early study was also helpful in revealing what 
+participants did not understand. For example, participants 
+had difficulty understanding that a part of the visualization 
+represented physically remote computers on the Internet. Our 
+discussions with participants also informed a number of 
+elements of our final design, such as the use of geographic 
+maps to suggest remoteness. Other feedback led to signifi-
+cant changes in the arrangement of processes used in the 
+final version of Sesame. Finally, an additional discovery we 
+made during the formative study was that the term ‘process’ 
+caused significant confusion for our non-technical users. 
+Based on participant feedback, we chose the term ‘engine’ as 
+one that made more sense to them. (We acknowledge, 
+however, that using such non-standard terms may confuse 
+the more ‘technical’ users.)
+SESAME: EXTENDING THE DESKTOP
+In this section we describe how the system level information 
+is presented in Sesame, and the controls given to users for 
+interacting with the tool.
+Invocation - Getting ‘behind-the-scenes’
+Among the first design choices we faced was deciding where 
+to place Sesame in relation to the desktop. Our requirement 
+to connect existing elements (such as windows) to Sesame- 
+provided elements (such as processes) meant that the tool 
+somehow had to be integrated into the desktop. However it 
+could not appear to be ‘just another application’ running on 
+the desktop, because we needed to convey that Sesame is a 
+level of abstraction ‘below’ the conventional GUI.
+To resolve this challenge, users can access Sesame either by 
+invoking the always-present “Open Sesame” button on the 
+desktop, or through a dialog box that appears when Sesame 
+needs to interact with the user—for example, when a process 
+requests a connection (the user may ignore the dialog box if 
+they do not wish to respond). When Sesame is invoked, the 
+user’s desktop GUI rotates about the vertical axis to reveal 
+the processes, networks, and other system-level elements 
+behind it (Figure 1). To exit from the view, users click the 
+exit button at the top of the screen. A benefit of this smooth 
+rotation effect is that it provides a continuous transition from 
+the desktop interface to Sesame to keep users from becoming 
+disoriented.
+Rotating the entire desktop to display the Sesame visualiza-
+tion raises several problems. The first is that a full-screen 
+visualization is heavyweight, and may dissuade users from 
+invoking it when they do not have to. It further means that 
+the user cannot have the Sesame visualization visible while 
+performing other tasks. These issues of motivation and 
+efficiency may be important to explore in the future, but at 
+this stage we are principally concerned with effective infor-
+mation representation. A full screen visualization helps us 
+with this by offering conceptual advantages in showing the 
+desktop/system-level separation, as well as the practical 
+advantages of providing abundant space for the system-level 
+components we wish to show.
+Division of Space
+Once behind the desktop, we faced another design challenge. 
+The effect of rotating the desktop is intended to suggest that 
+the revealed objects are part of the user’s PC. Yet to convey 
+abstractions such as remote computers, we also needed to 
+represent areas that lie outside the user’s PC. Thus, Sesame 
+provides a clean division where one side of the visualization 
+(furthest from the rotated desktop) contains all external 
+elements such as remote computers, and the other side 
+(containing the rotated desktop) represents the internal 
+elements of the user’s PC; both regions are labeled and are 
+colored differently to emphasize the distinction.
+Visual Elements
+In addition to the rotated desktop, the Sesame visualization 
+contains several distinct types of visual elements: proc-
+esses, remote computers and connection requests. As
+1048

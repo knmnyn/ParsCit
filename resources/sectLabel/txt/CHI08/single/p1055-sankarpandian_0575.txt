@@ -1,0 +1,112 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+multiplicity of application software on their systems. While 
+operating systems have built-in facilities (such as Windows 
+Update) to download patches and encourage users to install 
+them, other applications use a diverse range of update 
+mechanisms, including requiring that users explicitly visit 
+vendors’ web sites for newer versions. Worryingly, the 
+SAGE report indicates that in the period between 
+December 2005 and May 2006, the vulnerabilities targeted 
+were moving away from OS attacks, to attacks on other 
+software, such as Internet Explorer and Firefox. Thus users 
+must now contend with a host of disparate and confusing 
+patch systems in order to ensure that all of the software on 
+their machines is protected.
+In order to patch vulnerable software, users (1) must know 
+that such software exists in the first place, (2) know how to 
+go about patching it, and (3) be motivated to do so in a 
+timely manner.1 Although there are a number of existing 
+systems that address patching in some capacity (described 
+below), none of these systems specifically address making 
+home users aware of the threats that vulnerable software 
+poses to their computer’s security and their privacy, nor do 
+they provide a holistic approach to patch management 
+across multiple vendors’ applications.
+To address these challenges, we have developed a system 
+called TALC (for Threat Awareness, Learning, and 
+Control) that aims to augment users’ awareness of 
+vulnerabilities posed by unpatched software through 
+unobtrusive yet persistent visual reminders, persuade them 
+to remedy those vulnerabilities, and provide easier 
+mechanisms for patch install ation across a range of 
+applications.
+In this paper, we describe TALC, its architecture, and a 
+deployment-based user study that we performed to 
+determine its overall utility. We conclude with a discussion 
+of our approach and directions for future research.
+RELATED WORK
+Most of the current work on easier patch management is 
+either vendor-specific, or has focused on managed solutions 
+for the enterprise environment.
+In the vendor-specific category, tools such as Windows 
+Update and Mac OS X Software Update perform automatic 
+detection and download of new patches, and single-click 
+installation. However, these tools only work for operating 
+system components and, as noted above, unpatched 
+application software now represents the major source of 
+vulnerabilities. Of course, many application vendors 
+provide mechanisms for their own products (such as Adobe 
+Online’s tools for update of their Creative Suite products). 
+However, there is no unified vendor-supported mechanism
+1 Even with systems that include an auto-update mechanism, the response window between 
+the public disclosure of an exploit and the availability of a software patch is sufficient for a 
+worm to exploit the vulnerability and achieve significant spread. Usually an advisory on 
+working around the vulnerable software is released before the actual patch and educating 
+users with these advisories can be effective in stopping exploits.
+for simple updates of all software on a user’s system, 
+requiring users to deal with these on a piecemeal basis, 
+when such systems exist at all.
+In the enterprise space, a number of companies have begun 
+to focus specifically on patch installation in managed 
+networks, as a way for centralized IT organizations to 
+protect the corporate network. Enterprise management 
+solutions like Marimba Patch Management from BMC 
+Software [3], for example, enable deployment of security 
+patches on all devices across the enterprise. While 
+powerful, these systems are not designed for use by home 
+users; they require, for example, a centralized administrator 
+who manages patch releases to the corporate network, and 
+rely on homogeneous software installations on client 
+devices.
+There is a tension between tools like Marimba, which are 
+proactive and aim to shield end-users from direct 
+involvement with patching, and other tools such as 
+Windows Update that take a more interactive approach, 
+involving the user in the patch decision process and 
+demanding their attention [15].
+While proactive tools are, on the surface, easier to use since 
+they do not require direct user involvement, they also do 
+not contribute to the user’s learning process: awareness of 
+threats is a critical component in managing software 
+vulnerabilities given the diversity each user’s individual 
+software usage patterns. Further—and perhaps more 
+importantly—unless potential software version conflicts 
+can be reliably determined in advance, there is a risk that an 
+automatically installed patch will break other software on 
+the user’s computer. Such a hypothetical, fully-automated 
+tool for managing software updates across applications is 
+difficult to achieve outside the homogeneity of the 
+managed corporate network, meaning that users will likely 
+have to be involved in at least some aspects of patch 
+decision making for the foreseeable future [10].
+Given these practical realities of automated patch 
+management, it is imperative that users be kept informed 
+about the potential dangers of an unpatched system, as well 
+as the benefits and risks of installing a given patch, if they 
+are going to be involved in making patch decisions.
+A challenge, of course, is that highly interactive tools can 
+potentially annoy users to the point that they turn off such 
+tools completely. This problem has been especially evident 
+in security software; most common firewalls, for instance, 
+display pop up messages about threats such as port scans. 
+Bailey, Konstan, and Carlis [1] report that such 
+interruptions increase task completion times, as well as user 
+anxiety and frustration. However the suggestion from [1] of 
+an “attention manager” that predicts opportunities for 
+engaging with the user may not be an optimal solution for a 
+security task like patch management that does not require 
+an instantaneous allow/deny decision in the way that 
+antivirus or firewall alerts do. This suggests that different, 
+more subtle and less intrusive approaches than interrupting 
+the user may be employed, which allow the user to interact
+1056

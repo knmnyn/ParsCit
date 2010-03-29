@@ -1,0 +1,117 @@
+CHI 2008 Proceedings · Visualization to Support Information Work	April 5-10, 2008 · Florence, Italy
+processing frameworks. These two studies are most related, 
+but our results differ in that by studying non-digital infor-
+mation processing, our framework does not reflect the pro-
+cessing constraints built into existing software. A detailed 
+comparison of these frameworks with ours is included in the 
+discussion section.
+Several researchers have modeled an individual user’s in-
+volvement in visual information processing as an iterative 
+sequence of components; however, each model is unique in 
+terms of its focus, and how it abstracts the process. One 
+perspective has been concerned specifically with the design 
+of digital information visualization tools, focusing on how 
+a person manipulates view and visualization transformation 
+parameters, e. g., [5, 9]. Jankun-Kelly et al. [9] propose a 
+model of visual exploration for analyzing one person’s inter-
+action with a digital visualization system. A core proposition 
+of this work is that a fundamental operation in the visual 
+exploration process is the manipulation of visualization pa-
+rameters. This model is effective in capturing the temporal 
+aspects of visual parameter manipulation; however, it does 
+not capture the higher-level semantics of a person’s interac-
+tion (i. e., why was a parameter changed?). Chi and Riedl 
+[5] address this aspect, basing their semantic operator frame-
+work on a person’s intention of action (i. e., view filtering vs. 
+value filtering), classifying and organizing operators in the 
+analysis process. At the other end of the spectrum, Amar 
+and Stasko [1] name higher-level analytic activities that a 
+person using a visualization system would typically perform, 
+such as complex decision-making, learning a domain, iden-
+tifying the nature of trends, and predicting the future. Shnei-
+derman [15] outlines a two-step process (“overview then de-
+tail”), that addresses a task-centric perspective on the analy-
+sis process. He suggests seven different operations that in-
+formation visualization tools should support to facilitate the 
+problem solving process: overview, zoom, filter, details-on-
+demand, relate, history, and extract.
+A model by Russell et al. [13], derived from studying col-
+laborative information consolidation activities, describes a 
+“Learning Loop Complex,” a cyclic process of searching for 
+representations and encoding information. Indirectly, these 
+observations have led to Card et al.’s sense making cycle 
+[3] (extended in [20]). A number of research directions in 
+other domains have asked questions about how collabora-
+tors share and coordinate their efforts to work together (see 
+[4]). While these models relate to our research question, 
+most have a stronger cognitive focus. We will later revisit 
+the sense-making cycle by Card et al. [3] as it shares some 
+processes defined in our framework.
+Instead of focusing on either task driven or meta-cognitive 
+processes, we are interested in the general processes that oc-
+cur during collaborative information analysis (independent 
+of the confines of a computer-based infovis tool), as well as 
+the interactions with visualizations and those between team 
+members. We are interested in general processes that form 
+the basis of collaborative information visualization as the 
+low-level mechanics of interacting with an infovis tool are 
+probably not indicative of how teams would solve a visual 
+information problem.
+Choosing a Methodology
+When developing software tools to augment work practices, 
+at least three fundamentally different approaches exist. One 
+is to study possible improvements for support of the process 
+through studying the current software support or tools in use. 
+Another is to hypothesize about improvements to existing 
+tools, to develop a promising tool and study it in compar-
+ison to the existing tools. A third is to work towards an 
+improved understanding of the process in order to develop 
+a better match between the natural human process and its 
+software support.
+Our approach falls into the third class. It begins with the 
+premise that through observations of people’s interactions 
+with physical artefacts, we can develop a richer understand-
+ing of basic work processes that can be used to inform in-
+terface design. Other researchers (e. g. [14, 19]) have taken 
+this approach, studying how groups accomplish tasks in non- 
+digital contexts in order to understand what activities digital 
+tools should support. The reasoning behind this choice is 
+that people’s physical interactions with these familiar arte-
+facts and tools would closely reflect how they understand 
+and think about the problem at hand. For instance, Tang’s 
+study of group design activities around shared tabletop work-
+spaces [ 19] revealed the importance of gestures and the work-
+space itself in mediating and coordinating collaborative work. 
+Similarly, Scott et al. [14] studied traditional tabletop game- 
+play and collaborative design, focusing on the use of table-
+top space and the sharing of items on the table. While these 
+authors studied traditional physical contexts, ultimately their 
+goal was to understand how to design digital tabletop tools. 
+Both studies contributed to a better understanding of collab-
+orative work practices involving tables in general. The ap-
+proach taken in these two studies works well when address-
+ing a design area where the critical issues are poorly under-
+stood. For instance, we are uncertain how groups will work 
+together with information visualizations if given the ability 
+to do so freely (e. g. prior efforts involved systems where in-
+dividuals could not work in parallel [12, 10]). Furthermore, 
+we do not know how teams will share and make use of inter-
+mediate results, or indeed whether they will even share and 
+work together from the same views or artefacts of the data. 
+Our work builds on prior efforts in developing frameworks 
+to understand the visual information analysis process, and 
+the work of researchers attempting to understand collabora-
+tive behaviour. The study we describe here takes a first step 
+toward building our understanding of collaborative visual in-
+formation analysis. We can then leverage this understanding 
+to build infovis tools that support collaboration.
+A STUDY OF THE INFORMATION ANALYSIS PROCESS 
+We conducted an exploratory study to understand the visual 
+analysis process. The study focused on examining individu-
+als and small groups in this process.
+Participants
+We recruited 24 paid participants from the university popula-
+tion, 14 female, 10 male. The mean age of the participants 
+was 26 years. We had 4 groups each of singles, pairs, and 
+triples. With one exception, all pairs and triples were known
+1218

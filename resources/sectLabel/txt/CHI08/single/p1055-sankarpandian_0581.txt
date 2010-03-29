@@ -1,0 +1,102 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Figure 6: Threats that reappeared after being
+marked as “Fixed” by the participants.
+represents a periodic turn of attention toward patching, 
+rather than a desire by participants to “wrap up” patching 
+before the end of the study. Much of this activity, for 
+example, came from the condition two participants, who 
+still had another week to participate in the study.
+In the subsequent scan cycles, TALC logged any of these 
+fixed threats that still match the vulnerability description 
+from NVD and logs them as a reappearance of a threat, 
+shown in Figure 6.
+We should note here that, in our current implementation, 
+threats for which the NVD has only an advisory (meaning: 
+for which no patch is available) are never detected as fixed 
+by TALC. To handle such a scenario, TALC allows the 
+user to optionally ignore these threats that have reappeared. 
+Threats that have been ignored will not reappear in the 
+subsequent scans unless the user explicitly asks TALC to 
+include them in the scan. Occurrences of this event are 
+plotted in Figure 7. The spike near the start of the test may 
+be due to the large number of vulnerabilities detected by 
+TALC (see below for details on the number of raw 
+vulnerabilities found on users’ systems). These Ignore 
+events were also recorded when participants found the 
+information provided by the patch website too daunting for 
+them, and chose to leave the vulnerability unpatched. We 
+discuss some suggestions for how to overcome both these 
+shortcomings in the Future Work section.
+DISCUSSION
+There are multiple useful metrics for determining what 
+constitutes efficacy in a tool such as TALC. One such 
+metric is whether the tool increases the perceived safety of 
+users; the second is whether it increases their actual safety. 
+While we evaluated for both metrics, we believe that the 
+latter is actually the more important, since perceptions of 
+increased safety are of little value without actually 
+increased safety.
+In the sections below we first report on TALC’s efficacy in 
+actually repairing system vulnerabilities, and then on users’ 
+perceptions of its efficacy.
+Figure 7: Participants asking TALC to Ignore a
+threat from subsequent scans
+TALC Effectiveness
+We were pleased to find that TALC provided a dramatic 
+increase in the safety of users’ systems during its 
+deployment, and that TALC’s notifications made a large 
+and statistically significant difference in users’ awareness 
+and motivation to install patches.
+In the weeks where TALC was dormant—meaning it was 
+not drawing graffiti on the users’ desktops—none of the 
+users patched any vulnerabilities whatsoever. However, in 
+the week when the graffiti was placed on the desktop, 
+seventy percent of the users fixed at least one vulnerability, 
+with an average of 24.3 vulnerabilities patched per user 
+(averaged over all users), and an average of 34.7 
+vulnerabilities patched over users who patched at least one 
+vulnerability. The number of vulnerabilities patched during 
+the active period was found to be statistically significant 
+(t(9) = 2.78, p = 0.0216) when compared to the dormant 
+state when no vulnerabilities were patched.
+The absolute number of vulnerabilities patched may seem 
+artificially high, because it does not necessarily indicate the 
+number of fixes downloaded, but rather the number of 
+vulnerabilities patched: A single fix downloaded by the 
+user may or may not patch multiple vulnerabilities.
+At the beginning of the test, TALC found an average of 
+47.6 vulnerabilities on our participants’ machines. All 
+participants’ computers had at least five vulnerabilities, 
+with the most having 64 vulnerabilities. These numbers not 
+only confirm the threat posed by unpatched software, but 
+also users’ lack of awareness about vulnerabilities on their 
+systems for which patches exist.
+Although TALC was effective in getting users to fix some 
+of the vulnerabilities in their systems, none of the users 
+patched their machines completely. Of the 482 
+vulnerabilities left unpatched, 208 (43.15%) were 
+considered serious threats by the NVD, 88 (18.25%) were 
+considered moderate threats by the NVD, and 186 
+(38.59%) were considered mild threats. The total number of 
+vulnerabilities increased over the test period in part due to
+Reappearances
+2.5
+2
+1.5
+1
+0.5
+0
+1	2	3	4	5	6	7
+Days Grafitti was shown
+Control (Ignore)
+70
+1	2	3	4	5	6	7
+40
+20
+60
+50
+30
+10
+0
+Days Graffiti was shown
+1062

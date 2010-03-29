@@ -1,0 +1,113 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+computers for two weeks. Every week, TALC would 
+upload the data it had collected on how users interacted 
+with it.
+When the participants had been running the program for 
+two weeks, they were sent a link via email to a post-study 
+questionnaire to allow us to get data about their subjective 
+experiences of using the software.
+The Participants
+Ten participants finished the study successfully. Seven 
+more started the study, but dropped out for a variety of 
+reasons, including changing their mind about participating 
+in the study before downloading the software, and because 
+of installation problems. One participant uninstalled the 
+TALC software before the two weeks were completed; we 
+include data from this subject in the results presented here: 
+one of the things we hoped to discover was whether we had 
+correctly adjusted TALC to motivate users without being 
+annoying, and so results from users who ceased using the 
+software had the potential to be especially illuminating.
+The ages of the participants ranged from twenty-three to 
+thirty-five, with an average age of twenty-six. Of those who 
+completed the study, four were women and six were men.
+Although the absolute number of participants is smaller 
+than would be typical in a controlled lab study, the intent 
+with our evaluation was specifically to engage users in a 
+real-world deployment of the system over a sustained (half 
+month) period of time, a style of evaluation that we believe 
+is necessary for ecological validity. While lab-based studies 
+can easily engage substantially larger numbers of users, 
+these studies have problems in the security context, 
+particularly around artificial experimental scenarios that are 
+removed from users&apos; day-to-day experiences, and also may 
+overly prime subjects’ orientation toward security. We 
+therefore believed that a deployment study, on users’ own 
+computers, confronting unknown usage contexts and 
+uncontrolled software vulnerabilities, was the only 
+appropriate way to measure use.
+The Pre-test Questionnaire
+The pre-test questionnaire was administered online, using a 
+common online survey vendor. Participants were emailed 
+requests to fill out the survey, and provided links to the 
+survey site. The survey consisted of three demographic 
+questions, eleven questions to determine how comfortable 
+the participants felt using computers, and how confident 
+they were in their computer’s security. Finally there were 
+eight questions in which the user was asked to define 
+simple computer security related terms, to gauge their 
+general knowledge of computer security concepts.
+The Study
+There were two conditions in the study, to separate 
+patching actions incented directly by TALC from other 
+patches downloaded merely because users had an increased 
+awareness of the security issues as a result of participating 
+in the study itself. In all conditions TALC was downloaded 
+and installed by the participants. In one condition, however,
+the tool was instrumented to not identify any vulnerabilities 
+(and, hence, to not show any graffiti) during the first week; 
+in the second condition the tool was instrumented so that it 
+did not detect any vulnerabilities (nor show any graffiti) in 
+the second week. Through these two conditions we hoped 
+to isolate any potentially biasing novelty effects caused 
+simply because subjects were participating in the study. In 
+both cases, for the week it was active, TALC detected 
+vulnerable software on all participants’ computers, and thus 
+presented graffiti to all users during the week it was 
+activated. During both weeks, for both conditions, TALC 
+continued to scan the users’ systems and record 
+vulnerabilities as well as how the participants interacted 
+with it.
+Participants were randomly assigned to a condition when 
+they consented to be a part of the study. They were not 
+given a link to the TALC installation file until they had 
+completed the pre-test questionnaire. Participants were 
+instructed to inform researchers if they had any problems 
+installing the software packages; despite this, a number of 
+participants did have trouble installing our prototype and 
+yet did not contact us, which contributed significantly to 
+the drop-out rate.
+The Post-test Questionnaire
+The post-test questionnaire was administered online, again 
+using a common online survey vendor, in the same way as 
+the pretest questionnaire. Participants were emailed 
+requests to fill out the survey, and provided links to the 
+survey site, when they had run the TALC software for two 
+weeks and their usage data had been uploaded. The survey 
+had the same ques tions as the pretest questionnaire, along 
+with the addition of thirteen questions to dete rmine the 
+participants’ perceptions of using the TALC system over 
+the deployment period.
+RESULTS
+This section describes the results from our deployment 
+study, and from our pre - and post-test questionnaires.
+Events Tracked
+TALC kept logs of the users’ interaction with it, over the 
+two week period, and the data was uploaded twice to our 
+server: once at the end of each week.
+From the logs we categorized five types of event s: 
+Awareness events, Learning events, Control (Fixed) events, 
+Control (Ignore) events, and Reappear events. An 
+Awareness event was recorded when graffiti for a particular 
+threat was shown to the user for the first time. Whenever 
+our simplified description of the threat was shown to the 
+user or when the user clicked on a graffiti, and the vendor 
+website was displayed, it was recorded as a Learning event. 
+Whenever users would indicate to the system that a 
+vulnerability had been repaired and should be dismissed 
+(through clicking the “Already Fixed” button in the TALC 
+interface), Control (Fixed) events were recorded. If the 
+vulnerability hadn’t actually been fixed, a Reappear event 
+would be recorded when the vulnerability was re-detected. 
+Finally, if a user chose to not fix a vulnerability by clicking
+1060

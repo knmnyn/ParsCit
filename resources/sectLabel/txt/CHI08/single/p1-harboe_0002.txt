@@ -1,0 +1,92 @@
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Ambient Social TV:
+Drawing People into a Shared Experience
+Gunnar Harboe, Crysta J. Metcalf, Frank Bentley,
+Joe Tullio, Noel Massey, Guy Romano
+Motorola Labs
+1295 E. Algonquin Rd., Schaumburg, IL 60196
+{gunnar.harboe, crysta.metcalf, f.bentley, joe.tullio, noel.massey, guy} @motorola.com
+ABSTRACT
+We examine how ambient displays can augment social 
+television. Social TV 2 is an interactive television solution 
+that incorporates two ambient displays to convey to 
+participants an aggregate view of their friends’ current TV- 
+watching status. Social TV 2 also allows users to see which 
+television shows friends and family are watching and send 
+lightweight messages from within the TV-viewing 
+experience. Through a two-week field study we found the 
+ambient displays to be an integral part of the experience. 
+We present the results of our field study with a discussion 
+of the implications for future social systems in the home.
+Author Keywords
+Social television, interactive television, social presence 
+awareness, ambient displays, field trial
+ACM Classification Keywords
+H5.m. Information interfaces and presentation (e.g., HCI): 
+Miscellaneous.
+INTRODUCTION
+Although Internet use is gaining importance, TV watching 
+is still the primary recreational activity of American adults, 
+accounting for half of all leisure time [7]. Although there is 
+great social potential in TV watching as a shared activity 
+and a topic for conversation [20], at least half of all people 
+usually watch alone [10].
+Many technologies coming out of the interactive television 
+(iTV) field, such as Video-On-Demand and Personal Video 
+Recorders (PVRs), focus on providing personalization and 
+greater individual control. They cater to viewers as isolated 
+individuals, and fragment audiences further [16].
+However, in recent years ‘social television,’ the idea of 
+using communication technology to connect TV viewers, in 
+order to create remotely shared experiences around TV
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+content, has received much attention. Proponents of this 
+idea see television as a social experience capable of 
+reinforcing bonds in strong-tie relationships. TV 
+programming can provide the common, shared experience 
+that serves as a basis for socialization, even for groups who 
+are already fairly close [29]. Social television systems 
+typically integrate some combination of text chat, voice 
+chat or video chat with TV programming, and use presence 
+to provide awareness of the status and context of other users 
+of the system [5, 9, 15, 23]. These efforts tie into earlier 
+CMC work on telepresence and co-viewing, but come at the 
+design and research questions from a different angle.
+In previous work we noted that users of social television 
+systems would benefit from features that indicate favorable 
+times for shared viewing [15]. One solution is to use 
+always-on ambient displays to let users be aware of when 
+others are watching TV. From a research standpoint, we can 
+then examine how this kind of awareness helps or 
+encourages people to get in touch through their social 
+televisions, and in particular, how it is used to initiate and 
+escalate communication sessions. As no extended field 
+trials of social television systems have been reported to 
+date, these important issues remain largely unexplored.
+In this paper, we present results from a two-week field 
+study of Social TV 2, an experimental social television 
+system that incorporates an ambient display component to 
+provide awareness of remote viewers. Two groups of five 
+households participated, with the members of each group 
+comprising an existing social circle. In addition to standard 
+social television functionality, Social TV 2 incorporates 
+ambient displays in order to keep users aware of the 
+participation of their friends and family. We found that the 
+ambient displays proved to be a defining component of the 
+system. The displays were effective indicators of good 
+times to use Social TV 2, increased participants’ awareness 
+of others’ TV-viewing schedules, and encouraged 
+participation in the system. This participation often began 
+as a glance at the ambient display – a quick check on the 
+status of a participant’s social network, but would 
+frequently escalate to deeper or more extended 
+communication. In this way, participants began treating TV 
+watching as a fundamentally social activity. Thus, the
+1

@@ -1,0 +1,94 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+the internet, are still in their diffusion phase and are not yet 
+used by all. However, they are gaining momentum and have 
+become quite prevalent. As we wanted to compare all 
+sources, we decided to focus on users who use all of the 
+chosen data sources. While such users are not a statistical 
+sample, we refer to them as the early adopters of the 
+technologies, and use their figures as a reflection of the 
+potential of SN information that may be extracted from 
+public sources as Web 2.0 technologies become ubiquitous 
+[24].
+We started by locating the top 1000 heavy users of each of 
+the tools (BlogCentral, Fringe, and Dogear). For blogs, we 
+defined heavy users as those who received most comments 
+in their blog. For Fringe we took the 1000 users with the 
+largest lists of connections. For Dogear, the 1000 people 
+with most bookmarks. Once we had these three lists, we 
+took their union and received a list of 1761 users. We then 
+obtained results from the different SONAR providers for all 
+1761 users, and examined those users who had a nonempty 
+result in all four sources (the fourth source being the 
+organizational chart). We ended up with a list of 273 such 
+users. For every one of the four public sources and every 
+one of the 273 users, we calculated the number of unique 
+contributions of this source over the union of all other three 
+sources.
+Experiment 2: Online Questionnaire for Ranking Buddylists 
+For the second experiment we implemented a dedicated 
+plugin for Lotus Sametime. The plugin was easy to install 
+and presented a questionnaire containing three sets of up to 
+eight buddylists that were aggregated from the different 
+sources and tailored specifically for the user. The user could 
+not tell what the sources of the different lists had been. 
+Before starting the experiment, we asked the user to 
+imagine setting up an “ideal” buddylist for communication 
+inside IBM. By this request, we framed the experiment to a 
+basic scenario. The user was then asked to rank the 
+buddylists by how close they were to representing the ideal 
+buddylist. The scale for ranking was 1-4 (where “1” is 
+good, and “4” is bad). In addition, we asked the user to 
+mark a single buddylist as the “best” buddylist – relative to 
+the other lists in that set.
+The first set of up to eight buddylists was composed solely
+from public sources. Our goal with this set was to examine 
+the value of extracting SN information from public sources 
+(hypothesis (2)), and to compare the quality of lists created 
+by aggregation of different sources vs. the quality of lists 
+created from a single source. The weight combinations of 
+sources used in this set are displayed in the leftmost 
+columns of Table 2 (1-8). We use the term “up to eight 
+lists”, since if two different combinations created two 
+identical lists (in both content and order), we only presented 
+them once. If the user voted “best” for a list that was 
+created from more than one combination, we added a vote 
+to all these combinations.
+The second set of buddylists was also focused on public 
+sources. The goal with this set was to learn whether a 
+specific weight combination is preferred by most users and 
+may serve as a default (hypothesis (5)). The weight 
+combinations of sources used in this set are displayed in the 
+rightmost columns of Table 2 (9-16).
+The last set of buddylists introduced information gathered 
+from the user’s private sources. The goal of this set was to 
+examine the value of information public sources add over 
+private sources (hypothesis (3)), as well as to study the 
+effect aggregation has on the lists (hypothesis (4)) – 
+aggregation of private sources, and aggregation of a mix of 
+private and public sources. The weight combinations of 
+sources used in this set are displayed in Table 5 (17-24).
+Our plugin reported the user ranking of the buddylists to a 
+dedicated server that produced a report with all results. The 
+results visible to us did not contain any private information 
+nor could we see the buddylists, we only examined the 
+ranks (1-4) and the vote for best list in each set.
+Experiment 3: Sliders UI for Personal Weight Combination
+A set of interviews we conducted, helped us examine 
+hypotheses (2), (4), and (6), as well as hypothesis (5). It 
+also gave us some insight about how people perceive their 
+SN and what they feel about our UI.
+The preferences-page of the SONAR plugin allows 
+modifying the weight combination of different sources with 
+sliders and simultaneously seeing a preview of the buddylist 
+created from this combination. The user interface of this 
+feature is shown in Figure 2.
+	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16
+bookmarking	1.0				0.5		0.1	0.25	0.1	0.3	0.3	0.3	0.1	0.1	0.4	0.5
+people tagging		1.0			0.5		0.2	0.25	0.3	0.1	0.3	0.3	0.2	0.1	0.3	0.3
+blogs			1.0			0.5	0.3	0.25	0.3	0.3	0.1	0.3	0.3	0.3	0.2	0.1
+org-chart				1.0		0.5	0.4	0.25	0.3	0.3	0.3	0.1	0.4	0.5	0.1	0.1
+average score																
+# of “best” votes	0	23	1	63	6	57	58	46	70	48	46	47	63	61	46	43
+# of score “1”	0	12	0	18	5	14	17	9	20	4	6	9	20	20	7	6
+Table 2. Weight combinations and results of the public sources in the first two sets of buddylists
+1022

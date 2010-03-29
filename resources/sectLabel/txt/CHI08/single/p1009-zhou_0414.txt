@@ -1,0 +1,104 @@
+CHI 2008 Proceedings · Help Me Search	April 5-10, 2008 · Florence, Italy
+In mining Perlmonks conversations, we used the exact 
+matching on module titles technique. Of 550,679 total 
+comments that had been posted on the Perlmonks site, 16% 
+contained module references. Some messages contained 
+long lists of modules; it seemed unlikely that a user 
+examining any particular module would find it useful to 
+navigate to a message containing a long list that happened 
+to contain the source module, so we discarded those 
+messages. Even after discarding 35 outliers that referenced 
+more than ten modules each, 41% of the 4,548 total CPAN 
+modules were cited on Perlmonks, and those had a median 
+of 5 references.
+Based on those detected module references, excluding 35 
+outliers, we computed the double pivot matrix. Of the 1,884 
+modules that were cited at all, 1,702 had at least one other 
+module co-cited in the same conversation. Of these, the 
+median number of “related modules” was 6.
+String matching on titles can be extended to include 
+searching for distinctive aliases. For example, most authors 
+refer to the Drupal module titled “Content Construction Kit 
+(CCK)” as “CCK” rather than using the full title. Even if it 
+is unrealistic to expect all message authors to tag all their 
+references to modules, it may be quite reasonable to expect 
+the authors of the module pages to identify aliases that are 
+frequently used in conversation. The authors of those pages, 
+typically the people responsible for maintaining the 
+software modules, have both the knowledge of commonly 
+used aliases and the incentive to enter them in to the 
+system, in order to help users find what others are saying 
+about the modules.
+String matching on titles can also be narrowed to handle 
+situations where it would yield too many false positives. 
+Some software systems use module titles that are 
+potentially ambiguous. For example, Drupal modules 
+generally use common words such as “Event” or “Upload” 
+for titles. Simple text matching on these titles would yield 
+many false positives, conversation messages that use these 
+words but not in reference to the software modules. Real 
+references to the Upload module, however, frequently 
+contain the word “module” in close proximity to the word 
+“Upload”. Thus, a matching algorithm that searches for the 
+title adjacent to the magic word “module” will likely 
+generate many fewer false positives, though possibly 
+missing more correct references.
+We used this method to find module references in the 
+Drupal.org conversation forums. Of 292,139 messages, 
+47,794 contained at least one module reference. After 
+discarding 21 outliers that each referred to more than ten 
+modules, 915 of the 1,590 modules were cited in at least 
+one message and those had a median of 6 references.
+Based on those detected module references, we computed 
+the double pivot matrix. Of the 915 modules that were cited 
+at all, 747 had at least one other module co-cited in the
+same conversation. Of these, the median number of “related 
+modules” was 6.
+CONCLUSIONS AND FUTURE RESEARCH
+The results from our implementations with Drupal.org and 
+AnnoCPAN/Perlmonks lead us to believe that conversation 
+pivots and double pivots hold a great deal of promise for 
+making online collections more useful for users. By 
+automatically mining forum data for item references and 
+generating recommendations of other modules we provide 
+users with a shortcut through time-intensive manual search.
+The vision of the semantic web [6] is that information for 
+human consumption will also be tagged in a way that 
+computers can process in useful ways. When semantic 
+markup is not available, however, it may be possible to 
+infer it imperfectly, but well enough to enable particular 
+kinds of processing. We have developed techniques for 
+detecting references to software modules in online 
+conversations that are sufficient to enable the creation of 
+navigation aids in the form of conversation pivots and 
+double pivots. The techniques may be extensible to creating 
+conversation pivots for other types of items.
+ACKNOWLEDGEMENTS
+This material is based upon work supported by the National 
+Science Foundation under Grant Nos. 0308006 and 
+0325837. We wish to thank the administrators of 
+Drupal.org and Perlmonks.org for allowing us access to 
+their data sets and to Ivan Tubert-Brohman for allowing us 
+to add the pivot feature to the AnnoCPAN site.
+REFERENCES
+1. Drenner, S., Harper, M., Frankowski, D., Riedl, J., and 
+Terveen, L. Insert movie reference here: a system to 
+bridge conversation and item-oriented web sites. In 
+Proceedings of the SIGCHI Conference on Human 
+Factors in Computing Systems CHI &apos;06 (2006)
+2. Ning Platform Pivots Feature. http://blog.ning.com/ 
+2005/11/new_on_the_ning_pivot.html
+3. Linden, G., Smith, B., York, J. Amazon.com 
+recommendations: item-to-item collaborative filtering, 
+Internet Computing, IEEE, 7, 1 (2003), 76-80.
+4. Small, H. Co-citation in the scientific literature: A new 
+measure of the relationship between two documents. 
+Journal of the American Society for Information 
+Science, vol. 24, 4 (1973), 265 – 269.
+5. Terveen, L., Hill, W., Amento, B., McDonald, D., and 
+Creter, J. PHOAKS: a system for sharing 
+recommendations. Communications of the ACM. 40, 3 
+(1997), 59 – 62.
+6. Berners-Lee, T., Hendler, J., and Lassila,O.,The 
+semantic web. Scientific American. 284 (2001), 5, 34.
+1012

@@ -1,0 +1,108 @@
+CHI 2008 Proceedings · On the Move	April 5-10, 2008 · Florence, Italy
+Usability Issues
+The evaluation uncovered a wide range of usability issues 
+that have since helped us improve Magitti. We discuss two 
+of the most prominent types of issue here.
+User Control: Even when recommendations were seen as 
+appropriate, people wanted more control in managing the 
+recommendation list itself. They especially wanted the 
+ability to sort the items by factors such as rating, price, or 
+distance. They also wanted to be able to remove items from 
+the list for a given session. Even though they might 
+generally like a certain Thai restaurant, for example, if they 
+weren’t in the mood for Thai they didn’t want to keep 
+seeing it in the list. They also wanted to be able to filter the 
+list not just by general activity (Eat, Shop), but also by 
+subtype (Pizza, Shoe Stores). This last ability has since 
+been added.
+Social Use: Over half the Magitti outings involved two or 
+more people, and yet people found it challenging to 
+incorporate Magitti into a social setting. Users tended to 
+walk with their head down staring at the screen or 
+manipulating the interface. Even when they read the 
+information aloud, they didn’t always engage the other 
+person. Of the eight who used it with a companion, five 
+reported that the other person got annoyed at them at some 
+point for not paying enough attention to them or their 
+surroundings. The more successful social uses occurred 
+when one person used Magitti ahead of time to narrow 
+down the choices and then asked for input once they were 
+near the venues. Another useful strategy was to stop and 
+look at it together to make a decision and then put it away 
+while walking, except perhaps to check the map. Only one 
+pair shared the device itself, passing it back and forth and 
+reading aloud from it as they walked, although both said 
+they preferred to be the one not holding the device so they 
+could look around. This finding reminds us of the inherent 
+contrast in using a personal device for a social experience 
+and challenges us to find more graceful ways to design 
+small portable devices to fit into inherently social settings.
+CONCLUSIONS
+Based on extensive field work in Tokyo, we developed a 
+novel context- and activity-aware mobile leisure guide 
+system, code-named Magitti. It predicts the user’s current 
+and future leisure activity and uses this, along with models 
+of the user’s preferences, to filter and recommend relevant 
+content. The interface uses a novel one-handed, thumb- 
+based interaction. Despite expected technical problems with 
+network delays and lack of comprehensive content, our 
+evaluation suggests that Magitti is useful as a guide for 
+leisure activities in a city and represents a new way to 
+deliver content that is targeted to a mobile user’s activity.
+ACKNOWLEDGMENTS
+Dai Nippon Printing Co., Ltd. ‘Media Technology Research 
+Center’ and ‘Corporate R&amp;D Division’ sponsored this 
+research. Ame Elliott participated in early fieldwork. Prof. 
+Fumitoshi Kato and students of Keio University assisted
+with street interviews. Pratik Rathod and Tian Luo 
+developed the client context-sensing capabilities.
+REFERENCES
+1. Abowd, G., Atkeson, C., Hong, J., Long, S., Kooper, R., 
+Pinkerton, M. Cyberguide: a mobile context-aware tour 
+guide. Wirel. Netw. 3, 5 (1997), 421-433.
+2. Adomavicius, G. &amp; Tuzhilin, A. Toward the next 
+generation of recommender systems: A survey of the 
+state-of-the-art and possible extensions. IEEE Trans. 
+Knowledge and Data Eng. 17, 6 (2005), 734-749.
+3. Ashbrook, D. &amp; Starner, T. 2003. Using GPS to learn 
+significant locations and predict movement across 
+multiple users. Personal Ubiquitous Comput. 7, 5 
+(2003), 275-286.
+4. Asthana, A., Cravatts, M., Krzyzanouski, P. An indoor 
+wireless system for personalized shopping assistance. In 
+Cabrera, L. &amp; Sattyanarayanan, M. (Eds). Workshop on 
+Mobile Computing Systems and Applications. IEEE CS 
+Press, 1994, 69–74.
+5. Baus, J., Cheverst, K., Kray, C. A survey of map-based 
+mobile guides. In Zipf, A., Meng, L. &amp; Reichenbacher, 
+T. (Eds). Map based mobile services - Theories, 
+Methods and Implementations. Springer-Verlag, 2005.
+6. Begole, J., Tang, J. C., Hill, R. Rhythm modeling, 
+visualizations and applications. Proc. UIST&apos;03, ACM 
+Press, 2003, 11-20.
+7. Begole, J., Matsakis, N. E., and Tang, J. C. Lilsys: 
+Sensing Unavailability. In Proc. CSCW &apos;04. ACM Press, 
+2004, 511-514.
+8. Brown, P and Jones, G., Context-aware Retrieval: 
+Exploring a New Environment for Information Retrieval 
+and Information Filtering, Personal and Ubiquitous 
+Computing, (5) 4, Springer-Verlag, 2001, 253-263.
+9. Cheverst, K., Davies, N., Mitchell, K., Friday, A., &amp; 
+Efstratiou, C. Developing a context-aware electronic 
+tourist guide: some issues and experiences. Proc. 
+CHI’00. ACM Press, New York, NY, 2000, 17-24.
+10. Froehlich, J., Chen, M., Smith, I., Potter, F. Voting With 
+Your Feet: An investigative study of the relationship 
+between place visit behavior and preference. Proc. 
+Ubicomp, 2006, 17-21.
+11. Goldberg, D., Nichols, D., Oki, B. M., and Terry, D. 
+1992. Using collaborative filtering to weave an 
+information tapestry. Commun. ACM 35, 12 (Dec. 
+1992), 61-70.
+12. Harada, M. Japan. In Cushman, G. &amp; Veal, A. (Eds). 
+Free time and leisure participation: International 
+Perspectives. CABI Publishing, 2006.
+13. Hazas, M. Scott, J. &amp; Krumm, J. Location-aware 
+computing comes of age. IEEE Computer, 37, 2, 2004, 
+95-97.
+1165

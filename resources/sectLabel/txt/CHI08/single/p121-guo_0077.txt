@@ -1,0 +1,88 @@
+CHI 2008 Proceedings · Human-Robot Interaction	April 5-10, 2008 · Florence, Italy
+were not forced to use any particular action during the 
+course of the obstacle course and were allowed to use any 
+combination of actions they want. However, for the harder 
+route, participants were forced to use rotation and strafing 
+in addition to walking and turning in order to complete the 
+obstacle course successfully. A dotted yellow line on the 
+course (Figure 3) indicated the starting point of the strafing 
+action. The solid yellow line indicated the starting point of 
+the rotate right action. In order to finish this task, the 
+participants were asked to complete the easier route first 
+followed by the harder trail.
+Before the start of the experiment, we reminded the 
+participants to complete the obstacle course as fast as 
+possible, and try to make as few errors as possible. An error 
+in this task is defined as hitting obstacles, navigating the 
+AIBO out of the route boundary or failure to perform 
+required actions at the specified locations. If a participant 
+navigated the AIBO out of the route boundary, then she/he 
+had to navigate it back to the route and continue on. If a 
+participant failed to perform the required action at certain 
+locations during the trial the examiner had to physically 
+move the AIBO back to that location and ask the participant 
+to try again. This error correction mechanism could have 
+introduced a variable amount of time into the task 
+completion time depending on how fast the examiner 
+moves the AIBO back to the right location. We emphasized 
+the “penalizing” implications of this set of errors to 
+participants and were pleasantly surprised to see that none 
+of the experimental trials required the administrator to 
+physically move the AIBO or to manually correct any out-
+of-bound navigation errors.
+Interaction Techniques
+In this task, the function mapping for the Wiimote interface 
+is presented in Figure 4 and the mapping for the keypad 
+interface is presented in Figure 5. The gesture mapping for 
+the Wiimote controller was developed based on horseback 
+riding techniques metaphor. The participants were told to 
+think of the pair of Wiimotes as a neck rein on the AIBO. 
+For instance, pulling both Wiimotes back will stop the 
+AIBO; pulling the right Wiimote only will rotate the AIBO 
+to the right, etc.
+Due to the nature of the task, the gesture-to-robot action 
+mapping is somewhat indirect. In this case, the participants 
+are not controlling a single joint of the AIBO but rather the 
+spatial kinematics of the robot when navigating it through 
+the obstacle course. This implies a non-ideal “degree of 
+integration”, and a weaker “degree of compatibility” [4] for the 
+gesture-to-robot action mapping in this task. However, we can 
+argue that the horseback riding metaphor provides efficient and 
+intuitive mechanism for dealing with this abstract mapping.
+The keypad-to-robot action mappings are: Forward – W + 
+2, Stop – S + 5, Forward + Turning Left – A + 2, Forward + 
+Turning right – W + 6, Strafe Left – A + 4, Strafe Right – D 
++ 6, Rotate Left – S + 2, and Rotate Right – W + 5. (the 
+plus sign means pressing and holding the keys on both side 
+of the sign).
+The Data collected from this task was analyzed using a 2 x 
+2 within-subjects ANOVA for the following factors:
+•	Technique: Wiimote, Keypad
+•	Difficulty: easy, hard.
+Task 2 - Posture
+Description
+This task is used to examine the usability of both interaction 
+techniques for low-level robot control. In this task, we 
+asked the participants to perform twelve different postures 
+with the forelegs of the AIBO. We displayed an image of 
+the AIBO with a posture on a computer screen. Then the 
+participants were asked to control the AIBO to imitate that 
+posture. In the experiment setup, we have pre-defined four 
+different postures for each foreleg of the AIBO. (Figure 6) 
+We selected ten postures out of the sixteen possible 
+combined postures using both forelegs. Then, we divided 
+them into two groups of postures which can be chained 
+together to create gesture sequences (Figure 9). The only 
+difference between these groups of postures is that in order 
+to transform from one posture to another within a group, the 
+participants have to manipulate either one foreleg or both 
+forelegs of the AIBO to complete the transition. We define 
+the group of postures that require only one arm movement 
+during the transition as the easier set, and the other group as 
+the harder set. For the experiment, the participants were
+Figure 4. The Wiimote interaction technique for
+controlling the movement of the AIBO
+Figure 3. The obstacle course
+Figure 5. Key – Movement Mapping	Figure 6. The possible postures for each foreleg of the
+AIBO
+126

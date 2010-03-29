@@ -1,0 +1,86 @@
+CHI 2008 Proceedings · Usability Evaluation Considered Harmful?	April 5-10, 2008 · Florence, Italy
+Figure 1. The sketch to prototype continuum [3].
+Figure 1 illustrates this, where it defines the extremes 
+between sketches and prototypes along several continua [3]. 
+By definition, a sketch – even if implemented as an 
+interactive system – is a roughed out design. It will have 
+many holes, deficiencies, and undeveloped attributes. In 
+contrast, a prototype aids idea evaluation, either by 
+validating it with clients as they try it out, or through 
+usability testing. Consequently, premature usability 
+evaluation of the sketch as prototype could, unsurprisingly, 
+find significant problems that could kill the design outright, 
+especially if a novel design is compared to one that is more 
+conservative. This has implications to both product 
+developers and researchers.
+Getting the Right Design vs. Getting the Design Right 
+On the flip side, premature usability evaluation of sketches 
+may also encourage developers to solve any of the 
+problems seen by iterative refinement, as this is what the 
+‘design, implement, evaluate’ life cycle advocates. This 
+leads to local hill climbing, where much effort is expended 
+in ‘Getting the Design Right’ (Figure 2a). Unfortunately, 
+evaluation of early sketches is often at the expense of 
+considering and / or developing other, perhaps better, ideas.
+A sketch typically illustrates only one of many possible 
+designs and variations under consideration. Early design 
+demands many idea sketches, reflecting on this multitude of 
+competing ideas, and choosing the one(s) that appear the 
+most promising (Figure 2b). The promising idea is then 
+further varied and developed until it can serve as a testable 
+prototype. That is, sketching is about ‘Getting the Right 
+Design’ [31,3]. Only afterwards does one work on ‘Getting 
+the Design Right’ of a particular idea through iterative 
+testing and development. Thus sketching is akin to a 
+heuristic that helps one move closer to the global maxima 
+by circumventing the local hill climbing problem.
+Usability evaluation methodologies favored by interface 
+developers confound this problem. Most, like think-aloud 
+observations, task centered walkthroughs, and heuristic 
+evaluation, tend to focus on the negative: Where are the 
+problems? What are the bugs? They do not inform us about 
+the benefits. Yet ultimately, the underpinning of a
+a) Generating designs, choosing the right design, and then 
+getting the design right
+Figure 2. Sketching first, iterative design and evaluation later 
+meaningful evaluation is a cost/benefit analysis. The 
+problem with our methodologies is that cost (problems) is 
+easier to measure than benefit, and this focus on problems 
+risks biasing decisions far too early in the process. Some of 
+our early buggy designs may actually be the one that has 
+the most potential for benefit in the long run, but we have 
+no way of knowing this.
+Similarly, CHI researchers favor usability evaluation 
+methodologies – especially controlled experiments – as a 
+way to validate a new technique by comparing its usability 
+(as measured by some performance metric) to a long- 
+established technique. Again, this could quash a good idea 
+simply because the design has not had a chance to evolve.
+The net result is that we eliminate ideas too early, we 
+consider far too few ideas at all, we converge on that which 
+we can measure, which is almost always that which we are 
+already familiar with. Our work degrades into a refinement 
+of the known rather than innovation along new trajectories.
+More generally, the ACM curriculum [17] suggests that 
+design is an equal partner with evaluation. Yet the standard 
+iterative cycle promoted within the CHI community is 
+counter to traditional design practice. At issue is how the 
+design/implement/test loop, if done naively, encourages the 
+sequential evolution/refinement of ideas rather than the 
+multiple parallel solutions that characterize most traditional 
+design disciplines [3]. Usability evaluation should happen 
+after multiple ideas are generated, critiqued, and 
+considered. We include ourselves in this criticism, as we 
+authored one of the first papers advocating an iterative 
+approach to design [4], and promoted it in education [13].
+USABILITY EVALUATION, INNOVATION AND 
+CULTURAL ADOPTION
+Invention and innovation is critical to CHI. In the small, 
+they can significantly alter how we interact with a 
+technology. In the large, new technologies and innovative 
+interfaces can create a radical shift in the way we socialize, 
+work, and play. Yet usability evaluation methods as done in 
+research typically fails to consider the promise of novel 
+engineering inventions and interface innovations. Similar to
+a) Getting the design right
+115

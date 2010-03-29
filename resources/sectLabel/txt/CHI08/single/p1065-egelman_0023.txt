@@ -1,0 +1,102 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Figure 3. The active Firefox 2.0 phishing warning.
+dialog box, is displayed to the user when the browser be-
+lieves a website is suspicious (Figure 2), but that website 
+has not been verified as being a phishing website (i.e. it does 
+not appear on a blacklist). We consider this warning to be 
+more passive because it does not give the user any choices, 
+nor does it make any recommendations.
+Firefox 2.0 also includes an active phishing warning, which 
+was part of the Google Toolbar extension for previous ver-
+sions of Firefox. When a user encounters a confirmed phish-
+ing website, a non-interactive dimmed version of the web- 
+site is displayed with an overlayed dialog box. The user is 
+given a choice between continuing to the site or leaving. The 
+user may also click the red ‘X’ in the corner of the warning, 
+which has the same effect as continuing to the website (Fig-
+ure 3).
+In this study we compared the effectiveness of active and 
+passive phishing warnings by analyzing them using a warn-
+ing analysis methodology used by researchers in the warning 
+sciences field, called the Communication-Human Informa-
+tion Processing Model (C-HIP) model [21].
+This paper makes three contributions. First, it presents the 
+results of a study evaluating the effectiveness of active secu-
+rity indicators in current web browsers. Second, it presents 
+an analysis of the results using a model from the warning 
+sciences. Third, it presents recommendations for improving 
+these security indicators such that fewer users fall victim to 
+online fraud.
+We first frame our study within the context of previous phish-
+ing and warning research, and then describe the methodol-
+ogy behind our study. We then discuss the results of our 
+user study and how effective we determined each warning 
+message to be. Finally, we make recommendations based on 
+these results for designing more effective security indicators.
+BACKGROUND
+In this section we describe previous work related to users’ 
+susceptibility to phishing, warning indicators used in web 
+browsers, and user perceptions of warning messages.
+Phishing Susceptibility
+Despite growing efforts to educate users and create better 
+detection tools, users are still very susceptible to phishing
+attacks. Unfortunately, due to the nature of the attacks, it is 
+very difficult to estimate the number of people who actually 
+fall victim. A 2006 report by Gartner estimated the costs at 
+$1,244 per victim, an increase over the $257 they cited in 
+a 2004 report [11]. In 2007 Moore and Clayton estimated 
+the number of phishing victims by examining web server 
+logs. They estimated that 311,449 people fall for phishing 
+scams annually, costing around 350 million dollars [15]. An-
+other study in 2007 by Florencio and Herley estimated that 
+roughly 0.4% of the population falls for phishing attacks an-
+nually [9].
+Phishing works because users are willing to trust websites 
+that appear to be designed well. In a 2001 study on web- 
+site credibility, Fogg et al. found that the “look and feel” 
+of a website is often most important for gaining a user’s 
+trust [10]. A 2006 phishing study by Dhamija et al. found 
+that 90% of the participants were fooled by phishing web- 
+sites. The researchers concluded that current security indi-
+cators (i.e. the lock icon, status bar, and address bar) are inef-
+fective because 23% of the participants failed to notice them 
+or because they did not understand what they meant [7]. 
+In a similar study, Downs et al. showed participants eight 
+emails, three of which were phishing. They found that the 
+number of participants who expressed suspicion varied for 
+each email; 47% expressed suspicion over a phishing mes-
+sage from Amazon, whereas 74% expressed suspicion over 
+a phishing message from Citibank. Those who had inter-
+acted with certain companies in the past were significantly 
+more likely to fall for phishing messages claiming to be from 
+these companies. Participants were also likely to ignore or 
+misunderstand web browser security cues [8].
+Phishing Indicators
+New research has focused on creating new anti-phishing in-
+dicators because existing security indicators have failed. The 
+Passpet system, created by Yee et al. in 2006, uses indicators 
+so that users know they are at a previously-trusted website. 
+Users can store an animal icon within the web browser for 
+each trusted site with which they interact. The system will 
+only send a password when the user recognizes that the ani-
+mal icons match. Preliminary user testing suggests that this 
+system is easy for users to use [25]. Other proposals have 
+also been put forth to modify browser chrome to help users 
+detect phishing websites. In one system, “synchronized ran-
+dom dynamic boundaries,” by Ye and Smith, the browser 
+chrome is modified to blink at a random rate. If the blink 
+rate matches a trusted window’s blink rate, the user knows 
+that the window in question has not been spoofed [24]. A 
+similar solution using a trusted window was also proposed 
+by Dhamija and Tygar in 2005. In their system the chrome 
+of the browser window contains a colored pattern that must 
+be matched with the trusted window. The user knows to rec-
+ognize the trusted window because it contains a personal im-
+age that the user selected during the initial configuration [6]. 
+Since all of these proposals require the use of complicated 
+third-party tools, it’s unclear how many users will actually 
+benefit from them. These proposals have only undergone 
+minimal user testing in unrealistic environments. User test-
+ing should be performed under real world conditions before 
+any new security indicator is recommended.
+1066

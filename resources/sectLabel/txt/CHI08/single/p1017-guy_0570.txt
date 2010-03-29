@@ -1,0 +1,97 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+Figure 2. Weight combination user interface
+We conducted personal interviews with 12 of the users who 
+took part in experiment 2, in order to learn about their 
+experience with the sliders and follow their line of thought 
+while they are examining the different buddylists. Each 
+interviewee was asked to first reset all sliders and start with 
+an empty list. In order to examine hypotheses (2) and (4), 
+each slider was moved separately, to compare the lists 
+based on single sources to an ideal list (as in the framed 
+scenario of experiment 2). Once all sources were examined, 
+the interviewees were asked to fiddle with the sliders in 
+order to compose a list that is closest to their ideal list. We 
+retrieved the selected weight combinations from our logs 
+and examined them in order to validate hypothesis (5). 
+Finally, we posed the question about sharing the buddylists 
+based on private sources (hypothesis (6)). The question is a 
+multiple choice question: to share automatically vs. share 
+after manual editing; to share with anyone, or only with 
+friends, or only with a specific individual.
+Experimental Results
+Results of Experiment 1
+In this experiment we examined the 273 users who had a 
+nonempty result in all four public sources. For each of the 
+four public sources and each of the 273 users, we calculated 
+the number of connections extracted from the source, and 
+the number of unique contributions of this source over the 
+union of all other three sources. The averages of these 
+figures appear in Table 3.
+Examining the average numbers of unique contributions is 
+interesting. One would assume that the commonalities of 
+the lists from the different sources would be large; that a 
+person would mostly friend with peers from the 
+organizational group; that a person’s friends would be the 
+ones commenting in the blogging system; and even that 
+working in the same group would imply similar interests 
+and thus bookmarking the same web pages. However, our
+org chart		friending		blogs		bookmarks	
+#	&gt;	#	&gt;	#	&gt;	#	&gt;
+15.73	13.91	24.64	20.27	8.57	5.74	423.1	417.7
+Table 3. Results of experiment 1: average number of
+connections (#) and unique contributions (&gt;)
+contribution	org chart	friending	blogs	bookmarks
+full list	107	76	83	55
+	(39.2%)	(27.8%)	(30.4%)	(20.1%)
+nothing	41 0	22 0 (8.1%)	370	00
+	(4.0%)		(13.6/0)	(0.0%)
+Table 4. Unique contribution over all other sources
+results reveal a different picture. It seems that for each and 
+every source, the average number of unique contributions 
+over the other three sources is quite close to the average 
+number of connections, implying that the information 
+extracted from the different sources is indeed diverse.
+Table 4 shows two statistics of the unique contributions of 
+the different sources over all other sources. The first row in 
+the table shows the number of people for whom the source 
+contributed its full list – meaning that the lists from other 
+sources had no intersection with this source. For instance, 
+for 107 of the people (39.19%) – the lists of blog 
+commenters, tagging friends, or similar bookmarkers did 
+not contain anyone from their organizational group. As can 
+be seen on Table 4, these numbers are rather large – 76 for 
+Fringe, 83 for BlogCentral, and 55 for Dogear – indicating 
+the diversity of the sources. There was not even a single 
+person, for whom a single source covered all other sources, 
+proving that aggregation creates a broader picture than any 
+single source. The second row in the table shows the 
+number of people for whom a source contributed nothing 
+over the other lists. These figures indicate cases in which a 
+single source may be dismissed, as the other three sources 
+cover the information it provides. As may be seen on the 
+table, these figures are rather small: up to 37, for 
+BlogCentral, and as low as 0 for Dogear.
+For 33 out of the 273 people examined (12.08%), there was 
+no intersection between any of the sources – each of their 
+public sources provided a completely different list.
+The results of this experiment validate hypothesis (1) and 
+support hypothesis (4), showing the diversity of information 
+from public sources, that no single source holds all SN 
+information, and thus that aggregation is likely to be of 
+greater value than information from any single source.
+Results of Experiments 2 and 3
+Our questionnaire plugin collected information from 116 
+users who responded to all three stages of the experiment. 
+Out of the 116 users, 65 are from the US and Canada, 49 
+are from Europe and the Middle East, and two are from 
+Asia Pacific. 73 of the users who responded are using 
+Fringe, 29 are bloggers, and 62 use Dogear. We believe 
+these users represent a wide range of IBM employees and 
+are thus a good test bed for our hypotheses. In addition, 
+results collected from the in depth interviews with 12 users 
+strengthen some of our hypotheses.
+The bottom part of Table 2 shows the results of the first two 
+sets of buddylists. On the first step, shown on the bottom 
+left of the table, the list that got the most “best” votes (63) 
+is the one based on a single source: the organizational chart.
+1023

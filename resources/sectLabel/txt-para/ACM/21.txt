@@ -1,0 +1,979 @@
+# Para 0 1
+A Taxonomy of Ambient Information Systems:
+# Para 1 1
+Four Patterns of Design
+# Para 2 1
+Zachary Pousman
+# Para 3 4
+College of Computing/GVU Center
+Georgia Institute of Technology
+Atlanta, GA 30332
++1 (404) 385-2447
+# Para 7 1
+zach@cc.gatech.edu
+# Para 8 1
+John Stasko
+# Para 9 4
+College of Computing/GVU Center
+Georgia Institute of Technology
+Atlanta, GA 30332
++ 1 (404) 894 5617
+# Para 13 1
+stasko@cc.gatech.edu
+# Para 14 1
+ABSTRACT
+# Para 15 18
+Researchers have explored the design of ambient information 
+systems across a wide range of physical and screen-based media. 
+This work has yielded rich examples of design approaches to the 
+problem of presenting information about a user’s world in a way 
+that is not distracting, but is aesthetically pleasing, and tangible to 
+varying degrees. Despite these successes, accumulating theoretical 
+and craft knowledge has been stymied by the lack of a unified 
+vocabulary to describe these systems and a consequent lack of a 
+framework for understanding their design attributes. We argue that 
+this area would significantly benefit from consensus about the 
+design space of ambient information systems and the design 
+attributes that define and distinguish existing approaches. We 
+present a definition of ambient information systems and a 
+taxonomy across four design dimensions: Information Capacity, 
+Notification Level, Representational Fidelity, and Aesthetic 
+Emphasis. Our analysis has uncovered four patterns of system 
+design and points to unexplored regions of the design space, 
+which may motivate future work in the field.
+# Para 33 1
+Categories and Subject Descriptors
+# Para 34 1
+Visual Interface Design, Tangible Interfaces
+# Para 35 1
+Keywords
+# Para 36 2
+Ubiquitous Computing, Ambient Display, Peripheral Display, 
+Notification System, Taxonomy, Design Guidelines
+# Para 38 1
+1. INTRODUCTION
+# Para 39 9
+From the very first formulation of Ubiquitous Computing, the 
+idea of a calmer and more environmentally integrated way of 
+displaying information has held intuitive appeal. Weiser called this 
+“calm computing” [35] and described the area through an elegant 
+example: a small, tangible representation of information in the 
+world, a dangling string that would wiggle based on network 
+traffic. When information can be conveyed via calm changes in 
+the environment, users are more able to focus on their primary 
+work tasks while staying aware of non-critical information that
+# Para 48 6
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that 
+copies bear this notice and the full citation on the first page. To copy 
+otherwise, or republish, to post on servers or to redistribute to lists, 
+requires prior specific permission and/or a fee.
+# Para 54 1
+AVI &apos;06, May 23-26, 2006, Venezia, Italy.
+# Para 55 1
+Copyright 2006 ACM 1-59593-353-0/06/0005. $5.00.
+# Para 56 6
+affects them. Research in this sub-domain goes by various names 
+including “ambient displays”, “peripheral displays”, and 
+“notification systems”. The breadth of the systems in these broad 
+categories is quite large. We seek to disentangle the terminology 
+used to describe and categorize the wide array of systems in order 
+to provide a common language for discussing research therein.
+# Para 62 19
+An ambient display can represent many types of data, from 
+stock prices, to weather forecasts, to the presence or absence of 
+colleagues. Maintaining awareness of co-located and distant work 
+and social groups has been a long-term research thread in the area 
+of Computer Supported Cooperative Work (CSCW) [5, 8]. The 
+Tangible Media Group at the MIT Media Lab, directed by Ishii, 
+also helped shape the field of ambient computation. They coined 
+the term “tangible media,” citing inspiration from Weiser’s vision 
+[35] and from Pederson and Sokoler’s AROMA system [29] and 
+developed AmbientROOM [17] and Ambient Fixtures [6, 18]. 
+These systems use ambient displays to make people aware of both 
+group activity and other information such as network traffic. 
+Recent work in Ambient Intelligence has brought techniques from 
+Artificial Intelligence to ambient systems, spearheaded by the 
+Disappearing Computer initiative of the European Union [31]. 
+This research thrust seeks to imbue ambient systems with 
+contextual knowledge about the environment. The Roomware 
+project has resulted in smart architectural spaces that support 
+information conveyance (and group collaboration) [33].
+# Para 81 11
+Researchers have developed systems that use a multitude of 
+everyday objects to display information. Examples include lights 
+of various sorts [2, 17], sounds [25], shadows [8], artificial flowers 
+[18], mobiles [24], and office-décor water fountains [12, 16]. 
+Further research has sought to use framed photographs [26] and 
+larger artistic pictures to represent information from the world in 
+an art-like manner [14, 30, 32]. There are also peripheral display 
+“modes” of a user’s main desktop, including screensavers like 
+What’s Happening [36], information bars and menus such as those 
+leveraged in Sideshow and Irwin [6, 22], and alternate panes, like 
+Apple’s Dashboard [3]. As one can see, the design space is large.
+# Para 92 9
+All these systems provide a rich history of system design 
+principles, approaches, and decisions, but accumulating theoretical 
+and craft knowledge has been stymied by the lack of a unified 
+vocabulary to define and describe these systems. In this paper we 
+propose a set of design choices that developers of ambient 
+information systems must confront to build successful and 
+compelling systems. First we set out a definition of an ambient 
+information system that is a synthesis of the varied definitions 
+given in published research. We hone the intuitive set of
+# Para 101 1
+67
+# Para 102 10
+characteristics that distinguish ambient systems from other 
+ubiquitous computing research systems. Next, we propose a set of 
+design dimensions for ambient information systems. The four 
+dimensions of system design elucidate the main decisions one 
+confronts when designing an effective ambient system. Finally, we 
+explore the clusters across dimensions to uncover four coherent 
+combinations of system designs, which work as design patterns for 
+the field. The results also identify new ways of combining the 
+design attributes to explore new possibilities for ambient 
+information systems.
+# Para 112 1
+2. AMBIENT INFORMATION SYSTEMS
+# Para 113 5
+Many different terms have been used to describe the types of 
+systems we discuss in this paper. Three of the most commonly 
+used terms are “ambient display,” “peripheral display,” and 
+“notification system.” But how does one differentiate these 
+terms? Based on general understandings, we claim that:
+# Para 118 1
+- all ambient displays are peripheral displays,
+# Para 119 1
+- some notification systems are peripheral displays
+# Para 120 2
+(some notification systems are not peripheral but are 
+instead the object of focused work and attention)
+# Para 122 3
+The words of researchers themselves likely best explain their 
+conceptions of the systems that they have built. Below, we present 
+germane definitional quotes.
+# Para 125 6
+•	Ishii et al: “[In Ambient Displays] information is moved off 
+the screen into the physical environment, manifesting itself as 
+subtle changes in form, movement, sound, color, smell, 
+temperature, or light. Ambient displays are well suited as a 
+means to keep users aware of people or general states of large 
+systems, like network traffic and weather.” [17]
+# Para 131 1
+•	Matthews et al: Peripheral displays, then, are displays that
+# Para 132 2
+show information that a person is aware of, but not focused on. 
+[24]
+# Para 134 1
+•	Matthews et al: “Ambient displays might be defined as those
+# Para 135 3
+that are &quot;minimally attended&quot; (e.g. just salient enough for 
+conscious perception) while alerting displays are &quot;maximally 
+divided&quot; (e.g. slightly less salient than focal tasks). [24]
+# Para 138 1
+•	Stasko et al: Ambient displays typically communicate just one,
+# Para 139 5
+or perhaps a few at the most, pieces of information and the 
+aesthetics and visual appeal of the display is often paramount. 
+Peripheral displays refer to systems that are out of a person’s 
+primary focus of attention and may communicate one or more 
+pieces of information.” [32]
+# Para 144 1
+•	Mankoff et al: “Ambient displays are abstract and aesthetic
+# Para 145 5
+peripheral displays portraying non-critical information on the 
+periphery of a user’s attention... They generally support 
+monitoring of non-critical information.” “Ambient displays 
+have the ambitious goal of presenting information without 
+distracting or burdening the user.” [20]
+# Para 150 1
+•	Rounding and Greenberg: “The [notification collage] is
+# Para 151 4
+designed to present info[rmation] as lightweight and peripheral 
+objects. It does not demand the full attention of its users: rather 
+it can be attended to in passing, where people collaborate should 
+the need or desire arise.” [14]
+# Para 155 1
+•	McCrickard et al: “Often implemented as ubiquitous systems or
+# Para 156 4
+within a small portion of the traditional desktop, notification 
+systems typically deliver information of interest in a parallel, 
+multitasking approach, extraneous or supplemental to a user’s 
+attention priority.” [21 ]
+# Para 160 1
+•	McCrickard et al: Notification systems are defined as
+# Para 161 4
+interfaces that are typically used in a divided-attention, 
+multitasking situation, attempting to deliver current, valued 
+information through a variety of platforms and modes in an 
+efficient and effective manner [21 ].
+# Para 165 11
+The easiest way to explain the differences between systems is 
+to look at the design motivations that informed them. Ambient 
+displays are those that have pointed aesthetic goals and present a 
+very small number of information elements. These systems are a 
+proper subset of peripheral displays, which can appear either in the 
+environment or on secondary or even primary computer displays. 
+Notification systems’ design motivation results from divided 
+attention situations. As such, they can be equal to a primary work 
+task in their attentional needs or be secondary. When notification 
+systems are designed to be secondary to a primary task, the 
+systems are appropriately defined as peripheral.
+# Para 176 3
+In this paper, we propose the term ambient information system 
+as the unit of study and define the behavioral characteristics of 
+such as systems as follows:
+# Para 179 1
+•	Display information that is important but not critical.
+# Para 180 1
+•	Can move from the periphery to the focus of attention and
+# Para 181 1
+back again.
+# Para 182 1
+•	Focus on the tangible; representations in the environment.
+# Para 183 1
+•	Provide subtle changes to reflect updates in information
+# Para 184 1
+(should not be distracting).
+# Para 185 2
+•	Are aesthetically pleasing and environmentally appropriate. 
+3. PREVIOUS TAXONOMIES
+# Para 187 5
+A small number of research papers that describe ambient 
+information systems also include extended discussions of the 
+design dimensions that motivate and contextualize their work. The 
+authors provide dimensions to compare and contrast their systems 
+to others in order to explain their design rationales.
+# Para 192 11
+Matthews et al use the dimensions notification level, 
+transition, and abstraction to characterize systems in this space 
+[24]. They developed the Peripheral Display Toolkit [23] that 
+helps people to develop ambient information displays more easily. 
+Their concept of notification level means the relative importance 
+of a particular data stream. Transitions are the programmatic 
+changes to the display, based on the data. Transitions include 
+fading, scrolling, or animation effects. They define abstraction as 
+the mapping that takes a piece of numerical or ordinal data and 
+turns it into something that the ambient display can use, something 
+“more easily interpreted with less [user] attention.”
+# Para 203 7
+Matthews et al segregate notification level into five levels: 
+Ignore, Change Blind, Make Aware, Interrupt, and Demand 
+Attention. The gradations run from low, a system ignoring the 
+change in the data, to high, a system demanding attention in a way 
+that must also be explicitly dismissed. They propose categories of 
+transition: interrupt, make aware, and change blind. Finally, they 
+bifurcate abstraction into feature abstraction or degradation.
+# Para 210 8
+McCrickard et al introduce a different set of three dimensions 
+to classify notification systems: interruption, reaction, and 
+comprehension [21]. Interruption is defined psychologically, 
+similar to Matthews’ notion, “as an event prompting transition and 
+reallocation of attention focus from a [primary] task to the 
+notification.” Reaction is defined as the rapid response to a given 
+stimulus, while comprehension is the long-term notion of 
+remembering and sense-making.
+# Para 218 1
+68
+# Para 219 12
+McCrickard et al then plot the design space as a 3-tuple of 
+interaction, reaction, and comprehension (IRC). Each dimension is 
+assigned a rating of high (1) or low (0), creating models like 0-1-0. 
+They label these models with meaningful names like “Ambient 
+Media, 0-0-1” “Indicator, 0-1-0” and “Critical Activity Monitor, 
+1-1-1.” Eight models serve as the corners of a design space. The 
+resulting space, it should be noted, is larger than the design space 
+of ambient information systems as we discuss in this paper 
+because it contains games, secondary displays, and critical activity 
+monitors (which by our definition, are notification systems that are 
+not also peripheral systems). McCrickard also classifies a set of 14 
+extant systems in the design space on the three dimensions.
+# Para 231 7
+Both of these taxonomies deal thoroughly with interruption 
+and detail some of the criteria for categorizing systems along this 
+design dimension. We extend this analysis to other dimensions of 
+data representation, flexibility, and aesthetics. This more holistic 
+view points out design trade-offs between aesthetic emphasis and 
+and flexibility, and between a system’s information display style 
+and display capacity.
+# Para 238 7
+Mankoff et al proposed a set of heuristics for evaluating 
+ambient systems [20], which may also assist system builders. The 
+heuristics attempt to give guidance for the formative evaluation of 
+ambient systems, but they also can be viewed as high-level design 
+guidelines, such as “The display should be designed to give ‘just 
+enough’ information. Too much information cramps the display, 
+and too little makes the display less useful.”
+# Para 245 2
+4. DESIGN DIMENSIONS OF AMBIENT 
+SYSTEMS
+# Para 247 7
+Designers of ambient information systems make decisions 
+about how much information to display, what specific aspects to 
+depict, and how exactly to display it, transparently or abstractly, 
+on a monitor or via a decorative sculpture. We present four design 
+dimensions that capture the space of ambient information systems. 
+The dimensions can be thought of as design choices or design 
+questions that system builders must answer. The dimensions are:
+# Para 254 1
+•	information capacity
+# Para 255 1
+•	notification level
+# Para 256 1
+•	representational fidelity
+# Para 257 1
+•	aesthetic emphasis
+# Para 258 11
+We rank 19 research systems and three consumer ambient 
+information systems on each of the four axes. Each axis is divided 
+into 5 bands, from low to high. We place systems into groups 
+based on information from published conference and journal 
+proceedings, including images and videos of systems in use if 
+available. The 19 systems we chose are not intended to be an 
+exhaustive list of all ambient information systems in the research 
+literature. The 19 systems are representative of the breadth of the 
+field and we feel that attempting an exhaustive list, while 
+amplifying completeness, would not significantly alter the design 
+dimensions.
+# Para 269 6
+Research systems that we analyzed include: Bus Mobile [24], 
+Dangling String [35], Digital Family Portrait [26], InfoCanvas 
+[33], Informative Art [30], Information Percolator [16], Irwin [22], 
+Kandinsky [11], Kiumra [19], Lumitouch [5], Notification Collage 
+[14], Scope [34], Sideshow [7], Table Fountain [12], Water Lamp 
+[8], and What’s Happening [36]. We include three consumer 
+# Para 275 3
+systems that fit our definition of ambient information systems, 
+Ambient Devices Ambient Orb [2], the My Yahoo! web portal 
+[27] and Apple’s Dashboard [3].
+# Para 278 7
+Figure 1 shows the four dimensions for our analysis, and 
+each of the 19 systems placed into a group along each. Thin 
+colored lines trace the rankings of systems on each axis, similar to 
+a parallel coordinates plot. Each axis has values that range from 
+low to high through five grades. The dimensions of notification 
+level and representational fidelity have more descriptive axis 
+labels that will be explained in detail below.
+# Para 285 1
+4.1 Information Capacity
+# Para 286 10
+Ambient information systems are created to convey 
+information to users—information that typically is important to a 
+user’s sense of wellbeing and general awareness, but not critical to 
+their work or personal life. Information capacity represents the 
+number of discrete information sources that a system can 
+represent. Some systems are capable of displaying a single piece 
+of data such as the current price of a stock index. Others can 
+display the value of 20 (or more) different information elements 
+on one screen. We rank systems from “Low” to “High” on this 
+design dimension.
+# Para 296 5
+Information elements are discrete information “nuggets”. For 
+example, if a system monitors campus shuttle buses, each bus is a 
+single nugget. If the system can represent both the time to a 
+location and a direction of travel, then there are two nuggets of 
+information for each bus that is monitored.
+# Para 301 7
+Information capacity makes visible the design trade-off 
+between space and time. A designer can increase the information 
+capacity of a display by increasing the space for information to be 
+presented or by creating a display that transitions through a set of 
+views over time. If a system is designed with multiple views or 
+uses scrolling, we rank it in the top tier, since the number of pieces 
+of information that it could display is arbitrarily large.
+# Para 308 9
+A further caveat about information capacity is necessary. 
+Some of the analyzed systems such as InfoCanvas, Sideshow, and 
+Dashboard are user-configured and user-customizable. This means 
+that these and other systems could potentially be made to display 
+hundreds of elements. Instead of attempting to calculate a 
+theoretical maximum throughput for the display in these cases, we 
+use the system designer’s naturalistic portrayal in their published 
+work to determine the “everyday maximum.” Each of these 
+systems is also in the top tier of information capacity.
+# Para 317 8
+The design dimension of information capacity has a barbell 
+distribution. Five of the 19 systems display a single information 
+element and are ranked “Low”. Conversely, there are eight 
+systems that display from ten to 20 information elements, with 
+some systems having the potential to display more and these are 
+ranked “High.” Only a few systems take a middle-ground 
+approach, attempting to display a small number (from two to ten) 
+of information elements.
+# Para 325 4
+The systems with low ratings on the attribute of information 
+conveyance are those that are physical displays. Fountains, 
+glowing lights, and office-decoration sculptures afford designers 
+only so much flexibility for changes.
+# Para 329 1
+69
+# Para 330 3
+Figure 1: Parallel Coordinate plot of 19 existing ambient information systems across four design dimensions. Colored lines trace
+each system’s ranking along the design dimensions. Different colors are used to denote groups of systems which are similar as
+explained more fully in Section 5.
+# Para 333 6
+Since the number of changes possible is small, the total number 
+of information nuggets that can be represented is 
+correspondingly small. The systems with high information 
+conveyance are those that are presented on LCD screens. The 
+systems that run at full screen (instead of as a small section of a 
+focused main monitor) are ranked the highest.
+# Para 339 1
+4.2 Notification Level
+# Para 340 11
+Notification level is the degree to which system alerts are 
+meant to interrupt a user. Notification level is a design attribute 
+that is present in the two taxonomies of ambient and peripheral 
+information systems we reviewed earlier. Matthews et al 
+subdivides notification level into five categories: ignore, change 
+blind, make aware, interrupt, and demand attention. For our 
+analysis we adopt those categories but replace the lowest level 
+of system alert function, ignore (a degenerate case) with user 
+poll. Systems such as Apple Dashboard and My Yahoo! do not 
+always appear in a user’s environment and must be explicitly 
+called to the fore.
+# Para 351 6
+Notification level can be thought of as the “ambience” of 
+the systems in question. Some systems in the ambient space are 
+quiet, and afford opportunistic glances to the information, while 
+others provide more strident alerts by blinking, flashing, 
+beeping, or even opening dialog windows. Systems that provide 
+unobtrusive change blind or make aware notifications to the user 
+# Para 357 7
+are at the core of the ambient information system design space. 
+Systems that interrupt users with alarms or that demand 
+attention (by launching system dialog windows) are not subtle, 
+so are further from the core concept of ambient information 
+systems, though, as Matthews et al argues, the smooth transition 
+from more subtle to more jarring is an interesting design 
+direction for ambient system designers.
+# Para 364 12
+Notification level is the designer-intended level of alert. 
+We do not take pains to distinguish between systems that are 
+proven to be “change blind” through user experimentation 
+versus those that merely claim change blindness. We remain 
+agnostic here about the techniques used for ensuring subtlety 
+including slow animation, scrolling, and fading (these 
+implementation details are at a lower level of design rationale). 
+Once the decision has been made to produce a system with 
+change blind transitions, the designer must then produce system 
+transitions that meet the goal in the specifics of the system. Our 
+analysis focuses on the high level decision on the part of the 
+designer or design team.
+# Para 376 7
+The distribution of systems here shows a good fit to our 
+definition of ambient information systems. It is apparent that 
+most ambient information systems adhere to the central notion 
+of subtle visual or representational changes. The vast majority of 
+ambient information systems fall into the change blind and make 
+aware transition categories (somewhat low and medium). Few 
+systems are designed to interrupt users or demand attention.
+# Para 383 1
+70
+# Para 384 5
+Two that do however are Scope and Sideshow. Note that most 
+systems that are physical displays do not have make-aware or 
+interruption-level alerts, much less demand attention alerts. The 
+Bus Mobile does enable make-aware transitions, when, for 
+example, the last bus of the day approaches.
+# Para 389 1
+4.3 Representational Fidelity
+# Para 390 10
+Representational fidelity describes a system’s display 
+components and how the data from the world is encoded into 
+patterns, pictures, words, or sounds. Some systems reproduce 
+the information being monitored in a very direct way, while 
+others are much more abstract in their representation. Matthews 
+et al’s taxonomy characterizes this design choice as abstraction, 
+but only distinguishes two sub-types, feature degradation and 
+feature abstraction. We consider this design dimension to be rich 
+and complex, so we will try to tease apart the many different 
+types of abstraction that appear in ambient information systems.
+# Para 400 7
+Representational fidelity can be described in the language 
+of Semiotics, the branch of Philosophy that deals with signs, sign 
+systems (such as natural languages) and their meanings. As such 
+it has an accepted vocabulary for the elements of a symbolic 
+representation. Semiotics can help analyze the way that 
+particular signifiers—words, pictures, sounds, and other 
+things—stand for the things they represent.
+# Para 407 10
+A semiotic sign is made up of three parts [28]. The object 
+is called the signified; it is the physical thing or idea that the 
+sign stands for. The signifier is the representation of the object, 
+which could be a word, a picture, or a a sound. The sense is the 
+understanding that an observer gets from seeing or experiencing 
+either the signified or its signifier. The signifier and the signified 
+need not have any direct relationship. However, both the 
+signified and the signifier create the same sense in the head of an 
+observer; seeing a log aflame and seeing the word “fire” create 
+the same meaning for a person.
+# Para 417 6
+Ambient information systems, in the vocabulary of 
+semiotics, contain one or more signs. Each sign has its object, 
+information in the world, and its representation, the lights, 
+pictures, or sounds used to signify that information. Many 
+ambient information systems contain multiple signs—each 
+picture element standing for a different piece of information.
+# Para 423 18
+The theory of Semiotics also helps to explain the notion 
+that some signs are transparent, easily understood, while others 
+are metaphorical and still others are abstract. Signs can be 
+symbolic, iconic, or indexical. Symbolic signs are those that are 
+completely arbitrary. For example languages are arbitrary, for 
+the word “bachelor” has no more natural relation to an 
+unmarried man than does the word “foobar. ” Symbolic signs 
+are those signs for which a code, or rule-following convention, 
+is required to understand. Language characters and numbers are 
+all symbolic, as are abstract visual representations (the color red 
+standing for “danger”). Iconic signs are those signs that have an 
+intermediate degree of transparency to the signified object. 
+Iconic signs include metaphors as well as doodles, drawings, 
+and caricatures. Icons represent their objects by having some 
+similarity or resemblance to the object or to an essential aspects 
+of the object. Indexical signs are those that are directly 
+connected to the signified. Examples include measuring 
+instruments, maps, and photographs.
+# Para 441 2
+We have subdivided the three main categories of 
+representational fidelity to distinguish between ambient 
+# Para 443 2
+information systems. We propose five groups, ranked from 
+indexical (high) to symbolic (low):
+# Para 445 2
+•	INDEXICAL: measuring instruments, maps, 
+photographs
+# Para 447 1
+•	ICONIC: drawings, doodles, caricatures
+# Para 448 1
+•	ICONIC: Metaphors
+# Para 449 2
+■ SYMBOLIC: language symbols (letters and numbers) 
+■ SYMBOLIC: abstract symbols
+# Para 451 13
+Some ambient information systems have displays that do 
+not afford representational flexibility, because of the constraints 
+of the display. For example, the LiveWire system and the 
+Ambient Orb cannot represent language symbols, nor can they 
+convey indexical forms like photographs. However, some 
+flexibility is present. The systems might map information in an 
+arbitrary way, remaining fully abstract (representing stock 
+increases with the color green and losses with the color red), or 
+it could map information more metaphorically, as would be the 
+case if LiveWire were connected to information from a 
+seismograph or ocean tides. As one can see, the question 
+concerning representational flexibility requires one to consider 
+both the display and the information that is displayed.
+# Para 464 14
+The InfoCanvas is a very flexible system when considering 
+representational fidelity. The InfoCanvas uses all five types of 
+representational fidelity. It uses abstract symbols, such as the 
+color red standing for traffic being stopped, metaphors, like a 
+cartoon drawing of a cloud representing cloudy conditions, and 
+also photographs and words of news stories, which are fully 
+indexical. We show this ability for a system to straddle multiple 
+representational forms by duplicating the system in each 
+category and noting them with an asterisk (see Figure 1). 
+Systems which are designed to represent information at multiple 
+levels of fidelity are: Apple’s Dashboard, InfoCanvas, 
+Informative Art, Notification Collage, Sideshow, and What’s 
+Happening. In these cases, we draw the parallel coordinate plot 
+to the top-most tier of representational fidelity for each system.
+# Para 478 4
+The majority of systems however, only afford a single level 
+of representational fidelity. Many of the sculptural displays only 
+afford symbolic, that is abstract, representations, while a smaller 
+number afford text and photographic representations.
+# Para 482 1
+4.4 Aesthetic Emphasis
+# Para 483 13
+The final dimension concerns the relative importance of the 
+aesthetics of the display. Some system designers seek to build 
+displays and artifacts with sculptural or artistic conventions. For 
+these systems, being visually pleasing is a primary objective. 
+Others however place relatively little focus on aesthetics and 
+typically focus more on information communication ability. 
+Since aesthetic judgment is at its core a subjective phenomenon, 
+we do not judge systems on their relative artistic merits. Instead 
+we attempt to rank ambient information systems by our 
+perception of the importance given to aesthetics. There is often a 
+tradeoff made between communication capacity, 
+representational fidelity, and aesthetics, a relationship that we 
+explore in this section.
+# Para 496 4
+Ambient information systems are intended to be visible; 
+positioned on a shelf, hung on the wall, or placed as a small 
+sculpture on a desk, the systems are seen not just by a user, but 
+also by co-workers, colleagues, or family members. There are a
+# Para 500 1
+71
+# Para 501 8
+multitude of approaches when it comes to building aesthetically 
+pleasing devices. One approach is to build systems that mirror 
+existing artworks by a particular artist, as is the case in 
+Kandinsky and Informative Art. A second approach is to design 
+a display that is representative of a particular style or art 
+movement. InfoCanvas, through its use of themes, allows the 
+display to take on characteristics of Asian water-color paintings, 
+for example.
+# Para 509 7
+We rank systems on the design dimension of aesthetic 
+emphasis as low, somewhat low, medium, somewhat high and 
+high. Note again that we are not assessing the degree to which 
+the systems are successful as art. We are providing a subjective 
+measure of how much the system designers focused on 
+aesthetics and how much they emphasized aesthetic 
+considerations in their research and design decisions.
+# Para 516 10
+Most systems that we analyzed had medium or somewhat 
+high degrees of aesthetic emphasis (12 of 19). The decisions of 
+designers to strive for visually pleasing displays is most clear in 
+the cases where the display is intended to leverage the work of 
+existing artists. The physical ambient information displays are 
+often sculptural in their design decisions. They attempt to set 
+themselves off from the rest of the environment, often on 
+pedestals or stands. Their capability to display much information 
+(information capacity) is often limited by their design clarity and 
+austerity. We consider this design trade-off in the next section.
+# Para 526 14
+Systems that we ranked at the middle of the spectrum of 
+aesthetic emphasis are those which are not intended by their 
+designers to be art worthy of contemplation as art objects. But 
+they are explicitly intended to be viewed as calm pleasing 
+objects and displays. Apple’s Dashboard widgets have a clean 
+design sense about them, as does Kimura, What’s Happening 
+and the Information Percolator. The systems that are ranked low 
+on aesthetic emphasis are Scope, Sideshow, Bus Mobile, Elvin, 
+and My Yahoo!. These systems put information conveyance at a 
+higher priority than being aesthetically pleasing. They are still 
+calm and environmentally appropriate, but their designers did 
+not emphasize their aesthetic qualities. Cleary, some systems 
+that are early-stage prototypes like Bus Mobile, may not have 
+the aesthetic polish of more finished systems.
+# Para 540 1
+5. FOUR DESIGN PATTERNS
+# Para 541 9
+In this section, we introduce four design patterns for 
+ambient information systems, after Alexander’s pattern language 
+for architectural studies [1]. The design patterns illustrate four 
+coherent combinations of the four design dimensions previously 
+presented. We have already pointed out trends and clusters that 
+are present in each particular design dimension. However, there 
+are fruitful conclusions for system designers as we consider the 
+interaction between the design dimensions to form design 
+patterns.
+# Para 550 7
+Considering the clusters of systems in each dimension and 
+the correspondences that are visible in the parallel coordinate 
+plot, we find four main archetypes in existing ambient 
+information system design: Symbolic Sculptural Display, 
+Multiple-Information Consolidators, Information Monitor 
+Display, and High Throughput Textual Display. Figure 2 
+shows the pattern of each archetype across the dimensions.
+# Para 557 3
+Figure 2: a-d System design archetypes shown in the context
+of the design space. Heavy boxes indicate core design
+decisions, while light boxes show alternate choices.
+# Para 560 12
+Symbolic Sculptural Displays are ambient information systems 
+that display very few pieces of information, usually a single 
+element. They represent information in an abstract sculptural 
+way with light, water, or moving objects. They are intended to 
+be decorative objects for a home or office setting and as such are 
+highly aesthetic in their design (see Figure 2a). This design 
+pattern is a core of ambient system design, and accounts for six 
+of our analyzed systems: Ambient Orb, Dangling String, Digital 
+Family Portrait, Information Percolator, Lumitouch, Table 
+Fountain, and Water Lamp. The Digital Family Portrait 
+combines multiple information sources and so truly represents 
+more information than the other members of this type.
+# Para 572 1
+72
+# Para 573 14
+Multiple Information Consolidators are ambient systems that 
+display many individual pieces of information in a consolidated 
+manner. They are typically screen-based in order to convey 
+much information and make users aware of changes to that 
+information (usually by blinking the visual representation of a 
+certain element). They are reasonably aesthetically motivated, 
+but all clearly demonstrate the trade-off between aesthetics and 
+customization and information capacity (see Figure 2b). Systems 
+which illustrate this design pattern are: Kandinsky, Kimura, 
+InfoCanvas, Notification Collage, and What’s Happening. 
+Kandinsky departs from the other systems in that it is explicitly 
+modeled on the fine art of Kandinsky, and as such is highly 
+stylized and design-focused. It does so at the expense of 
+flexibility, since it can only display photographs in its slots.
+# Para 587 11
+Information Monitor Displays are displays that are a 
+peripheral part of a user’s computer desktop. As such, they 
+afford different interactions and design choices. They display 
+multiple sources of information, and do so usually by visual 
+metaphors. They are capable of notifying users in multiple ways 
+about changes in the source data, including subtle awareness, 
+interrupting, and even demanding user attention when necessary 
+(i.e., requiring the user to switch focus to dismiss a notification). 
+The systems achieve aesthetics, but their primary purpose is not 
+good looks (see Figure 2c). Examples of this design archetype 
+include: Scope, and Sideshow.
+# Para 598 8
+High Throughput Textual Display systems are those that use 
+text and very simple graphics (icons) to denote information. 
+They are capable of representing voluminous information, but 
+do not draw attention with interruption-level notifications. These 
+systems are not primarily as concerned with aesthetics as they 
+are with information conveyance (see Figure 2d). These systems 
+are simple but efficient for certain types of tasks. Examples of 
+this design archetype are: Elvin, and My Yahoo!.
+# Para 606 15
+The four design archetypes cover nearly all of the analyzed 
+systems, but do not cleanly categorize three systems. Apple’s 
+Dashboard system is most similar to a Multiple Information 
+Consolidator. It fails being a pure example of this archetype 
+because of its inability to alert users to changes in information – 
+it requires users poll the system by calling up the transparent 
+pane via a hot key. The Bus Mobile is an early stage prototype, 
+and as such is not concerned with aesthetics to a large degree. 
+With a higher degree of aesthetic emphasis, it might be closer to 
+a Information Monitor Display (albeit a physical instead of 
+screen-based system). Informative Art is quite unlike the four 
+design archetypes. Informative Art has high aesthetic emphasis, 
+but low information capacity (e.g. 5 or 6 city’s weather forecast 
+information). It is metaphorical and abstract in its information 
+mapping fidelity.
+# Para 621 1
+6. EXTENDING THE PATTERNS
+# Para 622 12
+The four patterns for system design can help designers to 
+make appropriate choices as they develop new ambient 
+information systems. The design patterns can be used as models 
+so a designer can decide to build “an information monitor 
+display for a home health awareness application”, or “a set of 
+symbolic sculptural displays for work-group collaboration”. 
+Further, the designer may be depart from the pattern, by building 
+up a system’s range of possible notification levels, or by 
+choosing to trade aesthetics for increased information capacity. 
+However, our analysis also points at what has not yet been 
+explored. The four design patterns show four coherent 
+combinations, but they are not the only possibilities for building 
+# Para 634 5
+useful ambient systems. Combined with longer-term trends in 
+the fields of Ambient Intelligence and Ubiquitous Computing, 
+new archetypes for system design are emerging. We note 
+possibilities here, which change both the dimensions and the 
+four design patterns.
+# Para 639 14
+We do not expect the information capacity for ambient 
+systems to increase by dramatically. Though scrolling or time- 
+divided ambient systems (What’s Happening, Elvin) can already 
+display data elements numbering in the hundreds, simultaneous 
+visual displays are usually limited to 25 or 30 elements by 
+readability and user learnability. Ambient information systems 
+will not turn into information visualization systems showing 
+thousands of data points. However, contextual sets of 
+information may be useful for ambient systems in specialized 
+environments. Systems which display contextual sets of 
+information like that of the Bus Mobile (all of the buses on a 
+college campus) or Scope (email and calendar data) would 
+increase the number of systems in the middle portion of this 
+design dimension.
+# Para 653 15
+We also expect to see changes to the design dimension of 
+representational flexibility. Designers have begun to explore the 
+affordances of abstract and symbolic mappings between 
+information sources and their representations. We see this 
+continuing, with new systems focusing on personally relevant 
+symbolic representations, and utilizing metaphors from the 
+natural and built worlds. Another shift that we foresee is the 
+designers creating systems where multiple information sources 
+and aspects interact to affect a single part of the representation. 
+This is apparent already in Digital Family Portrait where the size 
+of the butterflies represents “activity,” even though activity is 
+not the reading from a single sensor, but it instead a reading 
+from multiple sensors in a home. Informative Art also has 
+aspects of this approach, changing both the color and 
+dimensions of squares based on two different aspects of weather.
+# Para 668 12
+As regards aesthetic emphasis, we foresee a more radical 
+change. We predict further exploration of the space of truly 
+artistically motivated ambient information systems. These 
+generative artworks use information from the world to drive 
+their behavior and ask (and answer) art questions as well as 
+technology questions. Though most of these works are outside 
+the academy (they are shown in galleries instead of computer 
+science conferences), Bolen and Mateas’ Office Plant #1 [4] is a 
+sculpture that characterizes the mood of a user’s email stream 
+and conveys it via transformations of a robotic plant. These 
+systems are going to create a new design space above the top tier 
+that we depict in this work.
+# Para 680 1
+7. CONCLUSIONS
+# Para 681 9
+In this work we synthesize a definition that distinguishes 
+research in ambient information systems from that of 
+notification systems and peripheral displays. We propose four 
+design dimensions, rank systems to show clusters, and uncover 
+four design patterns on which system developers may model 
+their system designs. Future work will expand the four 
+dimensions to include aspects of the social interaction and 
+impact that system have on the behavior of individuals and 
+groups.
+# Para 690 4
+In this work we point toward open areas in the design 
+space, and we point to new design directions that may fill these 
+gaps. Future work may also turn this taxonomy into an 
+evaluation framework for ambient information systems.
+# Para 694 1
+73
+# Para 695 1
+8. REFERENCES
+# Para 696 2
+1. Alexander, C., A Pattern Language: Towns, Buildings, 
+Construction. Oxford University Press, 1977.
+# Para 698 1
+2. Ambient Orb. http://www.ambientdevices.com/
+# Para 699 2
+3. Apple Mac OS X Dashboard. http://www.apple.com/ 
+macosx/features/dashboard/index.htm
+# Para 701 2
+4. Bohlen, M., and Mateas, M. Office Plant #1. Leonardo 31:5. pp. 
+345-349.
+# Para 703 3
+5. Chang, A., Resner, B., Koerner B., Wang, X and Ishii, H., 
+Lumitouch: An emotional communication device. Extended 
+Abstracts of CHI 2001, pp. 371-372.
+# Para 706 4
+6. Cadiz, J., Fussell, S., Kraut, R., Lerch, J., and Scherlis, W. The 
+Awareness Monitor: A Coordination Tool for 
+Asynchronous, Distributed Work Teams. Unpublished 
+manuscript. Demonstrated at CSCW 1998.
+# Para 710 3
+7. Cadiz, J., Venolia, G., Janke, G., ans Gupta, A. Designing 
+and deploying an information awareness interface. 
+Proceedings of CSCW 2002, pp. 314 - 323.
+# Para 713 4
+8. Dahley, A., Wisneski, C., and Ishii, H. Water lamp and 
+pinwheels: Ambient projection of digital information into 
+architectural space. CHI Conference Summary 1998, pp. 
+269–270.
+# Para 717 4
+9. Espinosa, A., Cadiz, J., Rico-Gutierrez L., Kraut, R., Sherlis, 
+W., and Lautenbacher, G. Coming to the Wrong Decision 
+Quickly: Why Awareness Tools Must be Matched with 
+Appropriate Tasks. Proceedings of CHI 2000, pp. 392-399.
+# Para 721 3
+10. Fitzpatrick, G., Kaplan, S., Arnold, D., Phelps, T., and 
+Segall, B. Augmenting the Workaday World with Elvin. 
+Proceedings of ECSCW 1999, pp. 431-450.
+# Para 724 4
+11. Fogarty, J., Forlizzi, J., and Hudson, S. Aesthetic 
+Information Collages: Generating Decorative Displays that 
+Contain Information. Proceedings of the UIST 2001, 
+pp. 141-150.
+# Para 728 3
+12. Gellersen, H.-W., Schmidt, A. and Beigl. M. Ambient Media 
+for Peripheral Information Display. Personal Technologies 
+3, 4 : 199-208. 1999.
+# Para 731 3
+13. Greenberg, S., and Fitchett, C. Phidgets: Easy development 
+of physical interfaces through physical widgets. Proceedings 
+of UIST 2001. pp 209-218.
+# Para 734 3
+14. Greenberg, S., and Rounding, M. The Notification Collage: 
+Posting Information to Public and Personal Displays. 
+Proceedings of CHI 2001, pp. 515-521.
+# Para 737 4
+15. De Guzman, E., Yau M, Park, A., and Gagliano, A. 
+Exploring the Design and Use of Peripheral Displays of 
+Awareness Information. Extended Abstracts of CHI 2004, 
+pp. 1247-1250.
+# Para 741 3
+16. Heiner, J. M., Hudson, S., and Kenichiro, T. The 
+Information Percolator: Ambient information display in a 
+decorative object. In Proc. of UIST 1999, pp. 141-148.
+# Para 744 4
+17. Ishii, H.,Wisenski, C., Brave, S., Dahley, A., Gorbet, M., 
+Ullmer, B., and Yarin, P. AmbientROOM: Integrating 
+Ambient Media with Architectural Space. Summary of CHI 
+1998, pp. 173-174.
+# Para 748 3
+18. Ishii, H., Ren, S., and Frei, P. Pinwheels: visualizing 
+information flow in an architectural space. Extended 
+Abstracts of CHI 2001, pp. 111-112.
+# Para 751 4
+19. MacIntyre, B., Mynatt, E., Voida, S., Hansen, K., Tullio, J., 
+and Corso, G. Support For Multitasking and Background 
+Awareness Using Interactive Peripheral Displays. 
+Proceedings of UIST 2001, pp. 41-50.
+# Para 755 3
+20. Mankoff, J., Dey, A., Heish, G., Kientz, J., Lederer, S., and 
+Ames, M. Heuristic evaluation of ambient displays. 
+Proceedings of CHI 2003, pp. 169-176.
+# Para 758 4
+21. McCrickard, D. S., Chewar, C., Somervell, J., and 
+Ndiwalana, A. A Model for Notification Systems 
+Evaluation—Assessing User Goals for Multitasking 
+Activity. ACM Transactions on CHI 10,4 : 312 – 338. 2002
+# Para 762 3
+22. McCrickard, D.S., Catrambone, R., and Stasko, J. Evaluating 
+animation in the periphery as a mechanism for maintaining 
+awareness. Proceedings of INTERACT 2001, pp. 148-156.
+# Para 765 4
+23. Matthews, T., Dey, A.., Mankoff, J., Carter S., and 
+Rattenbury, T. A Toolkit for Managing User Attention in 
+Peripheral Displays. Proceedings of UIST 2004, pp. 247- 
+256.
+# Para 769 3
+24. Matthews ,T., Rattenbury, T., Carter, S., Dey, A., and 
+Mankoff, J. A Peripheral Display Toolkit. Tech Report IRB-
+TR-03-018. Intel Research Berkeley. 2002.
+# Para 772 2
+25. Mynatt, E.D., Back, M., Want, R., and Ellis, J.B. Designing 
+audio aura. Proceedings of CHI 1998, pp. 566-573.
+# Para 774 3
+26. Mynatt, E.D., Rowan, J., Jacobs, A., and Craighill, S. Digital 
+Family Portraits: Supporting Peace of Mind for Extended 
+Family Members. Proceedings of CHI 2001, pp. 333-340.
+# Para 777 1
+27. My Yahoo!. http://my.yahoo.com/index.html
+# Para 778 2
+28. Ogden, C., and Richards I. The Meaning of Meaning. 
+Routledge &amp; Kegan. London, England. 1923.
+# Para 780 3
+29. Pederson, E. R., and Sokoler, T. AROMA: Abstract 
+Representation of Presence Supporting Mutual Awareness. 
+Proceedings of CHI 1997, pp.51-58.
+# Para 783 3
+30. Redstrom, J., Skog, T., and Hallanas, L. Informative Art: 
+Using Amplified Artworks as Information Displays. 
+Proceedings of DARE 2000, pp. 103-114.
+# Para 786 3
+31. Russel, D., Streitz, N., and Winograd, T. Building 
+Disappearing Computers. Communications of the ACM. 
+48(3):42-48. 2005.
+# Para 789 3
+32. Stasko, J., Miller, T., Pousman Z., Plaue, C., and Ullah, O. 
+Personalized Peripheral Information Awareness through 
+Information Art. Proceedings of UbiComp 2004, pp. 18-35.
+# Para 792 6
+33. Streitz, N., Tandler, P., Muller-Tomfelde, C., and Konomi, 
+S. Roomware: Towards the Next Generation of Human- 
+Computer Interaction based on an Integrated Design of Real 
+and Virtual Worlds. In: J. Carroll (Ed.): Human-Computer 
+Interaction in the New Millennium, Addison-Wesley. pp. 
+553-578. 2001.
+# Para 798 3
+34. Van Dantzich, M., Robbins, D., Horvitz, E., and Czerwinski, 
+M. Scope: Providing Awareness of Multiple Notifications at 
+a Glance. Proceedings of AVI 2002. pp. 157-166.
+# Para 801 2
+35. Weiser, M. and Brown, J.S. Designing Calm Technology. 
+PowerGrid Journal, 1:1, 1996.
+# Para 803 3
+36. Zhao, A., and Stasko, J. What&apos;s Happening?: Promoting 
+Community Awareness through Opportunistic, Peripheral 
+Interfaces. Proceedings of AVI 2002, pp. 69-74.
+# Para 806 1
+74

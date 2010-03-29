@@ -279,7 +279,7 @@ sub normalizeAuthorName {
     }
 
     $tmpStr =~ s/\.\-/-/g;
-    $tmpStr =~ s/[\,\.]/ /g;
+   $tmpStr =~ s/[\,\.]/ /g;
     $tmpStr =~ s/  +/ /g;
     $tmpStr = trim($tmpStr);
 
@@ -303,7 +303,7 @@ sub normalizeAuthorName {
 ##
 sub joinMultiWordNames {
     my $authorText = shift;
-    $authorText =~ s/\b((?:van|von|der|den|de|di|le|el))\s/\1_/sgi;
+    $authorText =~ s/\b((?:van|von|der|den|de|di|le|el))\s/$1_/sgi; # Thang 02 Mar 10: change \1 into \$1
     return $authorText;
 
 } # joinMultiWordNames

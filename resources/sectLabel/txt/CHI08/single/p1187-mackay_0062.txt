@@ -1,0 +1,96 @@
+CHI 2008 Proceedings · Web Visits in the Long	April 5-10, 2008 · Florence, Italy
+Exploring Multi-session Web Tasks
+Bonnie MacKay and Carolyn Watters
+Faculty of Computer Science, Dalhousie University
+Halifax, NS, B3H 1W5, Canada
+{bmackay, watters }@cs.dal.ca
+ABSTRACT
+Users are now performing more sophisticated web tasks. In 
+this work, we explore web tasks that require multiple web 
+sessions to complete (multi-session tasks) to satisfy a goal. 
+We conducted a web-based diary study and a field study 
+that used a customized version of Firefox which logged the 
+participants’ interactions for multi-session tasks and all 
+their web activity. We found that multi-session tasks occur 
+frequently and that users utilize a variety of browser tools 
+and actions to help complete these tasks.
+Author Keywords
+Web tasks, diary study, field study, multi-session tasks.
+ACM Classification Keywords
+H5.m. Information interfaces and presentation (e.g., HCI): 
+Miscellaneous.
+INTRODUCTION
+There has been a growth of information available on the 
+Web and as result there has been an evolution of the type of 
+tasks that people perform. For example, today many tasks 
+can be performed using services available on the Web (e.g., 
+booking a flight, or buying a new dress). Despite this 
+growth in how the Web is being used, most tools provided 
+by the popular browsers have not changed much. Browser 
+tools tend to still focus on supporting tasks that can be 
+completed in a single web browser session and there are 
+few standard browser tools available to users to support 
+tasks that require multiple web sessions to complete.
+While research has been conducted on user behaviour for 
+single web session tasks, for specific web tasks, and for 
+monitoring web information, we are exploring non- 
+monitoring tasks that take multiple web sessions to 
+complete (multi-session tasks). A multi-session task is goal- 
+based, requires more than one web session to complete and, 
+has a definable point as to when the task is over, such as a 
+specific date, an event that occurs (e.g., you finally 
+purchase the computer), or that it is abandoned. It is not a
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00 
+routine task (e.g., reading the news every day or checking 
+your email on a regular basis).
+In this research, we are interested in learning about the type 
+of tasks that cross multiple web sessions, in finding out how 
+users are performing these tasks (i.e., what browser tools 
+they are using) and in determining what problems they 
+encounter while performing these tasks. We anticipate that 
+users will have some difficulties performing multi-session 
+tasks while also doing other web activities in a single 
+session (i.e., multi-tasking) and in resuming their task when 
+they return to it at a later time. We expect that most multi- 
+session tasks are expected, that is that when the user begins 
+the task they know that it will continue over several 
+sessions. We also expect that there will be occasions when 
+a user begins a task that they assume will take a single 
+session to complete but it unexpectedly turns into a multi- 
+session task (i.e., there is not enough time to finish or the 
+task is more complex than originally thought). We also 
+anticipate that when users are performing these tasks, they 
+use particular browser tools and possibly other applications 
+to help organize the information that they find (such as print 
+web pages), and that users may use other applications to 
+interpret information (such as a calculator).
+We use the results of a diary study and field study to 
+determine how to better support users performing multi- 
+session tasks. The contribution of this research includes a 
+characterization of how users perform multi-session tasks, a 
+characterization of these tasks, and it provides 
+recommendations for browser tool features to help support 
+multi-session tasks.
+RELATED WORK
+Web Tasks
+There has been a lot of research conducted on user 
+behaviour on the Web to try to understand and/or categorize 
+the different types of web tasks in which people perform [1, 
+4, 5, 6, 7, 8, 12, 17]. For example, Choo et al. [6] outlined 
+four task categories for the Web, and Sellen et al. [15] 
+found six web task categories based on observation. Kellar, 
+et al. [12], classified web tasks, similar to Sellen et al. [15] 
+as fact finding (e.g., looking for specific information), 
+information gathering (e.g., researching a paper), browsing 
+(e.g., entertainment or passing time), transactions (e.g., 
+online banking), communications (e.g., emailing), and 
+maintenance (e.g., updating a web page). Kellar et al. [1 1] 
+also explored web monitoring and found that monitoring of
+1187

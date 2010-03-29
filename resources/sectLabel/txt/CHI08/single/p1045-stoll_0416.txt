@@ -1,0 +1,65 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+Figure 1: The Sesame ‘Behind-the-Scenes’ View running on a live system
+We explore this issue of informed security decision making 
+through Sesame, an interactive, visual, firewall-like tool 
+designed to assist non-experts in making better informed 
+security decisions. Sesame addresses threats similar to those 
+of consumer firewalls, but uses a visual, direct manipulation 
+interface that exposes system-level information in a meaning-
+ful, comprehensible way. To this end, Sesame provides users 
+a ‘behind-the-scenes’ view of their computer, integrating 
+existing elements of the desktop UI (such as windows) with 
+previously hidden systems-level components (such as the 
+processes that own those windows, the network connections 
+those processes are making, and so forth). Essentially, the 
+desktop metaphor is extended to convey system-level con-
+cepts in terms of their relationship to familiar desktop-level 
+abstractions. We conjecture that this view can help to inform 
+user security decisions and, by lowering barriers to this 
+information, may help to motivate them as well [18].
+Our initial study results suggest that this behind-the-scenes 
+view of their system’s underlying architecture seems to help 
+users make better security decisions involving system-level 
+knowledge. In the sections that follow, we briefly survey 
+current research and commercial security tools. We then 
+describe the design of the Sesame UI and present the results 
+of our user study. We conclude with a discussion of our 
+study results and implications for future work.
+RELATED WORK
+While there are many security tools available, few are 
+designed specifically to support end-users in their security 
+decision making process. However, of the tools available for 
+security decision making, many can be grouped into two 
+categories: those for expert users and those for non-experts.
+Experts
+Visualization tools: The majority of prior research focuses on 
+visualization-based approaches intended for the expert user. 
+While inappropriate for non-experts, they do illustrate types 
+of information that experts find useful in order to detect 
+security problems and make informed decisions with regard 
+to security. For example, many of these tools support moni-
+toring of network connections; these include Rumint, IDS 
+Rainstorm, VisAlert [7], and others that provide experts with 
+a variety of useful network data representations [1]. How-
+ever, these tools are highly technical and complex 
+(presenting data at the level of individual packets), and do 
+not integrate with, or build on, existing metaphors of the 
+desktop GUI.
+Text-based tools: Another set of very common tools provides 
+extensive system behavior and status information in a text- 
+based approach. Although these systems often ship on 
+consumer computing platforms, they are generally intended 
+for knowledgeable users or even system- or network- 
+administrators. These include tools like ProcessExplorer, 
+tcpview, and Windows Task Manager [22]. Again, these 
+tools present system-level information useful in making 
+informed security decisions. However, they convey informa-
+tion in a piecemeal fashion (different tools for different 
+information), leaving users to assimilate and make sense of 
+it; and the textual presentation neither supports visual meta-
+phors nor integrates with the existing and well-known 
+features of the desktop UI.
+Non-Experts
+In contrast to the wealth of tools available for network and 
+security professionals, research in the area of supporting
+1046

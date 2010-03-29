@@ -1,0 +1,113 @@
+CHI 2008 Proceedings · Am I Safe	April 5-10, 2008 · Florence, Italy
+new software being installed by our test subjects, but 
+mostly due to updates in the vulnerability listing from the 
+NVD. 50% of the users responded that it was very difficult 
+to correct the security vulnerabilities reported by TALC, 
+which we attribute to the poor usability of many of the web 
+pages supplied by the NVD. In addition, sometimes the 
+links provided in the NVD data were not valid. Further 
+discussion can be found in the Future Work section below.
+User Perce ptions
+One of the goals of TALC was to experiment with gentle 
+reminder functions to motivate users to take security 
+actions. In the post-test questionnaire, when asked to 
+suggest improvements to the program, thirty-three percent 
+of the participants suggested various solutions for making 
+the graffiti less invasive. However, our goal was to make 
+TALC as motivating as possible, without being overly 
+annoying (which could have caused users to disable the 
+program entirely). A majority (67%) of users raised no 
+issue with intrusiveness; further, we find it to be telling that 
+the only user who reported disabling the TALC software 
+during the test did so because he felt it was slowing his 
+system down too much. The implementation of our 
+Visualization module uses the default.NET transparency 
+effects, which run on the CPU on systems without modern 
+graphics cards, so this may have contributed to the 
+problem.
+Finally, with regard to the effect of TALC on perceived 
+user safety, we found that four of the seven users who 
+responded to the post-study questionnaire felt that using 
+TALC had improved their ability to protect their computer, 
+and that their computer was safer as a result. Although this 
+figure does not represent universal success in increasing 
+perceived safety, we were delighted to demonstrate any 
+increase, since our pre-test questionnaire showed users 
+were generally unaware of any vulnerabilities. We believe 
+that this sort of awareness of risk is essential for self- 
+managed computers (at least given today’s state-of-the-art 
+in automated security systems), and points to necessary 
+further work in the area of conveying an accurate sense of 
+risk or safety to users.
+Future Work
+Our near-term goals concern both expanding the 
+capabilities of the TALC framework, as well as evaluating 
+with a larger user base on how well our visualization and 
+control features motivate and support users to mitigate 
+threats.
+One of the common problems encountered by users was the 
+complexity of vendors’ update websites. To address this 
+issue, we intend to add another level of proactivity in the 
+system, to allow TALC to automatically download and 
+install patches from a set of “common” websites, the patch 
+processes of which can be built into the tool itself. With 
+this addition, TALC would only present instructional web 
+pages for late-breaking advisories that do not include a 
+direct download link to a software patch. This feature can 
+be accompanied by an additional layer of abstraction over
+the patch websites that simply asks the user to update their 
+software to the latest version without loading the entire 
+website containing specific details of the threat.
+To prevent display of “unfixable” problems (such as 
+advisories that do not have valid URLs), we intend to filter 
+the advisories for common problems, and never show 
+graffiti for the vulnerabilities reported.
+We also intend to add several more information sources to 
+the program, to exercise the extensibility features described 
+in the Implementation section. Most important among these 
+are the creation of modules that integrate a number of 
+existing security tools, such as NMAP [12] and Nessus [8], 
+to extract data about other sorts of system vulnerabilities. 
+Specifically, we plan to use NMAP (a port scanning tool) 
+to independently audit the user’s firewall, since properly 
+configured firewalls are very effective at blocking many 
+automated attacks. Nessus is a tool that performs security 
+audits by running exploit code against a user’s computer. It 
+has an active development base that releases new exploits 
+to be used while auditing.
+CONCLUSION
+We have presented TALC, a software system that assists 
+users in protecting their computers from some of the most 
+serious threats on the Internet, software with known 
+vulnerabilities. TALC uses a low-intrusion notification 
+mechanism for presenting users with information about 
+vulnerabilities. Through the use of automated system audits 
+and correlation against online databases, we can detect 
+potential software vulnerabilities and give users easier 
+mechanisms to act to repair those vulnerabilities. The 
+extensible architecture of TALC allows it to be used to 
+detect, visualize, and mitigate against a wide range of 
+threats.
+More generally, we believe that the approach taken by 
+TALC may be useful in cases where 1) user motivation for 
+a task may be low (as is often the case with security tasks), 
+2) intrusive or disruptive notifications may actually incent 
+users to disable the system, and 3) there is not the need for 
+immediate action. This combination of factors makes this 
+class of tasks somewhat different from others (such as 
+firewalls or background email notification) that have been 
+widely studied in our community. We believe that the 
+strategy of background notifications that strike a balance 
+between awareness and annoyance to gently incent the user 
+can be profitably applied to this class of problems.
+REFERENCES
+1. Bailey, B.P., Konstan, J.A. and Carlis, J. V. (2001) The 
+effects of interruptions on task performance, 
+annoyance, and anxiety in the user interface. 
+Proceedings ofINTERACT ’01, pp. 593-601.
+2. Bennett, R. and Flavin, J. “Determinants of Fear of
+Crime: The Effect of Cultural Setting.” Justice
+Quarterly, 11:3, September 1994, pp. 357-381.
+3. BMC Software. Marimba Patch Management
+Software, http://www.marimba.com/
+1063

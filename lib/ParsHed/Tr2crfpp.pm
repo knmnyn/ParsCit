@@ -37,15 +37,12 @@ $modelFile = "$FindBin::Bin/../$modelFile";
 ### END user customizable section
 
 my %dict = ();
-readDict($dictFile);
 
 # keyword statistics
 my %keywords = (); #hash of hash $keywords{"affiliation"}->{"Institute"} = 1 indicates "Institute" is a high-frequent word for affiliation tag
-readKeywordDict($keywordFile, \%keywords);
 
 # bigrap statistics
 my %bigrams = (); #hash of hash $keywords{"abstract"}->{"we-present"} = 1 indicates "we-present" is a high-frequent bigram fro abstract tag
-readKeywordDict($bigramFile, \%bigrams);
 
 # list of tags trained in parsHed
 # those with value 0 do not have frequent keyword features
@@ -54,6 +51,11 @@ my $tags = $ParsHed::Config::tags;
 sub prepData {
   my ($rCiteText, $filename) = @_;
   my $tmpfile = buildTmpFile($filename);
+
+  # Thang Mar 2010: move these lines inside the method, only load when running
+  readDict($dictFile);
+  readKeywordDict($keywordFile, \%keywords);
+  readKeywordDict($bigramFile, \%bigrams);
   
   # File IOs
   open (OF, ">:utf8", $tmpfile) || die "# crash\t\tCan't open \"$tmpfile\"";
@@ -307,7 +309,6 @@ sub decode {
   } else {
     execute("$crf_test -m $modelFile $inFile > $labeledFile");
   }
-
   unless (open(PIPE, $labeledFile)) {
     fatal("Could not open pipe from crf call: $!");
     return;

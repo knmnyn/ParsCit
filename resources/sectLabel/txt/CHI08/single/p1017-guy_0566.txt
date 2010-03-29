@@ -1,0 +1,107 @@
+CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+[30]. In addition, data mining can discover subtle details of 
+a relationship that a person may not be able to provide 
+accurately. For example, the rate of email communication 
+can be used to estimate the strength of social ties [19].
+Email is commonly used to extract SNs. Extraction of the 
+sociocentric SN from email logs has been demonstrated in 
+[28] in order to automatically identify communities. Other 
+tools, such as ContactMap [19] and Personal Map [8], 
+analyze emails to extract the user’s egocentric SN. Email is 
+one of the important sources for SONAR, but it is definitely 
+not the only one. SONAR’s philosophy states that there is 
+much important social information outside the inbox.
+Another common source for SN information is the Web. 
+Adamic et al. [1] describe techniques for mining links and 
+text of homepages to predict social relationships. The 
+strength of a connection between two people can be 
+estimated by querying a search engine with their names and 
+checking for web pages where they co-occur [14,17]. Since 
+various data sources such as papers, organizational charts, 
+and net-news archives are available on the internet or 
+intranet, they too could be mined by web searching [14]. 
+SN extraction has been conducted on many other sources, 
+including Usenet data [27] and Instant Messaging logs [25].
+Public vs. Personal Data Sources
+Sociocentric network approaches may encounter difficulties 
+using personal data sources due to privacy concerns. For 
+example, mining email, even when results are displayed in 
+aggregated forms, might expose private information [14].
+One solution is to limit data mining to public sources. For 
+example, Aleman-Meza et al. [2] chose to aggregate only 
+publicly available SN data due to privacy concerns. 
+However, ignoring private information may exclude 
+important data. An alternative solution is to have users opt- 
+in to explicitly give permission to make certain private 
+information public. For example, Smarr [26] suggests 
+requiring users to opt-in to publish their information to a 
+public Friend of a Friend (FOAF) file [10]. However, opt-in 
+requires action and motivation on the part of users – so 
+those publishing their FOAF files will cover only a small 
+percentage of organization members.
+SONAR can aggregate both private and public sources, 
+without exposing private data to other people, or requiring 
+users to opt-in.
+Aggregating SN Data from Different Sources
+No single archive or tool captures all our social relations 
+with others. Aggregating SN data from several sources may 
+improve the completeness of constructed SNs. For example, 
+the ContactMap developers plan to extend their email 
+mining tool to use sources such as voice mail and phone 
+logs due to user complaints on the absence of phone-based 
+contacts [19].
+Several tools combine different sources to generate better 
+SNs. In [5], an email database is used to extract people
+names and email addresses – these are then searched on the 
+Web, to extract keywords and to find additional related 
+people for which the search is recursively applied. Web 
+mining, face-to-face communication, and manually entering 
+one’s SN are combined in [12] to construct the SN in a 
+Japanese conference.
+A basic problem of aggregation is deciding on the 
+algorithm to be used for combining data from various 
+sources. A simple approach is to compute the aggregation 
+as a linear combination of the individual sources. Cai et al. 
+[4] propose a method for learning the optimal linear 
+combination given input from the user that describes the 
+user’s expectation. However, this method requires the user 
+to specify the query in ways which may prove to be 
+complex. Matsuo et al. [16] extract and integrate SNs from 
+several different sources. They provide a rough sketch for 
+integrating the networks into a single one by using a linear 
+combination of the different networks. Our research tests 
+whether there is a weighting scheme which is appropriate to 
+most users, for a specific scenario.
+Evaluation of Social Network Quality
+A common approach for validating an automatically 
+constructed SN is to ask the people in the network about its 
+correctness, usually by questionnaires that require rating 
+various aspects of the SNs and/or providing open-ended 
+feedback [8,19,28].
+Another possible approach used in SNA is to compare the 
+automatically constructed network to external data. For 
+example, Aleman-Meza et al. [2] detect conflict of interests 
+between paper authors and referees by integrating data from 
+several SNs. Their evaluation included comparison to data 
+from an external source: a different existing system for 
+detecting conflict of interest. The problem with this method 
+of evaluation is that it is possible only if there exists a 
+relevant external source, which can be used for comparison.
+This paper includes three types of evaluation. In the 
+absence of an external source to compare to when 
+evaluating an aggregated network, our first evaluation 
+compares the networks obtained from individual sources to 
+the other sources, to measure their uniqueness. The second 
+evaluation is a user evaluation, where we evaluate and 
+compare numerous linear combinations of different sources. 
+The third evaluation employs interviews in order to receive 
+user feedback on individual sources and their aggregation.
+SONAR IN DETAIL
+The purpose of the SONAR API is to provide open 
+interfaces to SN data, “locked up” in a multitude of 
+systems. SONAR specifies a way to share weighted SNs as 
+relation lists. Clients may retrieve information about how 
+people are connected based on different parameters. Like 
+RSS, our goal is to make a read-only interface, simple to 
+implement by the provider and consume by the client.
+1019

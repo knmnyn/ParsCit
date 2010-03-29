@@ -1,0 +1,158 @@
+CHI 2008 Proceedings · Tangibles: Input &amp; Output	April 5-10, 2008 · Florence, Italy
+Topobo in the Wild
+Longitudinal Evaluations of Educators Appropriating a Tangible Interface
+Amanda Parkes, Hayes Raffle and Hiroshi Ishii
+Tangible Media Group
+MIT Media Lab
+20 Ames St.
+Cambridge, MA 02139
+{amanda, hayes, ishii}@media.mit.edu
+ABSTRACT
+What issues arise when designing and deploying tangibles 
+for learning in long term evaluation? This paper reports on a 
+series of studies in which the Topobo system, a 3D tangible 
+construction kit with the ability to record and playback 
+motion, was provided to educators and designers to use over 
+extended periods of time in the context of their day-to-day 
+work. Tangibles for learning - like all educational materials 
+- must be evaluated in relation both to the student and the 
+teacher, but most studies of tangibles for learning focus on 
+the student as user. Here, we focus on the conception of 
+the educator, and their use of the tangible interface in the 
+absence of an inventor or HCI researcher. The results of this 
+study identify design and pedagogical issues that arise in 
+response to distribution of a tangible for learning in different 
+educational environments.
+Author Keywords:
+Tangible User Interface, Learning, Digital Manipulative, 
+Education, Case Studies
+ACM Classification Keywords:
+K.3.1: Computers and Education: Computer Uses in 
+Education H.5.2 User Interfaces: Evaluation/Methodology
+INTRODUCTION
+Tangibles for learning [7] have sought to build on the success 
+of educational manipulatives and constructivist learning 
+while engaging learners in new ideas about dynamic systems 
+through the use of hands-on experimentation with embedded 
+computer technologies. The design principles behind Tangible 
+User Interfaces [5] include leveraging natural metaphors of 
+object usage and taking advantage of people’s inherent skills 
+and assumptions about the physical world. This research has 
+yielded numerous projects which have sought to create tools 
+and environments which make accessible to children many
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, or 
+republish, to post on servers or to redistribute to lists, requires prior specific 
+permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+Figure 1. Children play with Topobo at a festival in Denmark
+of the complex and temporal processes that computers can 
+model and demonstrate well.
+Because of the physical nature of tangibles, large scale 
+deployment (which could be much more easily accomplished 
+in a software system) is challenging; it is difficult and 
+expensive to produce and maintain the extensive hardware 
+necessary. Research projects are generally evaluated in small 
+scale user studies run by the researchers who created them, 
+and who are looking to qualitatively examine a planned 
+hypothesis and evaluate the children’s experiences and/or 
+use of the interface. Such studies often employ observation 
+and interview with the users, and follow an ethnographic 
+model of qualitative evaluation. However, ethnographic 
+methodology has shown that in real world situations, the issues 
+and results that people confront with products or systems 
+are often divergent of the designer’s assumptions, and often 
+arise when the designer is removed from the scenario [15]. 
+While there has been one prominent tangible programming 
+system that was evaluated at length in an educational context 
+with students [14], our research focuses design evaluation 
+on teachers as users rather than on children as users. The 
+precedent of this approach was established by Rode in the 
+technique of Curriculum-Focused design [12]. The results of 
+this study seek to further the understanding and implications 
+of the appropriation of technology in educational settings by 
+educators, as originally discussed by Salomon [13], among 
+others.
+1129
+CHI 2008 Proceedings · Tangibles: Input &amp; Output	April 5-10, 2008 · Florence, Italy
+MOTIVATION AND RESEARCH GOALS
+This paper reports on a series of studies in which the Topobo 
+system [10] (fig. 2), a 3D constructive assembly with kinetic 
+memory, was provided to educators and designers to use in 
+the context of their day-to-day work, over extended periods 
+of time. Over the past three years, tens of thousands of 
+people in Europe, Asia and North America have experienced 
+Topobo in settings ranging from classrooms, museums, 
+festivals, workshops, community centers, and homes. While 
+numerous, many of the interactions were very short in 
+exposure and confirmed the initial findings of the original 
+Topobo studies. As part of a deeper question concerning 
+the potential educational impact of a tangible interface, we 
+sought to turn sets of Topobo over to educators to address 
+issues related to large-scale use of a tangible for learning:
+•	In what contexts and environments can Topobo succeed?
+•	Over what time period will children use Topobo, and how 
+will their use and interpretations of the system evolve?
+•	What age children will benefit from Topobo, and how will 
+their experiences differ?
+•	What uses will other educators invent with Topobo?
+The Topobo system
+Topobo is a 3D constructive assembly system with the ability 
+to record and playback physical motion. Topobo uses a 
+programming by demonstration model (fig. 3). By snapping 
+together a combination of Passive (static) and Active 
+(motorized) components, people can quickly assemble 
+dynamic biomorphic forms like animals with Topobo, 
+animate those forms by pushing, pulling, and twisting them, 
+and observe the system repeatedly play back those motions. 
+For instance, a child can build a dog and teach it how to walk 
+by twisting the dog’s body. The dog will then walk on its 
+own. Normally, in a structure with many Actives, all of the 
+actives will synchronously record or playback their own local 
+motions. However, if a special active called a Queen is used, 
+all of the other actives will mimic the Queen’s motion.
+The original evaluation of Topobo, conducted in classrooms 
+with children ages 5-13 suggested that children develop 
+syntonic relationships with Topobo creations and that their 
+experimentation with Topobo allows them to learn about 
+movement and animal locomotion through comparisons 
+of their creations to their own bodies. Children explored 
+physics concepts like dynamic balance, center of gravity,
+Figure 2. a) The Topobo System: an Active surrounded by
+Passives b) a Topobo ‘moose’ designed by 2 eighth grade girls in
+the original Topobo evaluation
+torque/leverage and system behavior in their experiments 
+with the system [10].
+METHODOLOGY
+As part of a research initiative pursuing outreach for 
+educational technologies [4], Topobo was reengineered 
+and mass produced with the specific purpose of providing 
+educators with a new means to explore motion construction 
+and kinematics principles. This manufacturing effort was 
+funded by a modest educational outreach grant and required 
+two years of extensive collaboration with an Asian toy 
+manufacturer. Sets of manufactured Topobo were then 
+distributed to educators (teachers, museum developers, 
+educational researchers, graduate students) in the United 
+States and Europe. The sets included Actives, Passives, basic 
+Queens, power supplies and cables, and simple booklets. The 
+booklets described the project concept, design and technical 
+details, instructions for programming, and three sample 
+creations with basic assembly instructions. The educators 
+were also directed to the Topobo website which contains 
+additional videos, published papers and visual materials.
+Extensive data has been collected over the past year and a 
+half, mostly in the form of interviews with educators and 
+educational researchers working with Topobo. We are 
+seeking to examine the perspective of the educators, and their 
+reactions and plans when presented with Topobo as a new 
+educational toy or kinetic material. We report how Topobo 
+was used by various educators and what kind of initiatives, 
+programming, or curricula they developed in these different 
+environments when the researcher was removed entirely 
+from designing a study or guiding the technology. In this
+Figure 3. Programming Topobo a) plug in Active b) press button to record c) turn the axis with a motion d) press button for playback
+1130

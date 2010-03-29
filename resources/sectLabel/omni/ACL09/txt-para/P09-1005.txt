@@ -1,0 +1,1086 @@
+# Para 0 2
+Brutus: A Semantic Role Labeling System Incorporating CCG, CFG, and
+Dependency Features
+# Para 2 3
+Stephen A. Boxwell, Dennis Mehay, and Chris Brew
+Department of Linguistics
+The Ohio State University
+# Para 5 1
+{boxwe11,mehay,cbrew}@1ing.ohio-state.edu
+# Para 6 1
+Abstract
+# Para 7 19
+We describe a semantic role labeling system 
+that makes primary use of CCG-based fea-
+tures. Most previously developed systems 
+are CFG-based and make extensive use of a 
+treepath feature, which suffers from data spar-
+sity due to its use of explicit tree configura-
+tions. CCG affords ways to augment treepath-
+based features to overcome these data sparsity 
+issues. By adding features over CCG word- 
+word dependencies and lexicalized verbal sub- 
+categorization frames (“supertags”), we can 
+obtain an F-score that is substantially better 
+than a previous CCG-based SRL system and 
+competitive with the current state of the art. A 
+manual error analysis reveals that parser errors 
+account for many of the errors of our system. 
+This analysis also suggests that simultaneous 
+incremental parsing and semantic role labeling 
+may lead to performance gains in both tasks.
+# Para 26 1
+1 Introduction
+# Para 27 9
+Semantic Role Labeling (SRL) is the process of assign-
+ing semantic roles to strings of words in a sentence ac-
+cording to their relationship to the semantic predicates 
+expressed in the sentence. The task is difficult because 
+the relationship between syntactic relations like “sub-
+ject” and “object” do not always correspond to seman-
+tic relations like “agent” and “patient”. An effective 
+semantic role labeling system must recognize the dif-
+ferences between different configurations:
+# Para 36 1
+(a) [The man]Arg0 opened [the door]A�g1 [for
+# Para 37 1
+him]Arg3 [today]ArgM-TMP.
+# Para 38 2
+(b) [The door]A�g1 opened. 
+(c) [The door]A�g1 was opened by [a man]A�g0.
+# Para 40 9
+We use Propbank (Palmer et al., 2005), a corpus of 
+newswire text annotated with verb predicate semantic 
+role information that is widely used in the SRL litera-
+ture (M`arquez et al., 2008). Rather than describe se-
+mantic roles in terms of “agent” or “patient”, Propbank 
+defines semantic roles on a verb-by-verb basis. For ex-
+ample, the verb open encodes the OPENER as Arg0, the 
+OPENEE as Arg1, and the beneficiary of the OPENING 
+action as Arg3. Propbank also defines a set of adjunct 
+# Para 49 5
+roles, denoted by the letter M instead of a number. For 
+example, ArgM-TMP denotes a temporal role, like “to-
+day”. By using verb-specific roles, Propbank avoids 
+specific claims about parallels between the roles of dif-
+ferent verbs.
+# Para 54 26
+We follow the approach in (Punyakanok et al., 2008) 
+in framing the SRL problem as a two-stage pipeline: 
+identification followed by labeling. During identifica-
+tion, every word in the sentence is labeled either as 
+bearing some (as yet undetermined) semantic role or 
+not . This is done for each verb. Next, during label-
+ing, the precise verb-specific roles for each word are 
+determined. In contrast to the approach in (Punyakanok 
+et al., 2008), which tags constituents directly, we tag 
+headwords and then associate them with a constituent, 
+as in a previous CCG-based approach (Gildea and 
+Hockenmaier, 2003). Another difference is our choice 
+of parsers. Brutus uses the CCG parser of (Clark and 
+Curran, 2007, henceforth the C&amp;C parser), Charniak’s 
+parser (Charniak, 2001) for additional CFG-based fea-
+tures, and MALT parser (Nivre et al., 2007) for de-
+pendency features, while (Punyakanok et al., 2008) 
+use results from an ensemble of parses from Char-
+niak’s Parser and a Collins parser (Collins, 2003; Bikel, 
+2004). Finally, the system described in (Punyakanok et 
+al., 2008) uses a joint inference model to resolve dis-
+crepancies between multiple automatic parses. We do 
+not employ a similar strategy due to the differing no-
+tions of constituency represented in our parsers (CCG 
+having a much more fluid notion of constituency and 
+the MALT parser using a different approach entirely).
+# Para 80 9
+For the identification and labeling steps, we train 
+a maximum entropy classifier (Berger et al., 1996) 
+over sections 02-21 of a version of the CCGbank cor-
+pus (Hockenmaier and Steedman, 2007) that has been 
+augmented by projecting the Propbank semantic anno-
+tations (Boxwell and White, 2008). We evaluate our 
+SRL system’s argument predictions at the word string 
+level, making our results directly comparable for each 
+argument labeling.1
+# Para 89 4
+In the following, we briefly introduce the CCG 
+grammatical formalism and motivate its use in SRL 
+(Sections 2–3). Our main contribution is to demon-
+strate that CCG — arguably a more expressive and lin-
+# Para 93 2
+1This is guaranteed by our string-to-string mapping from 
+the original Propbank to the CCGbank.
+# Para 95 1
+37
+# Para 96 1
+Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 37–45,
+# Para 97 1
+Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+# Para 98 10
+guistically appealing syntactic framework than vanilla 
+CFGs — is a viable basis for the SRL task. This is sup-
+ported by our experimental results, the setup and details 
+of which we give in Sections 4–10. In particular, using 
+CCG enables us to map semantic roles directly onto 
+verbal categories, an innovation of our approach that 
+leads to performance gains (Section 7). We conclude 
+with an error analysis (Section 11), which motivates 
+our discussion of future research for computational se-
+mantics with CCG (Section 12).
+# Para 108 1
+2 Combinatory Categorial Grammar
+# Para 109 33
+Combinatory Categorial Grammar (Steedman, 2000) 
+is a grammatical framework that describes syntactic 
+structure in terms of the combinatory potential of the 
+lexical (word-level) items. Rather than using standard 
+part-of-speech tags and grammatical rules, CCG en-
+codes much of the combinatory potential of each word 
+by assigning a syntactically informative category. For 
+example, the verb loves has the category (s\np)/np, 
+which could be read “the kind of word that would be 
+a sentence if it could combine with a noun phrase on 
+the right and a noun phrase on the left”. Further, CCG 
+has the advantage of a transparent interface between the 
+way the words combine and their dependencies with 
+other words. Word-word dependencies in the CCG-
+bank are encoded using predicate-argument (PARG) 
+relations. PARG relations are defined by the functor 
+word, the argument word, the category of the functor 
+word and which argument slot of the functor category 
+is being filled. For example, in the sentence John loves 
+Mary (figure 1), there are two slots on the verbal cat-
+egory to be filled by NP arguments. The first argu-
+ment (the subject) fills slot 1. This can be encoded 
+as &lt;loves,john,(s\np)/np,1&gt;, indicating the head of 
+the functor, the head of the argument, the functor cat-
+egory and the argument slot. The second argument 
+(the direct object) fills slot 2. This can be encoded as 
+&lt;loves,mary,(s\np)/np,2&gt;. One of the potential ad-
+vantages to using CCGbank-style PARG relations is 
+that they uniformly encode both local and long-range 
+dependencies — e.g., the noun phrase the Mary that 
+John loves expresses the same set of two dependencies. 
+We will show this to be a valuable tool for semantic 
+role prediction.
+# Para 142 1
+3 Potential Advantages to using CCG
+# Para 143 11
+There are many potential advantages to using the CCG 
+formalism in SRL. One is the uniformity with which 
+CCG can express equivalence classes of local and long- 
+range (including unbounded) dependencies. CFG-
+based approaches often rely on examining potentially 
+long sequences of categories (or treepaths) between the 
+verb and the target word. Because there are a number of 
+different treepaths that correspond to a single relation 
+(figure 2), this approach can suffer from data sparsity. 
+CCG, however, can encode all treepath-distinct expres-
+sions of a single grammatical relation into a single
+# Para 154 11
+predicate-argument relationship (figure 3). This fea-
+ture has been shown (Gildea and Hockenmaier, 2003) 
+to be an effective substitute for treepath-based features. 
+But while predicate-argument-based features are very 
+effective, they are still vulnerable both to parser er-
+rors and to cases where the semantics of a sentence 
+do not correspond directly to syntactic dependencies. 
+To counteract this, we use both kinds of features with 
+the expectation that the treepath feature will provide 
+low-level detail to compensate for missed, incorrect or 
+syntactically impossible dependencies.
+# Para 165 9
+Another advantage of a CCG-based approach (and 
+lexicalist approaches in general) is the ability to en-
+code verb-specific argument mappings. An argument 
+mapping is a link between the CCG category and the 
+semantic roles that are likely to go with each of its ar-
+guments. The projection of argument mappings onto 
+CCG verbal categories is explored in (Boxwell and 
+White, 2008). We describe this feature in more detail 
+in section 7.
+# Para 174 1
+4 Identification and Labeling Models
+# Para 175 21
+As in previous approaches to SRL, Brutus uses a two- 
+stage pipeline of maximum entropy classifiers. In ad-
+dition, we train an argument mapping classifier (de-
+scribed in more detail below) whose predictions are 
+used as features for the labeling model. The same 
+features are extracted for both treebank and automatic 
+parses. Automatic parses were generated using the 
+C&amp;C CCG parser (Clark and Curran, 2007) with its 
+derivation output format converted to resemble that of 
+the CCGbank. This involved following the derivational 
+bracketings of the C&amp;C parser’s output and recon-
+structing the backpointers to the lexical heads using an 
+in-house implementation of the basic CCG combina-
+tory operations. All classifiers were trained to 500 iter-
+ations of L-BFGS training — a quasi-Newton method 
+from the numerical optimization literature (Liu and No-
+cedal, 1989) — using Zhang Le’s maxent toolkit. 2 To 
+prevent overfitting we used Gaussian priors with global 
+variances of 1 and 5 for the identifier and labeler, re-
+spectively.3 The Gaussian priors were determined em-
+pirically by testing on the development set.
+# Para 196 2
+Both the identifier and the labeler use the following 
+features:
+# Para 198 3
+(1) Words. Words drawn from a 3 word window 
+around the target word ,4 with each word asso-
+ciated with a binary indicator feature.
+# Para 201 2
+(2) Part of Speech. Part of Speech tags drawn 
+from a 3 word window around the target word,
+# Para 203 3
+2Available for download at http://homepages. 
+inf.ed.ac.uk/s0450736/maxent_toolkit. 
+html.
+# Para 206 2
+3Gaussian priors achieve a smoothing effect (to prevent 
+overfitting) by penalizing very large feature weights.
+# Para 208 3
+4The size of the window was determined experimentally 
+on the development set – we use the same window sizes 
+throughout.
+# Para 211 1
+38
+# Para 212 1
+Robin	fixed	the car
+# Para 213 1
+np	(s\np)/np np/n	n
+# Para 214 1
+np
+# Para 215 1
+s\np
+# Para 216 1
+s
+# Para 217 1
+John	loves	Mary
+# Para 218 1
+&gt;
+# Para 219 1
+&gt;
+# Para 220 1
+�
+# Para 221 1
+np	(s[dcl]\np)/np	np
+# Para 222 4
+		&gt;
+		�
+	s[dcl]\np	
+	s[dcl]	
+# Para 226 1
+Figure 1:	This sentence has two depen-
+# Para 227 2
+dencies:	&lt;loves,mary,(s\np)/np,2&gt;	and
+&lt;loves,john,(s\np)/np, 1 &gt;
+# Para 229 1
+fixed
+# Para 230 5
+Figure 2: The semantic relation (Arg1) between ‘car’ 
+and ‘fixed’ in both phrases is the same, but the 
+treepaths — traced with arrows above — are differ-
+ent: (V&gt;VP&lt;NP&lt;N and V&gt;VP&gt;S&gt;RC&gt;N&lt;N, re-
+spectively).
+# Para 235 1
+the car	that	Robin	fixed
+# Para 236 1
+np/n	n	(np\np)/(s/np)	np	(s\np)/np
+# Para 237 1
+&gt;T
+# Para 238 1
+s/(s\np)
+# Para 239 1
+	&gt; 	&gt;s
+# Para 240 1
+np
+# Para 241 1
+s/np
+# Para 242 1
+&gt;
+# Para 243 1
+�
+# Para 244 4
+Figure 3: CCG word-word dependencies are passed 
+up through subordinate clauses, encoding the rela-
+tion between car and fixed the same in both cases: 
+(s\np)/np.2.—&gt; (Gildea and Hockenmaier, 2003)
+# Para 248 2
+with each associated with a binary indicator 
+feature.
+# Para 250 3
+(3) CCG Categories. CCG categories drawn from 
+a 3 word window around the target word, with 
+each associated with a binary indicator feature.
+# Para 253 2
+(4) Predicate. The lemma of the predicate we are 
+tagging. E.g. fix is the lemma offixed.
+# Para 255 6
+(5) Result Category Detail. The grammatical fea-
+ture on the category of the predicate (indicat-
+ing declarative, passive, progressive, etc). This 
+can be read off the verb category: declarative 
+for eats: (s[dcl]\np)/np or progressive for run-
+ning:s[ng]\np.
+# Para 261 3
+(6) Before/After. A binary indicator variable indi-
+cating whether the target word is before or after 
+the verb.
+# Para 264 8
+(7) Treepath. The sequence of CCG categories 
+representing the path through the derivation 
+from the predicate to the target word. For 
+the relationship between fixed and car in the 
+first sentence of figure 3, the treepath is 
+(s[dcl]\np)/np&gt;s[dcl]\np&lt;np&lt;n, with &gt; and 
+&lt; indicating movement up and down the tree, 
+respectively.
+# Para 272 9
+(8) Short Treepath. Similar to the above treepath 
+feature, except the path stops at the highest 
+node under the least common subsumer that 
+is headed by the target word (this is the con-
+stituent that the role would be marked on if we 
+identified this terminal as a role-bearing word). 
+Again, for the relationship between fixed and 
+car in the first sentence of figure 3, the short 
+treepath is (s[dcl]\np)/np&gt;s[dcl]\np&lt;np.
+# Para 281 3
+(9) NP Modified. A binary indicator feature indi-
+cating whether the target word is modified by 
+an NP modifier.5
+# Para 284 1
+5This is easily read off of the CCG PARG relationships.
+# Para 285 1
+S
+# Para 286 1
+�� � ���
+# Para 287 1
+VP
+# Para 288 1
+� ��
+# Para 289 1
+�
+# Para 290 1
+V	NP
+# Para 291 1
+� �
+# Para 292 1
+fixed Det N
+# Para 293 1
+NP
+# Para 294 1
+Robin
+# Para 295 1
+the
+# Para 296 1
+car
+# Para 297 1
+N
+# Para 298 1
+the
+# Para 299 1
+RC
+# Para 300 1
+car
+# Para 301 1
+Rel
+# Para 302 1
+^S
+# Para 303 1
+that
+# Para 304 1
+NP
+# Para 305 1
+VP
+# Para 306 1
+Robin
+# Para 307 1
+V
+# Para 308 1
+NP
+# Para 309 1
+�� � ���
+# Para 310 1
+Det
+# Para 311 1
+N
+# Para 312 1
+�� � ���
+# Para 313 1
+np\np
+# Para 314 1
+np
+# Para 315 1
+39
+# Para 316 8
+(10) Subcategorization. A sequence of the cate-
+gories that the verb combines with in the CCG 
+derivation tree. For the first sentence in fig-
+ure 3, the correct subcategorization would be 
+np,np. Notice that this is not necessarily a re-
+statement of the verbal category – in the second 
+sentence of figure 3, the correct subcategoriza-
+tion is s/(s\np),(np\np)/(s[dcl]/np),np.
+# Para 324 14
+(11) PARG feature. We follow a previous CCG-
+based approach (Gildea and Hockenmaier, 
+2003) in using a feature to describe the PARG 
+relationship between the two words, if one ex-
+ists. If there is a dependency in the PARG 
+structure between the two words, then this fea-
+ture is defined as the conjunction of (1) the cat-
+egory of the functor, (2) the argument slot that 
+is being filled in the functor category, and (3) 
+an indication as to whether the functor (—&gt;) or 
+the argument (+—) is the lexical head. For ex-
+ample, to indicate the relationship between car 
+and fixed in both sentences of figure 3, the fea-
+ture is (s\np)/np.2.—&gt;.
+# Para 338 2
+The labeler uses all of the previous features, plus the 
+following:
+# Para 340 4
+(12) Headship. A binary indicator feature as to 
+whether the functor or the argument is the lex-
+ical head of the dependency between the two 
+words, if one exists.
+# Para 344 3
+(13) Predicate and Before/After. The conjunction 
+of two earlier features: the predicate lemma 
+and the Before/After feature.
+# Para 347 4
+(14) Rel Clause. Whether the path from predicate 
+to target word passes through a relative clause 
+(e.g., marked by the word ‘that’ or any other 
+word with a relativizer category).
+# Para 351 9
+(15) PP features. When the target word is a prepo-
+sition, we define binary indicator features for 
+the word, POS, and CCG category of the head 
+of the topmost NP in the prepositional phrase 
+headed by a preposition (a.k.a. the ‘lexical 
+head’ of the PP). So, if on heads the phrase ‘on 
+the third Friday’, then we extract features re-
+lating to Friday for the preposition on. This is 
+null when the target word is not a preposition.
+# Para 360 12
+(16) Argument Mappings. If there is a PARG rela-
+tion between the predicate and the target word, 
+the argument mapping is the most likely pre-
+dicted role to go with that argument. These 
+mappings are predicted using a separate classi-
+fier that is trained primarily on lexical informa-
+tion of the verb, its immediate string-level con-
+text, and its observed arguments in the train-
+ing data. This feature is null when there is 
+no PARG relation between the predicate and 
+the target word. The Argument Mapping fea-
+ture can be viewed as a simple prediction about
+# Para 372 8
+some of the non-modifier semantic roles that a 
+verb is likely to express. We use this informa-
+tion as a feature and not a hard constraint to 
+allow other features to overrule the recommen-
+dation made by the argument mapping classi-
+fier. The features used in the argument map-
+ping classifier are described in detail in section 
+7.
+# Para 380 1
+5 CFG based Features
+# Para 381 15
+In addition to CCG-based features, features can be 
+drawn from a traditional CFG-style approach when 
+they are available. Our motivation for this is twofold. 
+First, others (Punyakanok et al., 2008, e.g.), have found 
+that different parsers have different error patterns, and 
+so using multiple parsers can yield complementary 
+sources of correct information. Second, we noticed 
+that, although the CCG-based system performed well 
+on head word labeling, performance dropped when 
+projecting these labels to the constituent level (see sec-
+tions 8 and 9 for more). This may have to do with the 
+fact that CCG is not centered around a constituency- 
+based analysis, as well as with inconsistencies between 
+CCG and Penn Treebank-style bracketings (the latter 
+being what was annotated in the original Propbank).
+# Para 396 8
+Penn Treebank-derived features are used in the iden-
+tifier, labeler, and argument mapping classifiers. For 
+automatic parses, we use Charniak’s parser (Charniak, 
+2001). For gold-standard parses, we remove func-
+tional tag and trace information from the Penn Tree- 
+bank parses before we extract features over them, so as 
+to simulate the conditions of an automatic parse. The 
+Penn Treebank features are as follows:
+# Para 404 3
+(17) CFG Treepath. A sequence of traditional 
+CFG-style categories representing the path 
+from the verb to the target word.
+# Para 407 2
+(18) CFG Short Treepath. Analogous to the CCG-
+based short treepath feature.
+# Para 409 2
+(19) CFG Subcategorization. Analogous to the 
+CCG-based subcategorization feature.
+# Para 411 3
+(20) CFG Least Common Subsumer. The cate-
+gory of the root of the smallest tree that domi-
+nates both the verb and the target word.
+# Para 414 1
+6 Dependency Parser Features
+# Para 415 9
+Finally, several features can be extracted from a de-
+pendency representation of the same sentence. Au-
+tomatic dependency relations were produced by the 
+MALT parser. We incorporate MALT into our col-
+lection of parses because it provides detailed informa-
+tion on the exact syntactic relations between word pairs 
+(subject, object, adverb, etc) that is not found in other 
+automatic parsers. The features used from the depen-
+dency parses are listed below:
+# Para 424 1
+40
+# Para 425 3
+(21) DEP-Exists A binary indicator feature show-
+ing whether or not there is a dependency be-
+tween the target word and the predicate.
+# Para 428 3
+(22) DEP-Type If there is a dependency between 
+the target word and the predicate, what type of 
+dependency it is (SUBJ, OBJ, etc).
+# Para 431 1
+7 Argument Mapping Model
+# Para 432 20
+An innovation in our approach is to use a separate clas-
+sifier to predict an argument mapping feature. An ar-
+gument mapping is a mapping from the syntactic argu-
+ments of a verbal category to the semantic arguments 
+that should correspond to them (Boxwell and White, 
+2008). In order to generate examples of the argument 
+mapping for training purposes, it is necessary to em-
+ploy the PARG relations for a given sentence to identify 
+the headwords of each of the verbal arguments. That is, 
+we use the PARG relations to identify the headwords of 
+each of the constituents that are arguments of the verb. 
+Next, the appropriate semantic role that corresponds to 
+that headword (given by Propbank) is identified. This 
+is done by climbing the CCG derivation tree towards 
+the root until we find a semantic role corresponding to 
+the verb in question — i.e., by finding the point where 
+the constituent headed by the verbal category combines 
+with the constituent headed by the argument in ques-
+tion. These semantic roles are then marked on the cor-
+responding syntactic argument of the verb.
+# Para 452 12
+As an example, consider the sentence The boy loves 
+a girl. (figure 4). By examining the arguments that the 
+verbal category combines with in the treebank, we can 
+identify the corresponding semantic role for each argu-
+ment that is marked on the verbal category. We then use 
+these tags to train the Argument Mapping model, which 
+will predict likely argument mappings for verbal cate-
+gories based on their local surroundings and the head-
+words of their arguments, similar to the supertagging 
+approaches used to label the informative syntactic cat-
+egories of the verbs (Bangalore and Joshi, 1999; Clark, 
+2002), except tagging “one level above” the syntax.
+# Para 464 2
+The Argument Mapping Predictor uses the following 
+features:
+# Para 466 2
+(23) Predicate. The lemma of the predicate, as be-
+fore.
+# Para 468 3
+(24) Words. Words drawn from a 5 word window 
+around the target word, with each word associ-
+ated with a binary indicator feature, as before.
+# Para 471 4
+(25) Parts of Speech. Part of Speech tags drawn 
+from a 5 word window around the target word, 
+with each tag associated with a binary indicator 
+feature, as before.
+# Para 475 1
+(26) CCG Categories. CCG categories drawn from
+# Para 476 3
+a 5 word window around the target word, with 
+each category associated with a binary indica-
+tor feature, as before.
+# Para 479 1
+the boy	loves	a	girl
+# Para 480 1
+np/n	n	(s[dcl]\npArg0)/npArg1 np/n	n
+# Para 481 1
+np — Arga	np — Argl
+# Para 482 1
+�
+# Para 483 1
+s[dcl]
+# Para 484 4
+Figure 4: By looking at the constituents that the verb 
+combines with, we can identify the semantic roles cor-
+responding to the arguments marked on the verbal cat-
+egory.
+# Para 488 5
+(27) Argument Data. The word, POS, and CCG 
+category, and treepath of the headwords of each 
+of the verbal arguments (i.e., PARG depen-
+dents), each encoded as a separate binary in-
+dicator feature.
+# Para 493 2
+(28) Number of arguments. The number of argu-
+ments marked on the verb.
+# Para 495 2
+(29) Words of Arguments. The head words of each 
+of the verb’s arguments.
+# Para 497 3
+(30) Subcategorization. The CCG categories that 
+combine with this verb. This includes syntactic 
+adjuncts as well as arguments.
+# Para 500 2
+(31) CFG-Sisters. The POS categories of the sis-
+ters of this predicate in the CFG representation.
+# Para 502 8
+(32) DEP-dependencies. The individual depen-
+dency types of each of the dependencies re-
+lating to the verb (SBJ, OBJ, ADV, etc) taken 
+from the dependency parse. We also incorpo-
+rate a single feature representing the entire set 
+of dependency types associated with this verb 
+into a single feature, representing the set of de-
+pendencies as a whole.
+# Para 510 9
+Given these features with gold standard parses, our 
+argument mapping model can predict entire argument 
+mappings with an accuracy rate of 87.96% on the test 
+set, and 87.70% on the development set. We found the 
+features generated by this model to be very useful for 
+semantic role prediction, as they enable us to make de-
+cisions about entire sets of semantic roles associated 
+with individual lemmas, rather than choosing them in-
+dependently of each other.
+# Para 519 1
+8 Enabling Cross-System Comparison
+# Para 520 11
+The Brutus system is designed to label headwords of 
+semantic roles, rather than entire constituents. How-
+ever, because most SRL systems are designed to label 
+constituents rather than headwords, it is necessary to 
+project the roles up the derivation to the correct con-
+stituent in order to make a meaningful comparison of 
+the system’s performance. This introduces the poten-
+tial for further error, so we report results on the ac-
+curacy of headwords as well as the correct string of 
+words. We deterministically move the role to the high-
+est constituent in the derivation that is headed by the
+# Para 531 1
+s[dcl]\np
+# Para 532 1
+41
+# Para 533 5
+	P	R	F
+P. et al (treebank)	86.22%	87.40%	86.81%
+Brutus (treebank)	88.29%	86.39%	87.33%
+P. et al (automatic)	77.09%	75.51%	76.29%
+Brutus (automatic)	76.73%	70.45%	73.45%
+# Para 538 1
+a man	with	glasses spoke
+# Para 539 1
+np/n	n	(np\np)/np	np	s\np
+# Para 540 1
+�np
+# Para 541 1
+np\np
+# Para 542 1
+np - speak.Arg0
+# Para 543 1
+s
+# Para 544 3
+Figure 5: The role is moved towards the root until the 
+original node is no longer the head of the marked con-
+stituent.
+# Para 547 5
+	P	R	F
+G&amp;H (treebank)	67.5%	60.0%	63.5%
+Brutus (treebank)	88.18%	85.00%	86.56%
+G&amp;H (automatic)	55.7%	49.5%	52.4%
+Brutus (automatic)	76.06%	70.15%	72.99%
+# Para 552 2
+Table 1: Accuracy of semantic role prediction using 
+only CCG based features.
+# Para 554 7
+originally tagged terminal. In most cases, this corre-
+sponds to the node immediately dominated by the low-
+est common subsuming node of the the target word and 
+the verb (figure 5). In some cases, the highest con-
+stituent that is headed by the target word is not imme-
+diately dominated by the lowest common subsuming 
+node (figure 6).
+# Para 561 1
+9 Results
+# Para 562 10
+Using a version of Brutus incorporating only the CCG-
+based features described above, we achieve better re-
+sults than a previous CCG based system (Gildea and 
+Hockenmaier, 2003, henceforth G&amp;H). This could be 
+due to a number of factors, including the fact that our 
+system employs a different CCG parser, uses a more 
+complete mapping of the Propbank onto the CCGbank, 
+uses a different machine learning approach,6 and has a 
+richer feature set. The results for constituent tagging 
+accuracy are shown in table 1.
+# Para 572 11
+As expected, by incorporating Penn Treebank-based 
+features and dependency features, we obtain better re-
+sults than with the CCG-only system. The results for 
+gold standard parses are comparable to the winning 
+system of the CoNLL 2005 shared task on semantic 
+role labeling (Punyakanok et al., 2008). Other systems 
+(Toutanova et al., 2008; Surdeanu et al., 2007; Johans-
+son and Nugues, 2008) have also achieved comparable 
+results – we compare our system to (Punyakanok et 
+al., 2008) due to the similarities in our approaches. The 
+performance of the full system is shown in table 2.
+# Para 583 5
+Table 3 shows the ability of the system to predict 
+the correct headwords of semantic roles. This is a nec-
+essary condition for correctness of the full constituent, 
+but not a sufficient one. In parser evaluation, Carroll, 
+Minnen, and Briscoe (Carroll et al., 2003) have argued
+# Para 588 2
+6G&amp;H use a generative model with a back-off lattice, 
+whereas we use a maximum entropy classifier.
+# Para 590 2
+Table 2: Accuracy of semantic role prediction using 
+CCG, CFG, and MALT based features.
+# Para 592 5
+	P	R	F
+Headword (treebank)	88.94%	86.98%	87.95%
+Boundary (treebank)	88.29%	86.39%	87.33%
+Headword (automatic)	82.36%	75.97%	79.04%
+Boundary (automatic)	76.33%	70.59%	73.35%
+# Para 597 5
+Table 3: Accuracy of the system for labeling semantic 
+roles on both constituent boundaries and headwords. 
+Headwords are easier to predict than boundaries, re-
+flecting CCG’s focus on word-word relations rather 
+than constituency.
+# Para 602 6
+for dependencies as a more appropriate means of eval-
+uation, reflecting the focus on headwords from con-
+stituent boundaries. We argue that, especially in the 
+heavily lexicalized CCG framework, headword evalu-
+ation is more appropriate, reflecting the emphasis on 
+headword combinatorics in the CCG formalism.
+# Para 608 1
+10 The Contribution of the New Features
+# Para 609 10
+Two features which are less frequently used in SRL 
+research play a major role in the Brutus system: The 
+PARG feature (Gildea and Hockenmaier, 2003) and 
+the argument mapping feature. Removing them has 
+a strong effect on accuracy when labeling treebank 
+parses, as shown in our feature ablation results in ta-
+ble 4. We do not report results including the Argu-
+ment Mapping feature but not the PARG feature, be-
+cause some predicate-argument relation information is 
+assumed in generating the Argument Mapping feature.
+# Para 619 4
+	P	R	F
++PARG +AM	88.77%	86.15%	87.44%
++PARG -AM	88.42%	85.78%	87.08%
+-PARG -AM	87.92%	84.65%	86.26%
+# Para 623 2
+Table 4: The effects of removing key features from the 
+system on gold standard parses.
+# Para 625 2
+The same is true for automatic parses, as shown in ta-
+ble 5.
+# Para 627 1
+11 Error Analysis
+# Para 628 3
+Many of the errors made by the Brutus system can be 
+traced directly to erroneous parses, either in the auto-
+matic or treebank parse. In some cases, PP attachment
+# Para 631 1
+42
+# Para 632 1
+with	even brief exposures	causing	symptoms
+# Para 633 1
+(((vp\vp)/vp[ng])/np	n/n	n/n	n	(s[ng]\np)/np	np
+# Para 634 1
+	� 	�
+# Para 635 1
+n
+# Para 636 1
+s[ng]\np
+# Para 637 2
+n
+np — cause.Arg0
+# Para 639 3
+		�	
+(vp\vp)/vp[ng]			�
+	vp\vp		
+# Para 642 2
+Figure 6: In this case, with is the head of with even brief exposures, so the role is correctly marked on even brief 
+exposures (based on wsj 0003.2).
+# Para 644 1
+�
+# Para 645 4
+	P	R	F
++PARG +AM	74.14%	62.09%	67.58%
++PARG -AM	70.02%	64.68%	67.25%
+-PARG -AM	73.90%	61.15%	66.93%
+# Para 649 1
+a form	of	asbestos used to make filters
+# Para 650 1
+np	(np\np)/np	np	np\np
+# Para 651 4
+		�
+		�
+	np\np	
+	np — Arg1	
+# Para 655 2
+	�
+np	
+# Para 657 2
+Table 5: The effects of removing key features from the 
+system on automatic parses.
+# Para 659 10
+ambiguities cause a role to be marked too high in the 
+derivation. In the sentence the company stopped using 
+asbestos in 1956 (figure 7), the correct Arg 1 of stopped 
+is using asbestos. However, because in 1956 is erro-
+neously modifying the verb using rather than the verb 
+stopped in the treebank parse, the system trusts the syn-
+tactic analysis and places Arg1 of stopped on using as-
+bestos in 1956. This particular problem is caused by an 
+annotation error in the original Penn Treebank that was 
+carried through in the conversion to CCGbank.
+# Para 669 14
+Another common error deals with genitive construc-
+tions. Consider the phrase a form of asbestos used 
+to make filters. By CCG combinatorics, the relative 
+clause could either attach to asbestos or to a form of 
+asbestos. The gold standard CCG parse attaches the 
+relative clause to a form of asbestos (figure 8). Prop- 
+bank agrees with this analysis, assigning Arg1 of use 
+to the constituent a form of asbestos. The automatic 
+parser, however, attaches the relative clause low – to 
+asbestos (figure 9). When the system is given the au-
+tomatically generated parse, it incorrectly assigns the 
+semantic role to asbestos. In cases where the parser at-
+taches the relative clause correctly, the system is much 
+more likely to assign the role correctly.
+# Para 683 13
+Problems with relative clause attachment to genitives 
+are not limited to automatic parses – errors in gold- 
+standard treebank parses cause similar problems when 
+Treebank parses disagree with Propbank annotator in-
+tuitions. In the phrase a group of workers exposed to 
+asbestos (figure 10), the gold standard CCG parse at-
+taches the relative clause to workers. Propbank, how-
+ever, annotates a group of workers as Arg 1 of exposed, 
+rather than following the parse and assigning the role 
+only to workers. The system again follows the parse 
+and incorrectly assigns the role to workers instead of a 
+group of workers. Interestingly, the C&amp;C parser opts 
+for high attachment in this instance, resulting in the
+# Para 696 3
+Figure 8: CCGbank gold-standard parse of a relative 
+clause attachment. The system correctly identifies a 
+form of asbestos as Arg1 of used. (wsj 0003.1)
+# Para 699 1
+a form	of	asbestos used to make filters
+# Para 700 1
+np	(np\np)/np np — Arg1	np\np
+# Para 701 1
+�
+# Para 702 2
+	�
+np\np	
+# Para 704 1
+�
+# Para 705 4
+Figure 9: Automatic parse of the noun phrase in fig-
+ure 8. Incorrect relative clause attachment causes the 
+misidentification of asbestos as a semantic role bearing 
+unit. (wsj 0003.1)
+# Para 709 2
+correct prediction of a group of workers as Arg1 of ex-
+posed in the automatic parse.
+# Para 711 1
+12 Future Work
+# Para 712 8
+As described in the error analysis section, a large num-
+ber of errors in the system are attributable to errors in 
+the CCG derivation, either in the gold standard or in 
+automatically generated parses. Potential future work 
+may focus on developing an improved CCG parser us-
+ing the revised (syntactic) adjunct-argument distinc-
+tions (guided by the Propbank annotation) described in 
+(Boxwell and White, 2008). This resource, together
+# Para 720 1
+with the reasonable accuracy (,: 90%) with which ar-
+# Para 721 6
+gument mappings can be predicted, suggests the possi-
+bility of an integrated, simultaneous syntactic-semantic 
+parsing process, similar to that of (Musillo and Merlo, 
+2006; Merlo and Musillo, 2008). We expect this would 
+improve the reliability and accuracy of both the syntac-
+tic and semantic analysis components.
+# Para 727 1
+13 Acknowledgments
+# Para 728 2
+This research was funded by NSF grant IIS-0347799. 
+We are deeply indebted to Julia Hockenmaier for the
+# Para 730 1
+np
+# Para 731 1
+np
+# Para 732 1
+43
+# Para 733 1
+the company	stopped	using	asbestos	in 1956
+# Para 734 1
+np	((s[dcl]\np)/(s[ng]\np)) (s[ng]\np)/np	np	(s\np)\(s\np)
+# Para 735 2
+	�
+s[ng]\np	
+# Para 737 2
+s[ng]\np - stop.Arg1 
+s[dcl]\np
+# Para 739 1
+s[dcl]
+# Para 740 1
+�
+# Para 741 1
+�
+# Para 742 1
+�
+# Para 743 3
+Figure 7: An example of how incorrect PP attachment can cause an incorrect labeling. Stop.Arg1 should cover us-
+ing asbestos rather than using asbestos in 1956. This sentence is based on wsj 0003.3, with the structure simplified 
+for clarity.
+# Para 746 1
+a group	of	workers	exposed to asbestos
+# Para 747 1
+np	(np\np)/np np - exposed.Arg1	np\np
+# Para 748 6
+					�
+					�
+					�
+				np	
+			np\np		
+		np			
+# Para 754 2
+Figure 10: Propbank annotates a group of workers as Arg1 of exposed, while CCGbank attaches the relative clause 
+low. The system incorrectly labels workers as a role bearing unit. (Gold standard – wsj 0003.1)
+# Para 756 1
+use of her PARG generation tool.
+# Para 757 1
+References
+# Para 758 3
+Srinivas Bangalore and Aravind Joshi. 1999. Su-
+pertagging: An approach to almost parsing. Com-
+putational Linguistics, 25(2):237–265.
+# Para 761 4
+Adam L. Berger, S. Della Pietra, and V. Della Pietra. 
+1996. A maximum entropy approach to natural 
+language processing. Computational Linguistics, 
+22(1):39–71.
+# Para 765 2
+D.M. Bikel. 2004. Intricacies of Collins’ parsing
+model. Computational Linguistics, 30(4):479–511.
+# Para 767 5
+Stephen A. Boxwell and Michael White. 2008. 
+Projecting propbank roles onto the ccgbank. In 
+Proceedings of the Sixth International Language 
+Resources and Evaluation Conference (LREC-08), 
+Marrakech, Morocco.
+# Para 772 3
+J. Carroll, G. Minnen, and T. Briscoe. 2003. Parser 
+evaluation. Treebanks: Building and Using Parsed 
+Corpora, pages 299–316.
+# Para 775 3
+E. Charniak. 2001. Immediate-head parsing for lan-
+guage models. In Proc. ACL-01, volume 39, pages 
+116–123.
+# Para 778 4
+Stephen Clark and James R. Curran. 2007. Wide- 
+coverage Efficient Statistical Parsing with CCG and 
+Log-linear Models. Computational Linguistics, 
+33(4):493–552.
+# Para 782 5
+Stephen Clark. 2002. Supertagging for combinatory 
+categorial grammar. In Proceedings of the 6th In-
+ternational Workshop on Tree Adjoining Grammars 
+and Related Frameworks (TAG+6), pages 19–24, 
+Venice, Italy.
+# Para 787 3
+M. Collins. 2003. Head-driven statistical models for 
+natural language parsing. Computational Linguis-
+tics, 29(4):589–637.
+# Para 790 3
+Daniel Gildea and Julia Hockenmaier. 2003. Identi-
+fying semantic roles using Combinatory Categorial 
+Grammar. In Proc. EMNLP-03.
+# Para 793 4
+Julia Hockenmaier and Mark Steedman. 2007. CCG-
+bank: A Corpus of CCG Derivations and Depen-
+dency Structures Extracted from the Penn Treebank. 
+Computational Linguistics, 33(3):355–396.
+# Para 797 3
+R. Johansson and P. Nugues. 2008. Dependency- 
+based syntactic–semantic analysis with PropBank 
+and NomBank. Proceedings of CoNLL –2008.
+# Para 800 3
+D C Liu and Jorge Nocedal. 1989. On the limited 
+memory method for large scale optimization. Math-
+ematical Programming B, 45(3).
+# Para 803 4
+Lluis M`arquez, Xavier Carreras, Kenneth C. Litowski, 
+and Suzanne Stevenson. 2008. Semantic Role La-
+beling: An Introduction to the Special Issue. Com-
+putational Linguistics, 34(2):145–159.
+# Para 807 3
+Paola Merlo and Gabrile Musillo. 2008. Semantic 
+parsing for high-precision semantic role labelling. In 
+Proceedings of CONLL-08, Manchester, UK.
+# Para 810 3
+Gabriele Musillo and Paola Merlo. 2006. Robust pars-
+ing of the proposition bank. In Proceedings of the 
+EACL 2006 Workshop ROMAND, Trento.
+# Para 813 5
+J. Nivre, J. Hall, J. Nilsson, A. Chanev, G. Eryigit, 
+S. K¨ubler, S. Marinov, and E. Marsi. 2007. Malt- 
+Parser: A language-independent system for data- 
+driven dependency parsing. Natural Language En-
+gineering, 13(02):95–135.
+# Para 818 4
+Martha Palmer, Daniel Gildea, and Paul Kingsbury. 
+2005. The Proposition Bank: An Annotated Cor-
+pus of Semantic Roles. Computational Linguistics, 
+31(1):71–106.
+# Para 822 1
+44
+# Para 823 4
+Vasin Punyakanok, Dan Roth, and Wen tau Yih. 2008. 
+The Importance of Syntactic Parsing and Inference 
+in Semantic Role Labeling. Computational Linguis-
+tics, 34(2):257–287.
+# Para 827 2
+Mark Steedman. 2000. The Syntactic Process. MIT 
+Press.
+# Para 829 4
+M. Surdeanu, L. M`arquez, X. Carreras, and P. Comas. 
+2007. Combination strategies for semantic role la-
+beling. Journal of Artificial Intelligence Research, 
+29:105–151.
+# Para 833 3
+K. Toutanova, A. Haghighi, and C.D. Manning. 2008. 
+A global joint model for semantic role labeling. 
+Computational Linguistics, 34(2):161–191.
+# Para 836 1
+45

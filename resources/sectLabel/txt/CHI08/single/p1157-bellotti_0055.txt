@@ -1,0 +1,95 @@
+CHI 2008 Proceedings · On the Move	April 5-10, 2008 · Florence, Italy
+Activity detection is an active research topic with many 
+promising results. Begole et al. [7] experimented with 
+sensor-based availability detection. Various authors used 
+sensing to infer human activities from use of objects with 
+RFID tags on them [27, 37], from special purpose wearable 
+sensing hardware [21, 30], or by using video and audio data 
+analysis [25]. Froehlich et al. [10] found correlations 
+between place preference and data from sensed locations, 
+such as frequency of visits and distance traveled.
+In our work we are interested in enabling mobile context 
+and activity inferencing with no special infrastructure or 
+hardware. Relying only on time and location makes the 
+challenge of activity inferencing more daunting, but some 
+research in this space exists. Closest to our own activity 
+modeling research is that of Liao et al. [22], who use 
+location-based sensing with Relational Markov Networks 
+and other techniques to infer occurrence of certain 
+activities: ‘AtHome’, ‘AtWork’, ‘Shopping’, ‘DiningOut’, 
+and ‘Visiting.’ Shopping and DiningOut, two of the activity 
+types we are interested in, were the most difficult to classify.
+The previously described work relates to the detection of a 
+person’s current activity, but the Magitti guide system 
+needs to predict a person’s future activities. Begole et al. 
+[6] modeled activity on the keyboard and mouse across 
+multiple locations to predict a user’s future reachability for 
+communication. Ashbrook &amp; Starner [3] and Krumm &amp; 
+Horvitz [18] demonstrated the detection and prediction of 
+movement to significant locations from traces of GPS data. 
+Prior to Magitti, there have been no user applications that 
+predict a person’s likelihood of being engaged in different 
+types of leisure activity.
+Related work on Mobile City Guide Applications
+There is one class of location-based information 
+recommendation system that is similar in spirit to Magitti: 
+location-aware tourist guides. We survey just a few notable 
+systems in this section (see [5, 36] for more extensive 
+surveys). These systems are similar to Magitti in that they 
+recommend venues based on the user’s stated or inferred 
+preferences. However, none of the following systems base 
+recommendations on prediction of the user’s activities.
+Cyberguide [1] was a mobile tourist guide for the Georgia 
+Tech campus (inside and out) and adjacent neighborhoods. 
+It was aware of its time, location, and history and could 
+match information on venues and special events to these 
+data. However, it was not a true recommender system.
+MobyRec [33] is a context-aware mobile tourist 
+recommender system that lets users specify preferences for 
+hotels, restaurants, etc. MobyRec improves its 
+recommendations over time. However, unlike with Magitti, 
+new users always have to specify queries.
+GUIDE [9] offers tour routes and accesses ticket 
+reservation services and related capabilities based on user- 
+stated interests and queries. In its tours, GUIDE takes into 
+account the hours and busy times of requested attractions
+and the most scenic routes between them, and dynamically 
+recomputes routes based on location and time. GUIDE is 
+targeted for touring unfamiliar areas, whereas Magitti is 
+optimized for city residents who are looking for new places 
+to enjoy leisure activities. GUIDE is also not geared 
+towards a serendipitous experience as it does not predict 
+user interests; users must issue queries or create a tour for 
+themselves.
+COMPASS [38] is a tourist guide service covering a wide 
+range of venue types. It uses profile and goal information 
+entered by its user to constrain recommendations of venues. 
+It takes account of location, speed, user profile, schedule, 
+shopping list, and recency of previous visit. Non-user 
+specific elements of context are also considered, such as 
+weather and traffic conditions. Like Magitti, it allows the 
+user to view items on a map interface, but COMPASS 
+filters them by the user’s stated goal and preferences, rather 
+than activity type. And again, COMPASS relies on a user to 
+enter her initial interests.
+CRUMPET [28] provides tips, tour suggestions, maps and 
+other information on a range of tourist-related venues 
+(restaurants, movies, shows, etc.). It aims to learn user 
+preferences over time, but not to predict future activity.
+MAGITTI SYSTEM DESIGN
+We now present the Magitti system in more detail.
+User Interface
+Magitti’s Main Screen (Figure 1, left) shows a scrollable 
+list of up to 20 recommended items that match the user’s 
+current situation and profile. As the user walks around, the 
+list updates automatically to show items relevant to new 
+locations. Each recommendation is presented in summary 
+form on the Main Screen, but users can tap each one to 
+view its Detail Screen (Figure 1, right). This screen shows 
+the initial texts of a description, a formal review, and user 
+comments, and the user can view the full text of each 
+component on separate screens. The Detail Screen also 
+allows the user to rate the item on a 5-star scale.
+Figure 1. Magitti’s Main Screen (left) and Detail Screen 
+(right).
+1160

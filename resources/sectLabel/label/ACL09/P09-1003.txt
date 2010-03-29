@@ -1,0 +1,869 @@
+title ||| A Comparative Study on Generalization of Semantic Roles in FrameNet
+author ||| Yuichiroh Matsubayashit	Naoaki Okazakit	Junâichi Tsujiit$*
+affiliation ||| tDepartment of Computer Science, University of Tokyo, Japan
+affiliation ||| $School of Computer Science, University of Manchester, UK
+affiliation ||| *National Centre for Text Mining, UK
+email ||| {y-matsu,okazaki,tsujii}@is.s.u-tokyo.ac.jp
+sectionHeader ||| Abstract
+bodyText ||| A number of studies have presented
+bodyText ||| machine-learning approaches to semantic
+bodyText ||| role labeling with availability of corpora
+bodyText ||| such as FrameNet and PropBank. These
+bodyText ||| corpora define the semantic roles of predi-
+bodyText ||| cates for each frame independently. Thus,
+bodyText ||| it is crucial for the machine-learning ap-
+bodyText ||| proach to generalize semantic roles across
+bodyText ||| different frames, and to increase the size
+bodyText ||| of training instances. This paper ex-
+bodyText ||| plores several criteria for generalizing se-
+bodyText ||| mantic roles in FrameNet: role hierar-
+bodyText ||| chy, human-understandable descriptors of
+bodyText ||| roles, semantic types of filler phrases, and
+bodyText ||| mappings from FrameNet roles to the-
+bodyText ||| matic roles of VerbNet. We also pro-
+bodyText ||| pose feature functions that naturally com-
+bodyText ||| bine and weight these criteria, based on
+bodyText ||| the training data. The experimental result
+bodyText ||| of the role classification shows 19.16%
+bodyText ||| and 7.42% improvements in error reduc-
+bodyText ||| tion rate and macro-averaged F 1 score, re-
+bodyText ||| spectively. We also provide in-depth anal-
+bodyText ||| yses of the proposed criteria.
+sectionHeader ||| 1 Introduction
+bodyText ||| Semantic Role Labeling (SRL) is a task of analyz-
+bodyText ||| ing predicate-argument structures in texts. More
+bodyText ||| specifically, SRL identifies predicates and their
+bodyText ||| arguments with appropriate semantic roles. Re-
+bodyText ||| solving surface divergence of texts (e.g., voice
+bodyText ||| of verbs and nominalizations) into unified seman-
+bodyText ||| tic representations, SRL has attracted much at-
+bodyText ||| tention from researchers into various NLP appli-
+bodyText ||| cations including question answering (Narayanan
+bodyText ||| and Harabagiu, 2004; Shen and Lapata, 2007;
+figure ||| buy.v	PropBank	FrameNet
+figure ||| Frame	buy.01	Commerce buy
+figure ||| Roles	ARG0: buyer	Buyer Goods Seller Money Recipient
+figure ||| 	ARG1: thing bought	...
+figure ||| 	ARG2: seller
+figure ||| 	ARG3: paid
+figure ||| 	ARG4: benefactive
+figure ||| 	...
+figureCaption ||| Figure 1: A comparison of frames for buy.v de-
+figureCaption ||| fined in PropBank and FrameNet
+bodyText ||| Moschitti et al., 2007), and information extrac-
+bodyText ||| tion (Surdeanu et al., 2003).
+bodyText ||| In recent years, with the wide availability of cor-
+bodyText ||| pora such as PropBank (Palmer et al., 2005) and
+bodyText ||| FrameNet (Baker et al., 1998), a number of stud-
+bodyText ||| ies have presented statistical approaches to SRL
+bodyText ||| (M`arquez et al., 2008). Figure 1 shows an exam-
+bodyText ||| ple of the frame definitions for a verb buy in Prop-
+bodyText ||| Bank and FrameNet. These corpora define a large
+bodyText ||| number of frames and define the semantic roles for
+bodyText ||| each frame independently. This fact is problem-
+bodyText ||| atic in terms of the performance of the machine-
+bodyText ||| learning approach, because these definitions pro-
+bodyText ||| duce many roles that have few training instances.
+bodyText ||| PropBank defines a frame for each sense of
+bodyText ||| predicates (e.g., buy.01), and semantic roles are
+bodyText ||| defined in a frame-specific manner (e.g., buyer and
+bodyText ||| seller for buy.01). In addition, these roles are asso-
+bodyText ||| ciated with tags such as ARG0-5 and AM-*, which
+bodyText ||| are commonly used in different frames. Most
+bodyText ||| SRL studies on PropBank have used these tags
+bodyText ||| in order to gather a sufficient amount of training
+bodyText ||| data, and to generalize semantic-role classifiers
+bodyText ||| across different frames. However, Yi et al. (2007)
+bodyText ||| reported that tags ARG2 âARG5 were inconsis-
+bodyText ||| tent and not that suitable as training instances.
+bodyText ||| Some recent studies have addressed alternative ap-
+bodyText ||| proaches to generalizing semantic roles across dif-
+bodyText ||| ferent frames (Gordon and Swanson, 2007; Zapi-
+page ||| 19
+note ||| Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 19â27,
+note ||| Suntec, Singapore, 2-7 August 2009. cï¿½2009 ACL and AFNLP
+figure ||| Commerce_sell::Buyer Commerce_buy::Buyer
+figure ||| Givi ng:: Reci pi ent
+figure ||| Recipient
+figure ||| Transfer::Recipient
+figure ||| Buyer
+figure ||| Agent
+figure ||| Commerce_sell::Seller Commerce_buy::Seller
+figure ||| Giving::Donor
+figure ||| Transfer::Donor
+figure ||| Donor
+figure ||| Seller
+figure ||| role-to-role relation
+figure ||| hierarchical class
+figure ||| thematic role
+figure ||| role descriptor
+figureCaption ||| Figure 2: An example of role groupings using different criteria.
+figureCaption ||| rain et al., 2008).
+bodyText ||| FrameNet designs semantic roles as frame spe-
+bodyText ||| cific, but also defines hierarchical relations of se-
+bodyText ||| mantic roles among frames. Figure 2 illustrates
+bodyText ||| an excerpt of the role hierarchy in FrameNet; this
+bodyText ||| figure indicates that the Buyer role for the Com-
+bodyText ||| merce buy frame (Commerce buy::Buyer here-
+bodyText ||| after) and the Commerce sell::Buyer role are in-
+bodyText ||| herited from the Transfer:: Recipient role. Al-
+bodyText ||| though the role hierarchy was expected to gener-
+bodyText ||| alize semantic roles, no positive results for role
+bodyText ||| classification have been reported (Baldewein et al.,
+bodyText ||| 2004). Therefore, the generalization of semantic
+bodyText ||| roles across different frames has been brought up
+bodyText ||| as a critical issue for FrameNet (Gildea and Juraf-
+bodyText ||| sky, 2002; Shi and Mihalcea, 2005; Giuglea and
+bodyText ||| Moschitti, 2006)
+bodyText ||| In this paper, we explore several criteria for gen-
+bodyText ||| eralizing semantic roles in FrameNet. In addi-
+bodyText ||| tion to the FrameNet hierarchy, we use various
+bodyText ||| pieces of information: human-understandable de-
+bodyText ||| scriptors of roles, semantic types of filler phrases,
+bodyText ||| and mappings from FrameNet roles to the thematic
+bodyText ||| roles of VerbNet. We also propose feature func-
+bodyText ||| tions that naturally combines these criteria in a
+bodyText ||| machine-learning framework. Using the proposed
+bodyText ||| method, the experimental result of the role classi-
+bodyText ||| fication shows 19.16% and 7.42% improvements
+bodyText ||| in error reduction rate and macro-averaged F1, re-
+bodyText ||| spectively. We provide in-depth analyses with re-
+bodyText ||| spect to these criteria, and state our conclusions.
+sectionHeader ||| 2 Related Work
+bodyText ||| Moschitti et al. (2005) first classified roles by us-
+bodyText ||| ing four coarse-grained classes (Core Roles, Ad-
+bodyText ||| juncts, Continuation Arguments and Co-referring
+bodyText ||| Arguments), and built a classifier for each coarse-
+bodyText ||| grained class to tag PropBank ARG tags. Even
+bodyText ||| though the initial classifiers could perform rough
+bodyText ||| estimations of semantic roles, this step was not
+bodyText ||| able to solve the ambiguity problem in PropBank
+bodyText ||| ARG2-5. When training a classifier for a seman-
+bodyText ||| tic role, Baldewein et al. (2004) re-used the train-
+bodyText ||| ing instances of other roles that were similar to the
+bodyText ||| target role. As similarity measures, they used the
+bodyText ||| FrameNet hierarchy, peripheral roles of FrameNet,
+bodyText ||| and clusters constructed by a EM-based method.
+bodyText ||| Gordon and Swanson (2007) proposed a general-
+bodyText ||| ization method for the PropBank roles based on
+bodyText ||| syntactic similarity in frames.
+bodyText ||| Many previous studies assumed that thematic
+bodyText ||| roles bridged semantic roles in different frames.
+bodyText ||| Gildea and Jurafsky (2002) showed that classifica-
+bodyText ||| tion accuracy was improved by manually replac-
+bodyText ||| ing FrameNet roles into 18 thematic roles. Shi
+bodyText ||| and Mihalcea (2005) and Giuglea and Moschitti
+bodyText ||| (2006) employed VerbNet thematic roles as the
+bodyText ||| target of mappings from the roles defined by the
+bodyText ||| different semantic corpora. Using the thematic
+bodyText ||| roles as alternatives of ARG tags, Loper et al.
+bodyText ||| (2007) and Yi et al. (2007) demonstrated that the
+bodyText ||| classification accuracy of PropBank roles was im-
+bodyText ||| proved for ARG2 roles, but that it was diminished
+bodyText ||| for ARG1. Yi et al. (2007) also described that
+bodyText ||| ARG2â5 were mapped to a variety of thematic
+bodyText ||| roles. Zapirain et al. (2008) evaluated PropBank
+bodyText ||| ARG tags and VerbNet thematic roles in a state-of-
+bodyText ||| the-art SRL system, and concluded that PropBank
+bodyText ||| ARG tags achieved a more robust generalization of
+bodyText ||| the roles than did VerbNet thematic roles.
+sectionHeader ||| 3 Role Classification
+bodyText ||| SRL is a complex task wherein several problems
+bodyText ||| are intertwined: frame-evoking word identifica-
+bodyText ||| tion, frame disambiguation (selecting a correct
+bodyText ||| frame from candidates for the evoking word), role-
+bodyText ||| phrase identification (identifying phrases that fill
+bodyText ||| semantic roles), and role classification (assigning
+bodyText ||| correct roles to the phrases). In this paper, we fo-
+bodyText ||| cus on role classification, in which the role gen-
+bodyText ||| eralization is particularly critical to the machine
+bodyText ||| learning approach.
+bodyText ||| In the role classification task, we are given a
+bodyText ||| sentence, a frame evoking word, a frame, and
+page ||| 20
+figure ||| Hierarchical-relation groups
+figure ||| Role-descriptor groups
+figure ||| Thematic-role groups
+figure ||| Semantic-type groups
+figureCaption ||| Figure 4: Examples for each type of role group.
+figure ||| INPUT:
+figure ||| frame = Commerce_sell
+figure ||| candidate roles = { Seller, Buyer, Goods, Reason, Time, ... , Place}
+figure ||| sentence = Can&apos;t [you] [sell Commerce_sell] [the factory] [to some other
+figure ||| company]?
+figure ||| OUTPUT:
+figure ||| sentence = Can&apos;t [you Seller] [sell Commerce_sell] [the factory Goods]
+figure ||| [to some other company Buyer] ?
+figureCaption ||| Figure 3: An example of input and output of role
+figureCaption ||| classification.
+bodyText ||| phrases that take semantic roles. We are inter-
+bodyText ||| ested in choosing the correct role from the can-
+bodyText ||| didate roles for each phrase in the frame. Figure 3
+bodyText ||| shows a concrete example of input and output; the
+bodyText ||| semantic roles for the phrases are chosen from the
+bodyText ||| candidate roles: Seller, Buyer, Goods, Reason,
+bodyText ||| ... , and Place.
+bodyText ||| role at a node in the hierarchy inherits the char-
+bodyText ||| acteristics of the roles of its ancestor nodes. For
+bodyText ||| example, Commerce sell::Seller in Figure 2 in-
+bodyText ||| herits the property of Giving:: Donor.
+bodyText ||| For Inheritance, Using, Perspective on, and
+bodyText ||| Subframe relations, we assume that descendant
+bodyText ||| roles in these relations have the same or special-
+bodyText ||| ized properties of their ancestors. Hence, for each
+bodyText ||| role yi, we define the following two role groups,
+equation ||| Hchild	= {y y = yi V y is a child of yi},
+equation ||| yi	= {yly = yi V y is a descendant of yij.
+equation ||| Hdesc
+equation ||| yi
+bodyText ||| The hierarchical-relation groups in Figure 4 are
+bodyText ||| the illustrations of Hdesc
+equation ||| yi	.
+bodyText ||| For the relation types Inchoative of and
+bodyText ||| Causative of, we define role groups in the oppo-
+bodyText ||| site direction of the hierarchy,
+sectionHeader ||| 4 Design of Role Groups	Hparent	= {yjy = yi V y is a parent of yi},
+equation ||| 	yi	= {yjy = yi V y is anancestor of yij.
+equation ||| 	Hance
+equation ||| 	yi
+bodyText ||| We formalize the generalization of semantic roles
+bodyText ||| as the act of grouping several roles into a
+bodyText ||| class. We define a role group as a set of
+bodyText ||| role labels grouped by a criterion. Figure 4
+bodyText ||| shows examples of role groups; a group Giv-
+bodyText ||| ing::Donor (in the hierarchical-relation groups)
+bodyText ||| contains the roles Giving::Donor and Com-
+bodyText ||| merce pay::Buyer. The remainder of this section
+bodyText ||| describes the grouping criteria in detail.
+subsectionHeader ||| 4.1 Hierarchical relations among roles
+bodyText ||| FrameNet defines hierarchical relations among
+bodyText ||| frames (frame-to-frame relations). Each relation
+bodyText ||| is assigned one of the seven types of directional
+bodyText ||| relationships (Inheritance, Using, Perspective on,
+bodyText ||| Causative of, Inchoative of, Subframe, and Pre-
+bodyText ||| cedes). Some roles in two related frames are also
+bodyText ||| connected with role-to-role relations. We assume
+bodyText ||| that this hierarchy is a promising resource for gen-
+bodyText ||| eralizing the semantic roles; the idea is that the
+bodyText ||| This is because lower roles of Inchoative of
+bodyText ||| and Causative of relations represent more neu-
+bodyText ||| tral stances or consequential states; for example,
+bodyText ||| Killing::Victim is a parent of Death:: Protagonist
+bodyText ||| in the Causative of relation.
+bodyText ||| Finally, the Precedes relation describes the se-
+bodyText ||| quence of states and events, but does not spec-
+bodyText ||| ify the direction of semantic inclusion relations.
+bodyText ||| Therefore, we simply try Hchild Hdesc Hparent
+bodyText ||| yi , yi,yi ,
+bodyText ||| and Hynce for this relation type.
+subsectionHeader ||| 4.2 Human-understandable role descriptor
+bodyText ||| FrameNet defines each role as frame-specific; in
+bodyText ||| other words, the same identifier does not appear
+bodyText ||| in different frames. However, in FrameNet,
+bodyText ||| human experts assign a human-understandable
+bodyText ||| name to each role in a rather systematic man-
+bodyText ||| ner. Some names are shared by the roles in
+bodyText ||| different frames, whose identifiers are dif-
+bodyText ||| ferent. Therefore, we examine the semantic
+page ||| 21
+bodyText ||| commonality of these names; we construct an
+bodyText ||| equivalence class of the roles sharing the same
+bodyText ||| name. We call these human-understandable
+bodyText ||| names role descriptors. In Figure 4, the role-
+bodyText ||| descriptor group Buyer collects the roles Com-
+bodyText ||| merce pay::Buyer, Commerce buy::Buyer,
+bodyText ||| and Commerce sell::Buyer.
+bodyText ||| This criterion may be effective in collecting
+bodyText ||| similar roles since the descriptors have been anno-
+bodyText ||| tated by intuition of human experts. As illustrated
+bodyText ||| in Figure 2, the role descriptors group the seman-
+bodyText ||| tic roles which are similar to the roles that the
+bodyText ||| FrameNet hierarchy connects as sister or parent-
+bodyText ||| child relations. However, role-descriptor groups
+bodyText ||| cannot express the relations between the roles
+bodyText ||| as inclusions since they are equivalence classes.
+bodyText ||| For example, the roles Commerce sell::Buyer
+bodyText ||| and Commerce buy::Buyer are included in the
+bodyText ||| role descriptor group Buyer in Figure 2; how-
+bodyText ||| ever, it is difficult to merge Giving:: Recipient
+bodyText ||| and Commerce sell::Buyer because the Com-
+bodyText ||| merce sell:: Buyer has the extra property that one
+bodyText ||| gives something of value in exchange and a hu-
+bodyText ||| man assigns different descriptors to them. We ex-
+bodyText ||| pect that the most effective weighting of these two
+bodyText ||| criteria will be determined from the training data.
+subsectionHeader ||| 4.3 Semantic type of phrases
+bodyText ||| We consider that the selectional restriction is help-
+bodyText ||| ful in detecting the semantic roles. FrameNet pro-
+bodyText ||| vides information concerning the semantic types
+bodyText ||| of role phrases (fillers); phrases that play spe-
+bodyText ||| cific roles in a sentence should fulfill the se-
+bodyText ||| mantic constraint from this information. For
+bodyText ||| instance, FrameNet specifies the constraint that
+bodyText ||| Self motion::Area should be filled by phrases
+bodyText ||| whose semantic type is Location. Since these
+bodyText ||| types suggest a coarse-grained categorization of
+bodyText ||| semantic roles, we construct role groups that con-
+bodyText ||| tain roles whose semantic types are identical.
+subsectionHeader ||| 4.4 Thematic roles of VerbNet
+bodyText ||| VerbNet thematic roles are 23 frame-independent
+bodyText ||| semantic categories for arguments of verbs,
+bodyText ||| such as Agent, Patient, Theme and Source.
+bodyText ||| These categories have been used as consis-
+bodyText ||| tent labels across verbs. We use a partial
+bodyText ||| mapping between FrameNet roles and Verb-
+bodyText ||| Net thematic roles provided by SemLink. 1
+bodyText ||| Each group is constructed as a set Tti =
+footnote ||| 1http://verbs.colorado.edu/semlink/
+bodyText ||| {yISemLink maps y into the thematic role ti}.
+bodyText ||| SemLink currently maps 1,726 FrameNet roles
+bodyText ||| into VerbNet thematic roles, which are 37.61% of
+bodyText ||| roles appearing at least once in the FrameNet cor-
+bodyText ||| pus. This may diminish the effect of thematic-role
+bodyText ||| groups than its potential.
+sectionHeader ||| 5 Role classification method
+subsectionHeader ||| 5.1 Traditional approach
+bodyText ||| We are given a frame-evoking word e, a frame f
+bodyText ||| and a role phrase x detected by a human or some
+bodyText ||| automatic process in a sentence s. Let Yf be the
+bodyText ||| set of semantic roles that FrameNet defines as be-
+bodyText ||| ing possible role assignments for the frame f, and
+bodyText ||| let x = {x1, ... , x,,,} be observed features for x
+bodyText ||| from s, e and f . The task of semantic role classifi-
+bodyText ||| cation can be formalized as the problem of choos-
+bodyText ||| ing the most suitable role yï¿½ from Yf. Suppose we
+bodyText ||| have a model P(yIf, x) which yields the condi-
+bodyText ||| tional probability of the semantic role y for given
+bodyText ||| f and x. Then we can choose yï¿½ as follows:
+equation ||| yï¿½ = argmax P(yï¿½ f, x).	(1)
+equation ||| yEYf
+bodyText ||| A traditional way to incorporate role groups
+bodyText ||| into this formalization is to overwrite each role
+bodyText ||| y in the training and test data with its role
+bodyText ||| group m(y) according to the memberships of
+bodyText ||| the group. For example, semantic roles Com-
+bodyText ||| merce sell::Seller and Giving::Donor can be re-
+bodyText ||| placed by their thematic-role group Theme::Agent
+bodyText ||| in this approach. We determine the most suitable
+bodyText ||| role group cï¿½ as follows:
+equation ||| cï¿½ = argmax P-(cï¿½f, x).	(2)
+equation ||| cE ï¿½-(y)ï¿½yEYf}
+bodyText ||| Here, P-(cï¿½f, x) presents the probability of the
+bodyText ||| role group c for f and x. The role yï¿½ is determined
+bodyText ||| uniquely iff a single role y E Yf is associated
+bodyText ||| with ï¿½c. Some previous studies have employed this
+bodyText ||| idea to remedy the data sparseness problem in the
+bodyText ||| training data (Gildea and Jurafsky, 2002). How-
+bodyText ||| ever, we cannot apply this approach when multi-
+bodyText ||| ple roles in Yf are contained in the same class. For
+bodyText ||| example, we can construct a semantic-type group
+bodyText ||| St::State of affairs in which Giving::Reason and
+bodyText ||| Giving:: Means are included, as illustrated in Fig-
+bodyText ||| ure 4. If cï¿½ = St:: State of affairs, we cannot dis-
+bodyText ||| ambiguate which original role is correct. In ad-
+bodyText ||| dition, it may be more effective to use various
+page ||| 22
+bodyText ||| groupings of roles together in the model. For in-
+bodyText ||| stance, the model could predict the correct role
+bodyText ||| Commerce sell::Seller for the phrase âyouâ in
+bodyText ||| Figure 3 more confidently, if it could infer its
+bodyText ||| thematic-role group as Theme::Agent and its par-
+bodyText ||| ent group Giving::Donor correctly. Although the
+bodyText ||| ensemble of various groupings seems promising,
+bodyText ||| we need an additional procedure to prioritize the
+bodyText ||| groupings for the case where the models for mul-
+bodyText ||| tiple role groupings disagree; for example, it is un-
+bodyText ||| satisfactory if two models assign the groups Giv-
+bodyText ||| ing:: Theme and Theme::Agent to the same phrase.
+subsectionHeader ||| 5.2 Role groups as feature functions
+bodyText ||| We thus propose another approach that incorpo-
+bodyText ||| rates group information as feature functions. We
+bodyText ||| model the conditional probability P(yï¿½ f, x) by us-
+bodyText ||| ing the maximum entropy framework,
+equation ||| exp(Ei Aigi(x, y))
+equation ||| ï¿½( yï¿½ f, x) = Ey,Y, exp(Ei Aigi(x, y)). (3)
+bodyText ||| Here, G = Jgiï¿½ denotes a set of n feature func-
+bodyText ||| tions, and A = JAiï¿½ denotes a weight vector for
+bodyText ||| the feature functions.
+bodyText ||| In general, feature functions for the maximum
+bodyText ||| entropy model are designed as indicator functions
+bodyText ||| for possible pairs of xj and y. For example, the
+bodyText ||| event where the head word of x is âyouâ (xi = 1)
+bodyText ||| and x plays the role Commerce sell::Seller in a
+bodyText ||| sentence is expressed by the indicator function,
+equation ||| 1 (xi =1A
+equation ||| y = Commerce sell::Seller)
+equation ||| 0 (otherwise)
+equation ||| (4)
+bodyText ||| We call this kind of feature function an x-role.
+bodyText ||| In order to incorporate role groups into the
+bodyText ||| model, we also include all feature functions for
+bodyText ||| possible pairs of xj and role groups. Equation 5
+bodyText ||| is an example of a feature function for instances
+bodyText ||| where the head word of x is âyouâ and y is in the
+bodyText ||| role group Theme::Agent,
+equation ||| 1 (xi=1A
+equation ||| y E Theme::Agent) . (5)
+equation ||| 0 (otherwise)
+bodyText ||| Thus, this feature function fires for the roles wher-
+bodyText ||| ever the head word âyouâ plays Agent (e.g., Com-
+bodyText ||| merce sell::Seller, Commerce buy::Buyer and
+bodyText ||| Giving:: Donor). We call this kind of feature func-
+bodyText ||| tion an x-group function.
+bodyText ||| In this way, we obtain x-group functions for
+bodyText ||| all grouping methods, e.g., gtheme
+bodyText ||| k, ghierarchy
+bodyText ||| k .
+bodyText ||| The role-group features will receive more training
+bodyText ||| instances by collecting instances for fine-grained
+bodyText ||| roles. Thus, semantic roles with few training in-
+bodyText ||| stances are expected to receive additional clues
+bodyText ||| from other training instances via role-group fea-
+bodyText ||| tures. Another advantage of this approach is that
+bodyText ||| the usefulness of the different role groups is de-
+bodyText ||| termined by the training processes in terms of
+bodyText ||| weights of feature functions. Thus, we do not need
+bodyText ||| to assume that we have found the best criterion for
+bodyText ||| grouping roles; we can allow a training process to
+bodyText ||| choose the criterion. We will discuss the contribu-
+bodyText ||| tions of different groupings in the experiments.
+subsectionHeader ||| 5.3 Comparison with related work
+bodyText ||| Baldewein et al. (2004) suggested an approach
+bodyText ||| that uses role descriptors and hierarchical rela-
+bodyText ||| tions as criteria for generalizing semantic roles
+bodyText ||| in FrameNet. They created a classifier for each
+bodyText ||| frame, additionally using training instances for the
+bodyText ||| role A to train the classifier for the role B, if the
+bodyText ||| roles A and B were judged as similar by a crite-
+bodyText ||| rion. This approach performs similarly to the over-
+bodyText ||| writing approach, and it may obscure the differ-
+bodyText ||| ences among roles. Therefore, they only re-used
+bodyText ||| the descriptors as a similarity measure for the roles
+bodyText ||| whose coreness was peripheral. 2
+bodyText ||| In contrast, we use all kinds of role descriptors
+bodyText ||| to construct groups. Since we use the feature func-
+bodyText ||| tions for both the original roles and their groups,
+bodyText ||| appropriate units for classification are determined
+bodyText ||| automatically in the training process.
+sectionHeader ||| 6 Experiment and Discussion
+bodyText ||| We used the training set of the Semeval-2007
+bodyText ||| Shared task (Baker et al., 2007) in order to ascer-
+bodyText ||| tain the contributions of role groups. This dataset
+bodyText ||| consists of the corpus of FrameNet release 1.3
+bodyText ||| (containing roughly 150,000 annotations), and an
+bodyText ||| additional full-text annotation dataset. We ran-
+bodyText ||| domly extracted 10% of the dataset for testing, and
+bodyText ||| used the remainder (90%) for training.
+bodyText ||| Performance was measured by micro- and
+bodyText ||| macro-averaged F 1(Chang and Zheng, 2008) with
+bodyText ||| respect to a variety of roles. The micro average bi-
+bodyText ||| ases each F1 score by the frequencies of the roles,
+footnote ||| 2In FrameNet, each role is assigned one of four different
+footnote ||| types of coreness (core, core-unexpressed, peripheral, extra-
+footnote ||| thematic) It represents the conceptual necessity of the roles
+footnote ||| in the frame to which it belongs.
+equation ||| giole(x, y) = {
+equation ||| .
+equation ||| gtheme
+equation ||| 2(x, y) =
+equation ||| {
+page ||| 23
+bodyText ||| and the average is equal to the classification accu-
+bodyText ||| racy when we calculate it with all of the roles in
+bodyText ||| the test set. In contrast, the macro average does
+bodyText ||| not bias the scores, thus the roles having a small
+bodyText ||| number of instances affect the average more than
+bodyText ||| the micro average.
+subsectionHeader ||| 6.1 Experimental settings
+bodyText ||| We constructed a baseline classifier that uses
+bodyText ||| only the x-role features. The feature de-
+bodyText ||| sign is similar to that of the previous stud-
+bodyText ||| ies (M`arquez et al., 2008). The characteristics
+bodyText ||| of x are: frame, frame evoking word, head
+bodyText ||| word, content word (Surdeanu et al., 2003),
+bodyText ||| first/last word, head word of left/right sister,
+bodyText ||| phrase type, position, voice, syntactic path (di-
+bodyText ||| rected/undirected/partial), governing category
+bodyText ||| (Gildea and Jurafsky, 2002), WordNet super-
+bodyText ||| sense in the phrase, combination features of
+bodyText ||| frame evoking word &amp; headword, combination
+bodyText ||| features of frame evoking word &amp; phrase type,
+bodyText ||| and combination features of voice &amp; phrase type.
+bodyText ||| We also used PoS tags and stem forms as extra
+bodyText ||| features of any word-features.
+bodyText ||| We employed Charniak and Johnsonâs rerank-
+bodyText ||| ing parser (Charniak and Johnson, 2005) to an-
+bodyText ||| alyze syntactic trees. As an alternative for the
+bodyText ||| traditional named-entity features, we used Word-
+bodyText ||| Net supersenses: 41 coarse-grained semantic cate-
+bodyText ||| gories of words such as person, plant, state, event,
+bodyText ||| time, location. We used Ciaramita and Altunâs Su-
+bodyText ||| per Sense Tagger (Ciaramita and Altun, 2006) to
+bodyText ||| tag the supersenses. The baseline system achieved
+bodyText ||| 89.00% with respect to the micro-averaged F1.
+bodyText ||| The x-group features were instantiated similarly
+bodyText ||| to the x-role features; the x-group features com-
+bodyText ||| bined the characteristics of x with the role groups
+bodyText ||| presented in this paper. The total number of fea-
+bodyText ||| tures generated for all x-roles and x-groups was
+bodyText ||| 74,873,602. The optimal weights A of the fea-
+bodyText ||| tures were obtained by the maximum a poste-
+bodyText ||| rior (MAP) estimation. We maximized an L2-
+bodyText ||| regularized log-likelihood of the training set us-
+bodyText ||| ing the Limited-memory BFGS (L-BFGS) method
+bodyText ||| (Nocedal, 1980).
+subsectionHeader ||| 6.2 Effect of role groups
+bodyText ||| Table 1 shows the micro and macro averages of F 1
+bodyText ||| scores. Each role group type improved the micro
+bodyText ||| average by 0.5 to 1.7 points. The best result was
+bodyText ||| obtained by using all types of groups together. The
+bodyText ||| result indicates that different kinds of group com-
+table ||| Feature	Micro	Macro	-Err.
+table ||| Baseline	89.00	68.50	0.00
+table ||| role descriptor	90.78	76.58	16.17
+table ||| role descriptor (replace)	90.23	76.19	11.23
+table ||| hierarchical relation	90.25	72.41	11.40
+table ||| semantic type	90.36	74.51	12.38
+table ||| VN thematic role	89.50	69.21	4.52
+table ||| All	91.10	75.92	19.16
+tableCaption ||| Table 1: The accuracy and error reduction rate of
+tableCaption ||| role classification for each type of role group.
+table ||| Feature	#instances	Pre.	Rec.	Micro
+table ||| baseline	&lt; 10	63.89	38.00	47.66
+table ||| 	&lt; 20	69.01	51.26	58.83
+table ||| 	&lt;50	75.84	65.85	70.50
+table ||| + all groups	&lt; 10	72.57	55.85	63.12
+table ||| 	&lt;20	76.30	65.41	70.43
+table ||| 	&lt; 50	80.86	74.59	77.60
+tableCaption ||| Table 2: The effect of role groups on the roles with
+tableCaption ||| few instances.
+bodyText ||| plement each other with respect to semantic role
+bodyText ||| generalization. Baldewein et al. (2004) reported
+bodyText ||| that hierarchical relations did not perform well for
+bodyText ||| their method and experimental setting; however,
+bodyText ||| we found that significant improvements could also
+bodyText ||| be achieved with hierarchical relations. We also
+bodyText ||| tried a traditional label-replacing approach with
+bodyText ||| role descriptors (in the third row of Table 1). The
+bodyText ||| comparison between the second and third rows in-
+bodyText ||| dicates that mixing the original fine-grained roles
+bodyText ||| and the role groups does result in a more accurate
+bodyText ||| classification.
+bodyText ||| By using all types of groups together, the
+bodyText ||| model reduced 19.16 % of the classification errors
+bodyText ||| from the baseline. Moreover, the macro-averaged
+bodyText ||| F1 scores clearly showed improvements resulting
+bodyText ||| from using role groups. In order to determine
+bodyText ||| the reason for the improvements, we measured
+bodyText ||| the precision, recall, and F1-scores with respect
+bodyText ||| to roles for which the number of training instances
+bodyText ||| was at most 10, 20, and 50. In Table 2, we show
+bodyText ||| that the micro-averaged F1 score for roles hav-
+bodyText ||| ing 10 instances or less was improved (by 15.46
+bodyText ||| points) when all role groups were used. This result
+bodyText ||| suggests the reason for the effect of role groups; by
+bodyText ||| bridging similar semantic roles, they supply roles
+bodyText ||| having a small number of instances with the infor-
+bodyText ||| mation from other roles.
+subsectionHeader ||| 6.3 Analyses of role descriptors
+bodyText ||| In Table 1, the largest improvement was obtained
+bodyText ||| by the use of role descriptors. We analyze the ef-
+bodyText ||| fect of role descriptors in detail in Tables 3 and 4.
+bodyText ||| Table 3 shows the micro-averaged F 1 scores of all
+page ||| 24
+table ||| Coreness	#roles	#instances/#role	#groups	#instances/#group	#roles/#group
+table ||| Core	1902	122.06	655	354.4	2.9
+table ||| Peripheral	1924	25.24	250	194.3	7.7
+table ||| Extra-thematic	763	13.90	171	62.02	4.5
+tableCaption ||| Table 4: The analysis of the numbers of roles, instances, and role-descriptor groups, for each type of
+tableCaption ||| coreness.
+table ||| Coreness	Micro
+table ||| Baseline	89.00
+table ||| Core	89.51
+table ||| Peripheral	90.12
+table ||| Extra-thematic	89.09
+table ||| All	90.77
+tableCaption ||| Table 3: The effect of employing role-descriptor
+bodyText ||| groups of each type of coreness.
+bodyText ||| semantic roles when we use role-descriptor groups
+bodyText ||| constructed from each type of coreness (core3, pe-
+bodyText ||| ripheral, and extra-thematic) individually. The pe-
+bodyText ||| ripheral type generated the largest improvements.
+bodyText ||| Table 4 shows the number of roles associated
+bodyText ||| with each type of coreness (#roles), the number of
+bodyText ||| instances for the original roles (#instances/#role),
+bodyText ||| the number of groups for each type of coreness
+bodyText ||| (#groups), the number of instances for each group
+bodyText ||| (#instances/#group), and the number of roles per
+bodyText ||| each group (#roles/#group). In the peripheral
+bodyText ||| type, the role descriptors subdivided 1,924 distinct
+bodyText ||| roles into 250 groups, each of which contained 7.7
+bodyText ||| roles on average. The peripheral type included
+bodyText ||| semantic roles such as place, time, reason, dura-
+bodyText ||| tion. These semantic roles appear in many frames,
+bodyText ||| because they have general meanings that can be
+bodyText ||| shared by different frames. Moreover, the seman-
+bodyText ||| tic roles of peripheral type originally occurred in
+bodyText ||| only a small number (25.24) of training instances
+bodyText ||| on average. Thus, we infer that the peripheral
+bodyText ||| type generated the largest improvement because
+bodyText ||| semantic roles in this type acquired the greatest
+bodyText ||| benefit from the generalization.
+subsectionHeader ||| 6.4 Hierarchical relations and relation types
+bodyText ||| We analyzed the contributions of the FrameNet hi-
+bodyText ||| erarchy for each type of role-to-role relations and
+bodyText ||| for different depths of grouping. Table 5 shows
+bodyText ||| the micro-averaged F1 scores obtained from var-
+bodyText ||| ious relation types and depths. The Inheritance
+bodyText ||| and Using relations resulted in a slightly better ac-
+bodyText ||| curacy than the other types. We did not observe
+bodyText ||| any real differences among the remaining five re-
+bodyText ||| lation types, possibly because there were few se-
+footnote ||| 3 We include Core-unexpressed in core, because it has a
+footnote ||| property of core inside one frame.
+table ||| No.	Relation Type	Micro
+table ||| -	baseline	89.00
+table ||| 1	+ Inheritance (children)	89.52
+table ||| 2	+ Inheritance (descendants)	89.70
+table ||| 3	+Using (children)	89.35
+table ||| 4	+Using (descendants)	89.37
+table ||| 5	+ Perspective on (children)	89.01
+table ||| 6	+ Perspective on (descendants)	89.01
+table ||| 7	+ Subframe (children)	89.04
+table ||| 8	+ Subframe (descendants)	89.05
+table ||| 9	+ Causative of (parents)	89.03
+table ||| 10	+ Causative of (ancestors)	89.03
+table ||| 11	+ Inchoative of (parents)	89.02
+table ||| 12	+ Inchoative of (ancestors)	89.02
+table ||| 13	+Precedes (children)	89.01
+table ||| 14	+Precedes (descendants)	89.03
+table ||| 15	+Precedes (parents)	89.00
+table ||| 16	+Precedes (ancestors)	89.00
+table ||| 18	+all relations (2,4,6,8,10,12,14)	90.25
+tableCaption ||| Table 5: Comparison of the accuracy with differ-
+tableCaption ||| ent types of hierarchical relations.
+bodyText ||| mantic roles associated with these types. We ob-
+bodyText ||| tained better results by using not only groups for
+bodyText ||| parent roles, but also groups for all ancestors. The
+bodyText ||| best result was obtained by using all relations in
+bodyText ||| the hierarchy.
+subsectionHeader ||| 6.5 Analyses of different grouping criteria
+bodyText ||| Table 6 reports the precision, recall, and micro-
+bodyText ||| averaged F1 scores of semantic roles with respect
+bodyText ||| to each coreness type .4 In general, semantic roles
+bodyText ||| of the core coreness were easily identified by all
+bodyText ||| of the grouping criteria; even the baseline system
+bodyText ||| obtained an F 1 score of 91.93. For identifying se-
+bodyText ||| mantic roles of the peripheral and extra-thematic
+bodyText ||| types of coreness, the simplest solution, the de-
+bodyText ||| scriptor criterion, outperformed other criteria.
+bodyText ||| In Table 7, we categorize feature functions
+bodyText ||| whose weights are in the top 1000 in terms of
+bodyText ||| greatest absolute value. The behaviors of the role
+bodyText ||| groups can be distinguished by the following two
+bodyText ||| characteristics. Groups of role descriptors and se-
+bodyText ||| mantic types have large weight values for the first
+bodyText ||| word and supersense features, which capture the
+bodyText ||| characteristics of adjunctive phrases. The original
+bodyText ||| roles and hierarchical-relation groups have strong
+footnote ||| 4The figures of role descriptors in Tables 4 and 6 differ.
+footnote ||| In Table 4, we measured the performance when we used one
+footnote ||| or all types of coreness for training. In contrast, in Table 6,
+footnote ||| we used all types of coreness for training, but computed the
+footnote ||| performance of semantic roles for each coreness separately.
+page ||| 25
+table ||| Feature	Type	Pre.	Rec.	Micro
+table ||| baseline	c	91.07	92.83	91.93
+table ||| 	p	81.05	76.03	78.46
+table ||| 	e	78.17	66.51	71.87
+table ||| + descriptor group	c	92.50	93.41	92.95
+table ||| 	p	84.32	82.72	83.51
+table ||| 	e	80.91	69.59	74.82
+table ||| +hierarchical	c	92.10	93.28	92.68
+table ||| relation	p	82.23	79.84	81.01
+table ||| class	e	77.94	65.58	71.23
+table ||| + semantic	c	92.23	93.31	92.77
+table ||| type group	p	83.66	81.76	82.70
+table ||| 	e	80.29	67.26	73.20
+table ||| + VN thematic	c	91.57	93.06	92.31
+table ||| role group	p	80.66	76.95	78.76
+table ||| 	e	78.12	66.60	71.90
+table ||| + all group	c	92.66	93.61	93.13
+table ||| 	p	84.13	82.51	83.31
+table ||| 	e	80.77	68.56	74.17
+tableCaption ||| Table 6: The precision and recall of each type of
+tableCaption ||| coreness with role groups. Type represents the
+tableCaption ||| type of coreness; c denotes core, p denotes periph-
+tableCaption ||| eral, and e denotes extra-thematic.
+bodyText ||| associations with lexical and structural character-
+bodyText ||| istics such as the syntactic path, content word, and
+bodyText ||| head word. Table 7 suggests that role-descriptor
+bodyText ||| groups and semantic-type groups are effective for
+bodyText ||| peripheral or adjunctive roles, and hierarchical re-
+bodyText ||| lation groups are effective for core roles.
+sectionHeader ||| 7 Conclusion
+bodyText ||| We have described different criteria for general-
+bodyText ||| izing semantic roles in FrameNet. They were:
+bodyText ||| role hierarchy, human-understandable descriptors
+bodyText ||| of roles, semantic types of filler phrases, and
+bodyText ||| mappings from FrameNet roles to thematic roles
+bodyText ||| of VerbNet. We also proposed a feature design
+bodyText ||| that combines and weights these criteria using the
+bodyText ||| training data. The experimental result of the role
+bodyText ||| classification task showed a 19.16% of the error
+bodyText ||| reduction and a 7.42% improvement in the macro-
+bodyText ||| averaged F1 score. In particular, the method we
+bodyText ||| have presented was able to classify roles having
+bodyText ||| few instances. We confirmed that modeling the
+bodyText ||| role generalization at feature level was better than
+bodyText ||| the conventional approach that replaces semantic
+bodyText ||| role labels.
+bodyText ||| Each criterion presented in this paper improved
+bodyText ||| the accuracy of classification. The most success-
+bodyText ||| ful criterion was the use of human-understandable
+bodyText ||| role descriptors. Unfortunately, the FrameNet hi-
+bodyText ||| erarchy did not outperform the role descriptors,
+bodyText ||| contrary to our expectations. A future direction
+bodyText ||| of this study would be to analyze the weakness of
+bodyText ||| the FrameNet hierarchy in order to discuss possi-
+bodyText ||| ble improvement of the usage and annotations of
+table ||| features of x	class type
+table ||| 	or	hr	rl	st	vn
+table ||| frame	0	4	0	1	0
+table ||| evoking word	3	4	7	3	0
+table ||| ew &amp; hw stem	9	34	20	8	0
+table ||| ew &amp; phrase type	11	7	11	3	1
+table ||| head word	13	19	8	3	1
+table ||| hw stem	11	17	8	8	1
+table ||| content word	7	19	12	3	0
+table ||| cw stem	11	26	13	5	0
+table ||| cw PoS	4	5	14	15	2
+table ||| directed path	19	27	24	6	7
+table ||| undirected path	21	35	17	2	6
+table ||| partial path	15	18	16	13	5
+table ||| last word	15	18	12	3	2
+table ||| first word	11	23	53	26	10
+table ||| supersense	7	7	35	25	4
+table ||| position	4	6	30	9	5
+table ||| others	27	29	33	19	6
+table ||| total	188	298	313	152	50
+tableCaption ||| Table 7: The analysis of the top 1000 feature func-
+tableCaption ||| tions. Each number denotes the number of feature
+tableCaption ||| functions categorized in the corresponding cell.
+tableCaption ||| Notations for the columns are as follows. âorâ:
+tableCaption ||| original role, âhrâ: hierarchical relation, ârdâ: role
+tableCaption ||| descriptor, âstâ: semantic type, and âvnâ: VerbNet
+tableCaption ||| thematic role.
+bodyText ||| the hierarchy.
+bodyText ||| Since we used the latest release of FrameNet
+bodyText ||| in order to use a greater number of hierarchical
+bodyText ||| role-to-role relations, we could not make a direct
+bodyText ||| comparison of performance with that of existing
+bodyText ||| systems; however we may say that the 89.00% F 1
+bodyText ||| micro-average of our baseline system is roughly
+bodyText ||| comparable to the 88.93% value of Bejan and
+bodyText ||| Hathaway (2007) for SemEval-2007 (Baker et al.,
+bodyText ||| 2007). 5 In addition, the methodology presented in
+bodyText ||| this paper applies generally to any SRL resources;
+bodyText ||| we are planning to determine several grouping cri-
+bodyText ||| teria from existing linguistic resources and to ap-
+bodyText ||| ply the methodology to the PropBank corpus.
+sectionHeader ||| Acknowledgments
+bodyText ||| The authors thank Sebastian Riedel for his useful
+bodyText ||| comments on our work. This work was partially
+bodyText ||| supported by Grant-in-Aid for Specially Promoted
+bodyText ||| Research (MEXT, Japan).
+sectionHeader ||| References
+reference ||| Collin F. Baker, Charles J. Fillmore, and John B. Lowe.
+reference ||| 1998. The berkeley framenet project. In Proceed-
+reference ||| ings of Coling -ACL 1998, pages 86â90.
+reference ||| Collin Baker, Michael Ellsworth, and Katrin Erk.
+reference ||| 2007. Semeval-2007 task 19: Frame semantic struc-
+footnote ||| 5There were two participants that performed whole SRL
+footnote ||| in SemEval-2007. Bejan and Hathaway (2007) evaluated role
+footnote ||| classification accuracy separately for the training data.
+page ||| 26
+reference ||| ture extraction. In Proceedings of SemEval-2007,
+reference ||| pages 99â104.
+reference ||| Ulrike Baldewein, Katrin Erk, Sebastian PadÂ´o, and
+reference ||| Detlef Prescher. 2004. Semantic role labeling
+reference ||| with similarity based generalization using EM-based
+reference ||| clustering. In Proceedings of Senseval-3, pages 64â
+reference ||| 68.
+reference ||| Cosmin Adrian Bejan and Chris Hathaway. 2007.
+reference ||| UTD-SRL: A Pipeline Architecture for Extract-
+reference ||| ing Frame Semantic Structures. In Proceedings
+reference ||| of SemEval-2007, pages 460â463. Association for
+reference ||| Computational Linguistics.
+reference ||| X. Chang and Q. Zheng. 2008. Knowledge Ele-
+reference ||| ment Extraction for Knowledge-Based Learning Re-
+reference ||| sources Organization. Lecture Notes in Computer
+reference ||| Science, 4823:102â113.
+reference ||| Eugene Charniak and Mark Johnson. 2005. Coarse-
+reference ||| to-fine n-best parsing and MaxEnt discriminative
+reference ||| reranking. In Proceedings of the 43rd Annual Meet-
+reference ||| ing on Association for Computational Linguistics,
+reference ||| pages 173â180.
+reference ||| Massimiliano Ciaramita and Yasemin Altun. 2006.
+reference ||| Broad-coverage sense disambiguation and informa-
+reference ||| tion extraction with a supersense sequence tagger. In
+reference ||| Proceedings ofEMNLP-2006, pages 594â602.
+reference ||| Daniel Gildea and Daniel Jurafsky. 2002. Automatic
+reference ||| labeling of semantic roles. Computational Linguis-
+reference ||| tics, 28(3):245â288.
+reference ||| Ana-Maria Giuglea and Alessandro Moschitti. 2006.
+reference ||| Semantic role labeling via FrameNet, VerbNet and
+reference ||| PropBank. In Proceedings of the 21st International
+reference ||| Conference on Computational Linguistics and the
+reference ||| 44th Annual Meeting of the ACL, pages 929â936.
+reference ||| Andrew Gordon and Reid Swanson. 2007. General-
+reference ||| izing semantic role annotations across syntactically
+reference ||| similar verbs. In Proceedings of ACL-2007, pages
+reference ||| 192â199.
+reference ||| Edward Loper, Szu-ting Yi, and Martha Palmer. 2007.
+reference ||| Combining lexical resources: Mapping between
+reference ||| propbank and verbnet. In Proceedings of the 7th In-
+reference ||| ternational Workshop on Computational Semantics,
+reference ||| pages 118â128.
+reference ||| Lluis M`arquez, Xavier Carreras, Kenneth C.
+reference ||| Litkowski, and Suzanne Stevenson. 2008. Se-
+reference ||| mantic role labeling: an introduction to the special
+reference ||| issue. Computational linguistics, 34(2):145â159.
+reference ||| Alessandro Moschitti, Ana-Maria Giuglea, Bonaven-
+reference ||| tura Coppola, and Roberto Basili. 2005. Hierar-
+reference ||| chical semantic role labeling. In Proceedings of
+reference ||| CoNLL-2005, pages 201â204.
+reference ||| Alessandro Moschitti, Silvia Quarteroni, Roberto
+reference ||| Basili, and Suresh Manandhar. 2007. Exploiting
+reference ||| syntactic and shallow semantic kernels for question
+reference ||| answer classification. In Proceedings of ACL-07,
+reference ||| pages 776â783.
+reference ||| Srini Narayanan and Sanda Harabagiu. 2004. Ques-
+reference ||| tion answering based on semantic structures. In Pro-
+reference ||| ceedings of Coling-2004, pages 693â701.
+reference ||| Jorge Nocedal. 1980. Updating quasi-newton matrices
+reference ||| with limited storage. Mathematics of Computation,
+reference ||| 35(151):773â782.
+reference ||| Martha Palmer, Daniel Gildea, and Paul Kingsbury.
+reference ||| 2005. The proposition bank: An annotated cor-
+reference ||| pus of semantic roles. Computational Linguistics,
+reference ||| 31(1):71â106.
+reference ||| Dan Shen and Mirella Lapata. 2007. Using semantic
+reference ||| roles to improve question answering. In Proceed-
+reference ||| ings ofEMNLP-CoNLL 2007, pages 12â21.
+reference ||| Lei Shi and Rada Mihalcea. 2005. Putting Pieces To-
+reference ||| gether: Combining FrameNet, VerbNet and Word-
+reference ||| Net for Robust Semantic Parsing. In Proceedings of
+reference ||| CICLing-2005, pages 100â111.
+reference ||| Mihai Surdeanu, Sanda Harabagiu, John Williams, and
+reference ||| Paul Aarseth. 2003. Using predicate-argument
+reference ||| structures for information extraction. In Proceed-
+reference ||| ings ofACL-2003, pages 8â15.
+reference ||| Szu-ting Yi, Edward Loper, and Martha Palmer. 2007.
+reference ||| Can semantic roles generalize across genres? In
+reference ||| Proceedings ofHLT-NAACL 2007, pages 548â555.
+reference ||| BeËnat Zapirain, Eneko Agirre, and Lluis M`arquez.
+reference ||| 2008. Robustness and generalization of role sets:
+reference ||| PropBank vs. VerbNet. In Proceedings of ACL-08:
+reference ||| HLT, pages 550â558.
+page ||| 27
