@@ -29,6 +29,6 @@ $contextRadius = 200;
 $maxContexts = 5;
 
 ## Write citation and body file components
-$bWriteSplit = 1;
+$bWriteSplit = 0;
 
 1;
