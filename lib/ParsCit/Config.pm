@@ -3,7 +3,7 @@ package ParsCit::Config;
 ## Global
 
 $algorithmName = "ParsCit";
-$algorithmVersion = "100401";
+$algorithmVersion = "090625";
 
 ## Repository Mappings
 
@@ -29,6 +29,6 @@ $contextRadius = 200;
 $maxContexts = 5;
 
 ## Write citation and body file components
-$bWriteSplit = 0;
+$bWriteSplit = 1;
 
 1;

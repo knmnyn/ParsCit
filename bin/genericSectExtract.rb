@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 require 'find'
 
-pwd = File.dirname(__FILE__)
+Dir.chdir(File.dirname(__FILE__))
+pwd = Dir.getwd
 
 @CRFPP  = "#{pwd}/../crfpp"
 @SRC    = "#{pwd}/genericSect"
@@ -14,7 +15,7 @@ system(cmd)
 cmd = "cp #{ARGV[0]} #{@TMP}/tmp.hea"
 system(cmd)
 
-cmd = "ruby #{@SRC}/createFeature_test.rb #{@TMP} > #{@TMP}/tmp.test"
+cmd = "ruby #{@SRC}/createFeature.rb #{@TMP} > #{@TMP}/tmp.test"
 system(cmd)
 
 cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TMP}/tmp.test > #{@TMP}/tmp.out"

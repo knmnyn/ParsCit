@@ -44,6 +44,8 @@ sub wrapDocumentXml {
       next;
     }
 
+    $lineId++;
+    
     if (/^\s*$/) { # end of a sentence, output (useful to handle multiple document classification
       # add the last field
       addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);      # add the last field
@@ -63,7 +65,6 @@ sub wrapDocumentXml {
     } else { # in a middle of a document
       chop;
       my @tokens = split (/\t/);
-      $lineId++;
       
       my $line = $tokens[0];
       my $sys = $tokens[-1];
