@@ -29,7 +29,7 @@ my $tr2crfppLoc = "$path/tr2crfpp.pl";
 my $keywordLoc = "$path/keywordGen.pl"; #new model
 my $crf_learnLoc = "$path/../../crfpp/crf_learn";
 my $crf_testLoc = "$path/../../crfpp/crf_test";
-my $conllevalLoc = "$path/conlleval.pl";
+my $conllevalLoc = "$path/conlleval_modified.pl";
 ### END user customizable section
 
 ## Thang add ##

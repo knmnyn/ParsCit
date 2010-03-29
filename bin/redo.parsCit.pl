@@ -74,7 +74,6 @@ system ($cmd);
 `rm -f $tmpfile*`;
 
 ######################################################################
-#
 # .51
 # on head (first 500 lines of tagged.txt)
 # f=2, c=3 2fold: 92.86
@@ -101,3 +100,6 @@ system ($cmd);
 # a=CRF-L1 2fold cv: 80.63 / -- didn't complete
 # a=MIRA 2fold cv: 94.48 / 92.69
 # a=MIRA, f=2 2fold cv: 94.31 / 93.60
+
+# 100326 .51 normal, 2fold cv, over all data (including iconip)
+# accuracy:  94.83%; precision:  94.83%; recall:  94.83%; FB1:  94.83

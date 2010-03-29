@@ -74,6 +74,8 @@ my %config = (
 	      'xmlCell' => 0,
 	      'xmlBullet' => 0,
 
+	      'xmlPara' => 0,
+
 	      # unused
 	      'xmlFontFace' => 0,
 	      'xmlFontFaceChange' => 0,
@@ -91,6 +93,8 @@ my %config = (
 	      'link-xmlDd' => 0,
 	      'link-xmlCell' => 0,
 	      'link-xmlBullet' => 0,
+
+	      'link-xmlPara' => 0,
 	     );
 
 my %tagMap = (
