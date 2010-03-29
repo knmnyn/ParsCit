@@ -32,16 +32,14 @@ Find.find("#{dirPath}") do |path|
 	if FileTest.directory?(path)
 		next		
 	else
-		endIndex   = path.index(".")  - 1
+		endIndex   = path.rindex(".")  - 1
 		name	   = path[0..endIndex]
 		if !files.include?(name)
 			files << name
 		end
 	end
 end
-
 for file in files do
-	puts "#{file}"
 	f = File.open("#{file}.hea")
 	hea_array = Array.new
 	while !f.eof do
