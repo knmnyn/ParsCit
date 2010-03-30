@@ -42,7 +42,6 @@ sub extractSection {
 	my $error = "Error: $msg";
 	return \$error;
     }
-
 } # extractSection
 
 ##
@@ -187,9 +186,11 @@ sub insertGenericHeaders {
       if($lineIds->[$headerCount] != $textId){
 	die "Die in SectLabel::Controller::insertGenericHeaders - different text ids $lineIds->[$headerCount] != $textId\n";
       }
-      if($headers->[$headerCount] ne $line){
-	die "Die in SectLabel::Controller::insertGenericHeaders - different headers $headers->[$headerCount] ne $line\n";
-      }
+
+#      $line = decode_entities($line);
+#      if($headers->[$headerCount] ne $line){
+#	die "Die in SectLabel::Controller::insertGenericHeaders - different headers \"$headers->[$headerCount]\" ne \"$line\"\n";
+#      }
 
       my $genericHeader = $generics->[$headerCount];
       $lines[$i-1] = "<sectionHeader confidence=\"$confidence\" genericHeader=\"$genericHeader\">";

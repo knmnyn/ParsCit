@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="true">
+<authors>
+<author>Jonathan Calder</author>
+<author>Mike Reape</author>
+<author>Hank Zeevat</author>
+</authors>
+<title>An algorithm for generation in unification categorial grammar</title>
+<date>1989</date>
+<booktitle>In Proceedings of the 4th Conference of the European Chapter of the Association for Computational Linguistics</booktitle>
+<pages>233--240</pages>
+<institution>University of Manchester Institute of Science and Technology</institution>
+<location>Manchester, England</location>
+<contexts>
+<context position="1767" citStr="Calder et al., 1989">9) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Calder et al., 1989) uses semantic heads and their complements as a locus of semantic locality. Joshi (1987) points out that tree-adjoining grammars may be an especially appropriate formalism for generation because of th</context>
+</contexts>
+<marker>Calder, Reape, Zeevat, 1989</marker>
+<rawString>Jonathan Calder, Mike Reape, and Hank Zeevat. An algorithm for generation in unification categorial grammar. In Proceedings of the 4th Conference of the European Chapter of the Association for Computational Linguistics, pages 233-240, Manchester, England, 10-12 April 1989. University of Manchester Institute of Science and Technology.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Marc Dymetman</author>
+<author>Pierre Isabelle</author>
+</authors>
+<title>Reversible logic grammars for machine translation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the Second International Conference on Theoretical and Methodological Issues in Machine Translation of Natural Languages</booktitle>
+<institution>Carnegie-Mellon University</institution>
+<location>Pittsburgh, Pennsylvania</location>
+<contexts>
+<context position="1528" citStr="Dymetman and Isabelle, 1988">tionality property that guarantees that it can be locally determined whether phrases can contribute to forming an expression with a given meaning. Generation schemes that reorder top-down generation (Dymetman and Isabelle, 1988; Strzalkowski, 1989) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et</context>
+</contexts>
+<marker>Dymetman, Isabelle, 1988</marker>
+<rawString>Marc Dymetman and Pierre Isabelle. Reversible logic grammars for machine translation. In Proceedings of the Second International Conference on Theoretical and Methodological Issues in Machine Translation of Natural Languages, Pittsburgh, Pennsylvania, 1988. Carnegie-Mellon University.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Aravind K Joshi</author>
+</authors>
+<title>The relevance of tree adjoining grammar to generation</title>
+<date>1987</date>
+<booktitle>Natural Language Generation, chapter 16</booktitle>
+<pages>233--252</pages>
+<editor>In Gerard Kempen, editor</editor>
+<location>Dordrecht, Holland</location>
+<contexts>
+<context position="1855" citStr="Joshi (1987)">e mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Calder et al., 1989) uses semantic heads and their complements as a locus of semantic locality. Joshi (1987) points out that tree-adjoining grammars may be an especially appropriate formalism for generation because of their syntactic locality properties, which, intuitively at least, ought to correlate with </context>
+</contexts>
+<marker>Joshi, 1987</marker>
+<rawString>Aravind K. Joshi. The relevance of tree adjoining grammar to generation. In Gerard Kempen, editor, Natural Language Generation, chapter 16, pages 233— 252. Martinus Nijhoff Publishers, Dordrecht, Holland, 1987.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>David D McDonald</author>
+<author>James D Pustejovsky</author>
+</authors>
+<title>TAGs as a grammatical formalism for generation</title>
+<date>1985</date>
+<booktitle>In Proceedings of the 23rd Annual Meeting of the Association for Computational Linguistics</booktitle>
+<pages>94--103</pages>
+<institution>University of Chicago</institution>
+<location>Chicago, Illinois</location>
+<contexts>
+<context position="2180" citStr="McDonald and Pustejovsky (1985)">tion because of their syntactic locality properties, which, intuitively at least, ought to correlate with some notion of semantic locality. The same observation runs as an undercurrent in the work of McDonald and Pustejovsky (1985), who apply TAGs to the task of generaYves Schabes Department of Computer and Information Science University of Pennsylvania Philadelphia, PA 19104 tion. As these researchers note, the properties of T</context>
+</contexts>
+<marker>McDonald, Pustejovsky, 1985</marker>
+<rawString>David D. McDonald and James D. Pustejovsky. TAGs as a grammatical formalism for generation. In Proceedings of the 23rd Annual Meeting of the Association for Computational Linguistics, pages 94-103, University of Chicago, Chicago, Illinois, 8-12 July 1985.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Yves Schabes</author>
+<author>Aravind K Joshi</author>
+</authors>
+<title>The relevance of lexicalization to parsing</title>
+<date>1989</date>
+<booktitle>In Proceedings of the International Workshop on Parsing Technologies</booktitle>
+<pages>339--349</pages>
+<location>Pittsburgh, Pennsylvania</location>
+<contexts>
+<context position="18736" citStr="Schabes and Joshi, 1989">or augmented-context-free generation inhere in the synchronous TAG generation process if the semantic gramamr is lexicalized. In summary, just as lexicalization of the syntactic grammar aids parsing (Schabes and Joshi, 1989), so lexicalization of the semantic grammar aids generation. The simple generation algorithm that we have just presented seems to require that we completely analyze the logical form before generating </context>
+</contexts>
+<marker>Schabes, Joshi, 1989</marker>
+<rawString>Yves Schabes and Aravind K. Joshi. The relevance of lexicalization to parsing. In Proceedings of the International Workshop on Parsing Technologies, pages 339-349, Pittsburgh, Pennsylvania, 28-31 August 1989. Carnegie-Mellon University. Yves Schabes, Anne Abeille, and Aravind K. Joshi.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Stuart M Shieber</author>
+<author>Yves Schabes</author>
+</authors>
+<title>Parsing strategies with `lexicalized&apos; grammars: Application to tree adjoining grammars</title>
+<date>1988</date>
+<journal>Computational Linguistics, forthcoming</journal>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics (COLING&apos;88</booktitle>
+<institution>University of Helsinki</institution>
+<location>Budapest</location>
+<marker>Shieber, Schabes, 1988</marker>
+<rawString>Parsing strategies with `lexicalized&apos; grammars: Application to tree adjoining grammars. In Proceedings of the 12th International Conference on Computational Linguistics (COLING&apos;88), Budapest, August 1988. Stuart M. Shieber and Yves Schabes. Synchronous treeadjoining grammars. In Proceedings of the 13th International Conference on Computational Linguistics, University of Helsinki, Helsinki, Finland, forthcoming. Stuart M. Shieber, Gertjan van Noord, Fernando C. N. Pereira, and Robert C. Moore. Semantic-head-driven generation. Computational Linguistics, forthcoming.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Stuart M Shieber</author>
+</authors>
+<title>A uniform architecture for parsing and generation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics</booktitle>
+<pages>614--619</pages>
+<institution>Karl Marx University of Economics</institution>
+<location>Budapest, Hungary</location>
+<contexts>
+<context position="1240" citStr="Shieber (1988)">base a generation process. For instance, Wedekind (1988) requires a property of a grammar that he refers to as connectedness, which specifies that complements be semantically connected to their head. Shieber (1988) defines a notion of semantic monotonicity, a kind of compositionality property that guarantees that it can be locally determined whether phrases can contribute to forming an expression with a given m</context>
+<context position="4232" citStr="Shieber (1988)">torical research context. The other truly difficult issues of general natural-language production are well beyond the scope of this paper. &apos;This issue of canonicality of logical forms is discussed by Shieber (1988). 9 Semantics in Generation Although Joshi discusses at length the properties of TAGs advantageous to the generation task (1987), he does not address the issue of characterizing a semantic representat</context>
+<context position="17472" citStr="Shieber, 1988">rforming generation. In previous work, one of us noted that generation according to an augmented context-free grammar can be made more efficient by requiring the grammar to be semantically monotonic (Shieber, 1988); the derived semantics for an expression must include, in an appropriate sense, the semantic material of all its sub constituents. It is interesting to note that synchronous TAGs are inherently seman</context>
+</contexts>
+<marker>Shieber, 1988</marker>
+<rawString>Stuart M. Shieber. A uniform architecture for parsing and generation. In Proceedings of the 12th International Conference on Computational Linguistics, pages 614-619, Karl Marx University of Economics, Budapest, Hungary, 22-27 August 1988.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Tomek Strzalkowski</author>
+</authors>
+<title>Automated inversion of a unification parser into a unification generator</title>
+<date>1989</date>
+<tech>Technical Report 465</tech>
+<institution>Department of Computer Science, New York University</institution>
+<location>New York, New York</location>
+<contexts>
+<context position="1549" citStr="Strzalkowski, 1989">ntees that it can be locally determined whether phrases can contribute to forming an expression with a given meaning. Generation schemes that reorder top-down generation (Dymetman and Isabelle, 1988; Strzalkowski, 1989) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Ca</context>
+</contexts>
+<marker>Strzalkowski, 1989</marker>
+<rawString>Tomek Strzalkowski. Automated inversion of a unification parser into a unification generator. Technical Report 465, Department of Computer Science, New York University, New York, New York, 1989.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Vijay-Shanker</author>
+</authors>
+<title>A Study of Tree Adjoining Grammars</title>
+<date>1988</date>
+<tech>PhD thesis</tech>
+<institution>University of Pennsylvania</institution>
+<location>Philadelphia, Pennsylvania</location>
+<marker>Vijay-Shanker, 1988</marker>
+<rawString>K Vijay-Shanker. A Study of Tree Adjoining Grammars. PhD thesis, University of Pennsylvania, Philadelphia, Pennsylvania, 1988.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Jiirgen Wedekind</author>
+</authors>
+<title>Generation as structure driven derivation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics</booktitle>
+<pages>732--737</pages>
+<location>Budapest, Hungary</location>
+<contexts>
+<context position="1082" citStr="Wedekind (1988)">y of synchronous TAGs. Introduction The recent history of grammar reversing can be viewed as an effort to recover some notion of semantic locality on which to base a generation process. For instance, Wedekind (1988) requires a property of a grammar that he refers to as connectedness, which specifies that complements be semantically connected to their head. Shieber (1988) defines a notion of semantic monotonicity</context>
+</contexts>
+<marker>Wedekind, 1988</marker>
+<rawString>Jiirgen Wedekind. Generation as structure driven derivation. In Proceedings of the 12th International Conference on Computational Linguistics, pages 732— 737, Budapest, Hungary, 1988.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>

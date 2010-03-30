@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.466425">
+<title confidence="0.998515">Pointing to places in a deductive geospatial theory</title>
+<author confidence="0.999934">Richard Waldinger</author>
+<affiliation confidence="0.99947">Artificial Intelligence Center SRI International</affiliation>
+<email confidence="0.998267">waldinger@ai.sri.com</email>
+<author confidence="0.998712">Peter Jarvis</author>
+<affiliation confidence="0.9997225">Artificial Intelligence Center SRI International</affiliation>
+<email confidence="0.996096">jarvis@ai.sri.com</email>
+<author confidence="0.999863">Jennifer Dungan</author>
+<affiliation confidence="0.826437">Ecosystem Science and Technology Branch NASA Ames Research Center</affiliation>
+<email confidence="0.996694">jennifer@gaia.arc.nasa.gov</email>
+<abstract confidence="0.988766285714286">Issues in the description of places are discussed in the context of a logical geospatial theory. This theory lies at the core of the system GeoLogica, which deduces answers to geographical questions based on knowledge provided by multiple agents</abstract>
+</variant>
+</algorithm>
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="false">
+<authors>
+<author>Douglas E Appelt</author>
+<author>L David</author>
+</authors>
+<title>Martin Named entity recognition in speech: approach and results using the TextPro system http://www.nist.gov/speech/publications/darpa99/html/-ie30/ie30.htm Central Intelligence Agency 2002. The world factbook 2002 http://www.cia.gov/cia/publications/factbook</title>
+<date>1993</date>
+<booktitle>Proceedings of the 31st Annual Meeting of the Association for Computational Linguistics</booktitle>
+<pages>54--61</pages>
+<institution>Ohio State University</institution>
+<location>Douglas Appelt, John Bear, Lynn Cherny, Robert Moore, and Douglas Moran</location>
+<marker>Appelt, David, 1993</marker>
+<rawString>Douglas E. Appelt and David L. Martin	1999. Named entity recognition in speech: approach and results using the TextPro system http://www.nist.gov/speech/publications/darpa99/html/-ie30/ie30.htm Central Intelligence Agency 2002. The world factbook 2002 http://www.cia.gov/cia/publications/factbook/ John Dowding, J. Mark Gawron, Douglas Appelt, John Bear, Lynn Cherny, Robert Moore, and Douglas Moran. 1993. GEMINI: A natural language system for spoken-language understanding. Proceedings of the 31st Annual Meeting of the Association for Computational Linguistics, 54–61. Ohio State University, Columbus, Ohio F. Fonseca, M. Egenhofer, C. Davis. G. Camara, and N.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Bletter</author>
+</authors>
+<title>Semantic granularity in ontology-driven geographic information systems Annals of mathematics and artificial intelligence</title>
+<date>2002</date>
+<pages>6--1</pages>
+<marker>Bletter, 2002</marker>
+<rawString>Bletter 2002. Semantic granularity in ontology-driven geographic information systems Annals of mathematics and artificial intelligence, e6(1–2):121–151. Michael R. Genesereth, Arthur M. Keller, and Oliver M.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Duschka</author>
+</authors>
+<title>Infomaster: an information integration system. SIGMOD Record (ACM Special Interest Group on Management of Data,26:539–542. Ohio State University</title>
+<date>1997</date>
+<pages>0002</pages>
+<location>Columbus, Ohio Linda</location>
+<marker>Duschka, 1997</marker>
+<rawString>Duschka. 1997. Infomaster: an information integration system. SIGMOD Record (ACM Special Interest Group on Management of Data,26:539–542. Ohio State University, Columbus, Ohio Linda L. Hill, J. Frew and Q. Zheng. 1999. Geographic names: The implementation of a gazetteer in a georeferenced digital library. D-Lib Jerry Hobbs et al. 2003. A DAML spatial ontology. http://www.daml.org/listarchive/damlspatial/0002.htm.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Craig A Knoblock</author>
+<author>Steven Minton</author>
+</authors>
+<title>The Ariadne approach to web-based information integration</title>
+<date>1998</date>
+<journal>IEEE Intelligent Systems</journal>
+<volume>13</volume>
+<contexts>
+<context position="26087" citStr="Knoblock and Minton, 1998">rograms from specifications. The approach of using procedural attachment to a logical theory to coordinate multiple agents is relatively new, but see Infomaster (Genesereth et al., 1993) and Ariadne (Knoblock and Minton, 1998). The system CYC (Lenat and Guha, 1998) includes a large theory of spatial reasoning and now also incorporates procedural attachment. Fonseca et al. (Fonseca et al., 2002) are developing a geographica</context>
+</contexts>
+<marker>Knoblock, Minton, 1998</marker>
+<rawString>Craig A. Knoblock and Steven Minton. 1998. The Ariadne approach to web-based information integration. IEEE Intelligent Systems, 13(5):17–20.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Douglas B Lenat</author>
+<author>R V Guha</author>
+</authors>
+<title>Enabling agents to work together</title>
+<date>1994</date>
+<journal>Communications of the ACM, 37(7) Zohar Manna</journal>
+<marker>Lenat, Guha, 1994</marker>
+<rawString>Douglas B. Lenat and R. V. Guha. 1994. Enabling agents to work together Communications of the ACM, 37(7) Zohar Manna and Richard Waldinger. 1980. A deductive approach to program synthesis. ACM transactions on programming languages and systems2:90–121.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Adam Pease</author>
+<author>John Li</author>
+<author>Chris Barbee</author>
+</authors>
+<title>DAML agent semantic communications service (ASCS) http://oak.teknowledge.com:8080/daml/damlquery.jsp</title>
+<date>2002</date>
+<contexts>
+<context position="4999" citStr="Pease et al., 2002">countries, including geographic, economic, and political information about each, such as its principal subdivisions, bordering countries, capital cities, religions, and principal exports. •	the ASCS (Pease et al., 2002) search engine, which searches the Web for pages that are encoded in DAML (the DARPA Agent Markup Language) and extracts their content; much of the Factbook has been encoded in DAML and is actually ac</context>
+</contexts>
+<marker>Pease, Li, Barbee, 2002</marker>
+<rawString>Adam Pease, John Li, and Chris Barbee. 2002. DAML agent semantic communications service (ASCS) http://oak.teknowledge.com:8080/daml/damlquery.jsp Martin Reddy, Yvan G. LeClerc, Lee Iverson, and Nat Bletter. 1999. TerraVision II: Visualizing massive terrain databases in VRML. IEEE computer graphics and applications (special issue on VRML). 19(2)30–38. Mark E. Stickel, Richard J. Waldinger, and Vinay K.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Chaudhri</author>
+</authors>
+<title>A guide to SNARK</title>
+<date>2000</date>
+<publisher>SRI International</publisher>
+<location>Menlo Park, CA</location>
+<marker>Chaudhri, 2000</marker>
+<rawString>Chaudhri. 2000. A guide to SNARK. SRI International, Menlo Park, CA.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>
