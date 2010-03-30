@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="true">
+<authors>
+<author>William Gale</author>
+<author>Kenneth W Church</author>
+<author>David Yarowsky</author>
+</authors>
+<title>A method for disambiguating word senses in a large corpus</title>
+<date>1992</date>
+<journal>Statistical Research Report</journal>
+<volume>104</volume>
+<institution>AT&amp;T Bell Laboratories</institution>
+<contexts>
+<context position="3802" citStr="[1]">n (2) to use the resulting sets of instances to search for co-occurring words that are diagnostic of each sense. That was the strategy followed with considerable success by Gale, Church, and Yarowsky [1], who used a bilingual corpus for (1), and a Bayesian decision system for (2). To understand this and other statistical systems better, we posed a very specific problem: given a set of contexts, each </context>
+<context position="4626" citStr="[1]">istical sense resolution methods which attempt to infer the correct sense of a polysemous word by using knowledge about patterns of word co-occurrences. The first technique, developed by Gale et. al. [1] at AT&amp;T Bell Laboratories, is based on Bayesian decision theory, the second is based on neural network with back propagation [9], and the third is based on content vectors as used in information retr</context>
+</contexts>
+<marker>[1]</marker>
+<rawString>William Gale, Kenneth W. Church, and David Yarowsky. A method for disambiguating word senses in a large corpus. Statistical Research Report 104, AT&amp;T Bell Laboratories, 1992.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Marti A Hearst</author>
+</authors>
+<title>Noun homograph disambiguation using local context in large text corpora</title>
+<date>1991</date>
+<booktitle>In Seventh Annual Conference of the UW Centre for the New OED and Text Research: Using Corpora</booktitle>
+<pages>1--22</pages>
+<location>Oxford</location>
+<contexts>
+<context position="20887" citStr="[2]">or after the target. An obvious shortcoming of this approach is the amount of work involved. Recently there has been much interest in automatic and semi-automatic acquisition of local context (Hearst [2], Resnik [8], Yarowsky [13]). These systems are all plagued with the same problem, excellent precision but low recall. That is, if the local information that the methods learn is also present in a nov</context>
+</contexts>
+<marker>[2]</marker>
+<rawString>Marti A. Hearst. Noun homograph disambiguation using local context in large text corpora. In Seventh Annual Conference of the UW Centre for the New OED and Text Research: Using Corpora, pages 1-22, Oxford, 1991. UW Centre for the New OED and Text Research.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Edward Kelly</author>
+<author>Philip Stone</author>
+</authors>
+<title>Computer Recognition of English Word Senses</title>
+<date>1975</date>
+<publisher>North-Holland</publisher>
+<location>Amsterdam</location>
+<contexts>
+<context position="20229" citStr="[3]">sult we conclude that in order to improve the performance of automatic classifiers, we need to incorporate local information into the statistical methods. 16 4 Acquiring Local Context Kelly and Stone [3] pioneered research in finding local context by creating algorithms for automatic sense resolution. Over a period of seven years in the early 1970s, they (and some 30 students) hand coded sets of orde</context>
+</contexts>
+<marker>[3]</marker>
+<rawString>Edward Kelly and Philip Stone. Computer Recognition of English Word Senses. North-Holland, Amsterdam, 1975.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Claudia Leacock</author>
+<author>Shari Landes</author>
+<author>Martin Chodorow</author>
+</authors>
+<title>Comparison of sense resolution by statistical classifiers and human subjects</title>
+<institution>Cognitive Science Laboratory Report, Princeton University</institution>
+<note>in preparation</note>
+<contexts>
+<context position="17123" citStr="[4]">or performance on corpus-based statistical sense resolution methods, we decided to see how humans would perform on a sense resolution task using the same input that drives the statistical classifiers [4]. An experiment was designed to answer the following questions: 1. How do humans perform in a sense resolution task when given the same testing input as the statistical classifiers? 2. Are the context</context>
+</contexts>
+<marker>[4]</marker>
+<rawString>Claudia Leacock, Shari Landes, and Martin Chodorow. Comparison of sense resolution by statistical classifiers and human subjects. Cognitive Science Laboratory Report, Princeton University, in preparation.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Claudia Leacock</author>
+<author>Geoffrey Towell</author>
+<author>Ellen M Voorhees</author>
+</authors>
+<title>Corpus-based statistical sense resolution</title>
+<date>1993</date>
+<booktitle>In Proceedings of the ARPA Workshop on Human Language Technology</booktitle>
+<contexts>
+<context position="4342" citStr="[5]"> degree of polysemy affects performance, we ran three- and six-sense tasks. A full description of the three-sense task is reported in Voorhees, et. al. [11], and the six-sense task in Leacock, et. al [5]. These experiments are reviewed briefly below. We tested three corpus-based statistical sense resolution methods which attempt to infer the correct sense of a polysemous word by using knowledge about</context>
+</contexts>
+<marker>[5]</marker>
+<rawString>Claudia Leacock, Geoffrey Towell, and Ellen M. Voorhees. Corpus-based statistical sense resolution. In Proceedings of the ARPA Workshop on Human Language Technology, 1993.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>George Miller</author>
+</authors>
+<title>Special Issue, WordNet: An on-line lexical database</title>
+<date>1990</date>
+<journal>International Journal of Lexicography</journal>
+<volume>3</volume>
+<contexts>
+<context position="6578" citStr="[6]">Research Center; it consists of stories and articles from books and general circulation magazines. 2WordNet is a lexical database developed by George Miller and his colleagues at Princeton University [6]. 11 Typically, experiments have used a fixed number of words or characters on either side of the target word as the context. In these experiments, we used linguistic units — sentences — instead. Sinc</context>
+</contexts>
+<marker>[6]</marker>
+<rawString>George Miller. Special Issue, WordNet: An on-line lexical database. International Journal of Lexicography, 3(4), 1990.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>George A Miller</author>
+<author>Walter G Charles</author>
+</authors>
+<title>Contextual correlates of semantic similarity</title>
+<date>1991</date>
+<booktitle>Language and Cognitive Processes</booktitle>
+<volume>6</volume>
+<contexts>
+<context position="1252" citStr="[7]">erformance. 1 Contextual Representations The goal of automatic sense resolution is to acquire a contextual representation of word senses. A contextual representation, as defined by Miller and Charles [7], is a characterization of the linguistic contexts in which a word can be used. We look at two components of contextual representations that can be automatically extracted from textual corpora using s</context>
+</contexts>
+<marker>[7]</marker>
+<rawString>George A. Miller and Walter G. Charles. Contextual correlates of semantic similarity. Language and Cognitive Processes, 6(1), 1991.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Philip Resnik</author>
+</authors>
+<title>Semantic classes and syntactic ambiguity</title>
+<date>1993</date>
+<booktitle>In Proceedings of the ARPA Workshop on Human Language Technology</booktitle>
+<contexts>
+<context position="20899" citStr="[8]"> target. An obvious shortcoming of this approach is the amount of work involved. Recently there has been much interest in automatic and semi-automatic acquisition of local context (Hearst [2], Resnik [8], Yarowsky [13]). These systems are all plagued with the same problem, excellent precision but low recall. That is, if the local information that the methods learn is also present in a novel context, </context>
+<context position="26754" citStr="[8]">biguities, Resnik 6Yarowslcy uses the term collocation to denote constructs similar to what we have called templates. 18 investigated four different methods for combining three sources of information [8]. The &amp;quot;backing off&amp;quot; strategy, in which the three sources of information were tried in order from most reliable to least reliable until some match was found (no resolution was done if no method matched</context>
+</contexts>
+<marker>[8]</marker>
+<rawString>Philip Resnik. Semantic classes and syntactic ambiguity. In Proceedings of the ARPA Workshop on Human Language Technology, 1993.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D E Rumelhart</author>
+<author>G E Hinton</author>
+<author>R J Williams</author>
+</authors>
+<title>Learning internal representations by error propagation</title>
+<date>1986</date>
+<booktitle>Parallel Distributed Processing: Explorations in the Microstructure of Cognition, Volume 1: Foundations</booktitle>
+<pages>318--363</pages>
+<editor>In D. E. Rumelhart and J. L. McClelland, editors</editor>
+<publisher>MIT Press</publisher>
+<location>Cambridge</location>
+<contexts>
+<context position="4755" citStr="[9]">of word co-occurrences. The first technique, developed by Gale et. al. [1] at AT&amp;T Bell Laboratories, is based on Bayesian decision theory, the second is based on neural network with back propagation [9], and the third is based on content vectors as used in information retrieval [10]. The only information used by the three classifiers is co-occurrence of character strings in the contexts. They use no</context>
+</contexts>
+<marker>[9]</marker>
+<rawString>D. E. Rumelhart, G. E. Hinton, and R. J. Williams. Learning internal representations by error propagation. In D. E. Rumelhart and J. L. McClelland, editors, Parallel Distributed Processing: Explorations in the Microstructure of Cognition, Volume 1: Foundations, pages 318-363. MIT Press, Cambridge, 1986.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>G Salton</author>
+<author>A Wong</author>
+<author>C S Yang</author>
+</authors>
+<title>A vector space model for automatic indexing</title>
+<date>1975</date>
+<journal>Communications of the ACM</journal>
+<pages>18--11</pages>
+<contexts>
+<context position="4836" citStr="[10]">&amp;T Bell Laboratories, is based on Bayesian decision theory, the second is based on neural network with back propagation [9], and the third is based on content vectors as used in information retrieval [10]. The only information used by the three classifiers is co-occurrence of character strings in the contexts. They use no other cues, such as syntactic tags or word order, nor do they require any augmen</context>
+</contexts>
+<marker>[10]</marker>
+<rawString>G. Salton, A. Wong, and C.S. Yang. A vector space model for automatic indexing. Communications of the ACM, 18(11):613-620, 1975.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Ellen M Voorhees</author>
+<author>Claudia Leacock</author>
+<author>Geoffrey Towell</author>
+</authors>
+<title>Learning context to disambiguate word senses</title>
+<booktitle>In Proceedings of the 3rd Computational Learning Theory and Natural Learning Systems Conference-1992</booktitle>
+<publisher>MIT Press</publisher>
+<location>Cambridge</location>
+<note>to appear</note>
+<contexts>
+<context position="4295" citStr="[11]">t sense of line for new contexts. To see how the degree of polysemy affects performance, we ran three- and six-sense tasks. A full description of the three-sense task is reported in Voorhees, et. al. [11], and the six-sense task in Leacock, et. al [5]. These experiments are reviewed briefly below. We tested three corpus-based statistical sense resolution methods which attempt to infer the correct sens</context>
+</contexts>
+<marker>[11]</marker>
+<rawString>Ellen M. Voorhees, Claudia Leacock, and Geoffrey Towell. Learning context to disambiguate word senses. In Proceedings of the 3rd Computational Learning Theory and Natural Learning Systems Conference-1992, Cambridge, to appear. MIT Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Stephen Weiss</author>
+</authors>
+<title>Learning to disambiguate</title>
+<date>1973</date>
+<journal>Information Storage and Retrieval</journal>
+<volume>9</volume>
+<contexts>
+<context position="22489" citStr="[12]">g point for the construction of local contexts for polysemous words. We are also experimenting with template matching, suggested by Weiss as one approach to using local context to resolve word senses [12]. In template matching, specific word patterns recognized as being indicative of a particular sense (the templates) are used to select a sense when a template is contained in the novel context; otherw</context>
+</contexts>
+<marker>[12]</marker>
+<rawString>Stephen Weiss. Learning to disambiguate. Information Storage and Retrieval, 9:33— 41, 1973.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>David Yarowsky</author>
+</authors>
+<title>One sense per collocation</title>
+<date>1993</date>
+<journal>THIS PAGE INTENTIONALLY LEFT BLANK</journal>
+<booktitle>In Proceedings of the ARPA Workshop on Human Language Technology</booktitle>
+<contexts>
+<context position="20914" citStr="[13]">vious shortcoming of this approach is the amount of work involved. Recently there has been much interest in automatic and semi-automatic acquisition of local context (Hearst [2], Resnik [8], Yarowsky [13]). These systems are all plagued with the same problem, excellent precision but low recall. That is, if the local information that the methods learn is also present in a novel context, then that infor</context>
+<context position="26526" citStr="[13]">Yarowsky found collocations&apos; to be such powerful sense indicators that he suggests choosing a sense by matching on a set of collocations and choosing the most frequent sense if no collocation matches [13]. To resolve syntactic ambiguities, Resnik 6Yarowslcy uses the term collocation to denote constructs similar to what we have called templates. 18 investigated four different methods for combining thre</context>
+</contexts>
+<marker>[13]</marker>
+<rawString>David Yarowsky. One sense per collocation. In Proceedings of the ARPA Workshop on Human Language Technology, 1993. THIS PAGE INTENTIONALLY LEFT BLANK</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>
