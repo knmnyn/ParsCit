@@ -3,7 +3,7 @@ package ParsCit::Config;
 ## Global
 
 $algorithmName = "ParsCit";
-$algorithmVersion = "090625";
+$algorithmVersion = "100401";
 
 ## Repository Mappings
 

@@ -5,6 +5,8 @@ date
 if [ $# != "2" ] 
 then
   echo "Usage: ./run_compare_all.sh <outDir> <outCompareFile>"
+  echo "    outDir: is the output of this new run, and should be different from standard-output"
+  echo "    outCompareFile: contains the difference of output files in outDir with standard-output"
   exit
 else
   DIR=$1

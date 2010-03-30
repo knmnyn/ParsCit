@@ -6,6 +6,7 @@
 require 5.0;
 use strict;
 use Getopt::Long;
+use HTML::Entities;
 
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
@@ -20,11 +21,12 @@ sub License {
 sub Help {
   print STDERR "Process Omnipage XML output (concatenated results fromm all pages of a PDF file), and extract text lines together with other XML infos\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in xmlFile -out outFile [-tag tagFile -xmlFeature -markup -para -noEmpty -log -paraFeature]\n";
+  print STDERR "       $progname -in xmlFile -out outFile [-tag tagFile -xmlFeature -markup -para -noEmpty -log -paraFeature -decode]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-tag: print out tags available\n";
   print STDERR "\t-markup: add factor infos (bold, italic etc) per word using the format word|||(b|nb)|||(i|ni)\n";
+  print STDERR "\t-decode: decode HTML entities and then output, to avoid double entity encoding later\n";
   print STDERR "\t-empty: allow empty lines\n";
 }
 my $QUIET = 0;
@@ -38,12 +40,14 @@ my $isDebug = 0;
 my $isMarkup = 0;
 my $isParaDelimiter = 0;
 my $isParaFeature = 0;
+my $isDecode = 0;
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'tag=s' => \$tagFile,
 			    'xmlFeature' => \$isXmlFeature,
 			    'empty' => \$isAllowEmpty,
 			    'markup' => \$isMarkup,
+			    'decode' => \$isDecode,
 			    'para' => \$isParaDelimiter,
 			    'paraFeature' => \$isParaFeature,
 			    'debug' => \$isDebug,
@@ -306,6 +310,9 @@ sub processFile {
 	  print OF "# Para $paraLineId $paraLineCount\n$output";
 	  $paraLineCount = 0;
 	} else {
+	  if($isDecode){
+	    $output = decode_entities($output);
+	  }
 	  print OF $output;
 	}
 
@@ -423,6 +430,10 @@ sub processFile {
       print OF "# Para $paraLineId $paraLineCount\n$output";
       $paraLineCount = 0;
     } else {
+      if($isDecode){
+	$output = decode_entities($output);
+      }
+
       print OF $output;
     }
     $output = ""

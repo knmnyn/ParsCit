@@ -21,7 +21,9 @@ CONTENTS
 =======================================
 [1.1] To run for a single mode of citeExtract.pl
 Usage: ./run_compare_single.sh <outDir> <outCompareFile> <suffix>
-Suffix should be either _citations, _header, _section, _meta, or _all
+    outDir: is the output of this new run, and should be different from standard-output
+    outCompareFile: contains the difference of output files in outDir with standard-output
+    suffix: should be either _citations, _header, _section, _meta, or _all
 
 E.g.: run for "_citations" mode
 ./run_compare_single.sh newOutput compare.citations _citations
@@ -29,6 +31,8 @@ E.g.: run for "_citations" mode
 =======================================
 [1.2] To run for all modes of citeExtract.pl
 Usage: ./run_compare_all.sh <outDir> <outCompareFile>
+    outDir: is the output of this new run, and should be different from standard-output
+    outCompareFile: contains the difference of output files in outDir with standard-output
 
 E.g.: ./run_compare_all.sh newOutput compare
 

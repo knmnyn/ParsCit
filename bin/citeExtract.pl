@@ -40,8 +40,7 @@ my $PARSCIT = 1;
 my $PARSHED = 2;
 my $SECTLABEL = 4; # Thang v100401
 my $defaultMode = $PARSCIT;
-my $defaultInputType = "raw"; 
-my $outputVersion = "100326";
+my $outputVersion = "100401";
 ### END user customizable section
 
 ### Ctrl-C handler
@@ -104,6 +103,8 @@ my $isXmlInput = 0;
 if(defined $opt_i && $opt_i !~ /^(xml|raw)$/){
   print STDERR "Input type needs to be either \"raw\" or \"xml\"\n";
   Help(); exit (0);
+} elsif(defined $opt_i && $opt_i eq "xml"){
+  $isXmlInput = 1;
 }
 
 my $textFile;
@@ -134,15 +135,16 @@ if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
 
 if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
-  my $phXML = ParsHed::Controller::extractHeader($in, $phModel); 
+  my $phXML = ParsHed::Controller::extractHeader($textFile, $phModel); 
   $rXML .= removeTopLines($$phXML, 1) . "\n"; # remove first line <?xml/> 
 }
 
 if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
   use ParsCit::Controller;
-  my $pcXML = ParsCit::Controller::extractCitations($in);
+  my $pcXML = ParsCit::Controller::extractCitations($textFile, $isXmlInput);
   $rXML .= removeTopLines($$pcXML, 1) . "\n";   # remove first line <?xml/> 
 }
+
 
 $rXML .= "</algorithms>";
 
@@ -201,13 +203,13 @@ sub removeTopLines {
   
 # Thang v100401: generate section info
 sub sectLabel {
-  my ($in, $inputType) = @_;
+  my ($textFile, $isXmlInput) = @_;
 
   use SectLabel::Controller;
   use SectLabel::Config;
   my $isXmlOutput = 1;
   my $isDebug = 0;
-  my $isXmlInput = ($inputType eq "xml") ?  1 : 0;
+
   my $modelFile = $isXmlInput? $SectLabel::Config::modelXmlFile : $SectLabel::Config::modelFile;
   $modelFile = "$FindBin::Bin/../$modelFile";
 
@@ -220,22 +222,8 @@ sub sectLabel {
   my $configFile = $isXmlInput ? $SectLabel::Config::configXmlFile : $SectLabel::Config::configFile;
   $configFile = "$FindBin::Bin/../$configFile";
 
-  # generate XML features if xml input
-  if($isXmlInput){
-    my $xmlInFile = newTmpFile();
-    my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -in $in -out $xmlInFile -xmlFeature";
-#    print STDERR "$cmd\n";
-    system($cmd);
-    $in = $xmlInFile;
-  }
-
   # classify section
-  my $slXML = SectLabel::Controller::extractSection($in, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
-
-  # remove xml feature file if any
-  if($isXmlInput){
-    unlink($in); 
-  }
+  my $slXML = SectLabel::Controller::extractSection($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
 
   return $$slXML;
 }

@@ -5,7 +5,9 @@ date
 if [ $# != "3" ] 
 then
   echo "Usage: ./run_compare_single.sh <outDir> <outCompareFile> <suffix>"
-  echo "Suffix should be either _citations, _header, _section, _meta, or _all"
+  echo "    outDir: is the output of this new run, and should be different from standard-output"
+  echo "    outCompareFile: contains the difference of output files in outDir with standard-output"
+  echo "    suffix: should be either _citations, _header, _section, _meta, or _all"
   exit
 else
   DIR=$1
