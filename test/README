@@ -38,6 +38,8 @@ E.g.: ./run_compare_all.sh newOutput compare
 
 ==============================================================================
 [2] Known issues
+Seem to encounter internal problems of Perl when dealing with UTF8. For further investigation, please check file lib/ParsCit/Tr2crfpp.pm, look for call of lowercase method "lc"
+
 Executing: ../../bin/citeExtract.pl -m extract_citations -i xml omnipage/xml-concat/W06-0102.txt xml-output/W06-0102_parsCit.xml
 Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.
 Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.
