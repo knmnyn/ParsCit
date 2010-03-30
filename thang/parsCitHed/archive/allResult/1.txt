@@ -1,0 +1,2376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<algorithm name="SectLabel" version="090625" confidence="0.000000">
+<table confidence="0.530577285714286">
+Psychologically Targeted Persuasive Advertising and
+Product Information in E-Commerce
+Timo Saari
+M.I.N.D. Lab/CKIR, Helsinki School of
+Economics and Helsinki Institute for
+Information Technology1
++358 50 373 2234
+</table>
+<email confidence="0.405743">
+saari@hkkk.fi
+</email>
+<figure confidence="0.948047142857143">
+Marko Turpeinen
+Helsinki Institute for Information
+Technology1
++358 50 64 084
+marko.turpeinen@hiit.fi
+1
+Tammasaarenkatu 3, 00180, Helsinki, Finland
+Niklas Ravaja
+M.I.N.D. Lab/CKIR
+Helsinki School of Economics1
++358 9 431 38664
+ravaja@hkkk.fi
+Kari Kallinen
+M.I.N.D. Lab/CKIR
+Helsinki School of Economics1
++358 9 4313 8697
+kallinen@hkkk.fi
+Jari Laarni
+M.I.N.D. Lab/CKIR
+Helsinki School of Economics1
++358 9 4313 8381
+</figure>
+<email confidence="0.843724">
+laarni@hkkk.fi
+</email>
+<sectionHeader confidence="0.901294">
+ABSTRACT
+</sectionHeader>
+<bodyText confidence="0.9984207">
+In this paper, we describe a framework for a personalization
+system to systematically induce desired emotion and attention
+related states and promote information processing in viewers of
+online advertising and e-commerce product information.
+Psychological Customization entails personalization of the way of
+presenting information (user interface, visual layouts, modalities,
+structures) per user to create desired transient psychological
+effects and states, such as emotion, attention, involvement,
+presence, persuasion and learning. Conceptual foundations and
+empiric evidence for the approach are presented.
+</bodyText>
+<sectionHeader confidence="0.993392">
+Categories and Subject Descriptors
+</sectionHeader>
+<category confidence="0.869391">
+H.1.2 [User/machine systems]: Human factors, human
+</category>
+<bodyText confidence="0.498691">
+information processing, software psychology
+</bodyText>
+<sectionHeader confidence="0.990721">
+General Terms
+</sectionHeader>
+<keyword confidence="0.98351">
+Performance, Design, Human Factors, Theory
+</keyword>
+<sectionHeader confidence="0.991619">
+Keywords
+</sectionHeader>
+<keyword confidence="0.959153">
+E-commerce, advertising, personalization emotion, persuasion.
+</keyword>
+<sectionHeader confidence="0.999208">
+1. INTRODUCTION
+</sectionHeader>
+<bodyText confidence="0.999381853658536">
+Advertising and presentation of product information is done both
+to inform people about new products and services and to persuade
+them into buying them. Persuasion can be thought of as
+influencing peoples´ attitudes and behavior. Advertising done in a
+mass medium, such as television or magazines can be segmented
+to desired audiences. However, there is a possibility to
+personalize or mass customize advertising in the internet and for
+instance in mobile phones. Similarly, in the internet also product
+information of various items for sale can be personalized to
+desired users. These two areas are introduced here together as
+they represent interesting opportunities for personalization.
+Consequently, personalization may turn out to be an important
+driver for future commercial applications and services in a one-to-
+one world in which automatic and intelligent systems tailor the
+interactions of users, contexts and systems in real-time. This
+paper describes the foundations of information personalization
+systems that may facilitate desired psychological states in
+individual users of internet based advertising and product
+information presentation in e-commerce thereby creating
+psychologically targeted messages for users of such systems. It is
+preliminarily hypothesized that such personalization may be one
+way to more efficient persuasion.
+When perceiving information via media and communications
+technologies users have a feeling of presence. In presence, the
+mediated information becomes the focused object of perception,
+while the immediate, external context, including the technological
+device, fades into the background [8, 36, 37]. Empirical studies
+show that information experienced in presence has real
+psychological effects on perceivers, such as emotional responses
+based on the events described or cognitive processing and
+learning from the events [see 51]. It is likely that perceivers of
+advertisements and product information experience presence that
+may lead to various psychological effects. For instance, an
+attitude may be hold with greater confidence the stronger the
+presence experience.
+Personalization and customization entails the automatic or semi-
+automatic adaptation of information per user in an intelligent way
+with information technology [see 33, 68]. One may also vary the
+form of information (modality for instance) per user profile,
+which may systematically produce, amplify, or shade different
+psychological effects [56, 57, 58, 59, 60, 61, 62, 63].
+</bodyText>
+<copyright confidence="0.943712">
+Permission to make digital or hard copies of all or part of this work for
+personal or classroom use is granted without fee provided that copies are
+not made or distributed for profit or commercial advantage and that
+copies bear this notice and the full citation on the first page. To copy
+otherwise, or republish, to post on servers or to redistribute to lists,
+requires prior specific permission and/or a fee.
+</copyright>
+<keyword confidence="0.2054425">
+ICEC&apos;04, Sixth International Conference on Electronic Commerce
+Edited by: Marijn Janssen, Henk G. Sol, and René W. Wagenaar
+</keyword>
+<copyright confidence="0.89568">
+2004 ACM 1-58113-930-6/04/10…$5.00
+</copyright>
+<page confidence="0.944818">
+245245
+</page>
+<sectionHeader confidence="0.9293425">
+2. PSYCHOLOGICAL CUSTOMIZATION
+2.1 Mind-Based Technologies
+</sectionHeader>
+<bodyText confidence="0.997691511111111">
+Mediaand communication technologies as special cases of
+information technology may be considered as consisting of three
+layers [6]. At the bottom is a physical layer that includes the
+physical technological device and the connection channel that is
+used to transmit communication signals. In the middle is a code
+layer that consists of the protocols and software that make the
+physical layer run. At the top is a content layer that consists of
+multimodal information. The content layer includes both the
+substance and the form of multimedia content [7, 56]. Substance
+refers to the core message of the information. Form implies
+aesthetic and expressive ways of organizing the substance, such
+as using different modalities and structures of information [56].
+With the possibility of real-time customization and adaptation of
+information for different perceivers it is hypothesized that one
+may vary the form of information within some limits per the same
+substance of information. For instance, the same substance can be
+expressed in different modalities, or with different ways of
+interaction with the user and technology. This may produce a
+certain psychological effect in some perceivers; or shade or
+amplify a certain effect. In Figure 1 the interaction of media and
+communications technology and the user in context with certain
+types of tasks is seen as producing transient psychological effects,
+thereby creating various “archetypal technologies” that
+systematically facilitate desired user experiences [see 55, 56].
+Media and communication technology is divided into the
+physical, code and content layers. The user is seen as consisting
+of various different psychological profiles, such as individual
+differences related to cognitive style, personality, cognitive
+ability, previous knowledge (mental models related to task) and
+other differences, such as pre-existing mood. [49, 56, 58, 59]
+Mediaand communication technologies may be called Mind-
+Based if they simultaneously take into account the interaction of
+three different key components: i) the individual differences
+and/or user segment differences of perceptual processing and
+sense making ii) the elements and factors inherent in information
+and technology that may produce psychological effects (physical,
+code and content layers), and iii) the consequent transient
+psychological effects emerging based on perception and
+processing of information at the level of each individual. [see 63]
+This definition can be extended to include both context and at
+least short-term behavioral consequences. Regarding context, a
+Mind-Based system may alter its functionalities depending on
+type of task of the user, physical location, social situation or other
+ad-hoc situational factors that may have a psychological impact.
+Behavioral consequences of using a Mind-Based system may be
+thought of especially in the case of persuasion as facilitating
+desired instant behaviors such as impulse buying. Of course, if a
+Mind-Based system builds a positive image and schema of a
+product over longer periods of time reflected in product and brand
+awareness that may the influence user behaviors later on.
+As the task of capturing and predicting users´ psychological state
+in real time is highly complex, one possible realization for
+capturing users´ psychological state is to have the user linked to a
+sufficient number of measurement channels of various i)
+psychophysiological signals (EEG, EMG, GSR, cardiovascular
+activity, other), ii) eye-based measures (eye blinks, pupil dilation,
+eye movements) and iii) behavioral measures (response speed,
+response quality, voice pitch analysis etc.). An index based on
+these signals then would verify to the system whether a desired
+psychological effect has been realized.
+Fig. 1. Mind-Based Technologies as a framework for
+producing psychological effects. Adapted from [56].
+Another approach would be to conduct a large number of user
+studies on certain tasks and contexts with certain user groups,
+psychological profiles and content-form variations and measure
+various psychological effects as objectively as possible. Here,
+both subjective methods (questionnaires and interviews) and
+objective measures (psychophysiological measures or eye-based
+methods) may be used as well interviews [for a review on the use
+of psychophysiological methods in media research, see 46]. This
+would constitute a database of design-rules for automatic
+adaptations of information per user profile to create similar effects
+in highly similar situations with real applications. Naturally, a
+hybrid approach would combine both of these methods for
+capturing and facilitating the users´ likely psychological state.
+Capturing context and short-term user behavior is a challenge.
+Computational approach to context utilizes a mass of sensors that
+detect various signals in an environment. AI-based software then
+massively computes from the signal flow significant events either
+directly or with the help of some simplifying rules and algorithms.
+Capturing user behavior in context is easier if the user is using an
+internet browser to buy an item, for instance. In this case action,
+or behavior can be captured by the system as the user clicks his
+mouse to buy an item. If the user is wondering around in a
+supermarket with a mobile phone that presented a persuasive
+message to buy the item on aisle 7 it may be difficult to verify this
+other than cross-reference his checkout bill with the displayed
+adverts inside the store. However, it is beyond the scope of this
+paper to fully elaborate on the contextual and behavioral
+dimensions of Mind-Based Technologies.
+</bodyText>
+<subsectionHeader confidence="0.98188">
+2.2 Description of a Psychological
+Customization System
+</subsectionHeader>
+<bodyText confidence="0.97687925">
+Psychological Customization is one possible way of
+implementing of Mind-Based Technologies in system design. It
+can be applied to various areas of HCI, such as Augmentation
+Systems (augmented and context sensitive financial news),
+Notification Systems (alerts that mobilize a suitable amount of
+attention per task or context of use), Affective Computing
+(emotionally adapted games), Collaborative Filtering (group-
+focused information presentation), Persuasive Technology
+</bodyText>
+<figure confidence="0.976032928571429">
+Media and Communications
+Technology
+Substance
+Form
+modalities
+visual layout
+structure
+other
+Type of device
+Ways of interaction
+User interface
+Technologies influencing
+subjective experience
+-Emotion Technologies
+-Flow Technologies
+-Presence Technologies
+Technologies influencing
+subjective experience
+-Emotion Technologies
+-Flow Technologies
+-Presence Technologies
+Technologies influencing
+change of knowledge
+- Knowledge Technologies
+Technologies influencing
+change of knowledge
+- Knowledge Technologies
+Mind
+Psychological
+profiles
+cognitive style
+personality
+mental models
+other
+Results of
+processing
+Results of
+processing
+Physical
+Content
+Code
+Context and Task
+</figure>
+<page confidence="0.985126">
+246246
+</page>
+<bodyText confidence="0.988322014925373">
+(advertising for persuasion, e-commerce persuasion), Computer
+Mediated Social Interaction Systems (collaborative work, social
+content creation templates), Messaging Systems (emotionally
+adapted mobile multimedia messaging and email) and
+Contextually Sensitive Services (psychologically efficient
+adaptation of presentation of information sensitive to physical,
+social or situational context, such as available menus to control a
+physical space, available information related to a particular
+situation, such as social interaction or city navigation with a
+mobile device).
+It can be hypothesized that the selection and manipulation of
+substance of information takes place through the technologies of
+the various application areas of Psychological Customization.
+Underlying the application areas is a basic technology layer for
+customizing design. This implies that within some limits one may
+automatically vary the form of information per a certain category
+of substance of information. The design space for Psychological
+Customization is formed in the interaction of a particular
+application area and the possibilities of the technical
+implementation of automated design variation Initially,
+Psychological Customization includes modeling of individuals,
+groups, and communities to create psychological profiles and
+other profiles based on which customization may be conducted. In
+addition, a database of design rules is needed to define the desired
+cognitive and emotional effects for different types of profiles.
+Once these components are in place, content management
+technologies can be extended to cover variations of form and
+substance of information based on psychological profiles and
+design rules to create the desired psychological effects. [see 63]
+At the technically more concrete level, a Psychological
+Customization System is a new form of middleware between
+applications, services, content management systems and
+databases. It provides an interface for designing desired
+psychological effects and user experiences for individual users or
+user groups. The most popular framework for building customized
+Web-based applications is Java 2 Enterprise Edition. J2EE-based
+implementation of the Psychological Customization System for
+Web-based applications is depicted in Figure 2. The basic J2EE
+three-tiered architecture consisting of databases, application
+servers, and presentation servers has been extended with three
+middleware layers: content management layer, customer
+relationship management layer, and psychological customization
+layer. The profiles of the users and the communities are available
+in the profile repository. [see 69]
+The Content Management System is used to define and manage
+the content repositories. This typically is based on metadata
+descriptions of the content assets. The metadata of the content
+repositories is matched against the user and community profiles
+by the Customer Relationship Management (CRM) system. The
+CRM system includes tools for managing the logic behind
+content, application and service customization. Rules can be
+simple matching rules or more complex rule sets. A special case
+of a rule set are scenarios, which are rule sets involving sequences
+of the interactions on the Web site. The Customer Relationship
+Management layer also includes functionality for user and
+community modeling. This layer can also perform automated
+customer data analysis, such as user clustering. [see 69]
+The Psychological Customization System layer performs the
+optimization of the form of the content as selected by the
+Customer Relationship Management layer. This functionality can
+be considered similar to the device adaptation by using content
+transformation rules (for example XSL-T). In the case of the
+psychological customization, the transformation rules are
+produced based on the design rules for content presentation
+variation and the contents of the psychological profile of the user.
+After this optimization, the content is passed to the Web
+presentation layer.
+</bodyText>
+<figure confidence="0.996078318181818">
+Community
+Profiles
+Content
+Rules and
+Scenarios
+Application Server
+User
+User
+UserUser
+profile
+Community
+profile
+Content
+Management
+System
+Customer
+Relationship
+Management
+Web Presentation Layer
+Psychological
+Customization
+System
+</figure>
+<figureCaption confidence="0.99688">
+Figure 2. J2EE implementation of the Psychological
+</figureCaption>
+<bodyText confidence="0.982049961538461">
+Customization System [69]
+Even though a working prototype of Psychological Customization
+has not been built yet, several empirical studies support the
+feasibility of a user-experience driven system that matches the
+form of information to the psychologically relevant properties and
+other profile factors of individual users and user groups.
+For instance, there are individual differences in cognitive
+processes such as attention, working memory capacity, general
+intelligence, perceptual-motor skills and language abilities. These
+individual differences have a considerable effect on computer-
+based performance and may product sometimes quite large
+variance in the intensity or type of psychological effects, such as
+depth of learning, positive emotion, persuasion, presence, social
+presence and other types of psychological states and effects as
+well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61,
+62, 63, 70].
+There is considerable evidence in literature and in our own
+experimental research that varying the form of information, such
+as modality, layouts, background colors, text types, emotionality
+of the message, audio characteristics, presence of image motion
+and subliminality creates for instance emotional, cognitive and
+attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some
+of these effects are produced in interaction with individual
+differences, such as cognitive style, personality, age and gender
+[21, 46, 47], or pre-existing mood [49]. The role of hardware
+should not be neglected. A device with a large screen or a
+</bodyText>
+<page confidence="0.935968">
+247247
+</page>
+<bodyText confidence="0.7075305">
+portable device with smaller screen with user-changeable covers
+may also influence the emerging effects [e.g. 30].
+</bodyText>
+<tableCaption confidence="0.74316">
+Table 1. Key factors influencing psychological effects.
+Adapted from [56].
+</tableCaption>
+<figure confidence="0.97141172">
+Layer of
+technology
+Key factors
+Physical Hardware
+large or small vs. human scale
+mobile or immobile
+close or far from body (intimate-
+personal-social distance)
+Interaction
+degree of user vs. system
+control and proactivity through
+user interface
+Code
+Visual-functional aspects
+way of presenting controls in an
+interface visually and functionally
+Substance
+the essence of the event
+described
+type of substance
+(factual/imaginary; genre, other)
+narrative techniques used by
+authors
+Content
+Form
+</figure>
+<listItem confidence="0.9874586">
+1. Modalities
+text, video, audio, graphics,
+animation, etc.
+2. Visual layout
+ways of presenting various shapes,
+colours, font types, groupings and
+other relationships or expressive
+properties of visual representations
+ways of integrating modalities into
+the user interface
+3. Structure
+ways of presenting modalities,
+visual layout and other elements of
+form and their relationships over time
+linear and/or non-linear
+</listItem>
+<bodyText confidence="0.913799882352941">
+structure (sequential vs.
+parallel; narrative
+techniques,
+hypertextuality)
+This empiric evidence partly validates the possibility for
+Psychological Customization Systems at least with mobile
+devices and user interface prototypes used in our own research.
+Typical experiments we have conducted on the influence of form
+of information on psychological effects have included such
+manipulations as animation and movement (for orientation
+response), fonts of text, layout of text, background colors of text,
+user interface navigation element shapes (round vs. sharp), user
+interface layout directions, adding background music to reading
+text, use of subliminal affective priming in the user interface
+(emotionally loaded faces) and use of different modalities, for
+instance. Table 1 addresses the key factors that may influence
+psychological effects of processing mediated information.
+</bodyText>
+<sectionHeader confidence="0.981835">
+3. APPLICATION AREAS
+</sectionHeader>
+<subsectionHeader confidence="0.949509">
+3.1 Persuasion as a Psychological Effect
+</subsectionHeader>
+<bodyText confidence="0.998521431034483">
+The focus of this paper is on persuasion in advertising and
+product information presentation in e-commerce. The key
+application area to realize this with Psychological Customization
+is Persuasive Technology. It refers to human-computer interaction
+in which there is an underlying goal to non-coercively change the
+attitudes, motivation and/or behavior of the user [15, 16]. For
+instance, one may motivate users to quit smoking via motivating
+games.
+However, it is clear that how much people allocate resources to
+processing a particular persuasive message has to be taken into
+account. Further, it may be that there is not so much freedom to
+manipulate persuasive messages to produce effects and the effects
+themselves may be sometimes small. Despite this, empiric
+evidence in personalization, as discussed, suggests that
+statistically significant effects perhaps in the range of a few
+percentages to even tens of percents exist in the area of
+Psychological Customization, such as emotion, presence and
+efficiency of information processing. Hence, it can be at least
+preliminarily assumed that with persuasion similar level effects
+may be achievable also.
+Persuasion in human computer interaction has been researched
+from the point of view of seeing computers as tools (increasing
+capabilities of the user), as a medium (providing experiences) and
+as a social actor (creating a relationship) [15, 16]. For the
+purposes of this article, technology used in Psychological
+Customization for presentation of e-commerce product
+information and online advertising is seen mostly as a medium
+and partly as a social actor. How then to model and explain
+persuasion in more detail? Evidently no universal theory of what
+is the process of persuasion has been created yet [17].
+Candidates for explaining and modeling persuasion include i)
+learning theory (operant conditioning), ii) functional paradigm
+theory (similarity-attraction, pleasure seeking), iii) cognitive
+consistency theory (new information creates tension that needs to
+be relieved by adopting schemata), iv) congruity principle theory
+(interpretations of new information tend to be congruent with
+existing schemata), v) cognitive dissonance theory (certain
+actions and information produce tension that needs to be relieved
+by adopting mental structures or behavior), counter-attitudinal
+advocacy (belief-discrepant messages are persuasive), vi)
+inoculation theory (combining supportive and refutational
+information to achieve better persuasion) and vii) attribution
+theory (people make simple models to predict events of the world
+and behaviors of other people). [for a review, see 50].Some
+contemporary models of persuasion are i) social learning theory
+(environmental learning is the source of persuasion, such as social
+relationships), ii) the elaboration likelihood model (a specific and
+limited model on how a piece of information may influence the
+attitudes of the receiver) and iii) the communication/persuasion
+model (the source, the message content and form, the channel, the
+properties of the receiver and the immediacy of the
+communication influence persuasion). [2, 39, 42]
+The latter approach partly resembles the approach of Mind-Based
+Technologies as a way of finding out the values of relevant
+parameters in the layers of technology, the user and the transient
+results of processing, such as emotion and cognition. Other
+frameworks have also been presented. Meyers-Levy and
+Malaviya (1998) have presented a framework introducing several
+</bodyText>
+<page confidence="0.863426">
+248248
+</page>
+<bodyText confidence="0.999530708333334">
+strategies to process persuasive messages. Each strategy
+represents a different amount of cognitive resources employed
+during processing and may influence the level of persuasion. [38]
+The position of the authors is that while various theories and
+models for persuasion have been presented, within the context of
+personalized information presentation especially by varying both
+the substance of the message and the form of the message it is
+difficult to know what types of persuasive effects may emerge.
+This is partly due to the fact that especially the perception of form
+of information is most likely not a conscious process involving in-
+depth processing and cognitive appraisal but a rather automatic
+and non-cognitive process. Hence, if one influences the
+conditions of perceptual processing or some early-level cognitive
+processing of multimodal information, no clear models are
+available for explaining and predicting persuasion. Also, the exact
+influence of the amount of cognitive resources employed during
+early and later processing of a persuasive message remains
+unknown. It is most evident that case studies with particular
+application are needed to verify such effects.
+However, the authors present one possible way of seeing
+persuasion mostly via a link to transient emotional states and
+moods immediately before, during and after processing
+information presented through a Psychological Customization
+system. Yet, based on this approach the claim for more efficient
+persuasion in each application area, such as using Psychological
+Customization in advertising or e-commerce product information
+remains a complex task. Despite this difficulty, we now present a
+possible selection of relevant psychological principles related to
+perceptual processing and persuasion of advertising and e-
+commerce product information.
+First, a similarity-attraction process may arise between the
+presented information and the personality of the user that may
+lead to the information being processed more fully [i.e., trait-
+congruency hypothesis; see 54]. That is, users are likely to be
+attracted to information with content and formal characteristics
+manifesting a personality similar to their own [see e.g., 21].
+Second, the decrease of cognitive load in perceptual processing
+(i.e., high processing fluency) may induce a feeling of
+pleasantness that may label the information processed [for a
+review, see 65]. That is, fluent stimuli are associated with
+increased liking and positive affective responses as assessed by
+facial EMG, for example. Third, the creation of specific
+emotional reactions and moods varying in valence and arousal
+may label the information processed; here the effects may depend
+on the type of emotion. For instance, mood-congruency may
+provide more intensive engagement with the information
+presented when the mood induced by the information processed
+matches a pre-existing mood of the user [see 49]. Fourth, the
+emotional reactions may induce increased attention that may lead
+to more in-depth processing of information [e.g., 26]. Fifth, as
+suggested by excitation transfer theory, arousal induced by a
+processed stimuli influences the processing of subsequent stimuli
+[see 71, 72].
+Sixth, according to selective-exposure theory, individuals are
+motivated to make media choices in order to regulate their
+affective state [i.e., to maintain excitatory homeostasis; 73]. This
+may mean that people use also e-commerce product information
+to manage their moods, i.e. neutralize an unwanted mood, such as
+depression by engaging with exciting and positive product
+information. Users may also intensify an existing mood by
+selecting product information content that may add to the present
+mood. Seventh, affective priming research indicates that the
+valence of subliminally exposed primes (e.g., facial expressions)
+influences the affective ratings of subsequent targets [40, 43],
+including video messages presented on a small screen [48].
+Eighth, the perceived personal relevance of the particular
+information to the user exerts a robust influence on message
+processing and involvement [64]. This means that if the user is
+interested in the product described in the information presented,
+he will be quite involved when processing the information and
+hence his memory of the product will be enhanced. Consequently,
+it has been shown that information tailored to the needs and
+contexts of users often increases the potential for attitude and
+behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of
+research indicating that, when compared to video form, text has a
+greater capacity to trigger active or systematic message
+processing and is perceived as more involving [see 44]; this
+depends on the mood of the user, however [48]. Ninth, some
+emotional states and moods lead to secondary effects related to
+decision-making, judgment and behavior [4, 10, 20].
+It then seems that indeed a relevant area to focus on regarding
+persuasion with Psychological Customization is emotion (arousal
+and valence) immediately before, during and right after viewing
+product information and ads.
+One may focus on &amp;quot;primitive&amp;quot; emotional responses or emotions
+requiring more extensive cognitive appraisal and processing. Both
+of these types of emotions can be linked to various psychological
+consequences. Consequently, with emotionally loaded
+personalized information products one may focus on i) creating
+immediate and primitive emotional responses, ii) creating mood
+and iii) indirectly influencing secondary effects of emotion and
+mood, such as attention, memory, performance and judgment.
+Known psychological mechanisms used to create desired
+emotions or moods would be for instance similarity attraction
+(trait congruency), decrease of cognitive load (high processing
+fluency), mood congruency, excitation transfer, mood
+management and affective priming.
+These mechanisms are not without problems as they may have
+also opposite effects. For instance mood congruency may
+decrease attention and hence lessen the mobilization of cognitive
+resources in processing a persuasive message. Also, even though
+emotion is good candidate to look for a strong link to persuasion,
+the exact nature of this link is unclear.
+The key idea of using emotion as a hypothesized gateway to
+persuasion would be that more in-depth processing of information
+caused by arousal, valence, attention or involvement may lead to
+increased memory and perceived trustworthiness of information
+and also influence attitudes towards the product in question [e.g.
+65]. This in turn may lead to instant behavior, such as buying
+online, clicking through an ad or purchasing the item later in a
+department store based on long-term memory schemata. It should
+be noted that this view is based on empiric evidence of the
+psychological effects and their consequences in general, but they
+have not yet been validated with the use of e-commerce systems
+that personalize the form of information for persuasion.
+Hence, it would be most beneficial to capture the users´ emotional
+states or mood before the user starts to browse a particular piece
+of product information to be able to automatically realize various
+effects with adaptation of the form of information and track the
+changes of the online behavior of the user.
+</bodyText>
+<page confidence="0.855469">
+249249
+</page>
+<subsectionHeader confidence="0.998969">
+3.2 Persuasive Advertising
+</subsectionHeader>
+<bodyText confidence="0.998915052631579">
+The effectiveness of persuasion in advertisements in general is a
+complex issue. Subliminal priming, use of commonly known
+symbols, matching the advertisement to basic biological needs,
+such as food, shelter and sex, maximizing the credibility of the
+message, telling a compelling story, creating a desirable image of
+the perceiver with the product, placing TV-ads immediately after
+emotional (arousal) and attentional peaks of TV-programming
+and other approaches have been widely used. However, research
+into effectiveness of the form of presentation of advertising is not
+widely available in the scientific community. Moreover, little
+research has been done to understand the psychological
+effectiveness of online advertising. It should be also noted that
+advertising may be mostly a creative and design-driven high-
+speed field of industrial production in which various types of
+authors and artists collaborate like in film-production to make the
+advertisement rather than a field filled with scientists attempting
+to analyze the advertisements and their effects in great detail.
+In internet-based advertising the advertisement is typically
+presented on a web page as a banner. The banner is embedded in
+editorial content, such as the front page of a magazine or online
+newspaper. The banners are often placed according to the number
+and demography of the visitors on a particular section of editorial
+content. This means a best guess is taken as to what may be the
+most efficient and visible way of placing the banner based on
+previous knowledge of the behavior of desired user segments on
+the website.
+It seems that ads placed in context work best also online. This
+means that an ad that is related to the editorial content it is
+displayed with is more efficiently persuasive [3]. Another issue is
+that text-based ads online may work better than only graphics.
+This implies that most ads contain text based over a graphical
+surface. Overall, very simple principles (larger is better etc.) seem
+to guide people’s choices: e.g., larger ads are thought to be more
+appealing and affective.
+Further, in mobile contexts personalized advertising has been
+studied from the point of view of targeting users by emotions in
+addition to location and other relevant factors [19].
+However, the exact transient psychological influence of a
+particular piece of editorial content the online advertisement is
+displayed with remains unknown. It is possible that the editorial
+content repels the user and the advertisement is also labeled by
+this emotion. It is also possible that the editorial content induces a
+positive emotion and the advertisement gets an advantage based
+on this emotional state. The emotional tone of the advertisements
+and editorial content may also interact. For example, Kamins,
+Marks, and Skinner (1991) showed that commercials that are
+more consistent in emotional tone with the TV program perform
+better as measured by likeability and purchase intention ratings
+than those that are inconsistent in tone. Sometimes advertisements
+are changed in real-time per type of user as the system recognizes
+a user segment to which a certain banner has been targeted.
+However, what is lacking here is i) more detailed information of
+the type of user (such as what may be the most efficient way to
+influence him psychologically) and ii) what may be the
+psychological impact on the same user of the editorial content
+within which the banner is placed. [22]
+With a Psychological Customization system some of these gaps
+</bodyText>
+<tableCaption confidence="0.8243345">
+may be at least indirectly addressed as presented in Table 2.
+Table 2. Technological possibilities of persuasive advertising
+</tableCaption>
+<figure confidence="0.88332025">
+with Psychological Customization.
+Layer of
+Technology
+Adaptations of Advertising Banners
+1. Physical
+-multimedia
+PC or mobile
+device
+</figure>
+<bodyText confidence="0.8268035">
+-The advertisement substance and form may be
+matched to the technology used by lifestyle segments
+or other means of segmentation (hip ads for mobile
+phones etc.)
+-Mobile device: user changeable covers in colors and
+shapes that facilitate emotion
+</bodyText>
+<figure confidence="0.838414142857143">
+2. Code
+-Windows-
+type user
+interface
+-Mouse, pen,
+speech,
+-The user interface elements (background color,
+</figure>
+<bodyText confidence="0.974226571428571">
+forms, shapes, directions of navigation buttons etc.)
+may be varied in real-time per page per user in which
+a certain advertisement is located to create various
+emotions and ease of perceptual processing
+-audio channel may be used to create emotional
+effects (using audio input/output sound, varying
+pitch, tone, background music, audio effects etc.).
+</bodyText>
+<figure confidence="0.799312928571429">
+3. Content
+A. Substance
+- Fixed
+multimedia
+content
+-The editorial content may be matched with the ad
+-The content of the ad may be matched to the users
+based on various factors (interests, use history,
+demography, personality etc.)
+-Adding subliminal extra content to create emotion
+B. Form
+Modality
+-Multimedia
+-Modality may be matched to cognitive style or pre-
+</figure>
+<bodyText confidence="0.942593">
+existing mood of the enable easier processing.
+-Background music, audio effects or ringing tones
+may be used as a separate modality to facilitate
+desired emotions and moods.
+-Animated text can be used to create more efficient
+processing of text facilitate some emotional effects.
+</bodyText>
+<subsectionHeader confidence="0.869412">
+Visual
+</subsectionHeader>
+<bodyText confidence="0.957578884615385">
+presentation
+-Emotionally evaluated and positioned layout designs
+and templates for ads (colors, shapes and textures)
+may be utilized per type of user segment
+Structure
+-temporal,
+other
+-Offering emotionally evaluated and positioned
+narrative templates for creating emotionally engaging
+stories.
+Based on Table 2 a Psychological Customization system may
+operate by trying to optimize desired emotional effects that may
+be related to persuasion. The content provider, such as a media
+company, is able to set desired effects per type of user group and
+advertiser need by using a Psychological Customization system.
+Also, the placement of ads within desired editorial contexts may
+be utilized with a more developed system. When a user logs in
+with his profile already to the database of the content provider the
+system will start real-time personalization of form of information.
+As the user has logged in, the front page of the service may be
+altered for him according to advertiser needs. As the user
+navigates the system and consumes information the system
+follows ready-set effects to be realized to the user. It is clear that
+such a scenario is difficult, but if it is done in a simple enough
+manner it may be that the persuasive efficiency of online
+advertising may increase.
+</bodyText>
+<subsectionHeader confidence="0.9358245">
+3.3 Persuasive e-Commerce Product
+Information
+</subsectionHeader>
+<bodyText confidence="0.99713575">
+Personalized e-commerce has not been studied widely. It has been
+found that while personalization of the content substance
+displayed to each user may provide value, the users have a strong
+motivation to understand why the system is displaying a
+particular piece of information for them. Also, users´ wish to be in
+control of their user profiles. [see 1, 23]
+Hence, it seems that users are at least partly suspicious to the
+system adapting the substance of information to them. However,
+</bodyText>
+<page confidence="0.805483">
+250250
+</page>
+<bodyText confidence="0.995235638297872">
+in many cases it may be possible to adapt the form of information
+in personalized applications in conjunction to content substance
+variation or even without it. The adaptation of form of
+information to the user may even be a more transparent way of
+personalizing user-systeminteraction as the user most likely does
+not question the form of a particular substance. Hence, there are
+emerging possibilities for personalization and customization in
+this area.
+There are at least two different types of advanced e-commerce
+systems commonly used: i) systems using recommendation
+engines and other personalization features to present information
+in a media-like manner and ii) systems using persuasive interface
+agents, creating a relationship between the user and the agent. The
+focus here is mostly on presentation of product information, such
+as information (product properties, comparisons, pricing,
+functionalities and other information) of a new car, digital
+camera, computer or garment. Although, in the context of product
+presentation, users have usually been suggested to prefer a
+combination site including pictures and text [e.g. 35], individual
+differences in their preferences are likely to occur.
+The technological possibilities for persuasive presentation of
+product information are much like those presented for persuasive
+advertising seen in Table 2. In other words, different layers of
+technology may be adapted to the user of an e-commerce system
+to create various psychological effects when presenting product
+information.
+With personalized e-commerce systems for product information
+presentation one may facilitate positive emotional responses for
+instance by selecting the modalities of the information to be
+displayed according to the processing styles and alter visual
+layouts of the interface according to the personalities of the users.
+The ease of processing information and the similarity-attraction
+between visual layouts and personalities may create positive
+emotional states. As for brand awareness one may indirectly
+influence memory with the facilitation of positive emotion and
+increase memory-based performance on the task such as brand
+recognition and recall. By increasing attention one may increase
+the likelihood of the user of an e-commerce system to learn
+product information more efficiently. Positive emotion and mood
+also has the effect of making the user adapt a less risk-prone
+approach to making decisions [20]. This may be used to present
+product information in a familiar manner creating a safe
+atmosphere around the product to make it more desirable when
+the user is making purchasing decisions in a positive mood.
+Psychological Customization may be used for persuasion also
+with recommendation systems. The system knows the users´
+profile, such as type of personality, and the desired psychological
+effect is set to positive emotion in as many page-views of the
+recommendations as possible. The user starts using the system
+and finds an interesting product that the system recommends to
+her. The form of the recommendation information is tailored to
+the users´ profile and desired psychological effect in real-time
+when the page uploads to make the realization of positive emotion
+as probable as possible. The system may select the modality of
+recommendation from text to audio, or from audio to animation;
+the system may change the background colors of the page and
+modify the shape and color of the navigation buttons, for instance.
+In this case, the system will try to do everything possible to
+facilitate positive emotion but change the substance of the
+recommendation itself. Naturally in some cases depending on
+type of user and the type of recommendation, the available
+databases of recommendation information and the available
+means of Psychological Customization of form of
+recommendation information, the effect to be achieved is more or
+less likely to occur. However, even effects that provide some
+percentages or even tens of percents of more targeted positive
+emotion may make a difference in persuasion and hence attitudes
+towards the product and buying behavior. This is especially true if
+the recommendation system website has masses of users and
+hence even a slight increase in sales effectiveness may add up to
+significant amounts of revenue.
+Further, one may discuss interface agents for product information
+presentation. Often with interface agents an illusion of being in
+interaction with another human being is created in the user via
+using for example animated agents that seemingly exhibit various
+human properties, such as gender, personality, politeness, group
+membership and other factors. Here one possible application
+would be to add an agent to float atop of a page with product
+information to comment or recommend it, to aid the user in
+navigation and finding interesting information and to act as a
+feedback channel for the user, such as collecting the users´
+interest profile or other situational relevant information.
+It is known that both the substance of the interaction (what is
+being sold, or what information is presented, and what the agent
+says, or how it acts) and the form of interaction (how information
+is presented, what is the appearance and personality or other
+factors of the agent) influence for instance trust, persuasiveness,
+emotion and liking of the transaction [e.g. 51].
+What Psychological Customization may add here may be more
+systematic and efficient personalization of the way of presenting
+information together with customizing the selected appearance
+and other features of the agent in without actually changing the
+substance of the interaction, i.e. what the agent says or what
+product information is presented, for instance.
+</bodyText>
+<sectionHeader confidence="0.998468">
+4. CONCLUSION
+</sectionHeader>
+<bodyText confidence="0.99960728">
+The authors believe that no other comprehensive framework of
+varying form of information to systematically create emotional
+and cognitive effects has been presented, specifically in
+persuasive presentation of online advertising and product
+information in e-commerce sites. Differences to other approaches
+to influencing user experience in general are various. Usability
+studies traditionally address the question of how to make difficult
+technology easy to use. Usability is at least partly founded on the
+idea of optimal human-machine performance, i.e. how well a user
+can manipulate and control a machine. However, there is a
+growing conviction that, in order to ensure high user satisfaction
+usability is not sufficient [see 12, 24].
+The approach to system design presented in this paper may be
+beneficial to the fields of e-commerce and online advertising
+because: i) it provides a possibility to personalize the form of
+information that may be more transparent and acceptable to the
+users than adapting the substance of information, ii) it offers a
+way of more systematically accessing and controlling transient
+psychological effects of users of e-commerce and advertisement
+displaying systems, iii) it offers possibilities to more efficiently
+persuade and consequently influence behavior of individual users
+and iv) it is compatible with existing and new systems
+(recommendation engines, click-through-systems, other) as an
+add-on or a middleware layer in software with many potential
+application areas.
+</bodyText>
+<page confidence="0.645476">
+251251
+</page>
+<bodyText confidence="0.998999115384615">
+The potential drawbacks of the framework include the following:
+i) it may be costly to build the design-rule databases and actually
+working real-life systems for creating systematic psychological
+effects, ii) the rule-databases may have to be adapted also locally
+and culturally, iii) the method needed to create a rule-database is
+not easy to use and may be suspect to ecological validity (eye-
+tracking, behavioral and psychophysiological measures, self-
+report, field tests are needed to verify laboratory results etc.) and
+iv) if the system works efficiently it may raise privacy issues,
+such as the intimacy of a personal psychological user profile
+(personality, cognitive style, values, other). Also ethical issues
+related to mind-control or even propaganda may arise.
+It should be noted that to build a smoothly functioning
+Psychological Customization system one should do much more
+research and gain more evidence of the systematic relationships of
+user profiles, information forms and psychological effects.
+However, in our research for the past four years we have found
+many feasible rules for personalization for psychological effects.
+Regarding future research, content management technologies
+should be elaborated to provide for the platform that prototypes
+can be built on. Consequently, we aim to build, evaluate and
+field-test prototypes of Psychological Customization in various
+areas, specifically in mobile, urban ad-hoc contexts and situations
+related to mobile advertising and e-commerce, but also other
+areas such as mobile gaming communities, mobile content,
+mobile messaging, knowledge work systems and city navigation.
+</bodyText>
+<sectionHeader confidence="0.99687">
+5. REFERENCES
+</sectionHeader>
+<reference confidence="0.995199261648746">
+[1] Alpert, S. R.; Karat, J.; Karat, C-M; Brodie, C and Vergo,
+J.G. (2003) User Attitudes Regarding a User-Adaptive
+eCommerce Web Site. User Modeling and User-Adapted
+Interaction 13 (4): 373-396, November 2003.
+[2] Bandura (1977) Social learning theory. Englewood Cliffs,
+NJ: Prentice-Hall.
+[3] Baudisch, P. and Leopold, D. (2000) Attention, indifference,
+dislike, action: Web advertising involving users. Netnomics
+Volume 2 , Issue 1 2000, pp. 75-83.
+[4] Brave S. and Nass, C. (2003). Emotion in human-computer
+interaction. In Jacko, J.A. and Sears, A. (Ed.), The Human-
+Computer Interaction Handbook. Fundamentals, Evolving
+Technologies and Emerging Applications. (pp. 81-96).
+London : Lawrence Erlbaum Associates.
+[5] Beniger, J. R. (1987) Personalization of mass media and the
+growth of pseudo-community. Communication Research,
+14(3), pp 352-371.
+[6] Benkler, Y. (2000) From Consumers to Users: Shifting the
+Deeper Structures of Regulation. Federal Communications
+Law Journal 52, 561-63.
+[7] Billmann, D. (1998) Representations. In Bechtel, W. and
+Graham, G. (1998) A companion to cognitive science, 649-
+659. Blackwell publishers, Malden, MA.
+[8] Biocca, F. and Levy, M. (1995) Communication in the age of
+virtual reality. Lawrence Erlbaum, Hillsdale, NJ.
+[9] Cuperfain, R. and Clarke, T. K. (1985) A new perspective on
+subliminal perception. Journal of Advertising, 14, 36-41.
+[10] Clore, G. C. and Gasper, K. (2000). Feeling is believing.
+Some affective influences on belief. In Frijda, N.H.,
+Manstead, A. S. R. and Bem, S. (Ed.), Emotions and beliefs:
+How feelings influence thoughts (pp. 10-44).
+Paris/Cambridge: Editions de la Maison des Sciences de
+l´Homme and Cambridge University Press.
+[11] Dijkstra, J. J., Liebrand, W.B.G and Timminga, E. (1998)
+Persuasiveness of expert systems. Behavior and Information
+Technology, 17(3), pp 155-163.
+[12] Dillon, A. (2001). Beyond usability: process, outcome and
+affect in human computer interactions. Online:
+http://www.ischool.utexas.edu/~adillon/publications/beyond
+_usability.html.
+[13] Egan, D. E. (1988). Individual differences in human-
+computer interaction. In: M. Helander (Ed.), Handbook of
+Human-Computer Interaction, p. 543 – 568. Elsevier, New
+York.
+[14] Eysenck, M. (1994) Individual Differences: Normal and
+Abnormal. New Jersey: Erlbaum.
+[15] Fogg, B.J. (2003) Motivating, influencing and persuading
+users. In Jacko, J.A. and Sears, A. (Ed.), The Human-
+Computer Interaction Handbook. Fundamentals, Evolving
+Technologies and Emerging Applications. (pp. 81-96).
+London : Lawrence Erlbaum Associates.
+[16] Fogg, B. J. (2002) Persuasive technology. Using computers
+to change what we think and do. Morgan Kaufmann
+Publishers, New York.
+[17] Ford, M. E. (1992) Motivating humans: goals, emotions,
+personal agency beliefs. Newbury Park, Ca: Sage.
+[18] Hampson, S. E. &amp; Colman, A. M. (Eds., 1995) Individual
+differences and personality. London: Longman.
+[19] Hristova, N. and O&apos;Hare, G. M. P. (2004) Ad-me: Wireless
+Advertising Adapted to the User Location, Device and
+Emotions. Proceedings of the Proceedings of the 37th
+Annual Hawaii International Conference on System
+Sciences (HICSS&apos;04) - Track 9 - Volume 9
+[20] Isen, A. M. (2000). Positive affect and decision making. In
+Lewis, M. and Haviland-Jones, J. M. (Ed.), Handbook of
+emotions (2nd ed.) (pp. 417-435). New York: Guilford Press.
+[21] Kallinen, K., &amp; Ravaja, N. (in press). Emotion-related
+effects of speech rate and rising vs. falling background music
+melody during audio news: The moderating influence of
+personality. Personality and Individual Differences.
+[22] Kamins, M.A., Marks, L.J., &amp; Skinner, D. (1991). Television
+commercial evaluation in the context of program induced
+mood: Congruency versus consistency effects. Journal of
+Advertising, 20, 1-14.
+[23] Karat, M-C., Blom, J. and Karat, J. (in press) Designing
+Personalized User Experiences in eCommerce. Dordrecht:
+Kluwer.
+[24] Karat, J. (2003) Beyond task completion: Evaluation of
+affective components of use. In Jacko, J.A. and Sears, A.
+(Ed.), The Human-Computer Interaction Handbook.
+Fundamentals, Evolving Technologies and Emerging
+Applications. (pp. 81-96). London : Lawrence Erlbaum
+Associates.
+[25] Kihlström, J. F., Barnhardt, T. M. and Tataryn, D. J. (1992)
+Implicit perception. In Bornstein, R. F. and Pittmann, T. S.
+252252
+(eds.) Perception without awareness. Cognitive, clinical and
+social perspectives, 17-54. Guilford, New York.
+[26] Krohne, H.W., Pieper, M., Knoll, N., &amp; Breimer, N. (2002).
+The cognitive regulation of emotions: The role of success
+versus failure experience and coping dispositions. Cognition
+and Emotion, 16, 217-243.
+[27] Krosnick, J. A., Betz, A. L., Jussim, J. L. and Lynn, A. R.
+(1992) Subliminal conditioning of attitudes. Personality and
+Social Psychology Bulletin, 18, 152-162.
+[28] Laarni, J. (2003). Effects of color, font type and font style on
+user preferences. In C. Stephanidis (Ed.) Adjunct
+Proceedings of HCI International 2003. (Pp. 31-32). Crete
+University Press, Heraklion.
+[29] Laarni, J. (2002). Searching for optimal methods of
+presenting dynamic text on different types of screens. In:
+O.W. Bertelsen, S. Bödker &amp; K. Kuutti (Eds.), Tradition and
+Transcendence. Proceedings of The Second Nordic
+Conference on Human-Computer Interaction, October 19-23,
+2002, Arhus, Denmark (Pp. 217 – 220).
+[30] Laarni, J. &amp; Kojo, I.(2001). Reading financial news from
+PDA and laptop displays. In: M. J. Smith &amp; G. Salvendy
+(Eds.) Systems, Social and Internationalization Design
+Aspects of Human-Computer Interaction. Vol. 2 of
+Proceedings of HCI International 2001. Lawrence Erlbaum,
+Hillsdale, NJ. (Pp. 109 – 113.)
+[31] Laarni, J., Kojo, I. &amp; Kärkkäinen, L. (2002). Reading and
+searching information on small display screens. In: D. de
+Waard, K. Brookhuis, J. Moraal, &amp; A. Toffetti (Eds.),
+Human Factors in Transportation, Communication, Health,
+and the Workplace. (Pp. 505 – 516). Shake, Maastricht. (On
+the occasion of the Human Factors and Ergonomics Society
+Europe Chapter Annual Meeting in Turin, Italy, November
+2001).
+[32] Lang, A. (1990) Involuntary attention and physiological
+arousal evoked by structural features and mild emotion in
+TV commercials. Communication Research, 17 (3), 275-299.
+[33] Lang, A., Dhillon, P. and Dong, Q. (1995) Arousal, emotion
+and memory for television messages. Journal of
+Broadcasting and Electronic Media, 38, 1-15.
+[34] Lang, A., Newhagen, J. and Reeves. B. (1996) Negative
+video as structure: Emotion, attention, capacity and memory.
+Journal of Broadcasting and Electronic Media, 40, 460-477.
+[35] Lightner, N.J., &amp; Eastman, C. (2002). User preference for
+product information in remote purchase environments.
+Journal of Electronic Commerce Research [Online], 3,
+Available from http://www.csulb.edu/web/journals/
+jecr/issues/20023/paper6.pdf.
+[36] Lombard, M. and Ditton, T. (2000) Measuring presence: A
+literature-based approach to the development of a
+standardized paper-and-pencil instrument. Project abstract
+submitted to Presence 2000: The third international
+workshop on presence.
+[37] Lombard, M., Reich, R., Grabe, M. E., Bracken, C. and
+Ditton, T. (2000) Presence and television: The role of screen
+size. Human Communication Research, 26(1), 75-98.
+[38] Meyers-Levy, J. &amp; Malaviya, P. (1998). Consumers’
+processing of persuasive advertisements. An integrative
+framework of persuasion theories. Journal of Marketing 63,
+45–60.
+[39] McGuire, W. J. (1989) Theoretical foundations of
+campaigns. In R.E. Rice and C.K. Atkin (eds.) Public
+communication campaigns (2nd
+ed, pp 43-65). Newbury
+Park, Ca: Sage.
+[40] Monahan, J.L. (1998). I don&apos;t know it but I like you: The
+influence of nonconscious affect on person perception.
+Human Communication Research, 24, 480-500.
+[41] Nowak, G. J., Shamp, S., Hollander, B., Cameron, G. T.,
+Schumann, D. W. and Thorson, E. (1999) Interactive media:
+A means for more meaningful advertising? Advertising and
+consumer psychology. Mahwah, NJ: Lawrence Erlbaum.
+[42] Petty, R.E., &amp; Cacioppo, J.T. (1986). Communication and
+persuasion: Central and peripheral routes to attitude change.
+New York: Springer-Verlag.
+[43] Murphy, S.T., Monahan, J.L., &amp; Zajonc, R.B. (1995).
+Additivity of nonconscious affect: Combined effects of
+priming and exposure. Journal of Personality and Social
+Psychology, 69, 589-602.
+[44] Pfau, M., Holbert, R.L., Zubric, S.J., Pasha, N.H., &amp; Lin,
+W.-K. (2000). Role and influence of communication
+modality in the process of resistance to persuasion. Media
+Psychology, 2, 1-33.
+[45] Ravaja, N. (2004). Effects of a small talking facial image on
+autonomic activity: The moderating influence of
+dispositional BIS and BAS sensitivities and emotions.
+Biological Psychology, 65, 163-183.
+[46] Ravaja, N. (in press). Contributions of psychophysiology to
+media research: Review and recommendations. Media
+Psychology.
+[47] Ravaja, N., &amp; Kallinen, K. (in press). Emotional effects of
+startling background music during reading news reports: The
+moderating influence of dispositional BIS and BAS
+sensitivities. Scandinavian Journal of Psychology.
+[48] Ravaja, N., Kallinen, K., Saari, T., &amp; Keltikangas-Järvinen,
+L. (in press). Suboptimal exposure to facial expressions
+when viewing video messages from a small screen: Effects
+on emotion, attention, and memory. Journal of Experimental
+Psychology: Applied.
+[49] Ravaja, N., Saari, T., Kallinen, K., &amp; Laarni, J. (2004). The
+Role of Mood in the Processing of Media Messages from a
+Small Screen: Effects on Subjective and Physiological
+Responses. Manuscript submitted for publication.
+[50] Reardon, K. R. (1991) Persuasion in practice. Newbury Park,
+Ca: Sage.
+[51] Reeves, B. and Nass, C. (1996) The media equation. How
+people treat computers, television and new media like real
+people and places. Cambridge University Press, CSLI,
+Stanford.
+[52] Riding, R. J. and Rayner, S. (1998) Cognitive styles and
+learning strategies. Understanding style differences in
+learning and behavior. David Fulton Publishers, London.
+253253
+[53] Riecken, D. (2000) Personalized views on personalization.
+Communications of the ACM, V. 43, 8, 27-28.
+[54] Rusting, C.L. (1998). Personality, mood, and cognitive
+processing of emotional information: Three conceptual
+frameworks. Psychological Bulletin, 124, 165-196.
+[55] Saari, T. (1998) Knowledge creation and the production of
+individual autonomy. How news influences subjective
+reality. Reports from the department of teacher education in
+Tampere university. A15/1998.
+[56] Saari, T. (2001) Mind-Based Media and Communications
+Technologies. How the Form of Information Influences Felt
+Meaning. Acta Universitatis Tamperensis 834. Tampere
+University Press, Tampere 2001.
+[57] Saari, T. (2002) Designing Mind-Based Media and
+Communications Technologies. Proceedings of Presence
+2002 Conference, Porto, Portugal.
+[58] Saari, T. (2003a) Designing for Psychological Effects.
+Towards Mind-Based Media and Communications
+Technologies. In Harris, D., Duffy, V., Smith, M. and
+Stephanidis, C. (eds.) Human-Centred Computing:
+Cognitive, Social and Ergonomic Aspects. Volume 3 of the
+Proceedings of HCI International 2003, pp. 557-561.
+[59] Saari, T. (2003b) Mind-Based Media and Communications
+Technologies. A Framework for producing personalized
+psychological effects. Proceedings of Human Factors and
+Ergonomics 2003 -conference. 13.-17.10.2003 Denver,
+Colorado.
+[60] Saari, T. (in press, a) Using Mind-Based Technologies to
+facilitate Positive Emotion and Mood with Media Content.
+Accepted to proceedings of to Positive Emotion, 2nd
+European Conference. Italy, July 2004.
+[61] Saari, T. (in press, b) Facilitating Learning from Online
+News with Mind-Based Technologies. Accepted to
+proceedings of EDMedia 2004, Lugano, Switzerland.
+[62] Saari, T. and Turpeinen, M. (in press, a) Towards
+Psychological Customization of Information for Individuals
+and Social Groups. In Karat, J., Blom, J. and Karat. M.-C.
+(eds.) Personalization of User Experiences for eCommerce,
+Kluwer.
+[63] Saari, T. and Turpeinen, M. (in press, b) Psychological
+customization of information. Applications for personalizing
+the form of news. Accepted to proceedings of ICA 2004, 27.-
+31.5. 2004, New Orleans, USA.
+[64] Schneider, S.L., &amp; Laurion, S.K. (1993). Do we know what
+we&apos;ve learned from listening to the news? Memory and
+Cognition, 21, 198-209.
+[65] Schwarz, N. (in press). Meta-cognitive experiences in
+consumer judgment and decision making. Journal of
+Consumer Psychology.
+[66] Stretcher, V. J., Kreutzer, M., Den Boer, D.-J., Kobrin, S.,
+Hospers, H. J., and Skinner, C. S. (1994) the effects of
+computer-tailored smoking cessation messages in family
+practice settings. Journal of Family Practice, 39(3), 262-270.
+[67] Stretcher, V. J. (1999) Computer tailored smoking cessation
+materials: A review and discussion. Special issue: Computer
+tailored education. Patient Education &amp; Counceling, 36(2),
+107-117.
+[68] Turpeinen, M. (2000) Customizing news content for
+individuals and communities. Acta Polytechnica
+Scandinavica. Mathematics and computing series no. 103.
+Helsinki University of Technology, Espoo.
+[69] Turpeinen, M. and Saari, T. (2004) System Architechture for
+Psychological Customization of Information. Proceedings of
+HICSS-37conference, 5.-8.1. 2004, Hawaii.
+[70] Vecchi, T., Phillips, L. H. &amp; Cornoldi, C. (2001). Individual
+differences in visuo-spatial working memory. In: M. Denis,
+R. H. Logie, C. Cornoldi, M. de Vega, &amp; J. Engelkamp
+(Eds.), Imagery, language, and visuo-spatial thinking.
+Psychology Press, Hove.
+[71] Zillmann, D. (1971). Excitation transfer in communication-
+mediated aggressive behavior. Journal of Experimental
+Social Psychology, 7, 419-434.
+[72] Zillmann, D. (1978). Attribution and misattribution of
+excitatory reactions. In J.H. Harvey, W.J. Ickes, &amp; R.F. Kidd
+(Eds.), New directions in attribution research (Vol. 2, pp.
+335-368). Hillsdale, NJ: Lawrence Erlbaum Associates.
+[73] Zillmann, D., &amp; Bryant, J. (1985). Affect, mood, and
+emotion as determinants of selective exposure. In D.
+Zillmann &amp; J. Bryant (Eds.), Selective exposure to
+communication (pp. 157-190). Hillsdale, NJ: Lawrence
+Erlbaum.
+</reference>
+<page confidence="0.946462">
+254254
+</page>
+</algorithm>
+<algorithm name="ParsCit" version="090625">
+<citationList>
+<citation valid="true">
+<authors>
+<author>S R Alpert</author>
+<author>J Karat</author>
+<author>C-M Karat</author>
+<author>C Brodie</author>
+<author>J G Vergo</author>
+</authors>
+<title>User Attitudes Regarding a User-Adaptive eCommerce Web Site. User Modeling and User-Adapted</title>
+<date>2003</date>
+<journal>Interaction</journal>
+<volume>13</volume>
+<pages>373--396</pages>
+<marker>[1]</marker>
+<rawString>Alpert, S. R.; Karat, J.; Karat, C-M; Brodie, C and Vergo, J.G. (2003) User Attitudes Regarding a User-Adaptive eCommerce Web Site. User Modeling and User-Adapted Interaction 13 (4): 373-396, November 2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Bandura</author>
+</authors>
+<title>Social learning theory</title>
+<date>1977</date>
+<publisher>Prentice-Hall</publisher>
+<location>Englewood Cliffs, NJ</location>
+<contexts>
+<context position="22595" citStr="[2, 39, 42]">eiver) and iii) the communication/persuasion model (the source, the message content and form, the channel, the properties of the receiver and the immediacy of the communication influence persuasion). [2, 39, 42] The latter approach partly resembles the approach of Mind-Based Technologies as a way of finding out the values of relevant parameters in the layers of technology, the user and the transient results </context>
+</contexts>
+<marker>[2]</marker>
+<rawString>Bandura (1977) Social learning theory. Englewood Cliffs, NJ: Prentice-Hall.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Baudisch</author>
+<author>D Leopold</author>
+</authors>
+<title>Attention, indifference, dislike, action: Web advertising involving users</title>
+<date>2000</date>
+<journal>Netnomics</journal>
+<volume>2</volume>
+<pages>75--83</pages>
+<contexts>
+<context position="32075" citStr="[3]"> segments on the website. It seems that ads placed in context work best also online. This means that an ad that is related to the editorial content it is displayed with is more efficiently persuasive [3]. Another issue is that text-based ads online may work better than only graphics. This implies that most ads contain text based over a graphical surface. Overall, very simple principles (larger is bet</context>
+</contexts>
+<marker>[3]</marker>
+<rawString>Baudisch, P. and Leopold, D. (2000) Attention, indifference, dislike, action: Web advertising involving users. Netnomics Volume 2 , Issue 1 2000, pp. 75-83.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Brave</author>
+<author>C Nass</author>
+</authors>
+<title>Emotion in human-computer interaction. In</title>
+<date>2003</date>
+<pages>81--96</pages>
+<contexts>
+<context position="27855" citStr="[4, 10, 20]">ived as more involving [see 44]; this depends on the mood of the user, however [48]. Ninth, some emotional states and moods lead to secondary effects related to decision-making, judgment and behavior [4, 10, 20]. It then seems that indeed a relevant area to focus on regarding persuasion with Psychological Customization is emotion (arousal and valence) immediately before, during and right after viewing produc</context>
+</contexts>
+<marker>[4]</marker>
+<rawString>Brave S. and Nass, C. (2003). Emotion in human-computer interaction. In Jacko, J.A. and Sears, A. (Ed.), The HumanComputer Interaction Handbook. Fundamentals, Evolving Technologies and Emerging Applications. (pp. 81-96). London : Lawrence Erlbaum Associates.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J R Beniger</author>
+</authors>
+<title>Personalization of mass media and the growth of pseudo-community</title>
+<date>1987</date>
+<journal>Communication Research</journal>
+<volume>14</volume>
+<pages>352--371</pages>
+<contexts>
+<context position="27463" citStr="[5, 11, 41, 66, 67]">his memory of the product will be enhanced. Consequently, it has been shown that information tailored to the needs and contexts of users often increases the potential for attitude and behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of research indicating that, when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involv</context>
+</contexts>
+<marker>[5]</marker>
+<rawString>Beniger, J. R. (1987) Personalization of mass media and the growth of pseudo-community. Communication Research, 14(3), pp 352-371.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Y Benkler</author>
+</authors>
+<title>From Consumers to Users: Shifting the Deeper Structures of Regulation</title>
+<date>2000</date>
+<journal>Federal Communications Law Journal</journal>
+<volume>52</volume>
+<pages>561--63</pages>
+<contexts>
+<context position="4820" citStr="[6]">5.00 245245 2. PSYCHOLOGICAL CUSTOMIZATION 2.1 Mind-Based Technologies Media- and communication technologies as special cases of information technology may be considered as consisting of three layers [6]. At the bottom is a physical layer that includes the physical technological device and the connection channel that is used to transmit communication signals. In the middle is a code layer that consis</context>
+</contexts>
+<marker>[6]</marker>
+<rawString>Benkler, Y. (2000) From Consumers to Users: Shifting the Deeper Structures of Regulation. Federal Communications Law Journal 52, 561-63.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Billmann</author>
+</authors>
+<title>Representations. In</title>
+<date>1998</date>
+<location>Malden, MA</location>
+<contexts>
+<context position="5246" citStr="[7, 56]"> and software that make the physical layer run. At the top is a content layer that consists of multimodal information. The content layer includes both the substance and the form of multimedia content [7, 56]. Substance refers to the core message of the information. Form implies aesthetic and expressive ways of organizing the substance, such as using different modalities and structures of information [56]</context>
+</contexts>
+<marker>[7]</marker>
+<rawString>Billmann, D. (1998) Representations. In Bechtel, W. and Graham, G. (1998) A companion to cognitive science, 649-659. Blackwell publishers, Malden, MA.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>F Biocca</author>
+<author>M Levy</author>
+</authors>
+<title>Communication in the age of virtual reality. Lawrence Erlbaum</title>
+<date>1995</date>
+<location>Hillsdale, NJ</location>
+<contexts>
+<context position="3196" citStr="[8, 36, 37]">eling of presence. In presence, the mediated information becomes the focused object of perception, while the immediate, external context, including the technological device, fades into the background [8, 36, 37]. Empirical studies show that information experienced in presence has real psychological effects on perceivers, such as emotional responses based on the events described or cognitive processing and le</context>
+</contexts>
+<marker>[8]</marker>
+<rawString>Biocca, F. and Levy, M. (1995) Communication in the age of virtual reality. Lawrence Erlbaum, Hillsdale, NJ.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Cuperfain</author>
+<author>T K Clarke</author>
+</authors>
+<title>A new perspective on subliminal perception</title>
+<date>1985</date>
+<journal>Journal of Advertising</journal>
+<volume>14</volume>
+<pages>36--41</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[9]</marker>
+<rawString>Cuperfain, R. and Clarke, T. K. (1985) A new perspective on subliminal perception. Journal of Advertising, 14, 36-41.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>G C Clore</author>
+<author>K Gasper</author>
+</authors>
+<title>Feeling is believing. Some affective influences on belief</title>
+<date>2000</date>
+<booktitle>In Frijda, N.H</booktitle>
+<publisher>University Press</publisher>
+<contexts>
+<context position="27855" citStr="[4, 10, 20]">ived as more involving [see 44]; this depends on the mood of the user, however [48]. Ninth, some emotional states and moods lead to secondary effects related to decision-making, judgment and behavior [4, 10, 20]. It then seems that indeed a relevant area to focus on regarding persuasion with Psychological Customization is emotion (arousal and valence) immediately before, during and right after viewing produc</context>
+</contexts>
+<marker>[10]</marker>
+<rawString>Clore, G. C. and Gasper, K. (2000). Feeling is believing. Some affective influences on belief. In Frijda, N.H., Manstead, A. S. R. and Bem, S. (Ed.), Emotions and beliefs: How feelings influence thoughts (pp. 10-44). Paris/Cambridge: Editions de la Maison des Sciences de l´Homme and Cambridge University Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J J Dijkstra</author>
+<author>W B G Liebrand</author>
+<author>E Timminga</author>
+</authors>
+<title>Persuasiveness of expert systems</title>
+<date>1998</date>
+<journal>Behavior and Information Technology</journal>
+<volume>17</volume>
+<pages>155--163</pages>
+<contexts>
+<context position="27463" citStr="[5, 11, 41, 66, 67]">his memory of the product will be enhanced. Consequently, it has been shown that information tailored to the needs and contexts of users often increases the potential for attitude and behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of research indicating that, when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involv</context>
+</contexts>
+<marker>[11]</marker>
+<rawString>Dijkstra, J. J., Liebrand, W.B.G and Timminga, E. (1998) Persuasiveness of expert systems. Behavior and Information Technology, 17(3), pp 155-163.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Dillon</author>
+</authors>
+<title>Beyond usability: process, outcome and affect in human computer interactions. Online: http://www.ischool.utexas.edu/~adillon/publications/beyond _usability.html</title>
+<date>2001</date>
+<marker>[12]</marker>
+<rawString>Dillon, A. (2001). Beyond usability: process, outcome and affect in human computer interactions. Online: http://www.ischool.utexas.edu/~adillon/publications/beyond _usability.html.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D E Egan</author>
+</authors>
+<title>Individual differences in humancomputer interaction. In</title>
+<date>1988</date>
+<booktitle>Handbook of Human-Computer Interaction</booktitle>
+<pages>543--568</pages>
+<editor>M. Helander (Ed</editor>
+<publisher>Elsevier</publisher>
+<location>New York</location>
+<contexts>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[13]</marker>
+<rawString>Egan, D. E. (1988). Individual differences in humancomputer interaction. In: M. Helander (Ed.), Handbook of Human-Computer Interaction, p. 543 – 568. Elsevier, New York.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Eysenck</author>
+</authors>
+<title>Individual Differences: Normal and Abnormal</title>
+<date>1994</date>
+<publisher>Erlbaum</publisher>
+<location>New Jersey</location>
+<contexts>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[14]</marker>
+<rawString>Eysenck, M. (1994) Individual Differences: Normal and Abnormal. New Jersey: Erlbaum.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B J Fogg</author>
+</authors>
+<title>Motivating, influencing and persuading users. In</title>
+<date>2003</date>
+<pages>81--96</pages>
+<contexts>
+<context position="19830" citStr="[15, 16]">cal Customization is Persuasive Technology. It refers to human-computer interaction in which there is an underlying goal to non-coercively change the attitudes, motivation and/or behavior of the user [15, 16]. For instance, one may motivate users to quit smoking via motivating games. However, it is clear that how much people allocate resources to processing a particular persuasive message has to be taken </context>
+<context position="20858" citStr="[15, 16]">tion has been researched from the point of view of seeing computers as tools (increasing capabilities of the user), as a medium (providing experiences) and as a social actor (creating a relationship) [15, 16]. For the purposes of this article, technology used in Psychological Customization for presentation of e-commerce product information and online advertising is seen mostly as a medium and partly as a </context>
+</contexts>
+<marker>[15]</marker>
+<rawString>Fogg, B.J. (2003) Motivating, influencing and persuading users. In Jacko, J.A. and Sears, A. (Ed.), The HumanComputer Interaction Handbook. Fundamentals, Evolving Technologies and Emerging Applications. (pp. 81-96). London : Lawrence Erlbaum Associates.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B J Fogg</author>
+</authors>
+<title>Persuasive technology. Using computers to change what we think and do</title>
+<date>2002</date>
+<publisher>Morgan Kaufmann Publishers</publisher>
+<location>New York</location>
+<contexts>
+<context position="19830" citStr="[15, 16]">cal Customization is Persuasive Technology. It refers to human-computer interaction in which there is an underlying goal to non-coercively change the attitudes, motivation and/or behavior of the user [15, 16]. For instance, one may motivate users to quit smoking via motivating games. However, it is clear that how much people allocate resources to processing a particular persuasive message has to be taken </context>
+<context position="20858" citStr="[15, 16]">tion has been researched from the point of view of seeing computers as tools (increasing capabilities of the user), as a medium (providing experiences) and as a social actor (creating a relationship) [15, 16]. For the purposes of this article, technology used in Psychological Customization for presentation of e-commerce product information and online advertising is seen mostly as a medium and partly as a </context>
+</contexts>
+<marker>[16]</marker>
+<rawString>Fogg, B. J. (2002) Persuasive technology. Using computers to change what we think and do. Morgan Kaufmann Publishers, New York.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M E Ford</author>
+</authors>
+<title>Motivating humans: goals, emotions, personal agency beliefs</title>
+<date>1992</date>
+<location>Newbury Park, Ca: Sage</location>
+<contexts>
+<context position="21221" citStr="[17]"> seen mostly as a medium and partly as a social actor. How then to model and explain persuasion in more detail? Evidently no universal theory of what is the process of persuasion has been created yet [17]. Candidates for explaining and modeling persuasion include i) learning theory (operant conditioning), ii) functional paradigm theory (similarity-attraction, pleasure seeking), iii) cognitive consiste</context>
+</contexts>
+<marker>[17]</marker>
+<rawString>Ford, M. E. (1992) Motivating humans: goals, emotions, personal agency beliefs. Newbury Park, Ca: Sage.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S E Hampson</author>
+<author>A M Colman</author>
+</authors>
+<title>Individual differences and personality</title>
+<date>1995</date>
+<location>London: Longman</location>
+<contexts>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[18]</marker>
+<rawString>Hampson, S. E. &amp; Colman, A. M. (Eds., 1995) Individual differences and personality. London: Longman.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>N Hristova</author>
+<author>G M P O&apos;Hare</author>
+</authors>
+<title>Ad-me: Wireless Advertising Adapted to the User Location, Device and Emotions</title>
+<date>2004</date>
+<booktitle>Proceedings of the Proceedings of the 37th Annual Hawaii International Conference on System Sciences (HICSS&apos;04) - Track 9</booktitle>
+<volume>9</volume>
+<contexts>
+<context position="32561" citStr="[19]">appealing and affective. Further, in mobile contexts personalized advertising has been studied from the point of view of targeting users by emotions in addition to location and other relevant factors [19]. However, the exact transient psychological influence of a particular piece of editorial content the online advertisement is displayed with remains unknown. It is possible that the editorial content </context>
+</contexts>
+<marker>[19]</marker>
+<rawString>Hristova, N. and O&apos;Hare, G. M. P. (2004) Ad-me: Wireless Advertising Adapted to the User Location, Device and Emotions. Proceedings of the Proceedings of the 37th Annual Hawaii International Conference on System Sciences (HICSS&apos;04) - Track 9 - Volume 9</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A M Isen</author>
+</authors>
+<title>Positive affect and decision making</title>
+<date>2000</date>
+<booktitle>Handbook of emotions (2nd ed</booktitle>
+<pages>417--435</pages>
+<editor>In Lewis, M. and Haviland-Jones, J. M. (Ed</editor>
+<publisher>Guilford Press</publisher>
+<location>New York</location>
+<contexts>
+<context position="27855" citStr="[4, 10, 20]">ived as more involving [see 44]; this depends on the mood of the user, however [48]. Ninth, some emotional states and moods lead to secondary effects related to decision-making, judgment and behavior [4, 10, 20]. It then seems that indeed a relevant area to focus on regarding persuasion with Psychological Customization is emotion (arousal and valence) immediately before, during and right after viewing produc</context>
+<context position="39688" citStr="[20]">f the user of an e-commerce system to learn product information more efficiently. Positive emotion and mood also has the effect of making the user adapt a less risk-prone approach to making decisions [20]. This may be used to present product information in a familiar manner creating a safe atmosphere around the product to make it more desirable when the user is making purchasing decisions in a positiv</context>
+</contexts>
+<marker>[20]</marker>
+<rawString>Isen, A. M. (2000). Positive affect and decision making. In Lewis, M. and Haviland-Jones, J. M. (Ed.), Handbook of emotions (2nd ed.) (pp. 417-435). New York: Guilford Press.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>K Kallinen</author>
+<author>N Ravaja</author>
+</authors>
+<title>in press). Emotion-related effects of speech rate and rising vs. falling background music melody during audio news: The moderating influence of personality. Personality and Individual Differences</title>
+<contexts>
+<context position="17276" citStr="[21, 46, 47]">nd attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware should not be neglected. A device with a large screen or a 247247 portable device with smaller screen with user-changeable covers may also influence t</context>
+</contexts>
+<marker>[21]</marker>
+<rawString>Kallinen, K., &amp; Ravaja, N. (in press). Emotion-related effects of speech rate and rising vs. falling background music melody during audio news: The moderating influence of personality. Personality and Individual Differences.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M A Kamins</author>
+<author>L J Marks</author>
+<author>D Skinner</author>
+</authors>
+<title>Television commercial evaluation in the context of program induced mood: Congruency versus consistency effects</title>
+<date>1991</date>
+<journal>Journal of Advertising</journal>
+<volume>20</volume>
+<pages>1--14</pages>
+<contexts>
+<context position="33746" citStr="[22]">(such as what may be the most efficient way to influence him psychologically) and ii) what may be the psychological impact on the same user of the editorial content within which the banner is placed. [22] With a Psychological Customization system some of these gaps may be at least indirectly addressed as presented in Table 2. Table 2. Technological possibilities of persuasive advertising with Psycholo</context>
+</contexts>
+<marker>[22]</marker>
+<rawString>Kamins, M.A., Marks, L.J., &amp; Skinner, D. (1991). Television commercial evaluation in the context of program induced mood: Congruency versus consistency effects. Journal of Advertising, 20, 1-14.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>M-C Karat</author>
+<author>J Blom</author>
+<author>J Karat</author>
+</authors>
+<title>in press) Designing Personalized User Experiences in eCommerce</title>
+<publisher>Kluwer</publisher>
+<location>Dordrecht</location>
+<marker>[23]</marker>
+<rawString>Karat, M-C., Blom, J. and Karat, J. (in press) Designing Personalized User Experiences in eCommerce. Dordrecht: Kluwer.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Karat</author>
+</authors>
+<title>Beyond task completion: Evaluation of affective components of use. In</title>
+<date>2003</date>
+<pages>81--96</pages>
+<marker>[24]</marker>
+<rawString>Karat, J. (2003) Beyond task completion: Evaluation of affective components of use. In Jacko, J.A. and Sears, A. (Ed.), The Human-Computer Interaction Handbook. Fundamentals, Evolving Technologies and Emerging Applications. (pp. 81-96). London : Lawrence Erlbaum Associates.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J F Kihlström</author>
+<author>T M Barnhardt</author>
+<author>D J Tataryn</author>
+</authors>
+<title>Implicit perception</title>
+<date>1992</date>
+<booktitle>Perception without awareness. Cognitive, clinical and social perspectives</booktitle>
+<pages>17--54</pages>
+<editor>In Bornstein, R. F. and Pittmann, T. S. (eds</editor>
+<location>Guilford, New York</location>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[25]</marker>
+<rawString>Kihlström, J. F., Barnhardt, T. M. and Tataryn, D. J. (1992) Implicit perception. In Bornstein, R. F. and Pittmann, T. S. (eds.) Perception without awareness. Cognitive, clinical and social perspectives, 17-54. Guilford, New York.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H W Krohne</author>
+<author>M Pieper</author>
+<author>N Knoll</author>
+<author>N Breimer</author>
+</authors>
+<title>The cognitive regulation of emotions: The role of success versus failure experience and coping dispositions</title>
+<date>2002</date>
+<journal>Cognition and Emotion</journal>
+<volume>16</volume>
+<pages>217--243</pages>
+<marker>[26]</marker>
+<rawString>Krohne, H.W., Pieper, M., Knoll, N., &amp; Breimer, N. (2002). The cognitive regulation of emotions: The role of success versus failure experience and coping dispositions. Cognition and Emotion, 16, 217-243.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J A Krosnick</author>
+<author>A L Betz</author>
+<author>J L Jussim</author>
+<author>A R Lynn</author>
+</authors>
+<title>Subliminal conditioning of attitudes</title>
+<date>1992</date>
+<journal>Personality and Social Psychology Bulletin</journal>
+<volume>18</volume>
+<pages>152--162</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[27]</marker>
+<rawString>Krosnick, J. A., Betz, A. L., Jussim, J. L. and Lynn, A. R. (1992) Subliminal conditioning of attitudes. Personality and Social Psychology Bulletin, 18, 152-162.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Laarni</author>
+</authors>
+<title>Effects of color, font type and font style on user preferences</title>
+<date>2003</date>
+<booktitle>In C. Stephanidis (Ed.) Adjunct Proceedings of HCI International</booktitle>
+<pages>31--32</pages>
+<publisher>Crete University Press, Heraklion</publisher>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[28]</marker>
+<rawString>Laarni, J. (2003). Effects of color, font type and font style on user preferences. In C. Stephanidis (Ed.) Adjunct Proceedings of HCI International 2003. (Pp. 31-32). Crete University Press, Heraklion.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Laarni</author>
+</authors>
+<title>Searching for optimal methods of presenting dynamic text on different types of screens. In</title>
+<date>2002</date>
+<booktitle>Proceedings of The Second Nordic Conference on Human-Computer Interaction</booktitle>
+<pages>217--220</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[29]</marker>
+<rawString>Laarni, J. (2002). Searching for optimal methods of presenting dynamic text on different types of screens. In: O.W. Bertelsen, S. Bödker &amp; K. Kuutti (Eds.), Tradition and Transcendence. Proceedings of The Second Nordic Conference on Human-Computer Interaction, October 19-23, 2002, Arhus, Denmark (Pp. 217 – 220).</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Laarni</author>
+<author>Kojo</author>
+</authors>
+<title>I.(2001). Reading financial news from PDA and laptop displays. In</title>
+<date>2001</date>
+<booktitle>of Proceedings of HCI International</booktitle>
+<volume>2</volume>
+<pages>109--113</pages>
+<location>Hillsdale, NJ</location>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[30]</marker>
+<rawString>Laarni, J. &amp; Kojo, I.(2001). Reading financial news from PDA and laptop displays. In: M. J. Smith &amp; G. Salvendy (Eds.) Systems, Social and Internationalization Design Aspects of Human-Computer Interaction. Vol. 2 of Proceedings of HCI International 2001. Lawrence Erlbaum, Hillsdale, NJ. (Pp. 109 – 113.)</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>J Laarni</author>
+<author>I Kojo</author>
+<author>L Kärkkäinen</author>
+</authors>
+<title>Reading and searching information on small display screens. In</title>
+<date>2002</date>
+<booktitle>in Transportation, Communication, Health, and the Workplace. (Pp. 505 – 516). Shake, Maastricht. (On the occasion of the Human Factors and Ergonomics Society Europe Chapter Annual Meeting in</booktitle>
+<location>Turin, Italy</location>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[31]</marker>
+<rawString>Laarni, J., Kojo, I. &amp; Kärkkäinen, L. (2002). Reading and searching information on small display screens. In: D. de Waard, K. Brookhuis, J. Moraal, &amp; A. Toffetti (Eds.), Human Factors in Transportation, Communication, Health, and the Workplace. (Pp. 505 – 516). Shake, Maastricht. (On the occasion of the Human Factors and Ergonomics Society Europe Chapter Annual Meeting in Turin, Italy, November 2001).</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Lang</author>
+</authors>
+<title>Involuntary attention and physiological arousal evoked by structural features and mild emotion in TV commercials</title>
+<date>1990</date>
+<journal>Communication Research</journal>
+<volume>17</volume>
+<pages>275--299</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[32]</marker>
+<rawString>Lang, A. (1990) Involuntary attention and physiological arousal evoked by structural features and mild emotion in TV commercials. Communication Research, 17 (3), 275-299.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Lang</author>
+<author>P Dhillon</author>
+<author>Q Dong</author>
+</authors>
+<title>Arousal, emotion and memory for television messages</title>
+<date>1995</date>
+<journal>Journal of Broadcasting and Electronic Media</journal>
+<volume>38</volume>
+<pages>1--15</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[33]</marker>
+<rawString>Lang, A., Dhillon, P. and Dong, Q. (1995) Arousal, emotion and memory for television messages. Journal of Broadcasting and Electronic Media, 38, 1-15.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B</author>
+</authors>
+<title>Negative video as structure: Emotion, attention, capacity and memory</title>
+<date>1996</date>
+<journal>Journal of Broadcasting and Electronic Media</journal>
+<volume>40</volume>
+<pages>460--477</pages>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+</contexts>
+<marker>[34]</marker>
+<rawString>Lang, A., Newhagen, J. and Reeves. B. (1996) Negative video as structure: Emotion, attention, capacity and memory. Journal of Broadcasting and Electronic Media, 40, 460-477.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>N J Lightner</author>
+<author>C Eastman</author>
+</authors>
+<title>User preference for product information in remote purchase environments</title>
+<date>2002</date>
+<journal>Journal of Electronic Commerce Research [Online</journal>
+<volume>3</volume>
+<note>Available from http://www.csulb.edu/web/journals/ jecr/issues/20023/paper6.pdf</note>
+<marker>[35]</marker>
+<rawString>Lightner, N.J., &amp; Eastman, C. (2002). User preference for product information in remote purchase environments. Journal of Electronic Commerce Research [Online], 3, Available from http://www.csulb.edu/web/journals/ jecr/issues/20023/paper6.pdf.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Lombard</author>
+<author>T Ditton</author>
+</authors>
+<title>Measuring presence: A literature-based approach to the development of a standardized paper-and-pencil instrument. Project abstract submitted to Presence 2000: The third international workshop on presence</title>
+<date>2000</date>
+<contexts>
+<context position="3196" citStr="[8, 36, 37]">eling of presence. In presence, the mediated information becomes the focused object of perception, while the immediate, external context, including the technological device, fades into the background [8, 36, 37]. Empirical studies show that information experienced in presence has real psychological effects on perceivers, such as emotional responses based on the events described or cognitive processing and le</context>
+</contexts>
+<marker>[36]</marker>
+<rawString>Lombard, M. and Ditton, T. (2000) Measuring presence: A literature-based approach to the development of a standardized paper-and-pencil instrument. Project abstract submitted to Presence 2000: The third international workshop on presence.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Lombard</author>
+<author>R Reich</author>
+<author>M E Grabe</author>
+<author>C Bracken</author>
+<author>T Ditton</author>
+</authors>
+<title>Presence and television: The role of screen size</title>
+<date>2000</date>
+<journal>Human Communication Research</journal>
+<volume>26</volume>
+<pages>75--98</pages>
+<contexts>
+<context position="3196" citStr="[8, 36, 37]">eling of presence. In presence, the mediated information becomes the focused object of perception, while the immediate, external context, including the technological device, fades into the background [8, 36, 37]. Empirical studies show that information experienced in presence has real psychological effects on perceivers, such as emotional responses based on the events described or cognitive processing and le</context>
+</contexts>
+<marker>[37]</marker>
+<rawString>Lombard, M., Reich, R., Grabe, M. E., Bracken, C. and Ditton, T. (2000) Presence and television: The role of screen size. Human Communication Research, 26(1), 75-98.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Meyers-Levy</author>
+<author>P Malaviya</author>
+</authors>
+<title>Consumers’ processing of persuasive advertisements. An integrative framework of persuasion theories</title>
+<date>1998</date>
+<journal>Journal of Marketing</journal>
+<volume>63</volume>
+<pages>45--60</pages>
+<contexts>
+<context position="23154" citStr="[38]">cing several 248248 strategies to process persuasive messages. Each strategy represents a different amount of cognitive resources employed during processing and may influence the level of persuasion. [38] The position of the authors is that while various theories and models for persuasion have been presented, within the context of personalized information presentation especially by varying both the su</context>
+</contexts>
+<marker>[38]</marker>
+<rawString>Meyers-Levy, J. &amp; Malaviya, P. (1998). Consumers’ processing of persuasive advertisements. An integrative framework of persuasion theories. Journal of Marketing 63, 45–60.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W J McGuire</author>
+</authors>
+<title>Theoretical foundations of campaigns</title>
+<date>1989</date>
+<booktitle>Public communication campaigns (2nd ed</booktitle>
+<pages>43--65</pages>
+<editor>In R.E. Rice and C.K. Atkin (eds</editor>
+<location>Newbury Park, Ca: Sage</location>
+<contexts>
+<context position="22595" citStr="[2, 39, 42]">eiver) and iii) the communication/persuasion model (the source, the message content and form, the channel, the properties of the receiver and the immediacy of the communication influence persuasion). [2, 39, 42] The latter approach partly resembles the approach of Mind-Based Technologies as a way of finding out the values of relevant parameters in the layers of technology, the user and the transient results </context>
+</contexts>
+<marker>[39]</marker>
+<rawString>McGuire, W. J. (1989) Theoretical foundations of campaigns. In R.E. Rice and C.K. Atkin (eds.) Public communication campaigns (2nd ed, pp 43-65). Newbury Park, Ca: Sage.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J L Monahan</author>
+</authors>
+<title>I don&apos;t know it but I like you: The influence of nonconscious affect on person perception</title>
+<date>1998</date>
+<journal>Human Communication Research</journal>
+<volume>24</volume>
+<pages>480--500</pages>
+<contexts>
+<context position="26865" citStr="[40, 43]">dd to the present mood. Seventh, affective priming research indicates that the valence of subliminally exposed primes (e.g., facial expressions) influences the affective ratings of subsequent targets [40, 43], including video messages presented on a small screen [48]. Eighth, the perceived personal relevance of the particular information to the user exerts a robust influence on message processing and invo</context>
+</contexts>
+<marker>[40]</marker>
+<rawString>Monahan, J.L. (1998). I don&apos;t know it but I like you: The influence of nonconscious affect on person perception. Human Communication Research, 24, 480-500.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>G J Nowak</author>
+<author>S Shamp</author>
+<author>B Hollander</author>
+<author>G T Cameron</author>
+<author>D W Schumann</author>
+<author>E Thorson</author>
+</authors>
+<title>Interactive media: A means for more meaningful advertising? Advertising and consumer psychology. Mahwah, NJ: Lawrence Erlbaum</title>
+<date>1999</date>
+<contexts>
+<context position="27463" citStr="[5, 11, 41, 66, 67]">his memory of the product will be enhanced. Consequently, it has been shown that information tailored to the needs and contexts of users often increases the potential for attitude and behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of research indicating that, when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involv</context>
+</contexts>
+<marker>[41]</marker>
+<rawString>Nowak, G. J., Shamp, S., Hollander, B., Cameron, G. T., Schumann, D. W. and Thorson, E. (1999) Interactive media: A means for more meaningful advertising? Advertising and consumer psychology. Mahwah, NJ: Lawrence Erlbaum.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R E Petty</author>
+<author>J T Cacioppo</author>
+</authors>
+<title>Communication and persuasion: Central and peripheral routes to attitude change</title>
+<date>1986</date>
+<publisher>Springer-Verlag</publisher>
+<location>New York</location>
+<contexts>
+<context position="22595" citStr="[2, 39, 42]">eiver) and iii) the communication/persuasion model (the source, the message content and form, the channel, the properties of the receiver and the immediacy of the communication influence persuasion). [2, 39, 42] The latter approach partly resembles the approach of Mind-Based Technologies as a way of finding out the values of relevant parameters in the layers of technology, the user and the transient results </context>
+</contexts>
+<marker>[42]</marker>
+<rawString>Petty, R.E., &amp; Cacioppo, J.T. (1986). Communication and persuasion: Central and peripheral routes to attitude change. New York: Springer-Verlag.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S T Murphy</author>
+<author>J L Monahan</author>
+<author>R B Zajonc</author>
+</authors>
+<title>Additivity of nonconscious affect: Combined effects of priming and exposure</title>
+<date>1995</date>
+<journal>Journal of Personality and Social Psychology</journal>
+<volume>69</volume>
+<pages>589--602</pages>
+<contexts>
+<context position="26865" citStr="[40, 43]">dd to the present mood. Seventh, affective priming research indicates that the valence of subliminally exposed primes (e.g., facial expressions) influences the affective ratings of subsequent targets [40, 43], including video messages presented on a small screen [48]. Eighth, the perceived personal relevance of the particular information to the user exerts a robust influence on message processing and invo</context>
+</contexts>
+<marker>[43]</marker>
+<rawString>Murphy, S.T., Monahan, J.L., &amp; Zajonc, R.B. (1995). Additivity of nonconscious affect: Combined effects of priming and exposure. Journal of Personality and Social Psychology, 69, 589-602.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Pfau</author>
+<author>R L Holbert</author>
+<author>S J Zubric</author>
+<author>N H Pasha</author>
+<author>W-K Lin</author>
+</authors>
+<title>Role and influence of communication modality in the process of resistance to persuasion</title>
+<date>2000</date>
+<journal>Media Psychology</journal>
+<volume>2</volume>
+<pages>1--33</pages>
+<marker>[44]</marker>
+<rawString>Pfau, M., Holbert, R.L., Zubric, S.J., Pasha, N.H., &amp; Lin, W.-K. (2000). Role and influence of communication modality in the process of resistance to persuasion. Media Psychology, 2, 1-33.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>N Ravaja</author>
+</authors>
+<title>Effects of a small talking facial image on autonomic activity: The moderating influence of dispositional BIS and BAS sensitivities and emotions</title>
+<date>2004</date>
+<journal>Biological Psychology</journal>
+<volume>65</volume>
+<pages>163--183</pages>
+<marker>[45]</marker>
+<rawString>Ravaja, N. (2004). Effects of a small talking facial image on autonomic activity: The moderating influence of dispositional BIS and BAS sensitivities and emotions. Biological Psychology, 65, 163-183.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>N Ravaja</author>
+</authors>
+<title>in press). Contributions of psychophysiology to media research: Review and recommendations</title>
+<publisher>Media Psychology</publisher>
+<contexts>
+<context position="17276" citStr="[21, 46, 47]">nd attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware should not be neglected. A device with a large screen or a 247247 portable device with smaller screen with user-changeable covers may also influence t</context>
+</contexts>
+<marker>[46]</marker>
+<rawString>Ravaja, N. (in press). Contributions of psychophysiology to media research: Review and recommendations. Media Psychology.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>N Ravaja</author>
+<author>K Kallinen</author>
+</authors>
+<title>in press). Emotional effects of startling background music during reading news reports: The moderating influence of dispositional BIS and BAS sensitivities</title>
+<journal>Scandinavian Journal of Psychology</journal>
+<contexts>
+<context position="17276" citStr="[21, 46, 47]">nd attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware should not be neglected. A device with a large screen or a 247247 portable device with smaller screen with user-changeable covers may also influence t</context>
+</contexts>
+<marker>[47]</marker>
+<rawString>Ravaja, N., &amp; Kallinen, K. (in press). Emotional effects of startling background music during reading news reports: The moderating influence of dispositional BIS and BAS sensitivities. Scandinavian Journal of Psychology.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>N Ravaja</author>
+<author>K Kallinen</author>
+<author>T Saari</author>
+<author>L Keltikangas-Järvinen</author>
+</authors>
+<title>in press). Suboptimal exposure to facial expressions when viewing video messages from a small screen: Effects on emotion, attention, and memory</title>
+<journal>Journal of Experimental Psychology: Applied</journal>
+<contexts>
+<context position="17130" citStr="[9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]">ayouts, background colors, text types, emotionality of the message, audio characteristics, presence of image motion and subliminality creates for instance emotional, cognitive and attentional effects [9, 25, 27, 28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware shou</context>
+<context position="26924" citStr="[48]">icates that the valence of subliminally exposed primes (e.g., facial expressions) influences the affective ratings of subsequent targets [40, 43], including video messages presented on a small screen [48]. Eighth, the perceived personal relevance of the particular information to the user exerts a robust influence on message processing and involvement [64]. This means that if the user is interested in </context>
+<context position="27727" citStr="[48]"> when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involving [see 44]; this depends on the mood of the user, however [48]. Ninth, some emotional states and moods lead to secondary effects related to decision-making, judgment and behavior [4, 10, 20]. It then seems that indeed a relevant area to focus on regarding persua</context>
+</contexts>
+<marker>[48]</marker>
+<rawString>Ravaja, N., Kallinen, K., Saari, T., &amp; Keltikangas-Järvinen, L. (in press). Suboptimal exposure to facial expressions when viewing video messages from a small screen: Effects on emotion, attention, and memory. Journal of Experimental Psychology: Applied.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>N Ravaja</author>
+<author>T Saari</author>
+<author>K Kallinen</author>
+<author>J Laarni</author>
+</authors>
+<title>The Role of Mood in the Processing of Media Messages from a Small Screen: Effects on Subjective and Physiological Responses. Manuscript submitted for publication</title>
+<date>2004</date>
+<contexts>
+<context position="6587" citStr="[49, 56, 58, 59]">ofiles, such as individual differences related to cognitive style, personality, cognitive ability, previous knowledge (mental models related to task) and other differences, such as pre-existing mood. [49, 56, 58, 59] Media- and communication technologies may be called MindBased if they simultaneously take into account the interaction of three different key components: i) the individual differences and/or user seg</context>
+<context position="17303" citStr="[49]">28, 29, 30, 31, 32, 33, 34, 48]. Some of these effects are produced in interaction with individual differences, such as cognitive style, personality, age and gender [21, 46, 47], or pre-existing mood [49]. The role of hardware should not be neglected. A device with a large screen or a 247247 portable device with smaller screen with user-changeable covers may also influence the emerging effects [e.g. 3</context>
+</contexts>
+<marker>[49]</marker>
+<rawString>Ravaja, N., Saari, T., Kallinen, K., &amp; Laarni, J. (2004). The Role of Mood in the Processing of Media Messages from a Small Screen: Effects on Subjective and Physiological Responses. Manuscript submitted for publication.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K R Reardon</author>
+</authors>
+<title>Persuasion in practice</title>
+<date>1991</date>
+<location>Newbury Park, Ca: Sage</location>
+<marker>[50]</marker>
+<rawString>Reardon, K. R. (1991) Persuasion in practice. Newbury Park, Ca: Sage.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B Reeves</author>
+<author>C Nass</author>
+</authors>
+<title>The media equation. How people treat computers, television and new media like real people and places</title>
+<date>1996</date>
+<publisher>Cambridge University Press</publisher>
+<location>CSLI, Stanford</location>
+<marker>[51]</marker>
+<rawString>Reeves, B. and Nass, C. (1996) The media equation. How people treat computers, television and new media like real people and places. Cambridge University Press, CSLI, Stanford.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R J Riding</author>
+<author>S Rayner</author>
+</authors>
+<title>Cognitive styles and learning strategies. Understanding style differences in learning and behavior</title>
+<date>1998</date>
+<publisher>David Fulton Publishers</publisher>
+<location>London</location>
+<marker>[52]</marker>
+<rawString>Riding, R. J. and Rayner, S. (1998) Cognitive styles and learning strategies. Understanding style differences in learning and behavior. David Fulton Publishers, London.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Riecken</author>
+</authors>
+<title>Personalized views on personalization</title>
+<date>2000</date>
+<journal>Communications of the ACM, V</journal>
+<volume>43</volume>
+<pages>27--28</pages>
+<marker>[53]</marker>
+<rawString>Riecken, D. (2000) Personalized views on personalization. Communications of the ACM, V. 43, 8, 27-28.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C L Rusting</author>
+</authors>
+<title>Personality, mood, and cognitive processing of emotional information: Three conceptual frameworks</title>
+<date>1998</date>
+<journal>Psychological Bulletin</journal>
+<volume>124</volume>
+<pages>165--196</pages>
+<marker>[54]</marker>
+<rawString>Rusting, C.L. (1998). Personality, mood, and cognitive processing of emotional information: Three conceptual frameworks. Psychological Bulletin, 124, 165-196.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>Knowledge creation and the production of individual autonomy. How news influences subjective reality. Reports from the department of teacher education in Tampere university</title>
+<date>1998</date>
+<pages>15--1998</pages>
+<marker>[55]</marker>
+<rawString>Saari, T. (1998) Knowledge creation and the production of individual autonomy. How news influences subjective reality. Reports from the department of teacher education in Tampere university. A15/1998.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>Mind-Based Media and Communications Technologies. How the Form of Information Influences Felt Meaning. Acta Universitatis Tamperensis 834</title>
+<date>2001</date>
+<publisher>Tampere University Press</publisher>
+<location>Tampere</location>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="5246" citStr="[7, 56]"> and software that make the physical layer run. At the top is a content layer that consists of multimodal information. The content layer includes both the substance and the form of multimedia content [7, 56]. Substance refers to the core message of the information. Form implies aesthetic and expressive ways of organizing the substance, such as using different modalities and structures of information [56]</context>
+<context position="6587" citStr="[49, 56, 58, 59]">ofiles, such as individual differences related to cognitive style, personality, cognitive ability, previous knowledge (mental models related to task) and other differences, such as pre-existing mood. [49, 56, 58, 59] Media- and communication technologies may be called MindBased if they simultaneously take into account the interaction of three different key components: i) the individual differences and/or user seg</context>
+<context position="8555" citStr="[56]">hese signals then would verify to the system whether a desired psychological effect has been realized. Fig. 1. Mind-Based Technologies as a framework for producing psychological effects. Adapted from [56]. Another approach would be to conduct a large number of user studies on certain tasks and contexts with certain user groups, psychological profiles and content-form variations and measure various psy</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[56]</marker>
+<rawString>Saari, T. (2001) Mind-Based Media and Communications Technologies. How the Form of Information Influences Felt Meaning. Acta Universitatis Tamperensis 834. Tampere University Press, Tampere 2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>Designing Mind-Based Media and Communications Technologies</title>
+<date>2002</date>
+<booktitle>Proceedings of Presence 2002 Conference</booktitle>
+<location>Porto, Portugal</location>
+<marker>[57]</marker>
+<rawString>Saari, T. (2002) Designing Mind-Based Media and Communications Technologies. Proceedings of Presence 2002 Conference, Porto, Portugal.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>Designing for Psychological Effects. Towards Mind-Based Media and Communications Technologies</title>
+<date>2003</date>
+<booktitle>Human-Centred Computing: Cognitive, Social and Ergonomic Aspects. Volume 3 of the Proceedings of HCI International</booktitle>
+<pages>557--561</pages>
+<editor>In Harris, D., Duffy, V., Smith, M. and Stephanidis, C. (eds</editor>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="6587" citStr="[49, 56, 58, 59]">ofiles, such as individual differences related to cognitive style, personality, cognitive ability, previous knowledge (mental models related to task) and other differences, such as pre-existing mood. [49, 56, 58, 59] Media- and communication technologies may be called MindBased if they simultaneously take into account the interaction of three different key components: i) the individual differences and/or user seg</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[58]</marker>
+<rawString>Saari, T. (2003a) Designing for Psychological Effects. Towards Mind-Based Media and Communications Technologies. In Harris, D., Duffy, V., Smith, M. and Stephanidis, C. (eds.) Human-Centred Computing: Cognitive, Social and Ergonomic Aspects. Volume 3 of the Proceedings of HCI International 2003, pp. 557-561.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>Mind-Based Media and Communications Technologies. A Framework for producing personalized psychological effects</title>
+<date>2003</date>
+<booktitle>Proceedings of Human Factors and Ergonomics</booktitle>
+<pages>13--17</pages>
+<location>Denver, Colorado</location>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="6587" citStr="[49, 56, 58, 59]">ofiles, such as individual differences related to cognitive style, personality, cognitive ability, previous knowledge (mental models related to task) and other differences, such as pre-existing mood. [49, 56, 58, 59] Media- and communication technologies may be called MindBased if they simultaneously take into account the interaction of three different key components: i) the individual differences and/or user seg</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[59]</marker>
+<rawString>Saari, T. (2003b) Mind-Based Media and Communications Technologies. A Framework for producing personalized psychological effects. Proceedings of Human Factors and Ergonomics 2003 -conference. 13.-17.10.2003 Denver, Colorado.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>in press, a) Using Mind-Based Technologies to facilitate Positive Emotion and Mood with Media Content. Accepted to proceedings of to Positive Emotion</title>
+<date>2004</date>
+<booktitle>2nd European Conference</booktitle>
+<location>Italy</location>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[60]</marker>
+<rawString>Saari, T. (in press, a) Using Mind-Based Technologies to facilitate Positive Emotion and Mood with Media Content. Accepted to proceedings of to Positive Emotion, 2nd European Conference. Italy, July 2004.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>T Saari</author>
+</authors>
+<title>in press, b) Facilitating Learning from Online News with Mind-Based Technologies. Accepted to proceedings of EDMedia 2004</title>
+<location>Lugano, Switzerland</location>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[61]</marker>
+<rawString>Saari, T. (in press, b) Facilitating Learning from Online News with Mind-Based Technologies. Accepted to proceedings of EDMedia 2004, Lugano, Switzerland.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>T Saari</author>
+<author>M Turpeinen</author>
+</authors>
+<title>in press, a) Towards Psychological Customization of Information for Individuals and Social Groups</title>
+<editor>In Karat, J., Blom, J. and Karat. M.-C. (eds</editor>
+<publisher>Kluwer</publisher>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[62]</marker>
+<rawString>Saari, T. and Turpeinen, M. (in press, a) Towards Psychological Customization of Information for Individuals and Social Groups. In Karat, J., Blom, J. and Karat. M.-C. (eds.) Personalization of User Experiences for eCommerce, Kluwer.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Saari</author>
+<author>M Turpeinen</author>
+</authors>
+<title>in press, b) Psychological customization of information. Applications for personalizing the form of news. Accepted to proceedings of ICA</title>
+<date>2004</date>
+<location>New Orleans, USA</location>
+<contexts>
+<context position="4040" citStr="[56, 57, 58, 59, 60, 61, 62, 63]">mation technology [see 33, 68]. One may also vary the form of information (modality for instance) per user profile, which may systematically produce, amplify, or shade different psychological effects [56, 57, 58, 59, 60, 61, 62, 63]. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial a</context>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[63]</marker>
+<rawString>Saari, T. and Turpeinen, M. (in press, b) Psychological customization of information. Applications for personalizing the form of news. Accepted to proceedings of ICA 2004, 27.-31.5. 2004, New Orleans, USA.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S L Schneider</author>
+<author>S K Laurion</author>
+</authors>
+<title>Do we know what we&apos;ve learned from listening to the news</title>
+<date>1993</date>
+<journal>Memory and Cognition</journal>
+<volume>21</volume>
+<pages>198--209</pages>
+<contexts>
+<context position="27077" citStr="[64]">ing video messages presented on a small screen [48]. Eighth, the perceived personal relevance of the particular information to the user exerts a robust influence on message processing and involvement [64]. This means that if the user is interested in the product described in the information presented, he will be quite involved when processing the information and hence his memory of the product will be</context>
+</contexts>
+<marker>[64]</marker>
+<rawString>Schneider, S.L., &amp; Laurion, S.K. (1993). Do we know what we&apos;ve learned from listening to the news? Memory and Cognition, 21, 198-209.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>N Schwarz</author>
+</authors>
+<title>in press). Meta-cognitive experiences in consumer judgment and decision making</title>
+<journal>Journal of Consumer Psychology</journal>
+<marker>[65]</marker>
+<rawString>Schwarz, N. (in press). Meta-cognitive experiences in consumer judgment and decision making. Journal of Consumer Psychology.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>V J Stretcher</author>
+<author>M Kreutzer</author>
+<author>D-J Den Boer</author>
+<author>S Kobrin</author>
+<author>H J Hospers</author>
+<author>C S Skinner</author>
+</authors>
+<title>the effects of computer-tailored smoking cessation messages in family practice settings</title>
+<date>1994</date>
+<journal>Journal of Family Practice</journal>
+<volume>39</volume>
+<pages>262--270</pages>
+<contexts>
+<context position="27463" citStr="[5, 11, 41, 66, 67]">his memory of the product will be enhanced. Consequently, it has been shown that information tailored to the needs and contexts of users often increases the potential for attitude and behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of research indicating that, when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involv</context>
+</contexts>
+<marker>[66]</marker>
+<rawString>Stretcher, V. J., Kreutzer, M., Den Boer, D.-J., Kobrin, S., Hospers, H. J., and Skinner, C. S. (1994) the effects of computer-tailored smoking cessation messages in family practice settings. Journal of Family Practice, 39(3), 262-270.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>V J Stretcher</author>
+</authors>
+<title>Computer tailored smoking cessation materials: A review and discussion. Special issue: Computer tailored education</title>
+<date>1999</date>
+<journal>Patient Education &amp; Counceling</journal>
+<volume>36</volume>
+<pages>107--117</pages>
+<contexts>
+<context position="27463" citStr="[5, 11, 41, 66, 67]">his memory of the product will be enhanced. Consequently, it has been shown that information tailored to the needs and contexts of users often increases the potential for attitude and behavior change [5, 11, 41, 66, 67]. Further, there is quite a lot of research indicating that, when compared to video form, text has a greater capacity to trigger active or systematic message processing and is perceived as more involv</context>
+</contexts>
+<marker>[67]</marker>
+<rawString>Stretcher, V. J. (1999) Computer tailored smoking cessation materials: A review and discussion. Special issue: Computer tailored education. Patient Education &amp; Counceling, 36(2), 107-117.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Turpeinen</author>
+</authors>
+<title>Customizing news content for individuals and communities. Acta Polytechnica Scandinavica. Mathematics and computing series no</title>
+<date>2000</date>
+<pages>103</pages>
+<institution>Helsinki University of Technology</institution>
+<location>Espoo</location>
+<marker>[68]</marker>
+<rawString>Turpeinen, M. (2000) Customizing news content for individuals and communities. Acta Polytechnica Scandinavica. Mathematics and computing series no. 103. Helsinki University of Technology, Espoo.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Turpeinen</author>
+<author>T Saari</author>
+</authors>
+<title>System Architechture for Psychological Customization of Information</title>
+<date>2004</date>
+<booktitle>Proceedings of HICSS-37- conference</booktitle>
+<pages>5--8</pages>
+<location>Hawaii</location>
+<contexts>
+<context position="15849" citStr="[69]">ty profile Content Management System Customer Relationship Management Web Presentation Layer Psychological Customization System Figure 2. J2EE implementation of the Psychological Customization System [69] Even though a working prototype of Psychological Customization has not been built yet, several empirical studies support the feasibility of a user-experience driven system that matches the form of in</context>
+</contexts>
+<marker>[69]</marker>
+<rawString>Turpeinen, M. and Saari, T. (2004) System Architechture for Psychological Customization of Information. Proceedings of HICSS-37- conference, 5.-8.1. 2004, Hawaii.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Vecchi</author>
+<author>L H Phillips</author>
+<author>C Cornoldi</author>
+</authors>
+<title>Individual differences in visuo-spatial working memory. In</title>
+<date>2001</date>
+<publisher>Psychology Press</publisher>
+<location>Hove</location>
+<contexts>
+<context position="16746" citStr="[13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]">or type of psychological effects, such as depth of learning, positive emotion, persuasion, presence, social presence and other types of psychological states and effects as well as consequent behavior [13, 14, 18, 56, 57, 58, 59, 60, 61, 62, 63, 70]. There is considerable evidence in literature and in our own experimental research that varying the form of information, such as modality, layouts, background colors, text types, emotionality of the </context>
+</contexts>
+<marker>[70]</marker>
+<rawString>Vecchi, T., Phillips, L. H. &amp; Cornoldi, C. (2001). Individual differences in visuo-spatial working memory. In: M. Denis, R. H. Logie, C. Cornoldi, M. de Vega, &amp; J. Engelkamp (Eds.), Imagery, language, and visuo-spatial thinking. Psychology Press, Hove.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Zillmann</author>
+</authors>
+<title>Excitation transfer in communicationmediated aggressive behavior</title>
+<date>1971</date>
+<journal>Journal of Experimental Social Psychology</journal>
+<volume>7</volume>
+<pages>419--434</pages>
+<marker>[71]</marker>
+<rawString>Zillmann, D. (1971). Excitation transfer in communicationmediated aggressive behavior. Journal of Experimental Social Psychology, 7, 419-434.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Zillmann</author>
+</authors>
+<title>Attribution and misattribution of excitatory reactions. In</title>
+<date>1978</date>
+<journal>Kidd (Eds.), New directions in attribution research</journal>
+<volume>2</volume>
+<pages>335--368</pages>
+<location>Hillsdale, NJ</location>
+<marker>[72]</marker>
+<rawString>Zillmann, D. (1978). Attribution and misattribution of excitatory reactions. In J.H. Harvey, W.J. Ickes, &amp; R.F. Kidd (Eds.), New directions in attribution research (Vol. 2, pp. 335-368). Hillsdale, NJ: Lawrence Erlbaum Associates.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Zillmann</author>
+<author>J Bryant</author>
+</authors>
+<title>Affect, mood, and emotion as determinants of selective exposure. In</title>
+<date>1985</date>
+<pages>157--190</pages>
+<location>Hillsdale, NJ: Lawrence Erlbaum</location>
+<marker>[73]</marker>
+<rawString>Zillmann, D., &amp; Bryant, J. (1985). Affect, mood, and emotion as determinants of selective exposure. In D. Zillmann &amp; J. Bryant (Eds.), Selective exposure to communication (pp. 157-190). Hillsdale, NJ: Lawrence Erlbaum.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</result>

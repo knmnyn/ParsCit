@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<algorithm name="ParsHed" version="090625" confidence="0.822790">
+<title confidence="0.999695">A Probabilistic Answer Type Model</title>
+<author confidence="0.999595">Christopher Pinchak</author>
+<affiliation confidence="0.999972">Department of Computing Science University of Alberta</affiliation>
+<address confidence="0.995836">Edmonton, Alberta, Canada</address>
+<email confidence="0.997702">pinchak@cs.ualberta.ca</email>
+<author confidence="0.884699">Dekang Lin</author>
+<affiliation confidence="0.94915">Google, Inc</affiliation>
+<address confidence="0.988254">1600 Amphitheatre Parkway Mountain View, CA</address>
+<email confidence="0.999691">lindek@google.com</email>
+<abstract confidence="0.999504375">All questions are implicitly associated with an expected answer type. Unlike previous approaches that require a prede- ﬁned set of question types, we present a method for dynamically constructing a probability-based answer type model for each different question. Our model evaluates the appropriateness of a potential answer by the probability that it ﬁts into the question contexts. Evaluation is performed against manual and semiautomatic methods using a ﬁxed set of answer labels. Results show our approach to be superior for those questions classiﬁed as having a miscellaneous answer type</abstract>
+</algorithm>
+</result>

@@ -1,7 +1,7 @@
 package SectLabel::Config;
 
 $algorithmName = "SectLabel";
-$algorithmVersion = "100410";
+$algorithmVersion = "100326";
 
 ## Tr2crfpp
 ## Paths relative to SectLabel root dir ($FindBin::Bin/..)

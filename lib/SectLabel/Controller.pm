@@ -16,9 +16,6 @@ use SectLabel::PostProcess;
 use SectLabel::Tr2crfpp;
 use SectLabel::Config;
 use CSXUtil::SafeText qw(cleanXML);
-use FindBin;
-
-my $genericSectPath = "$FindBin::Bin/genericSectExtract.rb";
 
 ##
 # Main API method for generating an XML document including all
@@ -99,28 +96,21 @@ sub extractSectionImpl {
   my $outFile = $tmpFile."_dec";
   my $xml;
   if($isDebug){ print STDERR "\n# Decoding $tmpFile ... "; }
-
   if (SectLabel::Tr2crfpp::decode($tmpFile, $modelFile, $outFile)) {
     if($isDebug){ print STDERR " Done! Output to $outFile\n"; }
 
     my %sectionHeaders = (); 
     $sectionHeaders{"header"} = (); # array of section headers
     $sectionHeaders{"lineId"} = (); # array of corresponding line ids (0-based)
-
     if(!$isXmlOutput){
       $xml = SectLabel::PostProcess::wrapDocument($outFile, \%blankLines);
     } else {
       $xml = SectLabel::PostProcess::wrapDocumentXml($outFile, \%sectionHeaders);
-      
-      $sectionHeaders{"generic"} = (); # array of generic headers
-      getGenericHeaders($sectionHeaders{"header"}, \@{$sectionHeaders{"generic"}});
-
-#      my $numHeader = scalar(@{$sectionHeaders{"lineId"}});
-#      for(my $i=0; $i<$numHeader; $i++){
-#	print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\t".$sectionHeaders{"generic"}->[$i]."\n";
-#      }
-
-      $xml = insertGenericHeaders($xml, $sectionHeaders{"header"}, $sectionHeaders{"generic"}, $sectionHeaders{"lineId"});
+    }
+    
+    my $numHeaders = scalar(@{$sectionHeaders{"header"}});
+    for(my $i=0; $i<$numHeaders; $i++){
+      print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\n";
     }
   }
 
