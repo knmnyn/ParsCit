@@ -224,7 +224,6 @@ sub sectLabel {
 
   # classify section
   my $slXML = SectLabel::Controller::extractSection($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
-
   return $$slXML;
 }
 

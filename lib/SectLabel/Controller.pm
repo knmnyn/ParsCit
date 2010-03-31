@@ -117,7 +117,7 @@ sub extractSectionImpl {
 
 #      my $numHeader = scalar(@{$sectionHeaders{"lineId"}});
 #      for(my $i=0; $i<$numHeader; $i++){
-#	print STDERR $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\t".$sectionHeaders{"generic"}->[$i]."\n";
+#	print  $sectionHeaders{"lineId"}->[$i]."\t".$sectionHeaders{"header"}->[$i]."\t".$sectionHeaders{"generic"}->[$i]."\n";
 #      }
 
       $xml = insertGenericHeaders($xml, $sectionHeaders{"header"}, $sectionHeaders{"generic"}, $sectionHeaders{"lineId"});
@@ -137,7 +137,7 @@ sub getGenericHeaders {
   my $numHeaders = scalar(@{$headers});  
 
   # put the list of headers to file
-  my $headerFile = newTmpFile();
+  my $headerFile = "/tmp/".newTmpFile();
   open(OF, ">:utf8", $headerFile);
   for(my $i=0; $i<$numHeaders; $i++){
     print OF $headers->[$i]."\n";
@@ -145,13 +145,12 @@ sub getGenericHeaders {
   close OF;
   
   # get a list of generic headers
-  system("$genericSectPath $headerFile > $headerFile.out");
-  open(IF, "<:utf8", "$headerFile.out");
+  my $cmd = "$genericSectPath $headerFile";
+  my $headerText = `$cmd`;
+  my @lines = split(/\n/, $headerText);
   my $genericCount = 0;
-  while(<IF>){
-    chomp;
-
-    my $genericHeader = $_;
+  foreach my $genericHeader (@lines){
+    if($genericHeader eq "") { next; }
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
