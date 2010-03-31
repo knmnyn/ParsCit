@@ -139,18 +139,15 @@ sub getGenericHeaders {
   my $numHeaders = scalar(@{$headers});  
 
   # put the list of headers to file
-  my $headerFile = "$genericRunPath/".newTmpFile();
-  print "$headerFile\n";
+  my $headerFile = "/tmp/".newTmpFile(); # $genericRunPath
   open(OF, ">:utf8", "$headerFile");
   for(my $i=0; $i<$numHeaders; $i++){
     print OF $headers->[$i]."\n";
-    print $headers->[$i]."\n";
   }
   close OF;
   
   # get a list of generic headers
   my $cmd = "$genericSectPath $headerFile $headerFile.out";
-  print "$cmd\n";
   system($cmd);
 
   open(IF, "<:utf8", "$headerFile.out");
@@ -162,7 +159,6 @@ sub getGenericHeaders {
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
-    print "$genericCount\t$genericHeader\n";
     push(@{$genericHeaders}, $genericHeader);
     $genericCount++;
   }

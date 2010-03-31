@@ -133,13 +133,6 @@ if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
 }
 ### End Thang v100401: add input type option, and SectLabel ###
 
-open (IN, "<:utf8", "$textFile");
-my $text = "";
-while(<IN>){
-  $text .= $_;
-}
-close IN;
-
 if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
   my $phXML = ParsHed::Controller::extractHeader($textFile, $phModel); 
