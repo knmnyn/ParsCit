@@ -26,6 +26,7 @@ def getHeader(str)
 	end
 	return str.downcase
 end
+=begin
 dirPath   = ARGV[0]
 files	  = Array.new
 Find.find("#{dirPath}") do |path|
@@ -39,8 +40,10 @@ Find.find("#{dirPath}") do |path|
 		end
 	end
 end
-for file in files do
-	f = File.open("#{file}.hea")
+=end
+file = ARGV[0]
+#for file in files do
+	f = File.open("#{file}")
 	hea_array = Array.new
 	while !f.eof do
 		hea_array.push(f.gets.chomp.strip)
@@ -80,4 +83,4 @@ for file in files do
 		puts "index=#{index} pos=#{pos}/10 firstWord=#{firstWord} secondWord=#{secondWord}  currHeader=#{currHeader} ?"
 		index = index + 1
 	end
-end
+#end
