@@ -6,34 +6,41 @@ pwd = File.dirname(__FILE__)
 
 @CRFPP  = "#{pwd}/../crfpp"
 @SRC    = "#{pwd}/genericSect"
-@TMP    = "#{pwd}/genericSect/tmp"
 @DATA   = "#{pwd}/genericSect/data"
+@TEST_DIR = "#{pwd}/genericSect/run"
 
-cmd = "rm #{@TMP}/*"
+name  = "#{Time.now.to_i}-#{Process.pid}"
+
+cmd = "ruby #{@SRC}/createFeature_test.rb #{ARGV[0]} > #{@TEST_DIR}/#{name}.test"
 system(cmd)
 
-cmd = "cp #{ARGV[0]} #{@TMP}/tmp.hea"
+cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TEST_DIR}/#{name}.test >  #{@TEST_DIR}/#{name}.out"
 system(cmd)
 
-cmd = "ruby #{@SRC}/createFeature_test.rb #{@TMP} > #{@TMP}/tmp.test"
-system(cmd)
 
-if ARGV[1] == nil
-cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TMP}/tmp.test > #{@TMP}/tmp.out"
-system(cmd)
+if ARGV[1] != nil
+	g = File.open("#{ARGV[1]}", "w")
+	
+	cmd = "chmod 777 #{ARGV[1]}"
+	system(cmd)
+end
 
-f = File.open("#{@TMP}/tmp.out")
+f = File.open("#{@TEST_DIR}/#{name}.out")
 while !f.eof do
 	str = f.gets.chomp.strip
 	if str != ""
-	l = str.split(" ")
-	puts "#{l.at(l.length-1)}"
+		l = str.split(" ")
+		if ARGV[1] == nil
+			puts "#{l.at(l.length-1)}"
+		else
+			g.write("#{l.at(l.length-1)}\n")
+		end
 	end
 end
 f.close
-else
-cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TMP}/tmp.test > #{ARGV[1]}"
-system(cmd)
-
-
+if ARGV[1] != nil
+	g.close
 end
+
+File.unlink("#{@TEST_DIR}/#{name}.out")
+File.unlink("#{@TEST_DIR}/#{name}.test")
