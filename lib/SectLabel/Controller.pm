@@ -147,14 +147,16 @@ sub getGenericHeaders {
   close OF;
   
   # get a list of generic headers
-  my $cmd = "$genericSectPath $headerFile";
-  my $headerText = `$cmd`;
-    
-  my @lines = split(/\n/, $headerText);
+  my $cmd = "$genericSectPath $headerFile $headerFile.out";
+  system($cmd);
+
+  open(IF, "<:utf8", "$headerFile.out");
   my $genericCount = 0;
-  foreach my $genericHeader (@lines){
-    if($genericHeader eq "") { next; }
-#    print "$genericCount Thang $genericHeader\n";
+  while(<IF>){
+    chomp;
+    my $genericHeader = $_;
+
+    print "$genericCount Thang $genericHeader\n";
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
@@ -169,6 +171,7 @@ sub getGenericHeaders {
   }
 
   unlink($headerFile);
+  unlink("$headerFile.out");
 }
 
 # Thang Mar 10: method to insert generic headers into previous label XML output (ids given for checking purpose)

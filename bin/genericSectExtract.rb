@@ -17,7 +17,6 @@ system(cmd)
 cmd = "ruby #{@SRC}/createFeature_test.rb #{@TMP} > #{@TMP}/tmp.test"
 system(cmd)
 
-if ARGV[1] == nil
 cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TMP}/tmp.test > #{@TMP}/tmp.out"
 system(cmd)
 
@@ -30,9 +29,4 @@ while !f.eof do
 	end
 end
 f.close
-else
-cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TMP}/tmp.test > #{ARGV[1]}"
-system(cmd)
 
-
-end
