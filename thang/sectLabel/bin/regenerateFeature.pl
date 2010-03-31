@@ -98,7 +98,7 @@ foreach my $subDir (@subDirs){
 
   foreach my $file (@files){
     # extract feature
-    execute("$path/../../../bin/sectLabel/processOmniXML.pl -in $omniDir/$subDir/xml-concat/$file -out $featureDir/$subDir/$file -xmlFeature -paraFeature");
+    execute("$path/../../../bin/sectLabel/processOmniXML.pl -in $omniDir/$subDir/xml-concat/$file -out $featureDir/$subDir/$file -xmlFeature -paraFeature -structureFeature");
 
     # insert XML features to label txt files
     execute("$path/insertXMLFeatures.pl -in $labelDir/$subDir/$file -xml $featureDir/$subDir/$file -out $outDir/$subDir/$file -log $featureDir.log");

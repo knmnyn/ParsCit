@@ -35,7 +35,7 @@ sub License {
 sub Help {
   print STDERR "Process Omnipage XML output (concatenated results fromm all pages of a PDF file), and extract text lines together with other XML infos\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in xmlFile -out outFile [-xmlFeature -decode -markup -para -paraFeature -structure] [-tag tagFile -allowEmptyLine -log]\n";
+  print STDERR "       $progname -in xmlFile -out outFile [-xmlFeature -decode -markup -para -paraFeature -structureFeature] [-tag tagFile -allowEmptyLine -log]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-xmlFeature: append XML feature together with text extracted\n";
@@ -57,7 +57,7 @@ my $isDecode = 0;
 my $isMarkup = 0;
 my $isParaDelimiter = 0;
 my $isParaFeature = 0;
-my $isStructure = 0;
+my $isStructureFeature = 0;
 
 my $tagFile = "";
 my $isAllowEmpty = 0;
@@ -73,6 +73,7 @@ $HELP = 1 unless GetOptions('in=s' => \$inFile,
 
 			    'para' => \$isParaDelimiter,
 			    'paraFeature' => \$isParaFeature,
+			    'structureFeature' => \$isStructureFeature,
 			    'debug' => \$isDebug,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
@@ -126,7 +127,10 @@ if($isDebug){
 }
 my $allText = processFile($inFile, $outFile, \%tags);
 my ($headerCount, $bodyCount, $referenceCount) = getStructureInfo($allText);
-#print STDERR "($headerCount, $bodyCount, $referenceCount)\n";
+my $headerEnd = $headerCount;
+my $bodyEnd = $headerCount + $bodyCount;
+my $referenceEnd = $headerCount + $bodyCount + $referenceCount;
+print STDERR "($headerCount, $bodyCount, $referenceCount)\n";
 
 output($allText, $outFile);
 
@@ -239,7 +243,7 @@ sub output {
 
   ####### Final output ############
   my @lines = split(/\n/, $allText);
-
+  print STDERR scalar(@lines)."\n";
   # xml feature label
   my %gFontSizeLabels = (); 
   my %gIndentLabels = (); # yes, no
@@ -373,6 +377,18 @@ sub output {
 	  $paraFeature = "xmlPara_same";
 	}
 	$output .= " $paraFeature";
+      }
+
+      if($isStructureFeature){
+	my $structureFeature;
+	if($id < $headerEnd){
+	  $structureFeature = "xmlStructure_header";
+	} elsif($id < $bodyEnd){
+	  $structureFeature = "xmlStructure_body";
+	} else {
+	  $structureFeature = "xmlStructure_reference";
+	}
+	$output .= " $structureFeature";
       }
 
       $output .= "\n";

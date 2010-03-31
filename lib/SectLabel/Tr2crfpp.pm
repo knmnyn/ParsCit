@@ -75,6 +75,7 @@ my %config = (
 	      'xmlBullet' => 0,
 
 	      'xmlPara' => 0,
+	      'xmlStructure' => 0,
 
 	      # unused
 	      'xmlFontFace' => 0,
@@ -95,6 +96,7 @@ my %config = (
 	      'link-xmlBullet' => 0,
 
 	      'link-xmlPara' => 0,
+	      'link-xmlStructure' => 0,
 	     );
 
 my %tagMap = (
