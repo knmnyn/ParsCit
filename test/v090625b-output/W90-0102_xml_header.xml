@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.993690">
+<title confidence="0.9997675">Generation and Synchronous Tree-Adjoining Grammars</title>
+<author confidence="0.999986">Stuart M Shieber</author>
+<affiliation confidence="0.999925333333333">Aiken Computation Laboratory Division of Applied Sciences Harvard University</affiliation>
+<address confidence="0.999991">Cambridge, MA 02138</address>
+<abstract confidence="0.9996094">Tree-adjoining grammars (TAG) have been proposed as a formalism for generation based on the intuition that the extended domain of syntactic locality that TAGs provide should aid in localizing semantic dependencies as well, in turn serving as an aid to generation from semantic representations. We demonstrate that this intuition can be made concrete by using the formalism of synchronous tree-adjoining grammars. The use of synchronous TAGs for generation provides solutions to several problems with previous approaches to TAG generation. Furthermore, the semantic monotonicity requirement previously advocated for generation grammars as a computational aid is seen to be an inherent property of synchronous TAGs</abstract>
+</variant>
+</algorithm>
+</algorithms>

@@ -41,7 +41,6 @@ Find.find("#{dirPath}") do |path|
 end
 
 for file in files do
-	puts "#{file}"
 	f = File.open("#{file}.hea")
 	hea_array = Array.new
 	while !f.eof do
