@@ -112,6 +112,8 @@ sub extractSectionImpl {
     } else {
       $xml = SectLabel::PostProcess::wrapDocumentXml($outFile, \%sectionHeaders);
       
+      my $numHeader = scalar(@{$sectionHeaders{"lineId"}});
+
       $sectionHeaders{"generic"} = (); # array of generic headers
       getGenericHeaders($sectionHeaders{"header"}, \@{$sectionHeaders{"generic"}});
 
@@ -147,10 +149,12 @@ sub getGenericHeaders {
   # get a list of generic headers
   my $cmd = "$genericSectPath $headerFile";
   my $headerText = `$cmd`;
+    
   my @lines = split(/\n/, $headerText);
   my $genericCount = 0;
   foreach my $genericHeader (@lines){
     if($genericHeader eq "") { next; }
+    print "$genericCount Thang $genericHeader\n";
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
@@ -160,11 +164,11 @@ sub getGenericHeaders {
   close IF;
   
   if($numHeaders != $genericCount){
+    print "Die: SectLabel::Controller::getGenericHeaders different in number of headers $numHeaders vs. the number of generic headers $genericCount\n";
     die "Die: SectLabel::Controller::getGenericHeaders different in number of headers $numHeaders vs. the number of generic headers $genericCount\n";
   }
 
   unlink($headerFile);
-  unlink("$headerFile.out");
 }
 
 # Thang Mar 10: method to insert generic headers into previous label XML output (ids given for checking purpose)
