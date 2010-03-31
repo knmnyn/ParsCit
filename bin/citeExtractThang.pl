@@ -133,41 +133,6 @@ if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
 }
 ### End Thang v100401: add input type option, and SectLabel ###
 
-open (IN, "<:utf8", "$textFile") || die "#Can't open file \"$textFile\"";
-my $text = "";
-while(<IN>){
-  $text .= $_;
-}
-close IN;
-
-use SectLabel::PreProcess;
-my ($rBodyText, $rReferenceText) =
-	    SectLabel::PreProcess::findCitationText(\$text);
-
-my ($rHeaderText, $rBodyText) =
-	    SectLabel::PreProcess::findHeaderText($rBodyText);
-my @headerLines = split(/\n/, $$rHeaderText);
-my @bodyLines = split(/\n/, $$rBodyText);
-my @referenceLines = split(/\n/, $$rReferenceText);
-
-my $count = 0;
-
-my $outFile = "tmp";
-open(OF, ">:utf8", $outFile);
-foreach my $line (@headerLines) {
-  if($line eq "") { next; }
-  print OF "$line |Structure| header\n";
-}
-foreach my $line (@bodyLines) {
-  if($line eq "") { next; }
-  print OF "$line |Structure| body\n";
-}
-foreach my $line (@referenceLines) {
-  if($line eq "") { next; }
-  print OF "$line |Structure| reference\n";
-}
-
-
 if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
   my $phXML = ParsHed::Controller::extractHeader($textFile, $phModel); 

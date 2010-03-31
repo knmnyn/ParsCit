@@ -1,0 +1,141 @@
+#!/usr/bin/perl -wT
+# Author: Luong Minh Thang <luongmin@comp.nus.edu.sg>, generated at Thu, 01 Apr 2010 01:15:34
+
+# Modified from template by Min-Yen Kan <kanmy@comp.nus.edu.sg>
+
+require 5.0;
+use strict;
+use Getopt::Long;
+
+# I do not know a better solution to find a lib path in -T mode.
+# So if you know a better solution, I'd be glad to hear.
+# See this http://www.perlmonks.org/?node_id=585299 for why I used the below code
+use FindBin;
+FindBin::again(); # to get correct path in case 2 scripts in different directories use FindBin
+my $path;
+BEGIN {
+  if ($FindBin::Bin =~ /(.*)/) {
+    $path = $1;
+  }
+}
+use lib "$path/../../lib";
+use SectLabel::PreProcess;
+use Utility::Controller;
+
+### USER customizable section
+$0 =~ /([^\/]+)$/; my $progname = $1;
+my $outputVersion = "1.0";
+### END user customizable section
+
+sub License {
+  print STDERR "# Copyright 2009 \251 by Luong Minh Thang\n";
+}
+
+### HELP Sub-procedure
+sub Help {
+  print STDERR "usage: $progname -h\t[invokes help]\n";
+  print STDERR "       $progname -in inFile -out outFile\n";
+  print STDERR "Options:\n";
+  print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
+}
+my $QUIET = 0;
+my $HELP = 0;
+my $inFile = undef;
+my $outFile = undef;
+
+$HELP = 1 unless GetOptions('in=s' => \$inFile,
+			    'out=s' => \$outFile,
+			    'h' => \$HELP,
+			    'q' => \$QUIET);
+
+if ($HELP || !defined $inFile || !defined $outFile) {
+  Help();
+  exit(0);
+}
+
+if (!$QUIET) {
+  License();
+}
+
+### Untaint ###
+$inFile = untaintPath($inFile);
+$outFile = untaintPath($outFile);
+my $envPath = $ENV{'PATH'};
+$envPath = untaintPath($envPath);
+$ENV{'PATH'} = $envPath;
+### End untaint ###
+
+
+open (IN, "<:utf8", "$inFile") || die "#Can't open file \"$inFile\"";
+my $text = "";
+while(<IN>){
+  $text .= $_;
+}
+close IN;
+
+my ($rBodyText, $rReferenceText) =
+	    SectLabel::PreProcess::findCitationText(\$text);
+
+my $rHeaderText;
+($rHeaderText, $rBodyText) =
+	    SectLabel::PreProcess::findHeaderText($rBodyText);
+my @headerLines = split(/\n/, $$rHeaderText);
+my @bodyLines = split(/\n/, $$rBodyText);
+my @referenceLines = split(/\n/, $$rReferenceText);
+
+my $count = 0;
+open(OF, ">:utf8", $outFile);
+
+my $headerCount = scalar(@headerLines);
+print OF "header\t".$headerCount."\n";
+$count+=$headerCount;
+
+my $bodyCount = scalar(@bodyLines);
+print OF "body\t".$bodyCount."\n";
+$count+=$bodyCount;
+
+my $referenceCount = scalar(@referenceLines);
+print OF "reference\t".$referenceCount."\n";
+$count+=$referenceCount;
+
+# sanity check
+my $numLines = Utility::Controller::getNumLines($inFile);
+if($numLines != $count){
+  print STDOUT "Die in getStructureInfo(): different num lines $numLines != $count\n"; # to display in Web
+  die "Die in getStructureInfo(): different num lines $numLines != $count\n";
+}
+
+sub untaintPath {
+  my ($path) = @_;
+
+  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) { #\p{C}\p{P}
+    $path = $1;
+  } else {
+    die "Bad path $path\n";
+  }
+
+  return $path;
+}
+
+sub untaint {
+  my ($s) = @_;
+  if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) { #\p{C}\p{P}
+    $s = $1;               # $data now untainted
+  } else {
+    die "Bad data in $s";  # log this somewhere
+  }
+  return $s;
+}
+
+sub execute {
+  my ($cmd) = @_;
+  print STDERR "Executing: $cmd\n";
+  $cmd = untaint($cmd);
+  system($cmd);
+}
+
+sub newTmpFile {
+  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
+  chomp($tmpFile);
+  return $tmpFile;
+}

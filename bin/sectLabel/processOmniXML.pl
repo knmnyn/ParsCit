@@ -8,6 +8,20 @@ use strict;
 use Getopt::Long;
 use HTML::Entities;
 
+# I do not know a better solution to find a lib path in -T mode.
+# So if you know a better solution, I'd be glad to hear.
+# See this http://www.perlmonks.org/?node_id=585299 for why I used the below code
+use FindBin;
+FindBin::again(); # to get correct path in case 2 scripts in different directories use FindBin
+my $path;
+BEGIN {
+  if ($FindBin::Bin =~ /(.*)/) {
+    $path = $1;
+  }
+}
+use lib "$path/../../lib";
+use SectLabel::PreProcess;
+
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
@@ -21,33 +35,42 @@ sub License {
 sub Help {
   print STDERR "Process Omnipage XML output (concatenated results fromm all pages of a PDF file), and extract text lines together with other XML infos\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in xmlFile -out outFile [-tag tagFile -xmlFeature -markup -para -noEmpty -log -paraFeature -decode]\n";
+  print STDERR "       $progname -in xmlFile -out outFile [-xmlFeature -decode -markup -para -paraFeature -structure] [-tag tagFile -allowEmptyLine -log]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
-  print STDERR "\t-tag: print out tags available\n";
-  print STDERR "\t-markup: add factor infos (bold, italic etc) per word using the format word|||(b|nb)|||(i|ni)\n";
+  print STDERR "\t-xmlFeature: append XML feature together with text extracted\n";
   print STDERR "\t-decode: decode HTML entities and then output, to avoid double entity encoding later\n";
-  print STDERR "\t-empty: allow empty lines\n";
+
+  print STDERR "\t-structure: add structure feature (header, body, reference)\n";
+
+  print STDERR "\t-tag tagFile: count XML tags/values for statistics purpose\n";
+  print STDERR "\t-markup: add factor infos (bold, italic etc) per word using the format \"word|||(b|nb)|||(i|ni)\", useful to extract bold/italic phrases\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
 my $outFile = undef;
 my $inFile = undef;
-my $tagFile = "";
+
 my $isXmlFeature = 0;
-my $isAllowEmpty = 0;
-my $isDebug = 0;
+my $isDecode = 0;
+
 my $isMarkup = 0;
 my $isParaDelimiter = 0;
 my $isParaFeature = 0;
-my $isDecode = 0;
+my $isStructure = 0;
+
+my $tagFile = "";
+my $isAllowEmpty = 0;
+my $isDebug = 0;
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
-			    'tag=s' => \$tagFile,
-			    'xmlFeature' => \$isXmlFeature,
-			    'empty' => \$isAllowEmpty,
-			    'markup' => \$isMarkup,
 			    'decode' => \$isDecode,
+			    'xmlFeature' => \$isXmlFeature,
+
+			    'tag=s' => \$tagFile,
+			    'allowEmptyLine' => \$isAllowEmpty,
+			    'markup' => \$isMarkup,
+
 			    'para' => \$isParaDelimiter,
 			    'paraFeature' => \$isParaFeature,
 			    'debug' => \$isDebug,
@@ -75,43 +98,25 @@ my @gPara = ();
 
 ### XML features ###
 # locFeature
-my @gPosHash = ();
-my $gMinPos = 1000000;
-my $gMaxPos = 0;
-
-# alignFeature
-my @gAlign = ();
+my @gPosHash = (); my $gMinPos = 1000000; my $gMaxPos = 0;
+my @gAlign = (); # alignFeature
+my @gBold = (); # bold feature
+my @gItalic = (); # italic feature
 
 # font size feature
-my %gFontSizeHash = ();
-my @gFontSize = ();
-
-# bold feature
-my @gBold = ();
-
-# italic feature
-my @gItalic = ();
-
+my %gFontSizeHash = (); my @gFontSize = ();
 # font face feature
-my %gFontFaceHash = ();
-my @gFontFace = ();
+my %gFontFaceHash = (); my @gFontFace = ();
 
-# dd feature
-my @gDd = ();
+my @gDd = (); # dd feature
+my @gCell = (); # cell feature
+my @gBullet = (); # bullet feature
 
-# cell feature
-my @gCell = ();
-
-# bullet feature
-my @gBullet = ();
-
-# indent feature
-my %gIndentHash = (); #gIndentHash{$indent} = freq
-my @gIndent = ();
-
-# space feature
-#my %gSpaceHash = (); #gSpaceHash->{$space} = freq
-#my @gSpace = ();
+# indent feature, gIndentHash{$indent} = freq
+my %gIndentHash = (); my @gIndent = ();
+# space feature, gSpaceHash->{$space} = freq
+#my %gSpaceHash = (); #my @gSpace = ();
+### End XML features ###
 
 my $gCurrentPage = -1;
 my %tags = ();
@@ -119,32 +124,36 @@ my %tags = ();
 if($isDebug){
   print STDERR "\n# Processing file $inFile & output to $outFile\n";
 }
-processFile($inFile, $outFile, \%tags);
+my $allText = processFile($inFile, $outFile, \%tags);
+my ($headerCount, $bodyCount, $referenceCount) = getStructureInfo($allText);
+#print STDERR "($headerCount, $bodyCount, $referenceCount)\n";
+
+output($allText, $outFile);
 
 if($tagFile ne ""){
-  open(TAG, ">:utf8", "$tagFile") || die"#Can't open file \"$tagFile\"\n";
-  my @sortedTags = sort {$a cmp $b} keys %tags;
-  foreach(@sortedTags){
-    my @attrs = sort {$a cmp $b} keys %{$tags{$_}};
-    print TAG "# Tag = $_\n";
-    foreach my $attr (@attrs) {
-      print TAG "$attr:";
-      my @values = sort {$a cmp $b} keys %{$tags{$_}->{$attr}};
-      foreach my $value (@values){
-	print TAG " $value-$tags{$_}->{$attr}->{$value}";
-      }
-      print TAG "\n";
-    }
-  }
-  close TAG;
+  printTagInfo(\%tags, $tagFile);
+}
+
+sub getStructureInfo {
+  my ($text) = @_;
+  my ($rBodyText, $rReferenceText) =
+    SectLabel::PreProcess::findCitationText(\$text);
+  
+  my $rHeaderText;
+  ($rHeaderText, $rBodyText) =
+    SectLabel::PreProcess::findHeaderText($rBodyText);
+  my @headerLines = split(/\n/, $$rHeaderText);
+  my @bodyLines = split(/\n/, $$rBodyText);
+  my @referenceLines = split(/\n/, $$rReferenceText);
+  
+  return(scalar(@headerLines), scalar(@bodyLines), scalar(@referenceLines));
 }
 
 sub processFile {
-  my ($inFile, $outFile, $tags) = @_;
+  my ($inFile, $tags) = @_;
   
   if (!(-e $inFile)) { die "# $progname crash\t\tFile \"$inFile\" doesn't exist"; }
   open (IF, "<:utf8", $inFile) || die "# $progname crash\t\tCan't open \"$inFile\"";
-  open(OF, ">:utf8", "$outFile") || die"#Can't open file \"$outFile\"\n";
   
   my $isPara = 0;
   my $isTable = 0;
@@ -152,53 +161,20 @@ sub processFile {
   my $isDd = 0;
   my $allText = "";
   my $text = ""; 
-  my $tag;
-  my $attr;
-  my %pageIdMap = ();
+
   my $lineId = 0;
   while (<IF>) { #each line contains a header
     if (/^\#/) { next; }			# skip comments
-#    if (/^\s*$/) { next; }			# skip empty lines
     chomp;
     s/\cM$//; # remove ^M character at the end of the file if any
-
     my $line = $_;
 
     if($tagFile ne ""){
-      if($line =~ /^<(.+?)\b(.*)/){
-	$tag = $1;
-	$attr = $2;
-	if(!$tags->{$tag}){
-	  $tags->{$tag} = ();
-	}
-	if($attr =~ /^\s*(.+?)\s*\/?>/){
-	  $attr = $1;
-	}
-
-	my @tokens = split(/\s+/, $attr);
-	foreach my $token (@tokens){
-	  if($token =~ /^(.+)=(.+)$/){
-	    my $attrName = $1;
-	    my $value = $2;
-	    if(!$tags->{$tag}->{$attrName}){
-	      $tags->{$tag}->{$attrName} = ();
-	    }
-	    if(!$tags->{$tag}->{$attrName}->{$value}){
-	      $tags->{$tag}->{$attrName}->{$value} = 0;
-	    }
-	    $tags->{$tag}->{$attrName}->{$value}++;
-	  }
-	}
-      }
+      processTagInfo($line, $tags);
     }
 
     ### Xml ###
-    if ($line =~ /<\?xml version.+>/){
-      $gCurrentPage++;
-      $pageIdMap{$gCurrentPage} = $lineId;
-      #print STDERR "Map $lineId\tpage $gCurrentPage\n";
-    }
-
+#    if ($line =~ /<\?xml version.+>/){    }
     ### Column ###
 #    if ($line =~ /^<\/column>$/){    }
 
@@ -251,48 +227,38 @@ sub processFile {
       next;
     }
   }  
+  close IF;
+  
+  return $allText;
+}
 
+sub output {
+  my ($allText) = @_;
+
+  open(OF, ">:utf8", "$outFile") || die"#Can't open file \"$outFile\"\n";
 
   ####### Final output ############
   my @lines = split(/\n/, $allText);
 
-  if($isXmlFeature){
-    if(scalar(@lines) != scalar(@gPosHash)){
-      die "Die: different size lines ".scalar(@lines)." != gPosHash ".scalar(@gPosHash)."\n";
-#    } else {
-#      print STDERR scalar(@lines)."\n";
-    }
-    if(scalar(@lines) != scalar(@gAlign)){
-      die "Die: different size lines ".scalar(@lines)." != gAlign ".scalar(@gAlign)."\n";
-    }
-  }
-
-
-
   # xml feature label
-  my %gFontSizeLabels = (); # common font -> smallest/2, common font -> largest/2, smallest -> smallest/2, largest -> largest/2
+  my %gFontSizeLabels = (); 
   my %gIndentLabels = (); # yes, no
-  my %gFontFaceLabels = (); # common font -> less ones
+  my %gFontFaceLabels = (); 
 #  my %gSpaceLabels = (); # yes, no
+
   if($isXmlFeature){
     getFontSizeLabels(\%gFontSizeHash, \%gFontSizeLabels);
     getIndentLabels(\%gIndentHash, \%gIndentLabels);
-
     getFontFaceLabels(\%gFontFaceHash, \%gFontFaceLabels);
 #    getSpaceLabels(\%gSpaceHash, \%gSpaceLabels);
   }
 
   my $id = -1;
-  my $pageId = -1;
   my $output = "";
   my $paraLineId = -1;
   my $paraLineCount = 0;
   foreach my $line (@lines) {
     $id++;
-    if(defined $pageIdMap{$pageId+1} && 
-       ($id == $pageIdMap{$pageId+1})){
-      $pageId++;
-    }
 
     if($line =~ /^\s*$/){ # # empty lines
       if(!$isAllowEmpty){
@@ -373,20 +339,11 @@ sub processFile {
 	$fontSizeChangeFeature .= "no";
       }
 
-      # bold feature
-      my $boldFeature = "xmlBold_".$gBold[$id];
-
-      # italic feature
-      my $italicFeature = "xmlItalic_".$gItalic[$id];
-
-      # dd feature
-      my $ddFeature = "xmlDd_".$gDd[$id];
-
-      # cell feature
-      my $cellFeature = "xmlCell_".$gCell[$id];
-
-      # bullet feature
-      my $bulletFeature = "xmlBullet_".$gBullet[$id];
+      my $boldFeature = "xmlBold_".$gBold[$id]; # bold feature
+      my $italicFeature = "xmlItalic_".$gItalic[$id]; # italic feature
+      my $ddFeature = "xmlDd_".$gDd[$id]; # dd feature
+      my $cellFeature = "xmlCell_".$gCell[$id]; # cell feature
+      my $bulletFeature = "xmlBullet_".$gBullet[$id]; # bullet feature
 
       # indent feature
       my $indentFeature;
@@ -438,11 +395,7 @@ sub processFile {
     }
     $output = ""
   }
-
-#  print OF $allText;
-
   close OF;
-  close IF;
 }
 
 sub getFontSizeLabels {
@@ -1208,6 +1161,60 @@ sub processPara {
 
   $allText .= $text;
   return ($allText, $l, $t, $r, $bottom, $isSpace);
+}
+
+## Count XML tags/values for statistics purpose
+sub processTagInfo {
+  my ($line, $tags) = @_;
+
+  my $tag;
+  my $attr;
+  if($line =~ /^<(.+?)\b(.*)/){
+    $tag = $1;
+    $attr = $2;
+    if(!$tags->{$tag}){
+      $tags->{$tag} = ();
+    }
+    if($attr =~ /^\s*(.+?)\s*\/?>/){
+      $attr = $1;
+    }
+    
+    my @tokens = split(/\s+/, $attr);
+    foreach my $token (@tokens){
+      if($token =~ /^(.+)=(.+)$/){
+	my $attrName = $1;
+	my $value = $2;
+	if(!$tags->{$tag}->{$attrName}){
+	  $tags->{$tag}->{$attrName} = ();
+	}
+	if(!$tags->{$tag}->{$attrName}->{$value}){
+	  $tags->{$tag}->{$attrName}->{$value} = 0;
+	}
+	$tags->{$tag}->{$attrName}->{$value}++;
+      }
+    }
+  }
+}
+
+## Print tag info to file
+sub printTagInfo {
+  my ($tags, $tagFile) = @_;
+
+  open(TAG, ">:utf8", "$tagFile") || die"#Can't open file \"$tagFile\"\n";
+  my @sortedTags = sort {$a cmp $b} keys %{$tags};
+  foreach(@sortedTags){
+    my @attrs = sort {$a cmp $b} keys %{$tags->{$_}};
+    print TAG "# Tag = $_\n";
+    foreach my $attr (@attrs) {
+      print TAG "$attr:";
+      my @values = sort {$a cmp $b} keys %{$tags->{$_}->{$attr}};
+      foreach my $value (@values){
+	print TAG " $value-$tags->{$_}->{$attr}->{$value}";
+      }
+      print TAG "\n";
+    }
+  }
+  close TAG;
 }
 
 sub untaintPath {
