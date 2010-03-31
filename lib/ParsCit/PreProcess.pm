@@ -20,7 +20,6 @@ my %markerTypes = (
 #		   'NAKEDNUMDOT' => '\\d{1,3}\\.', # Modified by Artemy Kolchinsky (v090625)
 		   );
 
-
 ##
 # Looks for reference section markers in the supplied text and
 # separates the citation text from the body text based on these
