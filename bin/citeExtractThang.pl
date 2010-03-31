@@ -140,6 +140,17 @@ while(<IN>){
 }
 close IN;
 
+my ($rBodyText, $rCiteText, $rRemainText) =
+	    SectLabel::PreProcess::findCitationText(\$text);
+
+my ($rHeaderText, $rBodyText) =
+	    ParsCit::PreProcess::findHeaderText($rBodyText);
+print STDERR "\"$$rHeaderText\"\n";
+print STDERR "\"$$rBodyText\"\n";
+print STDERR "\"$$rCiteText\"\n";
+print STDERR "\"$$rRemainText\"\n";
+exit;
+
 if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
   my $phXML = ParsHed::Controller::extractHeader($textFile, $phModel); 
