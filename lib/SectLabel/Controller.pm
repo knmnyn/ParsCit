@@ -154,7 +154,7 @@ sub getGenericHeaders {
   my $genericCount = 0;
   foreach my $genericHeader (@lines){
     if($genericHeader eq "") { next; }
-    print "$genericCount Thang $genericHeader\n";
+#    print "$genericCount Thang $genericHeader\n";
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
