@@ -63,9 +63,9 @@ $ENV{'PATH'} = $envPath;
 
 
 my $allOutput = "$path/../experiments/$inFile/all.out";
-#execute("$path/../../../bin/sectLabel/conlleval_modified.pl -r -c -d \"\t\" < $allOutput");
+execute("$path/../../../bin/sectLabel/conlleval_modified.pl -r -c -d \"\t\" < $allOutput > $path/../experiments/$inFile/evaluation.stdout_new");
 
-$inFile = "$path/../experiments/$inFile/evaluation.stdout";
+$inFile = "$path/../experiments/$inFile/evaluation.stdout_new";
 
 processFile($inFile);
 

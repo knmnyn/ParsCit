@@ -75,28 +75,17 @@ my %config = (
 	      'xmlBullet' => 0,
 
 	      'xmlPara' => 0,
-	      'xmlStructure' => 0,
+
+	      # differential features
+	      'xmlA' => 0,
+	      'xmlF' => 0,
+	      'xmlSF' => 0,
+	      'xmlSFBI' => 0,
+	      'xmlSFBIA' => 0,
+
 
 	      # unused
-	      'xmlFontFace' => 0,
-	      'xmlFontFaceChange' => 0,
-	      'xmlFontSizeChange' => 0,
-	      'xmlSpace' => 0,
-	      
-	      # linking features
-	      'link-xmlAlign' => 0,
-	      'link-xmlIndent' => 0,
-
-	      'link-xmlFontSize' => 0,
-	      'link-xmlBold' => 0,
-	      'link-xmlItalic' => 0,
-	      
-	      'link-xmlDd' => 0,
-	      'link-xmlCell' => 0,
-	      'link-xmlBullet' => 0,
-
-	      'link-xmlPara' => 0,
-	      'link-xmlStructure' => 0,
+	      'xmlSpace' => 0,	      
 	     );
 
 my %tagMap = (

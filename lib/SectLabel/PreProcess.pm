@@ -27,7 +27,7 @@ sub findHeaderText {
 
     my $bodyStartId = $startId;
     for(; $bodyStartId<$numLines; $bodyStartId++){
-      if($lines->[$bodyStartId] =~ /^(.*?)\b(Introductions?|INTRODUCTIONS?)\b(.*?):?\s*$/) {
+      if($lines->[$bodyStartId] =~ /^(.*?)\b(Abstract|ABSTRACT|Introductions?|INTRODUCTIONS?)\b(.*?):?\s*$/) {
 	if(countTokens($3) > 0){ # there are trailing text after the word introduction
 	  if($3 =~ /background/i){ # INTRODUCTION AND BACKGROUND
 	    last;
