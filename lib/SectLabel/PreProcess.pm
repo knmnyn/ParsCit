@@ -15,35 +15,45 @@ use utf8;
 # separates the header text from the body text based on these
 # indicators.  If it looks like there is a header section marker
 # too late, an empty header text string will be returned.  
-# Returns references to the header text, normalized body text, and 
-# original body text.
+## Input: reference to an array of lines, line id to start process, number of lines (startId < numLines)
+## Output: header length, body length, body start id)
 ##
 sub findHeaderText {
-    my ($rText) = @_;
-    my $text = $$rText;
-    my $headerText = '0';
-    my $bodyText = '0';
+    my ($lines, $startId, $numLines) = @_;
 
-    if ($text =~ m/\b(Introductions?|INTRODUCTIONS?:?\s*\n+)/sg) {
-      my $position = pos($text) - length($1);
-      $headerText = substr $text, 0, $position;
-      $bodyText = substr $text, $position unless ($position < 1);
+    if($startId >= $numLines){
+      die "Die in SectLabel::PreProcess::findHeaderText: start id $startId >= num lines $numLines\n";
+    }
+
+    my $bodyStartId = $startId;
+    for(; $bodyStartId<$numLines; $bodyStartId++){
+      if($lines->[$bodyStartId] =~ /^(.*?)\b(Introductions?|INTRODUCTIONS?)\b(.*?):?\s*$/) {
+	if(countTokens($3) > 0){ # there are trailing text after the word introduction
+	  if($3 =~ /background/i){ # INTRODUCTION AND BACKGROUND
+	    last;
+	  }
+	} else {
+	  last;
+	}
+      }
     }
     
-    if (length($headerText) >= 0.8*length($bodyText)) {
-	print STDERR "Header text longer than article body: ignoring\n";
-	$headerText = "";
-	return \$headerText, \normalizeBodyText(\$bodyText), \$bodyText;
+    my $headerLength = $bodyStartId - $startId;
+    my $bodyLength = $numLines - $bodyStartId;
+    if ($headerLength >= 0.8*$bodyLength) {
+	print STDERR "Header text $headerLength longer than 80% article body length $bodyLength: ignoring\n";
+	$bodyStartId = $startId;
+	$headerLength = 0;
+	$bodyLength = $numLines - $bodyStartId;
     }
 
-    if ($headerText eq '0' || !defined $headerText) {
+    if ($headerLength == 0){
 	print STDERR "warning: no header text found\n";
     }
 
-    return (\$headerText,
-	    \$bodyText);
-
+    return ($headerLength, $bodyLength, $bodyStartId);
 }  # findHeaderText
+
 
 ##
 # Looks for reference section markers in the supplied text and
@@ -52,42 +62,47 @@ sub findHeaderText {
 # too early in the document, this procedure will try to find later
 # ones.  If the final reference section is still too long, an empty
 # citation text string will be returned.  
-# Returns references to the body text, citation text, and post-citation text.
+## Input: reference to an array of lines, line id to start process, number of lines (startId < numLines)
+## Output: body length, citation length, body end id
 ##
 sub findCitationText {
-    my ($rText) = @_;
-    my $text = $$rText;
-    my $bodyText = '0';
-    my $citeText = '0';
-    my $remainText = "";
+    my ($lines, $startId, $numLines) = @_;
 
-# Corrected by Cheong Chi Hong <chcheong@cse.cuhk.edu.hk> 2 Feb 2010
-#    while ($text =~ m/\b(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCE?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*\n+/sg) {
-    while ($text =~ m/\b(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCES?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*\n+/sg) {
-	$bodyText = substr $text, 0, pos $text;
-	$citeText = substr $text, pos $text unless (pos $text < 1);
+    if($startId >= $numLines){
+      die "Die in SectLabel::PreProcess::findCitationText: start id $startId >= num lines $numLines\n";
     }
-    if (length($citeText) >= 0.8*length($bodyText)) {
-      print STDERR "Citation text longer than article body: ignoring\n";
-      $citeText = "";
-      return \$citeText, \normalizeBodyText(\$bodyText), \$bodyText;
+
+    my $bodyEndId = ($numLines - 1);
+    for(; $bodyEndId >= $startId; $bodyEndId--){
+      if($lines->[$bodyEndId] =~ /(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCES?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*$/) {
+	last;
+      }
     }
     
-#    my $text = $citeText;
-#    if($text =~ m/\b(Acknowledge?ments?|Autobiographical|Tables?|Appendix|Exhibit|Annex|Fig|Notes?):?\s*\n+/sg) { #
-#      my $position = pos($text) - length($1);
-#      $citeText = substr $text, 0, $position;
-#      $remainText = substr $text, $position unless ($position < 1);
-#    }
+    my $bodyLength = $bodyEndId - $startId + 1;
+    my $citationLength = $numLines -1 - $bodyEndId;
+    if ($citationLength >= 0.8*$bodyLength) {
+	print STDERR "Citation text $citationLength longer than 80% article body length $bodyLength: ignoring\n";
+	$bodyEndId = ($numLines - 1);
+	$citationLength = 0;
+	$bodyLength = $bodyEndId - $startId + 1;
+    }
 
-    if ($citeText eq '0' || !defined $citeText) {
+    if ($citationLength == 0){
 	print STDERR "warning: no citation text found\n";
     }
 
-    return (\$bodyText,
-	    \$citeText);
-#	    \$remainText);
+    return ($bodyLength, $citationLength, $bodyEndId);
+}  # findHeaderText
 
-}  # findCitationText
+sub countTokens {
+  my ($text) = @_;
+
+  $text =~ s/^\s+//; # trip leading spaces
+  $text =~ s/\s+$//; # trip trailing spaces
+  my @tokens = split(/\s+/, $text);
+
+  return scalar(@tokens);
+}
 
 1;

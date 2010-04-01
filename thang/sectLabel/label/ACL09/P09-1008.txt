@@ -1,0 +1,868 @@
+title ||| Topological Field Parsing of German
+author ||| Jackie Chi Kit Cheung
+affiliation ||| Department of Computer Science
+affiliation ||| University of Toronto
+address ||| Toronto, ON, M5S 3G4, Canada
+email ||| jcheung@cs.toronto.edu
+author ||| Gerald Penn
+affiliation ||| Department of Computer Science
+affiliation ||| University of Toronto
+address ||| Toronto, ON, M5S 3G4, Canada
+email ||| gpenn@cs.toronto.edu
+sectionHeader ||| Abstract
+bodyText ||| Freer-word-order languages such as Ger-
+bodyText ||| man exhibit linguistic phenomena that
+bodyText ||| present unique challenges to traditional
+bodyText ||| CFG parsing. Such phenomena produce
+bodyText ||| discontinuous constituents, which are not
+bodyText ||| naturally modelled by projective phrase
+bodyText ||| structure trees. In this paper, we exam-
+bodyText ||| ine topological field parsing, a shallow
+bodyText ||| form of parsing which identifies the ma-
+bodyText ||| jor sections of a sentence in relation to
+bodyText ||| the clausal main verb and the subordinat-
+bodyText ||| ing heads. We report the results of topo-
+bodyText ||| logical field parsing of German using the
+bodyText ||| unlexicalized, latent variable-based Berke-
+bodyText ||| ley parser (Petrov et al., 2006) Without
+bodyText ||| any language- or model-dependent adapta-
+bodyText ||| tion, we achieve state-of-the-art results on
+bodyText ||| the T¨uBa-D/Z corpus, and a modified NE-
+bodyText ||| GRA corpus that has been automatically
+bodyText ||| annotated with topological fields (Becker
+bodyText ||| and Frank, 2002). We also perform a qual-
+bodyText ||| itative error analysis of the parser output,
+bodyText ||| and discuss strategies to further improve
+bodyText ||| the parsing results.
+sectionHeader ||| 1 Introduction
+bodyText ||| Freer-word-order languages such as German ex-
+bodyText ||| hibit linguistic phenomena that present unique
+bodyText ||| challenges to traditional CFG parsing. Topic focus
+bodyText ||| ordering and word order constraints that are sen-
+bodyText ||| sitive to phenomena other than grammatical func-
+bodyText ||| tion produce discontinuous constituents, which are
+bodyText ||| not naturally modelled by projective (i.e., with-
+bodyText ||| out crossing branches) phrase structure trees. In
+bodyText ||| this paper, we examine topological field parsing, a
+bodyText ||| shallow form of parsing which identifies the ma-
+bodyText ||| jor sections of a sentence in relation to the clausal
+bodyText ||| main verb and subordinating heads, when present.
+bodyText ||| We report the results of parsing German using
+bodyText ||| the unlexicalized, latent variable-based Berkeley
+bodyText ||| parser (Petrov et al., 2006). Without any language-
+bodyText ||| or model-dependent adaptation, we achieve state-
+bodyText ||| of-the-art results on the T¨uBa-D/Z corpus (Telljo-
+bodyText ||| hann et al., 2004), with a Fl-measure of 95.15%
+bodyText ||| using gold POS tags. A further reranking of
+bodyText ||| the parser output based on a constraint involv-
+bodyText ||| ing paired punctuation produces a slight additional
+bodyText ||| performance gain. To facilitate comparison with
+bodyText ||| previous work, we also conducted experiments on
+bodyText ||| a modified NEGRA corpus that has been automat-
+bodyText ||| ically annotated with topological fields (Becker
+bodyText ||| and Frank, 2002), and found that the Berkeley
+bodyText ||| parser outperforms the method described in that
+bodyText ||| work. Finally, we perform a qualitative error anal-
+bodyText ||| ysis of the parser output on the T¨uBa-D/Z corpus,
+bodyText ||| and discuss strategies to further improve the pars-
+bodyText ||| ing results.
+bodyText ||| German syntax and parsing have been studied
+bodyText ||| using a variety of grammar formalisms. Hocken-
+bodyText ||| maier (2006) has translated the German TIGER
+bodyText ||| corpus (Brants et al., 2002) into a CCG-based
+bodyText ||| treebank to model word order variations in Ger-
+bodyText ||| man. Foth et al. (2004) consider a version of de-
+bodyText ||| pendency grammars known as weighted constraint
+bodyText ||| dependency grammars for parsing German sen-
+bodyText ||| tences. On the NEGRA corpus (Skut et al., 1998),
+bodyText ||| they achieve an accuracy of 89.0% on parsing de-
+bodyText ||| pendency edges. In Callmeier (2000), a platform
+bodyText ||| for efficient HPSG parsing is developed. This
+bodyText ||| parser is later extended by Frank et al. (2003)
+bodyText ||| with a topological field parser for more efficient
+bodyText ||| parsing of German. The system by Rohrer and
+bodyText ||| Forst (2006) produces LFG parses using a manu-
+bodyText ||| ally designed grammar and a stochastic parse dis-
+bodyText ||| ambiguation process. They test on the TIGER cor-
+bodyText ||| pus and achieve an Fl-measure of 84.20%. In
+bodyText ||| Dubey and Keller (2003), PCFG parsing of NE-
+bodyText ||| GRA is improved by using sister-head dependen-
+bodyText ||| cies, which outperforms standard head lexicaliza-
+bodyText ||| tion as well as an unlexicalized model. The best
+page ||| 64
+note ||| Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 64–72,
+note ||| Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+bodyText ||| performing model with gold tags achieve an F1
+bodyText ||| of 75.60%. Sister-head dependencies are useful in
+bodyText ||| this case because of the flat structure of NEGRA’s
+bodyText ||| trees.
+bodyText ||| In contrast to the deeper approaches to parsing
+bodyText ||| described above, topological field parsing identi-
+bodyText ||| fies the major sections of a sentence in relation
+bodyText ||| to the clausal main verb and subordinating heads,
+bodyText ||| when present. Like other forms of shallow pars-
+bodyText ||| ing, topological field parsing is useful as the first
+bodyText ||| stage to further processing and eventual seman-
+bodyText ||| tic analysis. As mentioned above, the output of
+bodyText ||| a topological field parser is used as a guide to
+bodyText ||| the search space of a HPSG parsing algorithm in
+bodyText ||| Frank et al. (2003). In Neumann et al. (2000),
+bodyText ||| topological field parsing is part of a divide-and-
+bodyText ||| conquer strategy for shallow analysis of German
+bodyText ||| text with the goal of improving an information ex-
+bodyText ||| traction system.
+bodyText ||| Existing work in identifying topological fields
+bodyText ||| can be divided into chunkers, which identify the
+bodyText ||| lowest-level non-recursive topological fields, and
+bodyText ||| parsers, which also identify sentence and clausal
+bodyText ||| structure.
+bodyText ||| Veenstra et al. (2002) compare three approaches
+bodyText ||| to topological field chunking based on finite state
+bodyText ||| transducers, memory-based learning, and PCFGs
+bodyText ||| respectively. It is found that the three techniques
+bodyText ||| perform about equally well, with F1 of 94.1% us-
+bodyText ||| ing POS tags from the TnT tagger, and 98.4% with
+bodyText ||| gold tags. In Liepert (2003), a topological field
+bodyText ||| chunker is implemented using a multi-class ex-
+bodyText ||| tension to the canonically two-class support vec-
+bodyText ||| tor machine (SVM) machine learning framework.
+bodyText ||| Parameters to the machine learning algorithm are
+bodyText ||| fine-tuned by a genetic search algorithm, with a
+bodyText ||| resulting F1-measure of 92.25%. Training the pa-
+bodyText ||| rameters to SVM does not have a large effect on
+bodyText ||| performance, increasing the F1-measure in the test
+bodyText ||| set by only 0.11%.
+bodyText ||| The corpus-based, stochastic topological field
+bodyText ||| parser of Becker and Frank (2002) is based on
+bodyText ||| a standard treebank PCFG model, in which rule
+bodyText ||| probabilities are estimated by frequency counts.
+bodyText ||| This model includes several enhancements, which
+bodyText ||| are also found in the Berkeley parser. First,
+bodyText ||| they use parameterized categories, splitting non-
+bodyText ||| terminals according to linguistically based intu-
+bodyText ||| itions, such as splitting different clause types (they
+bodyText ||| do not distinguish different clause types as basic
+bodyText ||| categories, unlike T¨uBa-D/Z). Second, they take
+bodyText ||| into account punctuation, which may help iden-
+bodyText ||| tify clause boundaries. They also binarize the very
+bodyText ||| flat topological tree structures, and prune rules
+bodyText ||| that only occur once. They test their parser on a
+bodyText ||| version of the NEGRA corpus, which has been
+bodyText ||| annotated with topological fields using a semi-
+bodyText ||| automatic method.
+bodyText ||| Ule (2003) proposes a process termed Directed
+bodyText ||| Treebank Refinement (DTR). The goal of DTR is
+bodyText ||| to refine a corpus to improve parsing performance.
+bodyText ||| DTR is comparable to the idea of latent variable
+bodyText ||| grammars on which the Berkeley parser is based,
+bodyText ||| in that both consider the observed treebank to be
+bodyText ||| less than ideal and both attempt to refine it by split-
+bodyText ||| ting and merging nonterminals. In this work, split-
+bodyText ||| ting and merging nonterminals are done by consid-
+bodyText ||| ering the nonterminals’ contexts (i.e., their parent
+bodyText ||| nodes) and the distribution of their productions.
+bodyText ||| Unlike in the Berkeley parser, splitting and merg-
+bodyText ||| ing are distinct stages, rather than parts of a sin-
+bodyText ||| gle iteration. Multiple splits are found first, then
+bodyText ||| multiple rounds of merging are performed. No
+bodyText ||| smoothing is done. As an evaluation, DTR is ap-
+bodyText ||| plied to topological field parsing of the T¨uBa-D/Z
+bodyText ||| corpus. We discuss the performance of these topo-
+bodyText ||| logical field parsers in more detail below.
+bodyText ||| All of the topological parsing proposals pre-
+bodyText ||| date the advent of the Berkeley parser. The exper-
+bodyText ||| iments of this paper demonstrate that the Berke-
+bodyText ||| ley parser outperforms previous methods, many of
+bodyText ||| which are specialized for the task of topological
+bodyText ||| field chunking or parsing.
+sectionHeader ||| 2 Topological Field Model of German
+bodyText ||| Topological fields are high-level linear fields in
+bodyText ||| an enclosing syntactic region, such as a clause
+bodyText ||| (H¨ohle, 1983). These fields may have constraints
+bodyText ||| on the number of words or phrases they contain,
+bodyText ||| and do not necessarily form a semantically co-
+bodyText ||| herent constituent. Although it has been argued
+bodyText ||| that a few languages have no word-order con-
+bodyText ||| straints whatsoever, most “free word-order” lan-
+bodyText ||| guages (even Warlpiri) have at the very least some
+bodyText ||| sort of sentence- or clause-initial topic field fol-
+bodyText ||| lowed by a second position that is occupied by
+bodyText ||| clitics, a finite verb or certain complementizers
+bodyText ||| and subordinating conjunctions. In a few Ger-
+bodyText ||| manic languages, including German, the topology
+bodyText ||| is far richer than that, serving to identify all of
+bodyText ||| the components of the verbal head of a clause,
+bodyText ||| except for some cases of long-distance dependen-
+page ||| 65
+bodyText ||| cies. Topological fields are useful, because while
+bodyText ||| Germanic word order is relatively free with respect
+bodyText ||| to grammatical functions, the order of the topolog-
+bodyText ||| ical fields is strict and unvarying.
+table ||| Type	Fields
+table ||| VL	(KOORD) (C) (MF) VC (NF)
+table ||| V1	(KOORD) (LV) LK (MF) (VC) (NF)
+table ||| V2	(KOORD) (LV) VF LK (MF) (VC) (NF)
+tableCaption ||| Table 1: Topological field model of German.
+tableCaption ||| Simplified from T¨uBa-D/Z corpus’s annotation
+tableCaption ||| schema (Telljohann et al., 2006).
+bodyText ||| In the German topological field model, clauses
+bodyText ||| belong to one of three types: verb-last (VL), verb-
+bodyText ||| second (V2), and verb-first (V 1), each with a spe-
+bodyText ||| cific sequence of topological fields (Table 1). VL
+bodyText ||| clauses include finite and non-finite subordinate
+bodyText ||| clauses, V2 sentences are typically declarative
+bodyText ||| sentences and WH-questions in matrix clauses,
+bodyText ||| and V1 sentences include yes-no questions, and
+bodyText ||| certain conditional subordinate clauses. Below,
+bodyText ||| we give brief descriptions of the most common
+bodyText ||| topological fields.
+listItem ||| •	VF (Vorfeld or ‘pre-field’) is the first con-
+bodyText ||| stituent in sentences of the V2 type. This is
+bodyText ||| often the topic of the sentence, though as an
+bodyText ||| anonymous reviewer pointed out, this posi-
+bodyText ||| tion does not correspond to a single function
+bodyText ||| with respect to information structure. (e.g.,
+bodyText ||| the reviewer suggested this case, where VF
+bodyText ||| contains the focus: –Wer kommt zur Party?
+bodyText ||| –Peter kommt zur Party. –Who is coming to
+bodyText ||| the Party? –Peter is coming to the party.)
+listItem ||| •	LK (Linke Klammer or ‘left bracket’) is the
+bodyText ||| position for finite verbs in V1 and V2 sen-
+bodyText ||| tences. It is replaced by a complementizer
+bodyText ||| with the field label C in VL sentences.
+listItem ||| •	MF (Mittelfeld or ‘middle field’) is an op-
+bodyText ||| tional field bounded on the left by LK and
+bodyText ||| on the right by the verbal complex VC or
+bodyText ||| by NF. Most verb arguments, adverbs, and
+bodyText ||| prepositional phrases are found here, unless
+bodyText ||| they have been fronted and put in the VF, or
+bodyText ||| are prosodically heavy and postposed to the
+bodyText ||| NF field.
+listItem ||| •	VC is the verbal complex field. It includes
+listItem ||| infinite verbs, as well as finite verbs in VL
+listItem ||| sentences.
+listItem ||| •	NF (Nachfeld or ‘post-field’) contains
+listItem ||| prosodically heavy elements such as post-
+listItem ||| posed prepositional phrases or relative
+listItem ||| clauses.
+listItem ||| •	KOORD1 (Koordinationsfeld or ‘coordina-
+listItem ||| tion field’) is a field for clause-level conjunc-
+listItem ||| tions.
+listItem ||| •
+bodyText ||| LV (Linksversetzung or ‘left dislocation’) is
+bodyText ||| used for resumptive constructions involving
+bodyText ||| left dislocation. For a detailed linguistic
+bodyText ||| treatment, see (Frey, 2004).
+bodyText ||| Exceptions to the topological field model as de-
+bodyText ||| scribed above do exist. For instance, parenthetical
+bodyText ||| constructions exist as a mostly syntactically inde-
+bodyText ||| pendent clause inside another sentence. In our cor-
+bodyText ||| pus, they are attached directly underneath a clausal
+bodyText ||| node without any intervening topological field, as
+bodyText ||| in the following example. In this example, the par-
+bodyText ||| enthetical construction is highlighted in bold print.
+bodyText ||| Some clause and topological field labels under the
+bodyText ||| NF field are omitted for clarity.
+listItem ||| (1) (a) (SIMPX “(VF Man) (LK muft) (VC verstehen) ”
+listItem ||| , (SIMPX sagte er), “ (NF daft diese
+listItem ||| Minderheiten seit langer Zeit massiv von den
+listItem ||| Nazis bedroht werden)). ”
+listItem ||| (b) Translation: “One must understand,” he said,
+listItem ||| “that these minorities have been massively
+listItem ||| threatened by the Nazis for a long time.”
+sectionHeader ||| 3 A Latent Variable Parser
+bodyText ||| For our experiments, we used the latent variable-
+bodyText ||| based Berkeley parser (Petrov et al., 2006). La-
+bodyText ||| tent variable parsing assumes that an observed
+bodyText ||| treebank represents a coarse approximation of
+bodyText ||| an underlying, optimally refined grammar which
+bodyText ||| makes more fine-grained distinctions in the syn-
+bodyText ||| tactic categories. For example, the noun phrase
+bodyText ||| category NP in a treebank could be viewed as a
+bodyText ||| coarse approximation of two noun phrase cate-
+bodyText ||| gories corresponding to subjects and object, NPˆS,
+bodyText ||| and NPˆVP.
+bodyText ||| The Berkeley parser automates the process of
+bodyText ||| finding such distinctions. It starts with a simple bi-
+bodyText ||| narized X-bar grammar style backbone, and goes
+bodyText ||| through iterations of splitting and merging non-
+bodyText ||| terminals, in order to maximize the likelihood of
+bodyText ||| the training set treebank. In the splitting stage,
+footnote ||| 1The T¨uBa-D/Z corpus distinguishes coordinating and
+footnote ||| non-coordinating particles, as well as clausal and field co-
+footnote ||| ordination. These distinctions need not concern us for this
+footnote ||| explanation.
+page ||| 66
+figureCaption ||| Figure 1: “I could never have done that just for aesthetic reasons.” Sample T¨uBa-D/Z tree, with topolog-
+figureCaption ||| ical field annotations and edge labels. Topological field layer in bold.
+bodyText ||| an Expectation-Maximization algorithm is used to
+bodyText ||| find a good split for each nonterminal. In the
+bodyText ||| merging stage, categories that have been over-
+bodyText ||| split are merged together to keep the grammar size
+bodyText ||| tractable and reduce sparsity. Finally, a smoothing
+bodyText ||| stage occurs, where the probabilities of rules for
+bodyText ||| each nonterminal are smoothed toward the prob-
+bodyText ||| abilities of the other nonterminals split from the
+bodyText ||| same syntactic category.
+bodyText ||| The Berkeley parser has been applied to the
+bodyText ||| T¨uBaD/Z corpus in the constituent parsing shared
+bodyText ||| task of the ACL-2008 Workshop on Parsing Ger-
+bodyText ||| man (Petrov and Klein, 2008), achieving an Fl-
+bodyText ||| measure of 85.10% and 83.18% with and without
+bodyText ||| gold standard POS tags respectively2. We chose
+bodyText ||| the Berkeley parser for topological field parsing
+bodyText ||| because it is known to be robust across languages,
+bodyText ||| and because it is an unlexicalized parser. Lexi-
+bodyText ||| calization has been shown to be useful in more
+bodyText ||| general parsing applications due to lexical depen-
+bodyText ||| dencies in constituent parsing (e.g. (K¨ubler et al.,
+bodyText ||| 2006; Dubey and Keller, 2003) in the case of Ger-
+bodyText ||| man). However, topological fields explain a higher
+bodyText ||| level of structure pertaining to clause-level word
+bodyText ||| order, and we hypothesize that lexicalization is un-
+bodyText ||| likely to be helpful.
+sectionHeader ||| 4 Experiments
+subsectionHeader ||| 4.1 Data
+bodyText ||| For our experiments, we primarily used the T¨uBa-
+bodyText ||| D/Z (T¨ubinger Baumbank des Deutschen / Schrift-
+bodyText ||| sprache) corpus, consisting of 26116 sentences
+bodyText ||| (20894 training, 2611 development, 2089 test,
+bodyText ||| with a further 522 sentences held out for future ex-
+footnote ||| 2 This evaluation considered grammatical functions as
+footnote ||| well as the syntactic category.
+bodyText ||| periments)3 taken from the German newspaper die
+bodyText ||| tageszeitung. The corpus consists of four levels
+bodyText ||| of annotation: clausal, topological, phrasal (other
+bodyText ||| than clausal), and lexical. We define the task of
+bodyText ||| topological field parsing to be recovering the first
+bodyText ||| two levels of annotation, following Ule (2003).
+bodyText ||| We also tested the parser on a version of the NE-
+bodyText ||| GRA corpus derived by Becker and Frank (2002),
+bodyText ||| in which syntax trees have been made projec-
+bodyText ||| tive and topological fields have been automatically
+bodyText ||| added through a series of linguistically informed
+bodyText ||| tree modifications. All internal phrasal structure
+bodyText ||| nodes have also been removed. The corpus con-
+bodyText ||| sists of 20596 sentences, which we split into sub-
+bodyText ||| sets of the same size as described by Becker and
+bodyText ||| Frank (2002)4. The set of topological fields in
+bodyText ||| this corpus differs slightly from the one used in
+bodyText ||| T¨uBa-D/Z, making no distinction between clause
+bodyText ||| types, nor consistently marking field or clause
+bodyText ||| conjunctions. Because of the automatic anno-
+bodyText ||| tation of topological fields, this corpus contains
+bodyText ||| numerous annotation errors. Becker and Frank
+bodyText ||| (2002) manually corrected their test set and eval-
+bodyText ||| uated the automatic annotation process, reporting
+bodyText ||| labelled precision and recall of 93.0% and 93.6%
+bodyText ||| compared to their manual annotations. There are
+bodyText ||| also punctuation-related errors, including miss-
+bodyText ||| ing punctuation, sentences ending in commas, and
+bodyText ||| sentences composed of single punctuation marks.
+bodyText ||| We test on this data in order to provide a bet-
+bodyText ||| ter comparison with previous work. Although we
+bodyText ||| could have trained the model in Becker and Frank
+bodyText ||| (2002) on the T¨uBa-D/Z corpus, it would not have
+footnote ||| 3These are the same splits into training, development, and
+footnote ||| test sets as in the ACL-08 Parsing German workshop. This
+footnote ||| corpus does not include sentences of length greater than 40.
+footnote ||| 416476 training sentences, 1000 development, 1058 test-
+footnote ||| ing, and 2062 as held-out data. We were unable to obtain
+footnote ||| the exact subsets used by Becker and Frank (2002). We will
+footnote ||| discuss the ramifications of this on our evaluation procedure.
+page ||| 67
+table ||| Gold tags	Edge labels	LP%	LR%	F1%	CB	CB0%	CB < 2%	EXACT%
+table ||| -	-	93.53	93.17	93.35	0.08	94.59	99.43	79.50
+table ||| +	-	95.26	95.04	95.15	0.07	95.35	99.52	83.86
+table ||| -	+	92.38	92.67	92.52	0.11	92.82	99.19	77.79
+table ||| +	+	92.36	92.60	92.48	0.11	92.82	99.19	77.64
+tableCaption ||| Table 2: Parsing results for topological fields and clausal constituents on the T¨uBa-D/Z corpus.
+bodyText ||| been a fair comparison, as the parser depends quite
+bodyText ||| heavily on NEGRA’s annotation scheme. For ex-
+bodyText ||| ample, T¨uBa-D/Z does not contain an equiva-
+bodyText ||| lent of the modified NEGRA’s parameterized cat-
+bodyText ||| egories; there exist edge labels in T¨uBaD/Z, but
+bodyText ||| they are used to mark head-dependency relation-
+bodyText ||| ships, not subtypes of syntactic categories.
+sectionHeader ||| 4.2 Results
+bodyText ||| We first report the results of our experiments on
+bodyText ||| the T¨uBa-D/Z corpus. For the T¨uBa-D/Z corpus,
+bodyText ||| we trained the Berkeley parser using the default
+bodyText ||| parameter settings. The grammar trainer attempts
+bodyText ||| six iterations of splitting, merging, and smoothing
+bodyText ||| before returning the final grammar. Intermediate
+bodyText ||| grammars after each step are also saved. There
+bodyText ||| were training and test sentences without clausal
+bodyText ||| constituents or topological fields, which were ig-
+bodyText ||| nored by the parser and by the evaluation. As
+bodyText ||| part of our experiment design, we investigated the
+bodyText ||| effect of providing gold POS tags to the parser,
+bodyText ||| and the effect of incorporating edge labels into the
+bodyText ||| nonterminal labels for training and parsing. In all
+bodyText ||| cases, gold annotations which include gold POS
+bodyText ||| tags were used when training the parser.
+bodyText ||| We report the standard PARSEVAL measures
+bodyText ||| of parser performance in Table 2, obtained by the
+bodyText ||| evalb program by Satoshi Sekine and Michael
+bodyText ||| Collins. This table shows the results after five it-
+bodyText ||| erations of grammar modification, parameterized
+bodyText ||| over whether we provide gold POS tags for pars-
+bodyText ||| ing, and edge labels for training and parsing. The
+bodyText ||| number of iterations was determined by experi-
+bodyText ||| ments on the development set. In the evaluation,
+bodyText ||| we do not consider edge labels in determining
+bodyText ||| correctness, but do consider punctuation, as Ule
+bodyText ||| (2003) did. If we ignore punctuation in our evalu-
+bodyText ||| ation, we obtain an F1-measure of 95.42% on the
+bodyText ||| best model (+ Gold tags, - Edge labels).
+bodyText ||| Whether supplying gold POS tags improves
+bodyText ||| performance depends on whether edge labels are
+bodyText ||| considered in the grammar. Without edge labels,
+bodyText ||| gold POS tags improve performance by almost
+bodyText ||| two points, corresponding to a relative error reduc-
+bodyText ||| tion of 33%. In contrast, performance is negatively
+bodyText ||| affected when edge labels are used and gold POS
+bodyText ||| tags are supplied (i.e., + Gold tags, + Edge la-
+bodyText ||| bels), making the performance worse than not sup-
+bodyText ||| plying gold tags. Incorporating edge label infor-
+bodyText ||| mation does not appear to improve performance,
+bodyText ||| possibly because it oversplits the initial treebank
+bodyText ||| and interferes with the parser’s ability to determine
+bodyText ||| optimal splits for refining the grammar.
+table ||| Parser	LP%	LR%	Fl%
+table ||| T¨uBa-D/Z
+table ||| This work	95.26	95.04	95.15
+table ||| Ule	unknown	unknown	91.98
+table ||| NEGRA - from Becker and Frank (2002)
+table ||| BF02 (len. < 40)	92.1	91.6	91.8
+table ||| NEGRA - our experiments
+table ||| This work (len. < 40)	90.74	90.87	90.81
+table ||| BF02 (len. < 40)	89.54	88.14	88.83
+table ||| This work (all)	90.29	90.51	90.40
+table ||| BF02 (all)	89.07	87.80	88.43
+tableCaption ||| Table 3: BF02 = (Becker and Frank, 2002). Pars-
+tableCaption ||| ing results for topological fields and clausal con-
+tableCaption ||| stituents. Results from Ule (2003) and our results
+tableCaption ||| were obtained using different training and test sets.
+tableCaption ||| The first row of results of Becker and Frank (2002)
+tableCaption ||| are from that paper; the rest were obtained by our
+tableCaption ||| own experiments using that parser. All results con-
+tableCaption ||| sider punctuation in evaluation.
+bodyText ||| To facilitate a more direct comparison with pre-
+bodyText ||| vious work, we also performed experiments on the
+bodyText ||| modified NEGRA corpus. In this corpus, topo-
+bodyText ||| logical fields are parameterized, meaning that they
+bodyText ||| are labelled with further syntactic and semantic in-
+bodyText ||| formation. For example, VF is split into VF-REL
+bodyText ||| for relative clauses, and VF-TOPIC for those con-
+bodyText ||| taining topics in a verb-second sentence, among
+bodyText ||| others. All productions in the corpus have also
+bodyText ||| been binarized. Tuning the parameter settings on
+bodyText ||| the development set, we found that parameterized
+bodyText ||| categories, binarization, and including punctua-
+bodyText ||| tion gave the best F1 performance. First-order
+bodyText ||| horizontal and zeroth order vertical markoviza-
+page ||| 68
+bodyText ||| tion after six iterations of splitting, merging, and
+bodyText ||| smoothing gave the best F1 result of 91.78%. We
+bodyText ||| parsed the corpus with both the Berkeley parser
+bodyText ||| and the best performing model of Becker and
+bodyText ||| Frank (2002).
+bodyText ||| The results of these experiments on the test set
+bodyText ||| for sentences of length 40 or less and for all sen-
+bodyText ||| tences are shown in Table 3. We also show other
+bodyText ||| results from previous work for reference. We
+bodyText ||| find that we achieve results that are better than
+bodyText ||| the model in Becker and Frank (2002) on the test
+bodyText ||| set. The difference is statistically significant (p =
+bodyText ||| 0.0029, Wilcoxon signed-rank).
+bodyText ||| The results we obtain using the parser of Becker
+bodyText ||| and Frank (2002) are worse than the results de-
+bodyText ||| scribed in that paper. We suggest the following
+bodyText ||| reasons for this discrepancy. While the test set
+bodyText ||| used in the paper was manually corrected for eval-
+bodyText ||| uation, we did not correct our test set, because it
+bodyText ||| would be difficult to ensure that we adhered to the
+bodyText ||| same correction guidelines. No details of the cor-
+bodyText ||| rection process were provided in the paper, and de-
+bodyText ||| scriptive grammars of German provide insufficient
+bodyText ||| guidance on many of the examples in NEGRA on
+bodyText ||| issues such as ellipses, short infinitival clauses,
+bodyText ||| and expanded participial constructions modifying
+bodyText ||| nouns. Also, because we could not obtain the ex-
+bodyText ||| act sets used for training, development, and test-
+bodyText ||| ing, we had to recreate the sets by randomly split-
+bodyText ||| ting the corpus.
+subsectionHeader ||| 4.3 Category Specific Results
+bodyText ||| We now return to the T¨uBa-D/Z corpus for a
+bodyText ||| more detailed analysis, and examine the category-
+bodyText ||| specific results for our best performing model (+
+bodyText ||| Gold tags, - Edge labels). Overall, Table 4 shows
+bodyText ||| that the best performing topological field cate-
+bodyText ||| gories are those that have constraints on the type
+bodyText ||| of word that is allowed to fill it (finite verbs in
+bodyText ||| LK, verbs in VC, complementizers and subordi-
+bodyText ||| nating conjunctions in C). VF, in which only one
+bodyText ||| constituent may appear, also performs relatively
+bodyText ||| well. Topological fields that can contain a vari-
+bodyText ||| able number of heterogeneous constituents, on the
+bodyText ||| other hand, have poorer F1-measure results. MF,
+bodyText ||| which is basically defined relative to the positions
+bodyText ||| of fields on either side of it, is parsed several points
+bodyText ||| below LK, C, and VC in accuracy. NF, which
+bodyText ||| contains different kinds of extraposed elements, is
+bodyText ||| parsed at a substantially worse level.
+bodyText ||| Poorly parsed categories tend to occur infre-
+bodyText |||  quently, including LV, which marks a rare re-
+bodyText ||| sumptive construction; FKOORD, which marks
+bodyText ||| topological field coordination; and the discourse
+bodyText ||| marker DM. The other clause-level constituents
+bodyText ||| (PSIMPX for clauses in paratactic constructions,
+bodyText ||| RSIMPX for relative clauses, and SIMPX for
+bodyText ||| other clauses) also perform below average.
+table ||| Topological Fields
+table ||| Category	#	LP%	LR%	Fl%
+table ||| PARORD	20	100.00	100.00	100.00
+table ||| VCE	3	100.00	100.00	100.00
+table ||| LK	2186	99.68	99.82	99.75
+table ||| C	642	99.53	98.44	98.98
+table ||| VC	1777	98.98	98.14	98.56
+table ||| VF	2044	96.84	97.55	97.20
+table ||| KOORD	99	96.91	94.95	95.92
+table ||| MF	2931	94.80	95.19	94.99
+table ||| NF	643	83.52	81.96	82.73
+table ||| FKOORD	156	75.16	73.72	74.43
+table ||| LV	17	10.00	5.88	7.41
+table ||| Clausal Constituents
+table ||| Category	#	LP%	LR%	Fl%
+table ||| SIMPX	2839	92.46	91.97	92.21
+table ||| RSIMPX	225	91.23	92.44	91.83
+table ||| PSIMPX	6	100.00	66.67	80.00
+table ||| DM	28	59.26	57.14	58.18
+tableCaption ||| Table 4: Category-specific results using grammar
+tableCaption ||| with no edge labels and passing in gold POS tags.
+subsectionHeader ||| 4.4 Reranking for Paired Punctuation
+bodyText ||| While experimenting with the development set
+bodyText ||| of T¨uBa-D/Z, we noticed that the parser some-
+bodyText ||| times returns parses, in which paired punctuation
+bodyText ||| (e.g. quotation marks, parentheses, brackets) is
+bodyText ||| not placed in the same clause–a linguistically im-
+bodyText ||| plausible situation. In these cases, the high-level
+bodyText ||| information provided by the paired punctuation is
+bodyText ||| overridden by the overall likelihood of the parse
+bodyText ||| tree. To rectify this problem, we performed a sim-
+bodyText ||| ple post-hoc reranking of the 50-best parses pro-
+bodyText ||| duced by the best parameter settings (+ Gold tags,
+bodyText ||| - Edge labels), selecting the first parse that places
+bodyText ||| paired punctuation in the same clause, or return-
+bodyText ||| ing the best parse if none of the 50 parses satisfy
+bodyText ||| the constraint. This procedure improved the F1-
+bodyText ||| measure to 95.24% (LP = 95.39%, LR = 95.09%).
+bodyText ||| Overall, 38 sentences were parsed with paired
+bodyText ||| punctuation in different clauses, of which 16 were
+bodyText ||| reranked. Of the 38 sentences, reranking improved
+bodyText ||| performance in 12 sentences, did not affect perfor-
+bodyText ||| mance in 23 sentences (of which 10 already had a
+bodyText ||| perfect parse), and hurt performance in three sen-
+bodyText ||| tences. A two-tailed sign test suggests that rerank-
+page ||| 69
+bodyText ||| ing improves performance (p = 0.0352). We dis-
+bodyText ||| cuss below why sentences with paired punctuation
+bodyText ||| in different clauses can have perfect parse results.
+bodyText ||| To investigate the upper-bound in performance
+bodyText ||| that this form of reranking is able to achieve, we
+bodyText ||| calculated some statistics on our (+ Gold tags, -
+bodyText ||| Edge labels) 50-best list. We found that the aver-
+bodyText ||| age rank of the best scoring parse by F1-measure
+bodyText ||| is 2.61, and the perfect parse is present for 1649
+bodyText ||| of the 2088 sentences at an average rank of 1.90.
+bodyText ||| The oracle F1-measure is 98.12%, indicating that
+bodyText ||| a more comprehensive reranking procedure might
+bodyText ||| allow further performance gains.
+subsectionHeader ||| 4.5 Qualitative Error Analysis
+bodyText ||| As a further analysis, we extracted the worst scor-
+bodyText ||| ing fifty sentences by F1-measure from the parsed
+bodyText ||| test set (+ Gold tags, - Edge labels), and compared
+bodyText ||| them against the gold standard trees, noting the
+bodyText ||| cause of the error. We analyze the parses before
+bodyText ||| reranking, to see how frequently the paired punc-
+bodyText ||| tuation problem described above severely affects a
+bodyText ||| parse. The major mistakes made by the parser are
+bodyText ||| summarized in Table 5.
+table ||| Problem	Freq.
+table ||| Misidentification of Parentheticals	19
+table ||| Coordination problems	13
+table ||| Too few SIMPX	10
+table ||| Paired punctuation problem	9
+table ||| Other clause boundary errors	7
+table ||| Other	6
+table ||| Too many SIMPX	3
+table ||| Clause type misidentification	2
+table ||| MF/NF boundary	2
+table ||| LV	2
+table ||| VF/MF boundary	2
+tableCaption ||| Table 5: Types and frequency of parser errors in
+tableCaption ||| the fifty worst scoring parses by F1-measure, us-
+tableCaption ||| ing parameters (+ Gold tags, - Edge labels).
+bodyText ||| Misidentification of Parentheticals Parentheti-
+bodyText ||| cal constructions do not have any dependencies on
+bodyText ||| the rest of the sentence, and exist as a mostly syn-
+bodyText ||| tactically independent clause inside another sen-
+bodyText ||| tence. They can occur at the beginning, end, or
+bodyText ||| in the middle of sentences, and are often set off
+bodyText ||| orthographically by punctuation. The parser has
+bodyText ||| problems identifying parenthetical constructions,
+bodyText ||| often positing a parenthetical construction when
+bodyText ||| that constituent is actually attached to a topolog-
+bodyText ||| ical field in a neighbouring clause. The follow-
+bodyText ||| ing example shows one such misidentification in
+bodyText ||| bracket notation. Clause internal topological fields
+bodyText ||| are omitted for clarity.
+listItem ||| (2) (a) T¨uBa-D/Z: (SIMPX Weder das Ausmafi der
+bodyText ||| Sch¨onheit noch der fr¨uhere oder sp¨atere
+bodyText ||| Zeitpunkt der Geburt macht einen der Zwillinge
+bodyText ||| f¨ur eine Mutter mehr oder weniger echt /
+bodyText ||| authentisch / ¨uberlegen).
+listItem ||| (b) Parser: (SIMPX Weder das Ausmafi der
+bodyText ||| Sch¨onheit noch der fr¨uhere oder sp¨atere
+bodyText ||| Zeitpunkt der Geburt macht einen der Zwillinge
+bodyText ||| f¨ur eine Mutter mehr oder weniger echt)
+bodyText ||| (PARENTHETICAL / authentisch /
+bodyText ||| ¨uberlegen.)
+listItem ||| (c) Translation: “Neither the degree of beauty nor
+bodyText ||| the earlier or later time of birth makes one of the
+bodyText ||| twins any more or less real/authentic/superior to
+bodyText ||| a mother.”
+bodyText ||| We hypothesized earlier that lexicalization is
+bodyText ||| unlikely to give us much improvement in perfor-
+bodyText ||| mance, because topological fields work on a do-
+bodyText ||| main that is higher than that of lexical dependen-
+bodyText ||| cies such as subcategorization frames. However,
+bodyText ||| given the locally independent nature of legitimate
+bodyText ||| parentheticals, a limited form of lexicalization or
+bodyText ||| some other form of stronger contextual informa-
+bodyText ||| tion might be needed to improve identification per-
+bodyText ||| formance.
+bodyText ||| Coordination Problems The second most com-
+bodyText ||| mon type of error involves field and clause coordi-
+bodyText ||| nations. This category includes missing or incor-
+bodyText ||| rect FKOORD fields, and conjunctions of clauses
+bodyText ||| that are misidentified. In the following example,
+bodyText ||| the conjoined MFs and following NF in the cor-
+bodyText ||| rect parse tree are identified as a single long MF.
+listItem ||| (3)	(a) T¨uBa-D/Z: Auf dem europ¨aischen Kontinent
+bodyText ||| aber hat (FKOORD (MF kein Land und keine
+bodyText ||| Macht ein derartiges Interesse an guten
+bodyText ||| Beziehungen zu Ruf land) und (MF auch kein
+bodyText ||| Land solche Erfahrungen im Umgang mit
+bodyText ||| Ruf land)) (NF wie Deutschland).
+listItem ||| (b) Parser: Auf dem europ¨aischen Kontinent aber
+bodyText ||| hat (MF kein Land und keine Macht ein
+bodyText ||| derartiges Interesse an guten Beziehungen zu
+bodyText ||| Ruf land und auch kein Land solche
+bodyText ||| Erfahrungen im Umgang mit Ruf land wie
+bodyText ||| Deutschland).
+listItem ||| (c) Translation: “On the European continent,
+bodyText ||| however, no land and no power has such an
+bodyText ||| interest in good relations with Russia (as
+bodyText ||| Germany), and also no land (has) such
+bodyText ||| experience in dealing with Russia as Germany.”
+bodyText ||| Other Clause Errors Other clause-level errors
+bodyText ||| include the parser predicting too few or too many
+bodyText ||| clauses, or misidentifying the clause type. Clauses
+bodyText ||| are sometimes confused with NFs, and there is one
+bodyText ||| case of a relative clause being misidentified as a
+page ||| 70
+bodyText ||| main clause with an intransitive verb, as the finite
+bodyText ||| verb appears at the end of the clause in both cases.
+bodyText ||| Some clause errors are tied to incorrect treatment
+bodyText ||| of elliptical constructions, in which an element
+bodyText ||| that is inferable from context is missing.
+bodyText ||| Paired Punctuation Problems with paired
+bodyText ||| punctuation are the fourth most common type of
+bodyText ||| error. Punctuation is often a marker of clause
+bodyText ||| or phrase boundaries. Thus, predicting paired
+bodyText ||| punctuation incorrectly can lead to incorrect
+bodyText ||| parses, as in the following example.
+listItem ||| (4) (a) “ Auch (SIMPX wenn der Krieg heute ein
+bodyText ||| Mobilisierungsfaktor ist) ” , so Pau, “ (SIMPX
+bodyText ||| die Leute sehen , dafi man f¨ur die Arbeit wieder
+bodyText ||| auf die Strafie gehen mufi) . ”
+listItem ||| (b) Parser: (SIMPX “ (LV Auch (SIMPX wenn der
+bodyText ||| Krieg heute ein Mobilisierungsfaktor ist)) ” , so
+bodyText ||| Pau, “ (SIMPX die Leute sehen , dafi man f¨ur
+bodyText ||| die Arbeit wieder auf die Strafie gehen mufi)) . ”
+listItem ||| (c) Translation: “Even if the war is a factor for
+bodyText ||| mobilization,” said Pau, “the people see, that
+bodyText ||| one must go to the street for employment again.”
+bodyText ||| Here, the parser predicts a spurious SIMPX
+bodyText ||| clause spanning the text of the entire sentence, but
+bodyText ||| this causes the second pair of quotation marks to
+bodyText ||| be parsed as belonging to two different clauses.
+bodyText ||| The parser also predicts an incorrect LV field. Us-
+bodyText ||| ing the paired punctuation constraint, our rerank-
+bodyText ||| ing procedure was able to correct these errors.
+bodyText ||| Surprisingly, there are cases in which paired
+bodyText ||| punctuation does not belong inside the same
+bodyText ||| clause in the gold parses. These cases are ei-
+bodyText ||| ther extended quotations, in which each of the
+bodyText ||| quotation mark pair occurs in a different sen-
+bodyText ||| tence altogether, or cases where the second of the
+bodyText ||| quotation mark pair must be positioned outside
+bodyText ||| of other sentence-final punctuation due to ortho-
+bodyText ||| graphic conventions. Sentence-final punctuation
+bodyText ||| is typically placed outside a clause in this version
+bodyText ||| of T¨uBa-D/Z.
+bodyText ||| Other Issues Other incorrect parses generated
+bodyText ||| by the parser include problems with the infre-
+bodyText ||| quently occurring topological fields like LV and
+bodyText ||| DM, inability to determine the boundary between
+bodyText ||| MF and NF in clauses without a VC field sepa-
+bodyText ||| rating the two, and misidentifying appositive con-
+bodyText ||| structions. Another issue is that although the
+bodyText ||| parser output may disagree with the gold stan-
+bodyText ||| dard tree in T¨uBa-D/Z, the parser output may be
+bodyText ||| a well-formed topological field parse for the same
+bodyText ||| sentence with a different interpretation, for ex-
+bodyText ||| ample because of attachment ambiguity. Each of
+bodyText ||| the authors independently checked the fifty worst-
+bodyText ||| scoring parses, and determined whether each parse
+bodyText ||| produced by the Berkeley parser could be a well-
+bodyText ||| formed topological parse. Where there was dis-
+bodyText ||| agreement, we discussed our judgments until we
+bodyText ||| came to a consensus. Of the fifty parses, we de-
+bodyText ||| termined that nine, or 18%, could be legitimate
+bodyText ||| parses. Another five, or 10%, differ from the gold
+bodyText ||| standard parse only in the placement of punctua-
+bodyText ||| tion. Thus, the Fl-measures we presented above
+bodyText ||| may be underestimating the parser’s performance.
+sectionHeader ||| 5 Conclusion and Future Work
+bodyText ||| In this paper, we examined applying the latent-
+bodyText ||| variable Berkeley parser to the task of topological
+bodyText ||| field parsing of German, which aims to identify the
+bodyText ||| high-level surface structure of sentences. Without
+bodyText ||| any language or model-dependent adaptation, we
+bodyText ||| obtained results which compare favourably to pre-
+bodyText ||| vious work in topological field parsing. We further
+bodyText ||| examined the results of doing a simple reranking
+bodyText ||| process, constraining the output parse to put paired
+bodyText ||| punctuation in the same clause. This reranking
+bodyText ||| was found to result in a minor performance gain.
+bodyText ||| Overall, the parser performs extremely well in
+bodyText ||| identifying the traditional left and right brackets
+bodyText ||| of the topological field model; that is, the fields
+bodyText ||| C, LK, and VC. The parser achieves basically per-
+bodyText ||| fect results on these fields in the T¨uBa-D/Z corpus,
+bodyText ||| with Fl-measure scores for each at over 98.5%.
+bodyText ||| These scores are higher than previous work in the
+bodyText ||| simpler task of topological field chunking. The fo-
+bodyText ||| cus of future research should thus be on correctly
+bodyText ||| identifying the infrequently occuring fields and
+bodyText ||| constructions, with parenthetical constructions be-
+bodyText ||| ing a particular concern. Possible avenues of fu-
+bodyText ||| ture research include doing a more comprehensive
+bodyText ||| discriminative reranking of the parser output. In-
+bodyText ||| corporating more contextual information might be
+bodyText ||| helpful to identify discourse-related constructions
+bodyText ||| such as parentheses, and the DM and LV topolog-
+bodyText ||| ical fields.
+sectionHeader ||| Acknowledgements
+bodyText ||| We are grateful to Markus Becker, Anette Frank,
+bodyText ||| Sandra Kuebler, and Slav Petrov for their invalu-
+bodyText ||| able help in gathering the resources necessary for
+bodyText ||| our experiments. This work is supported in part
+bodyText ||| by the Natural Sciences and Engineering Research
+bodyText ||| Council of Canada.
+page ||| 71
+sectionHeader ||| References
+reference ||| M. Becker and A. Frank. 2002. A stochastic topo-
+reference ||| logical parser for German. In Proceedings of the
+reference ||| 19th International Conference on Computational
+reference ||| Linguistics, pages 71–77.
+reference ||| S. Brants, S. Dipper, S. Hansen, W. Lezius, and
+reference ||| G. Smith. 2002. The TIGER Treebank. In Proceed-
+reference ||| ings of the Workshop on Treebanks and Linguistic
+reference ||| Theories, pages 24–41.
+reference ||| U. Callmeier. 2000. PET–a platform for experimen-
+reference ||| tation with efficient HPSG processing techniques.
+reference ||| Natural Language Engineering, 6(01):99–107.
+reference ||| A. Dubey and F. Keller. 2003. Probabilistic parsing
+reference ||| for German using sister-head dependencies. In Pro-
+reference ||| ceedings of the 41st Annual Meeting of the Associa-
+reference ||| tion for Computational Linguistics, pages 96–103.
+reference ||| K.A. Foth, M. Daum, and W. Menzel. 2004. A
+reference ||| broad-coverage parser for German based on defea-
+reference ||| sible constraints. Constraint Solving and Language
+reference ||| Processing.
+reference ||| A. Frank, M. Becker, B. Crysmann, B. Kiefer, and
+reference ||| U. Schaefer. 2003. Integrated shallow and deep
+reference ||| parsing: TopP meets HPSG. In Proceedings of the
+reference ||| 41st Annual Meeting of the Association for Compu-
+reference ||| tational Linguistics, pages 104–111.
+reference ||| W. Frey. 2004. Notes on the syntax and the pragmatics
+reference ||| of German Left Dislocation. In H. Lohnstein and
+reference ||| S. Trissler, editors, The Syntax and Semantics of the
+reference ||| Left Periphery, pages 203–233. Mouton de Gruyter,
+reference ||| Berlin.
+reference ||| J. Hockenmaier. 2006. Creating a CCGbank and a
+reference ||| Wide-Coverage CCG Lexicon for German. In Pro-
+reference ||| ceedings of the 21st International Conference on
+reference ||| Computational Linguistics and 44th Annual Meet-
+reference ||| ing of the Association for Computational Linguis-
+reference ||| tics, pages 505–512.
+reference ||| T.N. H¨ohle. 1983. Topologische Felder. Ph.D. thesis,
+reference ||| K¨oln.
+reference ||| S. K¨ubler, E.W. Hinrichs, and W. Maier. 2006. Is it re-
+reference ||| ally that difficult to parse German? In Proceedings
+reference ||| of EMNLP.
+reference ||| M. Liepert. 2003. Topological Fields Chunking for
+reference ||| German with SVM’s: Optimizing SVM-parameters
+reference ||| with GA’s. In Proceedings of the International Con-
+reference ||| ference on Recent Advances in Natural Language
+reference ||| Processing (RANLP), Bulgaria.
+reference ||| G. Neumann, C. Braun, and J. Piskorski. 2000. A
+reference ||| Divide-and-Conquer Strategy for Shallow Parsing
+reference ||| of German Free Texts. In Proceedings of the sixth
+reference ||| conference on Applied natural language processing,
+reference ||| pages 239–246. Morgan Kaufmann Publishers Inc.
+reference ||| San Francisco, CA, USA.
+reference ||| S. Petrov and D. Klein. 2008. Parsing German with
+reference ||| Latent Variable Grammars. In Proceedings of the
+reference ||| ACL-08: HLT Workshop on Parsing German (PaGe-
+reference ||| 08), pages 33–39.
+reference ||| S. Petrov, L. Barrett, R. Thibaux, and D. Klein. 2006.
+reference ||| Learning accurate, compact, and interpretable tree
+reference ||| annotation. In Proceedings of the 21st Interna-
+reference ||| tional Conference on Computational Linguistics and
+reference ||| 44th Annual Meeting of the Association for Compu-
+reference ||| tational Linguistics, pages 433–440, Sydney, Aus-
+reference ||| tralia, July. Association for Computational Linguis-
+reference ||| tics.
+reference ||| C. Rohrer and M. Forst. 2006. Improving coverage
+reference ||| and parsing quality of a large-scale LFG for Ger-
+reference ||| man. In Proceedings of the Language Resources
+reference ||| and Evaluation Conference (LREC-2006), Genoa,
+reference ||| Italy.
+reference ||| W. Skut, T. Brants, B. Krenn, and H. Uszkoreit.
+reference ||| 1998. A Linguistically Interpreted Corpus of Ger-
+reference ||| man Newspaper Text. Proceedings of the ESSLLI
+reference ||| Workshop on Recent Advances in Corpus Annota-
+reference ||| tion.
+reference ||| H. Telljohann, E. Hinrichs, and S. Kubler. 2004.
+reference ||| The T¨uBa-D/Z treebank: Annotating German with a
+reference ||| context-free backbone. In Proceedings of the Fourth
+reference ||| International Conference on Language Resources
+reference ||| and Evaluation (LREC 2004), pages 2229–2235.
+reference ||| H. Telljohann, E.W. Hinrichs, S. Kubler, and H. Zins-
+reference ||| meister. 2006. Stylebook for the Tubingen Tree-
+reference ||| bank of Written German (T¨uBa-D/Z). Seminar fur
+reference ||| Sprachwissenschaft, Universitat Tubingen, Tubin-
+reference ||| gen, Germany.
+reference ||| T. Ule. 2003. Directed Treebank Refinement for PCFG
+reference ||| Parsing. In Proceedings of Workshop on Treebanks
+reference ||| and Linguistic Theories (TLT) 2003, pages 177–188.
+reference ||| J. Veenstra, F.H. M¨uller, and T. Ule. 2002. Topolog-
+reference ||| ical field chunking for German. In Proceedings of
+reference ||| the Sixth Conference on Natural Language Learn-
+reference ||| ing, pages 56–62.
+page ||| 72

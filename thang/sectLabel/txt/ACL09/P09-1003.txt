@@ -1,0 +1,869 @@
+A Comparative Study on Generalization of Semantic Roles in FrameNet
+Yuichiroh Matsubayashit	Naoaki Okazakit	Jun’ichi Tsujiit$*
+tDepartment of Computer Science, University of Tokyo, Japan
+$School of Computer Science, University of Manchester, UK
+*National Centre for Text Mining, UK
+{y-matsu,okazaki,tsujii}@is.s.u-tokyo.ac.jp
+Abstract
+A number of studies have presented 
+machine-learning approaches to semantic 
+role labeling with availability of corpora 
+such as FrameNet and PropBank. These 
+corpora define the semantic roles of predi-
+cates for each frame independently. Thus, 
+it is crucial for the machine-learning ap-
+proach to generalize semantic roles across 
+different frames, and to increase the size 
+of training instances. This paper ex-
+plores several criteria for generalizing se-
+mantic roles in FrameNet: role hierar-
+chy, human-understandable descriptors of 
+roles, semantic types of filler phrases, and 
+mappings from FrameNet roles to the-
+matic roles of VerbNet. We also pro-
+pose feature functions that naturally com-
+bine and weight these criteria, based on 
+the training data. The experimental result 
+of the role classification shows 19.16% 
+and 7.42% improvements in error reduc-
+tion rate and macro-averaged F 1 score, re-
+spectively. We also provide in-depth anal-
+yses of the proposed criteria.
+1 Introduction
+Semantic Role Labeling (SRL) is a task of analyz-
+ing predicate-argument structures in texts. More 
+specifically, SRL identifies predicates and their 
+arguments with appropriate semantic roles. Re-
+solving surface divergence of texts (e.g., voice 
+of verbs and nominalizations) into unified seman-
+tic representations, SRL has attracted much at-
+tention from researchers into various NLP appli-
+cations including question answering (Narayanan 
+and Harabagiu, 2004; Shen and Lapata, 2007;
+buy.v	PropBank	FrameNet
+Frame	buy.01	Commerce buy
+Roles	ARG0: buyer	Buyer Goods Seller Money Recipient
+	ARG1: thing bought	...
+	ARG2: seller	
+	ARG3: paid	
+	ARG4: benefactive	
+	...	
+Figure 1: A comparison of frames for buy.v de-
+fined in PropBank and FrameNet
+Moschitti et al., 2007), and information extrac-
+tion (Surdeanu et al., 2003).
+In recent years, with the wide availability of cor-
+pora such as PropBank (Palmer et al., 2005) and 
+FrameNet (Baker et al., 1998), a number of stud-
+ies have presented statistical approaches to SRL 
+(M`arquez et al., 2008). Figure 1 shows an exam-
+ple of the frame definitions for a verb buy in Prop- 
+Bank and FrameNet. These corpora define a large 
+number of frames and define the semantic roles for 
+each frame independently. This fact is problem-
+atic in terms of the performance of the machine- 
+learning approach, because these definitions pro-
+duce many roles that have few training instances.
+PropBank defines a frame for each sense of 
+predicates (e.g., buy.01), and semantic roles are 
+defined in a frame-specific manner (e.g., buyer and 
+seller for buy.01). In addition, these roles are asso-
+ciated with tags such as ARG0-5 and AM-*, which 
+are commonly used in different frames. Most 
+SRL studies on PropBank have used these tags 
+in order to gather a sufficient amount of training 
+data, and to generalize semantic-role classifiers 
+across different frames. However, Yi et al. (2007) 
+reported that tags ARG2 –ARG5 were inconsis-
+tent and not that suitable as training instances. 
+Some recent studies have addressed alternative ap-
+proaches to generalizing semantic roles across dif-
+ferent frames (Gordon and Swanson, 2007; Zapi-
+19
+Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 19–27,
+Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+Commerce_sell::Buyer Commerce_buy::Buyer
+Givi ng:: Reci pi ent
+Recipient
+Transfer::Recipient
+Buyer
+Agent
+Commerce_sell::Seller Commerce_buy::Seller
+Giving::Donor
+Transfer::Donor
+Donor
+Seller
+role-to-role relation 
+hierarchical class 
+thematic role
+role descriptor
+Figure 2: An example of role groupings using different criteria.
+rain et al., 2008).
+FrameNet designs semantic roles as frame spe-
+cific, but also defines hierarchical relations of se-
+mantic roles among frames. Figure 2 illustrates 
+an excerpt of the role hierarchy in FrameNet; this 
+figure indicates that the Buyer role for the Com-
+merce buy frame (Commerce buy::Buyer here-
+after) and the Commerce sell::Buyer role are in-
+herited from the Transfer:: Recipient role. Al-
+though the role hierarchy was expected to gener-
+alize semantic roles, no positive results for role 
+classification have been reported (Baldewein et al., 
+2004). Therefore, the generalization of semantic 
+roles across different frames has been brought up 
+as a critical issue for FrameNet (Gildea and Juraf-
+sky, 2002; Shi and Mihalcea, 2005; Giuglea and 
+Moschitti, 2006)
+In this paper, we explore several criteria for gen-
+eralizing semantic roles in FrameNet. In addi-
+tion to the FrameNet hierarchy, we use various 
+pieces of information: human-understandable de-
+scriptors of roles, semantic types of filler phrases, 
+and mappings from FrameNet roles to the thematic 
+roles of VerbNet. We also propose feature func-
+tions that naturally combines these criteria in a 
+machine-learning framework. Using the proposed 
+method, the experimental result of the role classi-
+fication shows 19.16% and 7.42% improvements 
+in error reduction rate and macro-averaged F1, re-
+spectively. We provide in-depth analyses with re-
+spect to these criteria, and state our conclusions.
+2 Related Work
+Moschitti et al. (2005) first classified roles by us-
+ing four coarse-grained classes (Core Roles, Ad-
+juncts, Continuation Arguments and Co-referring 
+Arguments), and built a classifier for each coarse- 
+grained class to tag PropBank ARG tags. Even 
+though the initial classifiers could perform rough 
+estimations of semantic roles, this step was not 
+able to solve the ambiguity problem in PropBank 
+ARG2-5. When training a classifier for a seman-
+tic role, Baldewein et al. (2004) re-used the train-
+ing instances of other roles that were similar to the 
+target role. As similarity measures, they used the 
+FrameNet hierarchy, peripheral roles of FrameNet, 
+and clusters constructed by a EM-based method. 
+Gordon and Swanson (2007) proposed a general-
+ization method for the PropBank roles based on 
+syntactic similarity in frames.
+Many previous studies assumed that thematic 
+roles bridged semantic roles in different frames. 
+Gildea and Jurafsky (2002) showed that classifica-
+tion accuracy was improved by manually replac-
+ing FrameNet roles into 18 thematic roles. Shi 
+and Mihalcea (2005) and Giuglea and Moschitti 
+(2006) employed VerbNet thematic roles as the 
+target of mappings from the roles defined by the 
+different semantic corpora. Using the thematic 
+roles as alternatives of ARG tags, Loper et al. 
+(2007) and Yi et al. (2007) demonstrated that the 
+classification accuracy of PropBank roles was im-
+proved for ARG2 roles, but that it was diminished 
+for ARG1. Yi et al. (2007) also described that 
+ARG2–5 were mapped to a variety of thematic 
+roles. Zapirain et al. (2008) evaluated PropBank 
+ARG tags and VerbNet thematic roles in a state-of- 
+the-art SRL system, and concluded that PropBank 
+ARG tags achieved a more robust generalization of 
+the roles than did VerbNet thematic roles.
+3 Role Classification
+SRL is a complex task wherein several problems 
+are intertwined: frame-evoking word identifica-
+tion, frame disambiguation (selecting a correct 
+frame from candidates for the evoking word), role- 
+phrase identification (identifying phrases that fill 
+semantic roles), and role classification (assigning 
+correct roles to the phrases). In this paper, we fo-
+cus on role classification, in which the role gen-
+eralization is particularly critical to the machine 
+learning approach.
+In the role classification task, we are given a 
+sentence, a frame evoking word, a frame, and
+20
+Hierarchical-relation groups
+Role-descriptor groups
+Thematic-role groups
+Semantic-type groups
+Figure 4: Examples for each type of role group.
+INPUT:
+frame = Commerce_sell
+candidate roles = { Seller, Buyer, Goods, Reason, Time, ... , Place} 
+sentence = Can't [you] [sell Commerce_sell] [the factory] [to some other 
+company]?
+OUTPUT:
+sentence = Can't [you Seller] [sell Commerce_sell] [the factory Goods] 
+[to some other company Buyer] ?
+Figure 3: An example of input and output of role 
+classification.
+phrases that take semantic roles. We are inter-
+ested in choosing the correct role from the can-
+didate roles for each phrase in the frame. Figure 3 
+shows a concrete example of input and output; the 
+semantic roles for the phrases are chosen from the 
+candidate roles: Seller, Buyer, Goods, Reason, 
+... , and Place.
+role at a node in the hierarchy inherits the char-
+acteristics of the roles of its ancestor nodes. For 
+example, Commerce sell::Seller in Figure 2 in-
+herits the property of Giving:: Donor.
+For Inheritance, Using, Perspective on, and 
+Subframe relations, we assume that descendant 
+roles in these relations have the same or special-
+ized properties of their ancestors. Hence, for each 
+role yi, we define the following two role groups,
+Hchild	= {y y = yi V y is a child of yi},
+yi	= {yly = yi V y is a descendant of yij.
+Hdesc	
+yi	
+The hierarchical-relation groups in Figure 4 are 
+the illustrations of Hdesc
+yi	.
+For the relation types Inchoative of and 
+Causative of, we define role groups in the oppo-
+site direction of the hierarchy,
+4 Design of Role Groups	Hparent	= {yjy = yi V y is a parent of yi},
+	yi	= {yjy = yi V y is anancestor of yij.
+	Hance	
+	yi	
+We formalize the generalization of semantic roles 
+as the act of grouping several roles into a 
+class. We define a role group as a set of 
+role labels grouped by a criterion. Figure 4 
+shows examples of role groups; a group Giv-
+ing::Donor (in the hierarchical-relation groups) 
+contains the roles Giving::Donor and Com-
+merce pay::Buyer. The remainder of this section 
+describes the grouping criteria in detail.
+4.1 Hierarchical relations among roles
+FrameNet defines hierarchical relations among 
+frames (frame-to-frame relations). Each relation 
+is assigned one of the seven types of directional 
+relationships (Inheritance, Using, Perspective on, 
+Causative of, Inchoative of, Subframe, and Pre-
+cedes). Some roles in two related frames are also 
+connected with role-to-role relations. We assume 
+that this hierarchy is a promising resource for gen-
+eralizing the semantic roles; the idea is that the
+This is because lower roles of Inchoative of 
+and Causative of relations represent more neu-
+tral stances or consequential states; for example, 
+Killing::Victim is a parent of Death:: Protagonist 
+in the Causative of relation.
+Finally, the Precedes relation describes the se-
+quence of states and events, but does not spec-
+ify the direction of semantic inclusion relations.
+Therefore, we simply try Hchild Hdesc Hparent
+yi , yi,yi ,
+and Hynce for this relation type.
+4.2 Human-understandable role descriptor 
+FrameNet defines each role as frame-specific; in 
+other words, the same identifier does not appear 
+in different frames. However, in FrameNet, 
+human experts assign a human-understandable 
+name to each role in a rather systematic man-
+ner. Some names are shared by the roles in 
+different frames, whose identifiers are dif-
+ferent. Therefore, we examine the semantic
+21
+commonality of these names; we construct an 
+equivalence class of the roles sharing the same 
+name. We call these human-understandable 
+names role descriptors. In Figure 4, the role- 
+descriptor group Buyer collects the roles Com-
+merce pay::Buyer, Commerce buy::Buyer, 
+and Commerce sell::Buyer.
+This criterion may be effective in collecting 
+similar roles since the descriptors have been anno-
+tated by intuition of human experts. As illustrated 
+in Figure 2, the role descriptors group the seman-
+tic roles which are similar to the roles that the 
+FrameNet hierarchy connects as sister or parent- 
+child relations. However, role-descriptor groups 
+cannot express the relations between the roles 
+as inclusions since they are equivalence classes. 
+For example, the roles Commerce sell::Buyer 
+and Commerce buy::Buyer are included in the 
+role descriptor group Buyer in Figure 2; how-
+ever, it is difficult to merge Giving:: Recipient 
+and Commerce sell::Buyer because the Com-
+merce sell:: Buyer has the extra property that one 
+gives something of value in exchange and a hu-
+man assigns different descriptors to them. We ex-
+pect that the most effective weighting of these two 
+criteria will be determined from the training data.
+4.3 Semantic type of phrases
+We consider that the selectional restriction is help-
+ful in detecting the semantic roles. FrameNet pro-
+vides information concerning the semantic types 
+of role phrases (fillers); phrases that play spe-
+cific roles in a sentence should fulfill the se-
+mantic constraint from this information. For 
+instance, FrameNet specifies the constraint that 
+Self motion::Area should be filled by phrases 
+whose semantic type is Location. Since these 
+types suggest a coarse-grained categorization of 
+semantic roles, we construct role groups that con-
+tain roles whose semantic types are identical.
+4.4 Thematic roles of VerbNet
+VerbNet thematic roles are 23 frame-independent 
+semantic categories for arguments of verbs, 
+such as Agent, Patient, Theme and Source. 
+These categories have been used as consis-
+tent labels across verbs. We use a partial 
+mapping between FrameNet roles and Verb- 
+Net thematic roles provided by SemLink. 1 
+Each group is constructed as a set Tti =
+1http://verbs.colorado.edu/semlink/ 
+{yISemLink maps y into the thematic role ti}.
+SemLink currently maps 1,726 FrameNet roles 
+into VerbNet thematic roles, which are 37.61% of 
+roles appearing at least once in the FrameNet cor-
+pus. This may diminish the effect of thematic-role 
+groups than its potential.
+5 Role classification method 
+5.1 Traditional approach
+We are given a frame-evoking word e, a frame f 
+and a role phrase x detected by a human or some 
+automatic process in a sentence s. Let Yf be the 
+set of semantic roles that FrameNet defines as be-
+ing possible role assignments for the frame f, and 
+let x = {x1, ... , x,,,} be observed features for x 
+from s, e and f . The task of semantic role classifi-
+cation can be formalized as the problem of choos-
+ing the most suitable role y� from Yf. Suppose we 
+have a model P(yIf, x) which yields the condi-
+tional probability of the semantic role y for given 
+f and x. Then we can choose y� as follows:
+y� = argmax P(y� f, x).	(1)
+yEYf
+A traditional way to incorporate role groups 
+into this formalization is to overwrite each role 
+y in the training and test data with its role 
+group m(y) according to the memberships of 
+the group. For example, semantic roles Com-
+merce sell::Seller and Giving::Donor can be re-
+placed by their thematic-role group Theme::Agent 
+in this approach. We determine the most suitable 
+role group c� as follows:
+c� = argmax P-(c�f, x).	(2)
+cE �-(y)�yEYf}
+Here, P-(c�f, x) presents the probability of the 
+role group c for f and x. The role y� is determined 
+uniquely iff a single role y E Yf is associated 
+with �c. Some previous studies have employed this 
+idea to remedy the data sparseness problem in the 
+training data (Gildea and Jurafsky, 2002). How-
+ever, we cannot apply this approach when multi-
+ple roles in Yf are contained in the same class. For 
+example, we can construct a semantic-type group 
+St::State of affairs in which Giving::Reason and 
+Giving:: Means are included, as illustrated in Fig-
+ure 4. If c� = St:: State of affairs, we cannot dis-
+ambiguate which original role is correct. In ad-
+dition, it may be more effective to use various
+22
+groupings of roles together in the model. For in-
+stance, the model could predict the correct role 
+Commerce sell::Seller for the phrase “you” in 
+Figure 3 more confidently, if it could infer its 
+thematic-role group as Theme::Agent and its par-
+ent group Giving::Donor correctly. Although the 
+ensemble of various groupings seems promising, 
+we need an additional procedure to prioritize the 
+groupings for the case where the models for mul-
+tiple role groupings disagree; for example, it is un-
+satisfactory if two models assign the groups Giv-
+ing:: Theme and Theme::Agent to the same phrase.
+5.2 Role groups as feature functions
+We thus propose another approach that incorpo-
+rates group information as feature functions. We 
+model the conditional probability P(y� f, x) by us-
+ing the maximum entropy framework,
+exp(Ei Aigi(x, y))
+�( y� f, x) = Ey,Y, exp(Ei Aigi(x, y)). (3)
+Here, G = Jgi� denotes a set of n feature func-
+tions, and A = JAi� denotes a weight vector for 
+the feature functions.
+In general, feature functions for the maximum 
+entropy model are designed as indicator functions 
+for possible pairs of xj and y. For example, the 
+event where the head word of x is “you” (xi = 1) 
+and x plays the role Commerce sell::Seller in a 
+sentence is expressed by the indicator function,
+1 (xi =1A
+y = Commerce sell::Seller)
+0 (otherwise)
+(4)
+We call this kind of feature function an x-role.
+In order to incorporate role groups into the 
+model, we also include all feature functions for 
+possible pairs of xj and role groups. Equation 5 
+is an example of a feature function for instances 
+where the head word of x is “you” and y is in the 
+role group Theme::Agent,
+1 (xi=1A
+y E Theme::Agent) . (5) 
+0 (otherwise)
+Thus, this feature function fires for the roles wher-
+ever the head word “you” plays Agent (e.g., Com-
+merce sell::Seller, Commerce buy::Buyer and 
+Giving:: Donor). We call this kind of feature func-
+tion an x-group function.
+In this way, we obtain x-group functions for 
+all grouping methods, e.g., gtheme
+k, ghierarchy
+k . 
+The role-group features will receive more training 
+instances by collecting instances for fine-grained 
+roles. Thus, semantic roles with few training in-
+stances are expected to receive additional clues 
+from other training instances via role-group fea-
+tures. Another advantage of this approach is that 
+the usefulness of the different role groups is de-
+termined by the training processes in terms of 
+weights of feature functions. Thus, we do not need 
+to assume that we have found the best criterion for 
+grouping roles; we can allow a training process to 
+choose the criterion. We will discuss the contribu-
+tions of different groupings in the experiments. 
+5.3 Comparison with related work
+Baldewein et al. (2004) suggested an approach 
+that uses role descriptors and hierarchical rela-
+tions as criteria for generalizing semantic roles 
+in FrameNet. They created a classifier for each 
+frame, additionally using training instances for the 
+role A to train the classifier for the role B, if the 
+roles A and B were judged as similar by a crite-
+rion. This approach performs similarly to the over-
+writing approach, and it may obscure the differ-
+ences among roles. Therefore, they only re-used 
+the descriptors as a similarity measure for the roles 
+whose coreness was peripheral. 2
+In contrast, we use all kinds of role descriptors 
+to construct groups. Since we use the feature func-
+tions for both the original roles and their groups, 
+appropriate units for classification are determined 
+automatically in the training process.
+6 Experiment and Discussion
+We used the training set of the Semeval-2007 
+Shared task (Baker et al., 2007) in order to ascer-
+tain the contributions of role groups. This dataset 
+consists of the corpus of FrameNet release 1.3 
+(containing roughly 150,000 annotations), and an 
+additional full-text annotation dataset. We ran-
+domly extracted 10% of the dataset for testing, and 
+used the remainder (90%) for training.
+Performance was measured by micro- and 
+macro-averaged F 1(Chang and Zheng, 2008) with 
+respect to a variety of roles. The micro average bi-
+ases each F1 score by the frequencies of the roles,
+2In FrameNet, each role is assigned one of four different 
+types of coreness (core, core-unexpressed, peripheral, extra- 
+thematic) It represents the conceptual necessity of the roles 
+in the frame to which it belongs.
+giole(x, y) = {
+.
+gtheme 
+2(x, y) =
+{
+23
+and the average is equal to the classification accu-
+racy when we calculate it with all of the roles in 
+the test set. In contrast, the macro average does 
+not bias the scores, thus the roles having a small 
+number of instances affect the average more than 
+the micro average.
+6.1 Experimental settings
+We constructed a baseline classifier that uses 
+only the x-role features. The feature de-
+sign is similar to that of the previous stud-
+ies (M`arquez et al., 2008). The characteristics 
+of x are: frame, frame evoking word, head 
+word, content word (Surdeanu et al., 2003), 
+first/last word, head word of left/right sister, 
+phrase type, position, voice, syntactic path (di-
+rected/undirected/partial), governing category 
+(Gildea and Jurafsky, 2002), WordNet super- 
+sense in the phrase, combination features of 
+frame evoking word & headword, combination 
+features of frame evoking word & phrase type, 
+and combination features of voice & phrase type. 
+We also used PoS tags and stem forms as extra 
+features of any word-features.
+We employed Charniak and Johnson’s rerank-
+ing parser (Charniak and Johnson, 2005) to an-
+alyze syntactic trees. As an alternative for the 
+traditional named-entity features, we used Word- 
+Net supersenses: 41 coarse-grained semantic cate-
+gories of words such as person, plant, state, event, 
+time, location. We used Ciaramita and Altun’s Su-
+per Sense Tagger (Ciaramita and Altun, 2006) to 
+tag the supersenses. The baseline system achieved 
+89.00% with respect to the micro-averaged F1.
+The x-group features were instantiated similarly 
+to the x-role features; the x-group features com-
+bined the characteristics of x with the role groups 
+presented in this paper. The total number of fea-
+tures generated for all x-roles and x-groups was 
+74,873,602. The optimal weights A of the fea-
+tures were obtained by the maximum a poste-
+rior (MAP) estimation. We maximized an L2- 
+regularized log-likelihood of the training set us-
+ing the Limited-memory BFGS (L-BFGS) method 
+(Nocedal, 1980).
+6.2 Effect of role groups
+Table 1 shows the micro and macro averages of F 1 
+scores. Each role group type improved the micro 
+average by 0.5 to 1.7 points. The best result was 
+obtained by using all types of groups together. The 
+result indicates that different kinds of group com-
+Feature	Micro	Macro	-Err.
+Baseline	89.00	68.50	0.00
+role descriptor	90.78	76.58	16.17
+role descriptor (replace)	90.23	76.19	11.23
+hierarchical relation	90.25	72.41	11.40
+semantic type	90.36	74.51	12.38
+VN thematic role	89.50	69.21	4.52
+All	91.10	75.92	19.16
+Table 1: The accuracy and error reduction rate of 
+role classification for each type of role group.
+Feature	#instances	Pre.	Rec.	Micro
+baseline	< 10	63.89	38.00	47.66
+	< 20	69.01	51.26	58.83
+	<50	75.84	65.85	70.50
++ all groups	< 10	72.57	55.85	63.12
+	<20	76.30	65.41	70.43
+	< 50	80.86	74.59	77.60
+Table 2: The effect of role groups on the roles with 
+few instances.
+plement each other with respect to semantic role 
+generalization. Baldewein et al. (2004) reported 
+that hierarchical relations did not perform well for 
+their method and experimental setting; however, 
+we found that significant improvements could also 
+be achieved with hierarchical relations. We also 
+tried a traditional label-replacing approach with 
+role descriptors (in the third row of Table 1). The 
+comparison between the second and third rows in-
+dicates that mixing the original fine-grained roles 
+and the role groups does result in a more accurate 
+classification.
+By using all types of groups together, the 
+model reduced 19.16 % of the classification errors 
+from the baseline. Moreover, the macro-averaged 
+F1 scores clearly showed improvements resulting 
+from using role groups. In order to determine 
+the reason for the improvements, we measured 
+the precision, recall, and F1-scores with respect 
+to roles for which the number of training instances 
+was at most 10, 20, and 50. In Table 2, we show 
+that the micro-averaged F1 score for roles hav-
+ing 10 instances or less was improved (by 15.46 
+points) when all role groups were used. This result 
+suggests the reason for the effect of role groups; by 
+bridging similar semantic roles, they supply roles 
+having a small number of instances with the infor-
+mation from other roles.
+6.3 Analyses of role descriptors
+In Table 1, the largest improvement was obtained 
+by the use of role descriptors. We analyze the ef-
+fect of role descriptors in detail in Tables 3 and 4. 
+Table 3 shows the micro-averaged F 1 scores of all
+24
+Coreness	#roles	#instances/#role	#groups	#instances/#group	#roles/#group
+Core	1902	122.06	655	354.4	2.9
+Peripheral	1924	25.24	250	194.3	7.7
+Extra-thematic	763	13.90	171	62.02	4.5
+Table 4: The analysis of the numbers of roles, instances, and role-descriptor groups, for each type of 
+coreness.
+Coreness	Micro
+Baseline	89.00
+Core	89.51
+Peripheral	90.12
+Extra-thematic	89.09
+All	90.77
+Table 3: The effect of employing role-descriptor 
+groups of each type of coreness.
+semantic roles when we use role-descriptor groups 
+constructed from each type of coreness (core3, pe-
+ripheral, and extra-thematic) individually. The pe-
+ripheral type generated the largest improvements.
+Table 4 shows the number of roles associated 
+with each type of coreness (#roles), the number of 
+instances for the original roles (#instances/#role), 
+the number of groups for each type of coreness 
+(#groups), the number of instances for each group 
+(#instances/#group), and the number of roles per 
+each group (#roles/#group). In the peripheral 
+type, the role descriptors subdivided 1,924 distinct 
+roles into 250 groups, each of which contained 7.7 
+roles on average. The peripheral type included 
+semantic roles such as place, time, reason, dura-
+tion. These semantic roles appear in many frames, 
+because they have general meanings that can be 
+shared by different frames. Moreover, the seman-
+tic roles of peripheral type originally occurred in 
+only a small number (25.24) of training instances 
+on average. Thus, we infer that the peripheral 
+type generated the largest improvement because 
+semantic roles in this type acquired the greatest 
+benefit from the generalization.
+6.4 Hierarchical relations and relation types
+We analyzed the contributions of the FrameNet hi-
+erarchy for each type of role-to-role relations and 
+for different depths of grouping. Table 5 shows 
+the micro-averaged F1 scores obtained from var-
+ious relation types and depths. The Inheritance 
+and Using relations resulted in a slightly better ac-
+curacy than the other types. We did not observe 
+any real differences among the remaining five re-
+lation types, possibly because there were few se-
+3 We include Core-unexpressed in core, because it has a 
+property of core inside one frame.
+No.	Relation Type	Micro
+-	baseline	89.00
+1	+ Inheritance (children)	89.52
+2	+ Inheritance (descendants)	89.70
+3	+Using (children)	89.35
+4	+Using (descendants)	89.37
+5	+ Perspective on (children)	89.01
+6	+ Perspective on (descendants)	89.01
+7	+ Subframe (children)	89.04
+8	+ Subframe (descendants)	89.05
+9	+ Causative of (parents)	89.03
+10	+ Causative of (ancestors)	89.03
+11	+ Inchoative of (parents)	89.02
+12	+ Inchoative of (ancestors)	89.02
+13	+Precedes (children)	89.01
+14	+Precedes (descendants)	89.03
+15	+Precedes (parents)	89.00
+16	+Precedes (ancestors)	89.00
+18	+all relations (2,4,6,8,10,12,14)	90.25
+Table 5: Comparison of the accuracy with differ-
+ent types of hierarchical relations.
+mantic roles associated with these types. We ob-
+tained better results by using not only groups for 
+parent roles, but also groups for all ancestors. The 
+best result was obtained by using all relations in 
+the hierarchy.
+6.5 Analyses of different grouping criteria
+Table 6 reports the precision, recall, and micro- 
+averaged F1 scores of semantic roles with respect 
+to each coreness type .4 In general, semantic roles 
+of the core coreness were easily identified by all 
+of the grouping criteria; even the baseline system 
+obtained an F 1 score of 91.93. For identifying se-
+mantic roles of the peripheral and extra-thematic 
+types of coreness, the simplest solution, the de-
+scriptor criterion, outperformed other criteria.
+In Table 7, we categorize feature functions 
+whose weights are in the top 1000 in terms of 
+greatest absolute value. The behaviors of the role 
+groups can be distinguished by the following two 
+characteristics. Groups of role descriptors and se-
+mantic types have large weight values for the first 
+word and supersense features, which capture the 
+characteristics of adjunctive phrases. The original 
+roles and hierarchical-relation groups have strong
+4The figures of role descriptors in Tables 4 and 6 differ. 
+In Table 4, we measured the performance when we used one 
+or all types of coreness for training. In contrast, in Table 6, 
+we used all types of coreness for training, but computed the 
+performance of semantic roles for each coreness separately.
+25
+Feature	Type	Pre.	Rec.	Micro
+baseline	c	91.07	92.83	91.93
+	p	81.05	76.03	78.46
+	e	78.17	66.51	71.87
++ descriptor group	c	92.50	93.41	92.95
+	p	84.32	82.72	83.51
+	e	80.91	69.59	74.82
++hierarchical	c	92.10	93.28	92.68
+relation	p	82.23	79.84	81.01
+class	e	77.94	65.58	71.23
++ semantic	c	92.23	93.31	92.77
+type group	p	83.66	81.76	82.70
+	e	80.29	67.26	73.20
++ VN thematic	c	91.57	93.06	92.31
+role group	p	80.66	76.95	78.76
+	e	78.12	66.60	71.90
++ all group	c	92.66	93.61	93.13
+	p	84.13	82.51	83.31
+	e	80.77	68.56	74.17
+Table 6: The precision and recall of each type of 
+coreness with role groups. Type represents the 
+type of coreness; c denotes core, p denotes periph-
+eral, and e denotes extra-thematic.
+associations with lexical and structural character-
+istics such as the syntactic path, content word, and 
+head word. Table 7 suggests that role-descriptor 
+groups and semantic-type groups are effective for 
+peripheral or adjunctive roles, and hierarchical re-
+lation groups are effective for core roles.
+7 Conclusion
+We have described different criteria for general-
+izing semantic roles in FrameNet. They were: 
+role hierarchy, human-understandable descriptors 
+of roles, semantic types of filler phrases, and 
+mappings from FrameNet roles to thematic roles 
+of VerbNet. We also proposed a feature design 
+that combines and weights these criteria using the 
+training data. The experimental result of the role 
+classification task showed a 19.16% of the error 
+reduction and a 7.42% improvement in the macro- 
+averaged F1 score. In particular, the method we 
+have presented was able to classify roles having 
+few instances. We confirmed that modeling the 
+role generalization at feature level was better than 
+the conventional approach that replaces semantic 
+role labels.
+Each criterion presented in this paper improved 
+the accuracy of classification. The most success-
+ful criterion was the use of human-understandable 
+role descriptors. Unfortunately, the FrameNet hi-
+erarchy did not outperform the role descriptors, 
+contrary to our expectations. A future direction 
+of this study would be to analyze the weakness of 
+the FrameNet hierarchy in order to discuss possi-
+ble improvement of the usage and annotations of
+features of x	class type				
+	or	hr	rl	st	vn
+frame	0	4	0	1	0
+evoking word	3	4	7	3	0
+ew & hw stem	9	34	20	8	0
+ew & phrase type	11	7	11	3	1
+head word	13	19	8	3	1
+hw stem	11	17	8	8	1
+content word	7	19	12	3	0
+cw stem	11	26	13	5	0
+cw PoS	4	5	14	15	2
+directed path	19	27	24	6	7
+undirected path	21	35	17	2	6
+partial path	15	18	16	13	5
+last word	15	18	12	3	2
+first word	11	23	53	26	10
+supersense	7	7	35	25	4
+position	4	6	30	9	5
+others	27	29	33	19	6
+total	188	298	313	152	50
+Table 7: The analysis of the top 1000 feature func-
+tions. Each number denotes the number of feature 
+functions categorized in the corresponding cell. 
+Notations for the columns are as follows. ‘or’: 
+original role, ‘hr’: hierarchical relation, ‘rd’: role 
+descriptor, ‘st’: semantic type, and ‘vn’: VerbNet 
+thematic role.
+the hierarchy.
+Since we used the latest release of FrameNet 
+in order to use a greater number of hierarchical 
+role-to-role relations, we could not make a direct 
+comparison of performance with that of existing 
+systems; however we may say that the 89.00% F 1 
+micro-average of our baseline system is roughly 
+comparable to the 88.93% value of Bejan and 
+Hathaway (2007) for SemEval-2007 (Baker et al., 
+2007). 5 In addition, the methodology presented in 
+this paper applies generally to any SRL resources; 
+we are planning to determine several grouping cri-
+teria from existing linguistic resources and to ap-
+ply the methodology to the PropBank corpus.
+Acknowledgments
+The authors thank Sebastian Riedel for his useful 
+comments on our work. This work was partially 
+supported by Grant-in-Aid for Specially Promoted 
+Research (MEXT, Japan).
+References
+Collin F. Baker, Charles J. Fillmore, and John B. Lowe. 
+1998. The berkeley framenet project. In Proceed-
+ings of Coling -ACL 1998, pages 86–90.
+Collin Baker, Michael Ellsworth, and Katrin Erk. 
+2007. Semeval-2007 task 19: Frame semantic struc-
+5There were two participants that performed whole SRL 
+in SemEval-2007. Bejan and Hathaway (2007) evaluated role 
+classification accuracy separately for the training data.
+26
+ture extraction. In Proceedings of SemEval-2007, 
+pages 99–104.
+Ulrike Baldewein, Katrin Erk, Sebastian Pad´o, and 
+Detlef Prescher. 2004. Semantic role labeling 
+with similarity based generalization using EM-based 
+clustering. In Proceedings of Senseval-3, pages 64– 
+68.
+Cosmin Adrian Bejan and Chris Hathaway. 2007. 
+UTD-SRL: A Pipeline Architecture for Extract-
+ing Frame Semantic Structures. In Proceedings 
+of SemEval-2007, pages 460–463. Association for 
+Computational Linguistics.
+X. Chang and Q. Zheng. 2008. Knowledge Ele-
+ment Extraction for Knowledge-Based Learning Re-
+sources Organization. Lecture Notes in Computer 
+Science, 4823:102–113.
+Eugene Charniak and Mark Johnson. 2005. Coarse-
+to-fine n-best parsing and MaxEnt discriminative 
+reranking. In Proceedings of the 43rd Annual Meet-
+ing on Association for Computational Linguistics, 
+pages 173–180.
+Massimiliano Ciaramita and Yasemin Altun. 2006. 
+Broad-coverage sense disambiguation and informa-
+tion extraction with a supersense sequence tagger. In 
+Proceedings ofEMNLP-2006, pages 594–602.
+Daniel Gildea and Daniel Jurafsky. 2002. Automatic 
+labeling of semantic roles. Computational Linguis-
+tics, 28(3):245–288.
+Ana-Maria Giuglea and Alessandro Moschitti. 2006. 
+Semantic role labeling via FrameNet, VerbNet and 
+PropBank. In Proceedings of the 21st International 
+Conference on Computational Linguistics and the 
+44th Annual Meeting of the ACL, pages 929–936.
+Andrew Gordon and Reid Swanson. 2007. General-
+izing semantic role annotations across syntactically 
+similar verbs. In Proceedings of ACL-2007, pages 
+192–199.
+Edward Loper, Szu-ting Yi, and Martha Palmer. 2007. 
+Combining lexical resources: Mapping between 
+propbank and verbnet. In Proceedings of the 7th In-
+ternational Workshop on Computational Semantics, 
+pages 118–128.
+Lluis M`arquez, Xavier Carreras, Kenneth C. 
+Litkowski, and Suzanne Stevenson. 2008. Se-
+mantic role labeling: an introduction to the special 
+issue. Computational linguistics, 34(2):145–159.
+Alessandro Moschitti, Ana-Maria Giuglea, Bonaven-
+tura Coppola, and Roberto Basili. 2005. Hierar-
+chical semantic role labeling. In Proceedings of 
+CoNLL-2005, pages 201–204.
+Alessandro Moschitti, Silvia Quarteroni, Roberto 
+Basili, and Suresh Manandhar. 2007. Exploiting 
+syntactic and shallow semantic kernels for question 
+answer classification. In Proceedings of ACL-07, 
+pages 776–783.
+Srini Narayanan and Sanda Harabagiu. 2004. Ques-
+tion answering based on semantic structures. In Pro-
+ceedings of Coling-2004, pages 693–701.
+Jorge Nocedal. 1980. Updating quasi-newton matrices 
+with limited storage. Mathematics of Computation, 
+35(151):773–782.
+Martha Palmer, Daniel Gildea, and Paul Kingsbury. 
+2005. The proposition bank: An annotated cor-
+pus of semantic roles. Computational Linguistics, 
+31(1):71–106.
+Dan Shen and Mirella Lapata. 2007. Using semantic 
+roles to improve question answering. In Proceed-
+ings ofEMNLP-CoNLL 2007, pages 12–21.
+Lei Shi and Rada Mihalcea. 2005. Putting Pieces To-
+gether: Combining FrameNet, VerbNet and Word- 
+Net for Robust Semantic Parsing. In Proceedings of 
+CICLing-2005, pages 100–111.
+Mihai Surdeanu, Sanda Harabagiu, John Williams, and 
+Paul Aarseth. 2003. Using predicate-argument 
+structures for information extraction. In Proceed-
+ings ofACL-2003, pages 8–15.
+Szu-ting Yi, Edward Loper, and Martha Palmer. 2007. 
+Can semantic roles generalize across genres? In 
+Proceedings ofHLT-NAACL 2007, pages 548–555.
+Be˜nat Zapirain, Eneko Agirre, and Lluis M`arquez. 
+2008. Robustness and generalization of role sets: 
+PropBank vs. VerbNet. In Proceedings of ACL-08: 
+HLT, pages 550–558.
+27

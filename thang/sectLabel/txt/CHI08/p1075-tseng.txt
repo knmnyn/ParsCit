@@ -1,0 +1,1021 @@
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+The Adaptation of Visual Search Strategy to Expected
+Information Gain
+Yuan-Chi Tseng
+The University of Manchester
+MBS Crawford House 2.30, Booth Street West,
+Manchester, M15 6PB, UK
+yuan-chi.tseng@postgrad.manchester.ac.uk
+ABSTRACT
+An important question for Human-Computer Interaction is 
+to understand how and why visual search strategy is 
+adapted to the demands imposed by the task of searching 
+the results of a search engine. There is emerging evidence 
+that a key part of the answer concerns the expected 
+information gain of each of the set of available information 
+gathering actions. We build on previous research to show 
+that people are acutely sensitive to differences in the density 
+and in the number of items returned by the search engine. 
+These factors cause shifts in the efficiency of the available 
+information gathering actions. We focus on an image 
+browsing task, and show that, as a consequence of changes 
+to the efficiency of available actions, people make small but 
+significant changes to eye-movement strategy.
+Author Keywords
+Visual Search, Visual Exploration, Strategy, Cognitive 
+Models, Decision Making, Image Search Results, 
+Thumbnails, Eye Movement, Density, Spacing
+ACM Classification Keywords
+H.5.2 Information Interfaces and Presentation: User 
+Interfaces – Theory and methods; H.1.2 Models and 
+Principles: User/Machine Systems – Human Information 
+Processing; H.3.3 Information Storage and Retrieval: 
+Information Search and Retrieval – Selection process
+INTRODUCTION
+An important question for Human-Computer Interaction 
+(HCI) is how to design the presentation of search results to 
+facilitate visual search behaviour [9,20,35]. Researchers 
+have proposed many alternatives to the standard list of 
+results. They include Space-filling thumbnails of text [7], 
+Tabular interface [36], Faceted category interface [42], and 
+Textually-enhanced thumbnails [41].
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+Andrew Howes
+The University of Manchester
+MBS East F31, Booth Street West, Manchester,
+M15 6PB, UK
+howesa@manchester.ac.uk
+The number of proposals is, in part, a reflection of the scale 
+of the design space. Identifying which of the potentially 
+hundreds of interesting points in this space is best might be 
+informed by a theory of how people choose to search 
+through results, e.g. an ACT-R or EPIC theory of the 
+cognitive, motor, and perceptual processing required to 
+achieve the task [2,18,22,23]. Recent efforts to understand, 
+what Payne, Howes and Reader [28] call interactive search 
+tasks, have included [5,6,8,13,31]. However, it is 
+sometimes difficult to ascertain which interface will be best 
+when the details of the strategy that people will use given a 
+particular task environment are unclear [10,14,17,19]. In 
+this paper we are interested in the strategy choices that 
+people make about visual search, i.e. how they choose to 
+look at search results. Our focus is on the assumption that 
+people attempt to maximise expected utility given the 
+constraints of the human visual system [8,39] and that 
+design changes which change the efficiency of information 
+gathering actions will lead to changes in observed 
+behaviour.
+There is some evidence in the visual perception and 
+cognition literature that visual search strategy is adapted to 
+the demands imposed by particular task environments 
+[4,26,40]. It appears that people seek to maximise the 
+efficiency of visual search in the context of the particular 
+display layout. For example, longer fixations enable more 
+information to be gathered from fovea and peripheral 
+vision, although longer fixations can only be effective if the 
+information is available within the perceptual span [26]. 
+Moreover, people need to manage the trade-off between the 
+increased information gain of longer fixations and the effort 
+and time cost of holding a fixation.
+Some evidence that people adapt their strategy to the task 
+can also be found in the HCI literature. For example, trade-
+offs in the use of wide versus narrow spacing between icons 
+[11], in more but smaller text versus fewer but bigger text 
+in the same space [15] and in the use of Hyperbolic browser 
+versus standard browser [30]. Even in a standard results 
+layout, such as a simple list of links, there is evidence that 
+search strategy is affected by the context in which the 
+relevance of items is assessed [5,6,8,13]. The position of a 
+target item in a list and relationship between the relevance 
+of this target and distractor items affects search behaviour
+1075
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+[5,6,13]. These finding support the view that search and 
+selection is guided by maximising the expected information 
+gain [8]. Strikingly there is evidence that maximising 
+expected gain can involve fixating on every other item in a 
+list, rather than fixating on contiguous items [5,6], 
+particularly in contexts where good results have already 
+been encountered.
+In a number of respects people appear to be sensitive to the 
+expected information gain of information gathering actions. 
+In the following section we review in more detail the 
+literature on the trade-offs that contribute toward the 
+efficiency of information gathering actions during visual 
+search. We are interested in the broad class of interactive 
+search tasks [28] but our particular focus is on the visual 
+search strategies and decision-making processes that people 
+use when looking through items returned by an image 
+search engine such as Flickr or Google. Further, we are 
+interested in everyday tasks with somewhat underspecified 
+target criteria, e.g. look for attractive images of the city 
+Florence. In what follows we consider the relevance of the 
+visual search and HCI literature to understanding these 
+kinds of task.
+RELATED WORK
+Visual Search in HCI
+Researchers in HCI have suggested that the details of 
+interface design affect visual search strategy (e.g., 
+[11,15,30]). Everett and Byrne [11], for example, suggested 
+a small difference of 1.6 degrees of visual angle between 
+items can result in participants either fixating on an icon or 
+not. Similarly, Halverson and Hornof [15] provided 
+evidence that low density, task-meaningless large words 
+could lead participants to use fewer and shorter fixations 
+and so shorter overall search time than when given high 
+density, small, task-meaningless, words. Similarly, Pirolli, 
+Card, and Van Der Wege [30] found that participants used 
+more but shorter fixations when using a Hyperbolic browser 
+than when using a standard browser, especially in areas of 
+the Hyperbolic browser in which small, low information 
+scent items, were grouped closely together.
+Visual Search in Experimental Psychology
+In the visual search literature, there is compelling evidence 
+that the density of items on the display has consequences 
+for search strategy. Ojanpää, Näsänen and Kojo [26] found 
+that decreased spacing in a vertical list of words (common 
+Finnish verbs, nouns and adjectives) resulted in longer but 
+fewer numerous fixations. Vlaskamp, Over and Hooge [40] 
+found that the fixation duration, number of fixation and 
+search time increased dramatically with decreasing item 
+spacing, as the range of spacing smaller than 1.5° visual 
+angle. On the other hand, their data showed that at wide 
+spacing range between 1.5° to 7.1° fixation duration, 
+number of fixations and search time increased slightly as 
+the spacing increased. Bertera and Rayner [4] found that as 
+the item spacing increased the number of fixations and 
+fixation duration increased.
+Although allowing a high degree of experimental control 
+the tasks [4,26,40] lack ecological validity. For example, 
+Vlaskamp, Over and Hooge [40] used abstract shapes (e.g., 
+squares) in their search task, and, Bertera and Rayner [4] 
+used an unstructured alphanumeric array. Ojanpää, Näsänen 
+and Kojo [26]) used common-words, which reduced the 
+task to a simple visual pattern match, rather than a match of 
+information scent but it is known that search behaviour is 
+contingent on label relevance [5,6]. The different materials 
+may account for the different effects. Both tasks are far 
+from the real HCI task in which the stimuli are more 
+heterogeneous and complicated.
+Strategy Change during Search
+Visual search strategies are also known to change during 
+the course of a search [27,33]. Over, Hooge, Vlaskamp and 
+Erkelens [27] found that fixation duration increased and the 
+amplitude of saccade decreased gradually as search 
+progressed. They called this is a coarse-to-fine strategy. 
+Rao, Zelinsky, Hayhoe and Ballard [33] used a coarse-to-
+fine matching mechanism to model the skipping saccades 
+because it could increase the probability of an early match. 
+In contrast, Brumby and Howes [6] found a fine-to-coarse 
+search strategy. People increased saccade amplitude once 
+they had found, but not committed to, a highly relevant 
+target suggesting that although it is known that strategy can 
+change, the reasons for change are not always clear.
+Also, it is known that people spend more time examining 
+items that are presented nearer to the top of the returned 
+search results [9,13], presumably, and in part, because 
+search engines tend to rank order results. However, what is 
+not clear is whether people change visual search strategy as 
+they examine links further from the top of the results list. 
+For example, they may be more likely to skip i.e. fixate 
+alternate, non-adjacent, items once a potential hit has been 
+found, as was observed in [6].
+THEORY
+We assume that people make strategic adaptations in order 
+to improve the efficiency of visual search, that is that they 
+rationally adapt the strategy, given cognitive, perceptual, 
+and motor constraints, to maximise benefits while 
+minimising costs [1,8,17,28,29]. More specifically, people 
+adapt their eye movement strategy to maximise the 
+expected gain of task-relevant information and minimise the 
+neural resources devoted to memory [25] and cognitive and 
+attentional load [3]. In this paper, we take an “active vision” 
+approach [12] to understanding the complex interactive 
+behaviours that people exhibit when searching for 
+information. Understanding these behaviours requires 
+bridging between theories of visual search, visual 
+exploration, and decision-making.
+Following Cox and Young [8] we assumed that people are 
+sensitive to the prior probabilities that any particular item 
+will be the target item. Cox and Young operationalised this 
+assumption by assuming that prior probabilities were
+1076
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+normalized over the set of potential targets. More search 
+items implies lower initial priors.
+Following Ojanpää, Näsänen and Kojo [26] we assumed 
+that the information that can be gathered given the 
+perceptual span is (1) contingent on the item density, (2) 
+contingent on the duration of fixation.
+Combining the theories of Cox and Young [8] and Ojanpää, 
+Näsänen and Kojo [26] we assume that the visual search 
+strategy is rationally adapted to the information that can be 
+gained from the perceptual span. On this basis we made 
+two predictions:
+(1) that packing items together more closely (high density) 
+would allow more information to be harvested from the 
+perceptual span given sufficient time. We predicate that 
+people would therefore increase the duration spent looking 
+at any one item, and reduce the number of items directly 
+fixated. That is, they would take advantage of the fact that 
+more information was available for each fixation.
+(2) if there are more search items then the gaze durations 
+and the rate of number of items directly fixated in a trial 
+should decrease because the prior probability of any one 
+item being the target item is decreased [8]. In other words, 
+when there are more results returned we expect people to 
+give each result less time, presumably reducing the quality 
+of each evaluation in order to conduct more evaluations. 
+The eye movement strategy should switch to a lower cost 
+strategy, involving more item skipping [6].
+EXPERIMENT
+Method
+This study investigates the consequences of expected 
+information gain for the visual search strategy that people 
+use given pages of thumbnails returned by a search engine. 
+Participants were asked to imagine that they were choosing 
+where to go on holiday, and that they were using the web to 
+gather information about various places that they could visit. 
+In particular, their goal was to use a particular image search 
+engine site to find an image of a visually attractive 
+destination.
+Stimuli and Design
+There were 180 unique sets of images. Each set included 
+image thumbnails about a place, such as a resort, city or 
+country. These image thumbnails were selected from the 
+search results responding to keywords or search phrases 
+input in an image search engine of Flickr, a photo sharing 
+website. Moreover, each set at least contains 1,000 photo 
+results matching the name of the place. For example, Flickr 
+found 423,166 up-to-date results for photos matching 
+Florence. We filtered out the tourists’ poor quality self- 
+portrait, maps and pictures with special effect, such as High 
+Dynamic Range (HDR) images which is not clear in the 
+task thumbnail size. Finally, we selected 180 photo 
+thumbnails for each set. So, totally, we had unique 32,400 
+thumbnails (180 sets × 180 thumbnails). At the eye-to-
+Figure 1: an example of search task with high density
+layout and one number of pages condition.
+Figure 2: A sample trial of low density layout and 5 pages
+set size. This shows the thumbnails on page 3.
+screen distance of 60 centimeters used in the experiment, 
+the size of thumbnails (75 × 75 pixels) subtended a visual 
+angle of 2.15°.
+The experiment was a within-subjects design and had two 
+independent variables. These were thumbnail density and 
+number of pages (set size). Density had two levels with 
+narrow or wide spacing between items displayed in the 
+search task. Figure 1 shows a sample display from one high 
+density trial. The edge-to-edge item spacings were 3 pixels 
+(visual angle = 0.085°) in high density layout. Figure 2
+1077
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+shows one low density trial. The edge-to-edge item 
+spacings were 30 pixels (visual angle = 0.85°) in low 
+density display. Unlike in Halverson and Hornof [15] and 
+Pirolli, Card, and Van Der Wege [30] the size of thumbnails 
+was held constant, so that density was manipulated by 
+changing proximity only.
+Number of pages had three levels: 1-page, 2-pages and 5- 
+pages. Each page consisted of exactly 36 thumbnails (6 × 6 
+square layout). In the 1-page condition, there were 36 
+thumbnails in total and the first 36 of 180 thumbnails of 
+sets were used. In 2-pages condition, 1st to 36th thumbnails 
+were used in the first page; 37th to 72nd thumbnails were 
+used in the second page and there were 72 thumbnails in 
+total. In the 5-pages condition, all 180 thumbnails were 
+used sequentially. There were page links below thumbnails 
+in any page. It appeared all the time (see figure 1 and 2). 
+Participants could click these links to switch between pages 
+during a trial. So, when Participants searched in the first 
+page, they also gained the information about how many 
+pages in this task.
+In total, there were 6 conditions (2 densities × 3 number of 
+pages). Each condition had 30 trials. The total number of 
+trials was 180. Each set of thumbnails could be arranged 
+into one of six conditions. The presentations of each set of 
+thumbnails were counterbalanced across subjects.
+Apparatus
+The experiment was performed with a Tobii 1750 eye 
+tracker. The eyetracker is embodied in a 17” monitor. The 
+eye tracker has a tracking rate or the frame rate of 50 Hz. 
+The temporal resolution of 20 ms is sufficient for 
+monitoring long fixation and eye movements in our task. 
+Although low temporal resolution could cause noise in 
+signal sampling, noise was reduced by averaging several 
+gazes per page and by testing 30 trials per condition. The 
+screen resolutions were set at 1024×768 pixels.
+Participants
+Participants were twenty four students from University of 
+Manchester who received 5-10 pounds depending on their 
+time for their volunteer. All participants were between 18 
+and 28 years old and have normal vision or corrected-to-
+normal vision.
+Procedure
+Participants were presented with instructions and then a 
+practice block allowed them to become familiar with the 
+task. After the practice block, the eye tracker system was 
+calibrated. And then participants completed all 180 trials.
+The whole Experiment took between 40 minutes and 70 
+minutes depending on different participants. The variation 
+in time was because we didn’t give our participants any 
+time limitation. Some participants were faster than others.
+The participant looked at a place label then clicked on the 
+search button to make thumbnail search results appear. The 
+participant was instructed to move the cursor to a thumbnail
+of a visually attractive destination and click on it to finish a 
+trial. The trial process and interface are shown in Figure 1.
+Results
+Normally, eye movement studies analysed participants’ 
+search time, number of fixations and fixation duration. 
+When we observed the participants’ search behaviour, we 
+also found the gaze transitions were not always from one 
+item to the next adjacent item; instead, participants skipped 
+one or more items during their saccade. We calculated how 
+many gaze transitions were not between spatially adjacent 
+thumbnails. Therefore, in this study, we were interested in 
+visual search performance, particularly in how (1) search 
+time and (2) number of item gazes (all contiguous fixations 
+on an item were combined to be a single gaze), (3) gaze 
+duration (the sum of all fixation durations on a thumbnail 
+prior to moving to another thumbnail), and (4) the 
+proportion of skipping gaze transitions (the total number of 
+gaze transitions divided by the number of skipping gaze 
+transitions), are affected by the thumbnails density and 
+number of pages. The data in the revisited page were not 
+included. These four measures might reveal the adaptation 
+of search strategy while participants interact with different 
+item densities and number of items.
+We predicted that when the thumbnails were displayed 
+close together, participants would spend longer in a gaze, 
+and be more likely to skip thumbnails during search in the 
+display, than when thumbnails were displayed further apart. 
+In addition, page links below the thumbnails indicated that 
+the number of pages and total items in the task. We 
+predicted that when there are more pages and thumbnails, 
+people would adopt a different strategy which would be 
+revealed by these four measures.
+Overall Performance
+Figure 3 illustrates the overall performance. There were 
+significant main density effect on total search time (F(1,23) 
+= 23.43, p < 0.001), number of gazes (F(1,23) = 15.87, 
+p=0.001), gaze duration (F(1,23) = 17.34, p < 0.001), and 
+proportion of skipping gaze transitions (F(1,23) = 35.04, 
+p<0.001). The results showed that participant spent less 
+time (M = 12,709 ms vs 14,044 ms, figure 3a), fewer gazes 
+(M = 8.16 vs 9.28, figure 3b), longer gaze (M = 407 ms vs 
+387 ms, figure 3c) and skipped more often (M = 72.4% vs 
+67.7%, figure 3d) in high versus low density.
+There were significant main number of pages effects on 
+total search time (F(2,46) = 136.54, p < 0.001), number of 
+gazes (F(2,46) = 73.18, p < 0.001), gaze duration (F(2,46) = 
+10.16, p < 0.001), and proportion of skipping gaze 
+transitions (F(2,46) = 8.37, p=0.001). A Bonferroni test 
+revealed that every pairwise comparison was significantly 
+different (p < 0.05). According to the pairwise comparison, 
+participants spent significantly less time (1-page: M = 7,514 
+ms, 2-pages: M = 11,482 ms and 5-pages: M = 21,132 ms), 
+gazed less (1-page: M = 10.96, 2-pages: M = 15.8 and 5- 
+pages: M = 28.02), and skipped less often (1-page: M = 
+66.5%, 2-pages: M = 70.7% and 5-pages: M = 72.9%), in
+1078
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+Figure 3: four measures of overall search performance per
+density and number of page condition. (a) mean response
+times; (b) mean number of gazes; (c) mean gaze duration
+and (d) proportion of skipping gaze transitions for high
+density (white bars) and low density (grey bars) in each
+page set size. Error bars indicate 95% confidence intervals
+and also in all figures below.
+the fewer page condition. Also, pairwise comparison 
+showed that they spent longer gaze duration in the 1-page 
+condition (M = 401 ms) than 5-page condition (M = 369 
+ms), although 2-pages is not significant different to 1-page 
+and 5-pages condition. There were no significant 
+interactions on total search time, number of gazes and gaze 
+duration, except proportion of skipping gaze transitions, 
+F(2,46) = 3.73, p < 0.05.
+Moreover, following Reiman, Young and Howes [34], we 
+analysed the revisiting. Figure 4a shows the number of 
+items that were visited at least once and revisited (i.e. 
+visited at least twice) for each experimental condition. 
+Participant revisited around 22% to 27% of visited items for 
+each condition. Density and number of pages had similar 
+effects on the number of visited and the number of revisited 
+items. Participants visited and revisited more items in low 
+density (all p’s < 0.01) and when there were more pages (a 
+Bonferroni test for analysing three page levels showed 
+every pair was significantly different, p < 0.001). In
+number of pages
+Figure 4: (a) mean number of items visited at least once
+(bars with solid pattern) and items visited at least twice
+(bars with line pattern) and (b) mean duration of an item
+visited at the first time visit (bars with solid pattern) and
+at the second time visit (bars with line pattern).
+addition, figure 4b shows that our participants spent more 
+time on an item when they revisited it than when they 
+visited it the fist time, F(1,20) = 99.788, P < 0.001.
+Performance in the First Page
+We analysed data in more detail. In this section we contrast 
+performance in the first page of each condition. (Not all 
+conditions had subsequent pages so the first page provides 
+the critical test. In addition, it is the first page behaviour 
+that should be affected by information about the number of 
+pages, rather than by the quality of the additional items.) 
+We analysed our four measures (search time, number of 
+gazes, gaze duration and skipping rate) taken from the first 
+page of search results. We conducted a 2 × 3 (density × 
+number of pages) repeated-measure ANOVA for each 
+measure separately.
+Duration on a page was defined as the total time from the 
+display onset to the time leaving the first page by click a 
+page number link, or from the onset to the start of 
+participants’ last fixation on the clicked target.
+As expected, there was a main effect of density on mean 
+search time in the first page, F(1,23) = 28.27, p < 0.001. 
+The search performance in the fist page was quicker in high 
+density (M = 6082.24 ms) than low density (M = 6742.9 
+ms). There was also a main effect of number of pages on 
+search time of the first page, F(2,46) = 15.82,p < 0.001.
+1	2	5	(a)
+25
+20
+35
+30
+15
+10
+5
+0
+1	2	5	(b)
+450
+430
+410
+390
+370
+350
+1	2	5	(c)
+100%
+90%
+80%
+70% 
+60% 
+50%
+1	2	5	(d)
+number of pages
+30000 
+25000 
+20000 
+15000 
+10000 
+5000
+high density 
+low density
+1	2	5	(a
+1	2	5	(b)
+35 
+30 
+25 
+20 
+15 
+10 
+5 
+0
+at least once, high density 
+at least tw ice, high density 
+at least once, low density 
+at least twice, low density
+first time visit, high density 
+second time visit, high density 
+first time visit, low density 
+second time visit, low density
+700
+600 
+500 
+400 
+300 
+200
+1079
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+Figure 5c illustrates mean first page gaze duration. 
+Participants’ mean gaze duration in the first page was 
+longer in the high density (M = 407 ms) than low density 
+layout (M = 387.259 ms), F(1,23) = 22.414, p < 0.001. The 
+main effect of number of pages was not significant. There 
+was no interaction between density and number of pages.
+Figure 5d shows the data of mean proportion of first page 
+skipping gaze transitions. The density had significant effect, 
+F (1, 23) = 46.72, p < 0.001. It was found that that 
+participants were more likely to skip thumbnails in the high 
+density (M = 72%) than in the low density layout (M = 
+67.2%). The main effect of number of pages was also 
+significant, F (2, 46) = 15.00, p < 0.001. Every pairwise 
+comparison of number of pages condition was significantly 
+different (p < 0.01). It showed that our participants skipped 
+more often in 5-pages condition (M = 66.5%), than they did 
+in 2-pages condition (M = 70.3%), which in turn was more 
+often than in the 1-page condition (M = 71.8%). There was 
+no interaction between density and number of pages.
+15
+12 
+9 
+6 
+3
+1	2	5	(b
+high density 
+low density
+1	2	5
+(a
+12500
+10500 
+8500 
+6500
+4500
+2500
+1	2	5
+(c
+450 
+430 
+410 
+390 
+370
+350
+Figure 5: the four measures of mean search performance in
+the first page per density condition and number of page
+condition. (a) mean duration of first page; (b) mean number
+of first page gazes; (c) mean first page gaze duration and (d)
+mean proportion of first page skipping gaze transitions.
+100%
+90%
+80%
+70%
+60%
+50%
+1	2	5
+number of pages
+(d)
+10000
+8000 
+6000 
+4000
+2000
+15
+12
+9
+6
+3
+1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5
+p.1	p.2	p.3	p.4	p.5
+(a)
+Every pair comparison of number of pages condition with 
+Bonferroni method was significantly different (p < 0.01). It 
+was found that time spent in the first page was more in the 
+fewer page condition (1-page: M = 7514.54 ms, 2-pages: M 
+= 6117.07 ms and 5-pages: M = 5606.10 ms). The 
+interaction between density and number of pages was not 
+significant. Results are summarized in Figure 5a.
+Figure 5b shows the data of mean number of gazes in the 
+first page. Number of gazes was approximate one fewer in 
+the high density (M = 8.16) than low density (M = 9.29), 
+F(1,23) = 24.65, p < 0.001. There was also a main effect of 
+number of pages, F(2,46) = 24.9, p < 0.001. Every pair 
+comparison of number of pages condition with Bonferroni 
+method was significantly different (p < 0.001). It showed 
+that participants spent greater number of gazes in fewer 
+page conditions (1-page: M = 10.96, 2-pages: M = 8.07 and 
+5-pages condition: M = 7.11). In addition, the interaction of 
+density and number of pages was also significant, F(2,46) = 
+4.48, p = 0.017. The fewest number of gazes were made in 
+the first page of the high density display when there were 5- 
+pages of items.
+1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (b)
+1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (d)
+number of pages
+Figure 6: the four measures of mean search performance
+per page. Page 1, page 1 to 2 and page 1 to 5 of 1-page, 2-
+pages and 5-pages condition, respectively in high density
+condition. (a) mean search time per page; (b) mean
+number of gazes per page; (c) mean gaze duration per
+page and (d) mean proportion of skipping gaze
+transitions per page.
+	500 450 400 350 300	
+1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (c)
+	100% 90% 80% 70% 60% 50%	
+1080
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+Performance per Page
+Figure 6 summarises the mean performance of our eighteen 
+participants’ eye movement behaviour in the high density 
+condition. (All results of the low density condition has the 
+same trend as in the high density condition) Figure 6a 
+shows mean search duration per page, figure 6b shows 
+mean number of gazes per page, figure 6c shows mean gaze 
+duration per page and figure 6d shows the proportion of 
+skipping gaze transitions in number of pages condition. 
+Each bar within a page condition shows the performance on 
+each page of that condition. For example, the only bar in the 
+1-page condition shows performance in the 1-page 
+condition, the two bars in 2-pages condition show each 
+performance in page 1 and 2 and the five bars in 5-page 
+condition show each performance from page 1 to page 5, 
+from left to right respectively.
+When we examined whether participants adopted different 
+strategies in different pages in a search course, the values of 
+four measures of search performance were taken from each 
+page.
+Because there were four participants who didn’t have data 
+in all five pages in the 5-page condition, we took out these 
+four participants. Then, we arbitrarily selected and removed 
+another two participants from the analysis to keep the 
+counterbalanced design. Therefore, in this section, the 
+results were from analysing eighteen participants’ data. The 
+following analyses were conducted in 2-pages and 5-pages 
+condition separately.
+In the 2-pages condition, every measure of four search 
+performance of participants was not significantly different 
+in page 1 and page2. it indicated that the search strategy did
+not vary in the first and second page, when participants 
+search in a 2-pages display (see Figure 6a, b, c, d, 2-pages 
+condition).
+In 5-pages condition, the results of a 5×2 repeated-measure 
+ANOVA (page number: page 1, 2, 3, 4 and 5 × density: 
+high and low) showed there were main effect of page 
+number and density on every measure of search 
+performance our participants’ performance (see Figure 6 a, 
+b, c, d, 5-pages condition). The results of search 
+performance per page in the 5-pages condition are 
+summarized in Table 1. In general, search performance was 
+in page number 1 is different to other pages.
+pairwise comparisons of page number with Bonferroni 
+method in search duration, number of gazes, and proportion 
+of skipping gaze transitions showed that the measures in 
+page 1 were different from those in page 2 to page 5 (pair 
+between page 1 and any other page was significant, p<0.01 
+and pair between page 2 to page 5 were not significant 
+different). There was a significant difference between page 
+1 and page 3 in gaze duration. Although any other pair does 
+not reach significant, there was a trend for people to take 
+longer gaze on page 1 than on pages 2, 3, 4, or 5. This 
+indicated that participants search in the first page more 
+carefully than other pages.
+DISCUSSION
+The results support the claim that visual search strategy is 
+guided by expected information gain when people search 
+results returned by an image search engine:
+1. Participants were observed to adjust the duration that 
+they attended to each item to the item density. When more
+		search duration (ms)	number of gazes		gaze duration (ms)	proportion of skipping gaze
+						transitions
+		mean	SD	mean	SD	mean	SD	mean	SD
+page number							
+	p. 1	5,238.64a	2,048.75	6.83 a	3.49	406.8 1b	55.64	74.64%a	0.08
+	p. 2	4,004.51	1,494.82	5.35	2.72	388.18	37.58	79.33%	0.08
+high density	p. 3	3,796.32	1,295.97	5.27	2.30	377.32 c	39.58	79.36%	0.06
+	p. 4	3,781.66	1,359.42	5.13	2.41	380.30	34.42	77.55%	0.08
+	p. 5	3,999.54	1,653.50	5.50	2.88	381.00	36.14	77.86%	0.06
+	p. 1	5,810.45a	2,240.65	7.95 a	4.01	399.47 b	57.47	69.53%a	0.08
+	p. 2	4,176.94	1,853.84	5.64	3.20	365.01	37.52	77.33%	0.07
+low density	p. 3	4,164.26	1,624.12	5.82	2.97	365.20 c	38.85	76.84%	0.09
+	p. 4	4,282.31	1,828.08	5.98	3.14	378.27	55.09	74.17%	0.08
+	p. 5	4,346.20	1,540.77	5.91	2.53	381.86	36.53	74.66%	0.06
+repeated-measures	spacing	F	MSE	p	F	MSE	p	F	MSE	p	F	MSE	p
+ANOVA							
+		14.32	4.83E+05 0.001	9.54	1.942	0.007	4.56	757.26	0.048	13.73	0.003	0.002
+	page	29.63	5.21E+05 <0.001	17.06	1.397	<0.001	5.4	998.24	0.001	9.70	0.002	<0.001
+Table 1. Search duration, number of gazes, gaze duration and proportion of skipping gaze transitions across per page in the 5-
+pages condition and per density condition. (Note. p. = page number. asearch performance is significant different to all other pages in the same
+density condition. b,csearch performance is significant different to each other in the same density condition)
+1081
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+items were available within the perceptual span (higher 
+density), longer item visits were used, and when fewer 
+items were available (lower density), shorter item visits 
+were used. Longer visits were only used when they were 
+efficient, i.e. when expected information gain was high.
+2. Longer visits to items were combined with skipping. 
+Participants in the high density conditions skipped items 
+more often, visited fewer items, and spent less time 
+searching overall.	In other words, when the potential
+information gain for longer visits was high, people made 
+more use of longer visits and reduced the number of items 
+that they directly fixated. They made more use of the 
+perceptual span when it was rational given the constraints 
+of the visual system to do so, and gained an overall 
+reduction in the required search time.
+3. Participants were observed to reduce the number of items 
+that they visited, i.e. they skipped, when there was a larger 
+number of items (Figure 5d) but without increasing the 
+duration spent attending to each item (Figure 5c). These 
+findings suggest that skipping was sensitive to the prior 
+probability that any one item would be attractive enough to 
+be selected but that gaze duration was not.
+4. Participants spent more time on an item, when they 
+revisited it than when they visited it for the first time. this 
+findings indicates that people may use an iterative 
+deepening of attention [34]. This strategy may help 
+participants to parse large amounts of information quickly 
+using lower tolerance to rule out poor quality items and 
+then focus effort on a smaller set. The difference between 
+[34] and our study is that our participants didn’t sample all 
+items before they started to revisit, especially in conditions 
+with more pages (Figure 4b). This finding suggests that the 
+set size of potential items may be constrained by the 
+capacity limitation in memory. We also observed 
+participants select an item at the first time visit before 
+sampling all items. This indicated that people also picked 
+an item immediately when the value of the item currently 
+visited is beyond their satisficing criteria [38]. Adopting the 
+coarse-to-fine strategy [27,33] and employing satisficing 
+[38] could save lots of visual processing cost for sampling 
+out poor items quickly and gain an item with satisficing 
+value or gain a revisited item with acceptable value.
+In sum, the results support the view that people adjusted 
+their visual search strategy to their expectations of 
+information gain, and that these expectations were 
+contingent on (a) the density of items, and (b) the prior 
+likelihood that an item is the one that they will want to 
+select. In the remainder of the Discussion we first offer 
+further explanations for the details of the findings, we then 
+discuss some design implications.
+Further Explanations
+Why, for some designs, is it more efficient to use fewer 
+longer gazes than more, shorter, ones? Essentially, because 
+planning and executing gaze transitions, saccades, is
+expensive. Planning and executing a new gaze so as to 
+bring a foveal fixation to a new place requires effort, both 
+mental and physical effort. Neurophysiological evidence 
+indicates that making a saccade involves high cost neural 
+processes to keep the visual scene stable (see [37] review). 
+Therefore, to prolong an old gaze to gain information about 
+an adjacent item can cost less than to plan and execute a 
+new gaze. For example, in our experiment a new item visit 
+took an extra 400 ms, but a longer gaze took only about 20 
+ms more. Although each longer gaze takes more time, fewer 
+gazes are required, reducing the overall visual search time.
+Why was it not possible for participants to increase 
+perceptual span to cover adjacent items in lower density 
+displays? Findings reported by Hooge, Vlaskamp and Over 
+[16] suggest that information can be gathered from a wider 
+area of a display as gaze durations increase, i.e. it is 
+possible that perceptual span is itself contingent on duration 
+of fixation. However, there are clearly limits [4], and it 
+appears as though the reduction in the rate that information 
+can be acquired caused by the lower densities in our 
+experiment pushed participants beyond this limit.
+Will the findings generalise to other types of search result 
+items? There is some evidence that the finding would 
+generalise to word items. For example, Pollatsek, Perea 
+and Binder [32] found that fixation duration is longer when 
+a word with more neighbours than few neighbours. Longer 
+fixation duration in a more dense display suggests that more 
+information within the perceptual span is required to be 
+processed serially. In contrast, Motter and Belky [24] 
+showed that fixation duration didn’t change as the number 
+of items within a 4° constant area and assumed that this 
+result is because items surrounding a fixation are processed 
+in parallel (number of items surrounded the fixation will not 
+affect the fixation duration). These contrary results could be 
+because of the relative complexities of stimuli in these two 
+tasks are so different. Simple items, e.g. symbols, adjacent 
+to a fixation can be processed in parallel, but complex items 
+such photographic thumbnails in our task have to be 
+processed in series and result in longer durations.
+Why do the findings differ from previous research? The 
+importance of ecological validity. The observed density 
+effect on gaze duration and number of gazes are consistent 
+with some previous studies [26], but contrary to others 
+[4,15]. Unlike most of the previous studies, our target was 
+not defined by only one or two visual features (color, shape, 
+and orientation et al.) or non-words (non-words without 
+semantic meaning can be searched by their shape or the 
+order of characters), but was, instead, informed by the 
+semantic description of a place. In contrast to these 
+previous studies, participants in our study had to search a 
+target based on aesthetic judgment. They spent longer gaze 
+duration in our task than normal visual search task. These 
+differences in the task environment may lead to the 
+different results of the effect on search performance. 
+Ecological validity is therefore crucial to understanding the 
+constraints on visual search strategy.
+1082
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+On the other hand, we have chosen to control some 
+variables that are confounded in studies of potential new 
+designs. For example, in studies of hyperbolic browsers 
+[30] item size and item density are confounded, i.e. items 
+that are close together are also smaller than items that are 
+further apart. Although this is perhaps, a natural confound 
+for systems like hyperbolic browsers, failing to isolate what 
+are otherwise independent factors will limit the generality 
+of conclusions drawn from the data.
+A downside of our effort to engage our participants in a 
+meaningful task -- looking for attractive images of potential 
+destinations -- was that there was a weak criterion for 
+successful trial completion. The trial was over when 
+participants indicated that they had found an attractive 
+thumbnail but some participants may have used radically 
+different thresholds for ‘attractive’ than others. In contrast, 
+experiments in which participants were asked to find a 
+particular item have a strong and measurable criterion for 
+trial completion and moreover participants can make errors. 
+Although we claim that our design reflects some part of the 
+natural task ecology, it also reduces the strength of the 
+conclusions that we can draw from the fact that participants 
+took less time, overall, when items were presented with a 
+higher density.
+Design Implications
+A persistent problem for HCI is that the exploration of new 
+designs in the absence of adequate empirically grounded 
+theory might lead to the rejection of the design on the basis 
+of false negatives. Hyperbolic or other fish-eye view 
+projections have, for example, had no impact on the way 
+that most people use computer systems, despite the huge 
+research investment over many years. It is tempting to take 
+this fact as evidence that hyperbolic browsers are not fit for 
+purpose. However, an alternative reason for their failure to 
+find a role might be that the particular design instances are 
+not tuned to the detailed constraints and adaptive capability 
+of the human visual system. Hyperbolic browsers that fail 
+to let people adapt to the constraints and capabilities 
+imposed by their visual system are unlikely to succeed. 
+Careful empirical investigation in response to well-formed 
+theory and motivated by the ecology of user’s real task 
+environments may have the potential to address this 
+problem.
+For example, although users might adapt their search 
+strategy to achieve the highest payoff given a particular 
+thumbnail density, some layout designs are better for 
+decreasing of total search time and manual response time. 
+The results reported above suggest the high density (3 
+pixels gap between thumbnails) can facilitate search.
+Interestingly, even higher densities than we have explored 
+in this paper are unlikely to produce further gains. Previous 
+work [21] has suggested that when the spacing between 
+icons is zero pixels search becomes more difficult. 
+Thumbnails require at least some space for visual search, 
+which perhaps reflects common intuitions.
+ACKNOWLEDGMENTS
+This research is supported by an Overseas Scholarship 
+Scheme (OSS) Award from the University of Manchester 
+and a Manchester Business School Award to Yuan-Chi 
+Tseng and Office of Naval Research grant (N00014-03-1- 
+0087) to Andrew Howes.
+REFERENCES
+1. Anderson, J.R. The Adaptive Character of Thought. 
+Lawrence Erlbaum Associates, 1990.
+2. Anderson, J.R., Bothell, D., Byrne, M.D., Douglass, S.,
+Lebiere, C., and Qin, Y. An integrated theory of the
+mind. Psychological Review 111, 4 (2004), 1036-1060.
+3. Araujo, C.C., Kowler, E.E., and Pavel, M.M. Eye 
+movements during visual search: the costs of choosing 
+the optimal path. Vision Research 41, 25-26 (2001), 
+3613-3625.
+4. Bertera, J.H. and Rayner, K. Eye movements and the 
+span of the effective visual stimulus in visual search. 
+Perception & Psychophysics 62 (2000), 576-585.
+5. Brumby, D.P. and Howes, A. Good enough but I’ll just 
+check: Web-page search as attentional refocusing. In 
+Proc. ICCM 2004, Lawrence Erlbaum Associates 
+(2004).
+6. Brumby, D.P. and Howes, A. Strategies for guiding 
+interactive search: An empirical investigation into the 
+consequences of label relevance for assessment and 
+selection. Human-Computer Interaction (in press).
+7. Cockburn, A., Gutwin, C., and Alexander, J. Faster 
+document navigation with space-filling thumbnails. In 
+Proc. CHI 2006, ACM Press (2006), 1-10.
+8. Cox, A.L. and Young, R.M. A Rational Model of the 
+Effect of Information Scent on the Exploration of 
+Menus. In Proc. ICCM 2004, Lawrence Erlbaum 
+Associates (2004).
+9. Cutrell, E. and Guan, Z. What are you looking for? An 
+eye-tracking study of information usage in Web search. 
+In Proc. CHI 2007, ACM Press (2007).
+10.Eng, K., Lewis, R.L., Tollinger, I., Chu, A., Howes, A., 
+and Vera, A. Generating automated predictions of 
+behavior strategically adapted to specific performance 
+objectives. In Proc. CHI 2006, ACM Press (2006), 621- 
+630.
+11.Everett, S.P. and Byrne, M.D. Unintended effects: 
+Varying icon spacing changes users' visual search 
+strategy. In Proc. CHI 2004, ACM Press (2004), 695- 
+702.
+12.Findlay, J.M. and Gilchrist, I.D. Active vision-the 
+psychology of looking and seeing. Oxford University 
+Press, 2003.
+13.Fu, W.-T. and Pirolli, P. SNIF-ACT: A Cognitive 
+Model of User Navigation on the World Wide Web. 
+Human-Computer Interaction 22 (2007).
+1083
+CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy
+14.Gray, W.D. and Boehm-Davis, D.A. Milliseconds 
+Matter: An introduction to microstrategies and to their 
+use in describing and predicting interactive behavior. 
+Journal of Experiment Psychology: Applied 6, 4 (2000), 
+322-335.
+15.Halverson, T. and Hornof, A.J. Explaining eye 
+movements in the visual search of varying density 
+layouts. In Proc. ICCM 2004, Lawrence Erlbaum 
+Associates (2004), 124-129.
+16.Hooge, I.T.C., Vlaskamp, B.N.S., and Over, E.A.B. 
+Saccadic search: the relation between fixation duration 
+and saccade amplitude. Perception 31, ECVP Abstract 
+Supplement (2002).
+17.Howes, A., Vera, A., and Lewis, R.L. Bounding rational 
+analysis: Constraints on asymptotic performance. In 
+W.D. Gray (Ed.), Integrated Models of Cognitive 
+Systems, Oxford University Press (2006).
+18.Kieras, D.E. and Meyer, D.E. An overview of the EPIC 
+architecture for cognition and performance with 
+application to human-computer interaction. Human- 
+Computer Interaction 12 (1997), 391-438.
+19.Kieras, D.E. and Meyer, D.E. The role of cognitive task 
+analysis in the application of predictive models of 
+human performance. In J.M. Schraagen and S.F. 
+Chipman (Eds.), Cognitive task analysis (2000), 237- 
+260.
+20.Klöckner, K., Wirschum, N., and Jameson, A. Depth 
+and breadth-first processing of search result lists. In Ext. 
+Abstracts CHI 2004, ACM Press (2004), 1539-1539.
+21.Lindberg, T. and Nasanen, R. The effect of icon spacing 
+and size on the speed of icon processing in the human 
+visual system. Displays 24, 3 (2003), 111-120.
+22.Meyer, D.E. and Kieras, D.E. A computational theory of 
+executive control processes and human multiple-task 
+performance: Part 1. Basic Mechanisms. Psychological 
+Review 104 (1997), 3-65.
+23.Meyer, D.E. and Kieras, D.E. A computational theory of 
+executive control processes and human multiple-task 
+performance: Part 2. Accounts of Psychological 
+Refractory-Period Phenomena. Psychological Review 
+104 (1997), 749-791.
+24.Motter, B.C. and Belky, E.J. The zone of focal attention 
+during active visual search. Vision Research 38 (1998), 
+1007-1022.
+25.Najemnik, J. and Geisler, W.S. Optimal eye movement
+strategy in visual search. Nature 434 (2005), 387-391.
+26.Ojanpää, H., Näsänen, R., and Kojo, I. Eye movements 
+in the visual search of word lists. Vision Research 42, 12 
+(2002), 1499-1512.
+27.Over, E.A.B., Hooge, I.T.C., Vlaskamp, B.N.S., and 
+Erkelens, C.J. Coarse-to-fine eye movement strategy in 
+visual search. Vision Research 47 (2007), 2272-2280.
+28.Payne, S.J., Howes, A., and Reader, W.R. Adaptively 
+distributing cognition: a decision-making perspective on 
+human-computer interaction. Behaviour and Information 
+Technology 20, 5 (2001), 339-346.
+29.Pirolli, P. and Card, S.K. Information foraging. 
+Psychological Review 106, 4 (1999), 643-675.
+30.Pirolli, P., Card, S.K., and Van Der Wege, M. The 
+effects of information scent on visual search in the 
+hyperbolic tree browser. ACM Transactions on 
+Computer Human Interaction 10, 1 (2003), 20-53.
+31.Pirolli, P. and Fu, W.-T. SNIF-ACT: a model of 
+information foraging on the world wide web. In Proc. 
+Ninth International Conference on User Modeling, 
+Springer (2003).
+32.Pollatsek, A., Perea, M., and Binder, K.S. The Effecs of 
+Neighborhood Size in Reading and Lexical Decision. 
+Journal of Experimental Psychology: Human Perception 
+and Performance 25, 4 (1999), 1142-1158.
+33.Rao, R.P.N., Zelinsky, G., Hayhoe, M.M., and Ballard, 
+D.H. Eye movements in iconic visual search. Vision 
+Research 42, 11 (2002), 1447-1463.
+34.Reiman, J., Young, M., and Howes, A. A dual-space 
+model of interatively deepening exploratory learning. 
+International Journal of Human-Computer Studies 44 
+(1996), 743-775.
+35.Rele, R.S. and Duchowski, A.T. Using eye tracking to 
+evaluate alternate search results interfaces. In Proc. 
+HFES 49th Annual Conference (2005).
+36.Resnick, M.L., Maldonado, C.A., Santos, J.M., and 
+Lergier, R. Modeling On-line Search Behavior Using 
+Alternative Output Structures. In Proc. HFES 45th 
+Annual Conference (2001), 1166-1171.
+37.Ross, J., Morrone, M.C., Goldberg, M.E., and Burr, 
+D.C. Changes in visual perception at the time of 
+saccades. Trends in Neurosciences 24, 2 (2001), 113- 
+121.
+38.Simon, H.A. A behavioral model of rational choice. 
+Quarterly Journal of Economics 69 (1955), 99-118.
+39.Sperling, G. and Dosher, B.A. Strategy and optimization 
+in human information processing. In K.R. Boff, L. 
+Kaufman, and J.P. Thomas (Eds.), Handbook of 
+perception and human performance, Vol. I, Sensory 
+processes and perception, Wiley (1986).
+40.Vlaskamp, B.N.S., Over, E.A.B., and Hooge, I.T.C. 
+Saccadic search performance: the effect of element 
+spacing. Experimental Brain Research 3 (2005), 1-14.
+41.Woodruff, A., Faulring, A., Rosenholtz, R., Morrison, 
+J., and Pirolli, P. Using Thumbnails to Search the Web. 
+In Proc. CHI 2001, ACM Press (2001), 198-205.
+42.Yee, K.P., Swearingen, K., Li, K., and Hearst, M. 
+Faceted metadata for image search and browsing. In 
+Proc. CHI 2003, ACM Press (2003), 401-408.
+1084

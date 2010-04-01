@@ -20,7 +20,6 @@ BEGIN {
 }
 use lib "$path/../../lib";
 use SectLabel::PreProcess;
-use Utility::Controller;
 
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
@@ -73,36 +72,41 @@ while(<IN>){
 }
 close IN;
 
-my ($rBodyText, $rReferenceText) =
-	    SectLabel::PreProcess::findCitationText(\$text);
+my @lines = split(/\n/, $text);
+my $numLines = scalar(@lines);
+my ($bodyLength, $citationLength, $bodyEndId) =
+	    SectLabel::PreProcess::findCitationText(\@lines, 0, $numLines);
 
-my $rHeaderText;
-($rHeaderText, $rBodyText) =
-	    SectLabel::PreProcess::findHeaderText($rBodyText);
-my @headerLines = split(/\n/, $$rHeaderText);
-my @bodyLines = split(/\n/, $$rBodyText);
-my @referenceLines = split(/\n/, $$rReferenceText);
+my ($headerLength, $bodyStartId);
+($headerLength, $bodyLength, $bodyStartId) =
+	    SectLabel::PreProcess::findHeaderText(\@lines, 0, $bodyLength);
 
-my $count = 0;
+binmode(STDERR, ":utf8");
+my @headers = @lines[0..$headerLength];
+print STDERR "# header $headerLength\t".scalar(@headers)."\n";
+foreach(@headers){
+  print STDERR "$_\n";
+}
+
+my @citations = @lines[$bodyEndId..($numLines-1)];
+print STDERR "# citation $citationLength\t".scalar(@citations)."\n";
+foreach(@citations){
+  print STDERR "$_\n";
+}
+#my $header = join(/\n/, @headers);
+#print STDERR 
+
 open(OF, ">:utf8", $outFile);
-
-my $headerCount = scalar(@headerLines);
-print OF "header\t".$headerCount."\n";
-$count+=$headerCount;
-
-my $bodyCount = scalar(@bodyLines);
-print OF "body\t".$bodyCount."\n";
-$count+=$bodyCount;
-
-my $referenceCount = scalar(@referenceLines);
-print OF "reference\t".$referenceCount."\n";
-$count+=$referenceCount;
+print OF "header\t".$headerLength."\n";
+print OF "body\t".$bodyLength."\n";
+print OF "reference\t".$citationLength."\n";
+close OF;
 
 # sanity check
-my $numLines = Utility::Controller::getNumLines($inFile);
-if($numLines != $count){
-  print STDOUT "Die in getStructureInfo(): different num lines $numLines != $count\n"; # to display in Web
-  die "Die in getStructureInfo(): different num lines $numLines != $count\n";
+my $totalLength = $headerLength + $bodyLength + $citationLength;
+if($numLines != $totalLength){
+  print STDOUT "Die in getStructureInfo(): different num lines $numLines != $totalLength\n"; # to display in Web
+  die "Die in getStructureInfo(): different num lines $numLines != $totalLength\n";
 }
 
 sub untaintPath {

@@ -1,0 +1,1490 @@
+title ||| Accelerated Focused Crawling through
+title ||| Online Relevance Feedback*
+author ||| Soumen Chakrabartit	Kunal Punera	Mallela Subramanyam
+affiliation ||| IIT Bombay	IIT Bombay	University of Texas, Austin
+sectionHeader ||| Abstract
+bodyText ||| The organization of HTML into a tag tree structure, which
+bodyText ||| is rendered by browsers as roughly rectangular regions with
+bodyText ||| embedded text and HREF links, greatly helps surfers locate
+bodyText ||| and click on links that best satisfy their information need.
+bodyText ||| Can an automatic program emulate this human behavior
+bodyText ||| and thereby learn to predict the relevance of an unseen
+bodyText ||| HREF target page w.r.t. an information need, based on
+bodyText ||| information limited to the HREF source page? Such a
+bodyText ||| capability would be of great interest in focused crawling and
+bodyText ||| resource discovery, because it can fine-tune the priority of
+bodyText ||| unvisited URLs in the crawl frontier, and reduce the number
+bodyText ||| of irrelevant pages which are fetched and discarded.
+bodyText ||| We show that there is indeed a great deal of usable
+bodyText ||| information on a HREF source page about the relevance
+bodyText ||| of the target page. This information, encoded suitably, can
+bodyText ||| be exploited by a supervised apprentice which takes online
+bodyText ||| lessons from a traditional focused crawler by observing
+bodyText ||| a carefully designed set of features and events associated
+bodyText ||| with the crawler. Once the apprentice gets a sufficient
+bodyText ||| number of examples, the crawler starts consulting it to
+bodyText ||| better prioritize URLs in the crawl frontier. Experiments on
+bodyText ||| a dozen topics using a 482-topic taxonomy from the Open
+bodyText ||| Directory (Dmoz) show that online relevance feedback can
+bodyText ||| reduce false positives by 30% to 90%.
+category ||| Categories and subject descriptors:
+category ||| H.5.4 [Information interfaces and presentation]:
+category ||| Hypertext/hypermedia; I.5.4 [Pattern recognition]:
+category ||| Applications, Text processing; I.2.6 [Artificial
+category ||| intelligence]: Learning; I.2.8 [Artificial intelligence]:
+category ||| Problem Solving, Control Methods, and Search.
+keyword ||| General terms: Algorithms, performance,
+keyword ||| measurements, experimentation.
+sectionHeader ||| Keywords: Focused crawling, Document object model,
+sectionHeader ||| Reinforcement learning.
+sectionHeader ||| 1 Introduction
+bodyText ||| Keyword search and clicking on links are the dominant
+bodyText ||| modes of accessing hypertext on the Web. Support for
+bodyText ||| keyword search through crawlers and search engines is very
+bodyText ||| mature, but the surfing paradigm is not modeled or assisted
+footnote ||| *(Note: The HTML version of this paper is best viewed using
+footnote ||| Microsoft Internet Explorer. To view the HTML version using
+footnote ||| Netscape, add the following line to your ~/.Xdefaults or
+footnote ||| ~/.Xresources file:
+footnote ||| Netscape*documentFonts.charset*adobe-fontspecific: iso-8859-1
+footnote ||| For printing use the PDF version, as browsers may not print the
+footnote ||| mathematics properly.)
+footnote ||| tContact author, email soumen@cse.iitb.ac.in
+copyright ||| Copyright is held by the author/owner(s).
+note ||| WWW2002, May 7–11, 2002, Honolulu, Hawaii, USA.
+note ||| ACM 1-58113-449-5/02/0005
+figureCaption ||| Figure 1: A basic focused crawler controlled by one topic
+figureCaption ||| classifier/learner.
+bodyText ||| as well. Support for surfing is limited to the basic interface
+bodyText ||| provided by Web browsers, except for a few notable research
+bodyText ||| prototypes.
+bodyText ||| While surfing, the user typically has a topic-specific
+bodyText ||| information need, and explores out from a few known
+bodyText ||| relevant starting points in the Web graph (which may be
+bodyText ||| query responses) to seek new pages relevant to the chosen
+bodyText ||| topic/s. While deciding for or against clicking on a specific
+bodyText ||| link (u, v), humans use a variety of clues on the source
+bodyText ||| page u to estimate the worth of the (unseen) target page
+bodyText ||| v, including the tag tree structure of u, text embedded in
+bodyText ||| various regions of that tag tree, and whether the link is
+bodyText ||| relative or remote. “Every click on a link is a leap of faith”
+bodyText ||| [19], but humans are very good at discriminating between
+bodyText ||| links based on these clues.
+bodyText ||| Making an educated guess about the worth of clicking
+bodyText ||| on a link (u, v) without knowledge of the target v is
+bodyText ||| central to the surfing activity. Automatic programs which
+bodyText ||| can learn this capability would be valuable for a number
+bodyText ||| of applications which can be broadly characterized as
+bodyText ||| personalized, topic-specific information foragers.
+bodyText ||| Large-scale, topic-specific information gatherers are
+bodyText ||| called focused crawlers [1, 9, 14, 28, 30]. In contrast to giant,
+bodyText ||| all-purpose crawlers which must process large portions of
+bodyText ||| the Web in a centralized manner, a distributed federation of
+bodyText ||| focused crawlers can cover specialized topics in more depth
+bodyText ||| and keep the crawl more fresh, because there is less to cover
+bodyText ||| for each crawler.
+bodyText ||| In its simplest form, a focused crawler consists of a
+bodyText ||| supervised topic classifier (also called a ‘learner’) controlling
+bodyText ||| the priority of the unvisited frontier of a crawler (see
+bodyText ||| Figure 1). The classifier is trained a priori on document
+bodyText ||| samples embedded in a topic taxonomy such as Yahoo!
+bodyText ||| or Dmoz. It thereby learns to label new documents as
+bodyText ||| belonging to topics in the given taxonomy [2, 5, 21]. The
+bodyText ||| goal of the focused crawler is to start from nodes relevant
+bodyText ||| to a focus topic c* in the Web graph and explore links to
+bodyText ||| selectively collect pages about c*, while avoiding fetching
+bodyText ||| pages not about c*.
+bodyText ||| Suppose the crawler has collected a page u and
+figure ||| If Pr(c*|u) is large enough
+figure ||| then enqueue all outlinks v of u
+figure ||| with priority Pr(c*|u)
+figure ||| Dmoz
+figure ||| topic
+figure ||| taxonomy
+figure ||| Class models
+figure ||| consisting of
+figure ||| term stats
+figure ||| Frontier URLS
+figure ||| priority queue
+figure ||| Pick
+figure ||| best
+figure ||| Crawler
+figure ||| Seed
+figure ||| URLs
+figure ||| Baseline learner
+figure ||| Submit page for classification
+figure ||| Newly fetched
+figure ||| page u
+figure ||| Crawl
+figure ||| database
+page ||| 148
+bodyText ||| encountered in u an unvisited link to v. A simple crawler
+bodyText ||| (which we call the baseline) will use the relevance of u
+bodyText ||| to topic c* (which, in a Bayesian setting, we can denote
+bodyText ||| Pr(c*lu)) as the estimated relevance of the unvisited page
+bodyText ||| v. This reflects our belief that pages across a hyperlink
+bodyText ||| are more similar than two randomly chosen pages on the
+bodyText ||| Web, or, in other words, topics appear clustered in the
+bodyText ||| Web graph [11, 23]. Node v will be added to the crawler’s
+bodyText ||| priority queue with priority Pr(c*lu). This is essentially a
+bodyText ||| “best-first” crawling strategy. When v comes to the head
+bodyText ||| of the queue and is actually fetched, we can verify if the
+bodyText ||| gamble paid off, by evaluating Pr(c* lv). The fraction of
+bodyText ||| relevant pages collected is called the harvest rate. If V
+bodyText ||| is the set of nodes collected, the harvest rate is defined
+bodyText ||| as (1/lVl) E vEVPr(c*lv). Alternatively, we can measure
+bodyText ||| the loss rate, which is one minus the harvest rate, i.e., the
+bodyText ||| (expected) fraction of fetched pages that must be thrown
+bodyText ||| away. Since the effort on relevant pages is well-spent,
+bodyText ||| reduction in loss rate is the primary goal and the most
+bodyText ||| appropriate figure of merit.
+bodyText ||| For focused crawling applications to succeed, the “leap
+bodyText ||| of faith” from u to v must pay off frequently. In other words,
+bodyText ||| if Pr(c*lv) is often much less than the preliminary estimate
+bodyText ||| Pr(c*lu), a great deal of network traffic and CPU cycles
+bodyText ||| are being wasted eliminating bad pages. Experience with
+bodyText ||| random walks on the Web show that as one walks away
+bodyText ||| from a fixed page u0 relevant to topic c0, the relevance of
+bodyText ||| successive nodes u1, u2,... to c0 drops dramatically within
+bodyText ||| a few hops [9, 23]. This means that only a fraction of out-
+bodyText ||| links from a page is typically worth following. The average
+bodyText ||| out-degree of the Web graph is about 7 [29]. Therefore, a
+bodyText ||| large number of page fetches may result in disappointment,
+bodyText ||| especially if we wish to push the utility of focused crawling
+bodyText ||| to topic communities which are not very densely linked.
+bodyText ||| Even w.r.t. topics that are not very narrow, the
+bodyText ||| number of distracting outlinks emerging from even fairly
+bodyText ||| relevant pages has grown substantially since the early
+bodyText ||| days of Web authoring [4]. Template-based authoring,
+bodyText ||| dynamic page generation from semi-structured databases,
+bodyText ||| ad links, navigation panels, and Web rings contribute many
+bodyText ||| irrelevant links which reduce the harvest rate of focused
+bodyText ||| crawlers. Topic-based link discrimination will also reduce
+bodyText ||| these problems.
+subsectionHeader ||| 1.1 Our contribution: Leaping with more faith
+subsectionHeader ||| In this paper we address the following questions:
+bodyText ||| How much information about the topic of the HREF
+bodyText ||| target is available and/or latent in the HREF source page,
+bodyText ||| its tag-tree structure, and its text? Can these sources be
+bodyText ||| exploited for accelerating a focused crawler?
+bodyText ||| Our basic idea is to use two classifiers. Earlier, the regular
+bodyText ||| baseline classifier was used to assign priorities to unvisited
+bodyText ||| frontier nodes. This no longer remains its function. The role
+bodyText ||| of assigning priorities to unvisited URLs in the crawl frontier
+bodyText ||| is now assigned to a new learner called the apprentice, and
+bodyText ||| the priority of v is specific to the features associated with
+bodyText ||| the (u, v) link which leads to it1. The features used by the
+bodyText ||| apprentice are derived from the Document Object Model or
+footnote ||| 'If many u’s link to a single v, it is easiest to freeze the priority of
+bodyText ||| v when the first-visited u linking to v is assessed, but combinations
+bodyText ||| of scores are also possible.
+figureCaption ||| Figure 2: The apprentice is continually presented with
+figureCaption ||| training cases (u, v) with suitable features. The apprentice
+figureCaption ||| is interposed where new outlinks (u, v) are registered with
+figureCaption ||| the priority queue, and helps assign the unvisited node v a
+figureCaption ||| better estimate of its relevance.
+bodyText ||| DOM (http://www.w3.org/DOM/) of u. Meanwhile, the role
+bodyText ||| of the baseline classifier becomes one of generating training
+bodyText ||| instances for the apprentice, as shown in Figure 2. We may
+bodyText ||| therefore regard the baseline learner as a critic or a trainer,
+bodyText ||| which provides feedback to the apprentice so that it can
+bodyText ||| improve “on the job.”
+bodyText ||| The critic-apprentice paradigm is related to reinforce-
+bodyText ||| ment learning and AI programs that learn to play games
+bodyText ||| [26, §1.2]. We argue that this division of labor is natural
+bodyText ||| and effective. The baseline learner can be regarded as
+bodyText ||| a user specification for what kind of content is desired.
+bodyText ||| Although we limit ourselves to a generative statistical model
+bodyText ||| for this specification, this can be an arbitrary black-box
+bodyText ||| predicate. For rich and meaningful distinction between
+bodyText ||| Web communities and topics, the baseline learner needs
+bodyText ||| to be fairly sophisticated, perhaps leveraging off human
+bodyText ||| annotations on the Web (such as topic directories). In
+bodyText ||| contrast, the apprentice specializes in how to locate pages
+bodyText ||| to satisfy the baseline learner. Its feature space is more
+bodyText ||| limited, so that it can train fast and adapt nimbly to
+bodyText ||| changing fortunes at following links during a crawl. In
+bodyText ||| Mitchell’s words [27], the baseline learner recognizes “global
+bodyText ||| regularity” while the apprentice helps the crawler adapt
+bodyText ||| to “local regularity.” This marked asymmetry between
+bodyText ||| the classifiers distinguishes our approach from Blum and
+bodyText ||| Mitchell’s co-training technique [3], in which two learners
+bodyText ||| train each other by selecting unlabeled instances.
+bodyText ||| Using a dozen topics from a topic taxonomy derived
+bodyText ||| from the Open Directory, we compare our enhanced crawler
+bodyText ||| with the baseline crawler. The number of pages that are
+bodyText ||| thrown away (because they are irrelevant), called the loss
+bodyText ||| rate, is cut down by 30–90%. We also demonstrate that
+bodyText ||| the fine-grained tag-tree model, together with our synthesis
+bodyText ||| and encoding of features for the apprentice, are superior to
+bodyText ||| simpler alternatives.
+sectionHeader ||| 1.2 Related work
+bodyText ||| Optimizing the priority of unvisited URLs on the crawl
+bodyText ||| frontier for specific crawling goals is not new. FISHSEARCH
+bodyText ||| by De Bra et al. [12, 13] and SHARKSEARCH by Hersovici
+bodyText ||| et al. [16] were some of the earliest systems for localized
+bodyText ||| searches in the Web graph for pages with specified keywords.
+figure ||| ... submit (u,v)
+figure ||| to the apprentice
+figure ||| If Pr(c*|u)is
+figure ||| large enough...
+figure ||| Dmoz
+figure ||| topic
+figure ||| taxonomy
+figure ||| Submit page for classification
+figure ||| Baseline learner (Critic)
+figure ||| + -
+figure ||| Apprentice
+figure ||| assigns more
+figure ||| accurate priority
+figure ||| to node v	Frontier URLS
+figure ||| priority queue
+figure ||| Class models
+figure ||| consisting of
+figure ||| term stats
+figure ||| Apprentice learner
+figure ||| Class
+figure ||| models
+figure ||| Newly fetched
+figure ||| page u
+figure ||| Crawler
+figure ||| Pick
+figure ||| best
+figure ||| Online
+figure ||| training
+figure ||| An instance (u,v)
+figure ||| for the apprentice
+figure ||| Pr(c*|v)
+figure ||| u
+figure ||| Crawl
+figure ||| database
+figure ||| Pr(c|u) for
+figure ||| all classes c
+figure ||| v
+page ||| 149
+bodyText ||| In another early paper, Cho et al. [10] experimented with a
+bodyText ||| variety of strategies for prioritizing how to fetch unvisited
+bodyText ||| URLs. They used the anchor text as a bag of words to
+bodyText ||| guide link expansion to crawl for pages matching a specified
+bodyText ||| keyword query, which led to some extent of differentiation
+bodyText ||| among out-links, but no trainer-apprentice combination was
+bodyText ||| involved. No notion of supervised topics had emerged at
+bodyText ||| that point, and simple properties like the in-degree or the
+bodyText ||| presence of specified keywords in pages were used to guide
+bodyText ||| the crawler.
+bodyText ||| Topical locality on the Web has been studied for a few
+bodyText ||| years. Davison made early measurements on a 100000-
+bodyText ||| node Web subgraph [11] collected by the DISCOWEB system.
+bodyText ||| Using the standard notion of vector space TFIDF similarity
+bodyText ||| [31], he found that the endpoints of a hyperlink are much
+bodyText ||| more similar to each other than two random pages, and that
+bodyText ||| HREFs close together on a page link to documents which are
+bodyText ||| more similar than targets which are far apart. Menczer has
+bodyText ||| made similar observations [23]. The HYPERCLASS hypertext
+bodyText ||| classifier also uses such locality patterns for better semi-
+bodyText ||| supervised learning of topics [7], as does IBM’s Automatic
+bodyText ||| Resource Compilation (ARC) and Clever topic distillation
+bodyText ||| systems [6, 8].
+bodyText ||| Two important advances have been made beyond the
+bodyText ||| baseline best-first focused crawler: the use of context graphs
+bodyText ||| by Diligenti et al. [14] and the use of reinforcement learning
+bodyText ||| by Rennie and McCallum [30]. Both techniques trained
+bodyText ||| a learner with features collected from paths leading up to
+bodyText ||| relevant nodes rather than relevant nodes alone. Such paths
+bodyText ||| may be collected by following backlinks.
+bodyText ||| Diligenti et al. used a classifier (learner) that regressed
+bodyText ||| from the text of u to the estimated link distance from u to
+bodyText ||| some relevant page w, rather than the relevance of u or an
+bodyText ||| outlink (u, v), as was the case with the baseline crawler.
+bodyText ||| This lets their system continue expanding u even if the
+bodyText ||| reward for following a link is not immediate, but several
+bodyText ||| links away. However, they do favor links whose payoffs
+bodyText ||| are closest. Our work is specifically useful in conjunction
+bodyText ||| with the use of context graphs: when the context graph
+bodyText ||| learner predicts that a goal is several links away, it is crucial
+bodyText ||| to offer additional guidance to the crawler based on local
+bodyText ||| structure in pages, because the fan-out at that radius could
+bodyText ||| be enormous.
+bodyText ||| Rennie and McCallum [30] also collected paths leading
+bodyText ||| to relevant nodes, but they trained a slightly different
+bodyText ||| classifier, for which:
+listItem ||| 9 An instance was a single HREF link like (u, v).
+listItem ||| 9 The features were terms from the title and headers
+listItem ||| (<h1> ... </h1> etc.) of u, together with the text
+listItem ||| in and ‘near’ the anchor (u, v). Directories and
+listItem ||| pathnames were also used. (We do not know the
+listItem ||| precise definition of ‘near’, or how these features were
+listItem ||| encoded and combined.)
+listItem ||| 9 The prediction was a discretized estimate of the
+listItem ||| number of relevant nodes reachable by following (u, v),
+listItem ||| where the reward from goals distant from v was
+listItem ||| geometrically discounted by some factor γ < 1/2 per
+listItem ||| hop.
+bodyText ||| Rennie and McCallum obtained impressive harvests of
+bodyText ||| research papers from four Computer Science department
+bodyText ||| sites, and of pages about officers and directors from 26
+bodyText ||| company Websites.
+bodyText ||| Lexical proximity and contextual features have been
+bodyText ||| used extensively in natural language processing for disam-
+bodyText ||| biguating word sense [15]. Compared to plain text, DOM
+bodyText ||| trees and hyperlinks give us a richer set of potential features.
+bodyText ||| Aggarwal et al. have proposed an “intelligent crawling”
+bodyText ||| framework [1] in which only one classifier is used, but similar
+bodyText ||| to our system, that classifier trains as the crawl progresses.
+bodyText ||| They do not use our apprentice-critic approach, and do not
+bodyText ||| exploit features derived from tag-trees to guide the crawler.
+bodyText ||| The “intelligent agents” literature has brought forth
+bodyText ||| several systems for resource discovery and assistance to
+bodyText ||| browsing [19]. They range between client- and site-level
+bodyText ||| tools. Letizia [18], Powerscout, and WebWatcher [17] are
+bodyText ||| such systems. Menczer and Belew proposed InfoSpiders
+bodyText ||| [24], a collection of autonomous goal-driven crawlers without
+bodyText ||| global control or state, in the style of genetic algorithms. A
+bodyText ||| recent extensive study [25] comparing several topic-driven
+bodyText ||| crawlers including the best-first crawler and InfoSpiders
+bodyText ||| found the best-first approach to show the highest harvest
+bodyText ||| rate (which our new system outperforms).
+bodyText ||| In all the systems mentioned above, improving the
+bodyText ||| chances of a successful “leap of faith” will clearly reduce
+bodyText ||| the overheads of fetching, filtering, and analyzing pages.
+bodyText ||| Furthermore, whereas we use an automatic first-generation
+bodyText ||| focused crawler to generate the input to train the apprentice,
+bodyText ||| one can envisage specially instrumented browsers being used
+bodyText ||| to monitor users as they seek out information.
+bodyText ||| We distinguish our work from prior art in the following
+bodyText ||| important ways:
+bodyText ||| Two classifiers: We use two classifiers. The first one is
+bodyText ||| used to obtain ‘enriched’ training data for the second one.
+bodyText ||| (A breadth-first or random crawl would have a negligible
+bodyText ||| fraction of positive instances.) The apprentice is a simplified
+bodyText ||| reinforcement learner. It improves the harvest rate, thereby
+bodyText ||| ‘enriching’ the data collected and labeled by the first learner
+bodyText ||| in turn.
+bodyText ||| No manual path collection: Our two-classifier frame-
+bodyText ||| work essentially eliminates the manual effort needed to
+bodyText ||| create reinforcement paths or context graphs. The input
+bodyText ||| needed to start off a focused crawl is just a pre-trained topic
+bodyText ||| taxonomy (easily available from the Web) and a few focus
+bodyText ||| topics.
+bodyText ||| Online training: Our apprentice trains continually, ac-
+bodyText ||| quiring ever-larger vocabularies and improving its accuracy
+bodyText ||| as the crawl progresses. This property holds also for the
+bodyText ||| “intelligent crawler” proposed by Aggarwal et al., but they
+bodyText ||| have a single learner, whose drift is controlled by precise
+bodyText ||| relevance predicates provided by the user.
+bodyText ||| No manual feature tuning: Rather than tune ad-hoc
+bodyText ||| notions of proximity between text and hyperlinks, we encode
+bodyText ||| the features of link (u, v) using the DOM-tree of u, and
+bodyText ||| automatically learn a robust definition of ‘nearness’ of a
+bodyText ||| textual feature to (u, v). In contrast, Aggarwal et al
+bodyText ||| use many tuned constants combining the strength of text-
+bodyText ||| and link-based predictors, and Rennie et al. use domain
+bodyText ||| knowledge to select the paths to goal nodes and the word
+bodyText ||| bags that are submitted to their learner.
+page ||| 150
+sectionHeader ||| 2 Methodology and algorithms
+bodyText ||| We first review the baseline focused crawler and then
+bodyText ||| describe how the enhanced crawler is set up using the
+bodyText ||| apprentice-critic mechanism.
+subsectionHeader ||| 2.1 The baseline focused crawler
+bodyText ||| The baseline focused crawler has been described in detail
+bodyText ||| elsewhere [9, 14], and has been sketched in Figure 1. Here
+bodyText ||| we review its design and operation briefly.
+bodyText ||| There are two inputs to the baseline crawler.
+listItem ||| •	A topic taxonomy or hierarchy with example URLs
+listItem ||| for each topic.
+listItem ||| •	One or a few topics in the taxonomy marked as the
+listItem ||| topic(s) of focus.
+bodyText ||| Although we will generally use the terms ‘taxonomy’ and
+bodyText ||| ‘hierarchy’, a topic tree is not essential; all we really need is
+bodyText ||| a two-way classifier where the classes have the connotations
+bodyText ||| of being ‘relevant’ or ‘irrelevant’ to the topic(s) of focus.
+bodyText ||| A topic hierarchy is proposed purely to reduce the tedium
+bodyText ||| of defining new focused crawls. With a two-class classifier,
+bodyText ||| the crawl administrator has to seed positive and negative
+bodyText ||| examples for each crawl. Using a taxonomy, she composes
+bodyText ||| the ‘irrelevant’ class as the union of all classes that are not
+bodyText ||| relevant. Thanks to extensive hierarchies like Dmoz in the
+bodyText ||| public domain, it should be quite easy to seed topic-based
+bodyText ||| crawls in this way.
+bodyText ||| The baseline crawler maintains a priority queue on the
+bodyText ||| estimated relevance of nodes v which have not been visited,
+bodyText ||| and keeps removing the highest priority node and visiting it,
+bodyText ||| expanding its outlinks and checking them into the priority
+bodyText ||| queue with the relevance score of v in turn. Despite its
+bodyText ||| extreme simplicity, the best-first crawler has been found to
+bodyText ||| have very high harvest rates in extensive evaluations [25].
+bodyText ||| Why do we need negative examples and negative classes
+bodyText ||| at all? Instead of using class probabilities, we could maintain
+bodyText ||| a priority queue on, say, the TFIDF cosine similarity
+bodyText ||| between u and the centroid of the seed pages (acting as an
+bodyText ||| estimate for the corresponding similarity between v and the
+bodyText ||| centroid, until v has been fetched). Experience has shown
+bodyText ||| [32] that characterizing a negative class is quite important to
+bodyText ||| prevent the centroid of the crawled documents from drifting
+bodyText ||| away indefinitely from the desired topic profile.
+bodyText ||| In this paper, the baseline crawler also has the implicit
+bodyText ||| job of gathering instances of successful and unsuccessful
+bodyText ||| “leaps of faith” to submit to the apprentice, discussed next.
+subsectionHeader ||| 2.2 The basic structure of the apprentice
+subsectionHeader ||| learner
+bodyText ||| In estimating the worth of traversing the HREF (u, v), we
+bodyText ||| will limit our attention to u alone. The page u is modeled
+bodyText ||| as a tag tree (also called the Document Object Model or
+bodyText ||| DOM). In principle, any feature from u, even font color and
+bodyText ||| site membership may be perfect predictors of the relevance
+bodyText ||| of v. The total number of potentially predictive features will
+bodyText ||| be quite staggering, so we need to simplify the feature space
+bodyText ||| and massage it into a form suited to conventional learning
+bodyText ||| algorithms. Also note that we specifically study properties
+bodyText ||| of u and not larger contexts such as paths leading to u,
+bodyText ||| meaning that our method may become even more robust and
+bodyText ||| useful in conjunction with context graphs or reinforcement
+bodyText ||| along paths.
+bodyText ||| Initially, the apprentice has no training data, and passes
+bodyText ||| judgment on (u, v) links according to some fixed prior
+bodyText ||| obtained from a baseline crawl run ahead of time (e.g., see
+bodyText ||| the statistics in §3.3). Ideally, we would like to train the
+bodyText ||| apprentice continuously, but to reduce overheads, we declare
+bodyText ||| a batch size between a few hundred and a few thousand
+bodyText ||| pages. After every batch of pages is collected, we check if any
+bodyText ||| page u fetched before the current batch links to some page
+bodyText ||| v in the batch. If such a (u, v) is found, we extract suitable
+bodyText ||| features for (u, v) as described later in this section, and add
+bodyText ||| ((u, v), Pr(c* |v)� as another instance of the training data for
+bodyText ||| the apprentice. Many apprentices, certainly the simple naive
+bodyText ||| Bayes and linear perceptrons that we have studied, need not
+bodyText ||| start learning from scratch; they can accept the additional
+bodyText ||| training data with a small additional computational cost.
+subsubsectionHeader ||| 2.2.1 Preprocessing the DOM tree
+bodyText ||| First, we parse u and form the DOM tree for u. Sadly,
+bodyText ||| much of the HTML available on the Web violates any
+bodyText ||| HTML standards that permit context-free parsing, but
+bodyText ||| a variety of repair heuristics (see, e.g., HTML Tidy,
+bodyText ||| available at http://www.w3.org/People/Raggett/tidy/)
+bodyText ||| let us generate reasonable DOM trees from bad HTML.
+figureCaption ||| Figure 3: Numbering of DOM leaves used to derive offset
+figureCaption ||| attributes for textual tokens. ‘@’ means “is at offset”.
+bodyText ||| Second, we number all leaf nodes consecutively from left
+bodyText ||| to right. For uniformity, we assign numbers even to those
+bodyText ||| DOM leaves which have no text associated with them. The
+bodyText ||| specific <a href ... > which links to v is actually an internal
+bodyText ||| node a,, which is the root of the subtree containing the
+bodyText ||| anchor text of the link (u, v). There may be other element
+bodyText ||| tags such as <em> or <b> in the subtree rooted at a,. Let
+bodyText ||| the leaf or leaves in this subtree be numbered f(a,) through
+bodyText ||| r(a,) ≥ f(a,). We regard the textual tokens available from
+bodyText ||| any of these leaves as being at DOM offset zero w.r.t. the
+bodyText ||| (u, v) link. Text tokens from a leaf numbered p, to the left of
+bodyText ||| f(a,), are at negative DOM offset p — f(a,). Likewise, text
+bodyText ||| from a leaf numbered p to the right of r(a,) are at positive
+bodyText ||| DOM offset p — r(a,). See Figure 3 for an example.
+subsubsectionHeader ||| 2.2.2 Features derived from the DOM and text
+subsubsectionHeader ||| tokens
+bodyText ||| Many related projects mentioned in §1.2 use a linear notion
+bodyText ||| of proximity between a HREF and textual tokens. In the
+bodyText ||| ARC system, there is a crude cut-off distance measured
+figure ||| @-2		@-1		@0		@0		@1		@2		@3
+figure ||| TEXT
+figure ||| tt
+figure ||| li
+figure ||| TEXT
+figure ||| TEXT
+figure ||| ul
+figure ||| li
+figure ||| a
+figure ||| HREF
+figure ||| font
+figure ||| TEXT
+figure ||| TEXT
+figure ||| li
+figure ||| TEXT em
+figure ||| TEXT
+figure ||| li
+page ||| 151
+bodyText ||| in bytes to the left and right of the anchor. In the
+bodyText ||| Clever system, distance is measured in tokens, and the
+bodyText ||| importance attached to a token decays with the distance.
+bodyText ||| In reinforcement learning and intelligent predicate-based
+bodyText ||| crawling, the exact specification of neighborhood text is not
+bodyText ||| known to us. In all cases, some ad-hoc tuning appears to be
+bodyText ||| involved.
+bodyText ||| We claim (and show in §3.4) that the relation between
+bodyText ||| the relevance of the target v of a HREF (u, v) and the
+bodyText ||| proximity of terms to (u, v) can be learnt automatically. The
+bodyText ||| results are better than ad-hoc tuning of cut-off distances,
+bodyText ||| provided the DOM offset information is encoded as features
+bodyText ||| suitable for the apprentice.
+bodyText ||| One obvious idea is to extend the Clever model: a page
+bodyText ||| is a linear sequence of tokens. If a token t is distant x from
+bodyText ||| the HREF (u, v) in question, we encode it as a feature (t, x).
+bodyText ||| Such features will not be useful because there are too many
+bodyText ||| possible values of x, making the (t, x) space too sparse to
+bodyText ||| learn well. (How many HREFS will be exactly five tokens
+bodyText ||| from the term ‘basketball’?)
+bodyText ||| Clearly, we need to bucket x into a small number of
+bodyText ||| ranges. Rather than tune arbitrary bucket boundaries by
+bodyText ||| hand, we argue that DOM offsets are a natural bucketing
+bodyText ||| scheme provided by the page author. Using the node
+bodyText ||| numbering scheme described above, each token t on page u
+bodyText ||| can be annotated w.r.t. the link (u, v) (for simplicity assume
+bodyText ||| there is only one such link) as (t, d), where d is the DOM
+bodyText ||| offset calculated above. This is the main set of features
+bodyText ||| used by the apprentice. We shall see that the apprentice
+bodyText ||| can learn to limit IdI to less than dmax = 5 in most cases,
+bodyText ||| which reduces its vocabulary and saves time.
+bodyText ||| A variety of other feature encodings suggest themselves.
+bodyText ||| We are experimenting with some in ongoing work (§4),
+bodyText ||| but decided against some others. For example, we do not
+bodyText ||| expect gains from encoding specific HTML tag names owing
+bodyText ||| to the diversity of authoring styles. Authors use <div>,
+bodyText ||| <span>, <layer> and nested tables for layout control in
+bodyText ||| non-standard ways; these are best deflated to a nameless
+bodyText ||| DOM node representation. Similar comments apply to
+bodyText ||| HREF collections embedded in <ul>, <ol>, <td> and
+bodyText ||| <dd>. Font and lower/upper case information is useful
+bodyText ||| for search engines, but would make features even sparser
+bodyText ||| for the apprentice. Our representation also flattens two-
+bodyText ||| dimensional tables to their “row-major” representation.
+bodyText ||| The features we ignore are definitely crucial for other
+bodyText ||| applications, such as information extraction. We did not
+bodyText ||| see any cases where this sloppiness led to a large loss rate.
+bodyText ||| We would be surprised to see tables where relevant links
+bodyText ||| occurred in the third column and irrelevant links in the fifth,
+bodyText ||| or pages where they are rendered systematically in different
+bodyText ||| fonts and colors, but are not otherwise demarcated by the
+bodyText ||| DOM structure.
+subsubsectionHeader ||| 2.2.3 Non-textual features
+bodyText ||| Limiting d may lead us to miss features of u that may be
+bodyText ||| useful at the whole-page level. One approach would be to use
+bodyText ||| “d = oo” for all d larger in magnitude than some threshold.
+bodyText ||| But this would make our apprentice as bulky and slow to
+bodyText ||| train as the baseline learner.
+bodyText ||| Instead, we use the baseline learner to abstract u for
+bodyText ||| the apprentice. Specifically, we use a naive Bayes baseline
+bodyText ||| learner to classify u, and use the vector of class probabilities
+bodyText ||| returned as features for the apprentice. These features can
+bodyText ||| help the apprentice discover patterns such as
+bodyText ||| “Pages about /Recreation/Boating/Sailing often
+bodyText ||| link to pages about /Sports/Canoe_and_Kayaking.”
+bodyText ||| This also covers for the baseline classifier confusing between
+bodyText ||| classes with related vocabulary, achieving an effect similar
+bodyText ||| to context graphs.
+bodyText ||| Another kind of feature can be derived from co-citation.
+bodyText ||| If v1 has been fetched and found to be relevant and HREFS
+bodyText ||| (u, v1) and (u, v2) are close to each other, v2 is likely to
+bodyText ||| be relevant. Just like textual tokens were encoded as (t, d)
+bodyText ||| pairs, we can represent co-citation features as (p, d), where
+bodyText ||| p is a suitable representation of relevance.
+bodyText ||| Many other features can be derived from the DOM tree
+bodyText ||| and added to our feature pool. We discuss some options
+bodyText ||| in §4. In our experience so far, we have found the (t, d)
+bodyText ||| features to be most useful. For simplicity, we will limit our
+bodyText ||| subsequent discussion to (t, d) features only.
+subsectionHeader ||| 2.3 Choices of learning algorithms for the
+subsectionHeader ||| apprentice
+bodyText ||| Our feature set is thus an interesting mix of categorical,
+bodyText ||| ordered and continuous features:
+listItem ||| 9 Term tokens (t, d) have a categorical component t and
+listItem ||| a discrete ordered component d (which we may like to
+listItem ||| smooth somewhat). Term counts are discrete but can
+listItem ||| be normalized to constant document length, resulting
+listItem ||| in continuous attribute values.
+listItem ||| 9 Class names are discrete and may be regarded as
+bodyText ||| synthetic terms. The probabilities are continuous.
+bodyText ||| The output we desire is an estimate of Pr(c* Iv), given all the
+bodyText ||| observations about u and the neighborhood of (u, v) that
+bodyText ||| we have discussed. Neural networks are a natural choice
+bodyText ||| to accommodate these requirements. We first experimented
+bodyText ||| with a simple linear perceptron, training it with the delta
+bodyText ||| rule (gradient descent) [26]. Even for a linear perceptron,
+bodyText ||| convergence was surprisingly slow, and after convergence,
+bodyText ||| the error rate was rather high. It is likely that local
+bodyText ||| optima were responsible, because stability was generally
+bodyText ||| poor, and got worse if we tried to add hidden layers or
+bodyText ||| sigmoids. In any case, convergence was too slow for use
+bodyText ||| as an online learner. All this was unfortunate, because the
+bodyText ||| direct regression output from a neural network would be
+bodyText ||| convenient, and we were hoping to implement a Kohonen
+bodyText ||| layer for smoothing d.
+bodyText ||| In contrast, a naive Bayes (NB) classifier worked very
+bodyText ||| well. A NB learner is given a set of training documents,
+bodyText ||| each labeled with one of a finite set of classes/topic. A
+bodyText ||| document or Web page u is modeled as a multiset or bag
+bodyText ||| of words, {(T,n(u,T))} where T is a feature which occurs
+bodyText ||| n(u, T) times in u. In ordinary text classification (such as
+bodyText ||| our baseline learner) the features T are usually single words.
+bodyText ||| For our apprentice learner, a feature T is a (t, d) pair.
+bodyText ||| NB classifiers can predict from a discrete set of classes,
+bodyText ||| but our prediction is a continuous (probability) score. To
+bodyText ||| bridge this gap, We used a simple two-bucket (low/high
+bodyText ||| relevance) special case of Torgo and Gama’s technique of
+bodyText ||| using classifiers for discrete labels for continuous regression
+bodyText ||| [33], using “equally probable intervals” as far as possible.
+page ||| 152
+bodyText ||| Torgo and Gama recommend using a measure of centrality,
+bodyText ||| such as the median, of each interval as the predicted value of
+bodyText ||| that class. Rennie and McCallum [30] corroborate that 2–3
+bodyText ||| bins are adequate. As will be clear from our experiments, the
+bodyText ||| medians of our ‘low’ and ‘high’ classes are very close to zero
+bodyText ||| and one respectively (see Figure 5). Therefore, we simply
+bodyText ||| take the probability of the ‘high’ class as the prediction from
+bodyText ||| our naive Bayes apprentice.
+bodyText ||| The prior probability of class c, denoted Pr(c) is the
+bodyText ||| fraction of training documents labeled with class c. The NB
+bodyText ||| model is parameterized by a set of numbers 0c,T which is
+bodyText ||| roughly the rate of occurrence of feature τ in class c, more
+bodyText ||| exactly,
+equation ||| ITI + Pu T n(u τ,), (1)
+bodyText ||| where Vc is the set of Web pages labeled with c and T is the
+bodyText ||| entire vocabulary. The NB learner assumes independence
+bodyText ||| between features, and estimates
+equation ||| Pr(cIu) a Pr(c) Pr(uIc) ≈ Pr(c) 11 0n (u,T)
+equation ||| c,T. (2)
+equation ||| TEu
+bodyText ||| Nigam et al. provide further details [22].
+sectionHeader ||| 3 Experimental study
+bodyText ||| Our experiments were guided by the following requirements.
+bodyText ||| We wanted to cover a broad variety of topics, some ‘easy’ and
+bodyText ||| some ‘di cult’, in terms of the harvest rate of the baseline
+bodyText ||| crawler. Here is a quick preview of our results.
+listItem ||| •	The apprentice classifier achieves high accuracy in
+listItem ||| predicting the relevance of unseen pages given (t, d)
+listItem ||| features. It can determine the best value of dmax to
+listItem ||| use, typically, 4–6.
+listItem ||| •	Encoding DOM offsets in features improves the
+listItem ||| accuracy of the apprentice substantially, compared
+listItem ||| to a bag of ordinary words collected from within the
+listItem ||| same DOM offset window.
+listItem ||| •	Compared to a baseline crawler, a crawler that is
+listItem ||| guided by an apprentice (trained offiine) has a 30%
+listItem ||| to 90% lower loss rate. It finds crawl paths never
+listItem ||| expanded by the baseline crawler.
+listItem ||| •	Even if the apprentice-guided crawler is forced to
+listItem ||| stay within the (inferior) Web graph collected by the
+listItem ||| baseline crawler, it collects the best pages early on.
+listItem ||| •	The apprentice is easy to train online. As soon as it
+bodyText ||| starts guiding the crawl, loss rates fall dramatically.
+listItem ||| •	Compared to (t, d) features, topic- or cocitation-based
+listItem ||| features have negligible effect on the apprentice.
+bodyText ||| To run so many experiments, we needed three highly
+bodyText ||| optimized and robust modules: a crawler, a HTML-to-DOM
+bodyText ||| converter, and a classifier.
+bodyText ||| We started with the w3c-libwww crawling library from
+bodyText ||| http://www.w3c.org/Library/, but replaced it with our
+bodyText ||| own crawler because we could effectively overlap DNS
+bodyText ||| lookup, HTTP access, and disk access using a select over
+bodyText ||| all socket/file descriptors, and prevent memory leaks visible
+bodyText ||| in w3c-libwww. With three caching DNS servers, we could
+bodyText ||| achieve over 90% utilization of a 2Mbps dedicated ISP
+bodyText ||| connection.
+bodyText ||| We used the HTML parser libxml2 library to extract
+bodyText ||| the DOM from HTML, but this library has memory leaks,
+bodyText ||| and does not always handle poorly written HTML well. We
+bodyText ||| had some stability problems with HTML Tidy (http: //www.
+bodyText ||| w3.org/People/Raggett/tidy/), the well-known HTML
+bodyText ||| cleaner which is very robust to bad HTML. At present we
+bodyText ||| are using libxml2 and are rolling our own HTML parser and
+bodyText ||| cleaner for future work.
+bodyText ||| We intend to make our crawler and HTML parser code
+bodyText ||| available in the public domain for research use.
+bodyText ||| For both the baseline and apprentice classifier we used
+bodyText ||| the public domain BOW toolkit and the Rainbow naive
+bodyText ||| Bayes classifier created by McCallum and others [20]. Bow
+bodyText ||| and Rainbow are very fast C implementations which let us
+bodyText ||| classify pages in real time as they were being crawled.
+subsectionHeader ||| 3.1 Design of the topic taxonomy
+bodyText ||| We downloaded from the Open Directory (http://dmoz.
+bodyText ||| org/) an RDF file with over 271954 topics arranged in a
+bodyText ||| tree hierarchy with depth at least 6, containing a total of
+bodyText ||| about 1697266 sample URLs. The distribution of samples
+bodyText ||| over topics was quite non-uniform. Interpreting the tree as
+bodyText ||| an is-a hierarchy meant that internal nodes inherited all
+bodyText ||| examples from descendants, but they also had their own
+bodyText ||| examples. Since the set of topics was very large and many
+bodyText ||| topics had scarce training data, we pruned the Dmoz tree
+bodyText ||| to a manageable frontier by following these steps:
+listItem ||| 1. Initially we placed example URLs in both internal and
+listItem ||| leaf nodes, as given by Dmoz.
+listItem ||| 2.We fixed a minimum per-class training set size of k =
+listItem ||| 300 documents.
+listItem ||| 3.We iteratively performed the following step as long
+listItem ||| as possible: we found a leaf node with less than k
+listItem ||| example URLs, moved all its examples to its parent,
+listItem ||| and deleted the leaf.
+listItem ||| 4.To each internal node c, we attached a leaf
+listItem ||| subdirectory called Other. Examples associated
+listItem ||| directly with c were moved to this Other subdirectory.
+listItem ||| 5. Some topics were populated out of proportion, either
+listItem ||| at the beginning or through the above process. We
+listItem ||| made the class priors more balanced by sampling
+listItem ||| down the large classes so that each class had at most
+listItem ||| 300 examples.
+bodyText ||| The resulting taxonomy had 482 leaf nodes and a total
+bodyText ||| of 144859 sample URLs. Out of these we could successfully
+bodyText ||| fetch about 120000 URLs. At this point we discarded the
+bodyText ||| tree structure and considered only the leaf topics. Training
+bodyText ||| time for the baseline classifier was about about two hours
+bodyText ||| on a 729MHz Pentium III with 256kB cache and 512MB
+bodyText ||| RAM. This was very fast, given that 1.4GB of HTML text
+bodyText ||| had to be processed through Rainbow. The complete listing
+bodyText ||| of topics can be obtained from the authors.
+subsectionHeader ||| 3.2 Choice of topics
+bodyText ||| Depending on the focus topic and prioritization strategy,
+bodyText ||| focused crawlers may achieve diverse harvest rates. Our
+equation ||| 0c,T =
+equation ||| 1 + Pu∈VC n(u, τ)
+page ||| 153
+bodyText ||| early prototype [9] yielded harvest rates typically between
+bodyText ||| 0.25 and 0.6. Rennie and McCallum [30] reported recall
+bodyText ||| and not harvest rates. Diligenti et al. [14] focused on very
+bodyText ||| specific topics where the harvest rate was very low, 4–6%.
+bodyText ||| Obviously, the maximum gains shown by a new idea in
+bodyText ||| focused crawling can be sensitive to the baseline harvest
+bodyText ||| rate.
+bodyText ||| To avoid showing our new system in an unduly positive
+bodyText ||| or negative light, we picked a set of topics which were fairly
+bodyText ||| diverse, and appeared to be neither too broad to be useful
+bodyText ||| (e.g., /Arts, /Science) nor too narrow for the baseline
+bodyText ||| crawler to be a reasonable adversary. We list our topics
+bodyText ||| in Figure 4. We chose the topics without prior estimates of
+bodyText ||| how well our new system would work, and froze the list
+bodyText ||| of topics. All topics that we experimented with showed
+bodyText ||| visible improvements, and none of them showed deteriorated
+bodyText ||| performance.
+subsectionHeader ||| 3.3 Baseline crawl results
+bodyText ||| We will skip the results of breadth-first or random crawling
+bodyText ||| in our commentary, because it is known from earlier work
+bodyText ||| on focused crawling that our baseline crawls are already
+bodyText ||| far better than breadth-first or random crawls. Figure 5
+bodyText ||| shows, for most of the topics listed above, the distribution
+bodyText ||| of page relevance after running the baseline crawler to
+bodyText ||| collect roughly 15000 to 25000 pages per topic. The E
+bodyText ||| baseline crawler used a standard naive Bayes classifier on
+bodyText ||| the ordinary term space of whole pages. We see that the
+bodyText ||| relevance distribution is bimodal, with most pages being
+bodyText ||| very relevant or not at all. This is partly, but only partly, a
+bodyText ||| result of using a multinomial naive Bayes model. The naive
+bodyText ||| Bayes classifier assumes term independence and multiplies
+bodyText ||| together many (small) term probabilities, with the result
+bodyText ||| that the winning class usually beats all others by a large
+bodyText ||| margin in probability. But it is also true that many outlinks
+bodyText ||| lead to pages with completely irrelevant topics. Figure 5
+bodyText ||| gives a clear indication of how much improvement we can
+bodyText ||| expect for each topic from our new algorithm.
+subsectionHeader ||| 3.4 DOM window size and feature selection
+bodyText ||| A key concern for us was how to limit the maximum window
+bodyText ||| width so that the total number of synthesized (t, d) features
+bodyText ||| remains much smaller than the training data for the baseline
+bodyText ||| classifier, enabling the apprentice to be trained or upgraded
+bodyText ||| in a very short time. At the same time, we did not want
+bodyText ||| to lose out on medium- to long-range dependencies between
+bodyText ||| significant tokens on a page and the topic of HREF targets
+bodyText ||| in the vicinity. We eventually settled for a maximum DOM
+bodyText ||| window size of 5. We made this choice through the following
+bodyText ||| experiments.
+bodyText ||| The easiest initial approach was an end-to-end cross-
+bodyText ||| validation of the apprentice for various topics while
+bodyText ||| increasing dm x. We observed an initial increase in the
+bodyText ||| validation accuracy when the DOM window size was
+bodyText ||| increased beyond 0. However, the early increase leveled
+bodyText ||| off or even reversed after the DOM window size was
+bodyText ||| increased beyond 5. The graphs in Figure 6 display these
+bodyText ||| results. We see that in the Chess category, though the
+bodyText ||| validation accuracy increases monotonically, the gains are
+bodyText ||| less pronounced after dm x exceeds 5. For the AI category,
+bodyText ||| accuracy fell beyond dm x = 4.
+figure ||| Topic	#Good	#Bad
+figure ||| /Arts/Music/Styles/Classical/Composers	24000	13000
+figure ||| /Arts/Performing-Arts/Dance/Folk-Dancing	7410	8300
+figure ||| /Business/Industries.../Livestock/Horses...	17000	7600
+figure ||| /Computers/Artificial-Intelligence	7701	14309
+figure ||| /Computers/Software/Operating-Systems/Linux	17500	9300
+figure ||| /Games/Board-Games/C/Chess	17000	4600
+figure ||| /Health/Conditions-and-Diseases/Cancer	14700	5300
+figure ||| /Home/Recipes/Soups-and-Stews	20000	3600
+figure ||| /Recreation/Outdoors/Fishing/Fly-Fishing	12000	13300
+figure ||| /Recreation/Outdoors/Speleology	6717	14890
+figure ||| /Science/Astronomy	14961	5332
+figure ||| /Science/Earth-Sciences/Meteorology	19205	8705
+figure ||| /Sports/Basketball	26700	2588
+figure ||| /Sports/Canoe-and-Kayaking	12000	12700
+figure ||| /Sports/Hockey/Ice-Hockey	17500	17900
+figureCaption ||| Figure 4: We chose a variety of topics which were neither
+figureCaption ||| too broad nor too narrow, so that the baseline crawler
+figureCaption ||| was a reasonable adversary. #Good (#Bad) show the
+figureCaption ||| approximate number of pages collected by the baseline
+figureCaption ||| crawler which have relevance above (below) 0.5, which
+figureCaption ||| indicates the relative difficulty of the crawling task.
+figureCaption ||| Figure 5: All of the baseline classifiers have harvest rates
+figureCaption ||| between 0.25 and 0.6, and all show strongly bimodal
+figureCaption ||| relevance score distribution: most of the pages fetched are
+figureCaption ||| very relevant or not at all.
+bodyText ||| It is important to notice that the improvement in
+bodyText ||| accuracy is almost entirely because with increasing number
+bodyText ||| of available features, the apprentice can reject negative
+bodyText ||| (low relevance) instances more accurately, although the
+bodyText ||| accuracy for positive instances decreases slightly. Rejecting
+bodyText ||| unpromising outlinks is critical to the success of the
+bodyText ||| enhanced crawler. Therefore we would rather lose a little
+bodyText ||| accuracy for positive instances rather than do poorly on the
+bodyText ||| negative instances. We therefore chose dm x to be either 4
+bodyText ||| or 5 for all the experiments.
+bodyText ||| We verified that adding offset information to text tokens
+bodyText ||| was better than simply using plain text near the link [8].
+bodyText ||| One sample result is shown in Figure 7. The apprentice
+bodyText ||| accuracy decreases with dm x if only text is used, whereas
+bodyText ||| it increases if offset information is provided. This highlights
+figure ||| d #pages
+figure ||| 100000
+figure ||| 10000
+figure ||| 1000
+figure ||| 100
+figure ||| 10
+figure ||| Relevance probability
+figure ||| AI
+figure ||| Astronomy
+figure ||| Basketball
+figure ||| Cancer
+figure ||| Chess
+figure ||| Composers
+figure ||| FlyFishing
+figure ||| FolkDance
+figure ||| Horses
+figure ||| IceHockey
+figure ||| Kayaking
+figure ||| Linux
+figure ||| Meteorology
+figure ||| Soups
+figure ||| Tobacco
+page ||| 154
+figure ||| Chess
+figureCaption ||| Figure 6: There is visible improvement in the accuracy
+figureCaption ||| of the apprentice if dmax is made larger, up to about 5–
+figureCaption ||| 7 depending on topic. The effect is more pronounced on
+figureCaption ||| the the ability to correctly reject negative (low relevance)
+figureCaption ||| outlink instances. ‘Average’ is the microaverage over all
+figureCaption ||| test instances for the apprentice, not the arithmetic mean
+figureCaption ||| of ‘Positive’ and ‘Negative’.
+figureCaption ||| Figure 7: Encoding DOM offset information with textual
+figureCaption ||| features boosts the accuracy of the apprentice substantially.
+figureCaption ||| the importance of designing proper features.
+bodyText ||| To corroborate the useful ranges of dmax above, we
+bodyText ||| compared the value of average mutual information gain for
+bodyText ||| terms found at various distances from the target HREF.
+bodyText ||| The experiments revealed that the information gain of terms
+bodyText ||| found further away from the target HREF was generally
+bodyText ||| lower than those that were found closer, but this reduction
+bodyText ||| was not monotonic. For instance, the average information
+figureCaption ||| Figure 8: Information gain variation plotted against
+figureCaption ||| distance from the target HREF for various DOM window
+figureCaption ||| sizes. We observe that the information gain is insensitive to
+figureCaption ||| dmax.
+bodyText ||| gain at d = —2 was higher than that at d = —1; see Figure 8.
+bodyText ||| For each DOM window size, we observe that the information
+bodyText ||| gain varies in a sawtooth fashion; this intriguing observation
+bodyText ||| is explained shortly. The average information gain settled
+bodyText ||| to an almost constant value after distance of 5 from the
+bodyText ||| target URL. We were initially concerned that to keep the
+bodyText ||| computation cost manageable, we would need some cap on
+bodyText ||| dmax even while measuring information gain, but luckily,
+bodyText ||| the variation of information gain is insensitive to dmax, as
+bodyText ||| Figure 8 shows. These observations made our final choice of
+bodyText ||| dmax easy.
+bodyText ||| In a bid to explain the occurrence of the unexpected
+bodyText ||| saw-tooth form in Figure 8 we measured the rate B(t,d) at
+bodyText ||| which term t occurred at offset d, relative to the total count
+bodyText ||| of all terms occurring at offset d. (They are roughly the
+bodyText ||| multinomial naive Bayes term probability parameters.) For
+bodyText ||| fixed values of d, we calculated the sum of B values of terms
+bodyText ||| found at those offsets from the target HREF. Figure 9(a)
+bodyText ||| shows the plot of these sums to the distance(d) for various
+bodyText ||| categories. The B values showed a general decrease as the
+bodyText ||| distances from the target HREF increased, but this decrease,
+bodyText ||| like that of information gain, was not monotonic. The B
+bodyText ||| values of the terms at odd numbered distances from the
+bodyText ||| target HREF were found to be lower than those of the
+bodyText ||| terms present at the even positions. For instance, the sum
+bodyText ||| of B values of terms occurring at distance —2 were higher
+bodyText ||| than that of terms at position —1. This observation was
+bodyText ||| explained by observing the HTML tags that are present
+bodyText ||| at various distances from the target HREF. We observed
+bodyText ||| that tags located at odd d are mostly non-text tags, thanks
+bodyText ||| to authoring idioms such as <li><a ... ><li><a ... > and
+bodyText ||| <a...><br><a ... ><br> etc. A plot of the frequency of
+bodyText ||| HTML tags against the distance from the HREF at which
+figure ||| 0	2	4	6	8
+figure ||| d_max
+figure ||| 90
+figure ||| 85
+figure ||| AI
+figure ||| 80
+figure ||| 75
+figure ||| 70
+figure ||| 65
+figure ||| Negative
+figure ||| Positive
+figure ||| Average
+figure ||| 0 2 dm6 8
+figure ||| ax
+figure ||| 100
+figure ||| 95
+figure ||| 90
+figure ||| 85
+figure ||| 80
+figure ||| 75
+figure ||| 70
+figure ||| 65
+figure ||| Negative
+figure ||| Positive
+figure ||| Average
+figure ||| 0	1	2	3	4	5	6	7	8
+figure ||| d_max
+figure ||| Text
+figure ||| Offset
+figure ||| 86
+figure ||| 84
+figure ||| 82
+figure ||| 80
+figure ||| 78
+figure ||| 76
+figure ||| AI
+figure ||| Chess
+figure ||| d_max=8
+figure ||| d_max=5
+figure ||| d_max=4
+figure ||| d_max=3
+figure ||| -8	-6	-4	-2	0	2	4	6	8
+figure ||| d
+figure ||| 0.0002
+figure ||| 0.00018
+figure ||| 0.00016
+figure ||| 0.00014
+figure ||| 0.00012
+figure ||| 0.0001
+figure ||| 0.00008
+figure ||| 0.00006
+figure ||| 0.00004
+figure ||| 0.00002
+figure ||| AI
+figure ||| -8	-6	-4	-2	0	2	4	6
+figure ||| d
+figure ||| 9.00E-05
+figure ||| 8.00E-05
+figure ||| 6.00E-05
+figure ||| 5.00E-05
+figure ||| 4.00E-05
+figure ||| 7.00E-05
+figure ||| 1.00E-04
+figure ||| d_max=8
+figure ||| d_max=5
+figure ||| d_max=4
+figure ||| d_max=3
+page ||| 155
+figureCaption ||| Figure 9: Variation of (a) relative term frequencies and
+figureCaption ||| (b) frequencies of HTML tags plotted against d.
+bodyText ||| they were found is shown in Figure 9(b). (The <a...> tag
+bodyText ||| obviously has the highest frequency and has been removed
+bodyText ||| for clarity.)
+bodyText ||| These were important DOM idioms, spanning many
+bodyText ||| diverse Web sites and authoring styles, that we did not
+bodyText ||| anticipate ahead of time. Learning to recognize these
+bodyText ||| idioms was valuable for boosting the harvest of the enhanced
+bodyText ||| crawler. Yet, it would be unreasonable for the user-supplied
+bodyText ||| baseline black-box predicate or learner to capture crawling
+bodyText ||| strategies at such a low level. This is the ideal job of
+bodyText ||| the apprentice. The apprentice took only 3–10 minutes
+bodyText ||| to train on its (u, v) instances from scratch, despite a
+bodyText ||| simple implementation that wrote a small file to disk for
+bodyText ||| each instance of the apprentice. Contrast this with several
+bodyText ||| hours taken by the baseline learner to learn general term
+bodyText ||| distribution for topics.
+subsectionHeader ||| 3.5 Crawling with the apprentice trained
+subsectionHeader ||| off-line
+bodyText ||| In this section we subject the apprentice to a “field test” as
+bodyText ||| part of the crawler, as shown in Figure 2. To do this we
+bodyText ||| follow these steps:
+listItem ||| 1. Fix a topic and start the baseline crawler from all
+listItem ||| example URLs available from the given topic.
+listItem ||| 2. Run the baseline crawler until roughly 20000–25000
+listItem ||| pages have been fetched.
+listItem ||| 3. For all pages (u, v) such that both u and v have
+listItem ||| been fetched by the baseline crawler, prepare an
+listItem ||| instance from (u, v) and add to the training set of
+listItem ||| the apprentice.
+listItem ||| 4. Train the apprentice. Set a suitable value for dmax.
+listItem ||| Folk Dancing
+figure ||| 0	2000	4000	6000	8000	10000
+figure ||| #Pages fetched
+figure ||| Ice Hockey
+figureCaption ||| Figure 10: Guidance from the apprentice significantly
+figureCaption ||| reduces the loss rate of the focused crawler.
+listItem ||| 5. Start the enhanced crawler from the same set of pages
+listItem ||| that the baseline crawler had started from.
+listItem ||| 6. Run the enhanced crawler to fetch about the same
+listItem ||| number of pages as the baseline crawler.
+listItem ||| 7. Compare the loss rates of the two crawlers.
+bodyText ||| Unlike with the reinforcement learner studied by Rennie
+bodyText ||| and McCallum, we have no predetermined universe of URLs
+bodyText ||| which constitute the relevant set; our crawler must go
+bodyText ||| forth into the open Web and collect relevant pages from
+bodyText ||| an unspecified number of sites. Therefore, measuring recall
+bodyText ||| w.r.t. the baseline is not very meaningful (although we do
+bodyText ||| report such numbers, for completeness, in §3.6). Instead, we
+bodyText ||| measure the loss (the number of pages fetched which had to
+bodyText ||| be thrown away owing to poor relevance) at various epochs
+bodyText ||| in the crawl, where time is measured as the number of pages
+bodyText ||| fetched (to elide fluctuating network delay and bandwidth).
+bodyText ||| At epoch n, if the pages fetched are v1, ... , vn, then the total
+bodyText ||| expected loss is (1/n) Pi (1− Pr(c*|vi)).
+bodyText ||| Figure 10 shows the loss plotted against the number of
+bodyText ||| pages crawled for two topics: Folk dancing and Ice hockey.
+bodyText ||| The behavior for Folk dancing is typical; Ice hockey is
+bodyText ||| one of the best examples. In both cases, the loss goes up
+bodyText ||| substantially faster with each crawled page for the baseline
+bodyText ||| crawler than for the enhanced crawler. The reduction of loss
+bodyText ||| for these topics are 40% and 90% respectively; typically, this
+bodyText ||| number is between 30% and 60%. In other words, for most
+figure ||| -5 -4 -3 -2 -1	0	1	2	3	4	5
+figure ||| AI
+figure ||| Chess
+figure ||| Horses
+figure ||| Cancer
+figure ||| IceHockey
+figure ||| Linux
+figure ||| Bball+
+figure ||| Bball-
+figure ||| 9000	Tags at various DOM offsets
+figure ||| 8000
+figure ||| 7000
+figure ||| 6000
+figure ||| 5000
+figure ||| 4000
+figure ||| 3000
+figure ||| font
+figure ||| td
+figure ||| img
+figure ||| b
+figure ||| br
+figure ||| p
+figure ||| tr
+figure ||| li
+figure ||| comment
+figure ||| div
+figure ||| table
+figure ||| center
+figure ||| i
+figure ||| span
+figure ||| hr
+figure ||| 2000
+figure ||| 1000
+figure ||| 0
+figure ||| -5 -4 -3 -2 -1 0	1	2 3	4 5 d
+figure ||| 0.2
+figure ||| 0.18
+figure ||| 0.16
+figure ||| 0.14
+figure ||| 0.12
+figure ||| 0.1
+figure ||| 0.08
+figure ||| 0.06
+figure ||| 0.04
+figure ||| 0.02
+figure ||| d
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| 8000
+figure ||| 4000
+figure ||| 0
+figure ||| 0	4000 8000 12000 16000 20000
+figure ||| #Pages fetched
+figure ||| 	6000
+figure ||| 	4000
+figure ||| 	2000
+figure ||| 	0
+page ||| 156
+bodyText ||| topics, the apprentice reduces the number of useless pages
+bodyText ||| fetched by one-third to two-thirds.
+bodyText ||| In a sense, comparing loss rates is the most meaningful
+bodyText ||| evaluation in our setting, because the network cost of
+bodyText ||| fetching relevant pages has to be paid anyway, and can be
+bodyText ||| regarded as a fixed cost. Diligenti et al. show significant
+bodyText ||| improvements in harvest rate, but for their topics, the loss
+bodyText ||| rate for both the baseline crawler as well as the context-
+bodyText ||| focused crawler were much higher than ours.
+subsectionHeader ||| 3.6 URL overlap and recall
+bodyText ||| The reader may feel that the apprentice crawler has an
+bodyText ||| unfair advantage because it is first trained on DOM-derived
+bodyText ||| features from the same set of pages that it has to crawl
+bodyText ||| again. We claim that the set of pages visited by the baseline
+bodyText ||| crawler and thea(off-linentrained) enhanced crawler have
+bodyText ||| small overlap, and the superior results for the crawler guided 4011 8168 2199
+bodyText ||| by the apprentice are in large part because of generalizable
+bodyText ||| learning. Thisgcan be seen from the examples in Figure 11.
+figureCaption ||| Figure 11: The apprentice-guided crawler follows paths
+figureCaption ||| which are quite different from the baseline crawler because
+figureCaption ||| of its superior priority estimation technique. As a result
+figureCaption ||| there is little overlap between the URLs harvested by these
+figureCaption ||| two crawlers.
+bodyText ||| Given that the overlap between the baseline and the
+bodyText ||| enhanced crawlers is small, which is ‘better’? As per the
+bodyText ||| verdict of the baseline classifier, clearly the enhanced crawler
+bodyText ||| is better. Even so, we report the loss rate of a different
+bodyText ||| version of the enhanced crawler which is restricted to visiting
+bodyText ||| only those pages which were visited by the baseline learner.
+bodyText ||| We call this crawler the recall crawler. This means that in
+bodyText ||| the end, both crawlers have collected exactly the same set
+bodyText ||| of pages, and therefore have the same total loss. The test
+bodyText ||| then is how long can the enhanced learner prevent the loss
+bodyText ||| from approaching the baseline loss. These experiments are a
+bodyText ||| rough analog of the ‘recall’ experiments done by Rennie and
+bodyText ||| McCallum. We note that for these recall experiments, the
+bodyText ||| apprentice does get the benefit of not having to generalize,
+bodyText ||| so the gap between baseline loss and recall loss could be
+bodyText ||| optimistic. Figure 12 compares the expected total loss of
+bodyText ||| the baseline crawler, the recall crawler, and the apprentice-
+bodyText ||| guided crawler (which is free to wander outside the baseline
+bodyText ||| collection) plotted against the number of pages fetched, for a
+bodyText ||| few topics. As expected, the recall crawler has loss generally
+figure ||| Ice Hockey
+figure ||| 0	1000 2000 3000 4000 5000 6000
+figure ||| #Pages fetched
+figure ||| Kayaking
+figure ||| 0	5000	10000	15000	20000
+figure ||| #Pages fetched
+figureCaption ||| Figure 12: Recall for a crawler using the apprentice but
+figureCaption ||| limited to the set of pages crawled earlier by the baseline
+figureCaption ||| crawler.
+bodyText ||| somewhere between the loss of the baseline and the enhanced
+bodyText ||| crawler.
+subsectionHeader ||| 3.7 Effect of training the apprentice online
+bodyText ||| Next we observe the effect of a mid-flight correction when
+bodyText ||| the apprentice is trained some way into a baseline and
+bodyText ||| switched into the circuit. The precise steps were:
+listItem ||| 1. Run the baseline crawler for the first n page fetches,
+listItem ||| then stop it.
+listItem ||| 2. Prepare instances and train the apprentice.
+listItem ||| 3. Re-evaluate the priorities of all unvisited pages v in
+listItem ||| the frontier table using the apprentice.
+listItem ||| 4. Switch in the apprentice and resume an enhanced
+listItem ||| crawl.
+bodyText ||| We report our experience with “Folk Dancing.” The baseline
+bodyText ||| crawl was stopped after 5200 pages were fetched. Re-
+bodyText ||| evaluating the priority of frontier nodes led to radical
+bodyText ||| changes in their individual ranks as well as the priority
+bodyText ||| distributions. As shown in Figure 13(a), the baseline learner
+bodyText ||| is overly optimistic about the yield it expects from the
+bodyText ||| frontier, whereas the apprentice already abandons a large
+bodyText ||| fraction of frontier outlinks, and is less optimistic about
+figure ||| 35%
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| Intersect
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| Intersect
+figure ||| Basketball
+figure ||| 4%
+figure ||| FolkDance
+figure ||| 9%
+figure ||| 47%
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| Intersect
+figure ||| 3%
+figure ||| 39%
+figure ||| 34%
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| Intersect
+figure ||| 17%
+figure ||| 57%
+figure ||| FlyFishing
+figure ||| 48%
+figure ||| 49%
+figure ||| 58%
+figure ||| IceHockey
+figure ||| Baseline
+figure ||| Recall
+figure ||| Apprentice
+figure ||| 1000
+figure ||| 0
+figure ||| Baseline
+figure ||| Recall
+figure ||| Apprentice
+figure ||| 	10000
+figure ||| 	5000
+figure ||| 	0
+figure ||| 157
+figure ||| Folk Dancing
+figureCaption ||| Figure 13: The effect of online training of the apprentice.
+bodyText ||| The apprentice makes sweeping changes in the
+bodyText ||| estimated promise of unvisited nodes in the crawl frontier.
+bodyText ||| (b) Resuming the crawl under the guidance of the
+bodyText ||| apprentice immediately shows significant reduction in the
+bodyText ||| loss accumulation rate.
+bodyText ||| the others, which appears more accurate from the Bayesian
+bodyText ||| perspective.
+bodyText ||| Figure 13(b) shows the effect of resuming an enhanced
+bodyText ||| crawl guided by the trained apprentice. The new (u, v)
+bodyText ||| instances are all guaranteed to be unknown to the apprentice
+bodyText ||| now. It is clear that the apprentice’s prioritization
+bodyText ||| immediately starts reducing the loss rate. Figure 14 shows
+bodyText ||| an even more impressive example. There are additional mild
+bodyText ||| gains from retraining the apprentice at later points. It may
+bodyText ||| be possible to show a more gradual online learning effect
+bodyText ||| by retraining the classifier at a finer interval, e.g., every
+bodyText ||| 100 page fetches, similar to Aggarwal et al. In our context,
+bodyText ||| however, losing a thousand pages at the outset because of
+bodyText ||| the baseline crawler’s limitation is not a disaster, so we need
+bodyText ||| not bother.
+subsectionHeader ||| 3.8 Effect of other features
+bodyText ||| We experimented with two other kinds of feature, which we
+bodyText ||| call topic and cocitation features.
+bodyText ||| Our limiting dmax to 5 may deprive the apprentice of
+bodyText ||| important features in the source page u which are far from
+bodyText ||| the link (u, v). One indirect way to reveal such features
+bodyText ||| to the apprentice is to classify u, and to add the names
+bodyText ||| of some of the top-scoring classes for u to the instance
+bodyText ||| (u, v). §2.2.3 explains why this may help. This modification
+bodyText ||| resulted in a 1% increase in the accuracy of the apprentice.
+bodyText ||| A further increase of 1% was observed if we added all
+figureCaption ||| Figure 14: Another example of training the apprentice
+figureCaption ||| online followed by starting to use it for crawl guidance.
+figureCaption ||| Before guidance, loss accumulation rate is over 30%, after,
+figureCaption ||| it drops to only 6%.
+bodyText ||| prefixes of the class name. For example, the full name
+bodyText ||| for the Linux category is /Computers/Software/Operating-
+bodyText ||| Systems/Linux. We added all of the following to the
+bodyText ||| feature set of the source page: /, /Computers, /Computers/
+bodyText ||| Software, /Computers/Software/Operating-Systems and
+bodyText ||| /Computers/Software/Operating-Systems/Linux. We also
+bodyText ||| noted that various class names and some of their prefixes
+bodyText ||| appeared amongst the best discriminants of the positive and
+bodyText ||| negative classes.
+bodyText ||| Cocitation features for the link (u, v) are constructed by
+bodyText ||| looking for other links (u, w) within a DOM distance of dmax
+bodyText ||| such that w has already been fetched, so that Pr(c*Iw) is
+bodyText ||| known. We discretize Pr(c*Iw) to two values HiGH and Low
+bodyText ||| as in §2.3, and encode the feature as (Low, d) or (HiGH, d).
+bodyText ||| The use of cocitation features did not improve the accuracy
+bodyText ||| of the apprentice to any appreciable extent.
+bodyText ||| For both kinds of features, we estimated that random
+bodyText ||| variations in crawling behavior (because of fluctuating
+bodyText ||| network load and tie-breaking frontier scores) may prevent
+bodyText ||| us from measuring an actual benefit to crawling under
+bodyText ||| realistic operating conditions. We note that these ideas may
+bodyText ||| be useful in other settings.
+sectionHeader ||| 4 Conclusion
+bodyText ||| We have presented a simple enhancement to a focused
+bodyText ||| crawler that helps assign better priorities to the unvisited
+bodyText ||| URLs in the crawl frontier. This leads to a higher rate of
+bodyText ||| fetching pages relevant to the focus topic and fewer false
+bodyText ||| positives which must be discarded after spending network,
+bodyText ||| CPU and storage resources processing them. There is no
+bodyText ||| need to manually train the system with paths leading to
+bodyText ||| relevant pages. The key idea is an apprentice learner which
+bodyText ||| can accurately predict the worth of fetching a page using
+bodyText ||| DOM features on pages that link to it. We show that the
+bodyText ||| DOM features we use are superior to simpler alternatives.
+bodyText ||| Using topics from Dmoz, we show that our new system can
+bodyText ||| cut down the fraction of false positives by 30–90%.
+bodyText ||| We are exploring several directions in ongoing work.
+bodyText ||| We wish to revisit continuous regression techniques for the
+bodyText ||| apprentice, as well as more extensive features derived from
+bodyText ||| the DOM. For example, we can associate with a token t the
+bodyText ||| length $ of the DOM path from the text node containing t to
+figure ||| 0	0-.2	.2-.4.4-.6	.6-.8.8-1
+figure ||| Estimated relevance of outlinks
+figure ||| Baseline
+figure ||| Apprentice
+figure ||| (b)	4500	#Pages crawled	5500
+figure ||| Collect instances
+figure ||| for apprentice
+figure ||| Train
+figure ||| apprentice
+figure ||| Apprentice
+figure ||| guides crawl
+figure ||| Folk Dancing
+figure ||| 2700
+figure ||| 2600
+figure ||| 2500
+figure ||| 2400
+figure ||| 2300
+figure ||| 2200
+figure ||| 2100
+figure ||| 12000
+figure ||| 10000
+figure ||| 8000
+figure ||| 6000
+figure ||| 4000
+figure ||| 2000
+figure ||| 0
+figure ||| 1800
+figure ||| 1600
+figure ||| 1400
+figure ||| 1200
+figure ||| 1000
+figure ||| 800
+figure ||| 600
+figure ||| 2000 3000 4000 5000 6000 7000 8000
+figure ||| #Pages fetched
+figure ||| Collect
+figure ||| instances for
+figure ||| apprentice
+figure ||| Classical Composers
+figure ||| Train
+figure ||| apprentice
+figure ||| Apprentice
+figure ||| guides crawl
+page ||| 158
+bodyText ||| the HREF to v, or the depth of their least common ancestor
+bodyText ||| in the DOM tree. We cannot use these in lieu of DOM offset,
+bodyText ||| because regions which are far apart lexically may be close
+bodyText ||| to each other along a DOM path. (t, f, d) features will be
+bodyText ||| more numerous and sparser than (t, d) features, and could
+bodyText ||| be harder to learn. The introduction of large numbers of
+bodyText ||| strongly dependent features may even reduce the accuracy
+bodyText ||| of the apprentice. Finally, we wish to implement some form
+bodyText ||| of active learning where only those instances (u, v) with the
+bodyText ||| largest I Pr(c* Iu) - Pr(c* Iv) I are chosen as training instances
+bodyText ||| for the apprentice.
+bodyText ||| Acknowledgments: Thanks to the referees for suggest-
+bodyText ||| ing that we present Figure 7.
+sectionHeader ||| References
+reference ||| [1] C. C. Aggarwal, F. Al-Garawi, and P. S. Yu. Intelligent
+reference ||| crawling on the World Wide Web with arbitrary predicates. In
+reference ||| WWW2001, Hong Kong, May 2001. ACM. Online at http:
+reference ||| //www10.org/cdrom/papers/110/.
+reference ||| [2] C. Apte, F. Damerau, and S. M. Weiss. Automated learning
+reference ||| of decision rules for text categorization. ACM Transactions on
+reference ||| Information Systems, 1994. IBM Research Report RC18879.
+reference ||| [3] A. Blum and T. M. Mitchell. Combining labeled and unlabeled
+reference ||| data with co-training. In Computational Learning Theory,
+reference ||| pages 92–100,1998.
+reference ||| [4] S. Chakrabarti. Integrating the document object model with
+reference ||| hyperlinks for enhanced topic distillation and information
+reference ||| extraction. In WWW 10, Hong Kong, May 2001. Online at
+reference ||| http://www10.org/cdrom/papers/489.
+reference ||| [5] S. Chakrabarti, B. Dom, R. Agrawal, and P. Raghavan.
+reference ||| Scalable feature selection, classification and signature generation
+reference ||| for organizing large text databases into hierarchical topic
+reference ||| taxonomies. VLDB Journal, Aug. 1998. Online at http:
+reference ||| //www.cs.berkeley.edu/~soumen/VLDB54_3.PDF.
+reference ||| [6] S. Chakrabarti, B. Dom, D. Gibson, J. Kleinberg, P. Raghavan,
+reference ||| and S. Rajagopalan.	Automatic resource compilation by
+reference ||| analyzing hyperlink structure and associated text. In 7th World-
+reference ||| wide web conference (WWW7), 1998. Online at http://www7.
+reference ||| scu.edu.au/programme/fullpapers/1898/com1898.html.
+reference ||| [7] S. Chakrabarti, B. Dom, and P. Indyk. Enhanced hypertext
+reference ||| categorization using hyperlinks. In SIGMOD Conference. ACM,
+reference ||| 1998. Online at http://www.cs.berkeley.edu/~soumen/sigmod98.
+reference ||| ps.
+reference ||| [8] S. Chakrabarti, B. E. Dom, D. A. Gibson, R. Kumar,
+reference ||| P. Raghavan, S. Rajagopalan, and A. Tomkins. Topic distillation
+reference ||| and spectral filtering. Artificial Intelligence Review, 13(5–
+reference ||| 6):409–435, 1999.
+reference ||| [9] S. Chakrabarti, M. van den Berg, and B. Dom. Focused
+reference ||| crawling: a new approach to topic-specific web resource
+reference ||| discovery. Computer Networks, 31:1623–1640, 1999. First
+reference ||| appeared in the 8th International World Wide Web Conference,
+reference ||| Toronto, May 1999. Available online at http://www8.org/
+reference ||| w8-papers/5a-search-query/crawling/index.html.
+reference ||| [10] J. Cho, H. Garcia-Molina, and L. Page. Efficient crawling
+reference ||| through URL ordering. In 7th World Wide Web Conference,
+reference ||| Brisbane, Australia, Apr. 1998. Online at http://www7.scu.edu.
+reference ||| au/programme/fullpapers/1919/com1919.htm.
+reference ||| [11] B. D. Davison. Topical locality in the Web. In Proceedings
+reference ||| of the 23rd Annual International Conference on Research and
+reference ||| Development in Information Retrieval (SIGIR 2000), pages
+reference ||| 272–279, Athens, Greece, July 2000. ACM. Online at http://
+reference ||| www.cs.rutgers.edu/~davison/pubs/2000/sigir/.
+reference ||| [12] P. M. E. De Bra and R. D. J. Post. Information retrieval
+reference ||| in the world-wide web: Making client-based searching feasible.
+reference ||| In Proceedings of the First International World Wide Web
+reference ||| Conference, Geneva, Switzerland, 1994. Online at http://www1.
+reference ||| cern.ch/PapersWWW94/reinpost.ps.
+reference ||| [13] P. M. E. De Bra and R. D. J. Post. Searching for arbitrary
+reference ||| information in the WWW: The fish search for Mosaic. In Second
+reference ||| World Wide Web Conference ’9¢: Mosaic and the Web,
+reference ||| Chicago, Oct. 1994. Online at http://archive.ncsa.uiuc.edu/
+reference ||| SDG/IT94/Proceedings/Searching/debra/article.html and http:
+reference ||| //citeseer.nj.nec.com/172936.html.
+reference ||| [14] M. Diligenti, F. Coetzee, S. Lawrence, C. L. Giles, and M. Gori.
+reference ||| Focused crawling using context graphs. In A. E. Abbadi, M. L.
+reference ||| Brodie, S. Chakravarthy, U. Dayal, N. Kamel, G. Schlageter,
+reference ||| and K.-Y. Whang, editors, VLDB 2000, Proceedings of
+reference ||| 26th International Conference on Very Large Data Bases,
+reference ||| September 10-1¢, 2000, Cairo, Egypt, pages 527–534. Morgan
+reference ||| Kaufmann, 2000. Online at http://www.neci.nec.com/~lawrence/
+reference ||| papers/focus-vldb00/focus-vldb00.pdf.
+reference ||| [15] W. A. Gale, K. W. Church, and D. Yarowsky. A method for
+reference ||| disambiguating word senses in a large corpus. Computer and
+reference ||| the Humanities, 26:415–439, 1993.
+reference ||| [16] M. Hersovici, M. Jacovi, Y. S. Maarek, D. Pelleg, M. Shtalhaim,
+reference ||| and S. Ur. The shark-search algorithm—an application: Tailored
+reference ||| Web site mapping. In WWW7, 1998. Online at http://www7.scu.
+reference ||| edu.au/programme/fullpapers/1849/com1849.htm.
+reference ||| [17] T. Joachims, D. Freitag, and T. Mitchell. Web Watcher: A tour
+reference ||| guide for the web. In IJCAI, Aug. 1997. Online at http://www.
+reference ||| cs.cmu.edu/~webwatcher/ijcai97.ps.
+reference ||| [18] H. Leiberman. Letizia: An agent that assists Web browsing. In
+reference ||| International Joint Conference on Artificial Intelligence (IJ-
+reference ||| CAI), Montreal, Aug. 1995. See Website at http://lieber.www.
+reference ||| media.mit.edu/people/lieber/Lieberary/Letizia/Letizia.html.
+reference ||| [19] H. Leiberman, C. Fry, and L. Weitzman. Exploring the Web
+reference ||| with reconnaissance agents. CACM, 44(8):69–75, Aug. 2001.
+reference ||| http://www.acm.org/cacm.
+reference ||| [20] A. McCallum. Bow: A toolkit for statistical language modeling,
+reference ||| text retrieval, classification and clustering. Software available
+reference ||| from http://www.cs.cmu.edu/~mccallum/bow/,1998.
+reference ||| [21] A. McCallum and K. Nigam. A comparison of event models for
+reference ||| naive Bayes text classification. In AAAI/ICML-98 Workshop
+reference ||| on Learning for Teat Categorization, pages 41–48. AAAI Press,
+reference ||| 1998. Online at http://www.cs.cmu.edu/~knigam/.
+reference ||| [22] A. McCallum and K. Nigam. A comparison of event models for
+reference ||| naive Bayes text classification. In AAAI/ICML-98 Workshop
+reference ||| on Learning for Teat Categorization, pages 41–48. AAAI Press,
+reference ||| 1998. Also technical report WS-98-05, CMU; online at http:
+reference ||| //www.cs.cmu.edu/~knigam/papers/multinomial-aaaiws98.pdf.
+reference ||| [23] F. Menczer. Links tell us about lexical and semantic
+reference ||| Web content. Technical Report Computer Science Abstract
+reference ||| CS.IR/0108004, arXiv.org, Aug. 2001. Online at http://arxiv.
+reference ||| org/abs/cs.IR/0108004.
+reference ||| [24] F. Menczer and R. K. Belew. Adaptive retrieval agents:
+reference ||| Internalizing local context and scaling up to the Web. Machine
+reference ||| Learning, 39(2/3):203–242, 2000. Longer version available as
+reference ||| Technical Report CS98-579, http://dollar.biz.uiowa.edu/~fil/
+reference ||| Papers/MLJ.ps, University of California, San Diego.
+reference ||| [25] F. Menczer, G. Pant, M. Ruiz, and P. Srinivasan. Evaluating
+reference ||| topic-driven Web crawlers. In SIGIR, New Orleans, Sept. 2001.
+reference ||| ACM.	Online at http://dollar.biz.uiowa.edu/~fil/Papers/
+reference ||| sigir-01.pdf.
+reference ||| [26] T. Mitchell. Machine Learning. McGraw Hill, 1997.
+reference ||| [27] T. Mitchell. Mining the Web. In SIGIR 2001, Sept. 2001. Invited
+reference ||| talk.
+reference ||| [28] S. Mukherjea. WTMS: a system for collecting and analyzing
+reference ||| topic-specific Web information. WWW9/Computer Networks,
+reference ||| 33(1–6):457–471, 2000. Online at http://www9.org/w9cdrom/293/
+reference ||| 293.html.
+reference ||| [29] S. RaviKumar, P. Raghavan, S. Rajagopalan, D. Sivakumar,
+reference ||| A. Tomkins, and E. Upfal. Stochastic models for the Web graph.
+reference ||| In FOCS, volume 41, pages 57–65. IEEE, nov 2000. Online at
+reference ||| http://www.cs.brown.edu/people/eli/papers/focs00.ps.
+reference ||| [30] J. Rennie and A. McCallum. Using reinforcement learning to
+reference ||| spider the web efficiently. In ICML, 1999. Online at http://
+reference ||| www.cs.cmu.edu/~mccallum/papers/rlspider-icml99s.ps.gz.
+reference ||| [31] G. Salton and M. J. McGill. Introduction to Modern
+reference ||| Information Retrieval. McGraw-Hill, 1983.
+reference ||| [32] M. Subramanyam, G. V. R. Phanindra, M. Tiwari, and M. Jain.
+reference ||| Focused crawling using TFIDF centroid. Hypertext Retrieval
+reference ||| and Mining (CS610) class project, Apr. 2001. Details available
+reference ||| from manyam@cs.utexas.edu.
+reference ||| [33] L. Torgo and J. Gama. Regression by classification. In D. Borges
+reference ||| and C. Kaestner, editors, Brasilian AI Symposium, volume 1159
+reference ||| of Lecture Notes in Artificial Intelligence, Curitiba, Brazil,
+reference ||| 1996. Springer-Verlag. Online at http://www.ncc.up.pt/~ltorgo/
+reference ||| Papers/list_pub.html.
+page ||| 159

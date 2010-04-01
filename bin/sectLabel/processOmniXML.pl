@@ -126,31 +126,36 @@ if($isDebug){
   print STDERR "\n# Processing file $inFile & output to $outFile\n";
 }
 my $allText = processFile($inFile, $outFile, \%tags);
-my ($headerCount, $bodyCount, $referenceCount) = getStructureInfo($allText);
-my $headerEnd = $headerCount;
-my $bodyEnd = $headerCount + $bodyCount;
-my $referenceEnd = $headerCount + $bodyCount + $referenceCount;
-print STDERR "($headerCount, $bodyCount, $referenceCount)\n";
+my @lines = split(/\n/, $allText);
+my $numLines = scalar(@lines);
+print STDERR $numLines."\n";
 
-output($allText, $outFile);
+my ($headerLength, $bodyLength, $citationLength, $bodyStartId, $bodyEndId) = getStructureInfo(\@lines, $numLines);
+print STDERR "($headerLength, $bodyLength, $citationLength, $bodyStartId, $bodyEndId)\n";
+
+output(\@lines, $outFile);
 
 if($tagFile ne ""){
   printTagInfo(\%tags, $tagFile);
 }
 
 sub getStructureInfo {
-  my ($text) = @_;
-  my ($rBodyText, $rReferenceText) =
-    SectLabel::PreProcess::findCitationText(\$text);
+  my ($lines, $numLines) = @_;
+
+  my ($bodyLength, $citationLength, $bodyEndId) =
+    SectLabel::PreProcess::findCitationText($lines, 0, $numLines);
   
-  my $rHeaderText;
-  ($rHeaderText, $rBodyText) =
-    SectLabel::PreProcess::findHeaderText($rBodyText);
-  my @headerLines = split(/\n/, $$rHeaderText);
-  my @bodyLines = split(/\n/, $$rBodyText);
-  my @referenceLines = split(/\n/, $$rReferenceText);
+  my ($headerLength, $bodyStartId);
+  ($headerLength, $bodyLength, $bodyStartId) =
+    SectLabel::PreProcess::findHeaderText($lines, 0, $bodyLength);
   
-  return(scalar(@headerLines), scalar(@bodyLines), scalar(@referenceLines));
+  # sanity check
+  my $totalLength = $headerLength + $bodyLength + $citationLength;
+  if($numLines != $totalLength){
+    print STDOUT "Die in getStructureInfo(): different num lines $numLines != $totalLength\n"; # to display in Web
+    die "Die in getStructureInfo(): different num lines $numLines != $totalLength\n";
+  }
+  return ($headerLength, $bodyLength, $citationLength, $bodyStartId, $bodyEndId);
 }
 
 sub processFile {
@@ -237,13 +242,11 @@ sub processFile {
 }
 
 sub output {
-  my ($allText) = @_;
+  my ($lines, $outFile) = @_;
 
   open(OF, ">:utf8", "$outFile") || die"#Can't open file \"$outFile\"\n";
 
   ####### Final output ############
-  my @lines = split(/\n/, $allText);
-  print STDERR scalar(@lines)."\n";
   # xml feature label
   my %gFontSizeLabels = (); 
   my %gIndentLabels = (); # yes, no
@@ -261,7 +264,7 @@ sub output {
   my $output = "";
   my $paraLineId = -1;
   my $paraLineCount = 0;
-  foreach my $line (@lines) {
+  foreach my $line (@{$lines}) {
     $id++;
 
     if($line =~ /^\s*$/){ # # empty lines
@@ -381,9 +384,9 @@ sub output {
 
       if($isStructureFeature){
 	my $structureFeature;
-	if($id < $headerEnd){
+	if($id < $bodyStartId){
 	  $structureFeature = "xmlStructure_header";
-	} elsif($id < $bodyEnd){
+	} elsif($id <= $bodyEndId){
 	  $structureFeature = "xmlStructure_body";
 	} else {
 	  $structureFeature = "xmlStructure_reference";

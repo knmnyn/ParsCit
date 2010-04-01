@@ -1,0 +1,868 @@
+title ||| Cross Language Dependency Parsing using a Bilingual Lexicon*
+author ||| Hai Zhao(O— )tt, Yan Song(*,,O)t, Chunyu Kitt, Guodong Zhout
+affiliation ||| tDepartment of Chinese, Translation and Linguistics
+affiliation ||| City University of Hong Kong
+address ||| 83 Tat Chee Avenue, Kowloon, Hong Kong, China
+affiliation ||| $School of Computer Science and Technology
+address ||| Soochow University, Suzhou, China 2'5006
+email ||| {haizhao,yansong,ctckit}@cityu.edu.hk, gdzhou@suda.edu.cn
+sectionHeader ||| Abstract
+bodyText ||| This paper proposes an approach to en-
+bodyText ||| hance dependency parsing in a language
+bodyText ||| by using a translated treebank from an-
+bodyText ||| other language. A simple statistical ma-
+bodyText ||| chine translation method, word-by-word
+bodyText ||| decoding, where not a parallel corpus but
+bodyText ||| a bilingual lexicon is necessary, is adopted
+bodyText ||| for the treebank translation. Using an en-
+bodyText ||| semble method, the key information ex-
+bodyText ||| tracted from word pairs with dependency
+bodyText ||| relations in the translated text is effectively
+bodyText ||| integrated into the parser for the target lan-
+bodyText ||| guage. The proposed method is evaluated
+bodyText ||| in English and Chinese treebanks. It is
+bodyText ||| shown that a translated English treebank
+bodyText ||| helps a Chinese parser obtain a state-of-
+bodyText ||| the-art result.
+sectionHeader ||| 1 Introduction
+bodyText ||| Although supervised learning methods bring state-
+bodyText ||| of-the-art outcome for dependency parser infer-
+bodyText ||| ring (McDonald et al., 2005; Hall et al., 2007), a
+bodyText ||| large enough data set is often required for specific
+bodyText ||| parsing accuracy according to this type of meth-
+bodyText ||| ods. However, to annotate syntactic structure, ei-
+bodyText ||| ther phrase- or dependency-based, is a costly job.
+bodyText ||| Until now, the largest treebanks' in various lan-
+bodyText ||| guages for syntax learning are with around one
+bodyText ||| million words (or some other similar units). Lim-
+bodyText ||| ited data stand in the way of further performance
+bodyText ||| enhancement. This is the case for each individual
+bodyText ||| language at least. But, this is not the case as we
+bodyText ||| observe all treebanks in different languages as a
+bodyText ||| whole. For example, of ten treebanks for CoNLL-
+bodyText ||| 2007 shared task, none includes more than 500K
+footnote ||| �The study is partially supported by City University of
+footnote ||| Hong Kong through the Strategic Research Grant 7002037
+footnote ||| and 7002388. The first author is sponsored by a research fel-
+footnote ||| lowship from CTL, City University of Hong Kong.
+footnote ||| 'It is a tradition to call an annotated syntactic corpus as
+footnote ||| treebank in parsing community.
+bodyText ||| tokens, while the sum of tokens from all treebanks
+bodyText ||| is about two million (Nivre et al., 2007).
+bodyText ||| As different human languages or treebanks
+bodyText ||| should share something common, this makes it
+bodyText ||| possible to let dependency parsing in multiple lan-
+bodyText ||| guages be beneficial with each other. In this pa-
+bodyText ||| per, we study how to improve dependency parsing
+bodyText ||| by using (automatically) translated texts attached
+bodyText ||| with transformed dependency information. As a
+bodyText ||| case study, we consider how to enhance a Chinese
+bodyText ||| dependency parser by using a translated English
+bodyText ||| treebank. What our method relies on is not the
+bodyText ||| close relation of the chosen language pair but the
+bodyText ||| similarity of two treebanks, this is the most differ-
+bodyText ||| ent from the previous work.
+bodyText ||| Two main obstacles are supposed to confront in
+bodyText ||| a cross-language dependency parsing task. The
+bodyText ||| first is the cost of translation. Machine translation
+bodyText ||| has been shown one of the most expensive lan-
+bodyText ||| guage processing tasks, as a great deal of time and
+bodyText ||| space is required to perform this task. In addition,
+bodyText ||| a standard statistical machine translation method
+bodyText ||| based on a parallel corpus will not work effec-
+bodyText ||| tively if it is not able to find a parallel corpus that
+bodyText ||| right covers source and target treebanks. How-
+bodyText ||| ever, dependency parsing focuses on the relations
+bodyText ||| of word pairs, this allows us to use a dictionary-
+bodyText ||| based translation without assuming a parallel cor-
+bodyText ||| pus available, and the training stage of translation
+bodyText ||| may be ignored and the decoding will be quite fast
+bodyText ||| in this case. The second difficulty is that the out-
+bodyText ||| puts of translation are hardly qualified for the pars-
+bodyText ||| ing purpose. The most challenge in this aspect is
+bodyText ||| morphological preprocessing. We regard that the
+bodyText ||| morphological issue should be handled aiming at
+bodyText ||| the specific language, our solution here is to use
+bodyText ||| character-level features for a target language like
+bodyText ||| Chinese.
+bodyText ||| The rest of the paper is organized as follows.
+bodyText ||| The next section presents some related existing
+bodyText ||| work. Section 3 describes the procedure on tree-
+page ||| 55
+note ||| Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 55–63,
+note ||| Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP
+bodyText ||| bank translation and dependency transformation.
+bodyText ||| Section 4 describes a dependency parser for Chi-
+bodyText ||| nese as a baseline. Section 5 describes how a
+bodyText ||| parser can be strengthened from the translated
+bodyText ||| treebank. The experimental results are reported in
+bodyText ||| Section 6. Section 7 looks into a few issues con-
+bodyText ||| cerning the conditions that the proposed approach
+bodyText ||| is suitable for. Section 8 concludes the paper.
+sectionHeader ||| 2 The Related Work
+bodyText ||| As this work is about exploiting extra resources to
+bodyText ||| enhance an existing parser, it is related to domain
+bodyText ||| adaption for parsing that has been draw some in-
+bodyText ||| terests in recent years. Typical domain adaptation
+bodyText ||| tasks often assume annotated data in new domain
+bodyText ||| absent or insufficient and a large scale unlabeled
+bodyText ||| data available. As unlabeled data are concerned,
+bodyText ||| semi-supervised or unsupervised methods will be
+bodyText ||| naturally adopted. In previous works, two basic
+bodyText ||| types of methods can be identified to enhance an
+bodyText ||| existing parser from additional resources. The first
+bodyText ||| is usually focus on exploiting automatic generated
+bodyText ||| labeled data from the unlabeled data (Steedman
+bodyText ||| et al., 2003; McClosky et al., 2006; Reichart and
+bodyText ||| Rappoport, 2007; Sagae and Tsujii, 2007; Chen
+bodyText ||| et al., 2008), the second is on combining super-
+bodyText ||| vised and unsupervised methods, and only unla-
+bodyText ||| beled data are considered (Smith and Eisner, 2006;
+bodyText ||| Wang and Schuurmans, 2008; Koo et al., 2008).
+bodyText ||| Our purpose in this study is to obtain a further
+bodyText ||| performance enhancement by exploiting treebanks
+bodyText ||| in other languages. This is similar to the above
+bodyText ||| first type of methods, some assistant data should
+bodyText ||| be automatically generated for the subsequent pro-
+bodyText ||| cessing. The differences are what type of data are
+bodyText ||| concerned with and how they are produced. In our
+bodyText ||| method, a machine translation method is applied
+bodyText ||| to tackle golden-standard treebank, while all the
+bodyText ||| previous works focus on the unlabeled data.
+bodyText ||| Although cross-language technique has been
+bodyText ||| used in other natural language processing tasks,
+bodyText ||| it is basically new for syntactic parsing as few
+bodyText ||| works were concerned with this issue. The rea-
+bodyText ||| son is straightforward, syntactic structure is too
+bodyText ||| complicated to be properly translated and the cost
+bodyText ||| of translation cannot be afforded in many cases.
+bodyText ||| However, we empirically find this difficulty may
+bodyText ||| be dramatically alleviated as dependencies rather
+bodyText ||| than phrases are used for syntactic structure repre-
+bodyText ||| sentation. Even the translation outputs are not so
+bodyText ||| good as the expected, a dependency parser for the
+bodyText ||| target language can effectively make use of them
+bodyText ||| by only considering the most related information
+bodyText ||| extracted from the translated text.
+bodyText ||| The basic idea to support this work is to make
+bodyText ||| use of the semantic connection between different
+bodyText ||| languages. In this sense, it is related to the work of
+bodyText ||| (Merlo et al., 2002) and (Burkett and Klein, 2008).
+bodyText ||| The former showed that complementary informa-
+bodyText ||| tion about English verbs can be extracted from
+bodyText ||| their translations in a second language (Chinese)
+bodyText ||| and the use of multilingual features improves clas-
+bodyText ||| sification performance of the English verbs. The
+bodyText ||| latter iteratively trained a model to maximize the
+bodyText ||| marginal likelihood of tree pairs, with alignments
+bodyText ||| treated as latent variables, and then jointly parsing
+bodyText ||| bilingual sentences in a translation pair. The pro-
+bodyText ||| posed parser using features from monolingual and
+bodyText ||| mutual constraints helped its log-linear model to
+bodyText ||| achieve better performance for both monolingual
+bodyText ||| parsers and machine translation system. In this
+bodyText ||| work, cross-language features will be also adopted
+bodyText ||| as the latter work. However, although it is not es-
+bodyText ||| sentially different, we only focus on dependency
+bodyText ||| parsing itself, while the parsing scheme in (Bur-
+bodyText ||| kett and Klein, 2008) based on a constituent rep-
+bodyText ||| resentation.
+bodyText ||| Among of existing works that we are aware of,
+bodyText ||| we regard that the most similar one to ours is (Ze-
+bodyText ||| man and Resnik, 2008), who adapted a parser to a
+bodyText ||| new language that is much poorer in linguistic re-
+bodyText ||| sources than the source language. However, there
+bodyText ||| are two main differences between their work and
+bodyText ||| ours. The first is that they considered a pair of suf-
+bodyText ||| ficiently related languages, Danish and Swedish,
+bodyText ||| and made full use of the similar characteristics of
+bodyText ||| two languages. Here we consider two quite dif-
+bodyText ||| ferent languages, English and Chinese. As fewer
+bodyText ||| language properties are concerned, our approach
+bodyText ||| holds the more possibility to be extended to other
+bodyText ||| language pairs than theirs. The second is that a
+bodyText ||| parallel corpus is required for their work and a
+bodyText ||| strict statistical machine translation procedure was
+bodyText ||| performed, while our approach holds a merit of
+bodyText ||| simplicity as only a bilingual lexicon is required.
+sectionHeader ||| 3 Treebank Translation and Dependency
+sectionHeader ||| Transformation
+subsectionHeader ||| 3.1 Data
+bodyText ||| As a case study, this work will be conducted be-
+bodyText ||| tween the source language, English, and the tar-
+bodyText ||| get language, Chinese, namely, we will investigate
+page ||| 56
+bodyText ||| how a translated English treebank enhances a Chi-
+bodyText ||| nese dependency parser.
+bodyText ||| For English data, the Penn Treebank (PTB) 3
+bodyText ||| is used. The constituency structures is converted
+bodyText ||| to dependency trees by using the same rules as
+bodyText ||| (Yamada and Matsumoto, 2003) and the standard
+bodyText ||| training/development/test split is used. However,
+bodyText ||| only training corpus (sections 2-21) is used for
+bodyText ||| this study. For Chinese data, the Chinese Treebank
+bodyText ||| (CTB) version 4.0 is used in our experiments. The
+bodyText ||| same rules for conversion and the same data split
+bodyText ||| is adopted as (Wang et al., 2007): files 1-270 and
+bodyText ||| 400-931 as training, 271-300 as testing and files
+bodyText ||| 301-325 as development. We use the gold stan-
+bodyText ||| dard segmentation and part-of-speech (POS) tags
+bodyText ||| in both treebanks.
+bodyText ||| As a bilingual lexicon is required for our task
+bodyText ||| and none of existing lexicons are suitable for trans-
+bodyText ||| lating PTB, two lexicons, LDC Chinese-English
+bodyText ||| Translation Lexicon Version 2.0 (LDC2002L27),
+bodyText ||| and an English to Chinese lexicon in StarDict2,
+bodyText ||| are conflated, with some necessary manual exten-
+bodyText ||| sions, to cover 99% words appearing in the PTB
+bodyText ||| (the most part of the untranslated words are named
+bodyText ||| entities.). This lexicon includes 123K entries.
+subsectionHeader ||| 3.2 Translation
+bodyText ||| A word-by-word statistical machine translation
+bodyText ||| strategy is adopted to translate words attached
+bodyText ||| with the respective dependency information from
+bodyText ||| the source language to the target one. In detail, a
+bodyText ||| word-based decoding is used, which adopts a log-
+bodyText ||| linear framework as in (Och and Ney, 2002) with
+bodyText ||| only two features, translation model and language
+bodyText ||| model,
+equation ||| exp[E2i� 1 Aihi(c, e)]
+equation ||| E, exp[E2i� 1 Aihi(c, e)]
+equation ||| Where
+equation ||| h1 (c, e) = log(p .y(c�e))
+bodyText ||| is the translation model, which is converted from
+bodyText ||| the bilingual lexicon, and
+equation ||| h2 (c, e) = log (pO (c))
+bodyText ||| is the language model, a word trigram model
+bodyText ||| trained from the CTB. In our experiment, we set
+bodyText ||| two weights A1 = A2 = 1.
+footnote ||| 2StarDict is an open source dictionary software, available
+footnote ||| at http://stardict.sourceforge.net/.
+bodyText ||| The conversion process of the source treebank
+bodyText ||| is completed by three steps as the following:
+listItem ||| 1. Bind POS tag and dependency relation of a
+listItem ||| word with itself;
+listItem ||| 2. Translate the PTB text into Chinese word by
+bodyText ||| word. Since we use a lexicon rather than a parallel
+bodyText ||| corpus to estimate the translation probabilities, we
+bodyText ||| simply assign uniform probabilities to all transla-
+bodyText ||| tion options. Thus the decoding process is actu-
+bodyText ||| ally only determined by the language model. Sim-
+bodyText ||| ilar to the “bag translation” experiment in (Brown
+bodyText ||| et al., 1990), the candidate target sentences made
+bodyText ||| up by a sequence of the optional target words are
+bodyText ||| ranked by the trigram language model. The output
+bodyText ||| sentence will be generated only if it is with maxi-
+bodyText ||| mum probability as follows,
+equation ||| c = argmax{pO(c)p.y(c�e)}
+equation ||| = argmax pO (c)
+equation ||| = argmaxn pO (w,)
+bodyText ||| A beam search algorithm is used for this process
+bodyText ||| to find the best path from all the translation op-
+bodyText ||| tions; As the training stage, especially, the most
+bodyText ||| time-consuming alignment sub-stage, is skipped,
+bodyText ||| the translation only includes a decoding procedure
+bodyText ||| that takes about 4.5 hours for about one million
+bodyText ||| words of the PTB in a 2.8GHz PC.
+listItem ||| 3. After the target sentence is generated, the at-
+bodyText ||| tached POS tags and dependency information of
+bodyText ||| each English word will also be transferred to each
+bodyText ||| corresponding Chinese word. As word order is of-
+bodyText ||| ten changed after translation, the pointer of each
+bodyText ||| dependency relationship, represented by a serial
+bodyText ||| number, should be re-calculated.
+bodyText ||| Although we try to perform an exact word-by-
+bodyText ||| word translation, this aim cannot be fully reached
+bodyText ||| in fact, as the following case is frequently encoun-
+bodyText ||| tered, multiple English words have to be translated
+bodyText ||| into one Chinese word. To solve this problem,
+bodyText ||| we use a policy that lets the output Chinese word
+bodyText ||| only inherits the attached information of the high-
+bodyText ||| est syntactic head in the original multiple English
+bodyText ||| words.
+sectionHeader ||| 4 Dependency Parsing: Baseline
+subsectionHeader ||| 4.1 Learning Model and Features
+bodyText ||| According to (McDonald and Nivre, 2007), all
+bodyText ||| data-driven models for dependency parsing that
+bodyText ||| have been proposed in recent years can be de-
+bodyText ||| scribed as either graph-based or transition-based.
+equation ||| P(cle) =
+page ||| 57
+tableCaption ||| Table 1: Feature Notations
+bodyText ||| Although the former will be also used as compari-
+bodyText ||| son, the latter is chosen as the main parsing frame-
+bodyText ||| work by this study for the sake of efficiency. In de-
+bodyText ||| tail, a shift-reduce method is adopted as in (Nivre,
+bodyText ||| 2003), where a classifier is used to make a parsing
+bodyText ||| decision step by step. In each step, the classifier
+bodyText ||| checks a word pair, namely, s, the top of a stack
+bodyText ||| that consists of the processed words, and, i, the
+bodyText ||| first word in the (input) unprocessed sequence, to
+bodyText ||| determine if a dependent relation should be estab-
+bodyText ||| lished between them. Besides two dependency arc
+bodyText ||| building actions, a shift action and a reduce ac-
+bodyText ||| tion are also defined to maintain the stack and the
+bodyText ||| unprocessed sequence. In this work, we adopt a
+bodyText ||| left-to-right arc-eager parsing model, that means
+bodyText ||| that the parser scans the input sequence from left
+bodyText ||| to right and right dependents are attached to their
+bodyText ||| heads as soon as possible (Hall et al., 2007).
+bodyText ||| While memory-based and margin-based learn-
+bodyText ||| ing approaches such as support vector machines
+bodyText ||| are popularly applied to shift-reduce parsing, we
+bodyText ||| apply maximum entropy model as the learning
+bodyText ||| model for efficient training and adopting over-
+bodyText ||| lapped features as our work in (Zhao and Kit,
+bodyText ||| 2008), especially, those character-level ones for
+bodyText ||| Chinese parsing. Our implementation of maxi-
+bodyText ||| mum entropy adopts L-BFGS algorithm for pa-
+bodyText ||| rameter optimization as usual.
+bodyText ||| With notations defined in Table 1, a feature set
+bodyText ||| as shown in Table 2 is adopted. Here, we explain
+bodyText ||| some terms in Tables 1 and 2. We used a large
+bodyText ||| scale feature selection approach as in (Zhao et al.,
+bodyText ||| 2009) to obtain the feature set in Table 2. Some
+bodyText ||| feature notations in this paper are also borrowed
+bodyText ||| from that work.
+bodyText ||| The feature curroot returns the root of a par-
+bodyText ||| tial parsing tree that includes a specified node.
+bodyText ||| The feature charseq returns a character sequence
+bodyText ||| whose members are collected from all identified
+bodyText ||| children for a specified word.
+bodyText ||| In Table 2, as for concatenating multiple sub-
+bodyText ||| strings into a feature string, there are two ways,
+bodyText ||| seq and bag. The former is to concatenate all sub-
+bodyText ||| strings without do something special. The latter
+bodyText ||| will remove all duplicated substrings, sort the rest
+bodyText ||| and concatenate all at last.
+bodyText ||| Note that we systemically use a group of
+bodyText ||| character-level features. Surprisingly, as to our
+bodyText ||| best knowledge, this is the first report on using this
+bodyText ||| type of features in Chinese dependency parsing.
+bodyText ||| Although (McDonald et al., 2005) used the pre-
+bodyText ||| fix of each word form instead of word form itself
+bodyText ||| as features, character-level features here for Chi-
+bodyText ||| nese is essentially different from that. As Chinese
+bodyText ||| is basically a character-based written language.
+bodyText ||| Character plays an important role in many means,
+bodyText ||| most characters can be formed as single-character
+bodyText ||| words, and Chinese itself is character-order free
+bodyText ||| rather than word-order free to some extent. In ad-
+bodyText ||| dition, there is often a close connection between
+bodyText ||| the meaning of a Chinese word and its first or last
+bodyText ||| character.
+subsectionHeader ||| 4.2 Parsing using a Beam Search Algorithm
+bodyText ||| In Table 2, the feature preact� returns the previous
+bodyText ||| parsing action type, and the subscript n stands for
+bodyText ||| the action order before the current action. These
+bodyText ||| are a group of Markovian features. Without this
+bodyText ||| type of features, a shift-reduce parser may directly
+bodyText ||| scan through an input sequence in linear time.
+bodyText ||| Otherwise, following the work of (Duan et al.,
+bodyText ||| 2007) and (Zhao, 2009), the parsing algorithm is
+bodyText ||| to search a parsing action sequence with the max-
+bodyText ||| imal probability.
+equation ||| Y5di = argmax p(di �di-1di-2...)�
+equation ||| i
+bodyText ||| where 5di is the object parsing action sequence,
+bodyText ||| p(di � di-1...) is the conditional probability, and di
+table ||| Meaning
+table ||| The word in the top of stack
+table ||| The first word below the top of stack.
+table ||| The first word before(after) the word
+table ||| in the top of stack.
+table ||| The first (second) word in the
+table ||| unprocessed sequence, etc.
+table ||| Dependent direction
+table ||| Head
+table ||| Leftmost child
+table ||| Rightmost child
+table ||| Right nearest child
+table ||| word form
+table ||| POS tag of word
+table ||| coarse POS: the first letter of POS tag of word
+table ||| coarse POS: the first two POS tags of word
+table ||| the left nearest verb
+table ||| The first character of a word
+table ||| The first two characters of a word
+table ||| The last character of a word
+table ||| The last two characters of a word
+table ||| ’s, i.e., ‘s.dprel’ means dependent label
+table ||| of character in the top of stack
+table ||| Feature combination, i.e., ‘s.char+i.char’
+table ||| means both s.char and i.char work as a
+table ||| feature function.
+table ||| Notation
+table ||| s
+table ||| s'
+table ||| s-1,s1...
+table ||| i, i+1,...
+table ||| dir
+table ||| h
+table ||| lm
+table ||| rm
+table ||| rn
+table ||| form
+table ||| pos
+table ||| cpos1
+table ||| cpos2
+table ||| lnverb
+table ||| char1
+table ||| char2
+table ||| char-1
+table ||| char-2
+table ||| .
+table ||| +
+page ||| 58
+figureCaption ||| Figure 1: A comparison before and after translation
+figureCaption ||| is i-th parsing action. We use a beam search algo-
+figureCaption ||| rithm to find the object parsing action sequence.
+table ||| Table 2: Features for Parsing
+table ||| 	in . f orm, n = 0, 1 i.f orm + i1.form
+table ||| 	in.char2 + in+1.char2, n = —1, 0
+table ||| 	i.char_1 + i1.char_1
+table ||| 	in.char_2 n = 0, 3
+table ||| 	i1.char_2 +i2.char_2 +i3.char_2 i.lnverb.char_2
+table ||| 	i3.pos
+table ||| 	in.pos + in+1.pos, n = 0, 1
+table ||| 	i_2.cpos1 + i_1.cpos1
+table ||| 	i1 .cpos1 + i2.cpos1 + i3.cpos1
+table ||| 	s'2.char1
+table ||| 	s'.char_2 + s'1.char_2 s'_2.cpos2
+table ||| 	s'_1.cpos2 + s'1.cpos2 s'.cpos2 + s'1.cpos2 s’. children.cpos2.seq s’. children. dprel.seq s’.subtree.depth
+table ||| 	s'.h. f orm + s'.rm.cpos1 s'.lm.char2 + s'.char2 s.h. children.dprel.seq s.lm.dprel
+table ||| 	s.char_2 + i1.char_2
+table ||| 	s.charn + i.charn, n = —1,1
+table ||| 	s _ 1.pos + i1 .pos
+table ||| 	s.pos + in.pos, n = —1, 0, 1
+table ||| 	s : illinePath. f orm.bag s'.form + i.form
+table ||| 	s'.char2 + in.char2, n = —1, 0, 1
+table ||| 	s.curroot.pos + i.pos
+table ||| 	s.curroot.char2 + i.char2 s.children.cpos2.seq + i.children.cpos2.seq s.children.cpos2.seq + i.children.cpos2.seq + s.cpos2 + i.cpos2
+table ||| 	s'.children.dprel.seq + i.children.dprel.seq
+table ||| 	preact_ 1 preact_2 preact_2+preact_ 1
+sectionHeader ||| 5 Exploiting the Translated Treebank
+bodyText ||| As we cannot expect too much for a word-by-word
+bodyText ||| translation, only word pairs with dependency rela-
+bodyText ||| tion in translated text are extracted as useful and
+bodyText ||| reliable information. Then some features based
+bodyText ||| on a query in these word pairs according to the
+bodyText ||| current parsing state (namely, words in the cur-
+bodyText ||| rent stack and input) will be derived to enhance
+bodyText ||| the Chinese parser.
+bodyText ||| A translation sample can be seen in Figure 1.
+bodyText ||| Although most words are satisfactorily translated,
+bodyText ||| to generate effective features, what we still have to
+bodyText ||| consider at first is the inconsistence between the
+bodyText ||| translated text and the target text.
+bodyText ||| In Chinese, word lemma is always its word form
+bodyText ||| itself, this is a convenient characteristic in com-
+bodyText ||| putational linguistics and makes lemma features
+bodyText ||| unnecessary for Chinese parsing at all. However,
+bodyText ||| Chinese has a special primary processing task, i.e.,
+bodyText ||| word segmentation. Unfortunately, word defini-
+bodyText ||| tions for Chinese are not consistent in various lin-
+bodyText ||| guistical views, for example, seven segmentation
+bodyText ||| conventions for computational purpose are for-
+bodyText ||| mally proposed since the first Bakeoff3.
+bodyText ||| Note that CTB or any other Chinese treebank
+bodyText ||| has its own word segmentation guideline. Chi-
+bodyText ||| nese word should be strictly segmented according
+bodyText ||| to the guideline before POS tags and dependency
+bodyText ||| relations are annotated. However, as we say the
+footnote ||| 3Bakeoff is a Chinese processing share task held by
+footnote ||| SIGHAN.
+page ||| 59
+bodyText ||| English treebank is translated into Chinese word
+bodyText ||| by word, Chinese words in the translated text are
+bodyText ||| exactly some entries from the bilingual lexicon,
+bodyText ||| they are actually irregular phrases, short sentences
+bodyText ||| or something else rather than words that follows
+bodyText ||| any existing word segmentation convention. If the
+bodyText ||| bilingual lexicon is not carefully selected or re-
+bodyText ||| fined according to the treebank where the Chinese
+bodyText ||| parser is trained from, then there will be a serious
+bodyText ||| inconsistence on word segmentation conventions
+bodyText ||| between the translated and the target treebanks.
+bodyText ||| As all concerned feature values here are calcu-
+bodyText ||| lated from the searching result in the translated
+bodyText ||| word pair list according to the current parsing
+bodyText ||| state, and a complete and exact match cannot be
+bodyText ||| always expected, our solution to the above seg-
+bodyText ||| mentation issue is using a partial matching strat-
+bodyText ||| egy based on characters that the words include.
+bodyText ||| Above all, a translated word pair list, L, is ex-
+bodyText ||| tracted from the translated treebank. Each item in
+bodyText ||| the list consists of three elements, dependant word
+bodyText ||| (dp), head word (hd) and the frequency of this pair
+bodyText ||| in the translated treebank, f .
+bodyText ||| There are two basic strategies to organize the
+bodyText ||| features derived from the translated word pair list.
+bodyText ||| The first is to find the most matching word pair
+bodyText ||| in the list and extract some properties from it,
+bodyText ||| such as the matched length, part-of-speech tags
+bodyText ||| and so on, to generate features. Note that a
+bodyText ||| matching priority serial should be defined afore-
+bodyText ||| hand in this case. The second is to check every
+bodyText ||| matching models between the current parsing state
+bodyText ||| and the partially matched word pair. In an early
+bodyText ||| version of our approach, the former was imple-
+bodyText ||| mented. However, It is proven to be quite inef-
+bodyText ||| ficient in computation. Thus we adopt the sec-
+bodyText ||| ond strategy at last. Two matching model fea-
+bodyText ||| ture functions, 0(•) and 0(•), are correspondingly
+bodyText ||| defined as follows. The return value of 0(•) or
+bodyText ||| 0(•) is the logarithmic frequency of the matched
+bodyText ||| item. There are four input parameters required
+bodyText ||| by the function 0(•). Two parameters of them
+bodyText ||| are about which part of the stack(input) words is
+bodyText ||| chosen, and other two are about which part of
+bodyText ||| each item in the translated word pair is chosen.
+bodyText ||| These parameters could be set to full or charn as
+bodyText ||| shown in Table 1, where n = ..., —2, —1, 1, 2, ....
+bodyText ||| For example, a possible feature could be
+bodyText ||| �(s. f ull, i.chari, dp. f ull, hd.char1 ), it tries to
+bodyText ||| find a match in L by comparing stack word and
+bodyText ||| dp word, and the first character of input word
+tableCaption ||| Table 3: Features based on the translated treebank
+bodyText ||| and the first character of hd word. If such
+bodyText ||| a match item in L is found, then 0(•) returns
+bodyText ||| log(f ). There are three input parameters required
+bodyText ||| by the function 0(•). One parameter is about
+bodyText ||| which part of the stack(input) words is chosen,
+bodyText ||| and the other is about which part of each item
+bodyText ||| in the translated word pair is chosen. The third
+bodyText ||| is about the matching type that may be set to
+bodyText ||| dependant, head, or root. For example, the
+bodyText ||| function 0(i.chari, hd. f ull, root) tries to find a
+bodyText ||| match in L by comparing the first character of in-
+bodyText ||| put word and the whole dp word. If such a match
+bodyText ||| item in L is found, then �(•) returns log(f) as hd
+bodyText ||| occurs as ROOT f times.
+bodyText ||| As having observed that CTB and PTB share a
+bodyText ||| similar POS guideline. A POS pair list from PTB
+bodyText ||| is also extract. Two types of features, rootscore
+bodyText ||| and pairscore are used to make use of such infor-
+bodyText ||| mation. Both of them returns the logarithmic value
+bodyText ||| of the frequency for a given dependent event. The
+bodyText ||| difference is, rootscore counts for the given POS
+bodyText ||| tag occurring as ROOT, and pairscore counts for
+bodyText ||| two POS tag combination occurring for a depen-
+bodyText ||| dent relationship.
+bodyText ||| A full adapted feature list that is derived from
+bodyText ||| the translated word pairs is in Table 3.
+sectionHeader ||| 6 Evaluation Results
+bodyText ||| The quality of the parser is measured by the pars-
+bodyText ||| ing accuracy or the unlabeled attachment score
+bodyText ||| (UAS), i.e., the percentage of tokens with correct
+bodyText ||| head. Two types of scores are reported for compar-
+bodyText ||| ison: “UAS without p” is the UAS score without
+bodyText ||| all punctuation tokens and “UAS with p” is the one
+bodyText ||| with all punctuation tokens.
+bodyText ||| The results with different feature sets are in Ta-
+bodyText ||| ble 4. As the features preactn are involved, a
+table ||| 0(i.char3, s'. f ull, dp.char3, hd. f ull)+i.char3
+table ||| +s'. f orm
+table ||| 0(i.char3, s.char2, dp.char3, hd.char2)+s.char2
+table ||| 0(i.char3, s. f ull, dp.char3, hd.char2)+s. form
+table ||| ,O(s'.char-2, hd.char-2, head)+i.pos+s'.pos
+table ||| 0(i.char3, s. f ull, dp.char3, hd.char2)+s. f ull
+table ||| 0(s'. f ull, i.char4, dp. f ull, hd.char4)+s'.pos+i.pos
+table ||| ,O(i. f ull, hd.char2, root)+i.pos+s.pos
+table ||| ,O(i. f ull, hd.char2, root)+i.pos+s'.pos
+table ||| ,O(s. f ull, dp. f ull, dependant)+i.pos
+table ||| pairscore(s'.pos, i.pos)+s'. f orm+i. f orm
+table ||| rootscore(s'.pos)+s'. f orm+i. f orm
+table ||| rootscore (s'.pos)+i.pos
+page ||| 60
+bodyText ||| beam search algorithm with width 5 is used for
+bodyText ||| parsing, otherwise, a simple shift-reduce decoding
+bodyText ||| is used. It is observed that the features derived
+bodyText ||| from the translated text bring a significant perfor-
+bodyText ||| mance improvement as high as 1.3%.
+tableCaption ||| Table 4: The results with different feature sets
+tableCaption ||| features with p without p
+table ||| baseline	-d	0.846	0.858
+table ||| +d°	0.848	0.860
+table ||| +Tb	-d	0.859	0.869
+table ||| +d	0.861	0.870
+table ||| °+d: using three Markovian features preact and
+table ||| beam search decoding.
+table ||| b+T: using features derived from the translated text
+table ||| as in Table 3.
+figureCaption ||| Figure 2: Performance vs. dependency length
+bodyText ||| To compare our parser to the state-of-the-art
+bodyText ||| counterparts, we use the same testing data as
+bodyText ||| (Wang et al., 2005) did, selecting the sentences
+bodyText ||| length up to 40. Table 5 shows the results achieved
+bodyText ||| by other researchers and ours (UAS with p), which
+bodyText ||| indicates that our parser outperforms any other
+bodyText ||| ones 4. However, our results is only slightly better
+bodyText ||| than that of (Chen et al., 2008) as only sentences
+bodyText ||| whose lengths are less than 40 are considered. As
+bodyText ||| our full result is much better than the latter, this
+bodyText ||| comparison indicates that our approach improves
+bodyText ||| the performance for those longer sentences.
+tableCaption ||| Table 5: Comparison against the state-of-the-art
+tableCaption ||| 	full	up to 40
+table ||| (McDonald and Pereira, 2006)°	-	0.825
+table ||| (Wang et al., 2007)	-	0.866
+table ||| (Chen et al., 2008)	0.852	0.884
+table ||| Ours	0.861	0.889
+table ||| °This results was reported in (Wang et al., 2007).
+bodyText ||| The experimental results in (McDonald and
+bodyText ||| Nivre, 2007) show a negative impact on the pars-
+bodyText ||| ing accuracy from too long dependency relation.
+bodyText ||| For the proposed method, the improvement rela-
+bodyText ||| tive to dependency length is shown in Figure 2.
+bodyText ||| From the figure, it is seen that our method gives
+bodyText ||| observable better performance when dependency
+bodyText ||| lengths are larger than 4. Although word order is
+bodyText ||| changed, the results here show that the useful in-
+bodyText ||| formation from the translated treebank still help
+bodyText ||| those long distance dependencies.
+footnote ||| 4There is a slight exception: using the same data splitting,
+footnote ||| (Yu et al., 2008) reported UAS without p as 0.873 versus ours,
+footnote ||| 0.870.
+sectionHeader ||| 7 Discussion
+bodyText ||| If a treebank in the source language can help im-
+bodyText ||| prove parsing in the target language, then there
+bodyText ||| must be something common between these two
+bodyText ||| languages, or more precisely, these two corre-
+bodyText ||| sponding treebanks. (Zeman and Resnik, 2008)
+bodyText ||| assumed that the morphology and syntax in the
+bodyText ||| language pair should be very similar, and that is
+bodyText ||| so for the language pair that they considered, Dan-
+bodyText ||| ish and Swedish, two very close north European
+bodyText ||| languages. Thus it is somewhat surprising that
+bodyText ||| we show a translated English treebank may help
+bodyText ||| Chinese parsing, as English and Chinese even be-
+bodyText ||| long to two different language systems. However,
+bodyText ||| it will not be so strange if we recognize that PTB
+bodyText ||| and CTB share very similar guidelines on POS and
+bodyText ||| syntactics annotation. Since it will be too abstract
+bodyText ||| in discussing the details of the annotation guide-
+bodyText ||| lines, we look into the similarities of two treebanks
+bodyText ||| from the matching degree of two word pair lists.
+bodyText ||| The reason is that the effectiveness of the proposed
+bodyText ||| method actually relies on how many word pairs at
+bodyText ||| every parsing states can find their full or partial
+bodyText ||| matched partners in the translated word pair list.
+bodyText ||| Table 6 shows such a statistics on the matching
+bodyText ||| degree distribution from all training samples for
+bodyText ||| Chinese parsing. The statistics in the table suggest
+bodyText ||| that most to-be-check word pairs during parsing
+bodyText ||| have a full or partial hitting in the translated word
+bodyText ||| pair list. The latter then obtains an opportunity to
+bodyText ||| provide a great deal of useful guideline informa-
+bodyText ||| tion to help determine how the former should be
+bodyText ||| tackled. Therefore we have cause for attributing
+bodyText ||| the effectiveness of the proposed method to the
+bodyText ||| similarity of these two treebanks. From Table 6,
+page ||| 61
+bodyText ||| we also find that the partial matching strategy de-
+bodyText ||| fined in Section 5 plays a very important role in
+bodyText ||| improving the whole matching degree. Note that
+bodyText ||| our approach is not too related to the characteris-
+bodyText ||| tics of two languages. Our discussion here brings
+bodyText ||| an interesting issue, which difference is more im-
+bodyText ||| portant in cross language processing, between two
+bodyText ||| languages themselves or the corresponding anno-
+bodyText ||| tated corpora? This may be extensively discussed
+bodyText ||| in the future work.
+tableCaption ||| Table 6: Matching degree distribution
+table ||| dependant-match head-match Percent (%)
+table ||| None	None	9.6
+table ||| None	Partial	16.2
+table ||| None	Full	9.9
+table ||| Partial	None	12.4
+table ||| Partial	Partial	42.6
+table ||| Partial	Full	7.3
+table ||| Full	None	3.7
+table ||| Full	Partial	7.0
+table ||| Full	Full	0.2
+bodyText ||| Note that only a bilingual lexicon is adopted in
+bodyText ||| our approach. We regard it one of the most mer-
+bodyText ||| its for our approach. A lexicon is much easier to
+bodyText ||| be obtained than an annotated corpus. One of the
+bodyText ||| remained question about this work is if the bilin-
+bodyText ||| gual lexicon should be very specific for this kind
+bodyText ||| of tasks. According to our experiences, actually, it
+bodyText ||| is not so sensitive to choose a highly refined lexi-
+bodyText ||| con or not. We once found many words, mostly
+bodyText ||| named entities, were outside the lexicon. Thus
+bodyText ||| we managed to collect a named entity translation
+bodyText ||| dictionary to enhance the original one. However,
+bodyText ||| this extra effort did not receive an observable per-
+bodyText ||| formance improvement in return. Finally we re-
+bodyText ||| alize that a lexicon that can guarantee two word
+bodyText ||| pair lists highly matched is sufficient for this work,
+bodyText ||| and this requirement may be conveniently satis-
+bodyText ||| fied only if the lexicon consists of adequate high-
+bodyText ||| frequent words from the source treebank.
+sectionHeader ||| 8 Conclusion and Future Work
+bodyText ||| We propose a method to enhance dependency
+bodyText ||| parsing in one language by using a translated tree-
+bodyText ||| bank from another language. A simple statisti-
+bodyText ||| cal machine translation technique, word-by-word
+bodyText ||| decoding, where only a bilingual lexicon is nec-
+bodyText ||| essary, is used to translate the source treebank.
+bodyText ||| As dependency parsing is concerned with the re-
+bodyText ||| lations of word pairs, only those word pairs with
+bodyText ||| dependency relations in the translated treebank are
+bodyText ||| chosen to generate some additional features to en-
+bodyText ||| hance the parser for the target language. The ex-
+bodyText ||| perimental results in English and Chinese tree-
+bodyText ||| banks show the proposed method is effective and
+bodyText ||| helps the Chinese parser in this work achieve a
+bodyText ||| state-of-the-art result.
+bodyText ||| Note that our method is evaluated in two tree-
+bodyText ||| banks with a similar annotation style and it avoids
+bodyText ||| using too many linguistic properties. Thus the
+bodyText ||| method is in the hope of being used in other simi-
+bodyText ||| larly annotated treebanks 5. For an immediate ex-
+bodyText ||| ample, we may adopt a translated Chinese tree-
+bodyText ||| bank to improve English parsing. Although there
+bodyText ||| are still something to do, the remained key work
+bodyText ||| has been as simple as considering how to deter-
+bodyText ||| mine the matching strategy for searching the trans-
+bodyText ||| lated word pair list in English according to the
+bodyText ||| framework of our method. .
+sectionHeader ||| Acknowledgements
+bodyText ||| We’d like to give our thanks to three anonymous
+bodyText ||| reviewers for their insightful comments, Dr. Chen
+bodyText ||| Wenliang for for helpful discussions and Mr. Liu
+bodyText ||| Jun for helping us fix a bug in our scoring pro-
+bodyText ||| gram.
+sectionHeader ||| References
+reference ||| Peter F. Brown, John Cocke, Stephen A. Della Pietra,
+reference ||| Vincent J. Della Pietra, Fredrick Jelinek, John D.
+reference ||| Lafferty, Robert L. Mercer, and Paul S. Roossin.
+reference ||| 1990. A statistical approach to machine translation.
+reference ||| Computational Linguistics, 16(2):79–85.
+reference ||| David Burkett and Dan Klein. 2008. Two lan-
+reference ||| guages are better than one (for syntactic parsing). In
+reference ||| EMNLP-2008, pages 877–886, Honolulu, Hawaii,
+reference ||| USA.
+reference ||| Wenliang Chen, Daisuke Kawahara, Kiyotaka Uchi-
+reference ||| moto, Yujie Zhang, and Hitoshi Isahara. 2008. De-
+reference ||| pendency parsing with short dependency relations
+reference ||| in unlabeled data. In Proceedings of IJCNLP-2008,
+reference ||| Hyderabad, India, January 8-10.
+reference ||| Xiangyu Duan, Jun Zhao, and Bo Xu. 2007. Proba-
+reference ||| bilistic parsing action models for multi-lingual de-
+reference ||| pendency parsing. In Proceedings of the CoNLL
+reference ||| Shared Task Session of EMNLP-CoNLL 2007, pages
+reference ||| 940–946, Prague, Czech, June 28-30.
+reference ||| Johan Hall, Jens Nilsson, Joakim Nivre,
+reference ||| G¨ulsen Eryiˇgit, Be´ata Megyesi, Mattias Nils-
+reference ||| son, and Markus Saers. 2007. Single malt or
+footnote ||| 5For example, Catalan and Spanish treebanks from the
+footnote ||| AnCora(-Es/Ca) Multilevel Annotated Corpus that are an-
+footnote ||| notated by the Universitat de Barcelona (CLiC-UB) and the
+footnote ||| Universitat Politecnica de Catalunya (UPC).
+page ||| 62
+reference ||| blended? a study in multilingual parser optimiza-
+reference ||| tion. In Proceedings of the CoNLL Shared Task
+reference ||| Session of EMNLP-CoNLL 2007, pages 933–939,
+reference ||| Prague, Czech, June.
+reference ||| Terry Koo, Xavier Carreras, and Michael Collins.
+reference ||| 2008. Simple semi-supervised dependency parsing.
+reference ||| In Proceedings of ACL-08: HLT, pages 595–603,
+reference ||| Columbus, Ohio, USA, June.
+reference ||| David McClosky, Eugene Charniak, and Mark John-
+reference ||| son. 2006. Reranking and self-training for parser
+reference ||| adaptation. In Proceedings of ACL-COLING 2006,
+reference ||| pages 337–344, Sydney, Australia, July.
+reference ||| Ryan McDonald and Joakim Nivre. 2007. Charac-
+reference ||| terizing the errors of data-driven dependency pars-
+reference ||| ing models. In Proceedings of the 2007 Joint Con-
+reference ||| ference on Empirical Methods in Natural Language
+reference ||| Processing and Computational Natural Language
+reference ||| Learning (EMNLP-CoNLL 2007), pages 122–131,
+reference ||| Prague, Czech, June 28-30.
+reference ||| Ryan McDonald and Fernando Pereira. 2006. Online
+reference ||| learning of approximate dependency parsing algo-
+reference ||| rithms. In Proceedings of EACL-2006, pages 81–88,
+reference ||| Trento, Italy, April.
+reference ||| Ryan McDonald, Koby Crammer, and Fernando
+reference ||| Pereira. 2005. Online large-margin training of de-
+reference ||| pendency parsers. In Proceedings of ACL-2005,
+reference ||| pages 91–98, Ann Arbor, Michigan, USA, June 25-
+reference ||| 30.
+reference ||| Paola Merlo, Suzanne Stevenson, Vivian Tsang, and
+reference ||| Gianluca Allaria. 2002. A multilingual paradigm
+reference ||| for automatic verb classification. In ACL-2002,
+reference ||| pages 207–214, Philadelphia, Pennsylvania, USA.
+reference ||| Joakim Nivre, Johan Hall, Sandra K¨ubler, Ryan Mc-
+reference ||| Donald, Jens Nilsson, Sebastian Riedel, and Deniz
+reference ||| Yuret. 2007. The conll 2007 shared task on de-
+reference ||| pendency parsing. In Proceedings of the CoNLL
+reference ||| Shared Task Session of EMNLP-CoNLL 2007, page
+reference ||| 915 - 932, Prague, Czech, June.
+reference ||| Joakim Nivre. 2003. An efficient algorithm for projec-
+reference ||| tive dependency parsing. In Proceedings of IWPT-
+reference ||| 2003), pages 149–160, Nancy, France, April 23-25.
+reference ||| Franz Josef Och and Hermann Ney. 2002. Discrimina-
+reference ||| tive training and maximum entropy models for sta-
+reference ||| tistical machine translation. In Proceedings ofACL-
+reference ||| 2002, pages 295–302, Philadelphia, USA, July.
+reference ||| Roi Reichart and Ari Rappoport. 2007. Self-training
+reference ||| for enhancement and domain adaptation of statistical
+reference ||| parsers trained on small datasets. In Proceedings of
+reference ||| ACL-2007, pages 616–623, Prague, Czech Republic,
+reference ||| June.
+reference ||| Kenji Sagae and Jun' ichi Tsujii. 2007. Dependency
+reference ||| parsing and domain adaptation with lr models and
+reference ||| parser ensembles. In Proceedings of the CoNLL
+reference ||| Shared Task Session of EMNLP-CoNLL 2007, page
+reference ||| 1044 - 1050, Prague, Czech, June 28-30.
+reference ||| Noah A. Smith and Jason Eisner. 2006. Annealing
+reference ||| structural bias in multilingual weighted grammar in-
+reference ||| duction. In Proceedings of ACL-COLING 2006,
+reference ||| page 569 - 576, Sydney, Australia, July.
+reference ||| Mark Steedman, Miles Osborne, Anoop Sarkar,
+reference ||| Stephen Clark, Rebecca Hwa, Julia Hockenmaier,
+reference ||| Paul Ruhlen, Steven Baker, and Jeremiah Crim.
+reference ||| 2003. Bootstrapping statistical parsers from small
+reference ||| datasets. In Proceedings of EACL-2003, page
+reference ||| 331 - 338, Budapest, Hungary, April.
+reference ||| Qin Iris Wang and Dale Schuurmans. 2008. Semi-
+reference ||| supervised convex training for dependency parsing.
+reference ||| In Proceedings of ACL-08: HLT, pages 532–540,
+reference ||| Columbus, Ohio, USA, June.
+reference ||| Qin Iris Wang, Dale Schuurmans, and Dekang Lin.
+reference ||| 2005. Strictly lexical dependency parsing. In Pro-
+reference ||| ceedings of IWPT-2005, pages 152–159, Vancouver,
+reference ||| BC, Canada, October.
+reference ||| Qin Iris Wang, Dekang Lin, and Dale Schuurmans.
+reference ||| 2007. Simple training of dependency parsers via
+reference ||| structured boosting. In Proceedings of IJCAI 2007,
+reference ||| pages 1756–1762, Hyderabad, India, January.
+reference ||| Hiroyasu Yamada and Yuji Matsumoto. 2003. Sta-
+reference ||| tistical dependency analysis with support vector
+reference ||| machines. In Proceedings of IWPT-2003), page
+reference ||| 195 - 206, Nancy, France, April.
+reference ||| Kun Yu, Daisuke Kawahara, and Sadao Kurohashi.
+reference ||| 2008. Chinese dependency parsing with large
+reference ||| scale automatically constructed case structures. In
+reference ||| Proceedings of COLING-2008, pages 1049–1056,
+reference ||| Manchester, UK, August.
+reference ||| Daniel Zeman and Philip Resnik. 2008. Cross-
+reference ||| language parser adaptation between related lan-
+reference ||| guages. In Proceedings of IJCNLP 2008 Workshop
+reference ||| on NLP for Less Privileged Languages, pages 35–
+reference ||| 42, Hyderabad, India, January.
+reference ||| Hai Zhao and Chunyu Kit. 2008. Parsing syntactic and
+reference ||| semantic dependencies with two single-stage max-
+reference ||| imum entropy models. In Proceeding of CoNLL-
+reference ||| 2008, pages 203–207, Manchester, UK.
+reference ||| Hai Zhao, Wenliang Chen, Chunyu Kit, and Guodong
+reference ||| Zhou. 2009. Multilingual dependency learning:
+reference ||| A huge feature engineering method to semantic de-
+reference ||| pendency parsing. In Proceedings of CoNLL-2009,
+reference ||| Boulder, Colorado, USA.
+reference ||| Hai Zhao. 2009. Character-level dependencies in
+reference ||| chinese: Usefulness and learning. In EACL-2009,
+reference ||| pages 879–887, Athens, Greece.
+page ||| 63
