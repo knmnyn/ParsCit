@@ -19,6 +19,9 @@ git init
 echo "cd .git/hooks/"
 cd .git/hooks/
 
+echo "rm -rf post-update"
+rm -rf post-update
+
 echo "wget http://utsl.gen.nz/git/post-update"
 wget http://utsl.gen.nz/git/post-update
 
