@@ -353,7 +353,6 @@ sub generateXmlFeature {
   my %biFeatureFlag = ();
   foreach my $feature (@features) {
     if($feature =~ /^bi_(xml[a-zA-Z]+\_.+)$/){
-      print STDERR "$feature\n";
       $feature = $1;
       $biFeatureFlag{$count} = 1; 
     }
