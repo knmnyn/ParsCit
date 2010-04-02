@@ -35,7 +35,7 @@ my $conllevalLoc = "$path/conlleval_modified.pl";
 ## Thang add ##
 sub Help {
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in labelDir -t type -out outDir -n folds -c configFile [-p numCpus -iter numIter -topN topN]\n";
+  print STDERR "       $progname -in labelDir -t type -out outDir -n folds -c configFile [-p numCpus -iter numIter -topN topN -f freqCutoff]\n";
   print STDERR "Options:\n";
   print STDERR "\t\t-p: Default is 6 cpus\n";
   print STDERR "\t\t-iter: Default is 100 iterations\n";
@@ -52,11 +52,13 @@ my $numCpus = 6;
 my $topN = 10;
 my $numIter = 100;
 my $type = undef;
+my $f = 3;
 $HELP = 1 unless GetOptions('in=s' => \$labelDir,
 			    'out=s' => \$outDir,
 			    'n=i' => \$folds,
 			    'c=s' => \$configFile,
 			    'p=i' => \$numCpus,
+			    'f=i' => \$f,
 			    'iter=i' => \$numIter,
 			    'topN=i' => \$topN,
 			    't=s' => \$type,
@@ -149,7 +151,7 @@ for (my $i = 0; $i < $folds; $i++) {
   if($numIter > 0){
     $cmd .= " -m $numIter";
   }
-  $cmd .= " -p $numCpus -f 3 -c 3 $templateFile $outDir/$i.train $outDir/$i.model 1>crf.$i.stdout 2>crf.$i.stderr";
+  $cmd .= " -p $numCpus -f $f -c 3 $templateFile $outDir/$i.train $outDir/$i.model 1>crf.$i.stdout 2>crf.$i.stderr";
   execute($cmd);
 }
 

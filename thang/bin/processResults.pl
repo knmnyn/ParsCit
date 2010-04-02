@@ -33,19 +33,19 @@ sub License {
 ### HELP Sub-procedure
 sub Help {
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in inFile\n";
+  print STDERR "       $progname -in inDir\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
-my $inFile = undef;
+my $inDir = undef;
 
-$HELP = 1 unless GetOptions('in=s' => \$inFile,
+$HELP = 1 unless GetOptions('in=s' => \$inDir,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
 
-if ($HELP || !defined $inFile) {
+if ($HELP || !defined $inDir) {
   Help();
   exit(0);
 }
@@ -55,17 +55,17 @@ if (!$QUIET) {
 }
 
 ### Untaint ###
-$inFile = untaintPath($inFile);
+$inDir = untaintPath($inDir);
 my $envPath = $ENV{'PATH'};
 $envPath = untaintPath($envPath);
 $ENV{'PATH'} = $envPath;
 ### End untaint ###
 
 
-my $allOutput = "$path/../experiments/$inFile/all.out";
+my $allOutput = "$inDir/all.out";
 #execute("$path/../../../bin/sectLabel/conlleval_modified.pl -r -c -d \"\t\" < $allOutput");
 
-$inFile = "$path/../experiments/$inFile/evaluation.stdout";
+my $inFile = "$inDir/evaluation.stdout";
 
 processFile($inFile);
 
