@@ -353,7 +353,7 @@ sub generateXmlFeature {
       $biFeatureFlag{$count} = 1; 
     }
 
-    if($feature =~ /^(xml[a-zA-Z]+)\_.+$/){
+    if($feature =~ /^((bi_)?xml[a-zA-Z]+)\_.+$/){
       $type = $1;
       if($config{$type}){
 	push(@{$feats}, $feature);
