@@ -75,10 +75,7 @@ my %config = (
 	      'xmlBullet' => 0,
 
 	      # bigram differential features
-	      'bi_xmlDd' => 0,
-	      'bi_xmlCell' => 0,
 	      'bi_xmlA' => 0,
-
 	      'bi_xmlF' => 0,
 	      'bi_xmlSF' => 0,
 	      'bi_xmlSFBI' => 0,
@@ -352,8 +349,7 @@ sub generateXmlFeature {
   my $type;
   my %biFeatureFlag = ();
   foreach my $feature (@features) {
-    if($feature =~ /^bi_(xml[a-zA-Z]+\_.+)$/){
-      $feature = $1;
+    if($feature =~ /^bi_xml/){
       $biFeatureFlag{$count} = 1; 
     }
 
