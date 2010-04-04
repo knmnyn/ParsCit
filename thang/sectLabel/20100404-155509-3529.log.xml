@@ -1,0 +1,731 @@
+
+### label/ACL09/P09-1002.txt ###
+0.540, all highly significant with p &lt; 2.2e-16.
+&gt;3 &gt;4 5
+p&lt;0.05 pos	neg		p&lt;0.01 pos	neg
+tators, each highly significant with p &lt; 2.2e-16.
+again highly significant at p &lt; 2.2e-16.
+related at p &lt; 0.05 and p &lt; 0.01, shown by anno-
+j&gt;3	j&gt;4	j=5
+two uncorrelated (p &gt; 0.05) or negatively corre-
+&gt; 3, to senses that were not groupable. Table 4
+groupable senses got ratings &gt; 3. This is most
+significant (p &lt; 2.2e-16) with Spearman’s p =
+and the p-values were all &lt; 2.2e-16. This shows
+icant with individual p-values from &lt; 1.067e-10
+to &lt; 1.551e-08 and a mean correlation of -0.495.
+notators had p-values &lt; 2.2e-16.
+0.0003 and &lt; 2.2e-16. As above, the correla-
+egories: Well defined or fuzzy sets? Memory &amp;
+
+### label/ACL09/P09-1001.txt ###
+
+### label/ACL09/P09-1004.txt ###
+Omri Abend&apos; Roi Reichart2 Ari Rappoport&apos;
+&apos;Institute of Computer Science, 2ICNC
+we apply this for a given pair only if n .ny N&gt;
+
+### label/ACL09/P09-1008.txt ###
+Gold tags	Edge labels	LP%	LR%	F1%	CB	CB0%	CB &lt; 2%	EXACT%
+BF02 (len. &lt; 40)	92.1	91.6	91.8
+This work (len. &lt; 40)	90.74	90.87	90.81
+BF02 (len. &lt; 40)	89.54	88.14	88.83
+
+### label/ACL09/P09-1007.txt ###
+Soochow University, Suzhou, China 2&apos;5006
+Until now, the largest treebanks&apos; in various lan-
+&apos;It is a tradition to call an annotated syntactic corpus as
+s&apos;
+s&apos;2.char1
+s&apos;.char_2 + s&apos;1.char_2 s&apos;_2.cpos2
+s&apos;_1.cpos2 + s&apos;1.cpos2 s&apos;.cpos2 + s&apos;1.cpos2 s’. children.cpos2.seq s’. children. dprel.seq s’.subtree.depth
+s&apos;.h. f orm + s&apos;.rm.cpos1 s&apos;.lm.char2 + s&apos;.char2 s.h. children.dprel.seq s.lm.dprel
+s : illinePath. f orm.bag s&apos;.form + i.form
+s&apos;.char2 + in.char2, n = —1, 0, 1
+s&apos;.children.dprel.seq + i.children.dprel.seq
+0(i.char3, s&apos;. f ull, dp.char3, hd. f ull)+i.char3
++s&apos;. f orm
+,O(s&apos;.char-2, hd.char-2, head)+i.pos+s&apos;.pos
+0(s&apos;. f ull, i.char4, dp. f ull, hd.char4)+s&apos;.pos+i.pos
+,O(i. f ull, hd.char2, root)+i.pos+s&apos;.pos
+pairscore(s&apos;.pos, i.pos)+s&apos;. f orm+i. f orm
+rootscore(s&apos;.pos)+s&apos;. f orm+i. f orm
+rootscore (s&apos;.pos)+i.pos
+Kenji Sagae and Jun&apos; ichi Tsujii. 2007. Dependency
+
+### label/ACL09/P09-1003.txt ###
+sentence = Can&apos;t [you] [sell Commerce_sell] [the factory] [to some other
+sentence = Can&apos;t [you Seller] [sell Commerce_sell] [the factory Goods]
+frame evoking word &amp; headword, combination
+features of frame evoking word &amp; phrase type,
+and combination features of voice &amp; phrase type.
+baseline	&lt; 10	63.89	38.00	47.66
+&lt; 20	69.01	51.26	58.83
+&lt;50	75.84	65.85	70.50
++ all groups	&lt; 10	72.57	55.85	63.12
+&lt;20	76.30	65.41	70.43
+&lt; 50	80.86	74.59	77.60
+ew &amp; hw stem	9	34	20	8	0
+ew &amp; phrase type	11	7	11	3	1
+
+### label/ACL09/P09-1005.txt ###
+Curran, 2007, henceforth the C&amp;C parser), Charniak’s
+as &lt;loves,john,(s\np)/np,1&gt;, indicating the head of
+&lt;loves,mary,(s\np)/np,2&gt;. One of the potential ad-
+C&amp;C CCG parser (Clark and Curran, 2007) with its
+bracketings of the C&amp;C parser’s output and recon-
+&gt;
+&gt;
+&gt;
+dencies:	&lt;loves,mary,(s\np)/np,2&gt;	and
+&lt;loves,john,(s\np)/np, 1 &gt;
+ent: (V&gt;VP&lt;NP&lt;N and V&gt;VP&gt;S&gt;RC&gt;N&lt;N, re-
+&gt;T
+&gt; 	&gt;s
+&gt;
+(s\np)/np.2.—&gt; (Gildea and Hockenmaier, 2003)
+(s[dcl]\np)/np&gt;s[dcl]\np&lt;np&lt;n, with &gt; and
+&lt; indicating movement up and down the tree,
+treepath is (s[dcl]\np)/np&gt;s[dcl]\np&lt;np.
+an indication as to whether the functor (—&gt;) or
+ture is (s\np)/np.2.—&gt;.
+G&amp;H (treebank)	67.5%	60.0%	63.5%
+G&amp;H (automatic)	55.7%	49.5%	52.4%
+Hockenmaier, 2003, henceforth G&amp;H). This could be
+6G&amp;H use a generative model with a back-off lattice,
+group of workers. Interestingly, the C&amp;C parser opts
+
+### label/ACL09/P09-1006.txt ###
+— If DevScoreq &gt; DevScore Then DevScore=DevScoreq, and Cps=Cps,q;
+Until q &gt; Q
+erated by the parser for the i-th (1 &lt; i &lt; n) sen-
+tence in CDS. Let xi,t be the t-th (1 &lt; t &lt; ni)
+i-th (1 &lt; i &lt; n) sentence in CDS.
+and Q&gt;0.
+&quot; t1t A&lt;world&gt; -X &lt;every&gt; � &lt;country&gt; A
+V�&lt;people&gt; N&lt;all&gt; 4E&lt;with&gt; H A&lt;eyes&gt;
+R hJ &lt;cast&gt; # A&lt;Hong Kong&gt; &quot; with
+&quot;People from all over the world are cast-
+ing their eyes on Hong Kong&quot; as its English
+because these trees are &quot;misleading&quot; training in-
+&quot;Penn2Malt&quot; 3 and Charniak’s parser4, the head
+of VP-2 is the word &quot; 4E &quot; (a preposition, with
+&quot;BA&quot; as its POS tag in CTB), and the head of
+IP-OBJ is R hJ &quot; . Therefore the word &quot; R
+hJ&quot; depends on the word &quot;4E&quot; . But according
+the word &quot;4E&quot; is a dependent of the word &quot;R
+hJ &quot; . The conflicts between the two grammars
+Here 0 &lt; A &lt; 1. Prob(xi,t) is a probability pro-
+duced by the parser for xi,t (0 &lt; Prob(xi,t) &lt; 1).
+&quot;EVALB&quot; on WSJ section 22 for performance
+5We used the tool &quot;Penn2Malt&quot; to produce dependency
+Models	&lt; 40 words			All the sentences
+Bikel &amp; Chiang (2000)	76.8	77.8	77.3	-	-	-
+Chiang &amp; Bikel (2002)	78.8	81.1	79.9	-	-	-
+Levy &amp; Manning (2003)	79.2	78.4	78.8	-	-	-
+&lt; 40 words			All the sentences
+Petrov &amp; Klein (2007)	85.7	86.9	86.3	81.9	84.8	83.3
+Burkett &amp; Klein (2008)	-	-	-	-	-	84.2
+
+### label/ACL09/P09-1009.txt ###
+
+### label/ACL09/P09-1010.txt ###
+An action a = (c, R, W&apos;) encompasses a com-
+words W&apos; specifying c and R. Elements of R re
+tion p(£&apos;J£, c, R). This distribution is a priori un-
+command and its parameters. The words of W&apos; are underlined, and the words of W are highlighted in
+(£, d, j, W) leads to a new state s&apos; according to
+distribution p(s&apos;Is, a), defined as follows: £ tran-
+sitions according to p(£&apos;I£, c, R), W is updated
+p(aI s; 0) = � ee-0(s,a&apos;) ,	(1)
+4	A +- Et (O(st, at) — Ea, 0(st, a&apos;)p(a&apos; l st; 0))
+�a0 log p(aIs; 0) = 0(s, a)—	0(s, a&apos;)p(a&apos;Is; 0),
+tive histories h&apos; that result in the same commands
+again apply equation 5 for each h&apos;, weighted by its
+probability under the current policy, P�h&apos;Jl1 .
+`dc&apos; EC,wEV:test ifc&apos;=cand wEW
+`dc&apos; E C, l E L: test if c&apos; = c and l is the class of o
+if w is the last word of a’s consumed words W&apos;.
+* indicates p &lt; 0.01 and o indicates p &lt; 0.05.
+
+### label/ACM/3.txt ###
+is substk {x1, · · · , xk.t[&quot;x]}	· · ·	is substl {z 1, · · · , zl.s[&quot;z]}
+op{x1, · · · , xk.t[&quot;x]; · · · ; z1, · · · , zl.s[&quot;z]} E Term
+where is substn {x1 , · · · , xn.t[&quot;x]} is the proposition that t is a sub-
+is substn+k{x1, · · · , xn,y1, · · · , yk.t[&quot;x;&quot;y]}
+is substn+l {x1, · · · , xn, z1, ··· , zl.s[&quot;x; &quot;z]}}
+is substn {x1 · · ·xn.op{y1 · · ·yk.t[&quot;x; &quot;y]; · · · ; z1 · · ·zl.s[&quot;x; &quot;z]}}
+sense that is substk {x1, · · · , xk.t[&quot;x]} depends non-monotonically
+we will write bterm{x1, · · · , xn.t[&quot;x]} for a term t over variables
+y and z. Free occurrences of xi in t[&quot;x] are considered bound
+in bterm{x1, · · · , xn.t[&quot;x]} and two a-equal bterm{} expressions
+•	bterm{x1, · · · , xn.xi}, where 1 &lt; i &lt; n, is a lambda-term (a
+•	ifbterm{x1, · · · , xn, xn+1.t[&quot;x] ) is a lambda-term, then
+bterm{x1 , · · · , xn .Xxn+1 .t[&quot;x])
+•	if bterm{x1, · · · , xn.t1 [&quot;x]} and bterm{x1, · · · , xn.t2[&quot;x]} are
+bterm{x1; · · · ; xn.apply{t1 [&quot;x]; t2[&quot;x]}}
+bterm bterm{x1, · · · , xn.t[&quot;x]} is n.
+2. the binding depth of bterm bj is n + dj for each 1 &lt; j &lt; N.
+Expressions of the form bterm{&quot;x.op{· · · }} can only be used to ex-
+in addition to bterm{&quot;x.op{· · · }} constants.
+mk bterm{n; op; bterm{x1 , · · · , xn, &quot;y1 .t1 [&quot;x; &quot;y1]} :: · · · ::
+bterm{x1, · · · ,xn,&quot;yk.tk[&quot;x; &quot;yk]} :: nil}
+is bterm{x1, · · · , xn.op {&quot;y1 .t1 [&quot;x; &quot;y1]; · · · ; &quot;yk.tk[&quot;x; &quot;yk]}}. Here,
+•	bterm{x1 , · · · , xn.xi } is a well-formed bterm for 1 &lt; i &lt; n;
+
+### label/ACM/36.txt ###
+(a) All	(b) SHO failure rate &gt; 22%
+Wiley &amp; Sons Ltd., 2001.
+
+### label/ACM/1.txt ###
+entropy rate &lt; 1/2 [5]
+has any entropy rate &gt; 1/2 [18]
+explicit in this sense.&apos;
+computable bipartite graphs which are 2n&apos;(1)-Ramsey. A stan-
+independent k-sources X&apos;, • • • , Xc, the output f (X&apos;, • • • , Xc)
+&apos;The Abbot’s product based Ramsey-graph construction of
+k &gt; n/2 as observed by Chor and Goldreich [8] and can
+they work as long as the seed has entropy rate &gt; 1/2.
+where extractor” property only on subsources X&apos;, Y&apos; of the
+For every δ &gt; 0 there is a polynomial time computable sub-
+c-block-source of block entropy k if for some c indices i1 &lt;
+i2 &lt; • • • &lt; ic the source Zi1, Zi2, • • • , Zic is a c-block-source.
+Let Z be a source and Z&apos; a part of Z (Z projected on a
+Pr[^Z′ passes] = Pr[C(^Z′, Y^) C R(^Z, Y^)] &gt; 1—nO(1)2−m
+&lt; k’
+0&lt; low &lt; k’/t
+k’/t &lt; med &lt; k’/c
+k’/c &lt; high &lt; k’
+of Theorem 2.6. Let k&apos; be the entropy of the source Z at
+entropy k&apos;/c, in which case it is very condensed, since its
+a c-block source with block entropy k&apos;/t (which is sufficient
+subpart. To do so, we fix all Zj for j &lt; i to constants zj. We
+shrinks only from k&apos; to k&apos;/c. A simple calculation shows that
+if k(lo9t)/lo9c) &gt; n2 then a c block-source must exist along
+and low respectively, as follows. Let m ≥ mH &gt;&gt; mM &gt;&gt;
+Y such that for every deficiency res subsource X&apos; of Xgood
+and deficiency res subsource Y&apos; of Ygood, the random vari-
+able SSE(X&apos;,Y&apos;) is ǫ-close to a ℓ × m somewhere random
+
+### label/ACM/25.txt ###
+&apos;If many u’s link to a single v, it is easiest to freeze the priority of
+(&lt;h1&gt; ... &lt;/h1&gt; etc.) of u, together with the text
+geometrically discounted by some factor γ &lt; 1/2 per
+specific &lt;a href ... &gt; which links to v is actually an internal
+tags such as &lt;em&gt; or &lt;b&gt; in the subtree rooted at a,. Let
+to the diversity of authoring styles. Authors use &lt;div&gt;,
+&lt;span&gt;, &lt;layer&gt; and nested tables for layout control in
+HREF collections embedded in &lt;ul&gt;, &lt;ol&gt;, &lt;td&gt; and
+&lt;dd&gt;. Font and lower/upper case information is useful
+to authoring idioms such as &lt;li&gt;&lt;a ... &gt;&lt;li&gt;&lt;a ... &gt; and
+&lt;a...&gt;&lt;br&gt;&lt;a ... &gt;&lt;br&gt; etc. A plot of the frequency of
+they were found is shown in Figure 9(b). (The &lt;a...&gt; tag
+
+### label/ACM/35.txt ###
+&lt; p, i, o &gt;, which denotes a test that executes program p
+lastOrderOn &lt; today — 90
+lastOrderDate &lt; today — 90 n bal &gt; 0)
+WHERE lastOrderDate &lt; today() - 90
+AND balance &lt; 0
+&lt;CONDITION&gt;::= &lt;TYPE&gt; &lt;BINDINGLIST&gt;
+GENERATED BY &lt;SELECT&gt;
+&lt;TYPE&gt;::= ANY I NO I AT LEAST &lt;i&gt; I
+AT MOST &lt;i&gt; EXACTLY &lt;i&gt; |
+&lt;i&gt;::= {0-9}
+&lt;BINDINGLIST&gt;
+::=&lt;BINDING&gt; { ‘,’ &lt;BINDINGLIST&gt; }
+&lt;BINDING&gt;::= {A-Z I a-z}
+&lt;SELECT&gt; ::= ...
+WHERE balance &gt; 0)
+tuple &lt; p, i, DBi, o, DBo &gt;, where:
+A constrained query has the form &lt; Q, min, max, vars &gt;,
+9 for every query &lt; q, n, m, vs &gt; in DBi U DBo, q is a
+An intensional database test &lt; p, i, DBi, o, DBo &gt;, where
+DBi = {&lt; qi, ni, mi, vi &gt;} and DBo = {&lt; qo, no, mo, vo &gt;},
+{&lt; p, i[vi/v], dbi, o[vi/v], dbo &gt; I
+(ni &lt;_ Iqi(dbi)I &lt;_ mi) n
+(no &lt;_ I (qo [vi /v])(dbo)I &lt;_ mo)}
+the condition c. For example, Qbal&lt;0 Customer returns
+π[custNo] (Qbalance&lt;0 Customer)
+Min = 1, Max = null, SelC = balance &lt; 0,
+p.price &gt; 50
+p.price &gt; 50
+if IRSI &lt; Min then
+else if IRSI &gt; Max then
+preCondition(&quot;ANY :cn GENERATED BY SELECT custNo FROM customer WHERE balance &gt; 0;&quot;);
+p.deleteCustomer(binding(&quot;:cn&quot;));
+postCondition(&quot;NO :cn2 GENERATED BY SELECT custno FROM customer WHERE custNo = :cn;&quot;);
+preCondition(&quot;ANY :cn, :name, :addr GENERATED BY SELECT gc.custNo, gc.name, gc.addr FROM
+genCustomerDetails() AS gc WHERE gc.custNo NOT IN (SELECT custNo FROM customer);&quot;);
+boolean b = p.newCustomer(binding(&quot;:cn&quot;), binding(&quot;:name&quot;), binding(&quot;:addr&quot;));
+postCondition(&quot;EXACTLY 1 :cn, :name, :addr GENERATED BY SELECT custno, name, addr
+FROM customer;&quot;);
+
+### label/ACM/17.txt ###
+check &lt; Tmax, Vi = 1, ... , L. Then the
+where 0 &lt; quti &lt; 1 is the time scale parameter of the moving
+ρ=0.35&lt;ρlower	ρ=0.2	ρ=0.35	ρ=0.5	ρ=0.65 ρ=0.7
+two conditions are satisfied: p(i) &gt; pupper and p(node) &lt; piinn T),
+ommend 0.8 &lt; pupper &lt; 0.9 in which case the respective plower
+value should be plower &lt; 0.4 in order to avoid oscillation of in-
+ρ=0.6ρ=0.5 ρ=0.58ρ=0.48ρ=0.56 ρ=0.46ρ=0.36&lt;ρlower ρ=0.2	ρ=0.35 ρ=0.5
+ρ=0.7	ρ=0.8&gt;ρupper ρ=0.2 ρ=0.4	ρ=0.3 ρ=0.55
+ρ=0.8&gt;ρupper
+that for NF &gt; 1 the throughput should not decrease by adding
+the node is Tcheck = 2j-2, j &gt; 2 number of frames, which means
+(j-1 &lt; k &lt; 2) the clock bits X = tcheck [k+1, ... , k+5] are fed
+Tcheck = 2j-2, j &gt; 2: current length of the base checkperiod
+while (k &gt; 2)
+
+### label/ACM/22.txt ###
+term selected from a collection of terms, Q, qtp e Q, 1 &lt;_ p &lt;_ m;
+di e D, 1 &lt;_ i &lt;_ n, where n is the number of document to sample.
+While j &lt;= N
+the textual content of the ith text segment, 1 &lt;_ i &lt;_ n; tg-lstj
+reached. tg-lstj = (tg1, ..., tgp), 1 &lt;_ j &lt;_ p and tg-lstk = (tg1, ..., tgq),
+1 &lt;_ k &lt;_ q.
+before the text (i.e., &lt;/TITLE&gt;, &lt;/HEAD&gt;, &lt;BODY&gt;, &lt;HR&gt;,
+&lt;H3&gt;, &lt;B&gt; and &lt;I&gt;) and the neighbouring tags located after the
+text (i.e., &lt;/I&gt;, &lt;/B&gt;, &lt;/H3&gt;, &lt;I&gt; and &lt;B&gt;). Thus, this segment is
+Drogas.’, (&lt;/TITLE&gt;, &lt;/HEAD&gt;, &lt;BODY&gt;, &lt;HR&gt;, &lt;H3&gt;, &lt;B&gt;
+,&lt;I&gt;), (&lt;/I&gt;, &lt;/B&gt;, &lt;/H3&gt;, &lt;I&gt;, &lt;B&gt;)). Figure 5 shows the content
+= {txs1, ..., txsn}, where txsi represents a text segment, 1 &lt;_ i &lt;_ n.
+database D, di, e D, 1 &lt;_ i &lt;_ n. Content(di) denotes the content
+While l &lt;= s AND T = 0
+While k &lt;= r AND di o Gk
+While l &lt;= s AND di o Gk
+&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;CHID Document
+&lt;/TITLE&gt;&lt;/HEAD&gt;
+&lt;BODY&gt;
+&lt;HR&gt;&lt;H3&gt;&lt;B&gt;&lt;I&gt; 1. Equipos Mas Seguros: Si Te Inyectas
+&lt;/I&gt;&lt;/B&gt;&lt;/H3&gt;
+&lt;I&gt;&lt;B&gt;Subfile: &lt;/B&gt;&lt;/I&gt;
+AIDS Education&lt;BR&gt;
+&lt;I&gt;&lt;B&gt;Format (FM): &lt;/B&gt;&lt;/I&gt;
+&lt;BR&gt;
+‘CHID Document’, (&lt;HTML&gt;, &lt;HEAD&gt;, &lt;TITLE&gt;),
+(&lt;/TITLE&gt;, &lt;/HEAD&gt;, &lt;BODY&gt;, &lt;HR&gt;, &lt;H3&gt;, &lt;B&gt;,
+&lt;I&gt;);
+(&lt;/TITLE&gt;, &lt;/HEAD&gt;, &lt;BODY&gt;, &lt;HR&gt;, &lt;H3&gt;, &lt;B&gt;,
+&lt;I&gt;), (&lt;/I&gt;, &lt;/B&gt;, &lt;/H3&gt;, &lt;I&gt;, &lt;B&gt;);
+‘Subfile:’, (&lt;/I&gt;, &lt;/B&gt;, &lt;/H3&gt;, &lt;I&gt;, &lt;B&gt;), (&lt;/B&gt;, &lt;/I&gt;);
+‘AIDS Education’, (&lt;/B&gt;, &lt;/I&gt;), (&lt;BR&gt;, &lt;I&gt;, &lt;B&gt;);
+‘Format (FM):’, (&lt;BR&gt;, &lt;I&gt;, &lt;B&gt;), (&lt;/B&gt;, &lt;/I&gt;);
+distinct terms in d e D, 1 &lt;_ i ≤ m. Each wi is computed using term
+contain ti, 1 &lt;_ i ≤ n.
+Web Pages for Data Extraction. Data &amp; Knowledge
+
+### label/ACM/10.txt ###
+idf(t) := −log n(tt) , 0 &lt;= idf(t) &lt; ∞
+is known as tf-idf, where tf(t, d) (0 &lt;= tf(t, d) &lt;= 1) is
+maxidf := max({idf(t)|t ∈ T}), maxidf &lt;= −log(1/N)
+minidf := min({idf(t)|t ∈ T}), minidf &gt;= 0
+minidf &lt; Pf,Q (t is informative) ≤ 1.0
+and introduce the constant λ where 0 &lt; λ &lt; N. The con-
+∀t : Pin (t is noisy|c) &lt; 1 − e−λ
+The limit is close to the actual value for k &lt;&lt; N. For large
+Again, the limit is close to the actual value for k &lt;&lt; N. For
+For λ &gt;&gt; 1, we can alter the noise and informativeness Pois-
+son by starting the sum from 0, since eλ &gt;&gt; 1. Then, the
+1/N &lt; PfreQ &lt; 1.0	0.0 &lt; PfreQ &lt; 1.0
+p &lt; Pin &lt; 1 — e—λ	ln(p) &lt; Pin &lt; 1.0
+e—λ • λ &lt; Ppoi &lt; 1 — e—λ	(λ — ln(eλ — 1))/(λ — ln λ) &lt; Ppoi &lt; 1.0
+e—λ &lt; Ppoi &lt; 1.0	0.0 &lt; Ppoi &lt; 1.0
+larger λ. For n(t) &lt; λ, the noise is zero whereas for n(t) &gt; λ
+
+### label/ACM/14.txt ###
+Xi&apos;an, China, 710049
+&lt;term&gt;” and “who is &lt;person&gt;” questions are answered in a
+•	download a software, a document, or a picture. E.g., &quot;getting
+MSN logo&quot;
+•	make use of a service. E.g., &quot;getting a serial number of
+Windows&quot;
+•	‘what is’ - e.g., &quot;what is blaster&quot;
+•	‘how to’ - &quot;how to submit expense report&quot;
+•	‘where’ - e.g., &quot;where is the company store&quot;
+•	‘who knows about’ - e.g., &quot;who knows about data mining&quot;
+•	‘who is’ - e.g., &quot;who is Rick Rashid&quot;
+•	‘when’ - e.g., &quot;when is TechFest&apos;05 &quot;
+•	‘why’ - e.g., &quot;why do Windows NT device drivers contain
+trusted code&quot;
+Bill Gates	CHRMN &amp; CHIEF SFTWR ARCHITECT
+&gt;&gt;more
+Crawler &amp;
+`What is&apos;	`Who is&apos;	`Who knows	`Where is homepage&apos;
+about&apos;
+5.2.2 `What is&apos;
+documents &lt;term, definition, score&gt; triples. They are respectively
+the term. There are also negative features. If words like `she&apos;, `he&apos;,
+or `said&apos; occurs in the paragraph, or many adjectives occur in the
+types of patterns. For example, one of them is `&lt;expansion&gt;
+(&lt;acronym&gt;)&apos; in which &lt;expansion&gt; denotes a phrase with the
+first letters in the words capitalized and &lt;acronym&gt; denotes a
+matches sentences such as &quot;Active Directory is implemented
+using the Lightweight Directory Access Protocol (LDAP)&quot;. We
+5.2.3 `Who is&apos;
+We first harvest all the employees&apos; personal information from a
+•	‘how to’ - e.g., &quot;how to activate Windows&quot;
+•	‘when’ - e.g., &quot;when is Yukon RTM&quot;
+•	‘where’ - e.g., &quot;where can I find an ATM&quot;
+•	‘why’ - e.g., &quot;why doesn&apos;t my printer work&quot;
+documents. Poster Proceedings of AusWeb&apos;01,
+Intranet search: What works and what doesn&apos;t. Proceedings
+[20] A. Ittycheriah and S. Roukos, IBM&apos;s Statistical Question
+in Proceedings of ICML&apos;02.
+International &apos;99 (the 8th International Conference on
+Wide Web conference on Alternate track papers &amp; posters,
+[37] Fast data search. Fast Search &amp; Transfer,
+
+### label/ACM/5.txt ###
+Phase errors affect the phase of one of the qubit&apos;s amplitudes and
+may also be used [29]). Steane&apos;s 7-qubit code is a single error
+case, � — N-1. However, there exists a Nmax so that if N &gt; Nmax
+also has to be very large; for Shor&apos;s algorithm Nmax must be
+today&apos;s technological limits (tipically 10-3 for p=4) after N=105.
+accuracy allowed by today&apos;s state of the art technology)
+architecture is that each cell is &quot;universal&quot;, containing a copy of
+Prob{ no fails} (t) = e−&quot;n+s)t	(6)
+Wiley &amp; Sons, 4th edition, 2002.
+Technique. Proc. International Conference &quot;Adaptive and
+Natural Computing Algorithms&quot;, pp. 276-279.
+
+### label/ACM/32.txt ###
+seq( call(int socket(int, int, int)) &amp;&amp; args(AF INET, SOCK STREAM, 0) &amp;&amp; return(fd)
+call(int connect(int, struct socketaddr*, socklen t)) &amp;&amp; args(fd, address, length)
+( call(size t read(int, void*, size t)) &amp;&amp; args(fd, readBuffer, readLength)
+11call(size t write(int, void*, size t)) &amp;&amp; args(fd, writeBuffer, writeLength)
+call(int close(int)) &amp;&amp; args(fd) ; )
+&amp;&amp; args(allocatedSize) &amp;&amp; return(buffer) ;
+write(buffer) &amp;&amp; size(writtenSize)
+&amp;&amp; if(writtenSize &gt; allocatedSize)
+&amp;&amp; args( request, buffer, buffer Size ))
+&amp;&amp; until(writeGlobal(int * Number Of Fd) &amp;&amp; if((*Number Of Fd) * 100/(*Squid MaxFd) ≥ 75) ; )
+&amp;&amp; args(fd, mb, handler, handlerData) &amp;&amp; if (! isPre f etch(handler)) )
+&amp;&amp; args(fd, buf, size, error, data) &amp;&amp; if(! isPre f etch(handler))
+Asp::= AspPrim [ &amp;&amp; until( AspPrim) ]
+IAspSeq [ &amp;&amp; until( AspPrim ) ]
+PCallSig [ &amp;&amp; args(−−−−−→
+pattern) ] [ &amp;&amp; return( pattern) ] [ &amp;&amp; PIf ]
+if( expr ) [ &amp;&amp; PIf ]
+readGlobal( type varId) [ &amp;&amp; value( pattern) ] [ &amp;&amp; PIf ]
+1writeGlobal( type varId) [ &amp;&amp; value( pattern) ] [ &amp;&amp; size( pattern) ] [ &amp;&amp; PIf ]
+read( var ) [ &amp;&amp; value(pattern ) ] [ &amp;&amp; PIf ]
+1write( var ) [ &amp;&amp; value( pattern ) ] [ &amp;&amp; size( pattern) ] [ &amp;&amp; PIf ]
+A::= A&apos;
+A&apos;::= µa.A&apos;	; recursive definition (a E Rec)
+1A&apos; ❑ A&apos;	; choice
+An aspect A&apos; is either:
+
+### label/ACM/19.txt ###
+diagonal entries being the singular values of A: v1 &gt; v2 &gt;
+. . . &gt; Qmin(m,n) &gt; 0. Column vectors ui and vi are the ith
+with a large constant for the m x n A, and usually m &gt; n.
+respectively, and 1 &lt; k &lt; n. Integer k determines how many
+4. If L+S &lt; L, update L = L+S and go to step 2. Other-
+
+### label/ACM/39.txt ###
+In more detail, namei (similarly, loci and keyi) is a vector &lt;ci1,
+ci2, ..., ciNp&gt;, where cin is the occurrence frequency of the personn
+I x)	&apos;
+&apos;
+thus, each year&apos;s documents can be regarded as an event; as for
+&lt;URL&gt;http://news.bbc.co.uk/1/hi/world/americas/4071845.stm &lt;/URL&gt;
+&lt;Abstract&gt;The US battleground state of Ohio has certified the victory
+of President George W Bush&apos;s in last month&apos;s poll. &lt;/Abstract&gt;
+&lt;Date&gt; 2004/12/6 &lt;/Date&gt;
+&lt;NLPRESULT&gt;
+&lt;LOCATION&gt;
+&lt;entity&gt; Ohio &lt;/entity&gt; &lt;freq&gt;4&lt;/freq&gt;
+&lt;entity&gt; US &lt;/entity&gt; &lt;freq&gt; 2 &lt;/freq&gt;
+&lt;/LOCATION&gt;
+&lt;PERSON&gt;
+&lt;entity&gt; Bush &lt;/entity&gt; &lt;freq&gt; 3 &lt;/freq&gt;
+&lt;entity&gt;David Cobb&lt;/entity&gt; &lt;freq&gt;1&lt;/freq&gt;
+&lt;/PERSON&gt;
+&lt;DATE&gt;
+&lt;entity&gt; 6 December, 200&lt;/entity&gt; &lt;freq&gt; 1 &lt;/freq&gt;
+&lt;entity&gt; Friday &lt;/entity&gt; &lt;freq&gt; 2 &lt;/freq&gt;
+&lt;/DATE&gt;
+&lt;KEYWORDS&gt;
+&lt;entity&gt; recount &lt;/entity&gt; &lt;freq&gt;7&lt;/freq&gt;
+&lt;entity&gt; elect &lt;/entity&gt; &lt;freq&gt;3&lt;/freq&gt;
+&lt;entity&gt; America &lt;/entity&gt; &lt;freq&gt;3&lt;/freq&gt;
+&lt;entity&gt; poll &lt;/entity&gt; &lt;freq&gt;3&lt;/freq&gt;
+&lt;/KEYWORDS&gt;
+&lt;/NLPRESULT&gt;
+automatic highlights identification,&quot; CVIU&apos;03, vol. 92, pp.
+[6] A. Ekin, A. M. Tekalp, and R. Mehrotra, &quot;Automatic soccer
+video analysis and summarization,&quot; IEEE Trans. on Image
+&quot;Structure analysis of soccer video with domain knowledge
+and hidden markov models,&quot; Pattern Recognition Letters,
+[14] Z.-W. Li, M.-J. Li, and W.-Y. Ma. &quot;A Probabilistic Model for
+[19] X.-S. Hua, L. Lu, H.-J. Zhang. &quot;Automated Home Video
+Editing&quot;, Proc. ACM Multimedia’03, pp. 490-497, 2003
+
+### label/ACM/15.txt ###
+likely the pair of characters constitutes a word. Sproat &amp; Shih
+Lua [12] and Lua &amp; Gan [13] applied information theory to the
+formed is identical to the mutual information formula. Lua &amp;
+Tung &amp; Lee [18] also used information entropy to identify
+Ogawa &amp; Matsuda [15] developed a statistical method to
+smallest total cost. Chang &amp; Chen [1] developed a method for
+Parameter	Standard	Wald		Pr &gt;	Standardized
+Somers&apos; D = 0.803
+Association Score&gt;1.0 (definite errors)
+Association Score &gt;1.0 (definite errors)
+Person&apos;s name
+Association Score &lt; -2.0
+Association score &gt; 1.0	Association score: –1.0 to1.0	Association score &lt; –1.0
+82.3%	17.7%	55.2%	20.5%	24.3%	–1.0 to –2.0	&lt; –2.0
+&amp; time	76.8%	&amp; time	36.4%
+developed in this study for Chinese text. Frantzi, Ananiadou &amp;
+multi-word terms from texts. Information Processing &amp;
+Chinese &amp; Oriental Languages, 4, 4 (1990), 314-355.
+information theory. Computer Processing of Chinese &amp;
+of Chinese &amp; Oriental Languages, 8, 1 (1994), 115-124.
+heuristic knowledge. Communications of COLIPS, 5, 1&amp;2
+Chinese &amp; Oriental Languages, 4, 4 (1990), 336-351.
+
+### label/ACM/6.txt ###
+[3] K. Bharat and L. Cardelli. Migratory Applications. In ACM UIST &apos;95,
+[6] A Butz, Animation with CATHI, In Proceedings ofAAAI/IAAI &apos;97,
+Visualization &apos;92, pp. 227-233, October 1992.
+Animation Techniques. In Computer Graphics (SIGGRAPH &apos;91
+
+### label/ACM/12.txt ###
+ei,j(x) be the error function of the j-th constraint (1 &lt; j &lt;
+mi) at strength level i (0 &lt; i &lt; l); then solutions v are
+minimize	E(v) subject to e0,j (v) = 0 (1 &lt; j &lt; m0)
+To begin with, we introduce another variable vector x&apos; =
+(x&apos;1, x&apos;2, ... ,x&apos; n), which is created by replacing variables for
+y0 (= x)� y1 �... t y3-1 —� y3 (= x&apos;)
+where y0 and y3 are equal to x and x&apos; respectively, each
+yk (1 &lt; k &lt; s — 1) is an “intermediate” vector, and each tk
+(0 &lt; k &lt; s — 1) is a function that transforms yk into yk+1.
+By using such transformations, we can compute x&apos; as fol-
+x&apos; = t3-1(t3-2(...(t1(t0(x))) ... )) = t(x)
+defined as e(x&apos;). Using the composed transformations, we	parameter of the coordinate transformation), we have
+e(x&apos;) = e(t(x)).	Therefore, we can compute ae(x&apos;)/axi immediately.
+ae(x&apos;)	ats-1,j,(ys-1)ats-2,js_1(ys-2)
+ae(x&apos;) ats-2,js_1(ys-2)
+Note that each ae(x&apos;)/ax&apos;j, is given by the defini-
+can obtain each ae(x&apos;)/ays-1 ,js_1. Also, by repeating this
+computations of ae(x&apos;)/ayk,jk in practice. We can make the
+9 For each variable xj,, ae(x&apos;)/ax&apos;j, can be non-zero only
+derivative ae(x&apos;)/ayk,j to the next step only when xj rep-
+three derivatives ae(x&apos;)/ayk,j at each recursive call.
+ae(x&apos;)
+ax&apos;j,
+ae(x&apos;)
+ax&apos;j,
+=E	ae(x&apos;)
+=E	ae(x&apos;)
+drag graph nodes with a mouse.&apos; The used graph layout
+&apos;Unlike constrained dragging in the next example, this
+2nd ed. John Wiley &amp; Sons, 1987.
+
+### label/ACM/40.txt ###
+Xi&apos;an, China, 710049
+Xi&apos;an, China, 710049
+if ( (D == 0) or ( D / ( La + Lb ) &lt; θ ) ) then
+are statistically significant (in the sense p-value &lt; 0.05)
+and Silverstein, J. Automatic Metadata generation &amp;
+Symposium on Database Engineering &amp; Applications, 113-
+[24] Zhang, J. and Dimitroff, A. Internet search engines&apos; response
+
+### label/ACM/21.txt ###
+AVI &apos;06, May 23-26, 2006, Venezia, Italy.
+that are &quot;minimally attended&quot; (e.g. just salient enough for
+conscious perception) while alerting displays are &quot;maximally
+divided&quot; (e.g. slightly less salient than focal tasks). [24]
+Routledge &amp; Kegan. London, England. 1923.
+36. Zhao, A., and Stasko, J. What&apos;s Happening?: Promoting
+
+### label/ACM/18.txt ###
+(i.e. T�i. &gt; Test). Some existing work [1, 39] has made
+designated next-hop, and all neighbors with smaller costs&apos;
+&apos;The cost at a node is the minimum energy overhead to
+
+### label/ACM/13.txt ###
+and contains 11,477 leaf &lt;TABLE&gt; elements, out of which
+the &lt;TABLE&gt; tag not only for relational information display
+facilitate easy viewing, thus the presence of the &lt;TABLE&gt;
+where &lt;TABLE&gt; tags are used as a mechanism for grouping
+out the use of &lt;TABLE&gt; tags at all, we do not consider such
+&lt;TABLE&gt;&lt;/TABLE&gt; tags as genuine or non-genuine tables.
+11,477 leaf &lt;TABLE&gt; elements, out of which 1,740 are gen-
+XML parser with W3C HTML 3.2 DTD [10]. A &lt;TABLE&gt;
+&lt;TABLE&gt; nodes among its children [10]. Our experience in-
+In HTML documents, although tags like &lt;TR&gt; and &lt;TD&gt;
+(or &lt;TH&gt;) may be assumed to delimit table rows and table
+by spanning cells created using &lt;ROWSPAN&gt; and &lt;COLSPAN&gt;
+tags. Other tags such as &lt;BR&gt; could be used to move con-
+reliably one can not simply count the number of &lt;TR&gt;&apos;s and
+&lt;TD&gt;&apos;s. For this purpose, we maintain a matrix to record all
+ample, the content within a &lt;TABLE&gt; element could include
+If we treat each table as a &quot;mini-document&quot; by itself, ta-
+•	dfG : W —&gt; 3, where dfG (wi) is the number of genuine
+•	t f G : W —&gt; 3, where t f G (wi) is the number of times
+•	dfN : W —&gt; 3, where dfN(wi) is the number of non-
+•	t f N : W —&gt; 3, where t f N (wi) is the number of times
+•	t fT : W —&gt; 3, where t fT (wi) is the number of times
+&apos;i	T T	T
+IT&apos; NS
+where x� is an arbitrary data point and the vector w&quot; and
+w� •�xz—b&gt;+1 for yz=+1
+w�•�xz—b&lt;—1 for yz=—1
+ear threshold functions. Nevertheless, by a simple &quot;plug-in&quot;
+&lt;TABLE&gt; element, which are &quot;tabid&quot;, &quot;genuine table&quot; and
+&quot;table title&quot;. The possible value of the second attribute is
+truth of each leaf &lt;TABLE&gt; node. The benefit of this design
+are a total of 14,609 &lt;TABLE&gt; nodes, including 11,477 leaf
+&lt;TABLE&gt; nodes. Out of the 11,477 leaf &lt;TABLE&gt; nodes,
+files have unmatched &lt;TABLE&gt;, &lt;/TABLE&gt; pairs or wrong
+R	P 	 F Ngg + Ng&apos;	Ngg + Nng	= 2
+we found it contains only two &lt;TR&gt; tags. All text strings
+in one rectangular box are within one &lt;TD&gt; tag. Its author
+used &lt;p&gt; tags to put them in different rows. This points
+sults (shown in Table 4 under &quot;Original Rule Based&quot;) were
+&quot;Modified Rule Based&quot;). However, the proposed machine
+categorization methods. In Proc. SIGIR&apos;99, pages
+
+### label/CHI08/p1045-stoll.txt ###
+affect a system&apos;s security state. Sesame graphically facili-
+tates users&apos; comprehension in making these decisions, and
+on Usable Privacy &amp; Security Software (2005).
+14. Thorpe, S., Fize, D. &amp; Marlot, C. (1996).Speed of processing
+Spyware &amp; Viruses. Que Publishing, © 2006.
+
+### label/CHI08/p1111-baumer.txt ###
+2. boyd, d. A blogger&apos;s blog: Exploring the definition of a
+elements of community. City &amp; Community 1, 4 (2002).
+Conversations in the blogosphere: An analysis &quot;from the
+bottom up.&quot; in HI Int’l Conf on Sys Sci, (2005), IEEE
+Internet&apos;s new storytellers, Pew Internet &amp; American
+23. Reed, A. &apos;My blog is me&apos;: Texts and person in UK
+
+### label/CHI08/p1009-zhou.txt ###
+Factors in Computing Systems CHI &apos;06 (2006)
+
+### label/CHI08/p1027-joinson.txt ###
+Finding people you haven&apos;t seen for a while
+Seeing what people have put as their &apos;status&apos; The continuous updates
+gratifications scales (F (7, 233) = 2.662, p &lt; 0.02). Further
+p&lt;0.001, η2= .063), with females scoring higher on the
+8.95, p&lt;0.01, 112= .036), with females again scoring higher
+12.29, p &lt; .01), with females more likely to report making
+gratifications of Facebook (F (7, 217) = 4.93, p &lt; .001),
+(1, 223) = 7.3 1, p&lt;.01), Factor 2 (shared identities – F (1,
+223) = 4.90, p&lt;.05), and Factor 3 (photographs – F (1, 223)
+= 7.85, p&lt; .01).
+connection (rs(225) = -.27, p&lt;.001), and photographs (rs(225) =
+-.32, p&lt;.001), with younger respondents scoring higher on
+registered on Facebook (rs(241) = -.17, p&lt;0.01), the regularity
+with which they visited the site (rs(241) = -.18, p&lt;.01), the
+p&lt;.01) and the number of friends they had linked to their
+profile (rs(219) = -.37, p&lt;.001). In all cases, a younger user
+settings (rs(238) = -.17, p&lt;.01), such that younger users report
+model was significant (F (10, 213) = 4.77, p&lt;0.001, R2 =
+3.85, p&lt;0.001, R2 = .12).
+The overall model was significant (F (15, 196) = 8.48, p &lt;
+(8, 454) = 2.11, p &lt; .05). Analysis of the between subjects
+groups’ or ‘joining events’ items and privacy settings (ps &gt;
+4.16, p &lt; .02), and a marginally significant effect on the
+2. Boyd, D. Facebook&apos;s Privacy Trainwreck: Exposure,
+5. Donath, J. and Boyd, D. Public displays of connection&quot;.
+14. Joinson, A.N. &amp; Paine, C.B. Self-Disclosure, Privacy
+&amp; E. Katz (Eds.), The uses of mass communications:
+ml?in_article_id=397026&amp;in_page_id=1879
+23. Stafford, T.F., Stafford, M.R., &amp; Schkade, L.L.
+
+### label/CHI08/p1065-egelman.txt ###
+the active IE and Firefox warnings (p &lt; 0.0004 for Fisher’s
+control group (p &lt; 0.01) demonstrating that the active IE
+Firefox condition (20%; p &lt; 0.048 for Fisher’s exact test).
+ingness to completely read it (r = —0.309, p &lt; 0.03).
+than those exposed to the active IE warnings (p &lt; 0.041)
+and the passive IE warnings (p &lt; 0.005), though we found
+meaning for the active IE warning (r = 0.478, p &lt; 0.039),
+r = 0.76, p &lt; 0.0001). More telling, all but three partic-
+ignoring a warning (r = 0.506, p &lt; 0.0003). This fur-
+and both reading (r = 0.487, p &lt; 0.0005) and heeding
+(r = 0.406, p &lt; 0.005) the warnings. Thus, if a user does
+cantly more effective than passive warnings (p &lt; 0.0002 for
+the control group (p &lt; 1.0 for Fisher’s exact test). The ac-
+highly significant difference (p &lt; 0.0004, for Fisher’s exact
+cantly better than the control condition (p &lt; 0.01) and the
+passive IE warning (p &lt; 0.044).
+tools. In Proceedings of the 14th Annual Network &amp;
+
+### label/CHI08/p1075-tseng.txt ###
+= 23.43, p &lt; 0.001), number of gazes (F(1,23) = 15.87,
+p=0.001), gaze duration (F(1,23) = 17.34, p &lt; 0.001), and
+p&lt;0.001). The results showed that participant spent less
+total search time (F(2,46) = 136.54, p &lt; 0.001), number of
+gazes (F(2,46) = 73.18, p &lt; 0.001), gaze duration (F(2,46) =
+10.16, p &lt; 0.001), and proportion of skipping gaze
+different (p &lt; 0.05). According to the pairwise comparison,
+F(2,46) = 3.73, p &lt; 0.05.
+density (all p’s &lt; 0.01) and when there were more pages (a
+every pair was significantly different, p &lt; 0.001). In
+visited it the fist time, F(1,20) = 99.788, P &lt; 0.001.
+search time in the first page, F(1,23) = 28.27, p &lt; 0.001.
+search time of the first page, F(2,46) = 15.82,p &lt; 0.001.
+layout (M = 387.259 ms), F(1,23) = 22.414, p &lt; 0.001. The
+F (1, 23) = 46.72, p &lt; 0.001. It was found that that
+significant, F (2, 46) = 15.00, p &lt; 0.001. Every pairwise
+different (p &lt; 0.01). It showed that our participants skipped
+Bonferroni method was significantly different (p &lt; 0.01). It
+F(1,23) = 24.65, p &lt; 0.001. There was also a main effect of
+number of pages, F(2,46) = 24.9, p &lt; 0.001. Every pair
+method was significantly different (p &lt; 0.001). It showed
+between page 1 and any other page was significant, p&lt;0.01
+page	29.63	5.21E+05 &lt;0.001	17.06	1.397	&lt;0.001	5.4	998.24	0.001	9.70	0.002	&lt;0.001
+Perception &amp; Psychophysics 62 (2000), 576-585.
+Varying icon spacing changes users&apos; visual search
+
+### label/CHI08/p1101-butler.txt ###
+•	Constructions of meaning &amp; identity
+what the group calls “edit wars,&quot; or conflicts between two
+and implicit norms in usenet newsgroups. Library &amp;
+8. Cohen, N., Defending wikipedia&apos;s impolite side, in The
+Sebastopol, CA O&apos;Reilly Media, Inc.
+for internet identity research. New Media &amp; Society,
+software works: &quot;Free&quot; User-to-user assistance.
+age of the internet: Identity &quot;Demarginalization&quot;
+Personality &amp; Social Psychology. 75(3): p. 681.
+electronic environment. Genetic, Social &amp; General
+
+### label/CHI08/p1055-sankarpandian.txt ###
+vulnerabilities since 1995 [5]. NIST&apos;s report on the
+Figure 1: TALC showing graffiti on the user&apos;s desktop along with a popup description of the threat.
+removed from users&apos; day-to-day experiences, and also may
+18. McCrickard, D. S., Chewar, C. M., Somervell, J. P., &amp;
+20. Microsoft. Manage Your Computer&apos;s Security Settings
+and Usability, O&apos;Reilly, August 2005.
+&quot;Effective Patch Management is Critical to Mitigating
+Software Vulnerabilities.&quot; Testimony before the
+
+### label/CHI08/p1-harboe.txt ###
+Chumby3 is a WiFi-enabled internet appliance with a 3.5&quot;
+of the Chumby than of the orb. As B3 said: “I think it&apos;s kind
+yellow and no one was on, so I&apos;m assuming everyone was
+4. Beyer, H., &amp; Holtzblatt, K. (1998). Contextual design:
+research on television&apos;s audiences. London: Routledge.
+
+### label/CHI08/p1017-guy.txt ###
+Relations	user(s), limit, offset	&lt;list of people&gt;
+Network	user(s), degrees, threshold	&lt;graph of people&gt;
+Evidence	users(s), limit, offset	&lt;list of entries&gt;
+such as the basic “who knows about &lt;topic&gt;?”, but also
+“who do I know that knows about &lt;topic&gt;?”, and the related
+“who do I mostly communicate with about &lt;topic&gt;?”
+group. This may also be useful for resolving “who&apos;s missing
+#	&gt;	#	&gt;	#	&gt;	#	&gt;
+connections (#) and unique contributions (&gt;)
+such as: “who is most related to &lt;person&gt; w.r.t. &lt;topic&gt;?”
+interest detection. Proc. WWW &apos;06, ACM Press (2006),
+mining mailbox networks. Proc. ICDM &apos;06, IEEE
+Conference on System Sciences HICSS&apos;07, (2007), p. 80
+social networks for semantic Web. Proc. AAAI &apos;06
+24. O&apos;Reilly, T. What is Web 2.0.

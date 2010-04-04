@@ -76,6 +76,7 @@ my %config = (
 
 	      # bigram differential features
 	      'bi_xmlA' => 0,
+	      'bi_xmlS' => 0,
 	      'bi_xmlF' => 0,
 	      'bi_xmlSF' => 0,
 	      'bi_xmlSFBI' => 0,

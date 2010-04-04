@@ -68,7 +68,7 @@ $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'markup' => \$isMarkup,
 
 			    'para' => \$isParaDelimiter,
-			    'debug' => \$isDebug,
+			    'log' => \$isDebug,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
 
@@ -107,8 +107,8 @@ my @gDd = (); # dd feature
 my @gCell = (); # cell feature
 my @gBullet = (); # bullet feature
 
-# space feature, gSpaceHash->{$space} = freq
-#my %gSpaceHash = (); #my @gSpace = ();
+# space feature
+#my %gSpaceHash = (); my @gSpace = ();
 ### End XML features ###
 
 my $gCurrentPage = -1;
@@ -292,15 +292,15 @@ sub output {
       # space feature
 #      my $spaceFeature;
 #      if($gSpace[$id] eq "none"){
-#	$spaceFeature = "xmlSpace_no";
+#	$spaceFeature = "xmlSpace_none";
 #      } else {
 #	$spaceFeature = "xmlSpace_".$gSpaceLabels{$gSpace[$id]};
 #      }
 
       ## Differential features ##
-      my ($alignDiff, $fontFaceDiff, $fontSFDiff, $fontSFBIDiff, $fontSFBIADiff, $paraDiff) = getDifferentialFeatures($id);
+      my ($alignDiff, $fontSizeDiff, $fontFaceDiff, $fontSFDiff, $fontSFBIDiff, $fontSFBIADiff, $paraDiff) = getDifferentialFeatures($id);
 
-      $output .= " |XML| $locFeature $alignFeature $boldFeature $italicFeature $fontSizeFeature $ddFeature $cellFeature $bulletFeature $alignDiff $fontFaceDiff $fontSFDiff $fontSFBIDiff $fontSFBIADiff $paraDiff\n"; 
+      $output .= " |XML| $locFeature $alignFeature $boldFeature $italicFeature $fontSizeFeature $ddFeature $cellFeature $bulletFeature $alignDiff $fontSizeDiff $fontFaceDiff $fontSFDiff $fontSFBIDiff $fontSFBIADiff $paraDiff\n"; 
     } else {
       $output .= "\n";
     }
@@ -344,7 +344,16 @@ sub getDifferentialFeatures {
   } else {
     $fontFaceDiff .= "new";
   }
-  
+
+  # fontSizeChange feature
+  my $fontSizeDiff = "bi_xmlS_";
+  if($id == 0){
+    $fontSizeDiff .= "new";
+  } elsif($gFontSize[$id] == $gFontSize[$id-1]){
+    $fontSizeDiff .= "same";
+  } else {
+    $fontSizeDiff .= "new";
+  }  
   
   # fontSFChange feature
   my $fontSFDiff = "bi_xmlSF_";
@@ -388,8 +397,9 @@ sub getDifferentialFeatures {
     }
   }
 
-  return ($alignDiff, $fontFaceDiff, $fontSFDiff, $fontSFBIDiff, $fontSFBIADiff, $paraDiff);
+  return ($alignDiff, $fontSizeDiff, $fontFaceDiff, $fontSFDiff, $fontSFBIDiff, $fontSFBIADiff, $paraDiff);
 }
+
 sub getFontSizeLabels {
   my ($gFontSizeHash, $gFontSizeLabels) = @_;
 
@@ -444,6 +454,19 @@ sub getSpaceLabels {
   my @sortedSpaces = sort { $gSpaceHash->{$b} <=> $gSpaceHash->{$a} } keys %{$gSpaceHash}; # sort by freqs, obtain space faces
   
   my $commonSpace = $sortedSpaces[0];
+  my $commonFreq = $gSpaceHash->{$commonSpace};
+  # find similar common freq with larger spaces
+  for(my $i = 0; $i<scalar(@sortedSpaces); $i++){ # 0 ($smallIndex-1)
+    my $freq = $gSpaceHash->{$sortedSpaces[$i]};
+    if($freq/$commonFreq > 0.8){
+      if($sortedSpaces[$i] > $commonSpace){
+	$commonSpace = $sortedSpaces[$i];
+      }
+    } else {
+      last;
+    }
+  }
+
   for(my $i = 0; $i<scalar(@sortedSpaces); $i++){ # 0 ($smallIndex-1)
     if($sortedSpaces[$i] > $commonSpace){
       $gSpaceLabels->{$sortedSpaces[$i]} = "yes";
@@ -597,7 +620,7 @@ sub processTable {
 	  push(@gBold, "no"); # bold feature	  
 	  push(@gItalic, "no"); # italic feature
 	  push(@gBullet, "no"); # bullet feature
-	  #	  push(@gSpace, "none"); # space feature
+#	  push(@gSpace, "none"); # space feature
 	} # end if xml feature
       }
     }
@@ -1061,7 +1084,7 @@ sub updateXMLFeatures {
   }
   
   # space feature
-  #	  push(@gSpace, $space);
+#  push(@gSpace, $space);
 }
 
 ## Find the positions of header, body, and citation
