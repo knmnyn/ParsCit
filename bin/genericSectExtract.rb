@@ -6,7 +6,7 @@ pwd = File.dirname(__FILE__)
 
 @CRFPP  = "#{pwd}/../crfpp"
 @SRC    = "#{pwd}/genericSect"
-@DATA   = "#{pwd}/genericSect/data"
+@DATA   = "#{pwd}/../resources/genericSect/"
 @TEST_DIR = "#{pwd}/genericSect/run"
 
 name  = "#{Time.now.to_i}-#{Process.pid}"

@@ -1,0 +1,1279 @@
+title ||| A Pseudo Random Coordinated Scheduling Algorithm for
+title ||| Bluetooth Scatternets
+author ||| Andr´as R´acz, Gy¨orgy Mikl´os, Ferenc Kubinszky, Andr´as Valk´o
+affiliation ||| Traffic Analysis and Network Performance Lab., Ericsson Research
+address ||| Laborc 1, 1037 Budapest, Hungary
+address ||| Ph: +36-1-4377621, Fax: +36-1-4377767
+email ||| Andras.Racz@eth.ericsson.se
+sectionHeader ||| ABSTRACT
+bodyText ||| The emergence of Bluetooth as a default radio interface allows
+bodyText ||| handheld devices to be rapidly interconnected into ad hoc networks.
+bodyText ||| Bluetooth allows large numbers of piconets to form a scatternet us-
+bodyText ||| ing designated nodes that participate in multiple piconets. A unit
+bodyText ||| that participates in multiple piconets can serve as a bridge and for-
+bodyText ||| wards traffic between neighbouring piconets. Since a Bluetooth
+bodyText ||| unit can transmit or receive in only one piconet at a time, a bridging
+bodyText ||| unit has to share its time among the different piconets. To sched-
+bodyText ||| ule communication with bridging nodes one must take into account
+bodyText ||| their availability in the different piconets, which represents a dif-
+bodyText ||| ficult, scatternet wide coordination problem and can be an impor-
+bodyText ||| tant performance bottleneck in building scatternets. In this paper
+bodyText ||| we propose the Pseudo-Random Coordinated Scatternet Schedul-
+bodyText ||| ing (PCSS) algorithm to perform the scheduling of both intra and
+bodyText ||| inter-piconet communication. In this algorithm Bluetooth nodes
+bodyText ||| assign meeting points with their peers such that the sequence of
+bodyText ||| meeting points follows a pseudo random process that is different
+bodyText ||| for each pair of nodes. The uniqueness of the pseudo random se-
+bodyText ||| quence guarantees that the meeting points with different peers of
+bodyText ||| the node will collide only occasionally. This removes the need
+bodyText ||| for explicit information exchange between peer devices, which is
+bodyText ||| a major advantage of the algorithm. The lack of explicit signaling
+bodyText ||| between Bluetooth nodes makes it easy to deploy the PCSS algo-
+bodyText ||| rithm in Bluetooth devices, while conformance to the current Blue-
+bodyText ||| tooth specification is also maintained. To assess the performance of
+bodyText ||| the algorithm we define two reference case schedulers and perform
+bodyText ||| simulations in a number of scenarios where we compare the perfor-
+bodyText ||| mance of PCSS to the performance of the reference schedulers.
+sectionHeader ||| Keywords
+keyword ||| Bluetooth, scheduling, inter-piconet communication, scatternet
+sectionHeader ||| 1. INTRODUCTION
+bodyText ||| Short range radio technologies enable users to rapidly interconnect
+bodyText ||| handheld electronic devices such as cellular phones, palm devices
+bodyText ||| or notebook computers. The emergence of Bluetooth [1] as de-
+copyright ||| Permission to make digital or hard copies of part or all of this work or
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that copies
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise, to
+copyright ||| republish, to post on servers, or to redistribute to lists, requires prior
+copyright ||| specific permission and/or a fee.
+note ||| MobiHOC 2001, Long Beach, CA, USA
+copyright ||| © ACM 2001 1-58113-390-1/01/10...$5.00
+bodyText ||| fault radio interface in these devices provides an opportunity to turn
+bodyText ||| them from stand-alone tools into networked equipment. Building
+bodyText ||| Bluetooth ad hoc networks also represents, however, a number of
+bodyText ||| new challenges, partly stemming from the fact that Bluetooth was
+bodyText ||| originally developed for single hop wireless connections. In this
+bodyText ||| paper we study the scheduling problems of inter-piconet commu-
+bodyText ||| nication and propose a lightweight scheduling algorithm that Blue-
+bodyText ||| tooth nodes can employ to perform the scheduling of both intra and
+bodyText ||| inter-piconet communication.
+bodyText ||| Bluetooth is a short range radio technology operating in the unli-
+bodyText ||| censed ISM (Industrial-Scientific-Medical) band using a frequency
+bodyText ||| hopping scheme. Bluetooth (BT) units are organized into piconets.
+bodyText ||| There is one Bluetooth device in each piconet that acts as the mas-
+bodyText ||| ter, which can have any number of slaves out of which up to seven
+bodyText ||| can be active simultaneously. The communication within a piconet
+bodyText ||| is organized by the master which polls each slave according to some
+bodyText ||| polling scheme. A slave is only allowed to transmit in a slave-
+bodyText ||| to-master slot if it has been polled by the master in the previous
+bodyText ||| master-to-slave slot. In Section 3 we present a brief overview of
+bodyText ||| the Bluetooth technology.
+bodyText ||| A Bluetooth unit can participate in more than one piconet at any
+bodyText ||| time but it can be a master in only one piconet. A unit that par-
+bodyText ||| ticipates in multiple piconets can serve as a bridge thus allowing
+bodyText ||| the piconets to form a larger network. We define bridging degree
+bodyText ||| as the number of piconets a bridging node is member of. A set
+bodyText ||| of piconets that are all interconnected by such bridging units is re-
+bodyText ||| ferred to as a scatternet network (Figure 1). Since a Bluetooth unit
+bodyText ||| can transmit or receive in only one piconet at a time, bridging units
+bodyText ||| must switch between piconets on a time division basis. Due to the
+bodyText ||| fact that different piconets are not synchronized in time a bridging
+bodyText ||| unit necessarily loses some time while switching from one piconet
+bodyText ||| to the other. Furthermore, the temporal unavailability of bridging
+bodyText ||| nodes in the different piconets makes it difficult to coordinate the
+bodyText ||| communication with them, which impacts throughput and can be
+bodyText ||| an important performance constraint in building scatternets.
+bodyText ||| There are two important phenomena that can reduce the efficiency
+bodyText ||| of the polling based communication in Bluetooth scatternets:
+listItem ||| •	slaves that have no data to transmit may be unnecessarily
+listItem ||| polled, while other slaves with data to transmit may have to
+listItem ||| wait to be polled; and
+listItem ||| •	at the time of an expected poll one of the nodes of a master-
+listItem ||| slave node pair may not be present in the piconet (the slave
+figureCaption ||| Figure 1: Example scatternet
+bodyText ||| that is being polled is not listening or the master that is ex-
+bodyText ||| pected to poll is not polling).
+bodyText ||| The first problem applies to polling based schemes in general, while
+bodyText ||| the second one is specific to the Bluetooth environment. In or-
+bodyText ||| der to improve the efficiency of inter-piconet communication the
+bodyText ||| scheduling algorithm has to coordinate the presence of bridging
+bodyText ||| nodes in the different piconets such that the effect of the second
+bodyText ||| phenomenon be minimized.
+bodyText ||| However, the scheduling of inter-piconet communication expands
+bodyText ||| to a scatternet wide coordination problem. Each node that has more
+bodyText ||| than one Bluetooth links have to schedule the order in which it com-
+bodyText ||| municates with its respective neighbours. A node with multiple
+bodyText ||| Bluetooth links can be either a piconet master or a bridging node or
+bodyText ||| both. The scheduling order of two nodes will mutually depend on
+bodyText ||| each other if they have a direct Bluetooth link in which case they
+bodyText ||| have to schedule the communication on their common link for the
+bodyText ||| same time slots. This necessitates some coordination between the
+bodyText ||| respective schedulers. For instance in Figure 1 the scheduling order
+bodyText ||| of node A and the scheduling order of its bridging neighbours, B,
+bodyText ||| C, D and E mutually depend on each other, while nodes D and E
+bodyText ||| further effects nodes F, G and H as well. Furthermore, the possi-
+bodyText ||| ble loops in a scatternet (e.g., A-E-G-H-F-D) makes it even more
+bodyText ||| complicated to resolve scheduling conflicts.
+bodyText ||| In case of bursty traffic in the scatternet the scheduling problem
+bodyText ||| is further augmented by the need to adjust scheduling order in re-
+bodyText ||| sponse to dynamic variation of traffic intensity. In a bursty traffic
+bodyText ||| environment it is desirable that a node spends most of its time on
+bodyText ||| those links that have a backlogged burst of data.
+bodyText ||| One way to address the coordination problem of inter-piconet
+bodyText ||| scheduling is to explicitly allocate, in advance, time slots for com-
+bodyText ||| munication in each pair of nodes. Such a hard coordination ap-
+bodyText ||| proach eliminates ambiguity with regards to a node’s presence in
+bodyText ||| piconets, but it implies a complex, scatternet wide coordination
+bodyText ||| problem and requires explicit signaling between nodes of a scat-
+bodyText ||| ternet. In the case of bursty traffic, hard coordination schemes
+bodyText ||| generate a significant computation and signaling overhead as the
+bodyText ||| communication slots have to be reallocated in response to changes
+bodyText ||| in traffic intensity and each time when a new connection is estab-
+bodyText ||| lished or released.
+bodyText ||| In this paper we propose the Pseudo-Random Coordinated Scatter-
+bodyText ||| net Scheduling algorithm which falls in the category of soft coor-
+bodyText ||| dination schemes. In soft coordination schemes nodes decide their
+bodyText ||| presence in piconets based on local information. By nature, soft co-
+bodyText ||| ordination schemes cannot guarantee conflict-free participation of
+bodyText ||| bridging nodes in the different piconets, however, they have a sig-
+bodyText ||| nificantly reduced complexity. In the PCSS algorithm coordination
+bodyText ||| is achieved by implicit rules in the communication without the need
+bodyText ||| of exchanging explicit control information. The low complexity of
+bodyText ||| the algorithm and its conformance to the current Bluetooth specifi-
+bodyText ||| cation allow easy implementation and deployment.
+bodyText ||| The first key component of the algorithm is the notion of check-
+bodyText ||| points which are defined in relation to each pair of nodes that
+bodyText ||| are connected by a Bluetooth link and which represent predictable
+bodyText ||| points in time when packet transmission can be initiated on the par-
+bodyText ||| ticular link. In other words, checkpoints serve as regular meeting
+bodyText ||| points for neighboring nodes when they can exchange packets. In
+bodyText ||| order to avoid systematic collision of checkpoints on different links
+bodyText ||| of a node the position of checkpoints follows a pseudo random se-
+bodyText ||| quence that is specific to the particular link the checkpoints belong
+bodyText ||| to.
+bodyText ||| The second key component of the algorithm is the dynamic adjust-
+bodyText ||| ment of checking intensity, which is necessary in order to effec-
+bodyText ||| tively support bursty data traffic. Bandwidth can be allocated and
+bodyText ||| deallocated to a particular link by increasing and decreasing check-
+bodyText ||| point intensity, respectively.
+bodyText ||| To assess the performance of the algorithm we define two reference
+bodyText ||| schedulers and relate the performance of the PCSS scheme to these
+bodyText ||| reference algorithms in a number of simulation scenarios.
+bodyText ||| The remainder of the paper is structured as follows. In Section 2 we
+bodyText ||| give an overview of related work focusing on Bluetooth scheduling
+bodyText ||| related studies available in the literature. Section 3 gives a brief
+bodyText ||| overview of the Bluetooth technology. In Section 4 and 5 we intro-
+bodyText ||| duce the proposed algorithm. In Section 6 we define the reference
+bodyText ||| schedulers. Finally, in Section 7 we present simulation results.
+sectionHeader ||| 2. RELATED WORK
+bodyText ||| A number of researchers have addressed the issue of scheduling in
+bodyText ||| Bluetooth. Most of these studies have been restricted, however, to
+bodyText ||| the single piconet environment, where the fundamental question is
+bodyText ||| the polling discipline used by the piconet master to poll its slaves.
+bodyText ||| These algorithms are often referred to as intra-piconet scheduling
+bodyText ||| schemes. In [7] the authors assume a simple round robin polling
+bodyText ||| scheme and investigate queueing delays in master and slave units
+bodyText ||| depending on the length of the Bluetooth packets used. In [5] Jo-
+bodyText ||| hansson et al. analyze and compare the behavior of three differ-
+bodyText ||| ent polling algorithms. They conclude that the simple round robin
+bodyText ||| scheme may perform poorly in Bluetooth systems and they propose
+bodyText ||| a scheme called Fair Exhaustive Polling. The authors demonstrate
+bodyText ||| the strength of this scheme and argue in favor of using multi-slot
+bodyText ||| packets. Similar conclusions are drawn by Kalia et al. who argue
+bodyText ||| that the traditional round robin scheme may result in waste and un-
+bodyText ||| fairness [8]. The authors propose two new scheduling disciplines
+bodyText ||| that utilize information about the status of master and slave queues.
+bodyText ||| In [9, 10] the authors concentrate on scheduling policies designed
+bodyText ||| with the aim of low power consumption. A number of schedul-
+bodyText ||| ing policies are proposed which exploit either the park or sniff low
+bodyText ||| power modes of Bluetooth.
+figure ||| B
+figure ||| E
+figure ||| A
+figure ||| G
+figure ||| C
+figure ||| D
+figure ||| H
+figure ||| F
+figure ||| master
+figure ||| slave
+figure ||| slave in two piconets
+figure ||| slave in one piconet and master in another
+bodyText ||| Although the above studies have revealed a number of important
+bodyText ||| performance aspects of scheduling in Bluetooth piconets, the algo-
+bodyText ||| rithms developed therein are not applicable for inter-piconet com-
+bodyText ||| munication. In [6] the authors have shown that constructing an op-
+bodyText ||| timal link schedule that maximizes total throughput in a Bluetooth
+bodyText ||| scatternet is an NP hard problem even if scheduling is performed
+bodyText ||| by a central entity. The authors also propose a scheduling algo-
+bodyText ||| rithm referred to as Distributed Scatternet Scheduling Algorithm
+bodyText ||| (DSSA), which falls in the category of distributed, hard coordina-
+bodyText ||| tion schemes. Although the DSSA algorithm provides a solution
+bodyText ||| for scheduling communication in a scatternet, some of its idealized
+bodyText ||| properties (e.g., nodes are aware of the traffic requirements of their
+bodyText ||| neighbours) and its relatively high complexity make it difficult to
+bodyText ||| apply it in a real life environment.
+bodyText ||| There is an ongoing work in the Personal Area Networking (PAN)
+bodyText ||| working group of the Bluetooth Special Interest Group (SIG) [2] to
+bodyText ||| define an appropriate scheduling algorithm for Bluetooth scatter-
+bodyText ||| nets.
+sectionHeader ||| 3. BLUETOOTH BACKGROUND
+bodyText ||| Bluetooth is a short range radio technology that uses frequency
+bodyText ||| hopping scheme, where hopping is performed on 79 RF channels
+bodyText ||| spaced 1 MHz apart. Communication in Bluetooth is always be-
+bodyText ||| tween master and slave nodes. Being a master or a slave is only
+bodyText ||| a logical state: any Bluetooth unit can be a master or a slave.
+bodyText ||| The Bluetooth system provides full-duplex transmission based on
+bodyText ||| slotted Time Division Duplex (TDD) scheme, where each slot is
+bodyText ||| 0.625 ms long. Master-to-slave transmission always starts in an
+bodyText ||| even-numbered time slot, while slave-to-master transmission al-
+bodyText ||| ways starts in an odd-numbered time slot. A pair of master-to-slave
+bodyText ||| and slave-to-master slots are often referred to as a frame. The com-
+bodyText ||| munication within a piconet is organized by the master which polls
+bodyText ||| each slave according to some polling scheme. A slave is only al-
+bodyText ||| lowed to transmit in a slave-to-master slot if it has been polled by
+bodyText ||| the master in the previous master-to-slave slot. The master may
+bodyText ||| or may not include data in the packet used to poll a slave. Blue-
+bodyText ||| tooth packets can carry synchronous data (e.g., real-time traffic) on
+bodyText ||| Synchronous Connection Oriented (SCO) links or asynchronous
+bodyText ||| data (e.g., elastic data traffic, which is the case in our study) on
+bodyText ||| Asynchronous Connectionless (ACL) links. Bluetooth packets on
+bodyText ||| an ACL link can be 1, 3 or 5 slot long and they can carry differ-
+bodyText ||| ent amount of user data depending on whether the payload is FEC
+bodyText ||| coded or not. Accordingly, the Bluetooth packet types DH 1, DH3
+bodyText ||| and DH5 denote 1, 3 and 5 slot packets, respectively, where the
+bodyText ||| payload is not FEC encoded, while in case of packet types DM1,
+bodyText ||| DM3 and DM5 the payload is protected with FEC encoding. There
+bodyText ||| are two other types of packets, the POLL and NULL packets that do
+bodyText ||| not carry user data. The POLL packet is used by the master when
+bodyText ||| it has no user data to the slave but it still wants to poll it. Similarly,
+bodyText ||| the NULL packet is used by the slave to respond to the master if it
+bodyText ||| has no user data. For further information regarding the Bluetooth
+bodyText ||| technology the reader is referred to [1, 3].
+sectionHeader ||| 4. OVERVIEW OF THE PCSS ALGO-
+sectionHeader ||| RITHM
+bodyText ||| Coordination in the PCSS algorithm is achieved by the unique
+bodyText ||| pseudo random sequence of checkpoints that is specific to each
+bodyText ||| master-slave node pair and by implicit information exchange be-
+bodyText ||| tween peer devices. A checkpoint is a designated Bluetooth frame.
+bodyText ||| The activity of being present at a checkpoint is referred to as to
+bodyText ||| check. A master node actively checks its slave by sending a packet
+bodyText ||| to the slave at the corresponding checkpoint and waiting for a re-
+bodyText ||| sponse from the slave. The slave node passively checks its master
+bodyText ||| by listening to the master at the checkpoint and sending a response
+bodyText ||| packet in case of being addressed.
+bodyText ||| The expected behaviour of nodes is that they show up at each
+bodyText ||| checkpoint on all of their links and check their peers for available
+bodyText ||| user data. The exchange of user data packets started at a check-
+bodyText ||| point can be continued in the slots following the checkpoint. A
+bodyText ||| node remains active on the current link until there is user data in
+bodyText ||| either the master-to-slave or slave-to-master directions or until it
+bodyText ||| has to leave for a next checkpoint on one of its other links. In
+bodyText ||| the PCSS scheme we exploit the concept of randomness in assign-
+bodyText ||| ing the position of checkpoints, which excludes the possibility that
+bodyText ||| checkpoints on different links of a node will collide systematically,
+bodyText ||| thus giving the node an equal chance to visit all of its checkpoints.
+bodyText ||| The pseudo random procedure is similar to the one used to derive
+bodyText ||| the pseudo random frequency hopping sequence. In particular, the
+bodyText ||| PCSS scheme assigns the positions of checkpoints on a given link
+bodyText ||| following a pseudo random sequence that is generated based on the
+bodyText ||| Bluetooth clock of the master and the MAC address of the slave.
+bodyText ||| This scheme guarantees that the same pseudo random sequence
+bodyText ||| will be generated by both nodes of a master-slave pair, while the se-
+bodyText ||| quences belonging to different node pairs will be different. Figure
+bodyText ||| 2 shows an example for the pseudo random arrangement of check-
+bodyText ||| points in case of a node pair A and B. The length of the current base
+bodyText ||| checking interval is denoted by T(h k and the current checking in-
+bodyText ||| tensity is defined accordingly as e9 . There is one checkpoint
+bodyText ||| T(i) heck
+bodyText ||| within each base checking interval and the position of the check-
+bodyText ||| point within this window is changing from one time window to the
+bodyText ||| other in a pseudo random manner.
+figureCaption ||| Figure 2: Pseudo-random positioning of checkpoints
+bodyText ||| Since the pseudo random sequence is different from one link to an-
+bodyText ||| other, checkpoints on different links of a node will collide only oc-
+bodyText ||| casionally. In case of collision the node can attend only one of the
+bodyText ||| colliding checkpoints, which implies that the corresponding neigh-
+bodyText ||| bours have to be prepared for a non-present peer. That is, the mas-
+bodyText ||| ter might not poll and the slave might not listen at a checkpoint.
+bodyText ||| We note that a collision occurs either if there are more than one
+bodyText ||| checkpoints scheduled for the same time slot or if the checkpoints
+bodyText ||| are so close to each other that a packet transmission started at the
+bodyText ||| first checkpoint necessarily overlaps the second one. Furthermore,
+bodyText ||| if the colliding checkpoints belong to links in different piconets,
+bodyText ||| the necessary time to perform the switch must be also taken into
+bodyText ||| account.
+bodyText ||| During the communication there is the possibility to increase or
+bodyText ||| decrease the intensity of checkpoints depending on the amount of
+bodyText ||| user data to be transmitted and on the available capacity of the
+bodyText ||| node. According to the PCSS algorithm a node performs certain
+bodyText ||| traffic measurements at the checkpoints and increases or decreases
+bodyText ||| the current checking intensity based on these measurements. Since
+figure ||| T(Z)
+figure ||| check
+figure ||| 1 frame
+figure ||| checkpoints of A toward B	checkpoints of B toward A
+bodyText ||| nodes decide independently about the current checking intensity
+bodyText ||| without explicit coordination, two nodes on a given link may select
+bodyText ||| different base checking periods. In order to ensure that two nodes
+bodyText ||| with different checking intensities on the same link can still com-
+bodyText ||| municate we require the pseudo random generation of checkpoints
+bodyText ||| to be such that the set of checkpoint positions at a lower checking
+bodyText ||| intensity is a subset of checkpoint positions at any higher checking
+bodyText ||| intensities. In the Appendix we are going to present a pseudo ran-
+bodyText ||| dom scheme for generating the position of checkpoints, which has
+bodyText ||| the desired properties.
+sectionHeader ||| 5. OPERATION OF PCSS
+bodyText ||| In what follows, we describe the procedures of the PCSS algorithm.
+bodyText ||| We start by the initialization process which ensures that two nodes
+bodyText ||| can start communication as soon as a new link has been established
+bodyText ||| or the connection has been reset. Next, we describe the rules that
+bodyText ||| define how nodes calculate their checkpoints, decide upon their
+bodyText ||| presence at checkpoints and exchange packets. Finally, we present
+bodyText ||| the way neighboring nodes can dynamically increase and decrease
+bodyText ||| of checkpoint intensity.
+subsectionHeader ||| 5.1 Initialization
+bodyText ||| In the PCSS algorithm there is no need for a separate initialization
+bodyText ||| procedure to start communication, since the pseudo random gener-
+bodyText ||| ation of checkpoints is defined such that once a master slave node
+bodyText ||| pair share the same master’s clock and slave’s MAC address infor-
+bodyText ||| mation, it is guaranteed that the same pseudo random sequence will
+bodyText ||| be produced at each node. That is, it is guaranteed that two nodes
+bodyText ||| starting checkpoint generation at different time instants with differ-
+bodyText ||| ent checking intensities will be able to communicate. It is the own
+bodyText ||| decision of the nodes to select an appropriate initial checking in-
+bodyText ||| tensity, which may depend for example on the free capacities of the
+bodyText ||| node or on the amount of data to transmit. Once the communication
+bodyText ||| is established the increase and decrease procedures will adjust the
+bodyText ||| possibly different initial checking intensities to a common value.
+subsectionHeader ||| 5.2 Communication
+bodyText ||| A pair of nodes can start exchanging user data packets at a check-
+bodyText ||| point, which can expand through the slots following the checkpoint.
+bodyText ||| The nodes remain active on the current link following a check-
+bodyText ||| point until there is user data to be transmitted or one of them has to
+bodyText ||| leave in order to attend a checkpoint on one of its other links. Af-
+bodyText ||| ter a POLL/NULL packet pair has been exchanged indicating that
+bodyText ||| there is no more user data left the nodes switch off their transmit-
+bodyText ||| ters/receivers and remain idle until a next checkpoint comes on one
+bodyText ||| of their links. However, during the communication any of the nodes
+bodyText ||| can leave in order to attend a coming checkpoint on one of its other
+bodyText ||| links. After one of the nodes has left the remaining peer will realize
+bodyText ||| the absence of the node and will go idle until the time of its next
+bodyText ||| checkpoint. If the master has left earlier the slave will realize the
+bodyText ||| absence of the master at the next master-to-slave slot by not receiv-
+bodyText ||| ing the expected poll. In the worst case the master has left before
+bodyText ||| receiving the last packet response from the slave, which can be a 5
+bodyText ||| slot packet in which case the slave wastes 5+1 slots before realiz-
+bodyText ||| ing the absence of the master. Similarly, if the master does not get
+bodyText ||| a response from the slave it assumes that the slave has already left
+bodyText ||| the checkpoint and goes idle until its next checkpoint. Note that the
+bodyText ||| master may also waste 5+1 slots in the worst case before realizing
+bodyText ||| the absence of the slave.
+bodyText ||| A node stores the current length of the base checking interval and
+bodyText ||| the time of the next checkpoint for each of its Bluetooth links sep-
+bodyText ||| arately. For its ith link a node maintains the variable Tcheck to
+bodyText ||| store the length of the current base checking period in number of
+bodyText ||| frames and the variable t(i)
+bodyText ||| check, which stores the Bluetooth clock
+bodyText ||| of the master at the next checkpoint. After passing a checkpoint
+bodyText ||| the variable thheck is updated to the next checkpoint by running
+bodyText ||| the pseudo random generator (PseudoChkGen) with the current
+bodyText ||| value of the master’s clock t(i) and the length of the base checking
+bodyText ||| period Tcheck and with the MAC address of the slave A(i)
+bodyText ||| slave as in-
+bodyText ||| put parameters; tcizeck = PseudoChkGen(Tcheck, A(i)slave, t(i)).
+bodyText ||| The procedure PseudoChkGen is described in the Appendix.
+bodyText ||| There is a maximum and minimum checking interval Tmax =
+bodyText ||| 2fmax and Tmin = 2fmin, respectively. The length of the check-
+bodyText ||| ing period must be a power of 2 number of frames and it must take
+bodyText ||| a value from the interval [2fmin, 2fmax].
+subsectionHeader ||| 5.3 Increasing and Decreasing Checking In-
+subsectionHeader ||| tensity
+bodyText ||| The increase and decrease procedures are used to adjust the check-
+bodyText ||| ing intensity of a node according to the traffic intensity and to the
+bodyText ||| availability of the peer device. Each node decides independently
+bodyText ||| about the current checking intensity based on traffic measurements
+bodyText ||| at checkpoints.
+bodyText ||| Since the time spent by a node on a link is proportional to the ratio
+bodyText ||| of the number of checkpoints on that link and the number of check-
+bodyText ||| points on all links of the node, the bandwidth allocated to a link can
+bodyText ||| be controlled by the intensity of checkpoints on that link. This can
+bodyText ||| be shown by the following simple calculation.
+bodyText ||| Let us assume that the node has L number of links and assume
+bodyText ||| further that for the base checking periods on all links of the node
+bodyText ||| it holds that Tmin :5 T(i)
+bodyText ||| check < Tmax, Vi = 1, ... , L. Then the
+bodyText ||| average number of checkpoints within an interval of length Tmaxis
+equation ||| L
+equation ||| N = 1 T ,)ax  , and the average time between two consecutive
+equation ||| Tcheck
+equation ||| checkpoints is
+equation ||| t=	Tmax	=		1
+equation ||| 	N
+equation ||| 					,
+equation ||| 			L	1  Th
+equation ||| 				check
+equation ||| 			i=1
+bodyText ||| provided that the pseudo random generator produces a uniformly
+bodyText ||| distributed sequence of checkpoints. Then, the share of link j from
+bodyText ||| the total capacity of the node is
+bodyText ||| A node has to measure the utilization of checkpoints on each of
+bodyText ||| its links separately in order to provide input to the checking inten-
+bodyText ||| sity increase and decrease procedures. According to the algorithm
+bodyText ||| a given checkpoint is considered to be utilized if both nodes have
+bodyText ||| shown up at the checkpoint and at least one Bluetooth packet carry-
+bodyText ||| ing user data has been transmitted or received. If there has not been
+bodyText ||| a successful poll at the checkpoint due to the unavailability of any
+bodyText ||| of the nodes or if there has been only a POLL/NULL packet pair
+bodyText ||| exchange but no user data has been transmitted, the checkpoint is
+bodyText ||| considered to be unutilized. We note that due to packet losses the
+bodyText ||| utilization of a given checkpoint might be interpreted differently by
+bodyText ||| the nodes. However, this does not impact correct operation of the
+bodyText ||| algorithm.
+equation ||| .
+equation ||| rj =
+equation ||| 1/T(j) check
+equation ||| L
+equation ||| 1
+equation ||| T(i)
+equation ||| i=1 check
+bodyText ||| To measure the utilization of checkpoints p(i) on the ith link of the
+bodyText ||| node we employ the moving average method as follows. The uti-
+bodyText ||| lization of a checkpoint equals to 1 if it has been utilized, otherwise
+bodyText ||| it equals to 0. If the checkpoint has been utilized the variable p(i)
+bodyText ||| is updated as,
+equation ||| p(i) = quti • p(i) + (1 — quti) • 1;
+bodyText ||| if the checkpoint has not been utilized it is updated as,
+bodyText ||| p(i) = quti • p(i) + (1 — quti) • 0,
+bodyText ||| where 0 < quti < 1 is the time scale parameter of the moving
+bodyText ||| average method. A further parameter of the utilization measure-
+bodyText ||| ment is the minimum number of samples that have to be observed
+bodyText ||| before the measured utilization value is considered to be confident
+bodyText ||| and can be used as input to decide about increase and decrease of
+bodyText ||| checking intensity. This minimum number of samples is a denoted
+bodyText ||| by Nsample,min.
+bodyText ||| Finally, a node also has to measure its total utilization, which is
+bodyText ||| defined as the fraction of time slots where the node has been active
+bodyText ||| (transmitted or received) over the total number of time slots. To
+bodyText ||| measure the total utilization of a node we employ the moving aver-
+bodyText ||| age method again. Each node measures its own utilization p(node)
+bodyText ||| and updates the p(node) variable after each Nuti,win number of
+bodyText ||| slots as follows:
+equation ||| (node) _ (node) (node) (node)
+equation ||| p —quti•p +(1—
+equation ||| quti )•p (win ),
+bodyText ||| where p(win) is the fraction of time slots in the past time window
+bodyText ||| of length Nuti,win where the node has been active over the total
+bodyText ||| number of time slots Nuti,win.
+bodyText ||| If the utilization of checkpoints on link i falls below the lower
+bodyText ||| threshold plower, the current base checking period T(i)
+bodyText ||| check will be
+bodyText ||| doubled. Having a low checkpoint utilization can be either because
+bodyText ||| one or both of the nodes have not shown up at all of the checkpoints
+bodyText ||| or because there is not enough user data to be transmitted. In either
+bodyText ||| cases the intensity of checkpoints has to be decreased. Whenever a
+bodyText ||| decrease or increase is performed on link i the measured utilization
+bodyText ||| p(i) must be reset.
+bodyText ||| Since the parameter T (i)k is one of the inputs to the pseudo ran-
+bodyText ||| chec
+bodyText ||| dom checkpoint generation process, PseudoChkGen the check-
+bodyText ||| points after the decrease will be generated according to the new
+bodyText ||| period. Furthermore, due to the special characteristic of the check-
+bodyText ||| point generation scheme the remaining checkpoints after the de-
+bodyText ||| crease will be a subset of the original checkpoints, which guaran-
+bodyText ||| tees that the two nodes can sustain communication independent of
+bodyText ||| local changes in checking intensities.
+bodyText ||| An example for the checking intensity decrease in case of a node
+bodyText ||| pair A and B is shown in Figure 3. First, node A decreases check-
+bodyText ||| ing intensity by doubling its current base checking period in re-
+bodyText ||| sponse to the measured low utilization. As a consequence node B
+bodyText ||| will find node A on average only at every second checkpoint and
+bodyText ||| its measured utilization will decrease rapidly. When the measured
+bodyText ||| utilization at node B falls below the threshold plower, B realizes
+bodyText ||| that its peer has a lower checking intensity and follows the de-
+bodyText ||| crease by doubling its current base checking period. Although we
+bodyText ||| have not explicitly indicated in the Figure, it is assumed that there
+bodyText ||| has been user data exchanged at each checkpoint where both nodes
+bodyText ||| were present.
+figure ||| checkpoints of A toward B
+figure ||| node A reduces the checking
+figure ||| intensity, by doubling its base period	checkpoints of B toward A
+figure ||| ρ=0.35<ρlower	ρ=0.2	ρ=0.35	ρ=0.5	ρ=0.65 ρ=0.7
+figure ||| node B realizes the decrease and
+figure ||| doubles its base period
+figureCaption ||| Figure 3: Checking intensity decrease
+bodyText ||| Recall from the utilization measurement procedure that there is a
+bodyText ||| minimum number of checkpoints Nsample,min that has to be sam-
+bodyText ||| pled before the measured utilization is considered to be confident
+bodyText ||| and can be used to decide about checking intensity decrease. The
+bodyText ||| parameter Nsample,min together with the parameter of the mov-
+bodyText ||| ing average method quti determine the time scale over which the
+bodyText ||| utilization of checkpoints has to be above the threshold plower,
+bodyText ||| otherwise the node decreases checking intensity. It might be also
+bodyText ||| reasonable to allow that the parameter Nsample,min and the mov-
+bodyText ||| ing average parameter quti can be changed after each decrease or
+bodyText ||| increase taking into account for example the current checking in-
+bodyText ||| tensity, the available resources of the node or the amount of user
+bodyText ||| data to be transmitted, etc. However, in the current implementation
+bodyText ||| we apply fixed parameter values.
+bodyText ||| After a checkpoint where user data has been exchanged (not only a
+bodyText ||| POLL/NULL packet pair) checking intensity can be increased pro-
+bodyText ||| vided that the measured utilization of checkpoints exceeds the up-
+bodyText ||| per threshold pupper and the node has available capacity. Formally
+bodyText ||| a checking intensity increase is performed on link i if the following
+bodyText ||| two conditions are satisfied: p(i) > pupper and p(node) < piinn T),
+bodyText ||| where pupil r is the upper threshold of the total utilization of the
+bodyText ||| node. This last condition ensures that the intensity of checkpoints
+bodyText ||| will not increase unbounded. The intensity of checkpoints is dou-
+bodyText ||| bled at each increase by dividing the current length of the base
+bodyText ||| checking period T(n,eck by 2. For typical values of pupper we rec-
+bodyText ||| ommend 0.8 < pupper < 0.9 in which case the respective plower
+bodyText ||| value should be plower < 0.4 in order to avoid oscillation of in-
+bodyText ||| creases and decreases.
+bodyText ||| Figure 4 shows an example where node A and B communicate and
+bodyText ||| after exchanging user data at the second checkpoint both nodes
+bodyText ||| double the checking intensity. In the Figure we have explicitly in-
+bodyText ||| dicated whether there has been user data exchanged at a checkpoint
+bodyText ||| or not.
+figureCaption ||| Figure 4: Checking intensity increase
+figure ||| ρ=0.6ρ=0.5 ρ=0.58ρ=0.48ρ=0.56 ρ=0.46ρ=0.36<ρlower ρ=0.2	ρ=0.35 ρ=0.5
+figure ||| ρ=0.7	ρ=0.8>ρupper ρ=0.2 ρ=0.4	ρ=0.3 ρ=0.55
+figure ||| checking intensity
+figure ||| ρ=0.3
+figure ||| ρ=0.55
+figure ||| ρ=0.8>ρupper
+figure ||| ρ=0.2 ρ=0.4
+figure ||| checkpoints of A toward B
+figure ||| checkpoints of B toward A
+figure ||| ρ=0.7
+figure ||| user data
+figure ||| both node A and B double
+figure ||| user data
+figure ||| user data	user data
+sectionHeader ||| 6. REFERENCE ALGORITHMS
+bodyText ||| In this section we define the Ideal Coordinated Scatternet Sched-
+bodyText ||| uler (ICSS) and the Uncoordinated Greedy Scatternet Scheduler
+bodyText ||| (UGSS) reference algorithms. The ICSS algorithm represents
+bodyText ||| the “ideal” case where nodes exploit all extra information when
+bodyText ||| scheduling packet transmissions, which would not be available in a
+bodyText ||| realistic scenario. The UGSS algorithm represents the greedy case
+bodyText ||| where nodes continuously switch among their Bluetooth links in a
+bodyText ||| random order.
+subsectionHeader ||| 6.1 The ICSS Algorithm
+bodyText ||| The ICSS algorithm is a hypothetical, ideal scheduling algorithm
+bodyText ||| that we use as a reference case in the evaluation of the PCSS
+bodyText ||| scheme. In the ICSS algorithm a node has the following extra
+bodyText ||| information about its neighbours, which represents the idealized
+bodyText ||| property of the algorithm:
+listItem ||| •	a node is aware of the already pre-scheduled transmissions
+listItem ||| of its neighbours; and
+listItem ||| •	a node is aware of the content of the transmission buffers of
+listItem ||| its neighbours.
+bodyText ||| According to the ICSS algorithm each node maintains a scheduling
+bodyText ||| list, which contains the already pre-scheduled tasks of the node. A
+bodyText ||| task always corresponds to one packet pair exchange with a given
+bodyText ||| peer of the node. Knowing the scheduling list of the neighbours
+bodyText ||| allows the node to schedule communication with its neighbours
+bodyText ||| without overlapping their other communication, such that the ca-
+bodyText ||| pacity of the nodes is utilized as much as possible. Furthermore
+bodyText ||| being aware of the content of the transmission buffers of neigh-
+bodyText ||| bours eliminates the inefficiencies of the polling based scheme,
+bodyText ||| since there will be no unnecessary polls and the system will be
+bodyText ||| work-conserving.
+bodyText ||| In the scheduling list of a node there is at most one packet pair
+bodyText ||| exchange scheduled in relation to each of its peers, provided that
+bodyText ||| there is a Bluetooth packet carrying user data either in the trans-
+bodyText ||| mission buffer of the node or in the transmission buffer of the peer
+bodyText ||| or in both. After completing a packet exchange on a given link the
+bodyText ||| two nodes schedule the next packet exchange, provided that there
+bodyText ||| is user data to be transmitted in at least one of the directions. If
+bodyText ||| there is user data in only one of the directions, a POLL or NULL
+bodyText ||| packet is assumed for the reverse direction depending on whether
+bodyText ||| it is the master-to-slave or slave-to-master direction, respectively.
+bodyText ||| The new task is fitted into the scheduling lists of the nodes using
+bodyText ||| a first fit strategy. According to this strategy the task is fitted into
+bodyText ||| the first time interval that is available in both of the scheduling lists
+bodyText ||| and that is long enough to accommodate the new task. Note that the
+bodyText ||| algorithm strives for maximal utilization of node capacity by trying
+bodyText ||| to fill in the unused gaps in the scheduling lists.
+bodyText ||| If there is no more user data to be transmitted on a previously busy
+bodyText ||| link, the link goes to idle in which case no tasks corresponding to
+bodyText ||| the given link will be scheduled until there is user data again in at
+bodyText ||| least one of the directions.
+bodyText ||| An example for the scheduling lists of a node pair A and B is shown
+bodyText ||| in Figure 5. The tasks are labeled with the name of the correspond-
+bodyText ||| ing peers the different tasks belong to. Each node has as many
+bodyText ||| pre-scheduled tasks in its scheduling list as the number of its ac-
+bodyText ||| tive Bluetooth links. A link is considered to be active if there is
+bodyText ||| current time
+bodyText ||| schedule the next packet pair
+bodyText ||| exchange for node A and B
+figureCaption ||| Figure 5: Example for the scheduling lists of a node pair in case
+figureCaption ||| of the ICSS algorithm
+bodyText ||| user data packet in at least one of the directions. Node A has active
+bodyText ||| peers B and C, while node B has active peers A, D and E. After
+bodyText ||| node A and B have finished the transmission of a packet pair they
+bodyText ||| schedule the next task for the nearest time slots that are available
+bodyText ||| in both of their scheduling lists and the number of consecutive free
+bodyText ||| time slots is greater than or equal to the length of the task.
+subsectionHeader ||| 6.2 The UGSS Algorithm
+bodyText ||| In the UGSS algorithm Bluetooth nodes do not attempt to coordi-
+bodyText ||| nate their meeting points, instead each node visits its neighbours
+bodyText ||| in a random order. Nodes switch continuously among their Blue-
+bodyText ||| tooth links in a greedy manner. If the node has n number of links it
+bodyText ||| chooses each of them with a probability of 1/n. The greedy nature
+bodyText ||| of the algorithm results in high power consumption of Bluetooth
+bodyText ||| devices.
+bodyText ||| If the node is the master on the visited link it polls the slave by
+bodyText ||| sending a packet on the given link. The type of Bluetooth packet
+bodyText ||| sent can be a 1, 3 or 5 slot packet carrying useful data or an empty
+bodyText ||| POLL packet depending on whether there is user data to be trans-
+bodyText ||| mitted or not. After the packet has been sent the master remains
+bodyText ||| active on the link in order to receive any response from the slave.
+bodyText ||| If the slave has not been active on the given link at the time when
+bodyText ||| the master has sent the packet it could not have received the packet
+bodyText ||| and consequently it will not send a response to the master. After
+bodyText ||| the master has received the response of the slave or if it has sensed
+bodyText ||| the link to be idle indicating that no response from the salve can be
+bodyText ||| expected, it selects the next link to visit randomly.
+bodyText ||| Similar procedure is followed when the node is the slave on the
+bodyText ||| visited link. The slave tunes its receiver to the master and listens
+bodyText ||| for a packet transmission from the master in the current master-
+bodyText ||| to-slave slot. If the slave has not been addressed by the master
+bodyText ||| in the actual master-to-slave slot it immediately goes to the next
+bodyText ||| link. However, if the slave has been addressed it remains active on
+bodyText ||| the current link and receives the packet. After having received the
+bodyText ||| packet of the master the slave responds with its own packet in the
+bodyText ||| following slave-to-master slot. After the slave has sent its response
+bodyText ||| it selects the next link to visit randomly.
+sectionHeader ||| 7. SIMULATION RESULTS
+bodyText ||| First, we evaluate the algorithm in a realistic usage scenario, which
+bodyText ||| is the Network Access Point (NAP) scenario. Next we investigate
+bodyText ||| theoretical configurations and obtain asymptotical results that re-
+bodyText ||| veals the scaling properties of the algorithm. For instance we in-
+bodyText ||| vestigate the carried traffic in function of the number of forwarding
+figure ||| peer B
+figure ||| Dee, C	pear C
+figure ||| t
+figure ||| peer A
+figure ||| ✑peer E	peer E
+figure ||| t
+figure ||| scheduling list of
+figure ||| node A
+figure ||| Deer B
+figure ||| scheduling list of
+figure ||| node B
+figure ||| Deer A p
+figure ||| eer D
+bodyText ||| hops along the path and in function of bridging degree. Both in the
+bodyText ||| realistic and theoretical configurations we relate the performance of
+bodyText ||| the PCSS scheme to the performance of the ICSS and UGSS ref-
+bodyText ||| erence algorithms. Before presenting the scenarios and simulation
+bodyText ||| results we shortly describe the simulation environment and define
+bodyText ||| the performance metrics that are going to be measured during the
+bodyText ||| simulations.
+subsectionHeader ||| 7.1 Simulation Environment
+bodyText ||| We have developed a Bluetooth packet level simulator, which is
+bodyText ||| based on the Plasma simulation environment [4]. The simulator
+bodyText ||| has a detailed model of all the packet transmission, reception pro-
+bodyText ||| cedures in the Bluetooth Baseband including packet buffering, up-
+bodyText ||| per layer packet segmentation/reassemble, the ARQ mechanism,
+bodyText ||| etc. The simulator supports all Bluetooth packet types and follows
+bodyText ||| the same master-slave slot structure as in Bluetooth. For the physi-
+bodyText ||| cal layer we employ a simplified analytical model that captures the
+bodyText ||| frequency collision effect of interfering piconets.
+bodyText ||| In the current simulations the connection establishment procedures,
+bodyText ||| e.g., the inquiry and page procedures are not simulated in detail and
+bodyText ||| we do not consider dynamic scatternet formation either. Instead we
+bodyText ||| perform simulations in static scatternet configurations where the
+bodyText ||| scatternet topology is kept constant during one particular run of
+bodyText ||| simulation.
+bodyText ||| In the current simulations we run IP directly on top of the Blue-
+bodyText ||| tooth link layer and we apply AODV as the routing protocol in the
+bodyText ||| IP layer. The simulator also includes various implementations of
+bodyText ||| the TCP protocol (we employed RenoPlus) and supports different
+bodyText ||| TCP/IP applications, from which we used TCP bulk data transfer
+bodyText ||| in the current simulations.
+bodyText ||| One of the most important user perceived performance measures is
+bodyText ||| the achieved throughput. We are going to investigate the throughput
+bodyText ||| in case of bulk TCP data transfer and in case of Constant Bit Rate
+bodyText ||| (CBR) sources.
+bodyText ||| In order to take into account the power consumption of nodes we
+bodyText ||| define activity ratio of a node, ract as the fraction of time when
+bodyText ||| the node has been active over the total elapsed time; and power
+bodyText ||| efficiency, pep p as the fraction of the number of user bytes success-
+bodyText ||| fully communicated (transmitted and received) over the total time
+bodyText ||| the node has been active. The power efficiency shows the num-
+bodyText ||| ber of user bytes that can be communicated by the node during an
+bodyText ||| active period of length 1 sec. Power efficiency can be measured
+bodyText ||| in [kbit/sec], or assuming that being active for 1 sec consumes 1
+bodyText ||| unit of energy we can get a more straightforward dimension of
+bodyText ||| [kbit/energy unit], which is interpreted as the number of bits that
+bodyText ||| can be transmitted while consuming one unit of energy.
+subsectionHeader ||| 7.2 Network Access Point Scenario
+bodyText ||| In this scenario we have a NAP that is assumed to be connected to
+bodyText ||| a wired network infrastructure and it provides network access via
+bodyText ||| its Bluetooth radio interface. The NAP acts as a master and up to 7
+bodyText ||| laptops, all acting as slaves, can connect to the NAP. Furthermore
+bodyText ||| we assume that each laptop has a Bluetooth enabled mouse and
+bodyText ||| each laptop connects to its mouse by forming a new piconet as it is
+bodyText ||| shown in Figure 6.
+bodyText ||| We simulate a bulk TCP data transfer from the NAP towards each
+bodyText ||| laptop separately. Regarding the traffic generated by the mouse we
+bodyText ||| assume that the mouse produces a 16 byte long packet each 50 ms,
+figureCaption ||| Figure 6: Network Access Point Scenario
+bodyText ||| periodically. In the NAP-laptop communication we are interested
+bodyText ||| in the achieved throughput while in the laptop-mouse communi-
+bodyText ||| cation we are concerned with the delay perceived by the mouse.
+bodyText ||| In the current scenario we switched off the dynamic checkperiod
+bodyText ||| adjustment capability of the PCSS algorithm and we set the base
+bodyText ||| checking period to 32 frames (40 ms), which is in accordance with
+bodyText ||| the delay requirement of a mouse. Note that this same base check-
+bodyText ||| ing period is applied also on the NAP-laptop links, although, there
+bodyText ||| is no delay requirement for the TCP traffic. However, the current
+bodyText ||| implementation in the simulator does not yet support the setting of
+bodyText ||| the base checking periods for each link separately. The dynamic
+bodyText ||| checking period adjustment would definitely improve the through-
+bodyText ||| put of NAP-laptop communication as we are going to see later in
+bodyText ||| case of other configurations.
+bodyText ||| The simulation results are shown in Figure 7. In plot (a) the aver-
+bodyText ||| aged throughput of NAP-laptop communications are shown in the
+bodyText ||| function of number of laptops for the different algorithms, respec-
+bodyText ||| tively. Graph (b) plots the sum of the throughputs between the
+bodyText ||| NAP and all laptops. As we expect, the individual laptop through-
+bodyText ||| put decreases as the number of laptops increases. However, it is
+bodyText ||| important to notice that the sum of laptop throughputs do not de-
+bodyText ||| crease with increasing number of laptops in case of the PCSS and
+bodyText ||| ICSS algorithms. As the number of laptops increases the efficient
+bodyText ||| coordination becomes more important and the total carried traffic
+bodyText ||| will decrease with the uncoordinated UGSS scheme. The increase
+bodyText ||| of the total throughput in case of the PCSS algorithm is the conse-
+bodyText ||| quence of the fixed checking intensities, which allocates one half
+bodyText ||| of a laptop capacity to the mouse and the other half to the NAP. In
+bodyText ||| case of small number of laptops this prevents the laptops to fully
+bodyText ||| utilize the NAP capacity, which improves as the number of laptops
+bodyText ||| increases.
+bodyText ||| The 99% percentile of the delay seen by mouse packets is shown in
+bodyText ||| plot (c). The delay that can be provided with the PCSS algorithm
+bodyText ||| is determined by the base checking period that we use. Recall, that
+bodyText ||| in the current setup the base checking period of the PCSS scheme
+bodyText ||| was set to 32 frames, which implies that the delay has to be in the
+bodyText ||| order of 32 frames, as shown in the figure. The low delay with the
+bodyText ||| UGSS algorithm is due to the continuous switching among the links
+bodyText ||| of a node, which ensures high polling intensity within a piconet
+bodyText ||| and frequent switching between piconets. The UGSS algorithm
+bodyText ||| provides an unnecessarily low delay, which is less than the delay
+bodyText ||| requirement at the expense of higher power consumption.
+bodyText ||| Plots (d) and (e) show the averaged activity ratio over all lap-
+bodyText ||| tops and mice, respectively. The considerably higher throughput
+bodyText ||| achieved for small number of laptops by the ICSS scheme explains
+bodyText ||| its higher activity ratio. On graph (f) the averaged power efficiency
+bodyText ||| of laptops is shown, which relates the number of bytes transmit-
+bodyText ||| ted to the total time of activity. The power efficiency of the PCSS
+figure ||| mouse
+figure ||| mouse
+figure ||| NAP
+figure ||| laptop	max 7	laptop
+bodyText ||| scheme decreases with increasing number of laptops, which is a
+bodyText ||| consequence of the fixed checking intensities. Since the NAP has
+bodyText ||| to share its capacity among the laptops, with an increasing number
+bodyText ||| of laptops there will be an increasing number of checkpoints where
+bodyText ||| the NAP cannot show up. In such cases the dynamic checking in-
+bodyText ||| tensity adjustment procedure could help by decreasing checking
+bodyText ||| intensity on the NAP-laptop links. Recall that in the current sce-
+bodyText ||| nario we employed fixed checking intensities in order to satisfy the
+bodyText ||| mouse delay requirement. It is also important to notice that with the
+bodyText ||| uncoordinated UGSS scheme the activity ratio of a mouse is rela-
+bodyText ||| tively high, which is an important drawback considering the low
+bodyText ||| power capabilities of such devices.
+subsectionHeader ||| 7.3 Impact of Number of Forwarding Hops
+bodyText ||| In what follows, we investigate the performance impact of the num-
+bodyText ||| ber of forwarding hops along the communication path in the scat-
+bodyText ||| ternet configuration shown in Figure 8. The configuration consists
+bodyText ||| of a chain of S/M forwarding nodes (Fi) and a certain number of
+bodyText ||| additional node pairs connected to each forwarding node in order to
+bodyText ||| generate background traffic. The number of S/M forwarding nodes
+bodyText ||| is denoted by NF. There are NB number of background node pairs
+bodyText ||| connected to each forwarding node as masters. The background
+bodyText ||| traffic flows from each source node Bz) to its destination pair
+bodyText ||| B(P) through the corresponding forwarding node Fi. The traffic
+bodyText ||| that we are interested in is a bulk TCP data transfer between node
+bodyText ||| S and D. The background traffic is a CBR source, which generates
+bodyText ||| 512 byte long IP packets with a period of length 0.05 sec.
+none ||| D
+bodyText ||| During the simulations we vary the number of forwarding hops NF
+bodyText ||| and the number of background node pairs NB connected to each
+bodyText ||| forwarding node. As one would expect, with increasing number of
+bodyText ||| forwarding hops and background node pairs the coordinated algo-
+bodyText ||| rithms will perform significantly better than the one without any
+bodyText ||| coordination (UGSS).
+bodyText ||| The throughput of the S-D traffic as a function of the number of
+bodyText ||| forwarding nodes (NF) without background traffic (NB = 0) and
+bodyText ||| with two pairs of background nodes (NB = 2) are shown in Fig-
+bodyText ||| ure 9 (a) and (b), respectively. The throughput in case of no cross
+bodyText ||| traffic drops roughly by half when we introduce the first forward-
+bodyText ||| ing node. Adding additional forwarding hops continuously reduces
+bodyText ||| the throughput, however, the decrease at each step is less drasti-
+bodyText ||| cal. We note that in case of the ICSS scheme one would expect
+bodyText ||| that for NF > 1 the throughput should not decrease by adding
+bodyText ||| additional forwarding hops. However, there are a number of other
+bodyText ||| effects besides the number of forwarding hops that decrease the
+bodyText ||| throughput. For instance, with an increasing number of forward-
+bodyText ||| ing hops the number of piconets in the same area increases, which,
+bodyText ||| in turn, causes an increasing number of lost packets over the radio
+bodyText ||| interface due to frequency collisions. Furthermore with increasing
+bodyText ||| number of hops the end-to-end delay suffered by the TCP flow in-
+bodyText ||| creases, which makes the TCP connection less reactive to recover
+bodyText ||| from packet losses.
+bodyText ||| In the no background traffic case the PCSS scheme performs close
+bodyText ||| to the UGSS algorithm in terms of throughput. However, as we
+bodyText ||| introduce two pairs of background nodes the UGSS algorithm fails
+bodyText ||| completely, while the PCSS scheme still achieves approximately 20
+bodyText ||| kbit/sec throughput. Furthermore, the power efficiency of the PCSS
+bodyText ||| scheme is an order of magnitude higher than that of the UGSS algo-
+bodyText ||| rithm in both cases, which indicates that the PCSS algorithm con-
+bodyText ||| sumes significantly less power to transmit the same amount of data
+bodyText ||| than the UGSS scheme.
+subsectionHeader ||| 7.4 Impact of Bridging Degree
+bodyText ||| Next we investigate the performance of scheduling algorithms as
+bodyText ||| the number of piconets that a bridging node participates in is in-
+bodyText ||| creased. The scatternet setup that we consider is shown in Figure
+bodyText ||| 10, where we are interested in the performance of the bridging node
+bodyText ||| C. Node C is an all slave bridging node and it is connected to mas-
+bodyText ||| ter nodes Pi, where the number of these master nodes is denoted
+bodyText ||| by NP. To each master node Pi we connect NL number of leaf
+bodyText ||| nodes as slaves in order to generate additional background load in
+bodyText ||| the piconets. We introduce bulk TCP data transfer from node C
+bodyText ||| towards each of its master node Pi and CBR background traffic
+bodyText ||| on each Lij — Pi link. The packet generation interval for back-
+bodyText ||| ground sources was set to 0.25 sec, which corresponds to a 16
+bodyText ||| kbit/sec stream. During the simulation we vary the number of pi-
+bodyText ||| conets NP participated by node C and investigate the performance
+bodyText ||| of the PCSS algorithm with and without dynamic checkpoint inten-
+bodyText ||| sity changes. The number of background nodes NL connected to
+bodyText ||| each master node Pi was set to NL = 3 and it was kept constant in
+bodyText ||| the simulations.
+none ||| LmNL
+bodyText ||| The throughputs of TCP flows between node C and each Pi are av-
+bodyText ||| eraged and it is shown in Figure 10 (a). The sum of TCP through-
+bodyText ||| puts are plotted in graph (b) and the power efficiency of the central
+bodyText ||| node is shown in graph (c). The PCSS algorithm has been tested
+bodyText ||| both with fixed base checking periods equal to 32 frames (“PCSS-
+bodyText ||| 32”) and with dynamic checking intensity changes as well (“PCSS-
+bodyText ||| dyn”). The parameter settings of the dynamic case is shown in Ta-
+bodyText ||| ble 1.
+table ||| quti = 0.7	Nsample,min = 4
+table ||| Plower = 0.3	Pupper = 0.7
+table ||| quiode)=0.7	Nuti,win = 10	maxe) = 0.8
+table ||| Tmin = 8	Tmax = 256
+tableCaption ||| Table 1: Parameter setting of the dynamic PCSS scheme
+figure ||| Lmi
+figure ||| LNPm
+figure ||| Pm
+figure ||| LNPNL
+figure ||| PNP
+figure ||| C
+figureCaption ||| Figure 10: Impact of number of participated piconets
+figure ||| 	B(D)	B(D)	B(D).
+figure ||| 	1i	2i	NF�
+figureCaption ||| Figure 8: Impact of number of forwarding nodes
+figure ||| B(S)
+figure ||| B(S)
+figure ||| F1	F2	FNF
+figure ||| S
+figure ||| B(S)
+figure ||| N.
+figure ||| F�
+figure ||| (d)	(e)	(f)
+figureCaption ||| Figure 7: Throughput, delay and power measures in the function of number of laptops connected to the NAP
+figure ||| Activity Ratio of laptops
+figure ||| Activity Ratio of mice
+figure ||| Power efficiency of laptops
+figure ||| TCP throughput per laptop
+figure ||| Sum TCP throughput of laptops
+figure ||| 0.99 percentile of mouse dealy
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| (a)	(b)	(c)
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 500
+figure ||| 450
+figure ||| 400
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| 0.06
+figure ||| 0.05
+figure ||| 0.04
+figure ||| 0.03
+figure ||| 0.02
+figure ||| 0.01
+figure ||| 0
+figure ||| 500
+figure ||| 450
+figure ||| 400
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| 1	2	3	4	5	6	7
+figure ||| Number of laptops
+figure ||| 600
+figure ||| 0.9
+figure ||| 0.8
+figure ||| 0.7
+figure ||| 0.6
+figure ||| 0.5
+figure ||| 0.4
+figure ||| 0.3
+figure ||| 0.2
+figure ||| 0.1
+figure ||| 500
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 0.9
+figure ||| 0.8
+figure ||| 0.7
+figure ||| 0.6
+figure ||| 0.5
+figure ||| 0.4
+figure ||| 0.3
+figure ||| 0.2
+figure ||| 0.1
+figure ||| 400
+figure ||| 300
+figure ||| 200
+figure ||| 100
+figure ||| 0
+figure ||| 0
+figure ||| 0
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| TCP throughput without background nodes (N_B=0)
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 0	1	2	3	4	5	6	7	8
+figure ||| Number of forwarding nodes (N_F)
+figure ||| 500
+figure ||| 450
+figure ||| 400
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| TCP throughput with 2 pairs of background nodes (N_B=2)
+figure ||| Power efficiency of forwarding nodes (N_B=2)
+figure ||| 0	1	2	3	4	5	6	7	8
+figure ||| Number of forwarding nodes (N_F)
+figure ||| 0	1	2	3	4	5	6	7	8
+figure ||| Number of forwarding nodes (N_F)
+figure ||| 0
+figure ||| 300
+figure ||| 200
+figure ||| 100
+figure ||| 500
+figure ||| 450
+figure ||| 400
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| 600
+figure ||| 500
+figure ||| 400
+figure ||| PCSS
+figure ||| UGSS
+figure ||| ICSS
+figure ||| (a)	(b)	(c)
+figureCaption ||| Figure 9: Throughput and power efficiency in function of number of forwarding hops
+bodyText ||| It is important to notice that the per flow TCP throughputs in case
+bodyText ||| of the dynamic PCSS scheme matches quite closely the through-
+bodyText ||| put achieved by the ICSS algorithm and it significantly exceeds the
+bodyText ||| throughput that has been achieved by the fixed PCSS. This large
+bodyText ||| difference is due to the relatively low background traffic in the
+bodyText ||| neighbouring piconets of node C, in which case the dynamic PCSS
+bodyText ||| automatically reduces checkpoint intensity on the lightly loaded
+bodyText ||| links and allocates more bandwidth to the highly loaded ones by
+bodyText ||| increasing checking intensity.
+sectionHeader ||| 8. CONCLUSIONS
+bodyText ||| We have presented Pseudo Random Coordinated Scatternet
+bodyText ||| Scheduling, an algorithm that can efficiently control communica-
+bodyText ||| tion in Bluetooth scatternets without exchange of control informa-
+bodyText ||| tion between Bluetooth devices. The algorithm relies on two key
+bodyText ||| components, namely the use of pseudo random sequences of meet-
+bodyText ||| ing points, that eliminate systematic collisions, and a set of rules
+bodyText ||| that govern the increase and decrease of meeting point intensity
+bodyText ||| without explicit coordination.
+bodyText ||| We have evaluated the performance of PCSS in a number of sim-
+bodyText ||| ulation scenarios, where we have compared throughput and power
+bodyText ||| measures achieved by PCSS to those achieved by two reference
+bodyText ||| schedulers. The first reference scheduler is an uncoordinated
+bodyText ||| greedy algorithm, while the other is a hypothetical “ideal” sched-
+bodyText ||| uler.
+bodyText ||| In all the scenarios investigated we have found that PCSS achieves
+bodyText ||| higher throughput than the uncoordinated reference algorithm.
+bodyText ||| Moreover, with the traffic dependent meeting point intensity adjust-
+bodyText ||| ments the throughput and power measures of PCSS quite closely
+bodyText ||| match the results of the “ideal” reference algorithm. At the same
+bodyText ||| time PCSS consumes approximately the same amount of power as
+bodyText ||| the ideal scheduler to achieve the same throughput, which is sig-
+bodyText ||| nificantly less than the power consumption of the uncoordinated
+bodyText ||| reference scheduler.
+sectionHeader ||| 9. REFERENCES
+reference ||| [1] Bluetooth Special Interest Group. Bluetooth Baseband
+reference ||| Specification Version 1.0 B. http://www.bluetooth.com/.
+figureCaption ||| Figure 11: Throughput and power efficiency in function of the bridging degree of node C
+figure ||| Averaged TCP throughput between central node and master nodes
+figure ||| Sum of TCP throughputs at the central node
+figure ||| Effective power of central node
+figure ||| 1	2	3	4	5	6
+figure ||| Number of piconets participated by the central node (N_P)
+figure ||| 1	2	3	4	5	6
+figure ||| Number of piconets participated by the central node (N_P)
+figure ||| 1	2	3	4	5	6
+figure ||| Number of piconets participated by the central node (N_P)
+figure ||| (a)	(b)	(c)
+figure ||| PCSS-3y2
+figure ||| PCSUGSS
+figure ||| ICSS
+figure ||| PCSS-32
+figure ||| PCSS-dyn
+figure ||| UGSS
+figure ||| ICSS
+figure ||| 450
+figure ||| 400
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| 450
+figure ||| 400
+figure ||| 350
+figure ||| 300
+figure ||| 250
+figure ||| 200
+figure ||| 150
+figure ||| 100
+figure ||| 50
+figure ||| 0
+figure ||| 600
+figure ||| 500
+figure ||| 400
+figure ||| 300
+figure ||| 200
+figure ||| 100
+figure ||| 0
+figure ||| PCSS-32
+figure ||| P	y UGG
+figure ||| ICSS
+reference ||| [2] Bluetooth Special Interest Group.
+reference ||| http://www.bluetooth.com/.
+reference ||| [3] J. Haartsen. BLUETOOTH- the universal radio interface for
+reference ||| ad-hoc, wireless connectivity. Ericsson Review, (3), 1998.
+reference ||| [4] Z. Haraszti, I. Dahlquist, A. Farag´o, and T. Henk. Plasma -
+reference ||| an integrated tool for ATM network operation. In Proc.
+reference ||| International Switching Symposium, 1995.
+reference ||| [5] N. Johansson, U. K¨orner, and P. Johansson. Performance
+reference ||| evaluation of scheduling algorithms for Bluetooth. In IFIP
+reference ||| TC6 WG6.2 Fifth International Conference on Broadband
+reference ||| Communications (BC’99), Hong Kong, November 1999.
+reference ||| [6] N. Johansson, U. K¨orner, and L. Tassiulas. A distributed
+reference ||| scheduling algorithm for a Bluetooth scatternet. In Proc. of
+reference ||| The Seventeenth International Teletraffic Congress, ITC’17,
+reference ||| Salvador da Bahia, Brazil, September 2001.
+reference ||| [7] P. Johansson, N. Johansson, U. K¨orner, J. Elgg, and
+reference ||| G. Svennarp. Short range radio based ad hoc networking:
+reference ||| Performance and properties. In Proc. ofICC’99, Vancouver,
+reference ||| 1999.
+reference ||| [8] M. Kalia, D. Bansal, and R. Shorey. MAC scheduling and
+reference ||| SAR policies for Bluetooth: A master driven TDD
+reference ||| pico-cellular wireless system. In IEEE Mobile Multimedia
+reference ||| Communications Conference MOMUC’99, San Diego,
+reference ||| November 1999.
+reference ||| [9] M. Kalia, D. Bansal, and R. Shorey. MAC scheduling
+reference ||| policies for power optimization in Bluetooth: A master
+reference ||| driven TDD wireless system. In IEEE Vehicular Technology
+reference ||| Conference 2000, Tokyo, 2000.
+reference ||| [10] M. Kalia, S. Garg, and R. Shorey. Efficient policies for
+reference ||| increasing capacity in Bluetooth: An indoor pico-cellular
+reference ||| wireless system. In IEEE Vehicular Technology Conference
+reference ||| 2000, Tokyo, 2000.
+sectionHeader ||| APPENDIX
+bodyText ||| Here, we present the procedure for generating the pseudo ran-
+bodyText ||| dom sequence of checkpoints, where we reuse the elements of
+bodyText ||| the pseudo random frequency hop generation procedure available
+bodyText ||| in Bluetooth. The inputs to the checkpoint generation procedure
+bodyText ||| PseudoChkGen are the current checking period T(h ck, the Blue-
+bodyText ||| tooth MAC address of the slave As`ave and the current value of the
+bodyText ||| master’s clock t(i). A node can perform checkpoint generation us-
+bodyText ||| ing the PseudoChkGen procedure at any point in time, it is al-
+bodyText ||| ways guaranteed that the position of checkpoint generated by the
+bodyText ||| two nodes will be the same, as it has been pointed out in Section
+bodyText ||| 5.1. Nevertheless the typical case will be that whenever a node ar-
+bodyText ||| rives to a checkpoint it generates the position of the next checkpoint
+bodyText ||| on the given link. The variable t(i)cysstores the master’s
+bodyText ||| chek
+bodyText ||| clock at the next checkpoint, thus it needs to be updated every time
+bodyText ||| a checkpoint is passed. Here we note that the Bluetooth clock of a
+bodyText ||| device is a 28 bit counter, where the LSB changes at every half slot.
+bodyText ||| Let us assume that the base period of checkpoints on the it h link of
+bodyText ||| the node is Tcheck = 2j-2, j > 2 number of frames, which means
+bodyText ||| that there is one pseudo randomly positioned checkpoint in each
+bodyText ||| consecutive time interval of length T(h ck and the jth bit of the
+bodyText ||| Bluetooth clock changes at every Tcheck. Upon arrival to a check-
+bodyText ||| point the variable t(i)
+bodyText ||| check equals to the current value of the master’s
+bodyText ||| clock on that link. After the checkpoint generation procedure has
+bodyText ||| been executed the variable tcheck will store the master’s clock at
+bodyText ||| the time of the next checkpoint on that link.
+bodyText ||| Before starting the procedure the variable tch)eck is set to the cur-
+bodyText ||| rent value of the master’s clock t(i) in order to cover the general
+bodyText ||| case when at the time of generating the next checkpoint the value
+bodyText ||| of t(i)
+bodyText ||| check does not necessarily equals to the current value of the
+bodyText ||| master’s clock t(i). The position of the next checkpoint is ob-
+bodyText ||| tained such that the node first adds the current value of Tcheck
+bodyText ||| to the variable tclzeck, clears the bits [j — 1, ... , 0] of tch)eck and
+bodyText ||| then generates the bits [j — 1, ... , 2] one by one using the pro-
+bodyText ||| cedure PseudoBitGen(X, WctT`). When generating the kth bit
+bodyText ||| (j-1 < k < 2) the clock bits X = tcheck [k+1, ... , k+5] are fed
+bodyText ||| as inputs to the PseudoBitGen procedure, while the control word
+bodyText ||| WctT` is derived from tcheck including the bits already generated
+bodyText ||| and from the MAC address of the slave As`ave. The schematic view
+bodyText ||| of generating the clock bits of the next checkpoint is illustrated in
+bodyText ||| Figure 12.
+figureCaption ||| Figure 12: Generating the clock bits of the next checkpoint
+figure ||| 28.
+figure ||| 27.
+figure ||| Wctrl
+figure ||| k+5.
+figure ||| PseudoBitGen
+figure ||| X
+figure ||| k+1.
+figure ||| k.
+figure ||| 2.
+figure ||| 1.
+figure ||| 0.
+bodyText ||| The PseudoBitGen procedure is based on the pseudo random
+bodyText ||| scheme used for frequency hop selection in Bluetooth. How-
+bodyText ||| ever, before presenting the PseudoBitGen procedure we give the
+bodyText ||| pseudo-code of the PseudoChkGen procedure.
+bodyText ||| PseudoChkGen procedure:
+bodyText ||| t(i): the current value of the master’s clock;
+bodyText ||| Tcheck = 2j-2, j > 2: current length of the base checkperiod
+bodyText ||| in terms of number of frames.
+equation ||| (i)	(i)
+equation ||| tcheck = t
+equation ||| (i)tcheck [j — 1, . . . , 0] = 0;
+equation ||| t(i)= t(i)	+T(i)
+equation ||| check	check	check;
+equation ||| k=j—1;
+equation ||| while (k > 2)
+equation ||| X[0, ... , 4] = t(i)
+equation ||| check [k + 1,... , k + 5];
+equation ||| tcheck[k] =PseudoBitGen(X,WctTd);
+equation ||| k=k-1;
+equation ||| end
+bodyText ||| Finally, we discuss the PseudoBitGen procedure, which is illus-
+bodyText ||| trated in Figure 13.
+figure ||| Z[0]
+figureCaption ||| Figure 13: The PseudoBitGen procedure
+figure ||| P[13,12] P[11,10] P[9,8]	P[7,6]	P[5,4]	P[3,2] P[1,0]
+figure ||| B
+figure ||| A
+figure ||| D
+figure ||| 5
+figure ||| C
+figure ||| 5
+figure ||| 5
+figure ||| 9
+figure ||| Add
+figure ||| mod 32
+figure ||| 5
+figure ||| Y
+figure ||| PERM5
+figure ||| bit selector
+figure ||| V[k mod 5]
+figure ||| X
+figure ||| O
+figure ||| R
+figure ||| Z
+figure ||| X  5
+figure ||| 5
+figure ||| 5
+figure ||| V
+figure ||| 1
+figure ||| O
+figureCaption ||| Figure 14: Butterfly permutation
+bodyText ||| The control words of the PseudoBitGen procedure
+bodyText ||| WctTd = {A, B, C, D} are the same as the control words of
+bodyText ||| the frequency hop selection scheme in Bluetooth and they are
+bodyText ||| shown in Table 2. However, the input X and the additional
+bodyText ||| bit selection operator at the end are different. As it has been
+bodyText ||| discussed above the input X is changing depending on which
+bodyText ||| bit of the checkpoint is going to be generated. When gener-
+bodyText ||| ating the kth clock bit of the next checkpoint the clock bits
+bodyText ||| X = tcheck [k + 1,... , k + 5] are fed as inputs and the bit
+bodyText ||| selection operator at the end selects the (k mod 5)th bit of the 5
+bodyText ||| bits long output V.
+table ||| A	Asdave [27 — 23] ® tcheck [25 — 21]
+table ||| B	B[0 — 3] = Asdave[22 — 19], B[4] =		0
+table ||| C	Asdave [8, 6, 4, 2, 0] ® t(i)	— 16]
+table ||| 	check [20
+table ||| D	Asdave[18 — 10] ® t(i)	— 7]
+table ||| 	check [15
+tableCaption ||| Table 2: Control words
+bodyText ||| The operation PERM5 is a butterfly permutation, which is the
+bodyText ||| same as in the frequency hop selection scheme of Bluetooth and
+bodyText ||| it is described in Figure 14. Each bit of the control word P is
+bodyText ||| associated with a given bit exchange in the input word. If the
+bodyText ||| given bit of the control word equals to 1 the corresponding bit ex-
+bodyText ||| change is performed otherwise skipped. The control word P is
+bodyText ||| obtained from C and D, such that P[i] = D[i], i = 0... 8 and
+bodyText ||| P[j + 9] = C[j], j = 0 ... 4.
