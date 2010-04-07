@@ -169,6 +169,7 @@ sub getGenericHeaders {
     die "Die: SectLabel::Controller::getGenericHeaders different in number of headers $numHeaders vs. the number of generic headers $genericCount\n";
   }
 
+  print STDERR "$headerFile\t$headerFile.out\n";
 #  unlink($headerFile);
 #  unlink("$headerFile.out");
 }

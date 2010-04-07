@@ -10,10 +10,12 @@
 - Modified bin/citeExtract.pl, lib/ParsCit/PostProcess.pm, lib/ParsHed/PostProcess.pm to combine ParsCit, ParsHed, SectLabel, and standardize XML output
 - Added test/ for testing purpose with 12 samples documents and standard-output of citeExtract.pl in 5 modes (citations, header, section, meta, and all) using both txt and XML inputs
 - Added SectLabel annotated data doc/sectLabel.tagged.txt (40 documents fully annotated)
+- Added in crfpp/traindata CRF++ feature files (sectLabel-xml.train.data, sectLabel.train.data) and templates (sectLabel-xml.template, sectLabel.template)
 
 - Incorporated works by Emma 
 -- Added GenericSect code (bin/genericSectExtract.rb, crfpp/traindata/genericSect.train.data, bin/genericSect/, resource/genericSect) into SectLabel
 -- Added GenericSect annotated data doc/genericSect.tagged.txt (211 documents with headers annotated)
+-- Added in crfpp/traindata CRF++ feature file (genericSect.train.data) and template (genericSect.template)
 
 090625b 
 - updated documentation only. no change to executables

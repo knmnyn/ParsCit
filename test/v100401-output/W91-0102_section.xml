@@ -2,7 +2,7 @@
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
 <variant no="0" confidence="0.000000">
-<table confidence="0.894803285714286">
+<table confidence="0.862316">
 Reversibility in a Constraint and Type based Logic Grammar:
 Application to Secondary Predication
 Palmira Marrafa Patrick Saint-Dizier
@@ -11,10 +11,10 @@ Ava Engo Arantes e Oliveira, 40 (Lte 41) , 8 E • 118, route de Narbonne
 P- 1900 LISBOA F-31062 TOULOUSE cedex France
 Portugal e-mail: stdizier@iritirit.fr
 </table>
-<sectionHeader confidence="0.96942" genericHeader="abstract">
+<sectionHeader confidence="0.969024" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.993606171428572">
+<bodyText confidence="0.993844857142857">
 In this document, we present a formalism for
 natural language processing which associates type
 construction principles to constraint logic
@@ -51,10 +51,10 @@ however be realized more or less easily depending on
 the formalisms used to describe language
 phenomena.
 </bodyText>
-<page confidence="0.690548">
+<page confidence="0.693107">
 7 -
 </page>
-<bodyText confidence="0.999705611111111">
+<bodyText confidence="0.999701">
 In this document we introduce new advanced
 tools of the Logic Programming framework and
 show that they contribute to meeting the
@@ -92,18 +92,18 @@ linguistic knowledge. The differences between these
 machines exemplifies the &apos;technical&apos; differences one
 may have between parsing and generation processes.
 </bodyText>
-<page confidence="0.954971">
+<page confidence="0.953009">
 2
 </page>
-<listItem confidence="0.596822">
+<listItem confidence="0.609019">
 1. A type based description language
 </listItem>
-<bodyText confidence="0.863792">
+<bodyText confidence="0.830861">
 Three major types of operations are at the basis
 of the typed-based language we have designed for
 language processing, namely:
 </bodyText>
-<listItem confidence="0.716942166666667">
+<listItem confidence="0.725380166666667">
 the expression of type construction to generate
 phrase structures,
 the expression of dependencies (either local or
@@ -111,14 +111,14 @@ long-distance) between types,
 the expression of well-formedness constraints
 on types.
 </listItem>
-<bodyText confidence="0.861586">
+<bodyText confidence="0.7798626">
 Types here refers to the usual data structures in
 computer science. We now informally present the
 syntax of our type-based language. It is directly
 derived from the syntax of Login (Ait-ICagi and Nasr
 86). The syntactic representation of a structured term
 </bodyText>
-<listItem confidence="0.953958625">
+<listItem confidence="0.96466">
 is called a Nr-term. It consists of:
 (1) a root symbol, which is a type constructor
 and denotes a class of entities,
@@ -128,12 +128,12 @@ extenso, from the root to the attribute value. The
 attribute value can itself be a reference to a type.
 (3) coreference constraints among paths of
 </listItem>
-<bodyText confidence="0.922863333333333">
+<bodyText confidence="0.853433">
 labels, which indicate that the corresponding
 attributes denote the same function. They are
 indicated by variables. Here is an example:
 </bodyText>
-<equation confidence="0.817988">
+<construct confidence="0.809138142857143">
 person( id =&gt; name(first =&gt; string,
 last =&gt; X: string),
 born =&gt; date(day =&gt; integer,
@@ -141,8 +141,8 @@ month =&gt; monthname,
 year =&gt; integer),
 father =&gt; person( id =&gt;
 name(last =&gt; X ))).
-</equation>
-<bodyText confidence="0.960243388888889">
+</construct>
+<bodyText confidence="0.961046444444445">
 The root symbol is person; id, born and
 father are three sub-w-terms which have either
 constants or types as values. X indicates a
@@ -162,10 +162,10 @@ language. The general form of a type is :
 Type :- Constraints.
 We view constraints as part of the type:
 </bodyText>
-<equation confidence="0.508762">
+<equation confidence="0.495006">
 (Type :- Constraints)
 </equation>
-<bodyText confidence="0.998471086956521">
+<bodyText confidence="0.9986645">
 is itself a type, subsumed by Type.
 The simplest constraint is the precedence
 constraint:
@@ -213,21 +213,21 @@ by the constraint: pending(A,B) where A is a
 type specification and B is a list of type
 specifications. Informally, this constraint means that
 </bodyText>
-<page confidence="0.992357">
+<page confidence="0.990936">
 3
 </page>
-<bodyText confidence="0.9895504">
+<bodyText confidence="0.9912348">
 A originates the pending of the sub-types in B, in
 other terms that A can be used if, somewhere else in
 the main type (corresponding for example to a full
 sentence), all the sub-types in B are used with
 identical substitutions applied to identical variables.
 </bodyText>
-<listItem confidence="0.502918">
+<listItem confidence="0.468019">
 3. Processing Language with types
 and constraints
 </listItem>
-<bodyText confidence="0.99512">
+<bodyText confidence="0.995972133333333">
 We will mainly present here simple,
 motivational examples. A more abstract syntactic
 description will be given in section 6 which will
@@ -244,14 +244,14 @@ xp corresponding to phrase structures.
 Here is the description of the lexical entry
 corresponding to the verb to give:
 </bodyText>
-<equation confidence="0.96584">
+<equation confidence="0.8506154">
 x0( cat =&gt; v, string =&gt; [give] ) :-
 pending(x0(cat =&gt; v),
 [xp( cat =&gt; n, string =&gt; Si, role =&gt; patient ),
 xp( cat =&gt; p, string =&gt; S2,
 role =&gt; recipient) ] ),
 </equation>
-<bodyText confidence="0.963947625">
+<bodyText confidence="0.9808254375">
 precede([give],S1), precede(S1, S2).
 This entry says that give is a verb which
 subcategorizes for an np with role patient and a pp
@@ -269,12 +269,12 @@ corresponding to a vp, this is stored in S. We then
 have the following construction:
 xp( cat .&gt; v, string =&gt; S,
 </bodyText>
-<equation confidence="0.998763666666667">
+<equation confidence="0.99819">
 const1 =&gt; x0(cat =&gt; v ),
 const2 =&gt; X : xp(cat =&gt; n),
 const3 =&gt; Y : xp( cat =&gt; p) ) :-
 </equation>
-<bodyText confidence="0.927004083333333">
+<bodyText confidence="0.941305416666667">
 has(role, X), has(case, X),
 has(role, Y), has(case, Y).
 The constraints has(role,X) and has(role,Y)
@@ -300,7 +300,7 @@ terminal structures (e.g. x0). We now present a step
 in the construction of a type. It can be decomposed
 into 3 levels:
 </bodyText>
-<listItem confidence="0.9768508">
+<listItem confidence="0.978328">
 (1) current state
 c0( ai =&gt; 4, a2 =&gt; t2, an =&gt; tn),
 (2) selection in the current programme P of a
@@ -312,11 +312,11 @@ modulo the mgu 01.
 el( bi =&gt; t&apos;i, bm =&gt; t&apos;m ),
 with, as a result, the following type:
 </listItem>
-<equation confidence="0.9956915">
+<equation confidence="0.9934045">
 c0(ai =&gt; c1( bi =&gt; bin -=&gt; ,
 a2 =&gt; t2, ..., an =&gt; tn) 0i
 </equation>
-<bodyText confidence="0.960400714285714">
+<bodyText confidence="0.925392142857143">
 The process goes on and processes t&apos;1. The type
 construction strategy is here similar to Prolog&apos;s
 strategy and computation rule : depth-first and from
@@ -332,10 +332,10 @@ oesaid to be m a final state. If t&apos; • d s not exist,
 backtracking occurs. The next type description
 immediately to the right of ei is then treated in the
 </bodyText>
-<page confidence="0.982201">
+<page confidence="0.981566">
 4
 </page>
-<bodyText confidence="0.787943636363636">
+<bodyText confidence="0.795566409090909">
 same manner. The type construction process
 successfully ends when all subtypes corresponding to
 terminal symbols are in a final state and it fails if a
@@ -359,18 +359,18 @@ c1( bi =&gt; t&apos;1, bm =&gt; t&apos;m ) :- R.
 where R is the set of constraints associated to
 cl , and t1 subsumes Or unifies with t&apos;1 modulo the
 </bodyText>
-<listItem confidence="0.856077666666667">
+<listItem confidence="0.854671333333333">
 mgu
 (3) New state ai+ I characterized by the
 following couple:
 </listItem>
-<equation confidence="0.9882145">
+<equation confidence="0.988521">
 &lt; c0( al =&gt; c1( =&gt; bm =&gt; t&apos;m ) ,
 a2 =&gt; t2, ..., an =&gt; tn) 0i
 S uRu subsume(t1,c1( b1 =&gt; t&apos;1, • ,
 bm =&gt; t&apos;m ) ) &gt;
 </equation>
-<bodyText confidence="0.995424083333333">
+<bodyText confidence="0.993858916666667">
 with the condition that the new set of
 constraints must be satisfiable with respect to the
 constraint resolution axioms defined for each type of
@@ -384,13 +384,13 @@ parsing and generating, need not necessarily
 respectively produce And start from the same abstract
 internal representation.
 </bodyText>
-<sectionHeader confidence="0.910586" genericHeader="method">
+<sectionHeader confidence="0.88449" genericHeader="categories_and_subject_descriptors">
 5. An Abstract Machine for
 </sectionHeader>
-<subsectionHeader confidence="0.65258">
+<subsectionHeader confidence="0.666452">
 Language Generation
 </subsectionHeader>
-<bodyText confidence="0.870322973684211">
+<bodyText confidence="0.9322435">
 From the above declarative descriptions of
 language construction, an abstract machine for
 language generation can also be defined. At the level
@@ -430,18 +430,18 @@ For example, if the formal grammar of the
 semantic representation of quantified noun phrases
 is:
 </bodyText>
-<equation confidence="0.675823333333333">
+<equation confidence="0.544277666666667">
 Quant_np --&gt; det([Quant, Np,
 Rest_of_sentence).
 Np --&gt; and( Noun, Modifiers ).
 </equation>
-<bodyText confidence="0.88938">
+<bodyText confidence="0.92831675">
 We then have, for example, and informally, the
 following generation points, where the call
 p(formula, string, corresponding syntactic category)
 is used to process the semantic representation:
 </bodyText>
-<equation confidence="0.627299">
+<equation confidence="0.72551">
 p(det([Quant,VarI,Np,Rest_of_sent),
 Type ) :-
 p(Quant, Typel), p(Np, Type2),
@@ -453,17 +453,17 @@ p(and(Np,Mod),Type) :-
 p(Np, Typal), p(Mod,Type2),
 generation_point(Typet , Type2, Type).
 </equation>
-<bodyText confidence="0.993236">
+<bodyText confidence="0.993924666666667">
 The relation between a predicate (or an
 argument) and a word is established by a call to a
 lexical entry as follows:
 </bodyText>
-<equation confidence="0.883289">
+<equation confidence="0.841456">
 p(Predicate, Type) :-
 Type, has(Type,
 sem_rept =&gt; Predicate ).
 </equation>
-<bodyText confidence="0.963483666666667">
+<bodyText confidence="0.975106358974359">
 Informally, Typel and Type2 are constructed
 from the treatment of the quantifier and the noun
 phrase, they are then combined, in the first rule
@@ -504,7 +504,7 @@ can be described by its initial state and a step in the
 construction procedure. It has the general form of a
 finite state tree automaton. The initial state is ao, it
 </bodyText>
-<listItem confidence="0.889786636363636">
+<listItem confidence="0.864660727272727">
 is the empty type. Let us now consider a step a1.
 1. Two cases arise: it is either
 (a) a set of subtypes from which a more
@@ -517,11 +517,11 @@ sequence of subtypes ; or
 attributes consti, k n,
 and llSC is of the form:
 </listItem>
-<equation confidence="0.6845555">
+<equation confidence="0.693984">
 DC := xp(..., consti =&gt; C&apos;1, constk =&gt; C&apos;k )
 and :
 </equation>
-<bodyText confidence="0.916102333333333">
+<bodyText confidence="0.930414805555555">
 for all j E [Lk], subsume(C&apos;i, Ci )
 (notice that the C are not necessarily the jth
 element of the list given in 1 above, notice also that
@@ -559,16 +559,16 @@ generation strategy. In other terms, these
 mechanisms are independent of the way and the order
 constraints are added to the set of active constraints.
 </bodyText>
-<page confidence="0.982407">
+<page confidence="0.982125">
 6
 </page>
-<bodyText confidence="0.999435">
+<bodyText confidence="0.999307">
 The abstract machine which handles types and
 constraints is the following. It is represented by a
 tuple: &lt;type, set of active constraints&gt;.
 We then have:
 </bodyText>
-<listItem confidence="0.973841461538461">
+<listItem confidence="0.767606857142857">
 1. =
 (a) &lt; (C1, C2, ..., Ca), S &gt; sequence of
 subtypes Ci and of active constraints S
@@ -582,25 +582,19 @@ ii) R is consistent with S
 with R consistent with S.
 3. al =
 (a) &lt; ( DC , Ck+i, ..., Ca), (S L.) R L.)
-</listItem>
-<equation confidence="0.92574">
 (subsume(C&apos;i =&gt; Ci )) for all j E [1,k] ) &gt;
 (1)) &lt; (Di, D&apos;), S u R&gt;
-</equation>
-<bodyText confidence="0.91164">
 At the end of the generation process, the set of
 possible admissible surface sentences can be directly
 derived from the precedence constraints which may
 not be a total order (some words may have different
 positions).
-</bodyText>
-<sectionHeader confidence="0.402407" genericHeader="method">
 6. An Application to Secondary
-</sectionHeader>
-<subsectionHeader confidence="0.4213">
+</listItem>
+<subsectionHeader confidence="0.440854">
 Predication
 </subsectionHeader>
-<bodyText confidence="0.999621727272727">
+<bodyText confidence="0.999606545454546">
 We now present a more elaborate and
 comprehensive example which will further motivate
 our approach. Secondary predication is described at
@@ -613,10 +607,10 @@ and use of our formalism and system for a real
 phenomenon of much importance to natural
 language system designers.
 </bodyText>
-<subsectionHeader confidence="0.997398">
+<subsectionHeader confidence="0.997697">
 6.1 A linguistic approach
 </subsectionHeader>
-<bodyText confidence="0.83557575">
+<bodyText confidence="0.8284241875">
 Secondary Predication is a term used in the
 literature to denote a very productive structural
 relationship in many languages: the relationship
@@ -634,10 +628,10 @@ predication which corresponds to the whole sentence,
 and as a subject a secondary predication which
 corresponds to the sequence the water cold.
 </bodyText>
-<subsubsectionHeader confidence="0.953865">
+<subsubsectionHeader confidence="0.94668">
 6.1.1 Object-oriented Predicates
 </subsubsectionHeader>
-<bodyText confidence="0.935309125">
+<bodyText confidence="0.926829125">
 Secondary predication is not an uniform or an
 homogeneous phenomenon, neither from the point
 of view of a specific language, nor from a
@@ -647,7 +641,7 @@ constraints of this type of construction in French.
 Let us begin by considering the French sentence
 corresponding to (1):
 </bodyText>
-<listItem confidence="0.957254545454546">
+<listItem confidence="0.9583045">
 (2) Marie boit l&apos;eau froide.
 (2) is an ambiguous sentence as can be
 illustrated by the paraphrases below (the English
@@ -671,14 +665,14 @@ relationship is expressed by coindexation.
 Let us now consider the sentence (4):
 (4) Marie boil l&apos;eau minerale
 </listItem>
-<bodyText confidence="0.9460422">
+<bodyText confidence="0.9387386">
 (&amp;quot;Mary drinks the water mineral&amp;quot;)
 In spite of its superficial structural resemblance
 with the example above, (4) is not ambiguous, the
 interpretation corresponding to the paraphrase (b)
 being not available:
 </bodyText>
-<listItem confidence="0.658262857142857">
+<figure confidence="0.464849857142857">
 (4)(a) Marie boit l&apos;eau qui est minerale
 (&amp;quot;Mary drinks the water that is mineral&amp;quot;)
 but :
@@ -686,33 +680,37 @@ but :
 minerale
 (&amp;quot;When Mary drinks the water, the water is
 mineral&amp;quot;)
-</listItem>
-<bodyText confidence="0.9384625">
+</figure>
+<bodyText confidence="0.8237435">
 This means that the possibility of having or not
 having an object-oriented secondary predication
 </bodyText>
-<page confidence="0.995118">
+<page confidence="0.995217">
 7
 </page>
-<bodyText confidence="0.717156181818182">
+<bodyText confidence="0.993105">
 depends on the semantic nature of the adjective.
 Moreover, there also exist semantic co-occurrence
 restrictions between the adjectival predicate and the
+</bodyText>
+<listItem confidence="0.7076908">
 verb:
 (5) *Marie boil l&apos;eau congelie
 (&amp;quot;Mary drinks the water frozen&amp;quot;)
 (5) is excluded because something frozen cannot
 be drunk. Notice that the presence of an adjective in
+</listItem>
+<bodyText confidence="0.910981">
 sentences like (2) is optional, in opposition to what
 happens in sentences like (6) (for the same
 interpretation of the verb):
 </bodyText>
-<listItem confidence="0.850356666666667">
+<listItem confidence="0.882249666666667">
 (6) Marie considere l&apos;eau froide
 (&amp;quot;Mary considers the water cold&amp;quot;)
 (6)(a) *Marie considére l&apos;eau
 </listItem>
-<bodyText confidence="0.980771538461539">
+<bodyText confidence="0.989579">
 &amp;quot;Mary considers the water&amp;quot;)
 What we can infer from the fact that (6)(a) is
 ruled out is that: (i) considirer (to consider) does not
@@ -751,15 +749,15 @@ of them must dominate the other one. Given this
 condition and the facts we have examined, (8) and
 (9) are appropriate representations (we use here X-bar
 notation only when relevant), respectively, for (2)
-and (6):
 </bodyText>
-<figure confidence="0.430687">
+<listItem confidence="0.56566525">
+and (6):
 (8) [S [NP Marie] [V&amp;quot; [VIV boit] [NPi l&apos;eau] ]
 [APi froide]]]
 (9) [S [NP Marie] [V&amp;quot;[VIV considere] [SC [NPi
+</listItem>
+<bodyText confidence="0.940637864864865">
 l&apos;eau] [APi firoide]]]]]
-</figure>
-<bodyText confidence="0.958444444444444">
 Although attached to different nodes inside V&amp;quot;
 (while in (8) the subject of the secondary
 predication occupies the direct object position and
@@ -797,22 +795,22 @@ discontinuity in the predicate rend-blanc
 (10)(c) [S [NP La lessive] [V&amp;quot;[V&apos;[Vk rend] [NPi
 le linge] [APki blanc]]]]
 </bodyText>
-<subsubsectionHeader confidence="0.712963">
+<subsubsectionHeader confidence="0.682588">
 6.1.2 Subject-oriented predicates
 </subsubsectionHeader>
-<bodyText confidence="0.644812333333333">
+<bodyText confidence="0.632148666666667">
 Discontinuity can also be an obligatory
 property of a certain kind of secondary predication,
 namely in the case of subject-oriented predicates.
 </bodyText>
-<listItem confidence="0.9690565">
+<listItem confidence="0.953286">
 (11) is an example:
 (11) Jean dansait triste
 </listItem>
-<page confidence="0.980864">
+<page confidence="0.967415">
 8
 </page>
-<bodyText confidence="0.9756272">
+<bodyText confidence="0.975252333333333">
 (&amp;quot;John dansed sad&amp;quot;)
 Since Jean is a proper noun, it can not be
 modified. Then triste is necessarily a predicate for
@@ -829,11 +827,11 @@ we represent the adjectival predicate as an strong
 adjunction (again in the terms of Demonte (1988)) to
 V&amp;quot;, the syntactic representation of (11) being, then,
 </bodyText>
-<listItem confidence="0.8416355">
+<listItem confidence="0.755377">
 (11) (b):
 (11)(b) [S[NPi Jean] [V&amp;quot; [V&amp;quot; [V&apos; [V dansait]]]
 </listItem>
-<bodyText confidence="0.967884294117647">
+<bodyText confidence="0.966598411764706">
 [APi triste]]]
 Notice that continuous and discontinuous
 secondary predications can co-occurre in the same
@@ -852,10 +850,10 @@ there are numerous and different semantic co-
 occurrence restrictions of different types affecting
 the lexical items involved.
 </bodyText>
-<subsectionHeader confidence="0.994072">
+<subsectionHeader confidence="0.992046">
 6.2 An Implementation in terms of
 </subsectionHeader>
-<bodyText confidence="0.940096636363636">
+<bodyText confidence="0.942406090909091">
 types and constraints
 We now show how the above examples are
 expressed both at syntactic and lexical levels. The
@@ -868,16 +866,16 @@ since it is preceded by the V&apos; description. We have
 the following construction:
 xp( cat =&gt; v, string =&gt; SV,
 </bodyText>
-<equation confidence="0.62769275">
+<construct confidence="0.817490428571429">
 constl =&gt; xl ( cat =&gt; v, string =&gt; $3),
 const2 =&gt; xp( cat =&gt; a, string =&gt; S4,
 index =&gt; I ) :-
 pending(xp(cat =&gt; v),[x1( cat =&gt; v,
-</equation>
-<bodyText confidence="0.895363416666667">
 string =&gt; T, const1 =&gt; x0( cat =&gt; v,
 string =&gt; Si), const2 =&gt; xp( cat =&gt; n,
 string =&gt; S2, index =&gt; I ) ) j ),
+</construct>
+<bodyText confidence="0.979771333333333">
 precede(S1,S2), precede(S3,S4).
 Since the AP is not obligatory (it is a weak
 adjunct), there is nothing said about it in the
@@ -888,7 +886,7 @@ contiguous to the V&apos;, but only dominated by the V&apos;,
 we need a pending constraint. The type construction
 is the following:
 </bodyText>
-<table confidence="0.775161833333333">
+<table confidence="0.682163333333333">
 x1( cat =&gt; v, string =&gt; SV,
 const1 =&gt; x0( cat =&gt; v, string =&gt; Si ),
 const2 =&gt; xp( cat =&gt; Sc, string =&gt; S2 ) ) :-
@@ -896,7 +894,7 @@ pending(x1 (cat =&gt; v),[x1 ( cat =&gt; Sc,
 string =&gt; SV, const1 =&gt; xp( cat =&gt; n,
 index =&gt; I, string =&gt; S3), const2
 </table>
-<bodyText confidence="0.967815333333333">
+<bodyText confidence="0.972135666666667">
 xp( cat =&gt; a, string =&gt; S4,index =&gt; I ) ) ),
 precede(S1,S2), precede(S3,S4).
 The lexical entry of the verb (here considerer)
@@ -907,7 +905,7 @@ indexation but no long-distance dependency for the
 compound predicate &apos;rend-blanc&apos;. We represent it as
 follows:
 </bodyText>
-<table confidence="0.942542">
+<table confidence="0.74212">
 x1( cat =&gt; v, string =&gt; SV,
 const1 =&gt; x0( cat =&gt; v,
 compound_pred =&gt; K,
@@ -917,7 +915,7 @@ string =&gt; S2 ),
 const3 =&gt; xp( cat =&gt; a, index =&gt; I,
 string =&gt; S3, compound_pred =&gt; K) ) :-
 </table>
-<bodyText confidence="0.968936777777778">
+<bodyText confidence="0.973325666666667">
 precede(S1,S2), precede(S2,S3).
 Finally, the construction given in (11b)
 introduces a long-distance relation between an NP in
@@ -928,7 +926,7 @@ for simplicity as s (instead of, for example, COMP).
 The type construction is the following:
 xp( cat =&gt; s, string =&gt; SV,
 </bodyText>
-<table confidence="0.865487222222222">
+<table confidence="0.782545888888889">
 const1 =&gt; xp( cat =&gt; n, string =&gt; Si,
 index =&gt; I ),
 const2 =&gt; xp( cat =&gt; v, string =&gt; S2 ) ) :-
@@ -939,7 +937,7 @@ const1 =&gt; xp( cat =&gt; v,string =&gt; S3),
 const2 =&gt; xp( cat =&gt; a,
 string =&gt; S4, index =&gt; I ) ) ),
 </table>
-<bodyText confidence="0.999130923913043">
+<bodyText confidence="0.999224706521739">
 precede(S1,S2), precede(S3,S4).
 At the lexical level, the adjoined AP is not
 mentioned, since it is not syntactically necessary
@@ -1033,10 +1031,10 @@ the strategies used and of the direction of the process:
 generation of parsing. This is a consequence of the
 fact that constraints are evaluted only when there is
 </bodyText>
-<page confidence="0.991439">
+<page confidence="0.991118">
 10
 </page>
-<bodyText confidence="0.986831625">
+<bodyText confidence="0.987797166666667">
 sufficient available information to evaluate them and
 also that their coherence with the other constraints is
 checked throughout the whole proof construction
@@ -1062,19 +1060,19 @@ existing NLP systems. A significant result is
 however the much smaller number of bacictraking
 operations that we have observed.
 </bodyText>
-<sectionHeader confidence="0.967588" genericHeader="method">
+<sectionHeader confidence="0.964824" genericHeader="acknowledgments">
 Acknowledgements
 </sectionHeader>
-<bodyText confidence="0.6484665">
+<bodyText confidence="0.5272835">
 We thank N. Hathout for his insightful
 comments on this work, which was supported by the
 PRC Communication Homme-Machine and the
 French ministry of research.
 </bodyText>
-<sectionHeader confidence="0.948355" genericHeader="references">
+<sectionHeader confidence="0.693514" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.996625318181818">
+<reference confidence="0.996409">
 Aiit-Kagi, H., Nasr, R., LOGIN: A Logic
 Programming Language with Built-in Inheritance,
 journal of Logic Programming, vol. 3, pp 185-215,

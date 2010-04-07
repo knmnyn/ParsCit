@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.000002">
-<title confidence="0.440402">
+<variant no="0" confidence="0.000711">
+<title confidence="0.539165">
 Regional Variation of Domain-Specific Lexical Items: Toward a Pan-
-</title>
-<author confidence="0.522519">
 Chinese Lexical Resource
-</author>
-<affiliation confidence="0.635398">
+</title>
+<author confidence="0.45126">
 Oi Yee Kwong and Benjamin K. Tsou
+</author>
+<affiliation confidence="0.8142985">
 Language Information Sciences Research Centre
 City University of Hong Kong
 </affiliation>
-<address confidence="0.938423">
+<address confidence="0.948625">
 Tat Chee Avenue, Kowloon, Hong Kong
 </address>
-<email confidence="0.99622">
+<email confidence="0.998444">
 {rlolivia,rlbtsou}@cityu.edu.hk
 </email>
-<sectionHeader confidence="0.991816" genericHeader="abstract">
+<sectionHeader confidence="0.994153" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999124347826087">
+<bodyText confidence="0.999794782608696">
 This paper reports on an initial and nec-
 essary step toward the construction of a
 Pan-Chinese lexical resource. We inves-
@@ -47,10 +47,10 @@ means for extracting related lexical items
 from the corpus, and to incorporate them
 into existing semantic classifications.
 </bodyText>
-<sectionHeader confidence="0.991851" genericHeader="introduction">
+<sectionHeader confidence="0.996025" genericHeader="introduction">
 1 Introduction
 </sectionHeader>
-<bodyText confidence="0.99926812">
+<bodyText confidence="0.99968044">
 Many cities have underground railway systems.
 Somehow one takes the tube in London but the
 subway in New York. In a more recent edition
@@ -102,11 +102,13 @@ plications.
 In this study, we investigate and compare the
 regional variation of lexical items from two spe-
 </bodyText>
-<page confidence="0.976419">
+<page confidence="0.976933">
 9
 </page>
-<bodyText confidence="0.980937114285714">
+<note confidence="0.812974">
 Proceedings of the Fifth SIGHAN Workshop on Chinese Language Processing, pages 9–16,
+</note>
+<bodyText confidence="0.992953617647059">
 Sydney, July 2006. c�2006 Association for Computational Linguistics
 cific domains, finance and sports, as an initial
 and necessary step toward the more important
@@ -142,10 +144,10 @@ cal items will be discussed in Section 5. Future
 directions will be presented in Section 6, fol-
 lowed by a conclusion.
 </bodyText>
-<sectionHeader confidence="0.543881" genericHeader="method">
+<sectionHeader confidence="0.894977" genericHeader="method">
 2 Existing Resources and Related Work
 </sectionHeader>
-<bodyText confidence="0.9990912">
+<bodyText confidence="0.9999469">
 The construction and development of large
 lexical resources is relying more and more on
 corpus-based approaches, not only as a result of
@@ -217,13 +219,13 @@ common language in constructing a lexical re-
 source; and to incorporate useful information
 relating to location-sensitive linguistic variations.
 </bodyText>
-<page confidence="0.999373">
+<page confidence="0.998717">
 10
 </page>
-<sectionHeader confidence="0.797812" genericHeader="method">
+<sectionHeader confidence="0.836907" genericHeader="method">
 3 Proposal of a Pan-Chinese Thesaurus
 </sectionHeader>
-<bodyText confidence="0.998795068965518">
+<bodyText confidence="0.999893206896552">
 The Pan-Chinese lexicon proposed by Tsou and
 Kwong (2006) is expected to capture not only the
 core senses of lexical items but also senses and
@@ -254,13 +256,13 @@ In the following section, we will discuss the
 Tongyici Cilin and the synchronous Chinese cor-
 pus used in this study in greater details.
 </bodyText>
-<sectionHeader confidence="0.890222" genericHeader="method">
+<sectionHeader confidence="0.791011" genericHeader="method">
 4 Materials and Method
 </sectionHeader>
-<subsectionHeader confidence="0.923411">
+<subsectionHeader confidence="0.901953">
 4.1 The Tongyici Cilin
 </subsectionHeader>
-<bodyText confidence="0.959243928571428">
+<bodyText confidence="0.98395">
 The Tongyici Cilin(同義詞詞林) (Mei et al.,
 1984) is a Chinese synonym dictionary, or more
 often known as a Chinese thesaurus in the tradi-
@@ -276,10 +278,10 @@ the Tongyici Cilin. Its classification consists of
 12 top-level semantic classes, 94 sub-classes,
 1,248 semantic heads and 3,925 paragraphs.
 </bodyText>
-<subsectionHeader confidence="0.7948">
+<subsectionHeader confidence="0.831277">
 4.2 The LIVAC Synchronous Corpus
 </subsectionHeader>
-<bodyText confidence="0.9910795">
+<bodyText confidence="0.99644428125">
 LIVAC (http://www.livac.org) stands for Lin-
 guistic Variation in Chinese Speech Communi-
 ties. It is a synchronous corpus developed by the
@@ -313,7 +315,7 @@ thus assess the room for its enrichment with the
 synchronous corpus. Table 1 shows the sizes of
 the subcorpora used for this study.
 </bodyText>
-<table confidence="0.999655">
+<table confidence="0.999633142857143">
 Subcorpus Overall Financial News Sports News
 (rounded to nearest 0.01M) (rounded to nearest 1K) (rounded to nearest 1K)
 Word Token Word Type Word Token Word Type Word Token Word Type
@@ -322,16 +324,16 @@ BJ 11.70M 0.19M 232K 20K 443K 28K
 TW 12.32M 0.20M 254K 22K 657K 33K
 SG 13.22M 0.21M 621K 28K 998K 34K
 </table>
-<tableCaption confidence="0.968851">
+<tableCaption confidence="0.987608">
 Table 1 Sizes of individual subcorpora
 </tableCaption>
-<page confidence="0.999784">
+<page confidence="0.999146">
 11
 </page>
-<subsectionHeader confidence="0.911514">
+<subsectionHeader confidence="0.834844">
 4.3 Procedures
 </subsectionHeader>
-<bodyText confidence="0.973488833333333">
+<bodyText confidence="0.999414166666667">
 Word-frequency lists were generated from the
 financial and sports subcorpora from each indi-
 vidual community. For each resulting list, the
@@ -339,7 +341,7 @@ steps below were followed to remove irrelevant
 items and retain only the potentially useful con-
 tent words:
 </bodyText>
-<listItem confidence="0.930093666666667">
+<listItem confidence="0.927067222222222">
 (a) Remove all numbers and non-Chinese words.
 (b) Remove all proper names, including those
 annotated as personal names, geographical
@@ -350,7 +352,7 @@ during the process of word segmentation.
 (d) Remove lexical items with frequency 5 or
 below.
 </listItem>
-<bodyText confidence="0.996872615384615">
+<bodyText confidence="0.999584230769231">
 The numbers of remaining items in each sub-
 corpus after the above steps are listed in Tables 2
 and 3 for the two domains respectively. The
@@ -365,29 +367,33 @@ the Tongyici Cilin to investigate its adequacy
 and explore how it might be enriched with the
 synchronous corpus.
 </bodyText>
-<table confidence="0.956625454545455">
+<table confidence="0.999536">
 Subcorpus All After (a) After (b) After (c) After(d)
 HK 37,525 27,937 20,422 17,162 5,238
 BJ 20,025 17,361 14,460 12,134 2,791
 TW 22,142 19,428 16,316 13,496 3,088
 SG 28,193 22,829 16,863 13,822 3,836
+</table>
+<tableCaption confidence="0.712048">
 Table 2 Number of word types remaining after various data cleaning steps for the financial domain
+</tableCaption>
+<table confidence="0.9997808">
 Subcorpus All After (a) After (b) After (c) After(d)
 HK 39,190 35,720 25,289 21,502 6,316
 BJ 27,971 26,049 19,799 16,598 3,878
 TW 32,706 30,231 20,361 17,248 4,601
 SG 34,040 31,974 19,995 16,780 5,120
 </table>
-<tableCaption confidence="0.94118">
+<tableCaption confidence="0.967671">
 Table 3 Number of word types remaining after various data cleaning steps for the sports domain
 </tableCaption>
-<sectionHeader confidence="0.976783" genericHeader="evaluation">
+<sectionHeader confidence="0.989528" genericHeader="evaluation">
 5 Results and Discussion
 </sectionHeader>
-<subsectionHeader confidence="0.858138">
+<subsectionHeader confidence="0.956717">
 5.1 Lexical Items from LIVAC
 </subsectionHeader>
-<bodyText confidence="0.999476333333333">
+<bodyText confidence="0.999886166666667">
 The four subcorpora of the financial domain
 differ considerably in their sizes, and slightly less
 so for the sports domain. Despite this, we ob-
@@ -401,10 +407,10 @@ pus are expected to be amongst the more interest-
 ing items and form the &amp;quot;candidate sets&amp;quot; for fur-
 ther investigation.
 </bodyText>
-<subsectionHeader confidence="0.995233">
+<subsectionHeader confidence="0.992479">
 5.2 Commonality among Various Regions
 </subsectionHeader>
-<bodyText confidence="0.999545695652174">
+<bodyText confidence="0.999938695652174">
 Comparing the candidate sets from various sub-
 corpora, which reflect the use of Chinese in vari-
 ous Chinese speech communities, Tables 4 and 5
@@ -429,10 +435,10 @@ Like its financial counterpart, we found many
 general concepts at the top of the list (e.g. 5N _J
 player, 5N�team,rjf match, r competi-
 </bodyText>
-<page confidence="0.99831">
+<page confidence="0.982268">
 12
 </page>
-<bodyText confidence="0.998582266666666">
+<bodyText confidence="0.987724566666666">
 tion, r league, &amp;quot; t coach, W opponent,
 ice&amp;apos;#i champion, etc.).
 The numbers of overlaps in Tables 4 suggest
@@ -464,11 +470,9 @@ more varied focus in different communities,
 whereas those in the sports domain reflect the
 more common interests of different places.
 </bodyText>
-<table confidence="0.8622645">
+<table confidence="0.568964230769231">
 Regions Overlap Proportion to individual lists (%)
 HK BJ TW SG
-</table>
-<equation confidence="0.712792636363636">
 HK / BJ / TW / SG 1039 19.84 37.23 33.65 27.09
 HK / BJ / TW 1126 21.50 40.34 36.46
 HK / BJ / SG 1327 25.33 47.55 34.59
@@ -480,11 +484,11 @@ HK / SG 2607 49.77 67.96
 BJ / TW 1250 44.79 40.48
 BJ / SG 1505 53.92 39.23
 TW / SG 1795 58.13 46.79
-</equation>
-<tableCaption confidence="0.565818">
+</table>
+<tableCaption confidence="0.789332">
 Table 4 Commonality amongst various regions for the financial domain
 </tableCaption>
-<table confidence="0.605354153846154">
+<table confidence="0.949207384615385">
 Regions Overlap Proportion to individual lists (%)
 HK BJ TW SG
 HK / BJ / TW / SG 1668 26.41 43.01 36.25 32.58
@@ -499,13 +503,13 @@ BJ / TW 2124 54.77 46.16
 BJ / SG 2554 65.86 49.88
 TW / SG 2709 58.88 52.91
 </table>
-<tableCaption confidence="0.712571">
+<tableCaption confidence="0.979837">
 Table 5 Commonality amongst various regions for the sports domain
 </tableCaption>
-<subsectionHeader confidence="0.997211">
+<subsectionHeader confidence="0.995988">
 5.3 Uniqueness of Various Regions
 </subsectionHeader>
-<bodyText confidence="0.999555666666667">
+<bodyText confidence="0.999641555555555">
 Next we compared the lists with respect to what
 they have unique to themselves. Table 6 shows
 the numbers of unique items found in each list,
@@ -516,10 +520,10 @@ candidate sets into account, about 40% of the
 lexical items found in HK data are unique to the
 region, which re-echoes the versatility and wide
 </bodyText>
-<page confidence="0.998237">
+<page confidence="0.999169">
 13
 </page>
-<bodyText confidence="0.997965">
+<bodyText confidence="0.998351466666667">
 coverage of interests of HK data. This is espe-
 cially evident when compared to only about 20%
 of the candidate sets for SG are unique to Singa-
@@ -551,10 +555,10 @@ among other more popular sports like soccer, is
 most obvious from the unique lexical items
 found in TW data.
 </bodyText>
-<subsectionHeader confidence="0.924861">
+<subsectionHeader confidence="0.94291">
 5.4 Comparison with Tongyici Cilin
 </subsectionHeader>
-<bodyText confidence="0.997144352941177">
+<bodyText confidence="0.999850411764706">
 As mentioned earlier, the Tongyici Cilin contains
 some 70,000 lexical items under 12 broad se-
 mantic classes, 94 subclasses, and 1,428 heads.
@@ -573,14 +577,14 @@ in the 1990s. So overall speaking, for each of the
 unique word lists, much less than 50% are cov-
 ered in Cilin.
 </bodyText>
-<footnote confidence="0.7870476">
+<footnote confidence="0.6806686">
 1 Upon further analysis, on average about 60% of these
 &amp;quot;unique&amp;quot; items were actually found in one or more of the
 other regions, but with frequency 5 or below. Since the
 difference in frequency is quite large for most items, we can
 reasonably treat them as unique to a particular community.
 </footnote>
-<bodyText confidence="0.999407277777778">
+<bodyText confidence="0.999923981481482">
 Nevertheless, there is still an apparent gap be-
 tween Cilin&amp;apos;s coverage of the unique items from
 various places. About 40% of the unique items
@@ -636,13 +640,13 @@ automatic means. These will definitely be
 amongst the most important future directions as
 discussed in the next section.
 </bodyText>
-<page confidence="0.999733">
+<page confidence="0.999503">
 14
 </page>
-<sectionHeader confidence="0.997499" genericHeader="discussions">
+<sectionHeader confidence="0.999134" genericHeader="discussions">
 6 Future Work
 </sectionHeader>
-<bodyText confidence="0.999296192307693">
+<bodyText confidence="0.9998965">
 In the current study, we have investigated the
 regional variation of lexical items from the fi-
 nancial and sports domain, and the coverage of
@@ -670,10 +674,10 @@ as other synonym dictionaries from which we
 might draw reference to build up our Pan-
 Chinese lexical resource.
 </bodyText>
-<sectionHeader confidence="0.992405" genericHeader="conclusions">
+<sectionHeader confidence="0.994939" genericHeader="conclusions">
 7 Conclusion
 </sectionHeader>
-<bodyText confidence="0.999919631578947">
+<bodyText confidence="0.999977578947369">
 In this paper, we have investigated the regional
 variation of lexical items in two specific domains
 from a synchronous Chinese corpus, and ex-
@@ -694,20 +698,20 @@ automatic means for extracting related lexical
 items from the corpus, and to incorporate them
 into existing semantic classifications.
 </bodyText>
-<sectionHeader confidence="0.876296" genericHeader="acknowledgments">
+<sectionHeader confidence="0.969224" genericHeader="acknowledgments">
 Acknowledgements
 </sectionHeader>
-<bodyText confidence="0.9963248">
+<bodyText confidence="0.9885862">
 This work is supported by Competitive Ear-
 marked Research Grant (CERG) of the Research
 Grants Council of Hong Kong under grant No.
 CityU1317/03H. The authors would like to
 thank the anonymous reviewers for comments.
 </bodyText>
-<sectionHeader confidence="0.967593" genericHeader="references">
+<sectionHeader confidence="0.989969" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.996077734693878">
+<reference confidence="0.997724183673469">
 Calzolari, N. (1982) Towards the organization of
 lexical definitions on a database structure. In E.
 Hajicova (Ed.), COLING &amp;apos;82 Abstracts, Charles
@@ -758,10 +762,10 @@ and Evaluation (LREC 2006), Genoa, Italy.
 Tsou, B.K. and Lai, T.B.Y.��&amp;gt;M_ - &amp;apos;&amp;apos; f� (2003)
 Il�� l _j&amp;apos; M— ����. In B. Xu, M. Sun
 </reference>
-<page confidence="0.972765">
+<page confidence="0.966568">
 15
 </page>
-<reference confidence="0.916792777777778">
+<reference confidence="0.993768888888889">
 and G. Jin 徐波 、孫茂松 、 靳光瑾 (Eds.), 《 中文
 znguage息 瑗理若干 重要 問題》 (Issues in Chinese
 Processing). 北 京 ： 科 學 出版 社,
@@ -772,7 +776,7 @@ B. Boguraev and T. Briscoe (Eds.), Computational
 Lexicography for Natural Language Processing.
 Essex, UK: Longman Group.
 </reference>
-<table confidence="0.947975222222222">
+<table confidence="0.996493777777778">
 Region Unique Items and Examples (Financial) Unique Items and Examples (Sports)
 HK 2105 (40.19%) 2410 (38.16%)
 BJ 933 (33.43%) 907 (23.39%) 中
@@ -783,11 +787,11 @@ TW891 (28.85%{){t+人1!3{02 (28.30%{)�{ 隊 獅隊
 SG 890 (23.20%) 1044 (20.39%)
 rr� 璔
 </table>
-<tableCaption confidence="0.966028">
+<tableCaption confidence="0.9856125">
 Table 6 Uniqueness of individual subcorpora
 Table 7 Coverage of the Tongyici Cilin for the unique lexical items in individual subcorpora
 </tableCaption>
-<reference confidence="0.992958857142857">
+<bodyText confidence="0.998574857142857">
 Xia, F., Palmer, M., Xue, N., Okwrowski, M.E.,
 Kovarik, J., Huang, S., Kroch, T. and Marcus, M.
 (2000) Developing Guidelines and Ensuring Con-
@@ -795,11 +799,11 @@ sistency for Chinese Text Annotation. In Proceed-
 ings of the 2nd International Conference on Lan-
 guage Resources and Evaluation (LREC-2000),
 Athens, Greece.
-</reference>
-<page confidence="0.978645">
+</bodyText>
+<page confidence="0.96635">
 16
 </page>
-<bodyText confidence="0.637634428571428">
+<figure confidence="0.644519704545455">
 Region
 Financial
 Sports
@@ -807,8 +811,6 @@ Found in Cilin
 Not in Cilin
 Found in Cilin
 Not in Cilin
-</bodyText>
-<equation confidence="0.97203672972973">
 HK
 560 (26.60%)
 1545
@@ -846,7 +848,7 @@ SG
 333(37.42%)
 557 281 (26.91%) 763
 265 (29.74%)
-</equation>
+</figure>
 </variant>
 </algorithm>
 </algorithms>

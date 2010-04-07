@@ -25,22 +25,19 @@ use lib "$path/../../lib";
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
 
-my $tr2crfppLoc = "$FindBin::Bin/../bin/tr2crfpp.pl";
-my $keywordLoc = "$FindBin::Bin/../bin/keywordGen.pl"; #new model
-my $crf_learnLoc = "$FindBin::Bin/../crfpp/crf_learn";
-my $crf_testLoc = "$FindBin::Bin/../crfpp/crf_test";
-my $conllevalLoc = "$FindBin::Bin/../bin/conlleval.pl";
+my $tr2crfppLoc = "$FindBin::Bin/tr2crfpp.pl";
+my $crf_learnLoc = "$FindBin::Bin/../../crfpp/crf_learn";
 ### END user customizable section
 
 ## Thang add ##
 sub Help {
+  print STDERR "Automatically train a SectLabel model using CRF++.\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in labelDir -t type -out outDir -c configFile [-xml -n topN -p numCpus -iter numIter -m modelFile]\n";
+  print STDERR "       $progname -in labelDir -t type -out outDir -c configFile [-p numCpus -m modelFile]\n";
   print STDERR "Options:\n";
-  print STDERR "\t\t-p: Default is 6 cpus\n";
-  print STDERR "\t\t-n: Default topN is 10\n";
+  print STDERR "\t\t-in labelDir: the input label directory, which needs to follow the structure that has sub-directories containing labeled files. For examples, all labeled files are store in any of the directories labelDir/ACL09, labelDir/ACM, or labelDir/CHI08.\n";
   print STDERR "\t\t-t type: e.g. ACL09-ACM-CHI08 to indicate subdirs containing label file. If not specified, the labelDir is supposed to contain all label files\n";
-  print STDERR "\t\t-xml: Add xml feature\n";
+  print STDERR "\t\t-p: Default is 6 cpus\n";
 }
 
 my $HELP = 0;
@@ -48,18 +45,13 @@ my $labelDir = undef;
 my $outDir = undef;
 my $configFile = undef;
 my $numCpus = 6;
-my $isXml = 0;
-my $topN = 10;
-my $numIter = undef;
 my $type = undef;
 my $modelFile = "";
 $HELP = 1 unless GetOptions('in=s' => \$labelDir,
 			    'out=s' => \$outDir,
 			    'c=s' => \$configFile,
 			    'm=s' => \$modelFile,
-			    'xml' => \$isXml,
 			    'p=i' => \$numCpus,
-			    'iter=i' => \$numIter,
 			    't=s' => \$type,
 			    'h' => \$HELP);
 
@@ -121,39 +113,17 @@ foreach my $file (@sorted_files){
 }
 print STDERR " Done!\n";
 
-#construct keywordFile, using topN = 100
-my $keywordFile = "$outDir/keywords";
-my $bigramFile = "$outDir/bigram";
-my $trigramFile = "$outDir/trigram";
-my $fourthgramFile = "$outDir/fourthgram";
-#execute("$keywordLoc -in $trainSrcFile -out $keywordFile -n $topN"); # keyword file
-#execute("$keywordLoc -in $trainSrcFile -out $bigramFile -n $topN -nGram 2"); # bigram file
-#execute("$keywordLoc -in $trainSrcFile -out $trigramFile -n $topN -nGram 3"); # bigram file
-#execute("$keywordLoc -in $trainSrcFile -out $fourthgramFile -n $topN -nGram 4"); # bigram file
-
 # create train crf features
 my $trainFeatureFile = "$outDir/train.feature";
 my $templateFile = "$outDir/template";
-my $cmd = "$tr2crfppLoc -q -in $trainSrcFile -out $trainFeatureFile -c $configFile"; # -k $keywordFile -b $bigramFile -tri $trigramFile -fourth $fourthgramFile
-if($isXml){
-  $cmd .= " -xml";
-}
+my $cmd = "$tr2crfppLoc -q -in $trainSrcFile -out $trainFeatureFile -c $configFile";
+
 execute("$cmd -template 1>$templateFile");
 
 # train
 print STDERR "#\n## Training ...\n"; # Thang add
-$cmd = "$crf_learnLoc -p $numCpus -f 3 -c 3";
-if(defined $numIter){
-  $numIter = untaintPath($numIter);
-  $cmd .= " -m $numIter";
-}
-$cmd .= " $templateFile $trainFeatureFile $modelFile";
+$cmd = "$crf_learnLoc -p $numCpus -f 3 -c 3 $templateFile $trainFeatureFile $modelFile";
 execute($cmd);
-
-
-# clean up
-#`rm -f $tmpfile*`;
-
 
 sub untaintPath {
   my ($path) = @_;

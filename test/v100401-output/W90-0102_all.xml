@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.000001">
-<title confidence="0.471143">
+<variant no="0" confidence="0.000003">
+<title confidence="0.508076">
 Generation and
 Synchronous Tree-Adjoining Grammars
 </title>
-<author confidence="0.910464">
+<author confidence="0.914283">
 Stuart M. Shieber
 </author>
-<affiliation confidence="0.926380333333333">
+<affiliation confidence="0.927974666666667">
 Aiken Computation Laboratory
 Division of Applied Sciences
 Harvard University
 </affiliation>
-<address confidence="0.862818">
+<address confidence="0.874597">
 Cambridge, MA 02138
 </address>
-<sectionHeader confidence="0.96761" genericHeader="abstract">
+<sectionHeader confidence="0.965538" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.99409165">
+<bodyText confidence="0.994219675">
 Tree-adjoining grammars (TAG) have been proposed as
 a formalism for generation based on the intuition that
 the extended domain of syntactic locality that TAGs
@@ -62,18 +62,18 @@ notion of semantic locality. The same observation runs
 as an undercurrent in the work of McDonald and Puste-
 jovsky (1985), who apply TAGs to the task of genera-
 </bodyText>
-<author confidence="0.534991">
+<author confidence="0.547716">
 Yves Schabes
 </author>
-<affiliation confidence="0.698177666666667">
+<affiliation confidence="0.708495666666667">
 Department of Computer and
 Information Science
 University of Pennsylvania
 </affiliation>
-<address confidence="0.820571">
+<address confidence="0.833402">
 Philadelphia, PA 19104
 </address>
-<bodyText confidence="0.994716513513514">
+<bodyText confidence="0.992449513513514">
 tion. As these researchers note, the properties of TAGs
 for describing the syntactic structuring of a natural lan-
 guage mesh quite naturally with the requirements of
@@ -112,10 +112,10 @@ are well beyond the scope of this paper.
 &apos;This issue of canonicality of logical forms is discussed
 by Shieber (1988).
 </bodyText>
-<page confidence="0.984145">
+<page confidence="0.982179">
 9
 </page>
-<bodyText confidence="0.866247652173913">
+<bodyText confidence="0.914906347826087">
 Semantics in Generation
 Although Joshi discusses at length the properties of
 TAGs advantageous to the generation task (1987), he
@@ -140,13 +140,13 @@ vidual units and allowing them to include references to
 each other.&amp;quot; The units for the example at hand would
 be:
 </bodyText>
-<equation confidence="0.90809825">
+<equation confidence="0.939166">
 = A(quantity-of-ships).
 attack(Iraq, quantity-of-ships)
 U2 = say(Iraq,U1)
 U3 = report(Reuters, U2)
 </equation>
-<bodyText confidence="0.976127775">
+<bodyText confidence="0.9825327125">
 By composing the units using substitution of equals for
 equals, a more conventional logical form representation
 is revealed:
@@ -228,7 +228,7 @@ We introduce synchronous TAGs by example, contin-
 uing with an exegesis of the sentence that McDonald
 and Pustejovsky focus on, and following roughly the
 </bodyText>
-<figure confidence="0.925307416666667">
+<figure confidence="0.953816416666667">
 10
 a:
 NPi qF
@@ -242,16 +242,16 @@ Reuters V §
 report Comp S*NA
 that
 </figure>
-<figureCaption confidence="0.982023">
+<figureCaption confidence="0.991241">
 Figure 1: Example Synchronous TAG
 </figureCaption>
-<figure confidence="0.7727815">
+<figure confidence="0.808836">
 said Iraq F*
 132:
 How many ships
 Iraq
 </figure>
-<bodyText confidence="0.9618275">
+<bodyText confidence="0.939572090909091">
 structure of their TAG analysis.2
 A synchronous TAG sufficient for this example in-
 cludes the three pairings of trees (labeled a, flu, and (32)
@@ -284,16 +284,16 @@ sentence.
 Derivation in the synchronous grammar proceeds by
 choosing a pairing of initial trees from the grammar
 and repeatedly updating it by the following three-step
-</bodyText>
-<listItem confidence="0.932927833333333">
 process:3
+</bodyText>
+<listItem confidence="0.9978324">
 1. Choose a link to act upon.
 2. Choose a pairing such that the two trees can respec-
 tively act on (substitute at or adjoin at) the respec-
 tive ends of the link chosen in Step 1.
 3. Remove the chosen link from the trees being updated
 </listItem>
-<bodyText confidence="0.8682953">
+<bodyText confidence="0.8636178">
 and perform the two operations, one in each of the
 trees. If the trees in the chosen pairing themselves
 have links, these are preserved in the result.
@@ -305,10 +305,10 @@ component of flu can operate (by adjunction) on an S
 TAGs can be found in a previous paper (Shieber and Sch-
 abes, forthcoming).
 </bodyText>
-<page confidence="0.966611">
+<page confidence="0.966176">
 11
 </page>
-<figure confidence="0.99376545">
+<figure confidence="0.99374605">
 a
 .•■••■
 NPi S
@@ -330,17 +330,17 @@ said NIP VP
 Iraq
 attacked
 </figure>
-<figureCaption confidence="0.917209">
+<figureCaption confidence="0.91423">
 Figure 2: Results of Synchronous Derivation Steps
 </figureCaption>
-<figure confidence="0.9093838">
+<figure confidence="0.9436974">
 Iraq Aux VP
 had
 said NP VP
 Iraq V NP
 attacked
 </figure>
-<bodyText confidence="0.956794066666667">
+<bodyText confidence="0.957576933333333">
 node, and the second on an F node as required by the
 chosen link The result of performing the adjunctions
 is the pairing given as a + th in Figure 2. The link
@@ -372,10 +372,10 @@ tended domain of locality found in pure TAGs makes it
 possible to localize dependencies that would otherwise
 be spread across several primitive structures.
 </bodyText>
-<page confidence="0.984077">
+<page confidence="0.982454">
 12
 </page>
-<bodyText confidence="0.991698666666667">
+<bodyText confidence="0.990913228070175">
 Translation with Synchronous TAGs
 Synchronous TAGs as informally described here declar-
 atively characterize a relation over strings in two lan-
@@ -434,7 +434,7 @@ Shanker (1988)), and consequently must be normalized
 to put it into canonical form. Under certain config-
 urations of links, the normalization process is nonde-
 </bodyText>
-<figure confidence="0.90460725">
+<figure confidence="0.916924916666667">
 Aq .report(Reuters,
 said(lraq,
 attack(Iraq,q)))
@@ -448,10 +448,10 @@ did Reuters report
 that Iraq had said
 Iraq attacked?
 </figure>
-<figureCaption confidence="0.9999">
+<figureCaption confidence="0.999919">
 Figure 3: Generation by Derivation Translation
 </figureCaption>
-<bodyText confidence="0.994123333333333">
+<bodyText confidence="0.994738444444444">
 terministic; thus one source derivation (necessarily in
 canonical form by virtue of properties of the parsing al-
 gorithm) may be associated with several canonical tar-
@@ -480,12 +480,12 @@ mar and, consequently, more efficient generation. In
 the case of augmented context-free grammars, the se-
 mantic monotonicity requirement precludes &amp;quot;lexicaliza-
 </bodyText>
-<figure confidence="0.630568">
+<figure confidence="0.636365">
 10
 (sYn)
 1 3
 </figure>
-<bodyText confidence="0.98562575">
+<bodyText confidence="0.987032666666666">
 tion&amp;quot; of the semantics. It is not possible to require
 nontrivial semantics to be associated with each lexi-
 cal item. This fact, and the inefficiencies of genera-
@@ -523,20 +523,20 @@ languages, provide a formal foundation for this intuition
 by making explicit the semantic locality that generation
 requires.
 </bodyText>
-<sectionHeader confidence="0.945699" genericHeader="acknowledgments">
+<sectionHeader confidence="0.944264" genericHeader="acknowledgments">
 Acknowledgements
 </sectionHeader>
-<bodyText confidence="0.958208">
+<bodyText confidence="0.983187">
 This research was partially funded by ARO grant
 DAAG29-84-K-0061, DARPA grant N00014-85-K0018,
 and NSF grant MCS-82-19196 at the University of
 Pennsylvania. We are indebted to Aravind Joshi for
 his support of this research.
 </bodyText>
-<sectionHeader confidence="0.340139" genericHeader="references">
+<sectionHeader confidence="0.349211" genericHeader="references">
 Bibliography
 </sectionHeader>
-<reference confidence="0.998816779661017">
+<reference confidence="0.998229389830508">
 Jonathan Calder, Mike Reape, and Hank Zeevat. An al-
 gorithm for generation in unification categorial gram-
 mar. In Proceedings of the 4th Conference of the Eu-
@@ -597,7 +597,7 @@ derivation. In Proceedings of the 12th International
 Conference on Computational Linguistics, pages 732—
 737, Budapest, Hungary, 1988.
 </reference>
-<page confidence="0.999306">
+<page confidence="0.999257">
 14
 </page>
 </variant>
