@@ -13,7 +13,7 @@
 - Added in crfpp/traindata CRF++ feature files (sectLabel-xml.train.data, sectLabel.train.data) and templates (sectLabel-xml.template, sectLabel.template)
 
 - Incorporated works by Emma 
--- Added GenericSect code (bin/genericSectExtract.rb, crfpp/traindata/genericSect.train.data, bin/genericSect/, resource/genericSect) into SectLabel
+-- Added GenericSect code (bin/sectLabel/genericSectExtract.rb, crfpp/traindata/genericSect.train.data, bin/sectLabel/genericSect/, resource/sectLabel/genericSect) into SectLabel
 -- Added GenericSect annotated data doc/genericSect.tagged.txt (211 documents with headers annotated)
 -- Added in crfpp/traindata CRF++ feature file (genericSect.train.data) and template (genericSect.template)
 
