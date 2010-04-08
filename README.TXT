@@ -46,6 +46,8 @@ bin/		- Binaries / scripts for running ParsCit
 			  (at end of script) for ParsCit
    /parsHed/redo.parsHed.pl	- Cross Validation training script and 
 				  training notes (at end of script) for ParsHed
+   /sectLabel/redo.sectLabel.pl	- Cross Validation training script and 
+				  training notes (at end of script) for SectLabel # Thang v100401
 CHANGELOG.TXT	- Changes between versions of the code.
 crfpp/		- The CRF++ machine learning package used within ParsCit
      /traindata	- Sample training data for the CRF++ code of ParsCit and 
