@@ -1,0 +1,1030 @@
+title ||| 2-Source Dispersers for Sub-Polynomial Entropy and
+title ||| Ramsey Graphs Beating the Frankl-Wilson Construction
+none ||| ∗
+author ||| Boaz Barak
+affiliation ||| Department of Computer Science
+affiliation ||| Princeton University
+email ||| boaz@cs.princeton.edu
+author ||| Ronen Shaltiel ‡
+affiliation ||| University of Haifa
+address ||| Mount Carmel
+address ||| Haifa, Israel
+email ||| ronen@cs.haifa.ac.il
+sectionHeader ||| ABSTRACT
+bodyText ||| The main result of this paper is an explicit disperser for two
+bodyText ||| independent sources on n bits, each of entropy k = no(1).
+bodyText ||| Put differently, setting N = 2n and K = 2k, we construct
+bodyText ||| explicit N × N Boolean matrices for which no K × K sub-
+bodyText ||| matrix is monochromatic. Viewed as adjacency matrices of
+bodyText ||| bipartite graphs, this gives an explicit construction of K-
+bodyText ||| Ramsey bipartite graphs of size N.
+bodyText ||| This greatly improves the previous bound of k = o(n) of
+bodyText ||| Barak, Kindler, Shaltiel, Sudakov and Wigderson [4]. It also
+bodyText ||| significantly improves the 25-year record of k = ~O(√n) on
+bodyText ||| the special case of Ramsey graphs, due to Frankl and Wilson
+bodyText ||| [9].
+bodyText ||| The construction uses (besides ”classical” extractor ideas)
+bodyText ||| almost all of the machinery developed in the last couple of
+bodyText ||| years for extraction from independent sources, including:
+bodyText ||| •	Bourgain’s extractor for 2 independent sources of some
+bodyText ||| entropy rate < 1/2 [5]
+bodyText ||| •	Raz’s extractor for 2 independent sources, one of which
+bodyText ||| has any entropy rate > 1/2 [18]
+footnote ||| ∗Supported by a Princeton University startup grant.
+footnote ||| †Most of this work was done while the author was visiting
+footnote ||| Princeton University and the Institute for Advanced Study.
+footnote ||| Supported in part by an MCD fellowship from UT Austin
+footnote ||| and NSF Grant CCR-0310960.
+footnote ||| ‡This research was supported by the United States-Israel
+footnote ||| Binational Science Foundation (BSF) grant 2004329.
+footnote ||| §This research was supported by NSF Grant CCR-0324906.
+copyright ||| Permission to make digital or hard copies of all or part of this work for
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that copies
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise, to
+copyright ||| republish, to post on servers or to redistribute to lists, requires prior specific
+copyright ||| permission and/or a fee.
+note ||| STOC’06, May 21–23, 2006, Seattle, Washington, USA.
+copyright ||| Copyright 2006 ACM 1-59593-134-1/06/0005 ...$5.00.
+author ||| Anup Rao †
+affiliation ||| Department of Computer Science
+affiliation ||| University of Texas at Austin
+email ||| arao@cs.utexas.edu
+author ||| Avi Wigderson §
+affiliation ||| Institute for Advanced Study
+address ||| Princeton
+address ||| New Jersey
+email ||| avi@math.ias.edu
+bodyText ||| •	Rao’s extractor for 2 independent block-sources of en-
+bodyText ||| tropy no(1) [17]
+bodyText ||| •	The “Challenge-Response” mechanism for detecting
+bodyText ||| “entropy concentration” of [4].
+bodyText ||| The main novelty comes in a bootstrap procedure which
+bodyText ||| allows the Challenge-Response mechanism of [4] to be used
+bodyText ||| with sources of less and less entropy, using recursive calls
+bodyText ||| to itself. Subtleties arise since the success of this mecha-
+bodyText ||| nism depends on restricting the given sources, and so re-
+bodyText ||| cursion constantly changes the original sources. These are
+bodyText ||| resolved via a new construct, in between a disperser and
+bodyText ||| an extractor, which behaves like an extractor on sufficiently
+bodyText ||| large subsources of the given ones.
+note ||| This version is only an extended abstract, please see the
+note ||| full version, available on the authors’ homepages, for more
+note ||| details.
+sectionHeader ||| Categories and Subject Descriptors
+category ||| G.2.2 [Mathematics of Computing]: Discrete Mathe-
+category ||| matics—Graph algorithms
+sectionHeader ||| General Terms
+keyword ||| Theory, Algorithms
+sectionHeader ||| Keywords
+keyword ||| Dispersers, Ramsey Graphs, Independent Sources, Extrac-
+keyword ||| tors
+sectionHeader ||| 1. INTRODUCTION
+bodyText ||| This paper deals with randomness extraction from weak
+bodyText ||| random sources. Here a weak random source is a distribu-
+bodyText ||| tion which contains some entropy. The extraction task is to
+bodyText ||| design efficient algorithms (called extractors) to convert this
+bodyText ||| entropy into useful form, namely a sequence of independent
+bodyText ||| unbiased bits. Beyond the obvious motivations (potential
+bodyText ||| use of physical sources in pseudorandom generators and in
+bodyText ||| derandomization), extractors have found applications in a
+page ||| 671
+bodyText ||| variety of areas in theoretical computer science where ran-
+bodyText ||| domness does not seem an issue, such as in efficient con-
+bodyText ||| structions of communication networks [24, 7], error correct-
+bodyText ||| ing codes [22, 12], data structures [14] and more.
+bodyText ||| Most work in this subject over the last 20 years has fo-
+bodyText ||| cused on what is now called seeded extraction, in which the
+bodyText ||| extractor is given as input not only the (sample from the)
+bodyText ||| defective random source, but also a few truly random bits
+bodyText ||| (called the seed). A comprehensive survey of much of this
+bodyText ||| body of work is [21].
+bodyText ||| Another direction, which has been mostly dormant till
+bodyText ||| about two years ago, is (seedless, deterministic) extraction
+bodyText ||| from a few independent weak sources. This kind of extrac-
+bodyText ||| tion is important in several applications where it is unrealis-
+bodyText ||| tic to have a short random seed or deterministically enumer-
+bodyText ||| ate over its possible values. However, it is easily shown to be
+bodyText ||| impossible when only one weak source is available. When at
+bodyText ||| least 2 independent sources are available extraction becomes
+bodyText ||| possible in principle. The 2-source case is the one we will
+bodyText ||| focus on in this work.
+bodyText ||| The rest of the introduction is structured as follows. We’ll
+bodyText ||| start by describing our main result in the context of Ramsey
+bodyText ||| graphs. We then move to the context of extractors and dis-
+bodyText ||| perser, describing the relevant background and stating our
+bodyText ||| result in this language. Then we give an overview of the
+bodyText ||| construction of our dispersers, describing the main building
+bodyText ||| blocks we construct along the way. As the construction is
+bodyText ||| quite complex and its analysis quite subtle, in this proceed-
+bodyText ||| ings version we try to abstract away many of the technical
+bodyText ||| difficulties so that the main ideas, structure and tools used
+bodyText ||| are highlighted. For that reason we also often state defini-
+bodyText ||| tions and theorems somewhat informally.
+subsectionHeader ||| 1.1 Ramsey Graphs
+construct ||| DefInItIOn 1.1. A graph on N vertices is called a K-
+construct ||| Ramsey Graph if it contains no clique or independent set of
+construct ||| size K.
+bodyText ||| In 1947 Erd}os published his paper inaugurating the Prob-
+bodyText ||| abilistic Method with a few examples, including a proof that
+bodyText ||| most graphs on N = 2n vertices are 2n-Ramsey. The quest
+bodyText ||| for constructing such graphs explicitly has existed ever since
+bodyText ||| and lead to some beautiful mathematics.
+bodyText ||| The best record to date was obtained in 1981 by Frankl
+bodyText ||| and Wilson [9], who used intersection theorems for set sys-
+bodyText ||| tems to construct N-vertex graphs which are 21�n log n-Ramsey.
+bodyText ||| This bound was matched by Alon [1] using the Polynomial
+bodyText ||| Method, by Grolmusz [11] using low rank matrices over rings,
+bodyText ||| and also by Barak [2] boosting Abbot’s method with almost
+bodyText ||| k-wise independent random variables (a construction that
+bodyText ||| was independently discovered by others as well). Remark-
+bodyText ||| ably all of these different approaches got stuck at essentially
+bodyText ||| the same bound. In recent work, Gopalan [10] showed that
+bodyText ||| other than the last construction, all of these can be viewed
+bodyText ||| as coming from low-degree symmetric representations of the
+bodyText ||| OR function. He also shows that any such symmetric rep-
+bodyText ||| resentation cannot be used to give a better Ramsey graph,
+bodyText ||| which gives a good indication of why these constructions
+bodyText ||| had similar performance. Indeed, as we will discuss in a
+bodyText ||| later section, the √n entropy bound initially looked like a
+bodyText ||| natural obstacle even for our techniques, though eventually
+bodyText ||| we were able to surpass it.
+bodyText ||| The analogous question for bipartite graphs seemed much
+bodyText ||| harder.
+construct ||| DefInItIOn 1.2. A bipartite graph on two sets of N ver-
+construct ||| tices is a K-Ramsey Bipartite Graph if it has no K × K
+construct ||| complete or empty bipartite subgraph.
+bodyText ||| While Erd}os’ result on the abundance of 2n-Ramsey graphs
+bodyText ||| holds as is for bipartite graphs, until recently the best ex-
+bodyText ||| plicit construction of bipartite Ramsey graphs was 2n/2-
+bodyText ||| Ramsey, using the Hadamard matrix. This was improved
+bodyText ||| last year, first to o(2n/2) by Pudlak and R}odl [16] and then
+bodyText ||| to 2o(n) by Barak, Kindler, Shaltiel, Sudakov and Wigderson
+bodyText ||| [4] .
+bodyText ||| It is convenient to view such graphs as functions f :
+bodyText ||| ({0, 1}n)2 → {0, 1}. This then gives exactly the definition
+bodyText ||| of a disperser.
+construct ||| DefInItIOn 1.3. A function f : ({0, 1}n)2 → {0, 1} is
+construct ||| called a 2-source disperser for entropy k if for any two sets
+construct ||| X, Y ⊂ {0, 1}n with | X | = |Y| = 2k, we have that the image
+construct ||| f (X, Y) is {0, 1}.
+bodyText ||| This allows for a more formal definition of explicitness: we
+bodyText ||| simply demand that the function f is computable in polyno-
+bodyText ||| mial time. Most of the constructions mentioned above are
+bodyText ||| explicit in this sense.'
+bodyText ||| Our main result (stated informally) significantly improves
+bodyText ||| the bounds in both the bipartite and non-bipartite settings:
+construct ||| TheOrem 1.4. For every N we construct polynomial time
+construct ||| computable bipartite graphs which are 2n'(1)-Ramsey. A stan-
+construct ||| dard transformation of these graphs also yields polynomial
+construct ||| time computable ordinary Ramsey Graphs with the same pa-
+construct ||| rameters.
+subsectionHeader ||| 1.2 Extractors and Dispersers from indepen-
+subsectionHeader ||| dent sources
+bodyText ||| Now we give a brief review of past relevant work (with the
+bodyText ||| goal of putting this paper in proper context) and describe
+bodyText ||| some of the tools from these past works that we will use.
+bodyText ||| We start with the basic definitions of k-sources by Nisan
+bodyText ||| and Zuckerman [15] and of extractors and dispersers for in-
+bodyText ||| dependent sources by Santha and Vazirani [20].
+construct ||| DefInItIOn 1.5 ([15], See alSO [8]). The min-entropy
+construct ||| of a distribution X is the maximum k such that for every
+construct ||| element x in its support, Pr[X = x] ≤ 2-k. If X is a dis-
+construct ||| tribution on strings with min-entropy at least k, we will call
+construct ||| X a k-source 2.
+bodyText ||| To simplify the presentation, in this version of the paper
+bodyText ||| we will assume that we are working with entropy as opposed
+bodyText ||| to min-entropy.
+construct ||| DefInItIOn 1.6 ([20]). A function f : ({0,1}n)c →
+construct ||| {0, 1}m is a c-source (k, ǫ) extractor if for every family of c
+construct ||| independent k-sources X', • • • , Xc, the output f (X', • • • , Xc)
+footnote ||| 'The Abbot’s product based Ramsey-graph construction of
+footnote ||| [3] and the bipartite Ramsey construction of [16] only satisfy
+footnote ||| a weaker notion of explicitness.
+footnote ||| 2It is no loss of generality to imagine that X is uniformly
+footnote ||| distributed over some (unknown) set of size 2k.
+page ||| 672
+bodyText ||| is a ǫ-close 3 to uniformly distributed on m bits. f is a dis-
+bodyText ||| perser for the same parameters if the output is simply re-
+bodyText ||| quired to have a support of relative size (1 − ǫ).
+bodyText ||| To simplify the presentation, in this version of the paper,
+bodyText ||| we will assume that ǫ = 0 for all of our constructions.
+bodyText ||| In this language, Erd}os’ theorem says that most functions
+bodyText ||| f : ({0, 1}n)2 → {0, 1} are dispersers for entropy 1 + logn
+bodyText ||| (treating f as the characteristic function for the set of edges
+bodyText ||| of the graph). The proof easily extends to show that indeed
+bodyText ||| most such functions are in fact extractors. This naturally
+bodyText ||| challenges us to find explicit functions f that are 2-source
+bodyText ||| extractors.
+bodyText ||| Until one year ago, essentially the only known explicit
+bodyText ||| construction was the Hadamard extractor Had defined by
+bodyText ||| Had(x,y)
+bodyText ||| k > n/2 as observed by Chor and Goldreich [8] and can
+bodyText ||| be extended to give m = Q(n) output bits as observed by
+bodyText ||| Vazirani [23]. Over 20 years later, a recent breakthrough
+bodyText ||| of Bourgain [5] broke this “1/2 barrier” and can handle 2
+bodyText ||| sources of entropy .4999n, again with linear output length
+bodyText ||| m = 0(n). This seemingly minor improvement will be cru-
+bodyText ||| cial for our work!
+construct ||| TheOrem 1.7 ([5] ). There is a polynomial time com-
+construct ||| putable 2-source extractor f : ({0, 1}n)2 → {0, 1}m for en-
+construct ||| tropy .4999n and m = 0(n).
+bodyText ||| No better bounds are known for 2-source extractors. Now
+bodyText ||| we turn our attention to 2-source dispersers. It turned out
+bodyText ||| that progress for building good 2-source dispersers came via
+bodyText ||| progress on extractors for more than 2 sources, all happening
+bodyText ||| in fast pace in the last 2 years. The seminal paper of Bour-
+bodyText ||| gain, Katz and Tao [6] proved the so-called ”sum-product
+bodyText ||| theorem” in prime fields, a result in arithmetic combina-
+bodyText ||| torics. This result has already found applications in diverse
+bodyText ||| areas of mathematics, including analysis, number theory,
+bodyText ||| group theory and ... extractor theory. Their work implic-
+bodyText ||| itly contained dispersers for c = O(log(n/k)) independent
+bodyText ||| sources of entropy k (with output m = Q(k)). The use of
+bodyText ||| the ”sum-product” theorem was then extended by Barak et
+bodyText ||| al. [3] to give extractors with similar parameters. Note that
+bodyText ||| for linear entropy k = 0(n), the number of sources needed
+bodyText ||| for extraction c is a constant!
+bodyText ||| Relaxing the independence assumptions via the idea of
+bodyText ||| repeated condensing, allowed the reduction of the number
+bodyText ||| of independent sources to c = 3, for extraction from sources
+bodyText ||| of any linear entropy k = 0(n), by Barak et al. [4] and
+bodyText ||| independently by Raz [18].
+bodyText ||| For 2 sources Barak et al. [4] were able to construct dis-
+bodyText ||| persers for sources of entropy o(n). To do this, they first
+bodyText ||| showed that if the sources have extra structure (block-source
+bodyText ||| structure, defined below), even extraction is possible from 2
+bodyText ||| sources. The notion of block-sources, capturing ”semi inde-
+bodyText ||| pendence” of parts of the source, was introduced by Chor
+bodyText ||| and Goldreich [8]. It has been fundamental in the develop-
+bodyText ||| ment of seeded extractors and as we shall see, is essential
+bodyText ||| for us as well.
+construct ||| DefInItIOn 1.8 ([8] ). A distribution X = X1, ... , Xc
+construct ||| is a c-block-source of (block) entropy k if every block Xi
+construct ||| has entropy k even conditioned on fixing the previous blocks
+construct ||| X1, • • • , Xi_1 to arbitrary constants.
+footnote ||| 3The error is usually measured in terms of ℓ1 distance or
+footnote ||| variation distance.
+bodyText ||| This definition allowed Barak et al. [4] to show that their
+bodyText ||| extractor for 4 independent sources, actually performs as
+bodyText ||| well with only 2 independent sources, as long as both are
+bodyText ||| 2-block-sources.
+construct ||| TheOrem 1.9 ([4] ). There exists a polynomial time com-
+construct ||| putable extractor f : ({0, 1}n)2 → {0, 1} for 2 independent
+construct ||| 2-block-sources with entropy o(n).
+bodyText ||| There is no reason to assume that the given sources are
+bodyText ||| block-sources, but it is natural to try and reduce to this
+bodyText ||| case. This approach has been one of the most successful in
+bodyText ||| the extractor literature. Namely try to partition a source
+bodyText ||| X into two blocks X = X1, X2 such that X1, X2 form a
+bodyText ||| 2-block-source. Barak et al. introduced a new technique to
+bodyText ||| do this reduction called the Challenge-Response mechanism,
+bodyText ||| which is crucial for this paper. This method gives a way to
+bodyText ||| “find” how entropy is distributed in a source X, guiding the
+bodyText ||| choice of such a partition. This method succeeds only with
+bodyText ||| small probability, dashing the hope for an extractor, but still
+bodyText ||| yielding a disperser.
+construct ||| TheOrem 1.10 ([4] ). There exists a polynomial time
+construct ||| computable 2-source disperser f : ({0, 1}n)2 → {0, 1} for
+construct ||| entropy o(n).
+bodyText ||| Reducing the entropy requirement of the above 2-source
+bodyText ||| disperser, which is what we achieve in this paper, again
+bodyText ||| needed progress on achieving a similar reduction for extrac-
+bodyText ||| tors with more independent sources. A few months ago Rao
+bodyText ||| [?] was able to significantly improve all the above results
+bodyText ||| for c ≥ 3 sources. Interestingly, his techniques do not use
+bodyText ||| arithmetic combinatorics, which seemed essential to all the
+bodyText ||| papers above. He improves the results of Barak et al. [3] to
+bodyText ||| give c = O((logn)/(logk))-source extractors for entropy k.
+bodyText ||| Note that now the number c of sources needed for extraction
+bodyText ||| is constant, even when the entropy is as low as nδ for any
+bodyText ||| constant δ!
+bodyText ||| Again, when the input sources are block-sources with suf-
+bodyText ||| ficiently many blocks, Rao proves that 2 independent sources
+bodyText ||| suffice (though this result does rely on arithmetic combina-
+bodyText ||| torics, in particular, on Bourgain’s extractor).
+construct ||| TheOrem 1.11 ([?] ). There is a polynomial time com-
+construct ||| putable extractor f : ({0, 1}n)2 → {0, 1}m for 2 independent
+construct ||| c-block-sources with block entropy k and m = 0(k), as long
+construct ||| as c = O((log n)/(log k)).
+bodyText ||| In this paper (see Theorem 2.7 below) we improve this
+bodyText ||| result to hold even when only one of the 2 sources is a c-
+bodyText ||| block-source. The other source can be an arbitrary source
+bodyText ||| with sufficient entropy. This is a central building block in
+bodyText ||| our construction. This extractor, like Rao’s above, critically
+bodyText ||| uses Bourgain’s extractor mentioned above. In addition it
+bodyText ||| uses a theorem of Raz [18] allowing seeded extractors to have
+bodyText ||| ”weak” seeds, namely instead of being completely random
+bodyText ||| they work as long as the seed has entropy rate > 1/2.
+sectionHeader ||| 2. MAIN NOTIONS AND NEW RESULTS
+bodyText ||| The main result of this paper is a polynomial time com-
+bodyText ||| putable disperser for 2 sources of entropy no(1), significantly
+bodyText ||| improving both the results of Barak et al. [4] (o(n) entropy).
+bodyText ||| It also improves on Frankl and Wilson [9], who only built
+bodyText ||| Ramsey Graphs and only for entropy ~O(√n).
+bodyText ||| = (x, y)( mod 2). It is an extractor for entropy
+page ||| 673
+construct ||| ThEOREm 2.1 (MaIn thEOREm, REStatEd). There ex-
+construct ||| ists a polynomial time computable 2-source disperser D :
+construct ||| ({0, 1}n)2 → {0, 1} for entropy no(1).
+bodyText ||| The construction of this disperser will involve the con-
+bodyText ||| struction of an object which in some sense is stronger and
+bodyText ||| in another weaker than a disperser: a subsource somewhere
+bodyText ||| extractor. We first define a related object: a somewhere ex-
+bodyText ||| tractor, which is a function producing several outputs, one of
+bodyText ||| which must be uniform. Again we will ignore many technical
+bodyText ||| issues such as error, min-entropy vs. entropy and more, in
+bodyText ||| definitions and results, which are deferred to the full version
+bodyText ||| of this paper.
+construct ||| DEfInItIOn 2.2. A function f : ({0, 1}n)2 → ({0,1}m)ℓ
+construct ||| is a 2-source somewhere extractor with ℓ outputs, for entropy
+construct ||| k, if for every 2 independent k-sources X, Y there exists an
+construct ||| i ∈ [ℓ] such the ith output f (X, Y)i is a uniformly distributed
+construct ||| string of m bits.
+bodyText ||| Here is a simple construction of such a somewhere extrac-
+bodyText ||| tor with ℓ as large as poly(n) (and the p in its name will
+bodyText ||| stress the fact that indeed the number of outputs is that
+bodyText ||| large). It will nevertheless be useful to us (though its de-
+bodyText ||| scription in the next sentence may be safely skipped). Define
+bodyText ||| pSE(x, y)i = V(E(x, i), E(y, i)) where E is a ”strong” loga-
+bodyText ||| rithmic seed extractor, and V is the Hadamard/Vazirani 2-
+bodyText ||| source extractor. Using this construction, it is easy to see
+bodyText ||| that:
+construct ||| PROPOSItIOn 2.3. For every n, k there is a polynomial
+construct ||| time computable somewhere extractor pSE : ({0, 1}n)2 →
+construct ||| ({0, 1}m)ℓ with ℓ = poly(n) outputs, for entropy k, and m =
+construct ||| Q(k).
+bodyText ||| Before we define subsource somewhere extractor, we must
+bodyText ||| first define a subsource.
+construct ||| DEfInItIOn 2.4 (SUBSOURCES). Given random variables
+construct ||| Z and Z^ on {0, 1}n we say that Z^ is a deficiency d subsource
+construct ||| of Z and write Z^ ⊆ Z if there exists a set A ⊆ {0,1}n such
+construct ||| that (Z|Z ∈ A) = Z^ and Pr[Z ∈ A] ≥ 2-d.
+bodyText ||| A subsource somewhere extractor guarantees the ”some-
+bodyText ||| where extractor” property only on subsources X', Y' of the
+bodyText ||| original input distributions X, Y (respectively). It will be
+bodyText ||| extremely important for us to make these subsources as large
+bodyText ||| as possible (i.e. we have to lose as little entropy as possible).
+bodyText ||| Controlling these entropy deficiencies is a major technical
+bodyText ||| complication we have to deal with. However we will be in-
+bodyText ||| formal with it here, mentioning it only qualitatively when
+bodyText ||| needed. We discuss this issue a little more in Section 6.
+construct ||| DEfInItIOn 2.5. A function f : ({0, 1}n)2 → ({0,1}m)ℓ
+construct ||| is a 2-source subsource somewhere extractor with ℓ outputs
+construct ||| for entropy k, if for every 2 independent k-sources X, Y there
+construct ||| exists a subsource X^ of X, a subsource Y^ of Y and an i ∈ [ℓ]
+construct ||| such the ith output f (^X, Y^)i is a uniformly distributed string
+construct ||| of m bits.
+bodyText ||| A central technical result for us is that with this ”sub-
+bodyText ||| source” relaxation, we can have much fewer outputs – in-
+bodyText ||| deed we’ll replace poly(n) outputs in our first construction
+bodyText ||| above with no(1) outputs.
+construct ||| ThEOREm 2.6 (SUBSOURCE SOmEWhERE ExtRaCtOR).
+construct ||| For every δ > 0 there is a polynomial time computable sub-
+construct ||| source somewhere extractor SSE : ({0, 1}n)2 → ({0, 1}m)ℓ
+construct ||| with ℓ = no(1) outputs, for entropy k = nδ, with output
+construct ||| m=√k.
+bodyText ||| We will describe the ideas used for constructing this im-
+bodyText ||| portant object and analyzing it in the next section, where
+bodyText ||| we will also indicate how it is used in the construction of
+bodyText ||| the final disperser. Here we state a central building block,
+bodyText ||| mentioned in the previous section (as an improvement of the
+bodyText ||| work of Rao [?]). We construct an extractor for 2 indepen-
+bodyText ||| dent sources one of which is a block-sources with sufficient
+bodyText ||| number of blocks.
+construct ||| ThEOREm 2.7 (BlOCK SOURCE ExtRaCtOR). There is
+construct ||| a polynomial time computable extractor B : ({0, 1}n)2 →
+construct ||| {0,1}m for 2 independent sources, one of which is a c-block-
+construct ||| sources with block entropy k and the other a source of en-
+construct ||| tropy k, with m = 0(k), and c = O((log n)/(log k)).
+bodyText ||| A simple corollary of this block-source extractor B, is the
+bodyText ||| following weaker (though useful) somewhere block-source
+bodyText ||| extractor SB. A source Z = Z1, Z2, • • • , Zt is a somewhere
+bodyText ||| c-block-source of block entropy k if for some c indices i1 <
+bodyText ||| i2 < • • • < ic the source Zi1, Zi2, • • • , Zic is a c-block-source.
+bodyText ||| Collecting the outputs of B on every c-subset of blocks re-
+bodyText ||| sults in that somewhere extractor.
+construct ||| COROllaRY 2.8. There is a polynomial time computable
+construct ||| somewhere extractorSB : ({0, 1}n)2 → ({0, 1}m)ℓ for2 inde-
+construct ||| pendent sources, one of which is a somewhere c-block-sources
+construct ||| with block entropy k and t blocks total and the other a source
+construct ||| of entropy k, with m = 0(k), c = O((log n)/(log k)), and
+construct ||| ℓ ≤ tc.
+bodyText ||| In both the theorem and corollary above, the values of
+bodyText ||| entropy k we will be interested in are k = no(1). It follows
+bodyText ||| that a block-source with a constant c = O(1) suffices.
+sectionHeader ||| 3. THE CHALLENGE-RESPONSE MECH-
+sectionHeader ||| ANISM
+bodyText ||| We now describe abstractly a mechanism which will be
+bodyText ||| used in the construction of the disperser as well as the sub-
+bodyText ||| source somewhere extractor. Intuitively, this mechanism al-
+bodyText ||| lows us to identify parts of a source which contain large
+bodyText ||| amounts of entropy. One can hope that using such a mech-
+bodyText ||| anism one can partition a given source into blocks in a way
+bodyText ||| which make it a block-source, or alternatively focus on a part
+bodyText ||| of the source which is unusually condensed with entropy -
+bodyText ||| two cases which may simplify the extraction problem.
+bodyText ||| The reader may decide, now or in the middle of this
+bodyText ||| section, to skip ahead to the next section which describes
+bodyText ||| the construction of the subsource somewhere extractor SSE,
+bodyText ||| which extensively uses this mechanism. Then this section
+bodyText ||| may seem less abstract, as it will be clearer where this mech-
+bodyText ||| anism is used.
+bodyText ||| This mechanism was introduced by Barak et al. [4], and
+bodyText ||| was essential in their 2-source disperser. Its use in this paper
+bodyText ||| is far more involved (in particular it calls itself recursively,
+bodyText ||| a fact which creates many subtleties). However, at a high
+bodyText ||| level, the basic idea behind the mechanism is the same:
+bodyText ||| Let Z be a source and Z' a part of Z (Z projected on a
+bodyText ||| subset of the coordinates). We know that Z has entropy k,
+page ||| 674
+bodyText ||| and want to distinguish two possibilities: Z′ has no entropy
+bodyText ||| (it is fixed) or it has at least k′ entropy. Z′ will get a pass
+bodyText ||| or fail grade, hopefully corresponding to the cases of high or
+bodyText ||| no entropy in Z′.
+bodyText ||| Anticipating the use of this mechanism, it is a good idea
+bodyText ||| to think of Z as a ”parent” of Z′, which wants to check if
+bodyText ||| this ”child” has sufficient entropy. Moreover, in the context
+bodyText ||| of the initial 2 sources X, Y we will operate on, think of Z
+bodyText ||| as a part of X, and thus that Y is independent of Z and Z′.
+bodyText ||| To execute this ”test” we will compute two sets of strings
+bodyText ||| (all of length m, say): the Challenge C = C(Z′,Y) and
+bodyText ||| the Response R = R(Z, Y). Z′ fails if C C R and passes
+bodyText ||| otherwise.
+bodyText ||| The key to the usefulness of this mechanism is the follow-
+bodyText ||| ing lemma, which states that what ”should” happen, indeed
+bodyText ||| happens after some restriction of the 2 sources Z and Y.
+bodyText ||| We state it and then explain how the functions C and R are
+bodyText ||| defined to accommodate its proof.
+construct ||| Lemma 3.1. Assume Z, Y are sources of entropy k.
+listItem ||| 1. If Z′ has entropy k′+O(m), then there are subsources
+listItem ||| Z^ of Z and Y^ of Y, such that
+listItem ||| Pr[^Z′ passes] = Pr[C(^Z′, Y^) C R(^Z, Y^)] > 1—nO(1)2−m
+listItem ||| 2. If Z′ is fixed (namely, has zero entropy), then for some
+listItem ||| subsources Z^ of Z and Y^ of Y, we have
+listItem ||| Pr[Z′ fails] = Pr[C(^Z′, Y^) C R(^Z, Y^)] = 1
+bodyText ||| Once we have such a mechanism, we will design our dis-
+bodyText ||| perser algorithm assuming that the challenge response mech-
+bodyText ||| anism correctly identifies parts of the source with high or
+bodyText ||| low levels of entropy. Then in the analysis, we will ensure
+bodyText ||| that our algorithm succeeds in making the right decisions,
+bodyText ||| at least on subsources of the original input sources.
+bodyText ||| Now let us explain how to compute the sets C and R. We
+bodyText ||| will use some of the constructs above with parameters which
+bodyText ||| don’t quite fit.
+bodyText ||| The response set R(Z, Y) = pSE(Z, Y) is chosen to be the
+bodyText ||| output of the somewhere extractor of Proposition 2.3. The
+bodyText ||| challenge set C(Z′, Y) = SSE(Z′, Y) is chosen to be the out-
+bodyText ||| put of the subsource somewhere extractor of Theorem 2.6.
+bodyText ||| Why does it work? We explain each of the two claims
+bodyText ||| in the lemma in turn (and after each comment on the im-
+bodyText ||| portant parameters and how they differ from Barak et al.
+bodyText ||| [4]).
+listItem ||| 1. Z′ has entropy. We need to show that Z′ passes the
+listItem ||| test with high probability. We will point to the out-
+listItem ||| put string in C(^Z′, Y^′) which avoids R(^Z, Y^) with high
+listItem ||| probability as follows. In the analysis we will use the
+listItem ||| union bound on several events, one associated with
+listItem ||| each (poly(n) many) string in pSE(^Z, Y^). We note
+listItem ||| that by the definition of the response function, if we
+listItem ||| want to fix a particular element in the response set to
+listItem ||| a particular value, we can do this by fixing E(Z, i) and
+listItem ||| E(Y, i). This fixing keeps the restricted sources inde-
+listItem ||| pendent and loses only O(m) entropy. In the subsource
+listItem ||| of Z′ guaranteed to exist by Theorem 2.6 we can afford
+listItem ||| to lose this entropy in Z′. Thus we conclude that one
+listItem ||| of its outputs is uniform. The probability that this
+listItem ||| output will equal any fixed value is thus 2−m, com-
+listItem ||| pleting the argument. We note that we can handle
+listItem ||| the polynomial output size of pSE, since the uniform
+listItem ||| string has length m = no(1) (something which could
+listItem ||| not be done with the technology available to Barak et
+listItem ||| al. [4]).
+listItem ||| 2. Z′ has no entropy. We now need to guarantee that
+listItem ||| in the chosen subsources (which we choose) ^Z, Y^, all
+listItem ||| strings in C = C(^Z′, Y^) are in R(^Z, Y^). First notice
+listItem ||| that as Z′ is fixed, C is only a function of Y. We
+listItem ||| set Y~ to be the subsource of Y that fixes all strings
+listItem ||| in C = C(Y) to their most popular values (losing
+listItem ||| only ℓm entropy from Y). We take care of includ-
+listItem ||| ing these fixed strings in R(Z, Y~) one at a time, by
+listItem ||| restricting to subsources assuring that. Let σ be any
+listItem ||| m-bit string we want to appear in R(Z, Y~). Recall that
+listItem ||| R(z, y) = V(E(z, i), E(y, i)). We pick a ”good” seed i,
+listItem ||| and restrict Z, Y~ to subsources with only O(m) less
+listItem ||| entropy by fixing E(Z, i) = a and E(Y~, i) = b to values
+listItem ||| (a, b) for which V(a, b) = σ. This is repeated suc-
+listItem ||| cessively ℓ times, and results in the final subsources
+listItem ||| ^Z, Y^ on which ^Z′ fails with probability 1. Note that
+listItem ||| we keep reducing the entropy of our sources ℓ times,
+listItem ||| which necessitates that this ℓ be tiny (here we could
+listItem ||| not tolerate poly(n), and indeed can guarantee no(1),
+listItem ||| at least on a subsource – this is one aspect of how cru-
+listItem ||| cial the subsource somewhere extractor SSE is to the
+listItem ||| construction.
+bodyText ||| We note that initially it seemed like the Challenge-Response
+bodyText ||| mechanism as used in [4] could not be used to handle en-
+bodyText ||| tropy that is significantly less than -,/n (which is approxi-
+bodyText ||| mately the bound that many of the previous constructions
+bodyText ||| got stuck at). The techniques of [4] involved partitioning
+bodyText ||| the sources into t pieces of length n/t each, with the hope
+bodyText ||| that one of those parts would have a significant amount of
+bodyText ||| entropy, yet there’d be enough entropy left over in the rest
+bodyText ||| of the source (so that the source can be partitioned into a
+bodyText ||| block source).
+bodyText ||| However it is not clear how to do this when the total
+bodyText ||| entropy is less than -,/n. On the one hand we will have
+bodyText ||| to partition our sources into blocks of length significantly
+bodyText ||| more than -,/n (or the adversary could distribute a negligible
+bodyText ||| fraction of entropy in all blocks). On the other hand, if
+bodyText ||| our blocks are so large, a single block could contain all the
+bodyText ||| entropy. Thus it was not clear how to use the challenge
+bodyText ||| response mechanism to find a block source.
+sectionHeader ||| 4. THE SUBSOURCE SOMEWHERE
+sectionHeader ||| EXTRACTOR SSE
+bodyText ||| We now explain some of the ideas behind the construction
+bodyText ||| of the subsource somewhere extractor SSE of Theorem 2.6.
+bodyText ||| Consider the source X. We are seeking to find in it a some-
+bodyText ||| where c-block-source, so that we can use it (together with Y)
+bodyText ||| in the block-source extractor of Theorem 2.8. Like in previ-
+bodyText ||| ous works in the extractor literature (e.g. [19, 13]) we use a
+bodyText ||| ”win-win” analysis which shows that either X is already a
+bodyText ||| somewhere c-block-source, or it has a condensed part which
+bodyText ||| contains a lot of the entropy of the source. In this case we
+bodyText ||| proceed recursively on that part. Continuing this way we
+bodyText ||| eventually reach a source so condensed that it must be a
+bodyText ||| somewhere block source. Note that in [4], the challenge re-
+bodyText ||| sponse mechanism was used to find a block source also, but
+bodyText ||| there the entropy was so high that they could afford to use
+page ||| 675
+figure ||| Not Somewhere block source	n bits total
+figure ||| 		t blocks			Outputs
+figure ||| < k’
+figure ||| Challenge Challenge
+figure ||| responded responded
+figure ||| X
+figure ||| low
+figure ||| med
+figure ||| high
+figure ||| n/t bits total
+figure ||| t blocks
+figure ||| Challenge Unresponded
+figure ||| SB
+figure ||| Somewhere Block Source!
+figure ||| med
+figure ||| med
+figure ||| low
+figure ||| 0< low < k’/t
+figure ||| k’/t < med < k’/c
+figure ||| k’/c < high < k’
+figure ||| high
+figure ||| med
+figure ||| Random Row
+figure ||| med
+figure ||| SB
+figureCaption ||| Figure 1: Analysis of the subsource somewhere extractor.
+figureCaption ||| a tree of depth 1. They did not need to recurse or condense
+figureCaption ||| the sources.
+bodyText ||| Consider the tree of parts of the source X evolved by
+bodyText ||| such recursion. Each node in the tree corresponds to some
+bodyText ||| interval of bit locations of the source, with the root node
+bodyText ||| corresponding to the entire source. A node is a child of an-
+bodyText ||| other if its interval is a subinterval of the parent. It can be
+bodyText ||| shown that some node in the tree is ”good”; it corresponds
+bodyText ||| to a somewhere c-source, but we don’t know which node is
+bodyText ||| good. Since we only want a somewhere extractor, we can
+bodyText ||| apply to each node the somewhere block-source extractor of
+bodyText ||| Corollary 2.8 – this will give us a random output in every
+bodyText ||| ”good” node of the tree. The usual idea is output all these
+bodyText ||| values (and in seeded extractors, merge them using the ex-
+bodyText ||| ternally given random seed). However, we cannot afford to
+bodyText ||| do that here as there is no external seed and the number of
+bodyText ||| these outputs (the size of the tree) is far too large.
+bodyText ||| Our aim then will be to significantly prune this number
+bodyText ||| of candidates and in fact output only the candidates on one
+bodyText ||| path to a canonical”good” node. First we will give a very in-
+bodyText ||| formal description of how to do this (Figure 1). Before call-
+bodyText ||| ing SSE recursively on a subpart of a current part of X, we’ll
+bodyText ||| use the ”Challenge-Response” mechanism described above
+bodyText ||| to check if ”it has entropy”.4 We will recurse only with the
+bodyText ||| first (in left-to-right order) part which passes the ”entropy
+bodyText ||| test”. Thus note that we will follow a single path on this
+bodyText ||| tree. The algorithm SSE will output only the sets of strings
+bodyText ||| produced by applying the somewhere c-block-extractor SB
+bodyText ||| on the parts visited along this path.
+bodyText ||| Now let us describe the algorithm for SSE. SSE will be
+bodyText ||| initially invoked as SSE(x, y), but will recursively call itself
+bodyText ||| with different inputs z which will always be substrings of x.
+footnote ||| 4We note that we ignore the additional complication that
+footnote ||| SSE will actually use recursion also to compute the challenge
+footnote ||| in the challenge-response mechanism.
+construct ||| Algorithm: SSE(z, y)
+bodyText ||| Let pSE(., .) be the somewhere extractor with a polyno-
+bodyText ||| mial number of outputs of Proposition 2.3.
+bodyText ||| Let SB be the somewhere block source extractor of Corol-
+bodyText ||| lary 2.8.
+bodyText ||| Global Parameters: t, the branching factor of the tree. k
+bodyText ||| the original entropy of the sources.
+bodyText ||| Output will be a set of strings.
+listItem ||| 1. If z is shorter than √k, return the empty set, else
+listItem ||| continue.
+listItem ||| 2. Partition z into t equal parts z = z1, z2, ... ,zt.
+listItem ||| 3. Compute the response set R(z, y) which is the set of
+listItem ||| strings output by pSE(z, y).
+listItem ||| 4. For i E [t], compute the challenge set C(zi, y), which
+listItem ||| is the set of outputs of SSE(zi, y).
+listItem ||| 5. Let h be the smallest index for which the challenge set
+listItem ||| C(zh, y) is not contained in the response set (set h = t
+listItem ||| if no such index exists).
+listItem ||| 6. Output SB(z, y) concatenated with SSE(zh, y).
+listItem ||| Proving that indeed there are subsources on which SSE
+listItem ||| will follow a path to a ”good” (for these subsources) node,
+listItem ||| is the heart of the analysis. It is especially complex due
+listItem ||| to the fact that the recursive call to SSE on subparts of
+listItem ||| the current part is used to generate the Challenges for the
+listItem ||| Challenge-Response mechanism. Since SSE works only on
+listItem ||| a subsources we have to guarantee that restriction to these
+listItem ||| does not hamper the behavior of SSE in past and future calls
+listItem ||| to it.
+listItem ||| Let us turn to the highlights of the analysis, for the proof
+listItem ||| of Theorem 2.6. Let k' be the entropy of the source Z at
+listItem ||| some place in this recursion. Either one of its blocks Zi has
+page ||| 676
+bodyText ||| entropy k'/c, in which case it is very condensed, since its
+bodyText ||| size is n/t for t ≫ c), or it must be that c of its blocks form
+bodyText ||| a c-block source with block entropy k'/t (which is sufficient
+bodyText ||| for the extractor B used by SB). In the 2nd case the fact
+bodyText ||| that SB(z, y) is part of the output of of our SSE guarantees
+bodyText ||| that we are somewhere random. If the 2nd case doesn’t hold,
+bodyText ||| let Zi be the leftmost condensed block. We want to ensure
+bodyText ||| that (on appropriate subsources) SSE calls itself on that ith
+bodyText ||| subpart. To do so, we fix all Zj for j < i to constants zj. We
+bodyText ||| are now in the position described in the Challenge-Response
+bodyText ||| mechanism section, that (in each of the first i parts) there
+bodyText ||| is either no entropy or lots of entropy. We further restrict
+bodyText ||| to subsources as explained there which make all first i − 1
+bodyText ||| blocks fail the ”entropy test”, and the fact that Zi still has
+bodyText ||| lots of entropy after these restrictions (which we need to
+bodyText ||| prove) ensures that indeed SSE will be recursively applied
+bodyText ||| to it.
+bodyText ||| We note that while the procedure SSE can be described re-
+bodyText ||| cursively, the formal analysis of fixing subsources is actually
+bodyText ||| done globally, to ensure that indeed all entropy requirements
+bodyText ||| are met along the various recursive calls.
+bodyText ||| Let us remark on the choice of the branching parameter t.
+bodyText ||| On the one hand, we’d like to keep it small, as it dominates
+bodyText ||| the number of outputs tc of SB, and thus the total number of
+bodyText ||| outputs (which is tc logt n). For this purpose, any t = no(1)
+bodyText ||| will do. On the other hand, t should be large enough so that
+bodyText ||| condensing is faster than losing entropy. Here note that if
+bodyText ||| Z is of length n, its child has length n/t, while the entropy
+bodyText ||| shrinks only from k' to k'/c. A simple calculation shows that
+bodyText ||| if k(lo9t)/lo9c) > n2 then a c block-source must exist along
+bodyText ||| such a path before the length shrinks to √k. Note that for
+bodyText ||| k = nΩ(1) a (large enough) constant t suffices (resulting in
+bodyText ||| only logarithmic number of outputs of SSE). This analysis
+bodyText ||| is depicted pictorially in Figure 1.
+sectionHeader ||| 5. THE FINAL DISPERSER D
+bodyText ||| Following is a rough description of our disperser D proving
+bodyText ||| Theorem 2.1. The high level structure of D will resemble the
+bodyText ||| structure of SSE - we will recursively split the source X and
+bodyText ||| look for entropy in the parts. However now we must output
+bodyText ||| a single value (rather than a set) which can take both values
+bodyText ||| 0 and 1. This was problematic in SSE, even knowing where
+bodyText ||| the ”good” part (containing a c-block-source) was! How can
+bodyText ||| we do so now?
+bodyText ||| We now have at our disposal a much more powerful tool
+bodyText ||| for generating challenges (and thus detecting entropy), namely
+bodyText ||| the subsource somewhere disperser SSE. Note that in con-
+bodyText ||| structing SSE we only had essentially the somewhere c-block-
+bodyText ||| source extractor SB to (recursively) generate the challenges,
+bodyText ||| but it depended on a structural property of the block it was
+bodyText ||| applied on. Now SSE does not assume any structure on its
+bodyText ||| input sources except sufficient entropy 5.
+bodyText ||| Let us now give a high level description of the disperser
+bodyText ||| D. It too will be a recursive procedure. If when processing
+bodyText ||| some part Z of X it ”realizes” that a subpart Zi of Z has
+bodyText ||| entropy, but not all the entropy of Z (namely Zi, Z is a
+bodyText ||| 2-block-source) then we will halt and produce the output
+bodyText ||| of D. Intuitively, thinking about the Challenge-Response
+bodyText ||| mechanism described above, the analysis implies that we
+footnote ||| 5There is a catch – it only works on subsources of them!
+footnote ||| This will cause us a lot of head ache; we will elaborate on it
+footnote ||| later.
+footnote ||| can either pass or fail Zi (on appropriate subsources). But
+footnote ||| this means that the outcome of this ”entropy test” is a 1-bit
+footnote ||| disperser!
+footnote ||| To capitalize on this idea, we want to use SSE to identify
+footnote ||| such a block-source in the recursion tree. As before, we scan
+footnote ||| the blocks from left to right, and want to distinguish three
+footnote ||| possibilities.
+footnote ||| low Zi has low entropy. In this case we proceed to i + 1.
+footnote ||| medium Zi has ”medium” entropy (Zi, Z is a block-source).
+footnote ||| In which case we halt and produce an output (zero or
+footnote ||| one).
+footnote ||| high Zi has essentially all entropy of Z. In this case we
+footnote ||| recurse on the condensed block Zi.
+footnote ||| As before, we use the Challenge-Response mechanism (with
+footnote ||| a twist). We will compute challenges C(Zi, Y) and responses
+footnote ||| R(Z, Y), all strings of length m. The responses are computed
+footnote ||| exactly as before, using the somewhere extractor pSE. The
+footnote ||| Challenges are computed using our subsource somewhere
+footnote ||| extractor SSE.
+footnote ||| We really have 4 possibilities to distinguish, since when we
+footnote ||| halt we also need to decide which output bit we give. We will
+footnote ||| do so by deriving three tests from the above challenges and
+footnote ||| responses: (CH, RH), (CM, RM), (CL, RL) for high, medium
+footnote ||| and low respectively, as follows. Let m ≥ mH >> mM >>
+footnote ||| mL be appropriate integers: then in each of the tests above
+footnote ||| we restrict ourselves to prefixes of all strings of the appro-
+footnote ||| priate lengths only. So every string in CM will be a prefix
+footnote ||| of length mM of some string in CH. Similarly, every string
+footnote ||| in RL is the length mL prefix of some string in RH. Now
+footnote ||| it is immediately clear that if CM is contained in RM, then
+footnote ||| CL is contained in RL. Thus these tests are monotone, if
+footnote ||| our sample fails the high test, it will definitely fail all tests.
+construct ||| Algorithm: D(z, y)
+bodyText ||| Let pSE(., .) be the somewhere extractor with a polyno-
+bodyText ||| mial number of outputs of Proposition 2.3.
+bodyText ||| Let SSE(.,.) be the subsource somewhere extractor of The-
+bodyText ||| orem 2.6.
+bodyText ||| Global Parameters: t, the branching factor of the tree. k
+bodyText ||| the original entropy of the sources.
+bodyText ||| Local Parameters for recursive level: mL ≪ mM ≪ mH.
+bodyText ||| Output will be an element of {0, 1}.
+listItem ||| 1. If z is shorter than √k, return 0.
+listItem ||| 2. Partition z into t equal parts z = z1, z2, ... , zt.
+listItem ||| 3. Compute three response sets RL, RM, RH using pSE(z, y).
+listItem ||| Rj will be the prefixes of length mj of the strings in
+listItem ||| pSE(z, y).
+listItem ||| 4. For each i ∈ [t], compute three challenge sets CiL, CiM, CiH
+listItem ||| using SSE(zi, y). Cij will be the prefixes of length mj
+listItem ||| of the strings in SSE(zi, y).
+listItem ||| 5. Let h be the smallest index for which the challenge set
+listItem ||| CL is not contained in the response set RL, if there is
+listItem ||| no such index, output 0 and halt.
+listItem ||| 6. If ChH is contained in RH and ChH is contained in RM,
+listItem ||| output 0 and halt. If ChH is contained in RH but ChH
+listItem ||| is not contained in RM, output 1 and halt.
+page ||| 677
+figure ||| t blocks
+figure ||| X
+figure ||| low
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| X_3
+figure ||| (X_3)_4
+figure ||| low
+figure ||| low
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| low
+figure ||| low
+figure ||| pass
+figure ||| pass
+figure ||| pass
+figure ||| high
+figure ||| low
+figure ||| low
+figure ||| t blocks
+figure ||| low
+figure ||| high
+figure ||| t blocks
+figure ||| med
+figure ||| n bits total
+figure ||| n/t bits total
+figure ||| n/t^2 bits total
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| fail
+figure ||| pass
+figure ||| pass
+figure ||| fail
+figure ||| pass
+figure ||| fail
+figure ||| fail
+figure ||| Output 0	Output 1
+figureCaption ||| Figure 2: Analysis of the disperser.
+listItem ||| 7. Output D(zh, y),
+bodyText ||| First note the obvious monotonicity of the tests. If Zi fails
+bodyText ||| one of the tests it will certainly fail for shorter strings. Thus
+bodyText ||| there are only four outcomes to the three tests, written in the
+bodyText ||| order (low, medium, high): (pass, pass, pass), (pass, pass, fail),
+bodyText ||| (pass, fail, fail) and (fail, fail, fail). Conceptually, the algo-
+bodyText ||| rithm is making the following decisions using the four tests:
+listItem ||| 1. (fail, fail, fail): Assume Zi has low entropy and proceed
+listItem ||| to block i + 1.
+listItem ||| 2. (pass, fail, fail): Assume Zi is medium, halt and output
+listItem ||| 0.
+listItem ||| 3. (pass, pass, fail): Assume Zi is medium, halt and out-
+listItem ||| put 1.
+listItem ||| 4. (pass, pass, pass): Assume Zi is high and recurse on Zi.
+bodyText ||| The analysis of this idea (depicted in Figure 2).turns out
+bodyText ||| to be more complex than it seems. There are two reasons for
+bodyText ||| that. Now we briefly explain them and the way to overcome
+bodyText ||| them in the construction and analysis.
+bodyText ||| The first reason is the fact mentioned above, that SSE
+bodyText ||| which generates the challenges, works only on a subsources
+bodyText ||| of the original sources. Restricting to these subsources at
+bodyText ||| some level of the recursion (as required by the analysis of of
+bodyText ||| the test) causes entropy loss which affects both definitions
+bodyText ||| (such as these entropy thresholds for decisions) and correct-
+bodyText ||| ness of SSE in higher levels of recursion. Controlling this en-
+bodyText ||| tropy loss is achieved by calling SSE recursively with smaller
+bodyText ||| and smaller entropy requirements, which in turn limits the
+bodyText ||| entropy which will be lost by these restrictions. In order not
+bodyText ||| to lose all the entropy for this reason alone, we must work
+bodyText ||| with special parameters of SSE, essentially requiring that at
+bodyText ||| termination it has almost all the entropy it started with.
+bodyText ||| The second reason is the analysis of the test when we are
+bodyText ||| in a medium block. In contrast with the above situation, we
+bodyText ||| cannot consider the value of Zi fixed when we need it to fail
+bodyText ||| on the Medium and Low tests. We need to show that for
+bodyText ||| these two tests (given a pass for High), they come up both
+bodyText ||| (pass, fail) and (fail, fail) each with positive probability.
+bodyText ||| Since the length of Medium challenges and responses is
+bodyText ||| mM, the probability of failure is at least exp(−Q(mM)) (this
+bodyText ||| follows relatively easily from the fact that the responses are
+bodyText ||| somewhere random). If the Medium test fails so does the
+bodyText ||| Low test, and thus (fail, fail) has a positive probability and
+bodyText ||| our disperser D outputs 0 with positive probability.
+bodyText ||| To bound (pass, fail) we first observe (with a similar
+bodyText ||| reasoning) that the low test fails with probability at least
+bodyText ||| exp(−Q(mL)). But we want the medium test to pass at the
+bodyText ||| same time. This probability is at least the probability that
+bodyText ||| low fails minus the probability that medium fails. We already
+bodyText ||| have a bound on the latter: it is at most poly(n)exp(−ℓmM).
+bodyText ||| Here comes our control of the different length into play - we
+bodyText ||| can make the mL sufficiently smaller than mM to yield this
+bodyText ||| difference positive. We conclude that our disperser D out-
+bodyText ||| puts 1 with positive probability as well.
+bodyText ||| Finally, we need to take care of termination: we have to
+bodyText ||| ensure that the recurrence always arrives at a medium sub-
+bodyText ||| part, but it is easy to chose entropy thresholds for low, medium
+bodyText ||| and high to ensure that this happens.
+page ||| 678
+sectionHeader ||| 6. RESILIENCY AND DEFICIENCY
+bodyText ||| In this section we will breifly discuss an issue which arises
+bodyText ||| in our construction that we glossed over in the previous sec-
+bodyText ||| tions. Recall our definition of subsources:
+construct ||| DEfInItIOn 6.1 (SUBSOURCES). Given random variables
+construct ||| Z and Zˆ on {0,1}n we say that Zˆ is a deficiency d subsource
+construct ||| of Z and write Zˆ ⊆ Z if there exists a set A ⊆ {0,1}n such
+construct ||| that (Z|A) = Zˆ and Pr[Z ∈ A] ≥ 2—d.
+bodyText ||| Recall that we were able to guarantee that our algorithms
+bodyText ||| made the right decisions only on subsources of the original
+bodyText ||| source. For example, in the construction of our final dis-
+bodyText ||| perser, to ensure that our algorithms correctly identify the
+bodyText ||| right high block to recurse on, we were only able to guar-
+bodyText ||| antee that there are subsources of the original sources in
+bodyText ||| which our algorithm makes the correct decision with high
+bodyText ||| probability. Then, later in the analysis we had to further
+bodyText ||| restrict the source to even smaller subsources. This leads to
+bodyText ||| complications, since the original event of picking the correct
+bodyText ||| high block, which occurred with high probability, may be-
+bodyText ||| come an event which does not occur with high probability
+bodyText ||| in the current subsource. To handle these kinds of issues,
+bodyText ||| we will need to be very careful in measuring how small our
+bodyText ||| subsources are.
+bodyText ||| In the formal analysis we introduce the concept of re-
+bodyText ||| siliency to deal with this. To give an idea of how this works,
+bodyText ||| here is the actual definition of somewhere subsource extrac-
+bodyText ||| tor that we use in the formal analysis.
+construct ||| DEfInItIOn 6.2 (SUBSOURCE SOmEWhERE ExtRaCtOR).
+bodyText ||| A function SSE : {0, 1}n × {0, 1}n → ({0, 1}m)ℓ is a sub-
+bodyText ||| source somewhere extractor with nrows output rows, entropy
+bodyText ||| threshold k, deficiency def, resiliency res and error ǫ if for
+bodyText ||| every (n, k)-sources X, Y there exist a deficiency def sub-
+bodyText ||| source Xgood of X and a deficiency def subsource Ygood of
+bodyText ||| Y such that for every deficiency res subsource X' of Xgood
+bodyText ||| and deficiency res subsource Y' of Ygood, the random vari-
+bodyText ||| able SSE(X',Y') is ǫ-close to a ℓ × m somewhere random
+bodyText ||| distribution.
+bodyText ||| It turns out that our subsource somewhere extractor does
+bodyText ||| satisfy this stronger definition. The advantage of this defi-
+bodyText ||| nition is that it says that once we restrict our attention to
+bodyText ||| the good subsources Xgood, Ygood, we have the freedom to fur-
+bodyText ||| ther restrict these subsources to smaller subsources, as long
+bodyText ||| as our final subsources do not lose more entropy than the
+bodyText ||| resiliency permits.
+bodyText ||| This issue of managing the resiliency for the various ob-
+bodyText ||| jects that we construct is one of the major technical chal-
+bodyText ||| lenges that we had to overcome in our construction.
+sectionHeader ||| 7. OPEN PROBLEMS
+bodyText ||| Better Independent Source Extractors A bottleneck to
+bodyText ||| improving our disperser is the block versus general
+bodyText ||| source extractor of Theorem 2.7. A good next step
+bodyText ||| would be to try to build an extractor for one block
+bodyText ||| source (with only a constant number of blocks) and
+bodyText ||| one other independent source which works for polylog-
+bodyText ||| arithmic entropy, or even an extractor for a constant
+bodyText ||| number of sources that works for sub-polynomial en-
+bodyText ||| tropy.
+bodyText ||| Simple Dispersers While our disperser is polynomial time
+bodyText ||| computable, it is not as explicit as one might have
+bodyText ||| hoped. For instance the Ramsey Graph construction
+bodyText ||| of Frankl-Wilson is extremely simple: For a prime p,
+bodyText ||| let the vertices of the graph be all subsets of [p3] of
+bodyText ||| size p2 − 1. Two vertices S, T are adjacent if and only
+bodyText ||| if |S ∩ T | ≡ −1 mod p. It would be nice to find a good
+bodyText ||| disperser that beats the Frankl-Wilson construction,
+bodyText ||| yet is comparable in simplicity.
+sectionHeader ||| 8. REFERENCES
+reference ||| [1] N. Alon. The shannon capacity of a union.
+reference ||| Combinatorica, 18, 1998.
+reference ||| [2] B. Barak. A simple explicit construction of an
+reference ||| n˜o(logn )-ramsey graph. Technical report, Arxiv, 2006.
+reference ||| http://arxiv.org/abs/math.CO/0601651.
+reference ||| [3] B. Barak, R. Impagliazzo, and A. Wigderson.
+reference ||| Extracting randomness using few independent sources.
+reference ||| In Proceedings of the 45th Annual IEEE Symposium
+reference ||| on Foundations of Computer Science, pages 384–393,
+reference ||| 2004.
+reference ||| [4] B. Barak, G. Kindler, R. Shaltiel, B. Sudakov, and
+reference ||| A. Wigderson. Simulating independence: New
+reference ||| constructions of condensers, Ramsey graphs,
+reference ||| dispersers, and extractors. In Proceedings of the 37th
+reference ||| Annual ACM Symposium on Theory of Computing,
+reference ||| pages 1–10, 2005.
+reference ||| [5] J. Bourgain. More on the sum-product phenomenon in
+reference ||| prime fields and its applications. International Journal
+reference ||| of Number Theory, 1:1–32, 2005.
+reference ||| [6] J. Bourgain, N. Katz, and T. Tao. A sum-product
+reference ||| estimate in finite fields, and applications. Geometric
+reference ||| and Functional Analysis, 14:27–57, 2004.
+reference ||| [7] M. Capalbo, O. Reingold, S. Vadhan, and
+reference ||| A. Wigderson. Randomness conductors and
+reference ||| constant-degree lossless expanders. In Proceedings of
+reference ||| the 34th Annual ACM Symposium on Theory of
+reference ||| Computing, pages 659–668, 2002.
+reference ||| [8] B. Chor and O. Goldreich. Unbiased bits from sources
+reference ||| of weak randomness and probabilistic communication
+reference ||| complexity. SIAM Journal on Computing,
+reference ||| 17(2):230–261, 1988.
+reference ||| [9] P. Frankl and R. M. Wilson. Intersection theorems
+reference ||| with geometric consequences. Combinatorica,
+reference ||| 1(4):357–368, 1981.
+reference ||| [10] P. Gopalan. Constructing ramsey graphs from boolean
+reference ||| function representations. In Proceedings of the 21th
+reference ||| Annual IEEE Conference on Computational
+reference ||| Complexity, 2006.
+reference ||| [11] V. Grolmusz. Low rank co-diagonal matrices and
+reference ||| ramsey graphs. Electr. J. Comb, 7, 2000.
+reference ||| [12] V. Guruswami. Better extractors for better codes?
+reference ||| Electronic Colloquium on Computational Complexity
+reference ||| (ECCC), (080), 2003.
+reference ||| [13] C. J. Lu, O. Reingold, S. Vadhan, and A. Wigderson.
+reference ||| Extractors: Optimal up to constant factors. In
+reference ||| Proceedings of the 35th Annual ACM Symposium on
+reference ||| Theory of Computing, pages 602–611, 2003.
+reference ||| [14] P. Miltersen, N. Nisan, S. Safra, and A. Wigderson.
+reference ||| On data structures and asymmetric communication
+reference ||| complexity. Journal of Computer and System
+reference ||| Sciences, 57:37–49, 1 1998.
+page ||| 679
+reference ||| [15] N. Nisan and D. Zuckerman. More deterministic
+reference ||| simulation in logspace. In Proceedings of the 25th
+reference ||| Annual ACM Symposium on Theory of Computing,
+reference ||| pages 235–244, 1993.
+reference ||| [16] P. Pudlak and V. Rodl. Pseudorandom sets and
+reference ||| explicit constructions of ramsey graphs. Submitted for
+reference ||| publication, 2004.
+reference ||| [17] A. Rao. Extractors for a constant number of
+reference ||| polynomially small min-entropy independent sources.
+reference ||| In Proceedings of the 38th Annual ACM Symposium
+reference ||| on Theory of Computing, 2006.
+reference ||| [18] R. Raz. Extractors with weak random seeds. In
+reference ||| Proceedings of the 37th Annual ACM Symposium on
+reference ||| Theory of Computing, pages 11–20, 2005.
+reference ||| [19] O. Reingold, R. Shaltiel, and A. Wigderson.
+reference ||| Extracting randomness via repeated condensing. In
+reference ||| Proceedings of the 41st Annual IEEE Symposium on
+reference ||| Foundations of Computer Science, pages 22–31, 2000.
+reference ||| [20] M. Santha and U. V. Vazirani. Generating
+reference ||| quasi-random sequences from semi-random sources.
+reference ||| Journal of Computer and System Sciences, 33:75–87,
+reference ||| 1986.
+reference ||| [21] R. Shaltiel. Recent developments in explicit
+reference ||| constructions of extractors. Bulletin of the European
+reference ||| Association for Theoretical Computer Science,
+reference ||| 77:67–95, 2002.
+reference ||| [22] A. Ta-Shma and D. Zuckerman. Extractor codes.
+reference ||| IEEE Transactions on Information Theory, 50, 2004.
+reference ||| [23] U. Vazirani. Towards a strong communication
+reference ||| complexity theory or generating quasi-random
+reference ||| sequences from two communicating slightly-random
+reference ||| sources (extended abstract). In Proceedings of the 17th
+reference ||| Annual ACM Symposium on Theory of Computing,
+reference ||| pages 366–378, 1985.
+reference ||| [24] A. Wigderson and D. Zuckerman. Expanders that
+reference ||| beat the eigenvalue bound: Explicit construction and
+reference ||| applications. Combinatorica, 19(1):125–138, 1999.
+page ||| 680

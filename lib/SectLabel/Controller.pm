@@ -18,8 +18,7 @@ use SectLabel::Config;
 use CSXUtil::SafeText qw(cleanXML);
 use FindBin;
 
-my $genericSectPath = "$FindBin::Bin/genericSectExtract.rb";
-my $genericRunPath = "$FindBin::Bin/genericSect/header";
+my $genericSectPath = "$FindBin::Bin/sectLabel/genericSectExtract.rb";
 ##
 # Main API method for generating an XML document including all
 # section data.  Returns a reference XML document.
@@ -139,7 +138,7 @@ sub getGenericHeaders {
   my $numHeaders = scalar(@{$headers});  
 
   # put the list of headers to file
-  my $headerFile = "/tmp/".newTmpFile(); # $genericRunPath
+  my $headerFile = "/tmp/".newTmpFile();
   open(OF, ">:utf8", "$headerFile");
   for(my $i=0; $i<$numHeaders; $i++){
     print OF $headers->[$i]."\n";
@@ -169,9 +168,9 @@ sub getGenericHeaders {
     die "Die: SectLabel::Controller::getGenericHeaders different in number of headers $numHeaders vs. the number of generic headers $genericCount\n";
   }
 
-  print STDERR "$headerFile\t$headerFile.out\n";
-#  unlink($headerFile);
-#  unlink("$headerFile.out");
+#  print STDERR "$headerFile\t$headerFile.out\n";
+  unlink($headerFile);
+  unlink("$headerFile.out");
 }
 
 # Thang Mar 10: method to insert generic headers into previous label XML output (ids given for checking purpose)

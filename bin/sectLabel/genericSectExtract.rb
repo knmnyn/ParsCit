@@ -4,9 +4,9 @@ require 'find'
 
 pwd = File.dirname(__FILE__)
 
-@CRFPP  = "#{pwd}/../crfpp"
+@CRFPP  = "#{pwd}/../../crfpp"
 @SRC    = "#{pwd}/genericSect"
-@DATA   = "#{pwd}/../resources/genericSect/"
+@DATA   = "#{pwd}/../../resources/genericSect/"
 @TEST_DIR = "#{pwd}/genericSect/run"
 
 name  = "#{Time.now.to_i}-#{Process.pid}"

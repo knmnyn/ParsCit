@@ -1,0 +1,756 @@
+title ||| A Machine Learning Based Approach for Table Detection
+title ||| on The Web
+author ||| Yalin Wang
+affiliation ||| Intelligent Systems Laboratory
+affiliation ||| Dept. of Electrical Engineering
+affiliation ||| Univ. of Washington
+address ||| Seattle, WA 98195 US
+email ||| ylwang@u.washington.edu
+author ||| Jianying Hu
+affiliation ||| Avaya Labs Research
+address ||| 233, Mount Airy Road
+address ||| Basking Ridge, NJ 07920 US
+email ||| jianhu@avaya.com
+sectionHeader ||| ABSTRACT
+bodyText ||| Table is a commonly used presentation scheme, especially
+bodyText ||| for describing relational information. However, table under-
+bodyText ||| standing remains an open problem. In this paper, we con-
+bodyText ||| sider the problem of table detection in web documents. Its
+bodyText ||| potential applications include web mining, knowledge man-
+bodyText ||| agement, and web content summarization and delivery to
+bodyText ||| narrow-bandwidth devices. We describe a machine learning
+bodyText ||| based approach to classify each given table entity as either
+bodyText ||| genuine or non-genuine. Various features reflecting the lay-
+bodyText ||| out as well as content characteristics of tables are studied.
+bodyText ||| In order to facilitate the training and evaluation of our
+bodyText ||| table classifier, we designed a novel web document table
+bodyText ||| ground truthing protocol and used it to build a large ta-
+bodyText ||| ble ground truth database. The database consists of 1,393
+bodyText ||| HTML files collected from hundreds of different web sites
+bodyText ||| and contains 11,477 leaf <TABLE> elements, out of which
+bodyText ||| 1,740 are genuine tables. Experiments were conducted us-
+bodyText ||| ing the cross validation method and an F-measure of 95.89%
+bodyText ||| was achieved.
+sectionHeader ||| Categories and Subject Descriptors
+category ||| H.4.3 [Information Systems Applications]: Communi-
+category ||| cations Applications Information browsers
+sectionHeader ||| General Terms
+keyword ||| Algorithms
+sectionHeader ||| Keywords
+keyword ||| Table Detection, Layout Analysis, Machine Learning, Deci-
+keyword ||| sion tree, Support Vector Machine, Information Retrieval
+sectionHeader ||| 1. INTRODUCTION
+bodyText ||| The increasing ubiquity of the Internet has brought about
+bodyText ||| a constantly increasing amount of online publications. As
+bodyText ||| a compact and efficient way to present relational informa-
+bodyText ||| tion, tables are used frequently in web documents. Since
+bodyText ||| tables are inherently concise as well as information rich, the
+bodyText ||| automatic understanding of tables has many applications in-
+bodyText ||| cluding knowledge management, information retrieval, web
+copyright ||| Copyright is held by the author/owner(s).
+note ||| WWW2002, May 7–11,2002, Honolulu, Hawaii, USA.
+note ||| ACM 1-58113-449-5/02/0005.
+bodyText ||| mining, summarization, and content delivery to mobile de-
+bodyText ||| vices. The processes of table understanding in web doc-
+bodyText ||| uments include table detection, functional and structural
+bodyText ||| analysis and finally table interpretation [6]. In this paper,
+bodyText ||| we concentrate on the problem of table detection. The web
+bodyText ||| provides users with great possibilities to use their own style
+bodyText ||| of communication and expressions. In particular, people use
+bodyText ||| the <TABLE> tag not only for relational information display
+bodyText ||| but also to create any type of multiple-column layout to
+bodyText ||| facilitate easy viewing, thus the presence of the <TABLE>
+bodyText ||| tag does not necessarily indicate the presence of a relational
+bodyText ||| table. In this paper, we define genuine tables to be docu-
+bodyText ||| ment entities where a two dimensional grid is semantically
+bodyText ||| significant in conveying the logical relations among the cells
+bodyText ||| [10]. Conversely, Non-genuine tables are document entities
+bodyText ||| where <TABLE> tags are used as a mechanism for grouping
+bodyText ||| contents into clusters for easy viewing only. Figure 1 gives
+bodyText ||| a few examples of genuine and non-genuine tables. While
+bodyText ||| genuine tables in web documents could also be created with-
+bodyText ||| out the use of <TABLE> tags at all, we do not consider such
+bodyText ||| cases in this article as they seem very rare from our ex-
+bodyText ||| perience. Thus, in this study, Table detection refers to the
+bodyText ||| technique which classifies a document entity enclosed by the
+bodyText ||| <TABLE></TABLE> tags as genuine or non-genuine tables.
+bodyText ||| Several researchers have reported their work on web table
+bodyText ||| detection [2, 10, 6, 14]. In [2], Chen et al. used heuris-
+bodyText ||| tic rules and cell similarities to identify tables. They tested
+bodyText ||| their table detection algorithm on 918 tables from airline in-
+bodyText ||| formation web pages and achieved an F-measure of 86.50%.
+bodyText ||| Penn et al. proposed a set of rules for identifying genuinely
+bodyText ||| tabular information and news links in HTML documents
+bodyText ||| [10]. They tested their algorithm on 75 web site front-pages
+bodyText ||| and achieved an F-measure of 88.05%. Yoshida et al. pro-
+bodyText ||| posed a method to integrate WWW tables according to the
+bodyText ||| category of objects presented in each table [14]. Their data
+bodyText ||| set contains 35,232 table tags gathered from the web. They
+bodyText ||| estimated their algorithm parameters using all of table data
+bodyText ||| and then evaluated algorithm accuracy on 175 of the tables.
+bodyText ||| The average F-measure reported in their paper is 82.65%.
+bodyText ||| These previous methods all relied on heuristic rules and were
+bodyText ||| only tested on a database that is either very small [10], or
+bodyText ||| highly domain specific [2]. Hurst mentioned that a Naive
+bodyText ||| Bayes classifier algorithm produced adequate results but no
+bodyText ||| detailed algorithm and experimental information was pro-
+bodyText ||| vided [6].
+bodyText ||| We propose a new machine learning based approach for
+page ||| 242
+figureCaption ||| Figure 1: Examples of genuine and non-genuine tables.
+bodyText ||| table detection from generic web documents. In particu-
+bodyText ||| lar, we introduce a set of novel features which reflect the
+bodyText ||| layout as well as content characteristics of tables. These
+bodyText ||| features are used in classifiers trained on thousands of ex-
+bodyText ||| amples. To facilitate the training and evaluation of the table
+bodyText ||| classifiers, we designed a novel web document table ground
+bodyText ||| truthing protocol and used it to build a large table ground
+bodyText ||| truth database. The database consists of 1,393 HTML files
+bodyText ||| collected from hundreds of different web sites and contains
+bodyText ||| 11,477 leaf <TABLE> elements, out of which 1,740 are gen-
+bodyText ||| uine tables. Experiments on this database using the cross
+bodyText ||| validation method demonstrate significant performance im-
+bodyText ||| provements over previous methods.
+bodyText ||| The rest of the paper is organized as follows. We describe
+bodyText ||| our feature set in Section 2, followed by a brief discussion
+bodyText ||| of the classifiers we experimented with in Section 3. In Sec-
+bodyText ||| tion 4, we present a novel table ground truthing protocol
+bodyText ||| and explain how we built our database. Experimental re-
+bodyText ||| sults are then reported in Section 5 and we conclude with
+bodyText ||| future directions in Section 6.
+sectionHeader ||| 2. FEATURES FOR WEB TABLE
+sectionHeader ||| DETECTION
+bodyText ||| Feature selection is a crucial step in any machine learning
+bodyText ||| based methods. In our case, we need to find a combination
+bodyText ||| of features that together provide significant separation be-
+bodyText ||| tween genuine and non-genuine tables while at the same time
+bodyText ||| constrain the total number of features to avoid the curse of
+bodyText ||| dimensionality. Past research has clearly indicated that lay-
+bodyText ||| out and content are two important aspects in table under-
+bodyText ||| standing [6]. Our features were designed to capture both of
+bodyText ||| these aspects. In particular, we developed 16 features which
+bodyText ||| can be categorized into three groups: seven layout features,
+bodyText ||| eight content type features and one word group feature. In
+bodyText ||| the first two groups, we attempt to capture the global com-
+bodyText ||| position of tables as well as the consistency within the whole
+bodyText ||| table and across rows and columns. The last feature looks at
+bodyText ||| words used in tables and is derived directly from the vector
+bodyText ||| space model commonly used in Information Retrieval.
+bodyText ||| Before feature extraction, each HTML document is first
+bodyText ||| parsed into a document hierarchy tree using Java Swing
+bodyText ||| XML parser with W3C HTML 3.2 DTD [10]. A <TABLE>
+bodyText ||| node is said to be a leaf table if and only if there are no
+bodyText ||| <TABLE> nodes among its children [10]. Our experience in-
+bodyText ||| dicates that almost all genuine tables are leaf tables. Thus
+bodyText ||| in this study only leaf tables are considered candidates for
+bodyText ||| genuine tables and are passed on to the feature extraction
+bodyText ||| stage. In the following we describe each feature in detail.
+subsectionHeader ||| 2.1 Layout Features
+bodyText ||| In HTML documents, although tags like <TR> and <TD>
+bodyText ||| (or <TH>) may be assumed to delimit table rows and table
+bodyText ||| cells, they are not always reliable indicators of the number
+bodyText ||| of rows and columns in a table. Variations can be caused
+bodyText ||| by spanning cells created using <ROWSPAN> and <COLSPAN>
+bodyText ||| tags. Other tags such as <BR> could be used to move con-
+bodyText ||| tent into the next row. Therefore to extract layout features
+bodyText ||| reliably one can not simply count the number of <TR>'s and
+bodyText ||| <TD>'s. For this purpose, we maintain a matrix to record all
+page ||| 243
+bodyText ||| the cell spanning information and serve as a pseudo render-
+bodyText ||| ing of the table. Layout features based on row or column
+bodyText ||| numbers are then computed from this matrix.
+bodyText ||| Given a table T, assuming its numbers of rows and columns
+bodyText ||| are rn and cn respectively, we compute the following layout
+bodyText ||| features:
+listItem ||| •	Average number of columns, computed as the average
+listItem ||| number of cells per row:
+bodyText ||| Here LCcl is defined as: LCcl = 0.5 — D, where D =
+bodyText ||| min{lcl — mil�mi,1.0}. Intuitively, LCcl measures the
+bodyText ||| degree of consistency between cl and the mean cell
+bodyText ||| length, with —0.5 indicating extreme inconsistency and
+bodyText ||| 0.5 indicating extreme consistency. When most cells
+bodyText ||| within Ri are consistent, the cumulative measure CLCi
+bodyText ||| is positive, indicating a more or less consistent row.
+bodyText ||| 3. Take the average across all rows:
+equation ||| ci,
+equation ||| c =
+equation ||| 1
+equation ||| rn
+equation ||| Xrn
+equation ||| i�1
+equation ||| CLCr = 1
+equation ||| r
+equation ||| Xr CLCi .
+equation ||| i�1
+bodyText ||| where ci is the number of cells in row i, i = 1, ..., rn,
+listItem ||| •	Standard deviation of number of columns:
+equation ||| (ci — c) x (ci — c);
+listItem ||| •	Average number of rows, computed as the average
+listItem ||| number of cells per column:
+bodyText ||| where ri is the number of cells in column i, i = 1, ..., cn,
+listItem ||| •	Standard deviation of number of rows:
+equation ||| (ri — r) x (ri — r).
+bodyText ||| Since the majority of tables in web documents contain
+bodyText ||| characters, we compute three more layout features based on
+bodyText ||| cell length in terms of number of characters:
+listItem ||| •	Average overall cell length: cl = en Pin1 cli, where en
+listItem ||| is the total number of cells in a given table and cli is
+listItem ||| the length of cell i, i = 1, ... , en,
+listItem ||| •	Standard deviation of cell length:
+equation ||| (cli — cl) x (cli — cl)�
+listItem ||| •	Average Cumulative length consistency, CLC.
+bodyText ||| The last feature is designed to measure the cell length con-
+bodyText ||| sistency along either row or column directions. It is inspired
+bodyText ||| by the fact that most genuine tables demonstrate certain
+bodyText ||| consistency either along the row or the column direction,
+bodyText ||| but usually not both, while non-genuine tables often show
+bodyText ||| no consistency in either direction. First, the average cumu-
+bodyText ||| lative within-row length consistency, CLCr, is computed as
+bodyText ||| follows. Let the set of cell lengths of the cells from row i be
+bodyText ||| Ri, i = 1, ... , r (considering only non-spanning cells):
+listItem ||| 1. Compute the mean cell length, mi, for row Ri.
+listItem ||| 2. Compute cumulative length consistency within each
+listItem ||| Ri:
+equation ||| CLCi = X LCcl .
+equation ||| clERi
+bodyText ||| After the within-row length consistency CLCr is com-
+bodyText ||| puted, the within-column length consistency CLCc is com-
+bodyText ||| puted in a similar manner. Finally, the overall cumulative
+bodyText ||| length consistency is computed as CLC = max(CLCr, CLCc).
+subsectionHeader ||| 2.2 Content Type Features
+bodyText ||| Web documents are inherently multi-media and has more
+bodyText ||| types of content than any traditional documents. For ex-
+bodyText ||| ample, the content within a <TABLE> element could include
+bodyText ||| hyperlinks, images, forms, alphabetical or numerical strings,
+bodyText ||| etc. Because of the relational information it needs to convey,
+bodyText ||| a genuine table is more likely to contain alpha or numeri-
+bodyText ||| cal strings than, say, images. The content type feature was
+bodyText ||| designed to reflect such characteristics.
+bodyText ||| We define the set of content types T = {Image, Form,
+bodyText ||| Hyperlink, Alphabetical, Digit, Empty, Others}. Our content
+bodyText ||| type features include:
+listItem ||| •	The histogram of content type for a given table. This
+listItem ||| contributes 7 features to the feature set,
+listItem ||| •	Average content type consistency, CTC.
+bodyText ||| The last feature is similar to the cell length consistency fea-
+bodyText ||| ture. First, within-row content type consistency CTCr is
+bodyText ||| computed as follows. Let the set of cell type of the cells
+bodyText ||| from row i as Ti, i = 1,... , r (again, considering only non-
+bodyText ||| spanning cells):
+listItem ||| 1. Find the dominant type, DTi, for Ti.
+listItem ||| 2. Compute the cumulative type consistency with each
+listItem ||| row Ri, i = 1,... ,r:
+equation ||| CTCi = X D,
+equation ||| ctERi
+bodyText ||| where D = 1 if ct is equal to DTi and D = —1, other-
+bodyText ||| wise.
+bodyText ||| 3. Take the average across all rows:
+equation ||| CTCr = 1
+equation ||| r
+bodyText ||| The within-column type consistency is then computed in
+bodyText ||| a similar manner. Finally, the overall cumulative type con-
+bodyText ||| sistency is computed as: CTC = max(CTCr, CTCc).
+equation ||| tiv
+equation ||| dC =
+equation ||| 1
+equation ||| rn
+equation ||| Xrn
+equation ||| i�1
+equation ||| ri,
+equation ||| r=
+equation ||| 1
+equation ||| rn
+equation ||| Xcn
+equation ||| i�1
+equation ||| vt uu
+equation ||| dR =
+equation ||| 1
+equation ||| cn
+equation ||| Xcn
+equation ||| i�1
+equation ||| tuuv
+equation ||| dCL =
+equation ||| 1
+equation ||| en
+equation ||| Xen
+equation ||| i�1
+equation ||| Xr CT Ci
+equation ||| i�1
+page ||| 244
+subsectionHeader ||| 2.3 Word Group Feature
+bodyText ||| If we treat each table as a "mini-document" by itself, ta-
+bodyText ||| ble classification can be viewed as a document categoriza-
+bodyText ||| tion problem with two broad categories: genuine tables and
+bodyText ||| non-genuine tables. We designed the word group feature to
+bodyText ||| incorporate word content for table classification based on
+bodyText ||| techniques developed in information retrieval [7, 13].
+bodyText ||| After morphing [11] and removing the infrequent words,
+bodyText ||| we obtain the set of words found in the training data, W.
+bodyText ||| We then construct weight vectors representing genuine and
+bodyText ||| non-genuine tables and compare that against the frequency
+bodyText ||| vector from each new incoming table.
+bodyText ||| Let 3 represent the non-negative integer set. The follow-
+bodyText ||| ing functions are defined on set W.
+listItem ||| •	dfG : W —> 3, where dfG (wi) is the number of genuine
+listItem ||| tables which include word wi, i = 1, ..., 1W1;
+listItem ||| •	t f G : W —> 3, where t f G (wi) is the number of times
+listItem ||| word wi, i =1,...,1W1, appears in genuine tables;
+listItem ||| •	dfN : W —> 3, where dfN(wi) is the number of non-
+listItem ||| genuine tables which include word wi, i =1,...,1W1;
+listItem ||| •	t f N : W —> 3, where t f N (wi) is the number of times
+listItem ||| word wi, i =1,...,1W1, appears in non-genuine tables.
+listItem ||| •	t fT : W —> 3, where t fT (wi) is the number of times
+listItem ||| word wi, wi 2 W appears in a new test table.
+bodyText ||| To simplify the notations, in the following discussion, we
+bodyText ||| will use dfGi, t fGi , df N i and t f Ni to represent dfG (wi), t f G (wi),
+bodyText ||| df N (wi) and t f N (wi), respectively.
+bodyText ||| Let NG, NN be the number of genuine tables and non-
+bodyText ||| genuine tables in the training collection, respectively and let
+bodyText ||| C = max(NG, NN). Without loss of generality, we assume
+bodyText ||| NG =� 0 and NN =� 0. For each word wi in W, i = 1, ...,1W1,
+bodyText ||| two weights, pGi and pNi are computed:
+equation ||| N
+equation ||| tfGilog(N� fN +1), when df Ni :A 0
+equation ||| tfGilog(Ni C+1), when df i = 0
+equation ||| tfiNlog(NNN fG
+equation ||| G+1), when dfGi00
+equation ||| tfNilog(NNC+1),	when dfG=0
+bodyText ||| As can be seen from the formulas, the definitions of these
+bodyText ||| weights were derived from the traditional t f * idf measures
+bodyText ||| used in informational retrieval, with some adjustments made
+bodyText ||| for the particular problem at hand.
+bodyText ||| Given a new incoming table, let us denote the set includ-
+bodyText ||| ing all the words in it as Wn. Since W is constructed using
+bodyText ||| thousands of tables, the words that are present in both W
+bodyText ||| and Wn are only a small subset of W. Based on the vector
+bodyText ||| space model, we define the similarity between weight vec-
+bodyText ||| tors representing genuine and non-genuine tables and the
+bodyText ||| frequency vector representing the incoming table as the cor-
+bodyText ||| responding dot products. Since we only need to consider the
+bodyText ||| words that are present in both W and Wn, we first compute
+bodyText ||| the effective word set: We = W n Wn. Let the words in
+bodyText ||| We be represented as wmk, where mk,k = 1, ..., 1We1, are
+bodyText ||| indexes to the words from set W = fw1, w2, ..., wIWI g. we
+bodyText ||| define the following vectors:
+listItem ||| •	Weight vector representing the genuine table group:
+equation ||| i	pGmJ
+equation ||| GS=
+equation ||| U
+bodyText ||| where U is the cosine normalization term:
+bodyText ||| where V is the cosine normalization term:
+equation ||| NN
+equation ||| pmk X pmk .
+listItem ||| •	Frequency vector representing the new incoming table:
+equation ||| 'i	T T	T
+equation ||| I	(tfml,tfmt,... tfT Wel I .
+bodyText ||| Finally, the word group feature is defined as the ratio of
+bodyText ||| the two dot products:
+sectionHeader ||| 3. CLASSIFICATION SCHEMES
+bodyText ||| Various classification schemes have been widely used in
+bodyText ||| document categorization as well as web information retrieval
+bodyText ||| [13, 8]. For the table detection task, the decision tree classi-
+bodyText ||| fier is particularly attractive as our features are highly non-
+bodyText ||| homogeneous. We also experimented with Support Vector
+bodyText ||| Machines (SVM), a relatively new learning approach which
+bodyText ||| has achieved one of the best performances in text catego-
+bodyText ||| rization [13].
+subsectionHeader ||| 3.1 Decision Tree
+bodyText ||| Decision tree learning is one of the most widely used and
+bodyText ||| practical methods for inductive inference. It is a method
+bodyText ||| for approximating discrete-valued functions that is robust
+bodyText ||| to noisy data.
+bodyText ||| Decision trees classify an instance by sorting it down the
+bodyText ||| tree from the root to some leaf node, which provides the clas-
+bodyText ||| sification of the instance. Each node in a discrete-valued de-
+bodyText ||| cision tree specifies a test of some attribute of the instance,
+bodyText ||| and each branch descending from that node corresponds to
+bodyText ||| one of the possible values for this attribute. Continuous-
+bodyText ||| valued decision attributes can be incorporated by dynami-
+bodyText ||| cally defining new discrete-valued attributes that partition
+bodyText ||| the continuous attribute value into a discrete set of intervals
+bodyText ||| [9].
+bodyText ||| An implementation of the continuous-valued decision tree
+bodyText ||| described in [4] was used for our experiments. The decision
+bodyText ||| tree is constructed using a training set of feature vectors with
+bodyText ||| true class labels. At each node, a discriminant threshold
+equation ||| tuuv
+equation ||| IWeI
+equation ||| X
+equation ||| k=1
+equation ||| U=
+equation ||| pGmk X pGmk.
+equation ||| �,
+equation ||| pmt
+equation ||| V
+equation ||| ,
+equation ||| N
+equation ||| pmlWel
+equation ||| V
+equation ||| iNS= pNm�
+equation ||| V
+listItem ||| •	Weight vector representing the non-genuine table group:
+equation ||| i i
+equation ||| ,when IT . NS�= 0
+equation ||| i i
+equation ||| 	1,	when IT . GS= 0 and
+equation ||| i
+equation ||| 	10,	when IT .
+equation ||| i i
+equation ||| IT . NS= 0
+equation ||| i
+equation ||| NS= 0
+equation ||| � �
+equation ||| IT� GS
+equation ||| � �
+equation ||| IT' NS
+equation ||| i	i
+equation ||| GS�=0and IT .
+equation ||| �����
+equation ||| ����
+equation ||| wg =
+equation ||| ��
+equation ||| �
+equation ||| G
+equation ||| pi =
+equation ||| I
+equation ||| N
+equation ||| pi =
+equation ||| ,
+equation ||| G
+equation ||| pmlWel
+equation ||| U
+equation ||| pmt
+equation ||| U
+equation ||| �,
+equation ||| tuuv
+equation ||| V=
+equation ||| IWeI
+equation ||| X
+equation ||| k=1
+page ||| 245
+bodyText ||| is chosen such that it minimizes an impurity value. The
+bodyText ||| learned discriminant function splits the training subset into
+bodyText ||| two subsets and generates two child nodes. The process is
+bodyText ||| repeated at each newly generated child node until a stopping
+bodyText ||| condition is satisfied, and the node is declared as a terminal
+bodyText ||| node based on a majority vote. The maximum impurity
+bodyText ||| reduction, the maximum depth of the tree, and minimum
+bodyText ||| number of samples are used as stopping conditions.
+subsectionHeader ||| 3.2 SVM
+bodyText ||| Support Vector Machines (SVM) are based on the Struc-
+bodyText ||| tural Risk Management principle from computational learn-
+bodyText ||| ing theory [12]. The idea of structural risk minimization
+bodyText ||| is to find a hypothesis h for which the lowest true error is
+bodyText ||| guaranteed. The true error of h is the probability that h
+bodyText ||| will make an error on an unseen and randomly selected test
+bodyText ||| example.
+bodyText ||| The SVM method is defined over a vector space where the
+bodyText ||| goal is to find a decision surface that best separates the data
+bodyText ||| points in two classes. More precisely, the decision surface by
+bodyText ||| SVM for linearly separable space is a hyperplane which can
+bodyText ||| be written as
+equation ||| w�•x�—b=0
+bodyText ||| where x� is an arbitrary data point and the vector w" and
+bodyText ||| the constant b are learned from training data. Let D =
+bodyText ||| (yz, �xz) denote the training set, and yz E {+1, —1} be the
+bodyText ||| classification for �xz, the SVM problem is to find w� and b
+bodyText ||| that satisfies the following constraints:
+equation ||| w� •�xz—b>+1 for yz=+1
+equation ||| w�•�xz—b<—1 for yz=—1
+bodyText ||| while minimizing the vector 2-norm of �w.
+bodyText ||| The SVM problem in linearly separable cases can be effi-
+bodyText ||| ciently solved using quadratic programming techniques, while
+bodyText ||| the non-linearly separable cases can be solved by either in-
+bodyText ||| troducing soft margin hyperplanes, or by mapping the orig-
+bodyText ||| inal data vectors to a higher dimensional space where the
+bodyText ||| data points become linearly separable [12, 3].
+bodyText ||| One reason why SVMs are very powerful is that they are
+bodyText ||| very universal learners. In their basic form, SVMs learn lin-
+bodyText ||| ear threshold functions. Nevertheless, by a simple "plug-in"
+bodyText ||| of an appropriate kernel function, they can be used to learn
+bodyText ||| polynomial classifiers, radial basis function (RBF) networks,
+bodyText ||| three-layer sigmoid neural nets, etc. [3].
+bodyText ||| For our experiments, we used the SVMlzght system im-
+bodyText ||| plemented by Thorsten Joachims.1
+sectionHeader ||| 4. DATA COLLECTION AND TRUTHING
+bodyText ||| Since there are no publicly available web table ground
+bodyText ||| truth database, researchers tested their algorithms in differ-
+bodyText ||| ent data sets in the past [2, 10, 14]. However, their data
+bodyText ||| sets either had limited manually annotated table data (e.g.,
+bodyText ||| 918 table tags in [2], 75 HTML pages in [10], 175 manually
+bodyText ||| annotated table tags in [14]), or were collected from some
+bodyText ||| specific domains (e.g., a set of tables selected from airline
+bodyText ||| information pages were used in [2]). To develop our machine
+bodyText ||| learning based table detection algorithm, we needed to build
+bodyText ||| a general web table ground truth database of significant size.
+footnote ||| 1 http://svmlight.joachims.org
+subsectionHeader ||| 4.1 Data Collection
+bodyText ||| Instead of working within a specific domain, our goal of
+bodyText ||| data collection was to get tables of as many different varieties
+bodyText ||| as possible from the web. To accomplish this, we composed
+bodyText ||| a set of key words likely to indicate documents containing
+bodyText ||| tables and used those key words to retrieve and download
+bodyText ||| web pages using the Google search engine. Three directo-
+bodyText ||| ries on Google were searched: the business directory and
+bodyText ||| news directory using key words: {table, stock, bonds,
+bodyText ||| figure, schedule, weather, score, service, results,
+bodyText ||| value}, and the science directory using key words {table,
+bodyText ||| results, value}. A total of 2,851 web pages were down-
+bodyText ||| loaded in this manner and we ground truthed 1,393 HTML
+bodyText ||| pages out of these (chosen randomly among all the HTML
+bodyText ||| pages). These 1,393 HTML pages from around 200 web sites
+bodyText ||| comprise our database.
+subsectionHeader ||| 4.2 Ground Truthing
+bodyText ||| There has been no previous report on how to systemati-
+bodyText ||| cally generate web table ground truth data. To build a large
+bodyText ||| web table ground truth database, a simple, flexible and com-
+bodyText ||| plete ground truth protocol is required. Figure 4.2(a) shows
+bodyText ||| the diagram of our ground truthing procedure. We created
+bodyText ||| a new Document Type Definition(DTD) which is a super-
+bodyText ||| set of W3C HTML 3.2 DTD. We added three attributes for
+bodyText ||| <TABLE> element, which are "tabid", "genuine table" and
+bodyText ||| "table title". The possible value of the second attribute is
+bodyText ||| yes or no and the value of the first and third attributes is a
+bodyText ||| string. We used these three attributes to record the ground
+bodyText ||| truth of each leaf <TABLE> node. The benefit of this design
+bodyText ||| is that the ground truth data is inside HTML file format.
+bodyText ||| We can use exactly the same parser to process the ground
+bodyText ||| truth data.
+bodyText ||| We developed a graphical user interface for web table
+bodyText ||| ground truthing using the Java [1] language. Figure 4.2(b)
+bodyText ||| is a snapshot of the interface. There are two windows. Af-
+bodyText ||| ter reading an HTML file, the hierarchy of the HTML file is
+bodyText ||| shown in the left window. When an item is selected in the
+bodyText ||| hierarchy, the HTML source for the selected item is shown
+bodyText ||| in the right window. There is a panel below the menu bar.
+bodyText ||| The user can use the radio button to select either genuine
+bodyText ||| table or non-genuine table. The text window is used to input
+bodyText ||| table title.
+subsectionHeader ||| 4.3 Database Description
+bodyText ||| Our final table ground truth database consists of 1,393
+bodyText ||| HTML pages collected from around 200 web sites. There
+bodyText ||| are a total of 14,609 <TABLE> nodes, including 11,477 leaf
+bodyText ||| <TABLE> nodes. Out of the 11,477 leaf <TABLE> nodes,
+bodyText ||| 1,740 are genuine tables and 9,737 are non-genuine tables.
+bodyText ||| Not every genuine table has its title and only 1,308 genuine
+bodyText ||| tables have table titles. We also found at least 253 HTML
+bodyText ||| files have unmatched <TABLE>, </TABLE> pairs or wrong
+bodyText ||| hierarchy, which demonstrates the noisy nature of web doc-
+bodyText ||| uments.
+sectionHeader ||| 5. EXPERIMENTS
+bodyText ||| A hold-out method is used to evaluate our table classi-
+bodyText ||| fier. We randomly divided the data set into nine parts.
+bodyText ||| Each classifier was trained on eight parts and then tested
+bodyText ||| on the remaining one part. This procedure was repeated
+bodyText ||| nine times, each time with a different choice for the test
+page ||| 246
+figure ||| HTML File
+figure ||| Hierarchy
+figure ||| Adding attributes
+figure ||| Parser
+figure ||| HTML with attributes and unique
+figure ||| index to each table(ground truth)
+figure ||| Validation
+figure ||| (a)	(b)
+figureCaption ||| Figure 2: (a) The diagram of ground truthing procedure; (b) A snapshot of the ground truthing software.
+figureCaption ||| part. Then the combined nine part results are averaged to
+figureCaption ||| arrive at the overall performance measures [4].
+figureCaption ||| For the layout and content type features, this procedure
+figureCaption ||| is straightforward. However it is more complicated for the
+figureCaption ||| word group feature training. To compute wg for training
+figureCaption ||| samples, we need to further divide the training set into two
+figureCaption ||| groups, a larger one (7 parts) for the computation of the
+figureCaption ||| weights pGi and pNi, i =1�...�jWj, and a smaller one (1
+none ||| i i i
+bodyText ||| part) for the computation of the vectors GS, NS, and IT.
+bodyText ||| This partition is again rotated to compute wg for each table
+bodyText ||| in the training set.
+tableCaption ||| Table 1: Possible true- and detected-state combina-
+tableCaption ||| tions for two classes.
+table ||| True Class	Assigned Class
+table ||| 	genuine table	non-genuine table
+table ||| genuine table	Ngg	Ngn
+table ||| non-genuine table	Nng	Nnn
+table ||| lows:
+table ||| Ngg	Ngg	R + P
+table ||| R	P 	 F Ngg + Ng'	Ngg + Nng	= 2
+bodyText ||| For comparison among different features and learning al-
+bodyText ||| gorithms we report the performance measures when the best
+bodyText ||| F-measure is achieved. First, the performance of various fea-
+bodyText ||| ture groups and their combinations were evaluated using the
+bodyText ||| decision tree classifier. The results are given in Table 2.
+tableCaption ||| Table 2: Experimental results using various feature
+tableCaption ||| groups and the decision tree classifier.
+table ||| 	L	T	LT	LTW
+table ||| R (%)	87.24	90.80	94.20	94.25
+table ||| P (%)	88.15	95.70	97.27	97.50
+table ||| F (%)	87.70	93.25	95.73	95.88
+table ||| L: Layout only.
+table ||| T: Content type only.
+table ||| LT: Layout and content type.
+table ||| LTW: Layout, content type and word group.
+bodyText ||| The output of each classifier is compared with the ground
+bodyText ||| truth and a contingency table is computed to indicate the
+bodyText ||| number of a particular class label that are identified as mem-
+bodyText ||| bers of one of two classes. The rows of the contingency table
+bodyText ||| represent the true classes and the columns represent the as-
+bodyText ||| signed classes. The cell at row r and column c is the number
+bodyText ||| of tables whose true class is r while its assigned class is c.
+bodyText ||| The possible true- and detected-state combination is shown
+bodyText ||| in Table 1. Three performance measures Recall Rate(R),
+bodyText ||| Precision Rate(P) and F-measure(F) are computed as fol-
+bodyText ||| As seen from the table, content type features performed
+bodyText ||| better than layout features as a single group, achieving an
+bodyText ||| F-measure of 93.25%. However, when the two groups were
+bodyText ||| combined the F-measure was improved substantially to 95.73%,
+bodyText ||| reconfirming the importance of combining layout and con-
+bodyText ||| tent features in table detection. The addition of the word
+bodyText ||| group feature improved the F-measure slightly more to 95.88%.
+bodyText ||| Table 3 compares the performances of different learning
+bodyText ||| algorithms using the full feature set. The leaning algorithms
+bodyText ||| tested include the decision tree classifier and the SVM al-
+page ||| 247
+bodyText ||| gorithm with two different kernels — linear and radial basis
+bodyText ||| function (RBF).
+tableCaption ||| Table 3: Experimental results using different learn-
+tableCaption ||| ing algorithms.
+table ||| 	Tree	SVM (linear)	SVM (RBF)
+table ||| R (%)	94.25	93.91	95.98
+table ||| P (%)	97.50	91.39	95.81
+table ||| F (%)	95.88	92.65	95.89
+bodyText ||| As seen from the table, for this application the SVM with
+bodyText ||| radial basis function kernel performed much better than the
+bodyText ||| one with linear kernel. It achieved an F measure of 95.89%,
+bodyText ||| comparable to the 95.88% achieved by the decision tree clas-
+bodyText ||| sifier.
+bodyText ||| Figure 3 shows two examples of correctly classified tables,
+bodyText ||| where Figure 3(a) is a genuine table and Figure 3(b) is a
+bodyText ||| non-genuine table.
+bodyText ||| Figure 4 shows a few examples where our algorithm failed.
+bodyText ||| Figure 4(a) was misclassified as a non-genuine table, likely
+bodyText ||| because its cell lengths are highly inconsistent and it has
+bodyText ||| many hyperlinks which is unusual for genuine tables. The
+bodyText ||| reason why Figure 4(b) was misclassified as non-genuine is
+bodyText ||| more interesting. When we looked at its HTML source code,
+bodyText ||| we found it contains only two <TR> tags. All text strings
+bodyText ||| in one rectangular box are within one <TD> tag. Its author
+bodyText ||| used <p> tags to put them in different rows. This points
+bodyText ||| to the need for a more carefully designed pseudo-rendering
+bodyText ||| process. Figure 4(c) shows a non-genuine table misclassi-
+bodyText ||| fied as genuine. A close examination reveals that it indeed
+bodyText ||| has good consistency along the row direction. In fact, one
+bodyText ||| could even argue that this is indeed a genuine table, with
+bodyText ||| implicit row headers of Title, Name, Company Affiliation
+bodyText ||| and Phone Number. This example demonstrates one of the
+bodyText ||| most difficult challenges in table understanding, namely the
+bodyText ||| ambiguous nature of many table instances (see [5] for a more
+bodyText ||| detailed analysis on that). Figure 4(d) was also misclassi-
+bodyText ||| fied as a genuine table. This is a case where layout features
+bodyText ||| and the kind of shallow content features we used are not
+bodyText ||| enough deeper semantic analysis would be needed in or-
+bodyText ||| der to identify the lack of logical coherence which makes it
+bodyText ||| a non-genuine table.
+bodyText ||| For comparison, we tested the previously developed rule-
+bodyText ||| based system [10] on the same database. The initial re-
+bodyText ||| sults (shown in Table 4 under "Original Rule Based") were
+bodyText ||| very poor. After carefully studying the results from the
+bodyText ||| initial experiment we realized that most of the errors were
+bodyText ||| caused by a rule imposing a hard limit on cell lengths in gen-
+bodyText ||| uine tables. After deleting that rule the rule-based system
+bodyText ||| achieved much improved results (shown in Table 4 under
+bodyText ||| "Modified Rule Based"). However, the proposed machine
+bodyText ||| learning based method still performs considerably better in
+bodyText ||| comparison. This demonstrates that systems based on hand-
+bodyText ||| crafted rules tend to be brittle and do not generalize well.
+bodyText ||| In this case, even after careful manual adjustment in a new
+bodyText ||| database, it still does not work as well as an automatically
+bodyText ||| trained classifier.
+figureCaption ||| Figure 3: Examples of correctly classified tables.
+figureCaption ||| (a): a genuine table; (b): a non-genuine table.
+tableCaption ||| Table 4: Experimental results of a previously devel-
+tableCaption ||| oped rule based system.
+table ||| 	Original Rule Based	Modified Rule Based
+table ||| R (%)	48.16	95.80
+table ||| P (%)	75.70	79.46
+table ||| F (%)	61.93	87.63
+page ||| 248
+figure ||| (a)	(b)
+figure ||| (c)	(d)
+figureCaption ||| Figure 4: Examples of misclassified tables. (a) and (b): Genuine tables misclassified as non-genuine; (c) and
+figureCaption ||| (d): Non-genuine tables misclassified as genuine.
+bodyText ||| A direct comparison to other previous results [2, 14] is
+bodyText ||| not possible currently because of the lack of access to their
+bodyText ||| system. However, our test database is clearly more general
+bodyText ||| and far larger than the ones used in [2] and [14], while our
+bodyText ||| precision and recall rates are both higher.
+sectionHeader ||| 6. CONCLUSION AND FUTURE WORK
+bodyText ||| Table detection in web documents is an interesting and
+bodyText ||| challenging problem with many applications. We present a
+bodyText ||| machine learning based table detection algorithm for HTML
+bodyText ||| documents. Layout features, content type features and word
+bodyText ||| group features were used to construct a novel feature set.
+bodyText ||| Decision tree and SVM classifiers were then implemented
+bodyText ||| and tested in this feature space. We also designed a novel ta-
+bodyText ||| ble ground truthing protocol and used it to construct a large
+bodyText ||| web table ground truth database for training and testing.
+bodyText ||| Experiments on this large database yielded very promising
+bodyText ||| results.
+bodyText ||| Our future work includes handling more different HTML
+bodyText ||| styles in pseudo-rendering, detecting table titles of the rec-
+bodyText ||| ognized genuine tables and developing a machine learning
+bodyText ||| based table interpretation algorithm. We would also like to
+bodyText ||| investigate ways to incorporate deeper language analysis for
+bodyText ||| both table detection and interpretation.
+sectionHeader ||| 7. ACKNOWLEDGMENT
+bodyText ||| We would like to thank Kathie Shipley for her help in
+bodyText ||| collecting the web pages, and Amit Bagga for discussions on
+bodyText ||| vector space models.
+bodyText ||| 8. REFERENCES
+reference ||| [1] M. Campione, K. Walrath, and A. Huml. The
+reference ||| java(tm) tutorial: A short course on the basics (the
+reference ||| java(tm) series).
+reference ||| [2] H.-H. Chen, S.-C. Tsai, and J.-H. Tsai. Mining tables
+reference ||| from large scale html texts. In Proc. 18th
+reference ||| International Conference on Computational
+reference ||| Linguistics, Saabrucken, Germany, July 2000.
+reference ||| [3] C. Cortes and V. Vapnik. Support-vector networks.
+reference ||| Machine Learning, 20:273{296, August 1995.
+reference ||| [4] R. Haralick and L. Shapiro. Computer and Robot
+reference ||| Vision, volume 1. Addison Wesley, 1992.
+reference ||| [5] J. Hu, R. Kashi, D. Lopresti, G. Nagy, and
+reference ||| G. Wilfong. Why table ground-truthing is hard. In
+reference ||| Proc. 6th International Conference on Document
+reference ||| Analysis and Recognition (ICDAR01), pages 129{133,
+reference ||| Seattle, WA, USA, September 2001.
+reference ||| [6] M. Hurst. Layout and language: Challenges for table
+reference ||| understanding on the web. In Proc. 1st International
+reference ||| Workshop on Web Document Analysis, pages 27{30,
+reference ||| Seattle, WA, USA, September 2001.
+reference ||| [7] T. Joachims. A probabilistic analysis of the rocchio
+reference ||| algorithm with tfidf for text categorization. In Proc.
+reference ||| 14th International Conference on Machine Learning,
+reference ||| pages 143{151, Morgan Kaufmann, 1997.
+reference ||| [8] A. McCallum, K. Nigam, J. Rennie, and K. Seymore.
+reference ||| Automating the construction of internet portals with
+reference ||| machine learning. In Information Retrieval Journal,
+reference ||| volume 3, pages 127{163, Kluwer, 2000.
+page ||| 249
+reference ||| [9] T. M. Mitchell. Machine Learning. McGraw-Hill, 1997.
+reference ||| [10] G. Penn, J. Hu, H. Luo, and R. McDonald. Flexible
+reference ||| web document analysis for delivery to narrow-
+reference ||| bandwidth devices. In Proc. 6th International
+reference ||| Conference on Document Analysis and Recognition
+reference ||| (ICDAR01), pages 1074{1078, Seattle, WA, USA,
+reference ||| September 2001.
+reference ||| [11] M. F. Porter. An algorithm for suffix stripping.
+reference ||| Program, 14(3):130-137, 1980.
+reference ||| [12] V. N. Vapnik. The Nature of Statistical Learning
+reference ||| Theory, volume 1. Springer, New York, 1995.
+reference ||| [13] Y. Yang and X. Liu. A re-examination of text
+reference ||| categorization methods. In Proc. SIGIR'99, pages
+reference ||| 42{49, Berkeley, California, USA, August 1999.
+reference ||| [14] M. Yoshida, K. Torisawa, and J. Tsujii. A method to
+reference ||| integrate tables of the world wide web. In Proc. 1st
+reference ||| International Workshop on Web Document Analysis,
+reference ||| pages 31{34, Seattle, WA, USA, September 2001.
+page ||| 250

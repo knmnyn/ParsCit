@@ -33,19 +33,20 @@ sub License {
 ### HELP Sub-procedure
 sub Help {
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in fileList -dir inDir -out outFile\n";
+  print STDERR "       $progname -in fileList -dir inDir -out outFile [-p prefix]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
-  print STDERR "\t-opt: option (default = normal)\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
 my $fileList = undef;
 my $inDir = undef;
 my $outFile = undef;
+my $prefix = "";
 $HELP = 1 unless GetOptions('in=s' => \$fileList,
 			    'dir=s' => \$inDir,
 			    'out=s' => \$outFile,
+			    'p=s' => \$prefix,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
 
@@ -107,7 +108,7 @@ sub processFile{
 
 	if($tag ne $prevTag && $prevTag ne ""){ # new tag
 	  # print old result
-	  print OF "<$prevTag> $content</$prevTag> ";
+	  print OF "<$prefix$prevTag> $content</$prefix$prevTag> ";
 	  
 	  # reset
 	  $prevTag = $tag;
@@ -123,7 +124,7 @@ sub processFile{
     }
     close IF;
     if($content ne ""){
-      print OF "<$prevTag> $content</$prevTag>";
+      print OF "<$prefix$prevTag> $content</$prefix$prevTag>";
     }
     print OF "\n";
   }

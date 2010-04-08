@@ -1,0 +1,975 @@
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+title ||| ‘Looking at’, ‘Looking up’ or ‘Keeping up with’ People?
+title ||| Motives and Uses of Facebook
+author ||| Adam N. Joinson
+affiliation ||| School of Management
+affiliation ||| University of Bath
+address ||| Bath
+address ||| United Kingdom
+address ||| BA2 7AA
+email ||| A.Joinson@Bath.ac.uk
+sectionHeader ||| ABSTRACT
+bodyText ||| This paper investigates the uses of social networking site
+bodyText ||| Facebook, and the gratifications users derive from those
+bodyText ||| uses. In the first study, 137 users generated words or
+bodyText ||| phrases to describe how they used Facebook, and what they
+bodyText ||| enjoyed about their use. These phrases were coded into 46
+bodyText ||| items which were completed by 241 Facebook users in
+bodyText ||| Study 2. Factor analysis identified seven unique uses and
+bodyText ||| gratifications: social connection, shared identities, content,
+bodyText ||| social investigation, social network surfing and status
+bodyText ||| updating. User demographics, site visit patterns and the use
+bodyText ||| of privacy settings were associated with different uses and
+bodyText ||| gratifications.
+sectionHeader ||| Author Keywords
+keyword ||| Social networking sites, uses and gratifications, motivation
+sectionHeader ||| ACM Classification Keywords
+category ||| H1. Models and Principles: User/Machine Systems; H5.m.
+category ||| Information interfaces and presentation: Miscellaneous.
+sectionHeader ||| INTRODUCTION
+bodyText ||| Social networking sites such as MySpace, LinkedIn and
+bodyText ||| Facebook have become hugely popular in the last few
+bodyText ||| years. In July 2007, social networking sites occupied five of
+bodyText ||| the top fifteen visited websites according to Alexa.com. On
+bodyText ||| July 10, 2007, Facebook.com reported signing up its 30
+bodyText ||| millionth user, with a year on year increase in unique users
+bodyText ||| of 89% [12]. In the UK, use of Facebook increased by
+bodyText ||| 500% between November 2006 and May 2007 [19].
+bodyText ||| MySpace is reported (although disputed [10]) to have over
+bodyText ||| 100 million users [4].
+copyright ||| Permission to make digital or hard copies of all or part of this work for
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that
+copyright ||| copies bear this notice and the full citation on the first page. To copy
+copyright ||| otherwise, or republish, to post on servers or to redistribute to lists,
+copyright ||| requires prior specific permission and/or a fee.
+note ||| CHI 2008, April 5–10, 2008, Florence, Italy.
+copyright ||| Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+bodyText ||| Social networking sites typically provide users with a
+bodyText ||| profile space, facilities for uploading content (e.g. photos,
+bodyText ||| music), messaging in various forms and the ability to make
+bodyText ||| connections to other people. These connections (or
+bodyText ||| ‘friends’) are the core functionality of a social network site
+bodyText ||| [5, 6] although most also provide opportunities for
+bodyText ||| communication, the forming of groups, hosting of content
+bodyText ||| and small applications.
+bodyText ||| Given the growth of social networking sites, it is perhaps
+bodyText ||| unsurprising that their use has garnered media attention,
+bodyText ||| including the seemingly now obligatory scare stories
+bodyText ||| involving predatory child sex offenders [20], identity theft
+bodyText ||| [1], workplace usage levels [9] and even addiction [8].
+bodyText ||| In many recent cases, this coverage has focused on
+bodyText ||| Facebook.com, which was originally restricted to users with
+bodyText ||| an ‘.edu’ e-mail address. In September 2006, Facebook
+bodyText ||| opened registration to non-college based users. This change
+bodyText ||| led to rapid growth in the number of users, as well as
+bodyText ||| almost viral growth within non-educational organizations.
+bodyText ||| For instance, the British Broadcasting Corporation (BBC)
+bodyText ||| network (which requires a BBC email address) has circa
+bodyText ||| 10,000 members, approximately 50% of employees [21].
+bodyText ||| Since May 2007, Facebook has also allowed the
+bodyText ||| development and implementation of third-party applications
+bodyText ||| (see dev.facebook.com).
+bodyText ||| Before opening to non-academic (and non-US-based) users,
+bodyText ||| Facebook.com was peculiar amongst social networking
+bodyText ||| sites since many of the social networks its users built were
+bodyText ||| based on offline, geographically confined groups (e.g. a
+bodyText ||| campus). Termed ‘networks’ by the site (which have
+bodyText ||| recently expanded to include non-university based
+bodyText ||| geographic areas and workplaces), this reflection of the
+bodyText ||| offline community in the online environment may have led
+bodyText ||| to unique forms of use amongst users [17].
+subsectionHeader ||| User motivation and social networking sites
+bodyText ||| Social networks serve a number of functions in offline life –
+bodyText ||| for instance, providing social and emotional support,
+bodyText ||| information resources and ties to other people [25]. Similar
+bodyText ||| kinds of social networks have been identified in online
+page ||| 1027
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| communities [7, 25], with users turning online for both
+bodyText ||| emotional support and as an information resource (e.g. via a
+bodyText ||| mailing list). In both cases, an online social network may
+bodyText ||| provide users with social capital [7].
+bodyText ||| Online social networking sites may also serve a number of
+bodyText ||| other purposes [5, 16]. Lampe et al. [16] draw a distinction
+bodyText ||| between the use of Facebook for ‘social searching’ –
+bodyText ||| finding out information about offline contacts, and ‘social
+bodyText ||| browsing’ – the use of the site to develop new connections,
+bodyText ||| sometimes with the aim of offline interaction. A survey of
+bodyText ||| over 2,000 students, found evidence that the primary use of
+bodyText ||| Facebook was for ‘social searching’ – that is, using
+bodyText ||| Facebook to find out more about people who they have met
+bodyText ||| offline, or who they attend class or share a dormitory with
+bodyText ||| [16]. The use of Facebook for ‘social browsing’, for
+bodyText ||| instance, to meet someone via the site with the intention of
+bodyText ||| a later offline meeting, or to attend an event organized
+bodyText ||| online, scored relatively low amongst their sample. The
+bodyText ||| main use reported by the sample studied by Lampe et al.
+bodyText ||| [16, see also 7] was to, “keep in touch with an old friend or
+bodyText ||| someone I knew from high school”, an activity that while
+bodyText ||| expressing the offline aspects of social searching, also
+bodyText ||| suggests a social capital function for Facebook. Golder et
+bodyText ||| al. [11] report that while the vast majority of messages are
+bodyText ||| sent to friends (90.6%), a large proportion (41.6%) is sent
+bodyText ||| to friends outside of one’s local network. This suggests that
+bodyText ||| messaging is used to maintain and build social ties across
+bodyText ||| distances. In comparison, ‘pokes’ (a form of content-free
+bodyText ||| messaging) were primarily exchanged within a network /
+bodyText ||| school (98.3% of all pokes were within a network). Golder
+bodyText ||| et al. [11] argue that friendship ties require little effort or
+bodyText ||| investment to maintain, while messaging with
+bodyText ||| geographically distant friends is used to build social capital
+bodyText ||| [7].
+bodyText ||| According to Lampe et al. [16], social networking sites like
+bodyText ||| Facebook may also serve a surveillance function, allowing
+bodyText ||| users to “track the actions, beliefs and interests of the larger
+bodyText ||| groups to which they belong” (p. 167). The surveillance and
+bodyText ||| ‘social search’ functions of Facebook may, in part, explain
+bodyText ||| why so many Facebook users leave their privacy settings
+bodyText ||| relatively open [13]. If ‘social searching’ is a public good,
+bodyText ||| then reciprocity rules would dictate that by enabling a
+bodyText ||| degree of surveillance of oneself, one would should also be
+bodyText ||| able to engage in reciprocal surveillance of others. For
+bodyText ||| instance, Gross and Acquisti [13] report that only 1.2% of
+bodyText ||| users changed the default ‘search’ privacy setting, and less
+bodyText ||| than 1/2% of users changed the default ‘profile visibility’
+bodyText ||| privacy settings.
+bodyText ||| Enabling Facebook users who are not currently linked as
+bodyText ||| friends to view personal aspects of one’s profile may also
+bodyText ||| be a strategy to increase the size of one’s social network. In
+bodyText ||| support of this view, [17] report that users completion of
+bodyText ||| profile fields that share a common referent (e.g. class,
+bodyText ||| hometown) is positively associated with more friends,
+bodyText ||| perhaps because such information encourages the
+bodyText ||| development of ties based on shared experiences. Profile
+bodyText ||| elements that focused on individual likes and dislikes did
+bodyText ||| not have an association with the number of friends.
+bodyText ||| As noted earlier, Facebook.com has undergone radical
+bodyText ||| change over the last twelve months. By moving outside of
+bodyText ||| the US-academic environment and embracing users
+bodyText ||| globally and outside of academia, it has not only changed
+bodyText ||| the profile of its users, but also the potential motivations for
+bodyText ||| their use. While tightly controlled, geographically bounded
+bodyText ||| networks based on university affiliation still exist, they are
+bodyText ||| dwarfed by networks based outside of academia – for
+bodyText ||| instance, as of September 2007, the ‘London’ network has
+bodyText ||| over 1 million members, New York over 355,000 and
+bodyText ||| Toronto over 800,000. The present paper examines the
+bodyText ||| motivations of Facebook users using a ‘uses and
+bodyText ||| gratifications’ framework.
+bodyText ||| Uses and gratifications refer to the ‘how and why’ of media
+bodyText ||| use [23]. Specifically, ‘uses and gratifications’ refer to the
+bodyText ||| motivations of specific uses, and the satisfaction people
+bodyText ||| gain from such use. These gratifications can be divided into
+bodyText ||| those based on the content of the media (content
+bodyText ||| gratifications) and those based on the actual experience of
+bodyText ||| using the media (process gratifications). Typically, content
+bodyText ||| gratifications are held to be related to the repeated use of a
+bodyText ||| media [18] which for the designers of such systems relates
+bodyText ||| to a site’s ‘stickiness’. However, the Internet, and social
+bodyText ||| networking sites in particular, also provide communication
+bodyText ||| and interaction, unlike many ‘old media’ (e.g. television).
+bodyText ||| This led Stafford et al. [23] to propose a third form of
+bodyText ||| gratification arising from Internet use: as a social
+bodyText ||| environment.
+bodyText ||| In the present study, the usual two stage approach to
+bodyText ||| studying uses and gratification is adopted [3]. In Study 1,
+bodyText ||| Facebook users are asked to generate lists of words or
+bodyText ||| phrases that describe their uses and gratifications in an
+bodyText ||| exploratory way. In Study 2, these terms are subjected to
+bodyText ||| factor analysis in order to form grouped profiles of specific
+bodyText ||| uses and gratifications.
+sectionHeader ||| STUDY 1: EXPLORATORY STAGE
+subsectionHeader ||| Participants
+bodyText ||| Participants were 137 Facebook users who responded to a
+bodyText ||| request to complete a short online study. The sample
+bodyText ||| comprised 53 males and 88 females (Mean age = 26.3
+bodyText ||| years). Participants were recruited through a number of
+bodyText ||| different methods: postings to the ‘wall’ of three network
+bodyText ||| homepages on Facebook (two universities, one regional), a
+bodyText ||| paid flyer shown 10,000 times across all networks, and
+bodyText ||| links on academic survey websites. The survey was open
+bodyText ||| during the first two weeks of July 2007.
+subsectionHeader ||| Materials
+bodyText ||| The online survey comprised a series of basic demographic
+bodyText ||| questions (e.g. age, gender, occupation, location), alongside
+bodyText ||| some measures of use of Facebook (time spent on site each
+bodyText ||| week, number of friends linked on site, history of use).
+page ||| 1028
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| Following this, participants were asked to respond to the
+bodyText ||| following questions adapted from [23] using free text entry:
+listItem ||| •	What is the first thing that comes to mind when
+listItem ||| you think about what you enjoy most when using
+listItem ||| Facebook?
+listItem ||| •	What other words describe what you enjoy about
+listItem ||| using Facebook?
+listItem ||| •	Using single, easy-to-understand terms, what do
+listItem ||| you use Facebook for?
+listItem ||| •	What uses of Facebook are most important to you?
+subsectionHeader ||| Results
+bodyText ||| Two raters clustered the descriptive items and phrases
+bodyText ||| developed by Facebook users in response to the first
+bodyText ||| question. The raters worked collaboratively to develop the
+bodyText ||| clusters, and were instructed to ‘identify responses that are
+bodyText ||| related’. The author then discussed the themes with the
+bodyText ||| raters, and named them accordingly. The main themes
+bodyText ||| identified are outlined in Table 1.
+table ||| Theme (sample user generated items)	Number
+table ||| 	of
+table ||| 	mentions
+table ||| ‘Keeping in touch’	52
+table ||| Contacting friends who are away from home Chatting to people I otherwise would have lost contact with
+table ||| Passive contact, social surveillance Virtual people-watching.	19
+table ||| ‘Re-acquiring lost contacts’	15
+table ||| Reconnecting with people I’ve lost contact with
+table ||| Finding people you haven't seen for a while
+table ||| ‘Communication’ Being poked	15
+table ||| Private messages Writing on walls
+table ||| Photographs	11
+table ||| Tagged in picture Posting pictures Sharing pictures
+table ||| Design related Ease of use	4
+table ||| Perpetual contact	4
+table ||| Seeing what people have put as their 'status' The continuous updates
+table ||| Seeing what my friends have been up to today
+table ||| ‘Making new contacts’ Talking to singles	5
+table ||| Getting new friends
+table ||| Joining groups
+tableCaption ||| Table 1: Frequency of mentions (Question 1)
+bodyText ||| In keeping with previous research [e.g. 16], the use of
+bodyText ||| Facebook to ‘keep in touch’ received the largest number of
+bodyText ||| mentions, with the use of the site to make new contacts
+bodyText ||| receiving a small number of mentions.
+sectionHeader ||| STUDY 2: IDENTIFYING USES AND GRATIFICATIONS
+subsectionHeader ||| Item generation
+bodyText ||| A sample of items from each use and gratification proposed
+bodyText ||| by users was extracted from the exploratory list developed
+bodyText ||| in Study 1. Participants’ responses to items 2–4 were
+bodyText ||| examined, and any occurrences of other uses or
+bodyText ||| gratifications not mentioned in response to the first item
+bodyText ||| were added to the list. This led to a total of 46 items. Where
+bodyText ||| possible, the item was taken word for word from participant
+bodyText ||| responses to Study 1.
+subsectionHeader ||| Participants
+bodyText ||| Participants were 241 Facebook users recruited using the
+bodyText ||| same methods outlined in Study 1. In addition, e-mails were
+bodyText ||| sent to selected mailing lists with a request for participation
+bodyText ||| (e.g. AIR-L). Participants were 80 males (33.2%) and 161
+bodyText ||| (66.8%) females (mean age = 25.97 years (SD = 9.30, range
+bodyText ||| 15-66 years old). The majority of the sample were full time
+bodyText ||| students (n = 151, 62.7%), 6.6% (n = 16) were part-time
+bodyText ||| students and worked part- or full-time (or had carer
+bodyText ||| responsibilities), and 30.7% were in full-time work and not
+bodyText ||| studying (n = 78). The study was open during the final
+bodyText ||| week in July, and throughout August.
+subsectionHeader ||| Measures
+bodyText ||| The same demographic and Facebook use measures
+bodyText ||| described in Study 1 were used in Study 2. Participants also
+bodyText ||| completed an item related to their use of Facebook privacy
+bodyText ||| settings, specifically if they had changed the default
+bodyText ||| settings, and if so, the degree to which they had made them
+bodyText ||| more private or more open.
+bodyText ||| Participants were finally asked to rate, using a 7-point
+bodyText ||| Likert scale, the 46 uses and gratifications derived from
+bodyText ||| Study 1 using the metric, “How important are the following
+bodyText ||| uses of Facebook to you personally?’ The scale was
+bodyText ||| anchored at 1 (very unimportant) and 7 (very important).
+subsectionHeader ||| Results
+bodyText ||| Participants had an average of 124 friends linked to their
+bodyText ||| Facebook profile (Range 1-1000, Median = 85, SD =
+bodyText ||| 129.97). Around half of the participants had been registered
+bodyText ||| on the site for less than six months (6.3% for less than one
+bodyText ||| month, 9.6% for between one and two months and 29.2%
+bodyText ||| for between two and six months). The remaining
+bodyText ||| participants had been signed up for between six months and
+bodyText ||| a year (21.7%), more than one year, but less than two
+bodyText ||| (21.7%) or for more than two years (10.8%). The majority
+bodyText ||| of participants visited the site either daily (38.8%) or more
+bodyText ||| than once a day (27.5%). Almost a quarter visited Facebook
+bodyText ||| several times a week (22.5%), with 6.7% visiting once a
+bodyText ||| week on average, and 4.2% visiting less than once a week.
+page ||| 1029
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| Amongst all respondents, the most common responses for
+bodyText ||| the time spent on the site each week were between 1 and 2
+bodyText ||| hours (33.3%) and between 2 and 5 hours (32.5%). A
+bodyText ||| relatively small proportion of users claimed to spend either
+bodyText ||| less than 1 hour a week (16.9%) or between 5 and 10 hours
+bodyText ||| (11.0%) on the site. The proportion of users claiming more
+bodyText ||| than 10 hours Facebook use per week was small (5.4%).
+bodyText ||| Unlike previous research [13], the majority of users claimed
+bodyText ||| to have changed the default privacy settings in Facebook,
+bodyText ||| with 25.6% (n = 61) reporting making their profile
+bodyText ||| ‘somewhat’ more private, 21% (n = 50) ‘much more’
+bodyText ||| private and 10.9% (n = 26) making it ‘as private as
+bodyText ||| possible. A smaller group claimed to have made their
+bodyText ||| profile either more ‘open’ (9.2%, n = 22) or ‘as open to
+bodyText ||| others as possible (9.2%, n = 22). The number of people
+bodyText ||| making no changes to their profile (23.5%, n = 56) was
+bodyText ||| substantially lower than that reported in previous studies
+bodyText ||| [ 14].
+bodyText ||| The most important uses of Facebook tended to be related
+bodyText ||| to the ‘social searching’ and surveillance functions (see
+bodyText ||| Tables 2-8), identified by [16]. Specifically, the use of the
+bodyText ||| site to learn about old friends and maintain or re-connect
+bodyText ||| relations scored consistently highly. This pattern repeats
+bodyText ||| previous findings from student samples [7, 16].
+bodyText ||| To investigate the nature of the various uses and
+bodyText ||| gratifications of Facebook in more depth, exploratory factor
+bodyText ||| analysis was conducted. The initial factor analysis (varimax
+bodyText ||| rotation) yielded 9 components with eigenvalues over 1,
+bodyText ||| explaining 64.8% of the variance. Examination of the scree
+bodyText ||| plot and unique loadings suggested that seven components
+bodyText ||| (explaining 59% of the variance) should be retained for
+bodyText ||| further analysis. Only four items did not load on any of the
+bodyText ||| factors: one was related to privacy settings, two about use
+bodyText ||| of the ‘poke’ facility and one about leaving messages on the
+bodyText ||| ‘wall’.
+sectionHeader ||| INTERPRETATION OF FACTORS AND SCALE
+sectionHeader ||| DEVELOPMENT
+bodyText ||| To aid further analysis, scales were developed from each
+bodyText ||| factor. As a preliminary check, score distributions on each
+bodyText ||| item were examined to ensure that none suffered from
+bodyText ||| restricted range (i.e., the full range of response options was
+bodyText ||| being used). This was the case for all items. Items were
+bodyText ||| identified as markers of each factor based on the commonly
+bodyText ||| used benchmark of a loading greater than .5. Items that had
+bodyText ||| significant loadings on other factors were discounted as
+bodyText ||| marker items [22].
+bodyText ||| Application of these criteria led to identification of eight
+bodyText ||| marker items for Factor 1, three for Factors 2, four for
+bodyText ||| Factor 3, four each for Factor 4 and 5, and three each for
+bodyText ||| Factor 6 and 7.
+bodyText ||| Factor 1 (Table 2) contains items predominantly concerned
+bodyText ||| with ‘keeping in touch’ (the most often mentioned use of
+bodyText ||| Facebook in Study 1, and by [16]). The items have a clear
+bodyText ||| focus on re-connecting with lost contacts and maintaining
+bodyText ||| contact with existing friends. Some of the items loading on
+bodyText ||| this factor also clearly relate to the ‘surveillance’ function
+bodyText ||| identified by [16], for instance, ‘Finding out what old
+bodyText ||| friends are doing now”. Others are more closely related to
+bodyText ||| the creation or maintenance of ‘weak ties’ (e.g.
+bodyText ||| “Maintaining relationships with people you may not get to
+bodyText ||| see very often”). Because of the combination of
+bodyText ||| surveillance and social capital functions, this factor and
+bodyText ||| related scale is labeled ‘social connection’. Two items
+bodyText ||| loaded on this factor, but did not meet the criteria for factor
+bodyText ||| purity: ‘Reading messages on your wall’ and ‘Seeing how
+bodyText ||| old acquaintances look’).
+table ||| Factor 1: Social connection (Cronbach’s Alpha = .89)	Item Mean (SD)	Loading
+table ||| Finding out what old friends are doing now	5.08 (1.71)	.753
+table ||| Reconnecting with people you’ve lost contact with	5.29 (1.79)	.783
+table ||| Connecting with people you otherwise would have lost contact with	5.53 (1.61)	.842
+table ||| Receiving a friend request	4.86 (1.68)	.601
+table ||| Finding people you haven’t seen for a while	5.41 (1.66)	.850
+table ||| Maintaining relationships with people you may not get to see very often	5.71 (1.56)	.764
+table ||| Contacting friends who are away from home	5.46 (1.83)	.522
+tableCaption ||| Table 2: Items and loading (Factor 1)
+bodyText ||| The second factor is comprised of three items related to the
+bodyText ||| joining of groups, organization of events and meeting of
+bodyText ||| ‘like-minded people’ (see Table 3). These activities are akin
+bodyText ||| to ‘social browsing’ identified by Lampe et al.; although
+bodyText ||| there is no reason to assume that they are necessarily
+bodyText ||| motivated by a desire to meet offline eventually. It also
+bodyText ||| contains related to the discovery of new music and new
+bodyText ||| groups via friends. As such, it seems to represent a ‘shared
+bodyText ||| identities’ function. Two items (‘Seeing what kinds of
+bodyText ||| networks and special interest groups your friends have’ and
+bodyText ||| ‘Learning about new music’) loaded on the factor, but did
+bodyText ||| not meet the factor purity criteria.
+table ||| Factor 2: Shared identities (Cronbach’s alpha .74)	Item Mean (SD)	Loading
+table ||| Organizing or joining events	3.42 (1.82)	.699
+table ||| Joining groups	3.52 (1.63)	.727
+table ||| Communication with likeminded people	3.82 (1.76)	.638
+tableCaption ||| Table 3: Items and loading (Factor 2)
+page ||| 1030
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| The third factor is related to the posting and viewing of
+bodyText ||| photographs (see Table 4), although many of the items also
+bodyText ||| had loadings in the .3 region on the first factor. This
+bodyText ||| suggests that these activities within Facebook may fulfill a
+bodyText ||| number of gratifications. Specifically, the social uses of
+bodyText ||| photographs (e.g. sharing, tagging) may also play an
+bodyText ||| important role in ‘social connection’. However, by forming
+bodyText ||| a unique factor, they may also be a content gratification in
+bodyText ||| their own right.
+table ||| Factor 3: Photographs (Cronbach’s alpha =.89)	Item Mean (SD)	Loading
+table ||| Viewing photos	5.03 (1.72)	.609
+table ||| Being tagged in photos	4.24 (1.90)	.668
+table ||| Tagging photos	3.96 (1.89)	.734
+table ||| Sharing / posting photographs	4.58 (1.89)	.701
+tableCaption ||| Table 4: Items and loading (Factor 3)
+bodyText ||| Factor four contains items related to content within
+bodyText ||| Facebook – for instance, applications and quizzes (see
+bodyText ||| Table 5). This relates to the usual ‘content gratification’
+bodyText ||| identified in previous media research. It is worthwhile
+bodyText ||| noting that while these items form a unique factor, the mean
+bodyText ||| scores are relatively low. A single item (‘Looking at posted
+bodyText ||| items’) loaded on the factor, but did not meet factor purity
+bodyText ||| criteria.
+table ||| Factor 4: Content (Cronbach’s alpha = .74)	Item Mean (SD)	Loading
+table ||| Applications within Facebook	2.85 (1.65)	.826
+table ||| Playing games	1.86 (1.40)	.559
+table ||| Discovering apps because you see friends have added them	2.64 (1.58)	.756
+table ||| Quizzes	1.85 1.30)	.638
+tableCaption ||| Table 5: Items and loading (Factor 4)
+bodyText ||| Factor five contains items akin to both social searching and
+bodyText ||| social browsing identified by Lampe et al [16]. The items
+bodyText ||| comprising this factor cover both the use of Facebook to
+bodyText ||| meet or view new people and to find out more about people
+bodyText ||| who are met offline (see Table 6).
+table ||| Factor 5: Social investigation (Cronbach’s alpha =.75)	Item Mean (SD)	Loading
+table ||| Virtual people watching	3.31 (1.90)	.574
+table ||| Using advanced search to look for specific types of people	2.56 (1.70)	.508
+table ||| Meeting new people	2.91 (1.83)	.509
+table ||| Stalking other people	2.13 (1.71)	.755
+tableCaption ||| Table 6: Items and loading (Factor 5)
+bodyText ||| One item (‘Looking up the profile of people you meet
+bodyText ||| offline’) loaded on the factor but did not meet the purity
+bodyText ||| criteria. The items do share a targeted investigation of
+bodyText ||| others, however. As such, the factor is termed ‘social
+bodyText ||| investigation’.
+bodyText ||| Factor six comprises items related to a unique affordance of
+bodyText ||| social networking sites – the ability to view other people’s
+bodyText ||| social networks and friends (see Table 7). This ability to
+bodyText ||| find out more about one’s acquaintances through their
+bodyText ||| social networks forms another important surveillance
+bodyText ||| function, and may also be a method for increasing the size
+bodyText ||| of one’s own social network. This specific use is termed
+bodyText ||| ‘Social network surfing’ here to signify the ability of users
+bodyText ||| to move from one person to another via friend links,
+bodyText ||| although it may also relate closely to a ‘process
+bodyText ||| gratification’.
+table ||| Factor 6: Social network surfing (Cronbach’s alpha =.79)	Item Mean (SD)	Loading
+table ||| Looking at the profiles of people you don’t know	2.48 (1.53)	.719
+table ||| Viewing other people’s friends	3.34 (1.74)	.785
+table ||| Browsing your friends’ friends	3.89 (1.65)	.724
+tableCaption ||| Table 7: Items and loading (Factor 6)
+bodyText ||| The final factor comprises items related to the newsfeed
+bodyText ||| and status updates within Facebook. The newsfeed provides
+bodyText ||| updates on both ‘friends’ status, alongside recent activity
+bodyText ||| (e.g. the addition or removal of applications, changes in
+bodyText ||| relationship status, addition of ‘friends’). Given the outcry
+bodyText ||| when the newsfeed was introduced [2], the relative high
+bodyText ||| scores for this use suggest an increasing degree of
+bodyText ||| acceptance. Interestingly, a gratification (‘to keep up with
+bodyText ||| the latest gossip’) also loaded on this factor (although only
+bodyText ||| at the .4 level), suggesting a clear motivation for viewing
+bodyText ||| the newsfeed.
+table ||| Factor 7: Status updates (Cronbach’s alpha = .71)	Item Mean (SD)	Loading
+table ||| Updating your own status	3.85 (1.77)	.568
+table ||| The news feed	3.79 (1.83)	.531
+table ||| Seeing what people have put as their status	3.84 (1.79)	.698
+tableCaption ||| Table 8: Items and loading (Factor 7)
+tableCaption ||| The pattern of loadings and internal reliability (Cronbach
+tableCaption ||| alpha scores) suggests that the seven factors should be
+tableCaption ||| considered suitable for use in further analysis, on the
+tableCaption ||| assumption that they are interpretable. Scales were
+tableCaption ||| developed for each factor by creating the mean score across
+tableCaption ||| the marker items.
+page ||| 1031
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+subsectionHeader ||| Inter-relations of uses and gratifications
+bodyText ||| Despite the fact that these factors arise from an orthogonal
+bodyText ||| rotation and are separable in terms of item loadings, they
+bodyText ||| are correlated (see Table 9).
+bodyText ||| The Spearman correlations between the factors suggest that
+bodyText ||| the uses and gratifications identified are related, in some
+bodyText ||| cases relatively strongly.
+table ||| Shared Identities	.24**	1
+table ||| Photographs	.62**	.32**	1
+table ||| Content	.03	.31**	.06	1
+table ||| Social investigation	.37**	.43**	.42**	.37**	1
+table ||| Social network surfing	.28**	.33**	.29**	.29**	.54**	1
+table ||| Status updates	.30**	.49**	.34**	.34**	.38**	.28**
+tableCaption ||| Table 9: Spearman correlations between scales (n = 241)
+subsectionHeader ||| User demographics and uses and gratifications
+bodyText ||| A MANOVA test found a significant difference between
+bodyText ||| males and females on their scores across the seven uses and
+bodyText ||| gratifications scales (F (7, 233) = 2.662, p < 0.02). Further
+bodyText ||| analysis of the between-subjects effects on the dependent
+bodyText ||| variables showed that scores were significantly different on
+bodyText ||| the first factor – ‘social connection’ (F (1, 239) = 16.16,
+bodyText ||| p<0.001, η2= .063), with females scoring higher on the
+bodyText ||| scale (M = 5.40, SD = 1.22) compared to males (M = 4.70,
+bodyText ||| SD = 1.37), on the third factor - ‘photographs’ (F (1, 239) =
+bodyText ||| 8.95, p<0.01, 112= .036), with females again scoring higher
+bodyText ||| on the scale (M = 4.67, SD = 1.61) compared to males (M =
+bodyText ||| 4.02, SD = 1.51). There was a marginally significant
+bodyText ||| difference across the seventh factor – ‘status updates’ (F (1,
+bodyText ||| 239) = 3.26, p=.072, r)2= .0 13), with females scoring higher
+bodyText ||| on the scale (M = 3.94, SD = 1.40) compared to males (M =
+bodyText ||| 3.58, SD = 1.47).
+bodyText ||| A one-way between subjects ANOVA found a significant
+bodyText ||| effect of gender on profile privacy settings (F (1, 236) =
+bodyText ||| 12.29, p < .01), with females more likely to report making
+bodyText ||| their profile more private (Mean = 4.83, SD = 1.60)
+bodyText ||| compared to males (Mean = 4.01, SD = 1.86)
+bodyText ||| A further MANOVA test was conducted to compare
+bodyText ||| responses to the items in light of occupational status (i.e.
+bodyText ||| full-time student, full-time employed, part-time
+bodyText ||| student/employed). Given the relatively low number of
+bodyText ||| people working part-time / studying part-time, this group
+bodyText ||| was excluded from the analysis. The results showed a
+bodyText ||| significant overall effect of occupational status on uses and
+bodyText ||| gratifications of Facebook (F (7, 217) = 4.93, p < .001),
+bodyText ||| with significant effects for Factor 1 (social connection – F
+bodyText ||| (1, 223) = 7.3 1, p<.01), Factor 2 (shared identities – F (1,
+bodyText ||| 223) = 4.90, p<.05), and Factor 3 (photographs – F (1, 223)
+bodyText ||| = 7.85, p< .01).
+bodyText ||| Full-time students scored higher on social connection and
+bodyText ||| photographs, and lower on shared identities, compared to
+bodyText ||| those in full-time work (Factor 1 Mean = 5.38 (SD = 1.16)
+bodyText ||| for students, Mean = 4.89 (SD = 1.45) for full-time
+bodyText ||| employment; Factor 2 Mean = 3.47 (SD = 1.37) for
+bodyText ||| students, Mean = 3.90 (SD = 1.40) for full-time
+bodyText ||| employment; Factor 3 Mean = 4.71 (SD = 1.53) for
+bodyText ||| students, Mean = 4.09 (SD = 1.57) for full-time
+bodyText ||| employment).
+bodyText ||| Age also correlated negatively with their scores on social
+bodyText ||| connection (rs(225) = -.27, p<.001), and photographs (rs(225) =
+bodyText ||| -.32, p<.001), with younger respondents scoring higher on
+bodyText ||| both scales. Age did not correlate with the other factor-
+bodyText ||| derived scales.
+bodyText ||| Age also correlated with the length of time users had been
+bodyText ||| registered on Facebook (rs(241) = -.17, p<0.01), the regularity
+bodyText ||| with which they visited the site (rs(241) = -.18, p<.01), the
+bodyText ||| number of hours they used the site in a week (rs(241) = -.22,
+bodyText ||| p<.01) and the number of friends they had linked to their
+bodyText ||| profile (rs(219) = -.37, p<.001). In all cases, a younger user
+bodyText ||| was associated with higher usage levels, and a greater
+bodyText ||| number of ‘friends’.
+bodyText ||| Age was also negatively correlated with the use of privacy
+bodyText ||| settings (rs(238) = -.17, p<.01), such that younger users report
+bodyText ||| that they were more likely to have increased the privacy of
+bodyText ||| their profile. In part this may be due to the higher number
+bodyText ||| of friends amongst younger users.
+subsectionHeader ||| Predicting Facebook use
+bodyText ||| A number of earlier researchers have predicted that certain
+bodyText ||| uses and gratifications of Facebook may be associated with
+bodyText ||| greater use of the site. For instance, [17] note that
+bodyText ||| completion of certain profile elements is associated with a
+bodyText ||| greater number of ‘friends’, while the findings of [16])
+bodyText ||| suggest that the use of Facebook for social searching and
+bodyText ||| surveillance motivates use.
+bodyText ||| To examine possible motivators for use of Facebook, a
+bodyText ||| series of multiple regression equations were calculated
+bodyText ||| using scores on the seven factor-based scales to predict both
+bodyText ||| the frequency of visits to the site and the time spent on
+bodyText ||| Facebook during an average week. Age, occupation and
+bodyText ||| gender were also entered as covariates (part-time excluded).
+bodyText ||| The results of the regression analyses to predict the
+bodyText ||| frequency of site use are shown in Table 10. The overall
+bodyText ||| model was significant (F (10, 213) = 4.77, p<0.001, R2 =
+bodyText ||| .15).
+bodyText ||| A second regression equation examined the same variables
+bodyText ||| predicting the amount of time spent on the site (see Table
+page ||| 1032
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| 11). Again, the overall model was significant (F (10, 210) =
+bodyText ||| 3.85, p<0.001, R2 = .12).
+table ||| Variable	J6	t	Sig
+table ||| Sex	.179	2.638	.009
+table ||| Age	.126	1.479	.141
+table ||| Occupation	.036	.430	.667
+table ||| F1 – ‘social connection’	-.055	-.619	.536
+table ||| F2 - ‘shared identities’	.015	.200	.842
+table ||| F3 – ‘photographs’	-.208	-2.295	.023
+table ||| F4 – ‘content gratifications’	.032	.455	.649
+table ||| F5 – ‘social investigation’	.156	1.819	.070
+table ||| F6 – ‘social network surfing’	-.043	-.561	.576
+table ||| F7 – ‘status updates’	-.296	-3.848	.000
+tableCaption ||| Table 10: Predicting frequency of visits to Facebook
+bodyText ||| The regression equations show a differential pattern of uses
+bodyText ||| and gratifications motivating frequency of visits to the site,
+bodyText ||| and the time spent on the site. Gender (females visit more
+bodyText ||| frequently) and scores on the ‘photographs’ and ‘status
+bodyText ||| updates’ factors predict the frequency of visits to the site.
+bodyText ||| Higher scores on both scales predicted more frequent visits.
+bodyText ||| There was a marginally significant effect of ‘social
+bodyText ||| investigation’ (higher scores related to less frequent visits).
+bodyText ||| However, participants age (younger spend more time) and
+bodyText ||| scores on the content gratification scale predict the actual
+bodyText ||| number of hours spent online. This suggests that
+bodyText ||| surveillance gratifications motivate repeat visits, but that
+bodyText ||| content gratifications motivate people to spend longer on
+bodyText ||| the site when they do visit.
+table ||| Variable	J6	t	Sig
+table ||| Sex	-.031	-.440	.660
+table ||| Age	-.265	-3.029	.003
+table ||| Occupation	.058	.669	.504
+table ||| F1 – ‘social connection’	-.090	-.983	.327
+table ||| F2 - ‘shared identities’	.011	.145	.885
+table ||| F3 – ‘photographs’	.134	1.442	.151
+table ||| F4 – ‘content gratifications’	.213	2.962	.003
+table ||| F5 – ‘social investigation’	-.040	-.448	.655
+table ||| F6 – ‘social network surfing’	.117	1.481	.140
+table ||| F7 – ‘status updates’	.086	1.092	.276
+tableCaption ||| Table 11: Predicting time spent (hours) on Facebook
+bodyText ||| A final regression equation was calculated to predict the
+bodyText ||| number of ‘friends’ users reported on Facebook (see Table
+bodyText ||| 12). Given that the number of friends should be related to
+bodyText ||| the length of time users had been registered on Facebook,
+bodyText ||| and the intensity of their use, the usage measures (length of
+bodyText ||| time, frequency of visit, time spent on site) were entered
+bodyText ||| alongside the remaining variables.
+bodyText ||| The overall model was significant (F (15, 196) = 8.48, p <
+bodyText ||| .001, R2 = .31).
+bodyText ||| As might be expected, age was associated with the number
+bodyText ||| of ‘friends’ (younger have more ‘friends’), as was the
+bodyText ||| amount of time users had been registered on the site and the
+bodyText ||| frequency of their site visits (longer time registered, and
+bodyText ||| more frequent visits, associated with more friends).
+bodyText ||| Interestingly, scores on the ‘social connection’ scale were
+bodyText ||| not associated with ‘friend’ numbers, while scores on the
+bodyText ||| ‘content gratification’ scale were negatively associated with
+bodyText ||| the number of ‘friends’ (i.e. higher scores associated with
+bodyText ||| smaller number of ‘friends’). Scores on the ‘social
+bodyText ||| investigation’ scale were positively associated with the
+bodyText ||| number of friends, while scores on the ‘photographs’ scale
+bodyText ||| were marginally significantly associated with an increased
+bodyText ||| number of friends.
+table ||| Variable	J6	T	Sig
+table ||| Sex	.036	.584	.560
+table ||| Age	-.213	-2.936	.004
+table ||| Occupation	-.041	-.584	.560
+table ||| Time registered on site	.289	4.725	.000
+table ||| Frequency of visit	-.184	-2.805	.006
+table ||| Time spent on site	.062	.909	.364
+table ||| F1 – ‘social connection’	-.081	-.978	.329
+table ||| F2 - ‘shared identities’	.090	1.286	.200
+table ||| F3 – ‘photographs’	.138	1.610	.109
+table ||| F4 – ‘content gratifications’	-.139	-2.058	.041
+table ||| F5 – ‘social investigation’	.169	2.123	.035
+table ||| F6 – ‘social network surfing’	-.048	-.679	.498
+table ||| F7 – ‘status updates’	-.047	-.641	.523
+tableCaption ||| Table 12: Predicting number of ‘friends’ on Facebook
+subsectionHeader ||| Use of Facebook Privacy Settings and meeting new
+subsectionHeader ||| people
+bodyText ||| A final set of analyses were conducted to examine the
+bodyText ||| relationship between specific uses and respondents’
+bodyText ||| reported privacy profile settings. The privacy settings of
+bodyText ||| users were grouped, according to their responses, into those
+bodyText ||| who reported making their profile less private (n=44), those
+page ||| 1033
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| who reported leaving it at the default setting (n = 56), and
+bodyText ||| those who reported making it more private (n = 137). In the
+bodyText ||| main, privacy settings in Facebook allow users to hide their
+bodyText ||| profile from people who are neither listed as ‘friends’ or
+bodyText ||| members of the user’s own network. However, if the
+bodyText ||| motive for using Facebook is to meet new people, then such
+bodyText ||| privacy settings would be somewhat counter productive. To
+bodyText ||| test this proposition, a MANOVA was conducted with
+bodyText ||| privacy settings as the independent variable, and the
+bodyText ||| responses to items related to meeting new people set as the
+bodyText ||| dependent variables. The results showed a significant link
+bodyText ||| between privacy settings and the responses to the items (F
+bodyText ||| (8, 454) = 2.11, p < .05). Analysis of the between subjects
+bodyText ||| effects found no difference in responses to the ‘joining
+bodyText ||| groups’ or ‘joining events’ items and privacy settings (ps >
+bodyText ||| .3), but a significant effect of reported privacy settings on
+bodyText ||| responses to the item ‘meeting new people’ (F (2, 229) =
+bodyText ||| 4.16, p < .02), and a marginally significant effect on the
+bodyText ||| item ‘using advanced search to look for specific types of
+bodyText ||| people’ (F (2, 229) = 2.48, p = .08). The means for the
+bodyText ||| ‘meeting new people’ item across the three privacy groups
+bodyText ||| are shown in Figure 1.
+figureCaption ||| Figure 1: Scores on ‘meeting new people’ by privacy
+figureCaption ||| settings
+bodyText ||| These results suggest that for users wishing to use
+bodyText ||| Facebook to meet new people, the privacy settings may be
+bodyText ||| set at too stringent a level. Further analyses confirmed no
+bodyText ||| links between the social connection scales and privacy
+bodyText ||| settings, suggesting that a primary motivation for making
+bodyText ||| one’s profile less private is the desire to meet new people.
+sectionHeader ||| DISCUSSION
+bodyText ||| Social networking sites pose a number of challenges for
+bodyText ||| HCI researchers and practitioners. First, the actual uses and
+bodyText ||| gratifications of such sites are not well understood. The
+bodyText ||| present paper presents the first study of a social networking
+bodyText ||| site using a ‘uses and gratifications’ framework, and also
+bodyText ||| provides an empirically developed measurement tool for
+bodyText ||| future research.
+bodyText ||| Second, previous research that has been conducted has
+bodyText ||| tended to focus on campus-based use of Facebook [e.g. 7,
+bodyText ||| 13, 6, 11, 17], which may limit the generalizability of any
+bodyText ||| findings. However, the results of the present research
+bodyText ||| support many of the conclusions of earlier research
+bodyText ||| conducted on student populations. For instance, the
+bodyText ||| distinction previously drawn between ‘social searching’ and
+bodyText ||| ‘social browsing’ uses of Facebook [16] was similarly
+bodyText ||| evident in the present research. Moreover, in keeping with
+bodyText ||| prior student-users research [e.g. 7, 16], the use of
+bodyText ||| Facebook to ‘keep in touch’ was the most commonly
+bodyText ||| mentioned term in Study 1, and formed a large proportion
+bodyText ||| of the items comprising the first factor in Study 2.
+bodyText ||| However, the adoption of a uses and gratifications approach
+bodyText ||| enables us to begin to probe in more depth the exact nature
+bodyText ||| of ‘keeping in touch’ as both a use and a gratification. The
+bodyText ||| results of the present study suggest that ‘keeping in touch’
+bodyText ||| comprises two main functions. The first is a surveillance
+bodyText ||| function as identified by Lampe and colleagues [16].
+bodyText ||| Facebook is used to see what old contacts and friends are
+bodyText ||| ‘up to’, how they look and how they behave. In keeping
+bodyText ||| with this use, there is evidence that Facebook profiles serve
+bodyText ||| an important self-presentation tool [26]. Associated with
+bodyText ||| this use is the social capital building gratification, where
+bodyText ||| Facebook is used to build, invest in and maintain ties with
+bodyText ||| distant friends and contacts [7, 11].
+bodyText ||| The ‘social search’ and ‘social browsing’ uses of Facebook
+bodyText ||| identified by Lampe and colleagues [16] were closely
+bodyText ||| related in the present study. The use of Facebook to search
+bodyText ||| for new people loaded on the same factor as the use of
+bodyText ||| Facebook to research offline contacts. This ‘virtual people
+bodyText ||| watching’ was represented in both Factors 5 and 6, with the
+bodyText ||| important distinction that Factor 6 relied primarily on
+bodyText ||| ‘friend of friend’ connections, while Factor 5 represented
+bodyText ||| targeted investigation of people met offline, or searched for.
+bodyText ||| Symptomatic of this distinction is the difference between
+bodyText ||| ‘looking up’ (Factor 5) and ‘looking at’ (Factor 6) people.
+bodyText ||| In the present study, only social investigation was
+bodyText ||| associated with a higher number of ‘friends’, not social
+bodyText ||| network browsing.
+bodyText ||| Interestingly, an increased score on the content gratification
+bodyText ||| scale was negatively related to the number of ‘friends’
+bodyText ||| reported to be linked to one’s profile. This perhaps suggests
+bodyText ||| a sub-set of users gain gratification through the use of
+bodyText ||| applications within Facebook, rather than through the
+bodyText ||| accrual of ‘friends’. However, many of the applications
+bodyText ||| available in Facebook are social in nature (e.g. scrabble
+bodyText ||| games, ways to rate friends). But, at present these
+bodyText ||| applications tend to rely on existing contacts, rather than the
+bodyText ||| accrual of new ‘friends’. As such, they may serve to
+bodyText ||| strengthen social ties, rather than acting to increase the
+bodyText ||| overall size of a social network. Thus, investment of time
+bodyText ||| and effort in social applications within Facebook may be
+bodyText ||| akin to messaging between friends [11] – it solidifies ties,
+bodyText ||| rather than creating new links.
+bodyText ||| Users responses on the scales created from the factors also
+bodyText ||| predicted their pattern of use of the site. In keeping with
+figure ||| 4
+figure ||| 3.5
+figure ||| 3
+figure ||| 2.5
+figure ||| 2
+figure ||| 1.5
+figure ||| 1
+figure ||| 0.5
+figure ||| 0
+figure ||| Less private	Default	More private
+page ||| 1034
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| earlier work on traditional media, content gratification
+bodyText ||| predicted the amount of time spent on the site. However,
+bodyText ||| the use of the site for social investigation, viewing and
+bodyText ||| posting photographs and viewing status updates predicted
+bodyText ||| the frequency of visits. It would seem from the present data
+bodyText ||| that ‘keeping in touch’ may in actuality refer to ‘checking
+bodyText ||| up on regularly’, while the ‘stickiness’ of the site (in terms
+bodyText ||| of time spent on it) depends on use of the content and
+bodyText ||| applications. This insight is clearly important for designers
+bodyText ||| of social networking sites and associated content. If repeat
+bodyText ||| visits are motivated by different uses and gratifications than
+bodyText ||| the amount of time spent on the site, it is important to
+bodyText ||| design content gratification alongside the ability to build
+bodyText ||| and maintain social connections. It also suggests that the
+bodyText ||| furor caused by the introduction of the newsfeed [2] has
+bodyText ||| subsided, and been replaced by its new role as a ‘killer
+bodyText ||| app’, at least in terms of repeat visits to the site. In many
+bodyText ||| ways, this use of Facebook reflects the desire for ‘perpetual
+bodyText ||| contact’ [15], and previously supplied by standalone
+bodyText ||| services like Twitter [24]. While the social implications of
+bodyText ||| this interest in perpetual contact and updates on ‘friends’
+bodyText ||| are beyond the remit of the present paper, it is worth noting
+bodyText ||| that an increased awareness of others’ actions has
+bodyText ||| potentially important implications for how we relate to
+bodyText ||| others, and understand ourselves.
+subsectionHeader ||| Design Implications
+bodyText ||| The designers of social networking sites should consider the
+bodyText ||| varied uses and gratifications reported by users, and need to
+bodyText ||| recognize that not all users have the same uses of a social
+bodyText ||| networking site, nor derive the same gratifications from
+bodyText ||| their use. For instance, there are clear distinctions between
+bodyText ||| the use of Facebook to maintain and re-create connections
+bodyText ||| with friends, its use as a surveillance tool and for content
+bodyText ||| delivery. There were also differences in reported uses by
+bodyText ||| age, gender and occupational status. It may be that different
+bodyText ||| demographic groups are motivated to use social networking
+bodyText ||| sites for different purposes, with social connectivity and
+bodyText ||| perpetual contact motivating younger (and female) users
+bodyText ||| more than older (and male) users.
+bodyText ||| The differing goals for the use of Facebook are reflected not
+bodyText ||| only in usage patterns, but also in users’ privacy settings.
+bodyText ||| People who have made their privacy settings more
+bodyText ||| permissive are more likely to want to meet new people
+bodyText ||| (they also score higher on the content gratifications scale).
+bodyText ||| This is a designed aspect of the system – in both cases, to
+bodyText ||| fulfill one’s goal often requires a more permissive approach
+bodyText ||| to profile privacy. Many of the applications are social in
+bodyText ||| nature (e.g. comparing oneself with others, asking questions
+bodyText ||| to ‘friends’, viewing people from one’s neighborhood), and
+bodyText ||| often circumvent elements of the default privacy settings.
+bodyText ||| Similarly, if the goal is to meet new people, making one’s
+bodyText ||| profile more open than by default allows others pursuing
+bodyText ||| the same gratification to view your profile, and presumably
+bodyText ||| increases the chances of an interaction. For these users, the
+bodyText ||| profile within Facebook is likely to become a key self-
+bodyText ||| presentation tool, rather than simply a way to ‘keep in
+bodyText ||| touch’ with others [6, 26].
+subsectionHeader ||| Limitations and Further research
+bodyText ||| The present research is a ‘snap shot’ of Facebook users, and
+bodyText ||| further work should consider the possibility of researching
+bodyText ||| the development of use over time. In particular, it would be
+bodyText ||| of interest to see how people’s uses and gratifications of
+bodyText ||| Facebook develop, and if the frequency of visit is motivated
+bodyText ||| by ‘perpetual contact’ over time. There is, for instance,
+bodyText ||| considerable research in the field of habit formation that
+bodyText ||| could inform the study of social network site use. HCI
+bodyText ||| research should also consider ways in which the desire to
+bodyText ||| meet new people, and to allow oneself to be viewed by
+bodyText ||| strangers, can be accommodated in a privacy-protecting
+bodyText ||| manner [14]. At present, Facebook has reasonably nuanced
+bodyText ||| privacy controls. From the results of the present research, it
+bodyText ||| would seem that users are changing the default privacy
+bodyText ||| settings in a motivated manner. However, the present study
+bodyText ||| only collected reported privacy settings. It would be
+bodyText ||| prudent to complete research that actually examined
+bodyText ||| settings via automated querying of the site [e.g. 13], or by
+bodyText ||| studying a corpus of actual interactions [e.g. 11].
+bodyText ||| It should also be noted that the nature of the sampling
+bodyText ||| method, and the self-selection of respondents, may have
+bodyText ||| influenced the pattern of responses and overall levels of
+bodyText ||| activity. Future research may wish to study a wider group
+bodyText ||| of participants, or attempt to identify patterns of usage
+bodyText ||| amongst non-respondents compared to respondents
+sectionHeader ||| CONCLUSIONS
+bodyText ||| Users derive a variety of uses and gratifications from social
+bodyText ||| networking sites, including traditional content gratification
+bodyText ||| alongside building social capital, communication,
+bodyText ||| surveillance and social networking surfing. The different
+bodyText ||| uses and gratifications relate differentially to patterns of
+bodyText ||| usage, with social connection gratifications tending to lead
+bodyText ||| to increased frequency of use, and content gratifications to
+bodyText ||| increased time spent on the site. The variety of uses to
+bodyText ||| which Facebook is put by its users identifies particular
+bodyText ||| challenges for the designers of such sites. For instance, a
+bodyText ||| default privacy setting may be too restrictive for users
+bodyText ||| seeking to meet new people, or who wish to allow new
+bodyText ||| people to discover them.
+bodyText ||| Since user’s desire to engage in surveillance of their peers
+bodyText ||| also motivates the frequency of site visit, this also poses a
+bodyText ||| unique challenge in balancing user’s privacy concerns and
+bodyText ||| controls with a key raison d’être of social networking sites
+bodyText ||| like Facebook. At present, Facebook allows users to
+bodyText ||| manage their ‘feed’, removing ‘stories’ as they wish. This
+bodyText ||| solution not only provides a degree of privacy control to
+bodyText ||| users, but it also enables users to engage with the site as a
+bodyText ||| self-presentation tool [26] at numerous levels – not only via
+bodyText ||| their profile and network, but also through their activity
+bodyText ||| (and the removal of specific ‘stories’). As perpetual contact
+bodyText ||| continues to develop, designers will need to face the
+page ||| 1035
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| challenges of providing continual feeds between users, and
+bodyText ||| the desire of users to control their self-representation via
+bodyText ||| such sites.
+sectionHeader ||| ACKNOWLEDGEMENTS
+bodyText ||| Jeff Hancock, Mina Vasalou, Pam Briggs and Martin
+bodyText ||| Weller are thanked for their advice and comments on an
+bodyText ||| earlier draft of this paper, as are three anonymous reviewers
+bodyText ||| and the associate chair.
+sectionHeader ||| REFERENCES
+reference ||| 1. BBC News. Web Networkers at risk of fraud. 27 July
+reference ||| 2007. http://news.bbc.co.uk/1/hi/uk/6910826.stm
+reference ||| 2. Boyd, D. Facebook's Privacy Trainwreck: Exposure,
+reference ||| Invasion, and Social Convergence. Convergence 14, 1
+reference ||| (2008).
+reference ||| 3. Churchill, G. A paradigm for development of better
+reference ||| measures of marketing constructs. Journal of Marketing
+reference ||| Research, 16 (1979), 64-73.
+reference ||| 4. Cashmore, P. MySpace hits 100 Million Accounts.
+reference ||| Mashable Social Networking News, (2006). Available
+reference ||| at: http://mashable.com/2006/08/09/myspace-hits-100-
+reference ||| million-accounts/
+reference ||| 5. Donath, J. and Boyd, D. Public displays of connection".
+reference ||| BT Technology Journal, 2, 4 (2004), 71-82.
+reference ||| 6. Ellison, N., Heino, R. and Gibbs, J. Managing
+reference ||| Impressions Online: Self-Presentation Processes in the
+reference ||| Online Dating Environment. Journal of Computer-
+reference ||| Mediated Communication, 11, 2 (2006).
+reference ||| 7. Ellison, N., Steinfield, C. and Lampe, C. Spatially
+reference ||| Bounded Online Social Networks and Social Capital:
+reference ||| The Role of Facebook. Paper presented at the annual
+reference ||| meeting of the International Communication
+reference ||| Association, Dresden, June 2006.
+reference ||| 8. Facebook Addiction.
+reference ||| http://www.facebookaddiction.com/
+reference ||| 9. Flavelle, D. Worries follow rise of Facebook:
+reference ||| Employers not happy with time spent on site. Toronto
+reference ||| Star, May 04, 2007. Available at:
+reference ||| http://www.thestar.com/Business/article/210313
+reference ||| 10. ForeverGeek. Debunking the MySpace Myth of 100
+reference ||| Million Users.
+reference ||| http://forevergeek.com/articles/debunking_the_myspace
+reference ||| _myth_of_100_million_users.php
+reference ||| 11. Golder, S. A., Wilkinson, D. and Huberman, B.A.
+reference ||| Rhythms of Social Interaction: Messaging within a
+reference ||| Massive Online Network 3rd International Conference
+reference ||| on Communities and Technologies, (2007).
+reference ||| 12. Gonzalez, N. Facebook users up 89% over last year;
+reference ||| Demographic shift (2007).
+reference ||| http://www.techcrunch.com/2007/07/06/facebook-users-
+reference ||| up-89-over-last-year-demographic-shift/
+reference ||| 13. Gross, R. and Acquisti, A. Information Revelation and
+reference ||| Privacy in Online Social Networks. In Workshop on
+reference ||| Privacy in the Electronic Society, ACM Press (2005).
+reference ||| 14. Joinson, A.N. & Paine, C.B. Self-Disclosure, Privacy
+reference ||| and the Internet. In A.N Joinson, K.Y.A McKenna, T.
+reference ||| Postmes and U-D. Reips (Eds). Oxford Handbook of
+reference ||| Internet Psychology (pp. 237-252). Oxford University
+reference ||| Press (2007).
+reference ||| 15. Katz, J.E., and Aakhus, M.A. (Eds.). Perpetual contact:
+reference ||| mobile communication, private talk, public
+reference ||| performance. New York: Cambridge University Press
+reference ||| (2002).
+reference ||| 16. Lampe, C., Ellison, N. and Steinfield, C. A Face(book)
+reference ||| in the Crowd: Social Searching vs. Social Browsing. In
+reference ||| proceedings of ACM Special Interest Group on
+reference ||| Computer-Supported Cooperative Work, ACM Press
+reference ||| (2006), 167 – 170.
+reference ||| 17. Lampe, C., Ellison, N. and Steinfield, C. A Familiar
+reference ||| Face(book): Profile Elements as Signals in an Online
+reference ||| Social Network. In Proc. CHI 2007, ACM Press (2007),
+reference ||| 435-444.
+reference ||| 18. McGuire, W.J. Psychological motives and
+reference ||| communication gratification (pp. 167-196). In J.Blunder
+reference ||| & E. Katz (Eds.), The uses of mass communications:
+reference ||| Current perspectives on gratifications research. Beverly
+reference ||| Hills, CA: Sage (1974).
+reference ||| 19. Nielsen//NetRatings. Facebook and Bebo: The assault
+reference ||| on MySpace. Available from: http://www.nielsen-
+reference ||| netratings.com/pr/pr_070628_UK.pdf
+reference ||| 20. Rawstorne, T. How paedophiles prey on MySpace
+reference ||| children. Daily Mail (UK), 21 July 2006. Available at:
+reference ||| http://www.dailymail.co.uk/pages/live/femail/article.ht
+reference ||| ml?in_article_id=397026&in_page_id=1879
+reference ||| 21. http://sambrook.typepad.com/sacredfacts/2007/06/faceb
+reference ||| ook.html
+reference ||| 22. Saucier, G. Mini-markers: A brief version of Goldberg’s
+reference ||| unipolar big-five markers. Journal of Personality
+reference ||| Assessment, 63, (1994), 506–516.
+reference ||| 23. Stafford, T.F., Stafford, M.R., & Schkade, L.L.
+reference ||| Determining uses and gratifications for the internet.
+reference ||| Decision Sciences, 35, (2004), 259–288.
+reference ||| 24. Twitter. http://www.twitter.com
+reference ||| 25. Wellman B and Gulia M. The network basis of social
+reference ||| support: A network is more than the sum of its ties, in
+reference ||| Wellman B (Ed): ‘Networks in the Global Village’,
+reference ||| Boulder, CO, Westview Press (1999).
+reference ||| 26. Walther, J.B., Van Der Heide, B., Kim, S-Y.,
+reference ||| Westerman, D., Tong, S.T. The role of friends’
+reference ||| appearance and behavior on evaluations of individuals
+reference ||| on Facebook: Are we known by the company we keep?
+reference ||| Human Communication Research, (in press).
+page ||| 1036

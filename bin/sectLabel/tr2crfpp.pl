@@ -39,13 +39,14 @@ sub License {
 sub Help {
   print STDERR "Generate SectLabel features for CRF++\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in inFile -c configFile -out outFile [-template]\n";
+  print STDERR "       $progname -in inFile -c configFile -out outFile [-template -single]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-in inFile: labeled input file\n";
   print STDERR "\t-c configFile: to specify which feature set to use.\n";
   print STDERR "\t-out outFile: output file for CRF++ training.\n";
   print STDERR "\t-template: to output a template used by CRF++ according to the config file.\n";
+  print STDERR "\t-single: indicate that each input document is in single-line format (e.g., doc/sectLabel.tagged.txt)\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
@@ -59,9 +60,11 @@ $funcFile = "$FindBin::Bin/../../$funcFile";
 
 my $configFile = undef;
 my $isTemplate = 0;
+my $isSingle = 0;
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'c=s' => \$configFile,
+			    'single' => \$isSingle,
 			    'template' => \$isTemplate,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
@@ -82,7 +85,16 @@ $configFile = untaintPath($configFile);
 $ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin';
 ### End untaint ###
 
+if($isSingle){
+  execute("$FindBin::Bin/single2multi.pl -in $inFile -out $inFile.multi -p \"SectLabel_\"");
+  $inFile .= ".multi";
+}
+
 SectLabel::Tr2crfpp::tr2crfpp($inFile, $outFile, $dictFile, $funcFile, $configFile, $isTemplate);
+
+if($isSingle){
+  unlink($inFile);
+}
 
 sub untaintPath {
   my ($path) = @_;
@@ -98,7 +110,7 @@ sub untaintPath {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/]+)$/) {
+  if ($s =~ /^([\w \-\@\(\),\.\/\_\"]+)$/) {
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere
