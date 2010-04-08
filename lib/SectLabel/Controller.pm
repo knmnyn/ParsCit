@@ -105,14 +105,12 @@ sub extractSectionImpl {
     my %sectionHeaders = (); 
     $sectionHeaders{"header"} = (); # array of section headers
     $sectionHeaders{"lineId"} = (); # array of corresponding line ids (0-based)
-
+    
     if(!$isXmlOutput){
       $xml = SectLabel::PostProcess::wrapDocument($outFile, \%blankLines);
     } else {
       $xml = SectLabel::PostProcess::wrapDocumentXml($outFile, \%sectionHeaders);
       
-      my $numHeader = scalar(@{$sectionHeaders{"lineId"}});
-
       $sectionHeaders{"generic"} = (); # array of generic headers
       getGenericHeaders($sectionHeaders{"header"}, \@{$sectionHeaders{"generic"}});
 
@@ -131,7 +129,7 @@ sub extractSectionImpl {
   return ($status, $msg, $xml);
 }
 
-# Thang Mar 10: method to get generic headers give a list of headers
+# Thang v100401: method to get generic headers give a list of headers
 sub getGenericHeaders {
   my ($headers, $genericHeaders) = @_;
 
@@ -139,6 +137,7 @@ sub getGenericHeaders {
 
   # put the list of headers to file
   my $headerFile = "/tmp/".newTmpFile();
+  $genericSectPath = untaintPath($genericSectPath);
   open(OF, ">:utf8", "$headerFile");
   for(my $i=0; $i<$numHeaders; $i++){
     print OF $headers->[$i]."\n";
@@ -173,7 +172,7 @@ sub getGenericHeaders {
   unlink("$headerFile.out");
 }
 
-# Thang Mar 10: method to insert generic headers into previous label XML output (ids given for checking purpose)
+# Thang v100401: method to insert generic headers into previous label XML output (ids given for checking purpose)
 sub insertGenericHeaders {
   my ($xml, $headers, $generics, $lineIds) = @_;
 
@@ -219,10 +218,24 @@ sub insertGenericHeaders {
   return join("\n", @lines);
 }
 
-# Thang Mar 10: method to generate tmp file name
+# Thang v100401 
+sub untaintPath {
+  my ($path) = @_;
+
+  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) {
+    $path = $1;
+  } else {
+    die "Bad path $path\n";
+  }
+
+  return $path;
+}
+
+# Thang v100401 method to generate tmp file name
 sub newTmpFile {
   my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
   chomp($tmpFile);
+  $tmpFile = untaintPath($tmpFile);
   return $tmpFile;
 }
 

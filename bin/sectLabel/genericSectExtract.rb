@@ -6,7 +6,7 @@ pwd = File.dirname(__FILE__)
 
 @CRFPP  = "#{pwd}/../../crfpp"
 @SRC    = "#{pwd}/genericSect"
-@DATA   = "#{pwd}/../../resources/sectLabel/genericSect/"
+@DATA   = "#{pwd}/../../resources/sectLabel/"
 @TEST_DIR = "#{pwd}/genericSect/run"
 
 name  = "#{Time.now.to_i}-#{Process.pid}"
@@ -14,7 +14,7 @@ name  = "#{Time.now.to_i}-#{Process.pid}"
 cmd = "ruby #{@SRC}/createFeature_test.rb #{ARGV[0]} > #{@TEST_DIR}/#{name}.test"
 system(cmd)
 
-cmd = "#{@CRFPP}/crf_test -m #{@DATA}/crf.model  #{@TEST_DIR}/#{name}.test >  #{@TEST_DIR}/#{name}.out"
+cmd = "#{@CRFPP}/crf_test -m #{@DATA}/genericSect.model  #{@TEST_DIR}/#{name}.test >  #{@TEST_DIR}/#{name}.out"
 system(cmd)
 
 

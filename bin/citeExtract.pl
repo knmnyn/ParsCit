@@ -119,7 +119,7 @@ if($isXmlInput){ # extracting text from Omnipage XML output
 if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
   my $sectLabelInput = $textFile;
   if($isXmlInput){ # get XML features and append to $textFile
-    my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $textFile.feature -xmlFeature";
+    my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $textFile.feature -xmlFeature -decode";
     system($cmd);
     $sectLabelInput .= ".feature";
   }

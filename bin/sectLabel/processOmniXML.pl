@@ -103,8 +103,8 @@ my %gFontSizeHash = (); my @gFontSize = ();
 # font face feature
 my %gFontFaceHash = (); my @gFontFace = ();
 
-my @gDd = (); # dd feature
-my @gCell = (); # cell feature
+my @gPic = (); # pic feature
+my @gTable = (); # table feature
 my @gBullet = (); # bullet feature
 
 # space feature
@@ -140,7 +140,7 @@ sub processFile {
   my $isPara = 0;
   my $isTable = 0;
   my $isSpace = 0;
-  my $isDd = 0;
+  my $isPic = 0;
   my $allText = "";
   my $text = ""; 
 
@@ -158,12 +158,12 @@ sub processFile {
     #    if ($line =~ /<\?xml version.+>/){    } ### Xml ###
     #    if ($line =~ /^<\/column>$/){    } ### Column ###
 
-    ### dd ###
+    ### pic ###
     if ($line =~ /^<dd .*>$/){
-      $isDd = 1;
+      $isPic = 1;
     }
     elsif ($line =~ /^<\/dd>$/){
-      $isDd = 0;
+      $isPic = 0;
     }
 
     ### Table ###
@@ -172,7 +172,7 @@ sub processFile {
       $isTable = 1;
     }
     elsif ($line =~ /^<\/table>$/){
-      my $tableText = processTable($text, $isDd);
+      my $tableText = processTable($text, $isPic);
       $allText .= $tableText;
 
       my @tmpLines = split(/\n/, $tableText);
@@ -194,7 +194,7 @@ sub processFile {
     }
     elsif ($line =~ /^<\/para>$/){
       my ($paraText, $l, $t, $r, $b);
-      ($paraText, $l, $t, $r, $b, $isSpace) = processPara($text, 0, $isDd);
+      ($paraText, $l, $t, $r, $b, $isSpace) = processPara($text, 0, $isPic);
       $allText .= $paraText;
 
       my @tmpLines = split(/\n/, $paraText);
@@ -285,8 +285,8 @@ sub output {
 
       my $boldFeature = "xmlBold_".$gBold[$id]; # bold feature
       my $italicFeature = "xmlItalic_".$gItalic[$id]; # italic feature
-      my $ddFeature = "xmlDd_".$gDd[$id]; # dd feature
-      my $cellFeature = "xmlCell_".$gCell[$id]; # cell feature
+      my $picFeature = "xmlPic_".$gPic[$id]; # pic feature
+      my $tableFeature = "xmlTable_".$gTable[$id]; # table feature
       my $bulletFeature = "xmlBullet_".$gBullet[$id]; # bullet feature
 
       # space feature
@@ -300,7 +300,7 @@ sub output {
       ## Differential features ##
       my ($alignDiff, $fontSizeDiff, $fontFaceDiff, $fontSFDiff, $fontSFBIDiff, $fontSFBIADiff, $paraDiff) = getDifferentialFeatures($id);
 
-      $output .= " |XML| $locFeature $alignFeature $boldFeature $italicFeature $fontSizeFeature $ddFeature $cellFeature $bulletFeature $alignDiff $fontSizeDiff $fontFaceDiff $fontSFDiff $fontSFBIDiff $fontSFBIADiff $paraDiff\n"; 
+      $output .= " |XML| $locFeature $boldFeature $italicFeature $fontSizeFeature $picFeature $tableFeature $bulletFeature $fontSFBIADiff $paraDiff\n"; # $alignFeature $alignDiff $fontSizeDiff $fontFaceDiff $fontSFDiff $fontSFBIDiff 
     } else {
       $output .= "\n";
     }
@@ -330,7 +330,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $alignDiff .= $gAlign[$id];
   } elsif($gAlign[$id] eq $gAlign[$id-1]){
-    $alignDiff .= "same";
+    $alignDiff .= "continue";
   } else {
     $alignDiff .= $gAlign[$id];
   }
@@ -340,7 +340,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $fontFaceDiff .= "new";
   } elsif($gFontFace[$id] eq $gFontFace[$id-1]){
-    $fontFaceDiff .= "same";
+    $fontFaceDiff .= "continue";
   } else {
     $fontFaceDiff .= "new";
   }
@@ -350,7 +350,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $fontSizeDiff .= "new";
   } elsif($gFontSize[$id] == $gFontSize[$id-1]){
-    $fontSizeDiff .= "same";
+    $fontSizeDiff .= "continue";
   } else {
     $fontSizeDiff .= "new";
   }  
@@ -360,7 +360,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $fontSFDiff .= "new";
   } elsif($gFontSize[$id] == $gFontSize[$id-1] && $gFontFace[$id] eq $gFontFace[$id-1]){
-    $fontSFDiff .= "same";
+    $fontSFDiff .= "continue";
   } else {
     $fontSFDiff .= "new";
   }
@@ -370,7 +370,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $fontSFBIDiff .= "new";
   } elsif($gFontSize[$id] == $gFontSize[$id-1] && $gFontFace[$id] eq $gFontFace[$id-1] && $gBold[$id] eq $gBold[$id-1] && $gItalic[$id] eq $gItalic[$id-1]){
-    $fontSFBIDiff .= "same";
+    $fontSFBIDiff .= "continue";
   } else {
     $fontSFBIDiff .= "new";
   }
@@ -380,7 +380,7 @@ sub getDifferentialFeatures {
   if($id == 0){
     $fontSFBIADiff .= "new";
   } elsif($gFontSize[$id] == $gFontSize[$id-1] && $gFontFace[$id] eq $gFontFace[$id-1] && $gBold[$id] eq $gBold[$id-1] && $gItalic[$id] eq $gItalic[$id-1] && $gAlign[$id] eq $gAlign[$id-1]){
-    $fontSFBIADiff .= "same";
+    $fontSFBIADiff .= "continue";
   } else {
     $fontSFBIADiff .= "new";
   }
@@ -393,7 +393,7 @@ sub getDifferentialFeatures {
     if($gPara[$id] eq "yes"){
       $paraDiff .= "new";
     } else {
-      $paraDiff .= "same";
+      $paraDiff .= "continue";
     }
   }
 
@@ -482,7 +482,7 @@ sub getSpaceLabels {
 
 
 sub processTable {
-  my ($inputText, $isDd) = @_;
+  my ($inputText, $isPic) = @_;
 
   my $isCell = 0; # for table cell object
 
@@ -530,7 +530,7 @@ sub processTable {
     }
     elsif ($line =~ /^<\/cell>$/){ # end cell
       my @paraTexts = ();
-      processCell($text, \@paraTexts, \%tablePos, $isDd);
+      processCell($text, \@paraTexts, \%tablePos, $isPic);
       
       for(my $i = $rowFrom; $i<=$rowTill; $i++){
 	for(my $j = $colFrom; $j<=$colTill; $j++){
@@ -601,14 +601,14 @@ sub processTable {
 	}
 
 	if($isXmlFeature){
-	  # cell feature
-	  push(@gCell, "yes");
+	  # table feature
+	  push(@gTable, "yes");
 
-	  # dd feature
-	  if($isDd){
-	    push(@gDd, "yes");
+	  # pic feature
+	  if($isPic){
+	    push(@gPic, "yes");
 	  } else {
-	    push(@gDd, "no");
+	    push(@gPic, "no");
 	  }
 
 	  push(@gPosHash, $pos); # update xml pos value
@@ -631,7 +631,7 @@ sub processTable {
 }
 
 sub processCell {
-  my ($inputText, $paraTexts, $tablePos, $isDd) = @_;
+  my ($inputText, $paraTexts, $tablePos, $isPic) = @_;
 
   my $text = ""; 
   my @lines = split(/\n/, $inputText);
@@ -643,7 +643,7 @@ sub processCell {
       $isPara = 1;
     }
     elsif ($line =~ /^<\/para>$/){
-      my ($paraText, $l, $t, $r, $b) = processPara($text, 1, $isDd);
+      my ($paraText, $l, $t, $r, $b) = processPara($text, 1, $isPic);
       my @tokens = split(/\n/, $paraText);
 
       foreach my $token (@tokens){
@@ -695,7 +695,7 @@ sub checkFontAttr {
 }
 
 sub processPara {
-  my ($inputText, $isCell, $isDd) = @_;
+  my ($inputText, $isCell, $isPic) = @_;
   
   my $isSpace = 0;
   my $isSpecialSpace = 0;
@@ -939,11 +939,11 @@ sub processPara {
 	  if($pos > $gMaxPos){ $gMaxPos = $pos;	  }
 	  push(@gPosHash, $pos); # pos feature
 	  push(@gAlign, $align); # alignment feature
-	  push(@gCell, "no"); # cell feature
+	  push(@gTable, "no"); # table feature
 
-	  # dd feature
-	  if($isDd){
-	    push(@gDd, "yes");
+	  # pic feature
+	  if($isPic){
+	    push(@gPic, "yes");
 
 	    ### Not assign value ###
 	    push(@gFontSize, -1); # bold feature	  
@@ -953,13 +953,13 @@ sub processPara {
 	    push(@gBullet, "no"); # bullet feature
 #	    push(@gSpace, "none"); # space feature
 	  } else {
-	    push(@gDd, "no");
+	    push(@gPic, "no");
 
 	    updateXMLFontFeature(\%fontSizeHash, \%fontFaceHash);
 	    %fontSizeHash = (); %fontFaceHash = ();
 
 	    updateXMLFeatures($lnBoldCount, $lnItalicCount, $numWords, $isBullet, $space);
-	  } # end if dd
+	  } # end if pic
 	} # end if($isXmlFeature && !$isCell && !$isSpecialSpace)
       }
 

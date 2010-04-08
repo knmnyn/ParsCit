@@ -25,7 +25,7 @@ use lib "$path/../../lib";
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
 
-my $tr2crfppLoc = "$FindBin::Bin/tr2crfpp.pl";
+my $tr2crfppLoc = "$FindBin::Bin/../../bin/sectLabel/tr2crfpp.pl";
 my $crf_learnLoc = "$FindBin::Bin/../../crfpp/crf_learn";
 ### END user customizable section
 

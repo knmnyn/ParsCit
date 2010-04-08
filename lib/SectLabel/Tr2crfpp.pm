@@ -70,8 +70,8 @@ my %config = (
 	      'xmlItalic' => 0,
 	      
 	      # object
-	      'xmlDd' => 0,
-	      'xmlCell' => 0,
+	      'xmlPic' => 0,
+	      'xmlTable' => 0,
 	      'xmlBullet' => 0,
 
 	      # bigram differential features

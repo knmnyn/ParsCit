@@ -44,7 +44,7 @@ Options:
                 -f: CRF++ frequency cut-off (default = 3)
 
 ** E.g.:
-./bin/sectLabel/redo.sectLabel.pl -in ./doc/sectLabel.tagged.txt -dir testRedoDir -n 10 -c ./resources/sectLabel/sectLabel.configXml
+./bin/sectLabel/redo.sectLabel.pl -in ./doc/sectLabelXml.tagged.txt -dir testRedoDir -n 10 -c ./resources/sectLabel/sectLabel.configXml
 
 * Extract features
 ** Usage: tr2crfpp.pl -h   [invokes help]
@@ -55,7 +55,7 @@ Options:
         -c configFile: to specify which feature set to use.
         -out outFile: output file for CRF++ training.
         -template: to output a template used by CRF++ according to the config file.
-        -single: indicate that each input document is in single-line format (e.g., doc/sectLabel.tagged.txt)
+        -single: indicate that each input document is in single-line format (e.g., ./doc/sectLabel.tagged.txt)
 
 =======================================
 [1.2] GenericSect
