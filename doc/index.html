@@ -46,6 +46,7 @@ the system to a web service (used here too).  </P>
 <DL>
   <DT>Reference String:</DT><DD>A text string in the bibliography or reference section of a work, usually at the end of the document that refers to a unique document.  Usually occurs with other reference strings that point to other documents. May also appear as footnotes.</DD>
   <DT>Citation:</DT><DD>A text string (usually explicit) in the document body that points to a corresponding reference string at the end of the document.  Several citations may co-refer to a single reference string.</DD>
+  <DT>Logical Structure:</DT><DD>A hierarchy of visually observable organizational components of a document, such as paragraphs, lists, sections, etc.</DD>
 </DL>
 
 <P>This project deals with the problem of parsing the reference
@@ -138,7 +139,7 @@ submits your text input (after suitable cleaning) to the ParsCit
 service to parse the input file or strings.
 </P>
 
-<P><B>Demo #1: Parsing the first page header and/or citation contexts and the reference strings from a whole text file</B></P>
+<P><B>Demo #1: Parsing the first page header and/or citation contexts and the reference strings as well as the whole document's logical structure from a text file</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
@@ -151,15 +152,18 @@ service to parse the input file or strings.
 </P>
 
 <P>Input Method 3) Paste the whole file here:
+<br/>
 <TEXTAREA ROWS="4" COLS="80" NAME="textfile">
 </TEXTAREA>
 </P>
-<P><INPUT TYPE="CHECKBOX" CHECKED NAME="ParsHed">Parse the header metadata using the following model 
-<SELECT NAME="ParsHedModel">
-  <option VALUE="1">line-level (newer more accurate model)
-  <option VALUE="2">token-level (older)
+<P>Parse the document using the following options
+<SELECT NAME="ParsCitOptions">
+  <option VALUE="1">citations</option>
+  <option VALUE="2">header</option>
+  <option VALUE="3">meta</option>
+  <option VALUE="4">section</option>
+  <option VALUE="5">all</option>
 </SELECT>
-<P><INPUT TYPE="CHECKBOX" CHECKED NAME="ParsCit">Parse the citations and show their contexts</P>
 </P>
 
 <bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
@@ -360,6 +364,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Sat Mar 27 06:24:58 2010
+Fri Apr  9 01:47:08 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>
