@@ -11,7 +11,7 @@ pwd = File.dirname(__FILE__)
 
 name  = "#{Time.now.to_i}-#{Process.pid}"
 
-cmd = "ruby #{@SRC}/test.rb #{ARGV[0]} > #{@TEST_DIR}/#{name}.test"
+cmd = "ruby #{@SRC}/extractFeature.rb #{ARGV[0]} > #{@TEST_DIR}/#{name}.test"
 system(cmd)
 
 cmd = "#{@CRFPP}/crf_test -m #{@DATA}/genericSect.model  #{@TEST_DIR}/#{name}.test >  #{@TEST_DIR}/#{name}.out"

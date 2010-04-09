@@ -90,7 +90,7 @@ sub processFile{
     else {
       chomp;
       my $line = $_;
-      while ($line =~ /<$prefix(\w+?)> (.*?) \+L\+ <\/$prefix(\w+?)>/g){ # match <tag> .* </tag>
+      while ($line =~ /<$prefix([\w\-]+?)> (.*?) \+L\+ <\/$prefix([\w\-]+?)>/g){ # match <tag> .* </tag>
 	if($1 ne $3){
 	  die "Die in single2multi.pl $lineId: begin tag \"$1\" ne end tag \"$3\"\n";
 	} else {

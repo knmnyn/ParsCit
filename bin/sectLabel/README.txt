@@ -60,21 +60,24 @@ Options:
 
 =======================================
 [1.2] GenericSect
-* Create training feature file from labeled data
-** Usage: ruby train.rb dirPath
-   where dirPath consists of .hea and .ahea files - .hea files list the actual
-   section headers from documents and .hea files list the manually assigned
-   generic section headers
-
-* Create testing feature file
-** Usage: ruby test.rb filePath
-   where filePath is a file which lists the actual headers of a document
-   (automatically extracted by other module of  SectLabel)
+* Create feature file 
+** Usage: ruby extractFeature.rb filePath
+   filePath: path to the labeled data file which lists the actual section
+   headers and their corressponding manually assigned generic section headers
+   (if exists)
+   syntax: generic_header ||| actual_header
 
 * Generate generic section headers for a document
 ** Usage: ruby genericSectExtract.rb filePath
    where filePath is a file which lists the actual headers of a document
    (automaticaly extracted by other module of SectLabel)
+
+
+* Perform stratified cross-validation
+** Usage: ruby crossValidation.rb dataFile numFold
+   Note that data  file has the format as in doc/genericSect.tagged.txt
+
+
 ==============================================================================
 [3] Known issues
 

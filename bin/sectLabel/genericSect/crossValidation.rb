@@ -1,77 +1,81 @@
 #!/usr/bin/env ruby
 require 'find'
-@CRFPP = "/home/nguyentd/sectionHeader/crfpp"
-@RESOURCES = "/home/nguyentd/sectionHeader/crf_resources"
-@DATA = "/home/nguyentd/sectionHeader/data"
 
-dirPath  = ARGV[0]
+pwd = File.dirname(__FILE__)
+
+@CRFPP  = "#{pwd}/../../../crfpp"
+@RESOURCES   = "#{pwd}/../../../crfpp/traindata/"
+@TEST_DIR = "#{pwd}/run"
+@CONLLEVAL = "#{pwd}/../../conlleval.pl"
+if ARGV.length == 2
+dataFile = ARGV[0]
 numFold  = ARGV[1].to_i
-files    = Array.new
-
-#remove files from destPath
-cmd = "rm -rf #{@DATA}/*"
-system(cmd)
-
-Find.find("#{dirPath}") do |path|
-	if FileTest.directory?(path)
-		next		
-	else
-		endIndex   = path.index(".")  - 1
-		name	   = path[0..endIndex]
-		if !files.include?(name)
-			files << name
-		end
-	end
+f = File.open("#{dataFile}")
+contentArray = Array.new
+while !f.eof do
+	l = f.gets.chomp
+	contentArray << l
 end
+f.close
 
-index = 0
-numFiles = files.length/numFold
-while index < numFold do
-	cmd = "mkdir #{@DATA}/train_#{index}"
-	system(cmd)
-	cmd = "mkdir #{@DATA}/test_#{index}"
-	system(cmd)
-	startIndex = index*numFiles
-	endIndex   = startIndex + numFiles - 1
-	if index == (numFold - 1)
-		endIndex = files.length - 1
+numInstances = (contentArray.length/numFold).to_i
+
+iFold = 1
+while iFold <= numFold do
+	startIndex = (iFold - 1)*numInstances
+	endIndex = iFold*numInstances - 1
+	if iFold == numFold
+		endIndex = contentArray.length - 1
 	end
-	
-	#copy files to coressponding folder
+
 	i = 0
-	while i < files.length do
-		if startIndex <= i and i <= endIndex
-			cmd = "cp #{files.at(i)}.* #{@DATA}/test_#{index}/"
-			system(cmd)
+	f = File.open("#{@TEST_DIR}/gs_train.txt","w")
+	g = File.open("#{@TEST_DIR}/gs_test.txt","w")
+	while i < contentArray.length do
+		str = contentArray[i]
+		if i >= startIndex and i <= endIndex
+			g.write("#{str}\n")
 		else
-			cmd = "cp #{files.at(i)}.* #{@DATA}/train_#{index}/"
-			system(cmd)
+			f.write("#{str}\n")
 		end
 		i = i + 1
 	end
+	f.close
+	g.close
 
-	#create train and test file
-	cmd = "ruby createFeature.rb #{@DATA}/train_#{index}/ > #{@DATA}/#{index}.train"
+	cmd = "#{pwd}/../single2multi.pl -in #{@TEST_DIR}/gs_train.txt -out #{@TEST_DIR}/gs_train_#{iFold}.txt"
+	puts "#{cmd}"
 	system(cmd)
-	cmd = "ruby createFeature.rb #{@DATA}/test_#{index}/ > #{@DATA}/#{index}.test"
+	cmd = "#{pwd}/../single2multi.pl -in #{@TEST_DIR}/gs_test.txt -out #{@TEST_DIR}/gs_test_#{iFold}.txt"
+	system(cmd)
+	
+	#create train and test file
+	cmd = "ruby extractFeature.rb #{@TEST_DIR}/gs_train_#{iFold}.txt  > #{@TEST_DIR}/gs_train_#{iFold}.train "
+	system(cmd)
+	cmd = "ruby extractFeature.rb #{@TEST_DIR}/gs_test_#{iFold}.txt > #{@TEST_DIR}/gs_test_#{iFold}.test"
 	system(cmd)
 
 	#run crf
 
-	cmd = "#{@CRFPP}/crf_learn #{@RESOURCES}/sectionHeader.template #{@DATA}/#{index}.train #{@DATA}/#{index}.model"
+	cmd = "#{@CRFPP}/crf_learn #{@RESOURCES}/genericSect.template #{@TEST_DIR}/gs_train_#{iFold}.train #{@TEST_DIR}/gs_train_#{iFold}.model"
 	system(cmd)
 
-	cmd = "#{@CRFPP}/crf_test  -m #{@DATA}/#{index}.model #{@DATA}/#{index}.test > #{@DATA}/#{index}.out"
+	cmd = "#{@CRFPP}/crf_test  -m #{@TEST_DIR}/gs_train_#{iFold}.model #{@TEST_DIR}/gs_test_#{iFold}.test > #{@TEST_DIR}/gs_test_#{iFold}.out"
 	system(cmd)
 
-	cmd = "cat #{@DATA}/#{index}.out >> #{@DATA}/#{numFold}_result.txt"
+	cmd = "cat #{@TEST_DIR}/gs_test_#{iFold}.out >> #{@TEST_DIR}/gs_#{numFold}_result.txt"
 	system(cmd)
 
-
-	index = index + 1
+	iFold = iFold + 1
 end
+cmd = "#{@CONLLEVAL} -r  -d \"\t\" <  #{@TEST_DIR}/gs_#{numFold}_result.txt"
+puts "#{cmd}"
+system(cmd)
 
-#run evaluation 
-#puts "Evaluating ..."
-#cmd = "#{@CONLLEVAL} -r -c -d \"  \" < #{@DATA}/#{numFold}_result.txt 1>evaluation 2>evaluation"
-#system(cmd)
+cmd = "rm #{@TEST_DIR}/gs_*"
+system(cmd)
+
+else
+	puts "Usage ruby crossValidation.rb dataFile numFold"
+
+end
