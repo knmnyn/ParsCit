@@ -12,7 +12,8 @@ CONTENTS
 * tr2crfpp.pl: Generate SectLabel features for CRF++
 * single2multi.pl: Convert SectLabel training file (e.g. doc/sectLabel.tagged.txt) from single- to multi-line format. This script is called by tr2crfpp.pl
 
-* genericSectExtract.rb: 
+* genericSectExtract.rb: given a list of section headers of a scientific document
+  in an input file, assign generic headers for the section headers.
 * genericSect/
 
 ==============================================================================
@@ -59,7 +60,21 @@ Options:
 
 =======================================
 [1.2] GenericSect
+* Create training feature file from labeled data
+** Usage: ruby train.rb dirPath
+   where dirPath consists of .hea and .ahea files - .hea files list the actual
+   section headers from documents and .hea files list the manually assigned
+   generic section headers
 
+* Create testing feature file
+** Usage: ruby test.rb filePath
+   where filePath is a file which lists the actual headers of a document
+   (automatically extracted by other module of  SectLabel)
+
+* Generate generic section headers for a document
+** Usage: ruby genericSectExtract.rb filePath
+   where filePath is a file which lists the actual headers of a document
+   (automaticaly extracted by other module of SectLabel)
 ==============================================================================
 [3] Known issues
 
