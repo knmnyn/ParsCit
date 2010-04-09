@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
+#Author Nguyen Thuy Dung
+#Create training file from labeled data
+#Run: ruby train.rb dirPath
+#dirPath contains .hea and .ahea file
+#Each .hea file lists headers of document, .ahea lists the corressponding manual assigned headers
 require 'find'
+#get relative pos in ingeter, values range from 0-10
 def getPos (val)
 	if val == 0
 		return 0
@@ -13,11 +19,12 @@ def getPos (val)
 	end
 	return -1
 end
-
+#get relative pos in integer, values range from 0-10
 def getIndex(val)
 	return (val*11).to_i
 end
 
+#process generic headers: "related work" becomes "related_work"
 def getHeader(str)
 	str = str.strip
 	while str.index(" ") != nil do
@@ -25,8 +32,10 @@ def getHeader(str)
 	end
 	return str.downcase
 end
+
 dirPath   = ARGV[0]
 files	  = Array.new
+#get stem in input folder
 Find.find("#{dirPath}") do |path|
 	if FileTest.directory?(path)
 		next		

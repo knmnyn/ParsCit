@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 require 'find'
-
+#Author Nguyen Thuy Dung
+#Create training file from labeled data
+#Run: ruby train.rb filePath
+#filePath is the input file which lists all headers of a document
 def getPos (val)
 	if val == 0
 		return 0
@@ -26,21 +29,6 @@ def getHeader(str)
 	end
 	return str.downcase
 end
-=begin
-dirPath   = ARGV[0]
-files	  = Array.new
-Find.find("#{dirPath}") do |path|
-	if FileTest.directory?(path)
-		next		
-	else
-		endIndex   = path.rindex(".")  - 1
-		name	   = path[0..endIndex]
-		if !files.include?(name)
-			files << name
-		end
-	end
-end
-=end
 file = ARGV[0]
 #for file in files do
 	f = File.open("#{file}")
@@ -83,4 +71,3 @@ file = ARGV[0]
 		puts "index=#{index} pos=#{pos}/10 firstWord=#{firstWord} secondWord=#{secondWord}  currHeader=#{currHeader} ?"
 		index = index + 1
 	end
-#end
