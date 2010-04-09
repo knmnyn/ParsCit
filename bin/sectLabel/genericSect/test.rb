@@ -18,9 +18,6 @@ def getPos (val)
 	return -1
 end
 
-def getIndex(val)
-	return (val*11).to_i
-end
 
 def getHeader(str)
 	str = str.strip
@@ -41,7 +38,11 @@ file = ARGV[0]
 	#process feature for each file
 	index = 0
 	while index < hea_array.length do
-		pos = getPos(index*1.0/(hea_array.length - 1))	
+		if hea_array.length == 1
+			pos = 0
+		else
+			pos = getPos(index*1.0/(hea_array.length - 1))	
+		end
 		currHeader = getHeader(hea_array.at(index))
 		tmp = hea_array.at(index).split(" ")
 		len = tmp.length
@@ -67,7 +68,6 @@ file = ARGV[0]
 			end
 		end
 
-		tmpIndex = getIndex(index*1.0/(hea_array.length - 1))
 		puts "index=#{index} pos=#{pos}/10 firstWord=#{firstWord} secondWord=#{secondWord}  currHeader=#{currHeader} ?"
 		index = index + 1
 	end

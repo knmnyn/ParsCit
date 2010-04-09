@@ -19,10 +19,6 @@ def getPos (val)
 	end
 	return -1
 end
-#get relative pos in integer, values range from 0-10
-def getIndex(val)
-	return (val*11).to_i
-end
 
 #process generic headers: "related work" becomes "related_work"
 def getHeader(str)
@@ -66,7 +62,11 @@ for file in files do
 	#process feature for each file
 	index = 0
 	while index < hea_array.length do
-		pos = getPos(index*1.0/(hea_array.length - 1))	
+		if hea_array.length == 1
+			pos = 0
+		else
+			pos = getPos(index*1.0/(hea_array.length - 1))	
+		end
 		currHeader = getHeader(hea_array.at(index))
 		assignedHeader = getHeader(ahea_array.at(index))
 		tmp = hea_array.at(index).split(" ")
@@ -79,7 +79,6 @@ for file in files do
 		if len >= 2
 			secondWord = tmp.at(1)
 		end
-		tmpIndex = getIndex(index*1.0/(hea_array.length - 1))
 		puts "index=#{index} pos=#{pos}/10 firstWord=#{firstWord} secondWord=#{secondWord}  currHeader=#{currHeader} #{assignedHeader}"
 		index = index + 1
 	end
