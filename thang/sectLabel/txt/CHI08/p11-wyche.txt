@@ -1,0 +1,996 @@
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Re-Placing Faith: Reconsidering the Secular-Religious
+Use Divide in the United States and Kenya
+Susan P. Wyche
+Georgia Institute of Technology
+85 Fifth St. NW
+Atlanta, GA 30308 USA
+spwyche@cc.gatech.edu
+Paul M. Aoki
+Intel Research
+2150 Shattuck Ave., Ste. 1300
+Berkeley, CA 94704 USA
+aoki@acm.org
+Rebecca E. Grinter
+Georgia Institute of Technology
+85 Fifth St. NW
+Atlanta, GA 30308 USA
+beki@cc.gatech.edu
+ABSTRACT
+In this paper, we report on design-oriented fieldwork and 
+design research conducted over a six-month period in urban 
+centers in the United States and Kenya. The contributions 
+of this work for the CHI/CSCW community are empirical 
+and methodological. First, we describe how recent design 
+discourse around “designing technology for religion” 
+creates an artificial distinction between instrumental and 
+religious ICT use, particularly in developing regions. As 
+illustrative examples, we relate three themes developed in 
+the course of our fieldwork, which we term mindfulness, 
+watchfulness, and embeddedness, to both “secular” and 
+“religious” aspects of life in the communities studied. 
+Second, we make a methodological contribution by 
+describing how we used design sketches of speculative 
+design concepts to extend and complement our fieldwork. 
+By producing these sketches and soliciting feedback, we 
+elicited additional data about how participants viewed the 
+relationship between religion and ICT and prompted self- 
+reflection on our own ideas.
+Author Keywords
+Domestic technology, religious technology, sketching
+ACM Classification Keywords
+H5.m. Information interfaces and presentation (e.g., HCI): 
+Miscellaneous.
+INTRODUCTION
+A recent flurry of SIGCHI activity – keynotes, workshops 
+and sessions at CHI; a new column in interactions – signals 
+a new research focus on design for developing regions. But 
+what does it mean for the HCI community to engage with 
+this agenda? It is not simply design for “international 
+users,” nor is it simply design for “development,” with its
+Permission to make digital or hard copies of all or part of this work for 
+personal or classroom use is granted without fee provided that copies are 
+not made or distributed for profit or commercial advantage and that copies 
+bear this notice and the full citation on the first page. To copy otherwise, 
+or republish, to post on servers or to redistribute to lists, requires prior 
+specific permission and/or a fee.
+CHI 2008, April 5–10, 2008, Florence, Italy.
+Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00. 
+emphasis on producing “appropriate” and “sustainable” 
+technologies addressing goals such as poverty reduction. In 
+both cases, pressure for immediate relevance tends to run 
+counter to the usual strengths of academic research: a long 
+time-scale, a tolerance for exploration and speculation, and 
+a strong ethos of theoretical and empirical grounding. 
+However, there are opportunities for HCI research that do 
+exploit its natural depth and time-scale. An example is 
+research on interface principles for computer users with 
+limited literacy (e.g., [25,28]), a widely-acknowledged 
+challenge for the adoption of information and 
+communication technology (ICT) in developing regions.
+We have chosen to examine the relationship between the 
+design and use of ICT and a very different, but equally oft- 
+remarked, societal trend in developing regions: the 
+expansion of popular religion. In many countries, including 
+key “emerging markets” such as Brazil, Nigeria and Kenya, 
+the recent growth of revivalist forms of world religions 
+(such as charismatic Christianity [29]) is challenging the 
+Western idea that societies inevitably secularize over time 
+[7]. The significance of this trend can be seen in estimates 
+that by 2050 only about one-fifth of the world’s three 
+billion Christians will be non-Hispanic Caucasians [4].
+We are conducting a multi-year, multi-sited project 
+involving design fieldwork in North America, Sub-Saharan 
+Africa, and Latin America. The project focuses on the 
+consumption and appropriation of ICT by evangelical and 
+revivalist Christians, particularly those attending the kind of 
+large, inclusive churches that that are commonly called 
+megachurches1 in the United States (U.S.) [36]. 
+Furthermore, we wanted to understand how users’ faith 
+could inform and inspire concepts for speculative ICT 
+devices. To be clear, the project is not aimed at producing 
+“ICT for Christians.” Rather, taking for granted the 
+importance of religious growth trends, our goal is to 
+understand how faith-based worldviews affect adoption and 
+use of ICT and how this is relevant in design. Users’ 
+worldviews are of profound importance for designers, as 
+the interface metaphors used, the worldview implicit in a 
+system’s “usage model,” and the language used to describe
+1 Megachurches are typically defined as those with 2000 or more regular 
+attendees [36,37] and often emphasize rapid congregation growth.
+11
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+features can either work for or against a system’s appeal 
+and usability. Furthermore, designers’ understanding of 
+users’ worldviews affects the degree to which users can 
+meaningfully participate in the design process.
+In this paper, we report on design-oriented research 
+conducted over a six-month period in urban centers in the 
+U.S. and Kenya. We begin by discussing previous research 
+on religion and ICT, followed by a description of our field 
+sites, methods, and participants. We then turn to our 
+empirical contribution, a discussion of three themes 
+developed in our fieldwork – mindfulness, watchfulness, 
+and embeddedness – that highlights how secular and 
+religious aspects of life are intertwined, particularly in 
+Kenya. We then turn to a design contribution, illustrating 
+how sketches of speculative ICT designs can be used to 
+extend fieldwork by surfacing more data about the 
+relationship between technology and religion.
+BACKGROUND: TECHNOLOGY AND RELIGION
+Scholars in anthropology and sociology frequently discuss 
+religion, yet it is a topic with which ICT designers rarely 
+engage directly. This is surprising given its importance to 
+billions of people worldwide. Like Bell [5], we speculate 
+that this lack of engagement may be due to an assumption 
+that technology and religion must live in constant tension, 
+each precluding a complete fulfillment of the other. 
+Recently, however, religion has arisen more frequently in 
+discussions of “international” design (e.g., [23]) and more 
+broadly in HCI and CSCW discourse (e.g., [26]. Within 
+these communities’ scope of concern, we can identify three 
+main threads of work:
+Online spirituality. Perhaps the most widely known of the 
+three threads, this focuses on the impact of virtuality and 
+mediated communication on spiritual life. Studies in this 
+genre typically focus on religious practice in online 
+community settings [9,30]. A common finding in such 
+studies is that of leveling, a flattening of organizational 
+hierarchies that in turn raises questions about control [20]. 
+These studies also point to the widespread use of 
+technologies by laity, e.g., participating in computer- 
+mediated prayer, searching for places to attend services, and 
+learning about one’s faith [9,30].
+Design exercises. Other designers and researchers have 
+explored how religious practices can motivate novel design 
+ideas. Broadly, these explorations fall into three categories. 
+First, there are applications of user-centered design 
+techniques to religious tasks. Examples from the HCI 
+literature include AltarNation, a system that allows 
+physically-isolated individuals to pray and meditate with 
+others [17], and Gospel Spectrum, an interactive Bible 
+visualization tool [11]. Examples of products include the 
+Ilkone i800 Islamic mobile phone [1] and the eQuran e- 
+book reader [2]. Second, there are techno-aesthetic 
+explorations, such as Soner Ozenc’s illuminated prayer rug 
+that glows more brightly as it is turned towards Mecca [1]. 
+Third, design has been used to critique and comment on the
+intersection of religion and material culture. An example of 
+this is the iBelieve [1], a plastic cap that turns an iPod 
+music player into a crucifix.
+Studies of technological appropriation. Most recently, HCI 
+researchers have begun to examine appropriation of 
+technology in different religious communities. Wyche et 
+al. [39] studied ministers in Protestant Christian churches in 
+the Southeastern U.S. Motivated by reports of increasing 
+technology use within Protestant Christian ministry 
+(particularly in megachurches), their study highlighted how 
+pastors use technologies to support administrative and 
+spiritual practices. Woodruff et al. [38] studied Orthodox 
+Jewish families who employed home automation 
+technology to facilitate observation of the Sabbath. Thus 
+far, design praxis has been addressed only in the form of 
+general design implications.
+We build on these threads of prior research and share a 
+focus on personal and social religious practice. However, 
+we have the additional goals of understanding how practice 
+spans the secular-religious divide (particularly in 
+developing regions) and illustrating how to bring design 
+research into the fieldwork process.
+STUDY: SITES, METHODS AND PARTICIPANTS
+Site Selection
+Our field sites, Nairobi and Atlanta, are urban centers with 
+a number of relevant similarities and connections. Both are 
+regional commercial centers (Atlanta within the 
+Southeastern U.S., Nairobi within eastern Sub-Saharan 
+Africa) and have comparable metropolitan populations. 
+They are also centers of intense Christian organizational 
+activity, with churches always forming, growing, and 
+failing. Finally, Atlanta is home to a large Kenyan migrant 
+community that facilitated participant recruiting in Nairobi.
+Our work in Atlanta is an extension of our prior research on 
+ICT use in megachurches [39,40]. Megachurches are noted 
+as aggressive adopters of ICT. While only a few percent of 
+the U.S. population worships at a true megachurch with 
+2000+ attendees, the trends they shape extend throughout a 
+highly-concentrated religious landscape (45% of U.S. 
+Protestants worship at the largest 10% of churches [37]). 
+The prior Atlanta research provides a foundation for 
+thinking about ICT use among Christian laity (i.e., those 
+members of the congregation who are not part of the 
+religious organization) and, combined with the new 
+fieldwork, serves as context for comparative research.
+Our main interest in Nairobi as a site was not, however, its 
+linkage to Atlanta, but the way in which Kenya represents a 
+kind of “developing world” Christianity. First, as Table 1 
+suggests, Christianity (and particularly renewalist 
+Christianity) has a remarkable strength and pervasive 
+presence in Kenyan public life. The term renewalist refers 
+to Charismatic and Pentecostal Christians, who can be 
+broadly distinguished from the evangelical Christians we 
+studied in Atlanta in terms of affiliation and practices. For
+12
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+% of all respondents who...	U.S.	Kenya
+Identify as Christian	78	90
+Identify as renewalist	23	56
+Attend church at least once a week	44	80
+Attend church more than once a week	16	33
+Table 1. Selected religious indicators (from [29]).
+example, unlike evangelicals, Pentecostals tend to affiliate 
+with specific established denominations such as the 
+Assemblies of God. Charismatics, while tending toward 
+looser denominational affiliations than Pentecostals, share 
+worship practices such as speaking in tongues and receiving 
+of divine healings [18,29]. Despite these differences, 
+renewalist and evangelical Christians share a strong 
+commonality in their intense belief that the Bible is the 
+word of God and should be interpreted literally. Moreover, 
+it is this vibrant form of Christianity that is growing rapidly 
+in developing regions and in Kenya (though Islam is often 
+more prevalent elsewhere) [18].
+Second, to the degree that one accepts an essentialist notion 
+of “African traditional religions” (a set of cultural and 
+spiritual beliefs indigenous to the African continent), 
+contested by Western historians [31] but often alluded-to by 
+our Kenyan informants and African scholars (e.g., [8,27]), 
+it can be claimed that received traditional culture ties 
+together religion and society:
+Religion permeates into all the departments of life so fully that 
+it is not easy or possible always to isolate it. A study of these 
+religious systems is, therefore, ultimately a study of the 
+peoples themselves ... [T]o be without religion amounts to a 
+self-excommunication from the entire life of society, and 
+African peoples do not know how to exist without religion. 
+([24], pp. 1-2)
+Thus, given our interest in understanding how religion in 
+developing regions shapes how believers view and adopt 
+ICT, Kenya provided a compelling site.
+Methods and Participants
+Data collection took place in two phases over a six-month 
+period. First, we focused on understanding U.S. 
+megachurches and their laity to get a sense for how 
+parishioners were using technology; to become familiar 
+with the religious terminology used by this population; and 
+to explore how religion influences ICT adoption and use in 
+a society with which we were familiar. Second, we 
+undertook a six-week program of design-oriented fieldwork 
+in Nairobi, Kenya.
+In Atlanta we conducted semi-structured, at-home 
+interviews with 16 individuals who attended area 
+megachurches. We recruited megachurch laity, because 
+like renewalist Christians, they tend to have a strong and 
+vibrant faith, attend church and/or church related activities 
+weekly, and are likely to subscribe to a literal interpretation 
+of the Bible [18,36]. Participants were recruited using 
+community email lists, personal contacts, and flyers
+distributed at churches in the metro-Atlanta area. Almost 
+all of the primary interviewees (11 women and 5 men) were 
+adults in a variety of life-stages (from recent college 
+graduate to retirees) and occupations. All attended 
+megachurches and self-identified as Christians, half 
+identifying with a specific denomination (e.g., Presbyterian, 
+Baptist, etc.). Interviews were complemented by 
+observational visits to Sunday morning services at ten 
+metro-Atlanta megachurches.
+In Nairobi, we conducted semi-structured, at-home 
+interviews in 10 middle- and upper-middle-class 
+households. We recruited these participants by using 
+personal contacts that we had developed within the large 
+Kenyan migrant community in Atlanta who introduced us 
+to people in Nairobi. We later employed a snowball 
+sampling technique to achieve a more diverse sample. 
+Households were distributed widely throughout the greater 
+Nairobi area, with some living an hour outside of the city. 
+The interviewees (9 men and 7 women – we interviewed 
+both husband and wife in 6 homes) were married working 
+adults holding a variety of office occupations and raising 
+school-age children. All participants self-identified as 
+Christians and seven identified with a specific 
+denomination. To complement the interviews we spent the 
+night at a participant’s home, attended various social 
+gatherings, and visited Sunday morning services at five of 
+Nairobi’s largest churches. Furthermore to learn about the 
+organizational context of religious life in Kenya, eight 
+office interviews were conducted with pastors at some of 
+Nairobi’s largest Protestant churches.
+In both groups, interviews typically lasted one to one-and-
+a-half hours and included a tour of relevant parts of the 
+home or office. All participants were asked about how their 
+faith and religious activities interact with their daily life and 
+technology use. To gain additional insights from a design 
+perspective, we used pre-prepared photo-cards to elicit 
+stories about faith and technology use from our Kenyan 
+participants [15].
+The corpus on which our findings are based includes 35 
+transcribed interviews, 70 pages of fieldnotes and over 
+1000 photographs. Standard techniques for extracting 
+analytic points, thematic clustering, and intermediate 
+memo-writing were used in the course of the analysis. Data 
+triangulation occurred across researchers, across media 
+(e.g., fieldnotes, transcripts, artifacts) and across sites (U.S. 
+and Kenya). We also made use of design sketching in our 
+analysis (we will return to this later in the paper).
+FINDINGS
+In this section we discuss the findings from our data 
+analysis. Broadly, we describe the consistencies within our 
+two groups that are relevant to design. However, within the 
+set of similarities were differences that were largely due to 
+infrastructural disparities, by which we mean the lack of 
+access to and availability of ICT and the infrastructure 
+required to operate them (i.e., telephony and power) that
+13
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+became apparent when we compared the results of our 
+research between the two groups.
+It was the differences that emerged during analysis that 
+were the impetus for sketching design ideas (which we 
+describe later in the paper). The sketched technology 
+concepts are examples of developing technology grounded 
+in daily life, with an emphasis on understanding faith’s role 
+in it. Thus, they demonstrate how ICT can be designed for 
+both instrumental and religious purposes.
+In the remainder of this section, we introduce three themes 
+that represent some ways in which people made decisions 
+about adoption and use of ICT based on religious criteria: 
+mindfulness, watchfulness, and embeddedness. These 
+themes are by no means intended to be an exhaustive 
+taxonomy of Atlanta or Nairobi life or even of our data. 
+However, they do represent a clustering of some specific 
+design-relevant aspects of Christian life that emerged from 
+our fieldwork.
+Mindfulness of faith
+During our interviews, we asked how faith influences 
+participants’ lives. All of our participants in Atlanta and 
+Nairobi talked about continuing to grow and learn about the 
+teachings in the Bible and coupled that to wanting to be 
+mindful of their faith throughout the day. Mindfulness, or a 
+person becoming aware of their thoughts and actions in the 
+present moment, is an important element in many religious 
+faiths [21]. When asked if they used technology to stay 
+focused on their faith, participants answered with stories 
+about using computers, software, and mobile phones to do 
+so. They also discussed a broader range of technologies – 
+such as pen and paper notes – and the role played by these 
+technologies in focusing them on their Christian faith.
+Individuals in Atlanta and Nairobi both articulated how ICT 
+was interwoven with mindfulness. For example, some used 
+email or mobile text messaging (SMS) services to receive 
+daily Bible-based devotionals. Others described how 
+scheduling software helped them structure their days 
+around faith-related activities (e.g., morning prayers, Bible 
+study, and attending church on Sundays).
+Another widespread practice was using technology to send 
+and receive prayer requests – solicitations to and from 
+others to pray. Kenyans were more likely to use SMS for 
+this, whereas Americans would rely on email or check their 
+church’s website (many posted weekly lists of parishioners 
+in need of prayer online). Both Atlanta and Nairobi 
+participants spoke of the centrality of prayer to their faith; it 
+directly reminded them of God’s impact in peoples’ lives, 
+including their own, particularly during times of crisis. The 
+following represents many participants’ thoughts about 
+mindfulness and prayer:
+One thing that I found very – very helpful to our lives as a 
+family and to me as a person is the issue of prayer. I’ve 
+prayed for things and I’ve seen them come true. You have a
+problem and you don’t know how to solve it. But I find that 
+when I pray I find a solution.
+– Nairobi churchgoer
+One of the most striking consistencies found among our 
+participants was the desire to recall their Sunday worship 
+experience during the following week. Parishioners in 
+Atlanta and Nairobi were particularly interested in 
+remembering key phrases of sermons that resonated with 
+them so that they could apply it to life situations away from 
+the church. This is how one Atlanta Christian described it:
+...I mean, I’m learning so much, I mean, it’s something that 
+you can go through at home, you know, try to remind yourself 
+because it’s easy to get it when you’re there but it’s not easy to 
+actively keep it in your memory and to keep applying it.
+– Atlanta churchgoer
+Note-taking was a strategy employed by more than half our 
+participants to help them “actively keep” what was heard on 
+Sunday in their memories (Figure 1). Participants talked 
+about note-taking in interviews and during church services 
+we consistently observed parishioners balancing spiral- 
+bound notebooks and Bibles on their laps, attentively 
+listening to what was being said and jotting it down. When 
+we toured participants’ homes, most showed us stacks of 
+notebooks and binders filled with notes from services. 
+They took notes because it focused them on what was being 
+taught in church and insured what was said on Sunday 
+“stuck with them” throughout the week.
+They always remind me. You know, like I said, “Out of sight, 
+out of mind?” I write things in notebooks and I look through 
+them from time to time. So at least I’ll remember what was 
+being said. And a lot of things I just integrate into my daily 
+life.
+– Atlanta churchgoer
+You can see these [notebooks] are for personal study. This is 
+where I have taken from the church; you can see a 
+continuation from this service. I normally write the day, like 
+this. I write the days, also the person preaching.
+– Nairobi churchgoer
+Though the practice of taking notes during services was 
+consistent, there were differences between Nairobi and 
+Atlanta participants that can be attributed to differences in 
+availability of Internet access. In many cases, Atlanta 
+participants used the Internet to supplement their note- 
+taking activities. Their churches had websites that offered
+Figure 1. Participant notebooks in Nairobi and Atlanta.
+14
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+outlines, slide presentations, and videos of the sermons that 
+parishioners can watch at their convenience.
+I use a lot of... recently I’ve been going online to different 
+gateway Bible-study places and pulling down Bible studies off 
+of there. And then just sometimes instead of writing in a 
+journal, I’ll type them up on a computer, save them in a file.
+– Atlanta churchgoer
+Indeed, all Atlanta participants had Internet access at home 
+and reported relying on it to help them “grow in their faith.” 
+Examples included watching sermons online, praying with 
+family using voice over IP (VoIP) services, and looking up 
+Bible verses. In contrast, none of our Nairobi participants 
+reported having Internet access at home. Reasons for this 
+included high service cost, poor connectivity, and lack of 
+personal computers. With fewer supplemental resources 
+available, it was important to be more thorough about 
+capturing elements of the services in notes while at church.
+Whether it was using a sticky note to remind them of a 
+friend in need of prayer, reading daily devotionals online, 
+or studying a ledger filled with notes, it was clear that 
+participants used technologies that have typically been 
+associated with secular practice for more than strictly 
+instrumental purposes. Interactions with these artifacts 
+reminded them that their daily activities were guided by 
+something larger than themselves – their Christian faith.
+Watchfulness
+Many aspects of Kenyan society appear to be strongly 
+oriented towards community norms. Consider security. In 
+the middle-class homes we visited, security measures in the 
+form of private watchmen, gates, walls and reinforced doors 
+were universal; this is not surprising given the extreme 
+economic inequality in Nairobi. However, what did 
+surprise us was how the security measures seemed to 
+operate. Private watchmen were unarmed; alarms were 
+rarely evident; walls seemed surmountable with effort. 
+This in spite of the fact that most, if not all, middle-class 
+developments are adjacent to a shantytown. For example, 
+in Figure 2, the vast slum of Kibera is just over a low wall 
+from one of our participant’s house. Clearly, it is not the 
+physical security measures themselves that are deterring 
+crime as much as the social controls they represent [14], 
+particularly in the form of the unarmed watchmen.
+We saw a similar kind of watchfulness seemingly being 
+applied to the consumption of media. During tours of 
+participants’ homes we asked them to talk about their 
+computers, radios, media players (e.g., DVD or VCR) and 
+televisions. Family members in seven of the Nairobi homes 
+showed us collections of African gospel CDs and Christian 
+videos and spoke of keeping their TVs tuned to the news 
+and “Family TV” – the country’s lone Christian-oriented 
+channel. Our Atlanta participants also showed us media 
+collections, but these were more likely to be predominately 
+secular rather than religious in content. Given the increased 
+access to media content facilitated by Internet access at 
+home, our Atlanta participants were more concerned with
+avoiding online sites that reported erroneous information 
+about their faith or displayed content that opposed their 
+values. Whether through the TV or computer, it was 
+common for participants in both Atlanta and Nairobi to note 
+that secular media contradicted key tenets of their faith and 
+that they worked to avoid it.
+I just stopped listening to anything else. I just got so tired of 
+the, you know, the references to sexuality and stuff like that, 
+that I just did not believe in, that I just started listening to 
+Christian all the time. And they have a lot of the Christian 
+music that I hear on the radio in the contemporary worship.
+– Atlanta churchgoer
+It means at some point or another you’re going to have to, 
+like, evaluate yourself and come to some major decisions. Are 
+you following God or are you not following God? Are you 
+obeying God or are you disobeying God? You’ll have to make 
+those decisions sooner or later when you listen to the station, 
+you know. With secular stations you don’t have to make that 
+choice. You can just hide in your own cocoon.
+– Nairobi churchgoer
+Despite this broadly shared characteristic, we found 
+differences in how U.S. and Kenyan participants wanted to 
+monitor access to media. Like security, Kenyans were 
+interested in relying on social controls for enforcement, 
+whereas Americans often used physical or technological 
+controls. For example, a U.S. college-aged Christian male 
+described downloading a program that monitored his 
+Internet usage:
+There’s one thing. It’s called the XXX Church. And they 
+have this accountability kind of stuff. They have this piece of 
+software that you download that pretty much keeps track of 
+what websites you look at. And if there are any questionable 
+kind of ones, because that is something I’ve struggled with.
+– Atlanta churchgoer
+In contrast, rather than using technology, Kenyans 
+monitored media consumption themselves, and were
+Figure 2. Security in estate adjacent to Vibera.
+15
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+especially vocal about instilling the appropriate values in 
+their children so they could make their own decisions 
+regarding the programs they watched. This quote from a 
+mother of two reflected what other Kenyans said:
+When things like wrestling come on [the children] know to 
+switch-off and monitor themselves, they switch off by 
+themselves because we have taught them this thing is not 
+right. They will not watch – when people start showing their 
+ways of pornography, they will switch off the TV. They know 
+that.
+– Nairobi churchgoer
+In conclusion, what we want to stress here is that 
+irrespective of whether the content was secular or religious, 
+faith impacted all of our participants’ interactions with 
+media. In other words, faith-based decisions play a role in 
+determining whether, and if so how, some people will 
+decide to appropriate media and content.
+Embeddedness
+Rural-urban migration is a general phenomenon in 
+developing regions [35], and though all of our participants 
+lived in and around Nairobi, many alluded to “the village” 
+(i.e., the rural or peri-urban location where they grew up). 
+There was a desire to remain embedded in a larger social 
+structure, i.e., to retain extensive ties with family and 
+community members living in rural Kenya. ICT facilitated 
+these ties. Notably, because the landline telephone 
+infrastructure is sparse, recent improvements in mobile 
+phone cost and coverage have greatly simplified 
+communication with family living in the village. A 
+recently-deployed money transfer system based on text 
+messaging, M-Pesa, has also simplified the process of 
+remitting money to distant relatives.
+This is not to say that mobile phones have been a panacea. 
+One participant noted that one must still sometimes 
+schedule a time to call those living in rural areas because 
+his extended family members must find a location with 
+adequate coverage. More importantly, participants noted 
+the difference in their pace of life in the city as opposed to 
+the village. Indeed, many professionals talked about how 
+the faster pace of life in the city left them with less time to 
+engage in faith building activities and to stay connected 
+with family members.
+So if someone doesn’t understand that – so my mother says, 
+“You never call nowadays.” But it’s not that you don’t want to 
+call, it’s only that everyday you are rushing. You have to 
+make money, big traffic jam, leaving the office to be together. 
+You have to run from office to class, from class to the house, 
+from the house, you know, you are tired, you sleep.
+– Nairobi churchgoer
+It may not be clear why rural-urban connections should 
+matter any more in Kenya than they do in any other migrant 
+population, especially since rural-urban migration is so 
+frequently described in terms of urban opportunity (e.g., 
+“The choice, for many, is going hungry in the countryside 
+or finding a job while living in squalor in [Nairobi]” [3]).
+However, in Kenya as elsewhere in Africa [35], migrant 
+households are often multi-spatial [13]; for those whose 
+urban positions are less secure, the family will maintain 
+both rural and urban dwellings to maximize its collective 
+economic diversity. Even middle-class Kenyans often 
+described Nairobi as a temporary place to live and reported 
+plans to return (eventually) to their places of origin.
+Of relevance here is that this multi-spatiality has a strong 
+cultural element, sometimes called home2 [27], that is based 
+in part on elements of traditional religion that have been 
+retained in social practice [24]. Tribal and other kinship- 
+based connections are still important:
+[Maintaining] relationships in African countries is really 
+powerful. It’s an integral part of who we are. It’s an integral 
+part of our identity. You have relationships with your mother 
+and your father and all your siblings and your extended 
+family, your uncles, your aunties as if they are part of you...
+– Nairobi churchgoer
+The ICT use just discussed, then, is not simply a way to 
+“stay in touch with friends and family” or a means of 
+facilitating economic exchange, but rather takes on 
+significance as a means of managing multi-spatial activities 
+and relationships that are difficult to “isolate” from 
+religious identity and practice.
+We are not suggesting that maintaining this embedded 
+relationship is inherently less important in the U.S. 
+However, there are many more means for families to 
+connect in the U.S. (including reliable postal and telephone 
+systems) that are far less widely available in Kenya’s rural 
+regions. Instead, we want to suggest that, given the role of 
+family and community in Kenyan culture, the disconnect 
+created by rural-urban migration should be considered in 
+ICT development, and that religion is a central component 
+of understanding the motivation for wanting these ties.
+DISCUSSION: SKETCHING, DESIGN, AND ANALYSIS 
+In this section, we turn to our study’s design thread and to 
+the paper’s methodological contribution. In conjunction 
+with the Kenya fieldwork2 just described, we undertook a 
+series of design exercises3 to help frame our findings in 
+material terms; we focus here on the production of, and 
+interaction around, sketches of speculative design concepts 
+[12]. The goal was not “need-finding” but rather to gain 
+further insight into the interaction of popular religion and 
+the appropriation of ICT. Three main types of outcome 
+from these exercises informed the themes emerging from 
+the fieldwork. First, the sketching of speculative design
+2 Given our broader interest in design for developing regions we focused 
+our efforts on concepts grounded in findings from our Kenya fieldwork. 
+In the future we will do the same with our U.S. data.
+3 During our study, we organized several design engagements with groups 
+of Nairobi university students – design students at the University of 
+Nairobi and computer science students at Jomo Kenyatta University of 
+Agriculture and Technology. Aside from interaction around sketches as 
+described here, exercises included a design charrette (collaborative 
+studio exercise) and a collection of multi-week iterative design projects.
+16
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+concepts, which reified ideas described to us by our study 
+participants, helped to elicit discussion of social 
+considerations that would shape the appropriation of ICT in 
+religious settings. Second, imagining a material object (not 
+necessarily a realistic product) that a study participant 
+might use to address a particular situation implicitly drew 
+out latent practical factors underlying the situation that 
+would affect ICT adoption and use. Third, responses to 
+sketches of speculative design concepts sometimes led us to 
+recognize the need for defamiliarization [6] – to question 
+our assumptions about the local context of use. In the 
+subsections that follow, we consider the three types of 
+outcome in turn, respectively illustrating the interplay of 
+design process and fieldwork in developing the themes of 
+mindfulness, embeddedness and watchfulness.
+Sketching is, of course, a common design practice with a 
+large research literature and has long been used to elicit 
+feedback from users (see [10] for a general overview). 
+Because sketching is low-cost and an efficient way to 
+generate multiple ideas, it was a straightforward way to 
+“translate” the themes emerging in our data into technology 
+concepts. However, sketching is not only a useful tool for 
+exploring ideas and eliciting feedback. It can also assist 
+designers in their thinking, prompting self-reflection and 
+bringing unconscious aspects of experience to conscious 
+awareness [33]. Our sketches provided a way for us to
+Figure 3. Multimedia capture note-taking system.
+Figure 4. Pen-tracking note-taking system.
+reflect on our data, one that explicitly used the lens of 
+speculative design concepts that reified our understanding 
+of the relationship between religion and ICT in Kenyan life.
+Over the course of the Kenya fieldwork, we generated and 
+used 20 hand-drawn design sketches. In a way analogous 
+to keeping fieldnotes or analytic memo-writing, freehand 
+sketching during fieldwork helped us to account for and 
+describe our observations. It also allowed us to capture 
+preliminary ideas that occurred to us or expand upon those 
+that were suggested to us during fieldwork. As the 
+research progressed, we shared our design sketches with 
+groups of students with whom we had established working 
+design relationships (see footnote 3) and who were 
+knowledgeable about both design (including sketching 
+practice) and life in Kenya. All of the sketches were shown 
+and the students were asked to provide critiques – comment 
+on them, pick a favorite and explain their choice, and so on. 
+The discussions below reflect not only our thoughts about 
+and responses to the design concepts but theirs as well.
+Concepts for mindfulness:
+Religion and the appropriation of mundane technology 
+Participants expressed an overwhelming desire to stay 
+mindful of their faith by integrating it into their daily lives 
+during our interviews. This suggested a range of design 
+possibilities. For instance, in the same way that material 
+artifacts (plaques, sticky notes on refrigerators, and 
+notebooks filled with prayer lists) could facilitate 
+individuals’ mindfulness of their faith, so might 
+computational artifacts. The design questions for us were, 
+“Are there issues so specific to the religious use case that 
+entirely new systems would be required?” and “Can current 
+technology be extended in relatively straightforward ways 
+that would make them suitable for religious appropriation?”
+As previously mentioned, note-taking was described 
+repeatedly in the U.S. and Kenya as a way to stay focused 
+in church services, thus helping participants stay mindful of 
+the message throughout the week. In response to this we 
+produced a number of sketches for electronic note-taking 
+systems to be used in church and other places. Given the 
+prevalence of mobile phones in Kenya and other emerging 
+markets, most of our concepts centered on incorporating 
+capture and access features into mobile phones.
+Naturally, one series of concepts drew on the substantial 
+HCI literature on systems to support note-taking in the 
+office and classroom. For example, some concepts (Figure 
+3) extend a long line of paper-based physical/virtual note- 
+taking interfaces found in the CHI literature (e.g., [34]). 
+Some concepts imagined “smart paper” solutions similar to 
+Paper++ [22], whereas others (Figure 4) were based on new 
+ultrasonic pen-trackers that do not require instrumented 
+notebooks or special paper. Figure 4, in particular, was 
+imagined as a straightforward extension of existing 
+practices and context. Unlike the U.S., where PCs, the 
+Internet, and photocopiers are widely available and 
+commonly used to disseminate information, Kenyans
+17
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+frequently rely on copying information by hand. It thus 
+seemed practical to imagine alternative ways for them to 
+disseminate written information (i.e., via the mobile phone).
+However, we received ambivalent feedback from the 
+students about design concepts in which technology was 
+clearly visible. On one hand, they were interested in a 
+system that would help them archive and share their notes; 
+on the other hand they questioned our designs. In part, this 
+was due to questions regarding the appropriateness of 
+visibly operating “computer”-like technology in a church 
+sanctuary. Despite aggressive adoption of technology in 
+megachurches in the U.S., there remain understood norms 
+about behavior in churches that differ from office and 
+classroom environments. The most prominent norm is that 
+church is a place of worship, not work. Indeed, reverence 
+to a higher power is the priority, unlike office settings 
+where efficiency and productivity tend to be more valued. 
+These differences must be considered when developing a 
+note-taking system for church where the presence of laptops 
+is questionable as well as potentially distracting. Potential 
+note-taking applications must strive to preserve “inner 
+stillness” that accompanies mindfulness towards God.
+It does seem like one could, for the most part, provide 
+generic technology for these purposes and that it would 
+even be useful for more general (at least currently) practices 
+like “hand copying.” The design challenge is to make it 
+acceptable to use ICT in sensitive situations, in which case 
+something like the pen-tracker (which looks like a regular 
+pad of paper) may be more acceptable than something that 
+is obviously a mobile phone. Finally, considerations would 
+have to be made so it preserves, rather than distracts 
+reverence during church worship.
+Concepts for embeddedness:
+Drawing out latent factors
+While considering designs to help household members 
+maintain their embeddedness in multiple social and spatial 
+contexts, we drew on a rich variety of projects on 
+“connecting homes” that range from early work on 
+Casablanca [16] to recent work on HomeNote [32]. From a 
+technical perspective, the design space is well-explored and 
+it is easy to come up with concepts. However, in the course 
+of doing so, many latent issues come to the fore. For 
+example, issues pertaining to families’ communication 
+habits surfaced during conversations around Figure 6.
+One concept that resulted in positive feedback from the 
+students arose from casual observations about home décor. 
+During our home visits we were struck by the consistency 
+of the “calendar aesthetic” – homes typically had several 
+calendars hanging on the living room walls and out-of-date 
+calendars often remained hanging (Figure 5). When we 
+asked study participants about this, we were typically told 
+that many people enjoyed the photographic imagery and 
+that access to promotional corporate calendars was widely 
+coveted. This quickly inspired the concept of an 
+inexpensive, SMS-enabled calendar device with just
+Figure 6. SMS-enabled family calendar.
+enough intelligence to enter and display a small bit of text 
+(i.e., a reference to a daily Bible verse) as well (Figure 6). 
+As a calendar, the device would be highly visible, and (as 
+with minimally intimate objects [19]) verses could be 
+appropriated to communicate either purely phatic signals or 
+rich and allusive messages depending on shared context.
+In discussions with the students around rural-urban 
+communication, design factors we had not fully considered 
+became apparent. As mentioned earlier, the pace of life in 
+cities differs between the rural settings, thus making finding 
+times to talk challenging. Also, individuals living in rural 
+setting generally have less disposable income than those in 
+the city, making them far less likely to make voice calls or 
+return missed calls. Finally, power and mobile connectivity 
+can be relatively spotty in rural areas, privileging SMS over 
+voice and simple devices over powerful ones. Hence, the 
+appeal of the idea lay not only in its aesthetic but in its 
+pragmatics.
+Concepts for watchfulness:
+An encounter with defamiliarization
+Our findings suggest that Americans (unlike Kenyans) 
+often turned to technology to control their access to media 
+content. In addition to the software application described 
+by our participant there are a variety of other technologies 
+designed to monitor media consumption in the U.S., 
+including the “V-chip” for television and Net Nanny 71A for 
+the Internet. We naively assumed that a similar approach 
+would address the desire of Kenyan parents to ensure that 
+their children do not consume inappropriate media. For 
+example, we imagined a system that allowed a parent to 
+preview media before it was made accessible to children 
+and decide whether it could be played for the household
+Figure 5. The Kenyan calendar aesthetic .
+18
+CHI 2008 Proceedings · Socio-Cultural Impact	April 5-10, 2008 · Florence, Italy
+Figure 7. Remote parental media control.
+Figure 8. SMS media recommender system.
+members (Figure 7). Similarly, we imagined a system in 
+which communities of users sent text messages to rate a 
+program in terms of its moral appropriateness (Figure 8) in 
+much the same way that online rating and reputation 
+systems work on the Internet.
+While we did not show these design sketches to study 
+participants, we discussed the associated concepts with 
+some of them during interviews. The response from these 
+participants clearly indicated that case-by-case control was 
+not desired. Instead, they stated that they wanted ways to 
+instill the right values of parental respect and sexual 
+morality into their children and friends so that they could 
+trust them not to watch “bad” shows. Rather than relying 
+on technology, parents wanted children to apply their 
+personal judgment and monitor their own behavior.
+Bell and others argues that the challenge for researchers and 
+designers is to see beyond the naturalizing of devices and 
+experiences to their cultural roots [6]. By “naturalize,” she 
+refers to individual’s ideas about cultural phenomena that 
+are rooted in their personal experiences. Our engagement 
+with Kenyan Christians suggests that defamiliarization can 
+also be useful in forcing designers to see their Western- 
+centric assumptions about technology use and adoption in a 
+new light and prompt designers to consider a wider range of 
+options.
+Given recent increased interest in producing technology for 
+developing regions, we believe that incorporating 
+“defamiliarizing exercises” (such as presenting concept
+drawings to potential users) can be useful in prompting 
+designers to question unwittingly projection of Western 
+assumptions about technology adoption and use onto users 
+in developing regions.
+CONCLUSION
+In this paper we presented findings from a six-month 
+design-oriented project examining the adoption and use of 
+technology for religious purposes. In addition to adding to 
+the growing number of design and empirical studies 
+examining issues surrounding design of technology for 
+developing regions and religious uses of technology, we 
+make the additional contributions.
+First, we present empirical findings grounded in our 
+fieldwork. These illustrate the weak distinction between 
+using technology for religious and secular purposes and that 
+indeed, understanding how ICT are appropriated for 
+religious purposes leads to broader design implications.
+Second, we make a methodological contribution by 
+describing how we used design sketches to reify our 
+cultural and technical assumptions. By integrating design 
+sketching early in our research process we were able to 
+engage more deeply with the themes emerging from our 
+fieldwork and unpack the Western assumptions embedded 
+in our work. We suggest that design sketching and the 
+dialogic engagement it promotes with users can be a device 
+for defamiliarization. We believe integrating techniques 
+that allow designers to better engage with users’ needs will 
+become more critical as HCI developers focus on 
+technology for developing regions.
+ACKNOWLEDGEMENTS
+We are grateful to our participants and our design 
+collaborators for sharing their stories and creative thoughts. 
+This research was supported in part by a grant from the 
+Intel Research Council.
+REFERENCES
+1. Design and Religion: New Forms of Faith (special 
+issue),” I.D. Magazine, March/April, 2006.
+2. “Intel partners with Saudi firms to develop electronic 
+Quran,” AP Financial Wire, Dec. 19, 2006.
+3. “Kenya: Going Up or Down?” The Economist, June 9, 
+2007, 59.
+4. Barrett, D.B., Kurian, G.T. and Johnson, T.M., World 
+Christian Encyclopedia: A Comparative Survey of 
+Churches and Religions in the Modern World. OUP, 
+Oxford, 2001.
+5. Bell, G., “No More SMS from Jesus: Ubicomp, 
+Religion and Techno-spiritual Practices,” Proc. 
+Ubicomp 2006, Springer (2006), 141-158.
+6. Bell, G., Blythe, M. and Sengers, P., “Making by 
+Making Strange: Defamiliarization and the Design of 
+Domestic Technologies,” ACM TOCHI 12, 2 (2005), 
+149-173.
+7. Berger, P.L., “The Desecularization of the World: A 
+Global Overview,” in The Desecularization of the
+19
+CHI 2008 Proceedings · Soci-Cultural Impact	April 5-10, 2008 · Florence, Italy
+World: Resurgent Religion and World Politics, 
+Eerdmans, Grand Rapids, MI, 1999, 1-18.
+8. Bodewes, C., Parish Transformation in Urban Slums: 
+Voices of Kibera, Kenya. Paulines, Nairobi, 2005.
+9. Brasher, B.E., Give Me That Online Religion. Wiley, 
+New York, 2001.
+10. Buxton, B., Sketching User Experiences: Getting the 
+Design Right and the Right Design. Morgan Kaufmann, 
+San Francisco, 2007.
+11. Dang, A., “Gospel Spectrum,” Proc. DUX 2005, AIGA 
+(2005), 16(12-19).
+12. Dunne, A., Hertzian Tales: Electronic Products, 
+Aesthetic Experience and Critical Design. RCA, 
+London, 1999.
+13. Foeken, D. and Owuor, S.O., “Multi-Spatial 
+Livelihoods in Sub-Saharan Africa: Rural Farming by 
+Urban Households – The Case of Nakuru Town, 
+Kenya,” in Mobile Africa: Changing Patterns of 
+Movement in Africa and Beyond, Brill, Leiden, the 
+Netherlands, 2001, 125-140.
+14. Foucault, M., Discipline and Punish. Vintage, New 
+York, 1977 [1975].
+15. Heisley, D.H. and Levy, S.J., “Autodriving: A 
+Photoelicitation Technique,” J. Consumer Research 18, 
+3 (1991), 257-272.
+16. Hindus, D., Mainwaring, S.D., Leduc, N., Hagström, 
+A.E. and Bayley, O., “Casablanca: Designing Social 
+Communication Devices for the Home,” Proc. CHI 
+2001, ACM (2001), 325-332.
+17. Hlubinka, M., Beaudin, J., Tapia, E.M. and An, J.S., 
+“AltarNation: Interface Design for Meditative 
+Communities,” Extended Abstracts, CHI 2002, ACM 
+(2002), 612-613.
+18. Jenkins, P., The Next Christendom: The Coming of 
+Global Christianity. OUP, Oxford, 2007.
+19. Kaye, J., Levitt, M.K., Nevins, J., Golden, J. and 
+Schmidt, V., “Communicating Intimacy One Bit at a 
+Time,” Extended Abstracts, CHI 2005, ACM (2005), 
+1529-1532
+20. Kong, L., “Religion and Technology: Refiguring Place, 
+Space, Identity and Community,” Area 33, 4 (2001), 
+404-413.
+21. Langer, E.J., Mindfulness. Perseus, New York, 1989.
+22. Luff, P., Heath, C., Norrie, M., Signer, B. and Herdman, 
+P., “Only Touching the Surface: Creating Affinities 
+Between Digital Content and Paper,” Proc. CSCW 
+2004, ACM (2004), 523-532.
+23. Marcus, A. and Gould, E.W., “Crosscurrents: Cultural 
+Dimensions and Global Web User-Interface Design,” 
+interactions 7, 4 (2000), 32-46.
+24. Mbiti, J.S., African Religions and Philosophies. 
+Heinemann, London, 1969.
+25. Medhi, I., “User-Centered Design for Development,” 
+interactions 14, 4 (2007), 12-14.
+26. Muller, M.J., Christiansen, E., Nardi, B. and Dray, S., 
+“Spiritual Life and Information Technology,” CACM 
+45, 2 (2001), 82-83.
+27. Mwendwa, S.K.K., Home2: The Poetics and Politics of 
+Housing in Kenya. Ph.D. dissertation, Univ. of 
+California, Berkeley, CA, 2000.
+28. Parikh, T., Ghosh, K. and Chavari, A., “Design Studies 
+for a Financial Management System for Micro-Credit 
+Groups in Rural India,” Proc. CUU 2003, ACM (2003), 
+15-22.
+29. Pew Forum on Religion & Public Life, Spirit and 
+Power: A 10-Country Survey of Pentecostals. Pew 
+Research Center, Washington, DC, 2006.
+30. Pew Internet & American Life Project, CyberFaith: 
+How Americans Pursue Religion Online. Pew Research 
+Center, Washington, DC, 2001.
+31. Ranger, T., “The Invention of Tradition in Colonial 
+Africa,” in The Invention of Tradition, CUP, 
+Cambridge, 1983, 211-262.
+32. Sellen, A., Harper, R., Eardley, R., Izadi, S., Regan, T., 
+Taylor, A.S. and Wood, K.R., “Situated Messaging in 
+the Home,” Proc. CSCW 2006, ACM (2006).
+33. Sengers, P., Boehner, K., David, S. and Kaye, J., 
+“Reflective Design,” Proc. Conf. on Critical 
+Computing, ACM (2005), 49-58.
+34. Stifelman, L.J., “Augmenting Real-World Objects: A 
+Paper-Based Audio Notebook,” CHI ‘96 Conference 
+Companion, ACM (1996), 199-200.
+35. Tacoli, C., “Rural-Urban Interactions: A Guide to the 
+Literature,” Environment & Urbanization 10, 1 (1998), 
+147-166.
+36. Thumma, S., The Kingdom, the Power, and the Glory: 
+The Megachurch in Modern American Society. Ph.D. 
+dissertation, Emory Univ., Atlanta, GA, 1996.
+37. Thumma, S. and Travis, D., Beyond Megachurch 
+Myths: What We Can Learn from America’s Largest 
+Churches. Jossey-Bass, San Francisco, 2007.
+38. Woodruff, A., Augustin, S. and Foucault, B.E., 
+“Sabbath Day Home Automation: `It’s like mixing 
+technology and religion’,” Proc. CHI 2007, ACM 
+(2007), 527-536.
+39. Wyche, S.P., Hayes, G.R., Harvel, L.D. and Grinter, 
+R.E., “Technology in Spiritual Formation: An 
+Exploratory Study of Computer Mediated Religious 
+Communications,” Proc. CSCW 2006, ACM (2006), 
+199-208.
+40. Wyche, S.P., Medynskiy, Y. and Grinter, R.E., 
+“Exploring the Use of Large Displays in American 
+Megachurches,” Extended Abstracts, CHI 2007, ACM 
+(2007), 2771-2776.
+20

@@ -18,8 +18,7 @@ use SectLabel::Config;
 use CSXUtil::SafeText qw(cleanXML);
 use FindBin;
 
-my $genericSectPath = "$FindBin::Bin/genericSectExtract.rb";
-
+my $genericSectPath = "$FindBin::Bin/sectLabel/genericSectExtract.rb";
 ##
 # Main API method for generating an XML document including all
 # section data.  Returns a reference XML document.
@@ -106,14 +105,12 @@ sub extractSectionImpl {
     my %sectionHeaders = (); 
     $sectionHeaders{"header"} = (); # array of section headers
     $sectionHeaders{"lineId"} = (); # array of corresponding line ids (0-based)
-
+    
     if(!$isXmlOutput){
       $xml = SectLabel::PostProcess::wrapDocument($outFile, \%blankLines);
     } else {
       $xml = SectLabel::PostProcess::wrapDocumentXml($outFile, \%sectionHeaders);
       
-      my $numHeader = scalar(@{$sectionHeaders{"lineId"}});
-
       $sectionHeaders{"generic"} = (); # array of generic headers
       getGenericHeaders($sectionHeaders{"header"}, \@{$sectionHeaders{"generic"}});
 
@@ -132,7 +129,7 @@ sub extractSectionImpl {
   return ($status, $msg, $xml);
 }
 
-# Thang Mar 10: method to get generic headers give a list of headers
+# Thang v100401: method to get generic headers give a list of headers
 sub getGenericHeaders {
   my ($headers, $genericHeaders) = @_;
 
@@ -140,7 +137,8 @@ sub getGenericHeaders {
 
   # put the list of headers to file
   my $headerFile = "/tmp/".newTmpFile();
-  open(OF, ">:utf8", $headerFile);
+  $genericSectPath = untaintPath($genericSectPath);
+  open(OF, ">:utf8", "$headerFile");
   for(my $i=0; $i<$numHeaders; $i++){
     print OF $headers->[$i]."\n";
   }
@@ -156,7 +154,6 @@ sub getGenericHeaders {
     chomp;
     my $genericHeader = $_;
 
-    print "$genericCount Thang $genericHeader\n";
     if($genericHeader eq "related_works"){ # temporarily add in, to be removed once Emma's code updated
       $genericHeader = "related_work";
     }
@@ -170,11 +167,12 @@ sub getGenericHeaders {
     die "Die: SectLabel::Controller::getGenericHeaders different in number of headers $numHeaders vs. the number of generic headers $genericCount\n";
   }
 
+#  print "$headerFile\t$headerFile.out\n";
   unlink($headerFile);
   unlink("$headerFile.out");
 }
 
-# Thang Mar 10: method to insert generic headers into previous label XML output (ids given for checking purpose)
+# Thang v100401: method to insert generic headers into previous label XML output (ids given for checking purpose)
 sub insertGenericHeaders {
   my ($xml, $headers, $generics, $lineIds) = @_;
 
@@ -220,10 +218,24 @@ sub insertGenericHeaders {
   return join("\n", @lines);
 }
 
-# Thang Mar 10: method to generate tmp file name
+# Thang v100401 
+sub untaintPath {
+  my ($path) = @_;
+
+  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) {
+    $path = $1;
+  } else {
+    die "Bad path $path\n";
+  }
+
+  return $path;
+}
+
+# Thang v100401 method to generate tmp file name
 sub newTmpFile {
   my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
   chomp($tmpFile);
+  $tmpFile = untaintPath($tmpFile);
   return $tmpFile;
 }
 

@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.000000">
-<sectionHeader confidence="0.778667" genericHeader="method">
+<variant no="0" confidence="0.000006">
+<sectionHeader confidence="0.934833666666667" genericHeader="abstract">
 AMALGAM:
-</sectionHeader>
-<title confidence="0.7649535">
 Automatic Mapping Among
 Lexico-Grammatical Annotation Models
-</title>
-<author confidence="0.999468">
+</sectionHeader>
+<author confidence="0.980602">
 Eric Atwell, John Hughes, and Clive Souter
 </author>
-<affiliation confidence="0.988693">
+<affiliation confidence="0.9548065">
 Centre for Computer Analysis of Language And Speech
 School of Computer Studies, Leeds University, Leeds LS2 9JT, UK
 </affiliation>
-<email confidence="0.60794">
+<email confidence="0.786102">
 ericOscs.leeds.ac.uk johnOscs.leeds.ac.uk csOscs.leeds.ac.uk
 </email>
-<sectionHeader confidence="0.995274" genericHeader="method">
+<sectionHeader confidence="0.993808" genericHeader="method">
 Abstract Introduction
 </sectionHeader>
-<bodyText confidence="0.985909230769231">
+<bodyText confidence="0.999282611111111">
 Several Corpus Linguistics research groups have gone
 beyond collation of &amp;apos;raw&amp;apos; text, to syntactic annotation
 of the text. However, linguists developing these lin-
@@ -59,11 +57,15 @@ the annotation schemes, and we will be able to evalu-
 ate tagging schemes in terms of how well they fit stan-
 dard statistical language models such as n-pos (Markov)
 models. 1
+</bodyText>
+<footnote confidence="0.7624458">
 &amp;apos;This research began with grants from the UK Science
 and Engineering Research Council (SERC) and the Univer-
 sities Funding Council&amp;apos;s Knowledge Based Systems Initia-
 tive (UFC KBSI), and is now funded by the UK Engineer-
 ing and Physical Sciences Research Council (EPSRC) and
+</footnote>
+<bodyText confidence="0.999191864864865">
 Several research projects around the world are building
 grammatically analysed corpora; that is, collections of
 text annotated with part-of-speech wordtags and syn-
@@ -102,17 +104,17 @@ The most widely known tagged corpora for English
 are: the Lancaster-Oslo/Bergen (LOB) Corpus; the
 Brown Corpus; and the London-Lund Corpus. In addi-
 </bodyText>
-<footnote confidence="0.958165">
+<footnote confidence="0.998474">
 the Higher Education Funding Councils&amp;apos; New Technologies
 Initiative (HEFCs&amp;apos; NTI); we gratefully acknowledge their
 financial support. We are also grateful to the Corpus Lin-
 guistics research teams who have generously provided back-
 ground information on their tagging and parsing schemes.
 </footnote>
-<page confidence="0.370811">
+<page confidence="0.700553">
 1 1
 </page>
-<bodyText confidence="0.994960383561644">
+<bodyText confidence="0.99621154054054">
 11011, the International Corpus of English (ICE) should
 In&amp;apos; included as its tagset has now been published [28].
 Parsed corpora for English include: the Lancaster-IBM
@@ -186,9 +188,9 @@ for their skeletal parsing schemes, which are of rela-
 tively similar structure apart from a small number of
 systematic differences.
 We have chosen the SEC as a &amp;apos;core&amp;apos; text for this
-</bodyText>
-<listItem confidence="0.939342333333333">
 project, because
+</bodyText>
+<listItem confidence="0.996644090909091">
 1. the tagged SEC uses the same tagset as the LOB
 Corpus (widely considered to be the UK standard
 and our proposed primary tagset);
@@ -201,7 +203,7 @@ prior experience of;
 tral compromise between written and conversational
 spoken English genres.
 </listItem>
-<bodyText confidence="0.994827586206896">
+<bodyText confidence="0.999701137931034">
 Our aim is to develop bidirectional mappings for
 the above tagsets and grammar schemes, although we
 appreciate that for mapping from simple to delicate
@@ -232,10 +234,10 @@ skeletal analysis.
 The Multi-Treebank will be produced by applying
 the final version of each grammar scheme mapping al-
 </bodyText>
-<page confidence="0.998725">
+<page confidence="0.998693">
 12
 </page>
-<bodyText confidence="0.977598368421053">
+<bodyText confidence="0.999890714285714">
 gorithrn to the SEC Treebank. Similarly, for the Multi-
 Tagged Corpus, the final version of each tagset mapping
 algorithm will be applied to the tagged SEC. The re-
@@ -243,7 +245,11 @@ sulting annotations will then be intensively proofread
 and post-edited. This will require consultations with
 authorities in each of the tagsets and grammar schemes
 involved.
+</bodyText>
+<subsectionHeader confidence="0.887714">
 Progress to date
+</subsectionHeader>
+<bodyText confidence="0.995717230769231">
 We envisage three main stages to the project: imple-
 mentation of algorithms for mapping between tagsets;
 implementation of algorithms for mapping between
@@ -255,19 +261,19 @@ rithms are being designed and implemented between the
 LOB Corpus tagset and each of: the tagged BROWN
 Corpus, the tagged ICE, the Lancaster-IBM &amp;apos;fl.eebank,
 the UPenn Tagset (and the BNC tagset will be added
-</bodyText>
-<listItem confidence="0.904253142857143">
 when published). Each tagset is being considered in
 turn:
+</bodyText>
+<listItem confidence="0.981606142857143">
 1. Analysis of the notational and substantive differences
 between the LOB tagset and the &amp;apos;current&amp;apos; tagset.
 2. Design and implementation of a mapping algorithm
 (two-way, where possible).
 3. Evaluate success of algorithm by applying it to the
-</listItem>
-<bodyText confidence="0.979449836363636">
 tagged SEC; incrementally improve in light of com-
 mon errors and linguistic intuition.
+</listItem>
+<bodyText confidence="0.990254684210526">
 A side-effect of this phase is the production of a
 Multi-Tagged Corpus: the SEC text annotated with
 each tagset.
@@ -287,7 +293,11 @@ to agree on a single annotation scheme. Our mapping
 software will use a standardised internal format for tag-
 gings and parse-trees, but will have to be able to accept
 input and produce output in a range of existing formats.
+</bodyText>
+<subsectionHeader confidence="0.91673">
 Hand-crafting a detailed mapping
+</subsectionHeader>
+<bodyText confidence="0.999973424242424">
 One approach to obtaining a mapping between two
 tagsets is to use expert linguistic knowledge in iden-
 tifying the relationship between particular tags, and is
@@ -322,7 +332,7 @@ a lexicon and not a tagged corpus. A small part of the
 mapping code (used to map between pronoun labels) is
 shown in Figure 1.
 </bodyText>
-<equation confidence="0.9399701">
+<equation confidence="0.9428503">
 else if (category == &amp;quot;PROW&amp;quot;) # pronouns
 {
 if (\$8 == &amp;quot;Y&amp;quot;) printf(&amp;quot;HWH)(&amp;quot;) # WH-pronouns
@@ -334,11 +344,11 @@ else if ((\$1 == &amp;quot;no-one&amp;quot;)II\
 printf(&amp;quot;HPN)(&amp;quot;) # negative pronouns
 else printf(&amp;quot;HP)(&amp;quot;) # other pronouns
 </equation>
-<figureCaption confidence="0.953648">
+<figureCaption confidence="0.976318">
 Figure 1: Fragment of an AWK mapping
-</figureCaption>
-<bodyText confidence="0.974999071428572">
 from CELEX to SFG tagsets
+</figureCaption>
+<bodyText confidence="0.999858333333333">
 Here, the coarse-grained CELEX tag PRON (pro-
 noun) is mapped to three SFG tags, HWH, HPN and
 HP. The default mapping is to HP (pronominal head of
@@ -348,15 +358,19 @@ umn 8, then we can assign the label for wh-Pronoun
 head (HWH). An exception list is used to map to the
 third SFG pronoun label (HPN), for negative pronoun
 heads.
+</bodyText>
+<subsectionHeader confidence="0.81551">
 Incremental refinement through feedback
+</subsectionHeader>
+<bodyText confidence="0.999511">
 Earlier work at Leeds [32] explored ways that a prob-
 abilistic grammar may be improved with positive feed-
 back from a human user; this has direct iniplications
 </bodyText>
-<page confidence="0.999062">
+<page confidence="0.999194">
 13
 </page>
-<bodyText confidence="0.998347871794872">
+<bodyText confidence="0.998569692307693">
 for how to improve the mappings incrementally. As the
 mapped annotations are to be hand-corrected by ex-
 perts this provides positive feedback. Rather than tag .
@@ -397,7 +411,7 @@ of the surrounding tags and words make up for this.
 The sentence, S, the interlingua tags, a, and the other
 tagging scheme&amp;apos;s tags, b, can be represented as follows:
 </bodyText>
-<table confidence="0.797016714285714">
+<table confidence="0.968029571428572">
 Sentence Tagging 1 Tagging 2
 SI al 61
 S2 a2 62 b3
@@ -406,7 +420,7 @@ S3 a3 •
 • n bn-1 bn
 Sn - 2 Sn - 1 Sn
 </table>
-<bodyText confidence="0.987165228070175">
+<bodyText confidence="0.994499228070176">
 Using a window of the closest four neighbours, say,
 the tag a; when presented with a difficult tag, k, has
 the additional context information of Si-2, S1-1, Si+1,
@@ -465,26 +479,26 @@ earlier sections of the corpus that had been tagged and
 checked by the expert linguist. This, then, is another
 example of incremental learning.
 </bodyText>
-<subsectionHeader confidence="0.9165545">
+<subsectionHeader confidence="0.90066">
 Combining Symbolic and Statistical
 Approaches to Language
 </subsectionHeader>
-<bodyText confidence="0.999252">
+<bodyText confidence="0.9998325">
 Our research is particularly relevant to this work-
 shop, as it is clear we will have to combine rule-
 based symbol-mapping knowledge with statistical dis-
 ambiguation models. We envisage that the bulk of a
 </bodyText>
-<page confidence="0.99422">
+<page confidence="0.999175">
 14
 </page>
-<bodyText confidence="0.990132">
+<bodyText confidence="0.931041">
 mapping can be done using simple one-to-one symbol
 replacement rules; but some rules will map one source
 symbol onto a set of more than one target symbol. A
 a statistical part-of-speech tagger along the lines of the
 </bodyText>
-<figure confidence="0.98060329032258">
+<equation confidence="0.506476290322581">
 WWI
 IN
 VIDIR CLAWS tagger used on LOB [42], [3], [25] can then be
@@ -516,13 +530,13 @@ HVG
 TOMD
 KNOT
 70&amp;apos;
-</figure>
-<bodyText confidence="0.985459">
+</equation>
+<bodyText confidence="0.999633">
 noring the source tags; proofread the output to note
 where this makes mistakes (assigns incorrect target
 tags); and then devise source-to-target tag mapping,
 </bodyText>
-<figure confidence="0.634848761904762">
+<equation confidence="0.865829782608695">
 VP
 zr rules only for these cases. We are aware from our own
 rari
@@ -544,19 +558,19 @@ PITCH
 WPO when we spot them patching up a program as the bugs
 DIE
 Ar
-</figure>
-<bodyText confidence="0.648009">
 seep out. However, we prefer to view this as a princi-
-</bodyText>
-<sectionHeader confidence="0.853291" genericHeader="method">
 CC
-</sectionHeader>
-<bodyText confidence="0.829299333333333">
+</equation>
+<bodyText confidence="0.982702">
 pled, well-founded approach to combining symbolic and
+</bodyText>
+<sectionHeader confidence="0.531962" genericHeader="method">
 WPCS,
+</sectionHeader>
+<bodyText confidence="0.905326">
 statistical models, minimising the &amp;apos;overlap&amp;apos; by ensuring
 </bodyText>
-<equation confidence="0.934705833333333">
+<equation confidence="0.978552">
 77
 that each has a separate useful contribution to make to
 Nrr
@@ -564,7 +578,7 @@ I NI% the overall mapping task.
 NC
 WPA
 </equation>
-<bodyText confidence="0.9603985">
+<bodyText confidence="0.999185166666667">
 We envisage combining a CLAWS-style tagger mod-
 ule for each of the target tagsets into a single Multi-
 tagger program. This accepts as input a stream of
@@ -572,29 +586,27 @@ words annotated with tag(s) from one (or more) of the
 source tagsets; to output is a stream of words plus tags
 from ALL target tagsets. This model allows for litchi-
 </bodyText>
-<listItem confidence="0.582777">
+<listItem confidence="0.7559645">
 AT sion of mapping rules both direct from source to target
 • All
-Fps tagset, and via an interlingua (a backup default to try
 </listItem>
-<subsectionHeader confidence="0.92022">
+<bodyText confidence="0.793902">
+Fps tagset, and via an interlingua (a backup default to try
+</bodyText>
+<subsectionHeader confidence="0.911252">
 D11
 </subsectionHeader>
-<bodyText confidence="0.984004">
+<bodyText confidence="0.984082">
 if there are no direct mapping rules).
 </bodyText>
-<equation confidence="0.64951">
+<figure confidence="0.912893666666667">
 cD
 wDr
 NIS
 I iWr
 RI
-</equation>
-<bodyText confidence="0.423683">
 Software Engineering principles in advocating symbolic
 to devise symbolic mapping rules. We have learnt of
-</bodyText>
-<figure confidence="0.975473965517241">
 &amp;amp;RV
 IN
 WIT corpus-tagset mapping work by a number of other re-
@@ -625,31 +637,31 @@ NNTHI
 NM
 NIP
 </figure>
-<figureCaption confidence="0.998591">
+<figureCaption confidence="0.999731">
 Figure 2: A Clustering of LOB Tags
 </figureCaption>
-<bodyText confidence="0.9871526">
+<bodyText confidence="0.9991764">
 The remainder of the project will be devoted to the
 two other phases of the plan listed earlier, mapping be-
 tween phrase-structure parsing schemes, and investigat-
 ing applications of the multi-tagged corpus and multi-
 treebank.
 </bodyText>
-<page confidence="0.99222">
+<page confidence="0.996998">
 15
 </page>
-<subsectionHeader confidence="0.9035005">
+<subsectionHeader confidence="0.9646435">
 Implementation of Algorithms For
 Mapping Between Grammar Schemes
 </subsectionHeader>
-<bodyText confidence="0.9441258">
+<bodyText confidence="0.9968368">
 Initially mapping algorithms will be designed and im-
 plemented between the Lancaster-IBM Treebank gram-
 mar scheme, and each of the UPenn Treebank and the
 Lancaster-Leeds Treebank. Each grammar scheme will
 be considered in turn:
 </bodyText>
-<listItem confidence="0.9007617">
+<listItem confidence="0.9551036">
 I. Analysis of the notational and substantive differences
 between the Lancaster-IBM grammar scheme and the
 &amp;apos;current&amp;apos; grammar scheme.
@@ -661,7 +673,7 @@ be induced.
 mentally improve in light of common errors and lin-
 guistic intuition.
 </listItem>
-<bodyText confidence="0.999715357142857">
+<bodyText confidence="0.999974714285715">
 Depending on how much time is available, mapping
 algorithms for more detailed grammar schemes will be
 investigated: parsed POW Corpus, parsed Nijmegen
@@ -691,11 +703,11 @@ As with the procedure for developing a partial tag-
 tree-constituent mappings in cases where the target-
 parser&amp;apos;s &amp;apos;best&amp;apos; parsetree is not fully correct.
 </bodyText>
-<subsectionHeader confidence="0.8891895">
+<subsectionHeader confidence="0.9746245">
 Assessment of the Multi-Treebank as a
 Benchmark for Grammars
 </subsectionHeader>
-<bodyText confidence="0.998424866666667">
+<bodyText confidence="0.996015016666667">
 &amp;apos; l&amp;apos;his requires analysis of the substantive differences be-
 tween different parses of the SEC sentences; detailed
 analysis of how many and which constructs differ in
@@ -757,28 +769,28 @@ will try to find empirical evidence for or against the ac-
 ceptability of &amp;apos;scripted&amp;apos; Spoken English to the NL corn-
 mun ity.
 </bodyText>
-<page confidence="0.943904">
+<page confidence="0.997854">
 16
 </page>
-<subsectionHeader confidence="0.7884175">
+<subsectionHeader confidence="0.67398">
 Assessment of Multi-Treebank as a
 Benchmark for Parsers
 </subsectionHeader>
-<bodyText confidence="0.9997478">
+<bodyText confidence="0.9999852">
 This will involve attempting to parse the SEC text with
 other parsers, available from a variety of sources. To
 avoid the need for intensive manual proofreading or
 checking of results, a (semi-)automatic assessment pro-
 cedure will be developed.
 </bodyText>
-<sectionHeader confidence="0.530942" genericHeader="method">
+<sectionHeader confidence="0.698513" genericHeader="conclusions">
 Anticipated Results
 </sectionHeader>
-<bodyText confidence="0.9790365">
+<bodyText confidence="0.999245">
 The tangible &amp;apos;deliverables&amp;apos; of use to the Speech and
 Language research community include:
 </bodyText>
-<listItem confidence="0.999893444444445">
+<listItem confidence="0.999953777777778">
 • Final implementations of algorithms for mapping be-
 tween pairs of tagsets
 • Final implementations of algorithms for mapping be-
@@ -789,7 +801,7 @@ post-editing
 • The MultiTreebank
 • Reports on the above
 </listItem>
-<bodyText confidence="0.9996847">
+<bodyText confidence="0.9999501">
 The mapping software, Multi-tagged Corpus and
 MultiTreebank (along with postediting handbooks and
 documentation) will be delivered to ICAME and Ox-
@@ -801,10 +813,10 @@ terested parties through SALT and ELSNET (UK and
 European Networks of Excellence) and other channels
 including conference presentations and journal papers.
 </bodyText>
-<subsectionHeader confidence="0.600819">
+<subsectionHeader confidence="0.76502">
 Applications
 </subsectionHeader>
-<bodyText confidence="0.99966146875">
+<bodyText confidence="0.99995109375">
 The implemented mapping algorithms will be made
 widely available to the UK and international speech
 and language research community. They will allow re-
@@ -838,10 +850,10 @@ and the ACL Workshop will be an invaluable opportu-
 nity for us to survey potential customer requirements
 and preferences!
 </bodyText>
-<sectionHeader confidence="0.871015" genericHeader="references">
+<sectionHeader confidence="0.949957" genericHeader="references">
 References
 </sectionHeader>
-<listItem confidence="0.8817436">
+<listItem confidence="0.981545588235294">
 [1] Eric Steven Atwell. 1982. LOB Corpus Mining
 Project: Manual Post-edit Handbook. Departments
 of Computer Studies and Linguistics, Lancaster Uni-
@@ -876,6 +888,8 @@ Ihalainen, and Matti Risanen, editors, Corpus Lin-
 guistics, Hard and Soft: Proceedings of the ICA MI
 8th International Conference, pages 61-70. Amster-
 dam, Rodopi.
+</listItem>
+<reference confidence="0.919964727272727">
 [7] Eric Steven Atwell. 1988. Grammatical analysis of
 english by statistical pattern recognition. In Josef
 Kittler, editor, Pattern Recognition: Proceedings of
@@ -887,11 +901,11 @@ Workshop on sublanguage grammar and tezicon ac-
 quisition for speech and language: proceedings, pages
 65-70. Human Communication Research Centre, Ed-
 inburgh University.
-</listItem>
-<page confidence="0.994431">
+</reference>
+<page confidence="0.995327">
 17
 </page>
-<reference confidence="0.998686712962963">
+<reference confidence="0.999443342592593">
 [9] Eric Steven Atwell. 1993. Corpus-based statistical
 modelling of English grammar. In Clive Souter and
 Eric Atwell, editors, Corpus-Based Computational
@@ -1001,10 +1015,10 @@ Rodopi.
 Realistic Annealing Parser. Technical Report: School
 of Computer Studies, The University of Leeds.
 </reference>
-<page confidence="0.989856">
+<page confidence="0.994246">
 18
 </page>
-<reference confidence="0.999842386792453">
+<reference confidence="0.999746386792453">
 [33] John Hughes and Eric Steven Atwell. 1993. uto-
 matically acquiring and evaluating a classification of
 words In Proceedings of the IEE Two One-Day Col-
@@ -1112,10 +1126,10 @@ design, analysis and exploitation; Proceedings of the
 13th ICAME conference, pages 197-214. Amsterdam:
 Rodopi.
 </reference>
-<page confidence="0.98991">
+<page confidence="0.989156">
 19
 </page>
-<reference confidence="0.987175476190476">
+<reference confidence="0.996206190476191">
 [60] Clive Souter and Eric Steven Atwell. 1994. Us-
 ing Parsed Corpora: A review of current practice In
 Nelleke Oostdijk and Pieter de Haan (eds), Corpus-
@@ -1138,7 +1152,7 @@ of Tag-Selectors and Researchers. Technical Report,
 Department of English, University College London,
 1J K .
 </reference>
-<page confidence="0.997278">
+<page confidence="0.99823">
 20
 </page>
 </variant>

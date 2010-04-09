@@ -29,105 +29,85 @@ my $tr2crfppLoc = "$path/tr2crfpp.pl";
 my $keywordLoc = "$path/keywordGen.pl"; #new model
 my $crf_learnLoc = "$path/../../crfpp/crf_learn";
 my $crf_testLoc = "$path/../../crfpp/crf_test";
-my $conllevalLoc = "$path/conlleval_modified.pl";
+my $conllevalLoc = "$path/../conlleval.pl";
 ### END user customizable section
 
 ## Thang add ##
 sub Help {
+  print STDERR "Perform stratified cross-validation for SectLabel\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in labelDir -t type -out outDir -n folds -c configFile [-p numCpus -iter numIter -topN topN]\n";
+  print STDERR "       $progname -in trainFile -dir outDir -n folds -c configFile [-p numCpus -iter numIter -f freqCutoff]\n";
   print STDERR "Options:\n";
-  print STDERR "\t\t-p: Default is 6 cpus\n";
-  print STDERR "\t\t-iter: Default is 100 iterations\n";
-  print STDERR "\t\t-t type: e.g. ACL09-ACM-CHI08 to indicate subdirs containing label file. If not specified, the labelDir is supposed to contain all label files\n";
-  print STDERR "\t\t-topN topN: used when extracting topN-frequent keywords\n";
+  print STDERR "\t\t-in: training file in the format as in doc/sectLabel.tagged.txt\n";
+  print STDERR "\t\t-dir: output directory, containing all intermediate files and outputs\n";
+  print STDERR "\t\t-n: num of cross validation folds\n";
+  print STDERR "\t\t-c: config file to extract features and automatically generate CRF++ template\n\n";
+
+  print STDERR "\t\t-p: CRF++ num of CPUs (deault = 6)\n";
+  print STDERR "\t\t-iter: CRF++ max iteration (default = 100)\n";
+  print STDERR "\t\t-f: CRF++ frequency cut-off (default = 3)\n";
+
 }
 
 my $HELP = 0;
-my $labelDir = undef;
+my $trainFile = undef;
 my $outDir = undef;
 my $folds = undef;
 my $configFile = undef;
 my $numCpus = 6;
-my $topN = 10;
 my $numIter = 100;
-my $type = undef;
-$HELP = 1 unless GetOptions('in=s' => \$labelDir,
-			    'out=s' => \$outDir,
+my $f = 3;
+$HELP = 1 unless GetOptions('in=s' => \$trainFile,
+			    'dir=s' => \$outDir,
 			    'n=i' => \$folds,
 			    'c=s' => \$configFile,
+
 			    'p=i' => \$numCpus,
+			    'f=i' => \$f,
 			    'iter=i' => \$numIter,
-			    'topN=i' => \$topN,
-			    't=s' => \$type,
 			    'h' => \$HELP);
 
-if ($HELP || !defined $labelDir || !defined $folds || !defined $outDir || !defined $configFile || !defined $type) {
+if ($HELP || !defined $trainFile || !defined $folds || !defined $outDir || !defined $configFile) {
   Help();
   exit(0);
 }
 ## End Thang add ##
 
 ### Untaint ###
-$labelDir = untaintPath($labelDir);
+$trainFile = untaintPath($trainFile);
 $outDir = untaintPath($outDir);
 $configFile = untaintPath($configFile);
-$type = untaintPath($type);
 $ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin';
 ### End untaint ###
 
 print STDERR "### Note the number of CPU for parallel crfpp is $numCpus\n";
 
-### Get a list of labeled files ###
-if(!-d $labelDir) {
-  die "Die: directory $labelDir does not exist!\n";
-}
-
-my %fileHash = ();
-if($type eq ""){
-  die "Die: empty type \"$type\"\n";
-}
 if(!-d $outDir) {
-  print STDERR "Directory $outDir does not exist! Creating ...\n";
+  print STDERR "Directory $outDir does not exist! Creating...\n";
   execute("mkdir -p $outDir");
 }
 
-my @subDirs = split(/\-/, $type);
-foreach my $subDir (@subDirs){
-  opendir DIR, "$labelDir/$subDir" or die "cannot open dir $labelDir/$subDir: $!";
-
-  my @files= grep { $_ ne '.' && $_ ne '..' && $_ !~ /~$/} readdir DIR;
-  my @sorted_files = sort { $a cmp $b } @files;
-  print STDERR "# $subDir: @sorted_files\n";    
-  $fileHash{$subDir} = \@sorted_files;
-  closedir DIR;
-
-  ### construct src test data ###
-  print STDERR "\n### Constructing $folds-fold test files $outDir/*.test.src...\n";
-  my $i = 0;
-  foreach my $file (@sorted_files){
-    my $testFile = "$outDir/$i.test.src";
-    executeQuiet("cat $labelDir/$subDir/$file >> $testFile");
-    executeQuiet("echo \"\" >> $testFile"); # add a blank line in between
-    
-    $i++;
-    $i = $i % $folds;
-  }
-} # end for subDir
+### construct src test data ###
+print STDERR "\n### Constructing $folds-fold test files $outDir/*.test.src...\n"; # Thang add
+open (IF, $trainFile) || die "# $progname fatal\tTraining file cannot be opened \"$trainFile\"!";
+my $i = 0;
+while (<IF>) {
+  my $testFile = "$outDir/$i.test.src";
+  $testFile = untaintPath($testFile);
+  open (OF, ">>$testFile") || die "Can't append to file \"$testFile\"!";
+  print OF $_;
+  $i++;
+  $i = $i % $folds;
+  close OF;
+}
+close IF;
 
 my $templateFile = "$outDir/template";
 for (my $i = 0; $i < $folds; $i++) {
   print STDERR "\n### Test fold $i\n";
-  
-  #construct keywordFile, using topN = 100
-#  execute("$keywordLoc -in $outDir/$i.train.src -out $outDir/$i.keywords -n $topN"); # keyword file
-#  execute("$keywordLoc -in $outDir/$i.train.src -out $outDir/$i.bigram -n $topN -nGram 2"); # bigram file
-#  execute("$keywordLoc -in $outDir/$i.train.src -out $outDir/$i.trigram -n $topN -nGram 3"); # trigram file
-#  execute("$keywordLoc -in $outDir/$i.train.src -out $outDir/$i.fourthgram -n $topN -nGram 4"); # fourthgram file
 
-  # create test crf features
-  
-  my $cmd = "$tr2crfppLoc -q -in $outDir/$i.test.src -out $outDir/$i.test -c $configFile"; # -k $outDir/$i.keywords -b $outDir/$i.bigram -tri $outDir/$i.trigram -fourth $outDir/$i.fourthgram";
+  # create test crf features  
+  my $cmd = "$tr2crfppLoc -q -in $outDir/$i.test.src -out $outDir/$i.test -c $configFile -single"; # -k $outDir/$i.keywords -b $outDir/$i.bigram -tri $outDir/$i.trigram -fourth $outDir/$i.fourthgram";
   if($i == 0){ # generate template file
     $cmd .= " -template 1>$templateFile";
   }
@@ -149,7 +129,7 @@ for (my $i = 0; $i < $folds; $i++) {
   if($numIter > 0){
     $cmd .= " -m $numIter";
   }
-  $cmd .= " -p $numCpus -f 3 -c 3 $templateFile $outDir/$i.train $outDir/$i.model 1>crf.$i.stdout 2>crf.$i.stderr";
+  $cmd .= " -p $numCpus -f $f -c 3 $templateFile $outDir/$i.train $outDir/$i.model 1>$outDir/crf.$i.stdout 2>$outDir/crf.$i.stderr";
   execute($cmd);
 }
 
@@ -163,13 +143,8 @@ for (my $i = 0; $i < $folds; $i++) {
 
   
 # eval
-#for (my $i = 0; $i < $folds; $i++) {
-#  my $cmd = "$conllevalLoc -r -d \"	\" < $outDir/$i.out";
-#  print "$cmd\n";
-#  system ($cmd);
-#}
 print STDERR "### Evaluating ...\n"; # Thang add
-execute("$conllevalLoc -r -c -d \"	\" < $outDir/all.out 1>evaluation.stdout 2>evaluation.stderr");
+execute("$conllevalLoc -r -d \"	\" < $outDir/all.out 1>$outDir/evaluation.stdout 2>$outDir/evaluation.stderr");
 
 # clean up
 #`rm -f $tmpfile*`;
@@ -189,7 +164,7 @@ sub untaintPath {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/><\"\s]+)$/) {
+  if ($s =~ /^([\w \-\@\(\),\.\/><\"\s\_]+)$/) {
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere

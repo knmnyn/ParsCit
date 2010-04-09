@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.000003">
-<title confidence="0.8772755">
+<variant no="0" confidence="0.000002">
+<title confidence="0.8705485">
 Towards Building Contextual Representations of
 Word Senses Using Statistical Models
 </title>
-<author confidence="0.954978">
+<author confidence="0.944311">
 Claudia Leacock,I Geoffrey Towell2 and Ellen Voorhees2
 </author>
-<affiliation confidence="0.98541">
+<affiliation confidence="0.98393">
 &apos;Princeton University
 </affiliation>
-<email confidence="0.797144">
+<email confidence="0.792044">
 leacockOclarity.princeton.edu
 </email>
-<sectionHeader confidence="0.602921" genericHeader="method">
+<sectionHeader confidence="0.605965" genericHeader="method">
 2 Siemens Corporate Research, Inc.
 </sectionHeader>
-<keyword confidence="0.655121">
+<keyword confidence="0.636191">
 towel101earning.scr.siemens.corn, ellenOlearning.scr.siemens.com
 </keyword>
-<sectionHeader confidence="0.985114" genericHeader="method">
+<sectionHeader confidence="0.98379" genericHeader="method">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.9973397">
+<bodyText confidence="0.99748">
 Automatic corpus-based sense resolution, or sense disambiguation, techniques tend to
 focus either on very local context or on topical context. Both components are needed
 for word sense resolution. A contextual representation of a word sense consists of top-
@@ -36,10 +36,10 @@ with similar input is described. Finally, we investigate a method for automatica
 extracting local context from a corpus. Preliminary results show improved perfor-
 mance.
 </bodyText>
-<sectionHeader confidence="0.981885" genericHeader="method">
+<sectionHeader confidence="0.984456" genericHeader="method">
 1 Contextual Representations
 </sectionHeader>
-<bodyText confidence="0.994995789473684">
+<bodyText confidence="0.993364578947369">
 The goal of automatic sense resolution is to acquire a contextual representation of word
 senses. A contextual representation, as defined by Miller and Charles [7], is a characteri-
 zation of the linguistic contexts in which a word can be used. We look at two components
@@ -60,17 +60,17 @@ text. Section 3 describes an experiment that was performed to establish the uppe
 of performance for these classifiers. Section 4 presents some techniques that we are devel-
 oping to extract local context.
 </bodyText>
-<sectionHeader confidence="0.871575" genericHeader="method">
+<sectionHeader confidence="0.866464" genericHeader="method">
 2 Acquiring Topical Context
 </sectionHeader>
-<bodyText confidence="0.9986235">
+<bodyText confidence="0.998047">
 Of the two types of context features, topical ones seem easier to identify. The idea is
 simple: for any topic there is a sub-vocabulary of terms that are appropriate for discussing
 </bodyText>
-<page confidence="0.996921">
+<page confidence="0.996682">
 10
 </page>
-<bodyText confidence="0.99978344117647">
+<bodyText confidence="0.999755088235294">
 it. The task is to identify the topic, then to select that sense of the polysemous word that
 best fits the topic. For example, if the topic is writing, then sheet probably refers to a
 piece of paper; if the topic is sleeping, then it probably refers to bed linen; if the topic is
@@ -106,28 +106,28 @@ strings are stemmed: suffixes are removed to conflate across morphological disti
 For example, the strings computer(s), computing, computation(al), etc. are conflated to
 the stem comput.
 </bodyText>
-<subsectionHeader confidence="0.953558">
+<subsectionHeader confidence="0.956017">
 2.1 Methodology
 </subsectionHeader>
-<bodyText confidence="0.890875888888889">
+<bodyText confidence="0.9992765">
 The training and testing contexts were taken from the 1987-89 Wall Street Journal corpus
 and from the APHB corpus.&apos; Sentences containing line(s) and Line(s) were extracted
 and manually assigned a single sense from WordNet.2 Sentences with proper names con-
 taining Line, such as Japan Air Lines, were removed from the set of sentences. Sentences
 containing collocations that have a single sense in WordNet, such as product line and line
 of products, were also excluded since the collocations are not ambiguous.
+</bodyText>
+<footnote confidence="0.8306756">
 &apos;The 25 million word corpus, obtained from the American Printing House for the Blind, is archived at
 IBM&apos;s T.J. Watson Research Center; it consists of stories and articles from books and general circulation
 magazines.
-</bodyText>
-<footnote confidence="0.9422955">
 2WordNet is a lexical database developed by George Miller and his colleagues at Princeton Univer-
 sity [6].
 </footnote>
-<page confidence="0.999893">
+<page confidence="0.999885">
 11
 </page>
-<bodyText confidence="0.999351076923077">
+<bodyText confidence="0.999400230769231">
 Typically, experiments have used a fixed number of words or characters on either
 side of the target word as the context. In these experiments, we used linguistic units —
 sentences — instead. Since the target word is often used anaphorically to refer back to the
@@ -142,7 +142,7 @@ contexts three or more sentences long. The average size of the training and test
 was 44.5 words.
 The sense resolution task used the following six senses of the noun line:
 </bodyText>
-<listItem confidence="0.999491666666667">
+<listItem confidence="0.999397833333333">
 1. a product: ... a new line of midsized cars ...
 2. a formation of people or things: People waited patiently in long lines ...
 3. spoken or written test: One winning line from that speech ...
@@ -150,7 +150,7 @@ The sense resolution task used the following six senses of the noun line:
 5. an abstract division: ... the Amish draw no line between work and religion and life.
 6. a telephone connection: One key to WordPerfect&apos;s growth was its toll-free help line
 </listItem>
-<bodyText confidence="0.999936333333333">
+<bodyText confidence="0.999939222222222">
 The classifiers were run three times each on randomly selected training sets. The set of
 contexts for each sense was randomly permuted, with each permutation corresponding
 to one trial. For each trial, the first 200 contexts of each sense were selected as training
@@ -161,10 +161,10 @@ from each sense, for a total of 894 contexts. To test the effect that the number
 examples has on classifier performance, smaller training sets of 50 and 100 contexts were
 extracted from the 200 context training set.
 </bodyText>
-<subsectionHeader confidence="0.718335">
+<subsectionHeader confidence="0.7156">
 2.2 Results
 </subsectionHeader>
-<bodyText confidence="0.999549333333333">
+<bodyText confidence="0.999400333333333">
 All of the classifiers performed best with the largest number (200) of training contexts,
 and the percent correct results reported here are averaged over the three trials with 200
 training contexts. On the six-sense task, the Bayesian classifier averaged 71% correct
@@ -172,10 +172,10 @@ answers, the content vector classifier 72%, and the neural networks 76%. None of
 differences are statistically significant due to the limited sample size of three trials.
 The ten most heavily weighted tokens for each sense for each classifier appear in
 </bodyText>
-<tableCaption confidence="0.83736">
+<tableCaption confidence="0.882597">
 Table 1. The words on the list seem, for the most part, indicative of the target sense
 </tableCaption>
-<bodyText confidence="0.996515571428572">
+<bodyText confidence="0.996183571428572">
 and are reasonable indicators of topical context. However, there are some consistent
 differences among the methods. For example, while the Bayesian method is sensitive
 to proper nouns, the neural network appears to have no such preference. To test the
@@ -184,24 +184,24 @@ correlated proportions. This test measures how consistently the methods treat in
 test contexts by determining whether the classifiers are making the same classification
 errors in each of the senses.
 </bodyText>
-<page confidence="0.931837">
+<page confidence="0.933203">
 12
 </page>
-<subsectionHeader confidence="0.27926">
+<table confidence="0.366803">
 Product Formation
-</subsectionHeader>
-<bodyText confidence="0.843145166666667">
 Bayesian Vector Network Bayesian Vector Network
+</table>
+<bodyText confidence="0.9147052">
 Chrysler workstations Digital introduced models comput comput sell night checkout wait wait long wait long stand
 IBM ibm produc minicomput model introduc extend acquir launch continu quak gasoline outside waiting food checkout park checkout park hour form short custom
 Compaq corp sale model hours mr shop
 sell sell long airport shop count peopl canad
 agreement computers introduc brand mainframe driver
 </bodyText>
-<subsectionHeader confidence="0.585543">
+<subsectionHeader confidence="0.486762">
 Text Cord
 </subsectionHeader>
-<bodyText confidence="0.925958428571429">
+<bodyText confidence="0.893118428571429">
 Bayesian Vector Network Bayesian Vector Network
 Biden speech writ familiar fish fish hap
 ad mr writ fishing boat wat fish
@@ -210,10 +210,10 @@ opening famous Dole speak read rememb boat water clothes fastened ship boat rope
 speech Dukakis funny dukak biden poem deliv break hook exercis
 speeches fame speak funny movie read cry
 </bodyText>
-<subsectionHeader confidence="0.764589">
+<subsectionHeader confidence="0.769552">
 Division Phone
 </subsectionHeader>
-<bodyText confidence="0.804669428571429">
+<bodyText confidence="0.797432">
 Bayesian Vector Network Bayesian Vector Network
 blurred walking crossed draw fine draw priv hug blur Cross fine thin funct phones telephon phon telephon phon dead cheer hear
 ethics narrow blur genius toll call access henderson minut
@@ -222,14 +222,14 @@ class between mr telephone Bell toll porn bill
 walk draw tread faction billion Pacific calls silent
 thin
 </bodyText>
-<tableCaption confidence="0.636584">
+<tableCaption confidence="0.650236">
 Table 1: Topical Context. The ten most heavily weighted tokens for each sense of line for
 the Bayesian, content vector and neural network classifiers.
 </tableCaption>
-<page confidence="0.999586">
+<page confidence="0.999537">
 13
 </page>
-<bodyText confidence="0.995252613636364">
+<bodyText confidence="0.994549409090909">
 The results of the x2 test for a three-sense resolution task (product, formation and
 tezt),3 indicate that the response pattern of the content vector classifier is significantly
 different from the patterns of both the Bayesian and neural network classifiers, but the
@@ -275,13 +275,13 @@ knowing which words are likely to co-occur in the same sentences when a particul
 is under discussion is not sufficient for sense resolution.
 sTraining and test sets for these senses are identical to those in the six-sense resolution task.
 </bodyText>
-<footnote confidence="0.959226">
+<footnote confidence="0.952791">
 4This task was only run with the content vector and neural network classifiers.
 </footnote>
-<page confidence="0.996841">
+<page confidence="0.996005">
 14
 </page>
-<listItem confidence="0.9122521">
+<listItem confidence="0.91192565">
 1. text: In a warmly received speech that seemingly sought to distance him from
 Reagan administration civil-rights policies, Mr. Bush outlined what he called a
 &amp;quot;positive civil-rights agenda,&amp;quot; and promised to have &amp;quot;minority men and women
@@ -303,31 +303,31 @@ the gabbing on the house phones? I couldn&apos;t get an open line to you.&amp;qu
 6. product: International Business Machines Corp., seeking to raise the return on
 its massive research and development investments, said it will start charging more
 </listItem>
-<figureCaption confidence="0.97000125">
+<figureCaption confidence="0.96993325">
 money to license its 32,000 patents around the world. In announcing the change,
 IBM also said that it&apos;s willing to license patents for its PS/2 line of personal com-
 puters.
 Figure 1: Representative contexts for the six senses of line used in the study.
 </figureCaption>
-<page confidence="0.926566">
+<page confidence="0.929973">
 15
 </page>
-<sectionHeader confidence="0.927345" genericHeader="method">
+<sectionHeader confidence="0.924531" genericHeader="method">
 3 An Upper Bound For Classifier Performance
 </sectionHeader>
-<bodyText confidence="0.9827645">
+<bodyText confidence="0.9784745">
 In an effort to establish an upper bound for performance on corpus-based statistical sense
 resolution methods, we decided to see how humans would perform on a sense resolution
 task using the same input that drives the statistical classifiers [4]. An experiment was
 designed to answer the following questions:
 </bodyText>
-<listItem confidence="0.69987775">
+<listItem confidence="0.77591675">
 1. How do humans perform in a sense resolution task when given the same testing
 input as the statistical classifiers?
 2. Are the contexts that are hard/easy for the statistical classifiers also hard/easy for
 people?
 </listItem>
-<bodyText confidence="0.99936278125">
+<bodyText confidence="0.99928840625">
 The three-sense task was replicated using human subjects. For each of the three senses
 of line (product, test, and formation), we selected 10 easy contexts (contexts that were
 correctly classified by the three statistical methods) and 10 hard contexts (contexts that
@@ -361,13 +361,13 @@ able to disambiguate effectively using only topical context. From this result we
 that in order to improve the performance of automatic classifiers, we need to incorporate
 local information into the statistical methods.
 </bodyText>
-<page confidence="0.995269">
+<page confidence="0.995408">
 16
 </page>
-<sectionHeader confidence="0.887155" genericHeader="method">
+<sectionHeader confidence="0.884275" genericHeader="method">
 4 Acquiring Local Context
 </sectionHeader>
-<bodyText confidence="0.993582673913044">
+<bodyText confidence="0.993570000000001">
 Kelly and Stone [3] pioneered research in finding local context by creating algorithms for
 automatic sense resolution. Over a period of seven years in the early 1970s, they (and
 some 30 students) hand coded sets of ordered rules for disambiguating 671 words. The
@@ -415,10 +415,10 @@ not occur frequently enough in the training corpus; the candidate template line 
 51n the template learning phase, tokens include punctuation and stop words. No steznrning is performed
 and case distinctions are significant.
 </bodyText>
-<page confidence="0.983392">
+<page confidence="0.986016">
 17
 </page>
-<bodyText confidence="0.802754111111111">
+<bodyText confidence="0.814734">
 cord
 his line
 division
@@ -429,18 +429,18 @@ formation
 a long line of, long line of, a long line, long line, long lines
 in line for, wait in line, in line
 </bodyText>
-<figure confidence="0.7731896">
+<figure confidence="0.7463772">
 phone
 telephone lines
 access lines
 line was
 product
 </figure>
-<figureCaption confidence="0.877187">
+<figureCaption confidence="0.878704">
 a new line of, a new line, new line of, new line
 Figure 2: Templates formed for a training set of 200 contexts for each of six senses when
 </figureCaption>
-<bodyText confidence="0.994989958333333">
+<bodyText confidence="0.995166291666667">
 a template must occur at least 10 times and at least 75% of the occurrences must be for
 one sense. No templates were learned for the test sense.
 selected because it appears too frequently in both the product line and formation contexts.
@@ -466,13 +466,13 @@ a classifier. Yarowsky found collocations&apos; to be such powerful sense indica
 suggests choosing a sense by matching on a set of collocations and choosing the most
 frequent sense if no collocation matches [13]. To resolve syntactic ambiguities, Resnik
 </bodyText>
-<footnote confidence="0.93068">
+<footnote confidence="0.919758">
 6Yarowslcy uses the term collocation to denote constructs similar to what we have called templates.
 </footnote>
-<page confidence="0.998563">
+<page confidence="0.998118">
 18
 </page>
-<bodyText confidence="0.999086066666667">
+<bodyText confidence="0.998883333333333">
 investigated four different methods for combining three sources of information [8]. The
 &amp;quot;backing off&amp;quot; strategy, in which the three sources of information were tried in order from
 most reliable to least reliable until some match was found (no resolution was done if no
@@ -489,10 +489,10 @@ reliable, the choice of sense will be a function of the uniqueness of a matched 
 plate match and sense vector similarity we will be able to incorporate different amounts
 of topical and local information into the template classifier.
 </bodyText>
-<sectionHeader confidence="0.998459" genericHeader="method">
+<sectionHeader confidence="0.998225" genericHeader="method">
 5 Conclusion
 </sectionHeader>
-<bodyText confidence="0.999228777777778">
+<bodyText confidence="0.999214333333333">
 The capacity to determine the intended sense of an ambiguous word is an important
 component of any general system for language understanding. We believe that, in order
 to accomplish this task, we need contextual representations of word senses containing both
@@ -503,20 +503,20 @@ very good at resolving senses when given only topical context. Currently we are 
 methods for learning local context for word senses. Preliminary results show that the
 addition of template matching on local context improves performance.
 </bodyText>
-<sectionHeader confidence="0.988329" genericHeader="method">
+<sectionHeader confidence="0.986457" genericHeader="method">
 Acknowledgments
 </sectionHeader>
-<reference confidence="0.7894778">
+<reference confidence="0.8393574">
 This work was supported in part by Grant No. N00014-91-1634 from the Defense Ad-
 vanced Research Projects Agency, Information and Technology Office, by the Office of
 Naval Research, and by the James S. McDonnell Foundation. We are indebted to George
 A. Miller and Martin S. Chodorow for valuable comments on an earlier version of this
 paper.
 </reference>
-<sectionHeader confidence="0.911112" genericHeader="method">
+<sectionHeader confidence="0.594215" genericHeader="method">
 References
 </sectionHeader>
-<reference confidence="0.998904428571429">
+<reference confidence="0.998583571428571">
 [1] William Gale, Kenneth W. Church, and David Yarowsky. A method for disam-
 biguating word senses in a large corpus. Statistical Research Report 104, AT&amp;T Bell
 Laboratories, 1992.
@@ -525,10 +525,10 @@ corpora. In Seventh Annual Conference of the UW Centre for the New OED and
 Text Research: Using Corpora, pages 1-22, Oxford, 1991. UW Centre for the New
 OED and Text Research.
 </reference>
-<page confidence="0.97467">
+<page confidence="0.977934">
 19
 </page>
-<reference confidence="0.999595444444444">
+<reference confidence="0.999613111111111">
 [3] Edward Kelly and Philip Stone. Computer Recognition of English Word Senses.
 North-Holland, Amsterdam, 1975.
 [4] Claudia Leacock, Shari Landes, and Martin Chodorow. Comparison of sense reso-
@@ -557,13 +557,13 @@ and Natural Learning Systems Conference-1992, Cambridge, to appear. MIT Press.
 [13] David Yarowsky. One sense per collocation. In Proceedings of the ARPA Workshop
 on Human Language Technology, 1993.
 </reference>
-<page confidence="0.937101">
+<page confidence="0.944288">
 20
 </page>
-<sectionHeader confidence="0.88378" genericHeader="method">
+<sectionHeader confidence="0.889456" genericHeader="method">
 THIS PAGE INTENTIONALLY LEFT BLANK
 </sectionHeader>
-<page confidence="0.991766">
+<page confidence="0.993017">
 21
 </page>
 </variant>

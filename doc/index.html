@@ -27,15 +27,14 @@ function toggleLayer( whichLayer ) {
 <A href="http://wing.comp.nus.edu.sg/~forecite/services/">Back to ForeCite/CiteSeer web services</A> ] 
 <BR/>
 [&nbsp;<A href="#d">Download</a>&nbsp;] [&nbsp;<A href="#ws">Web Service</a>&nbsp;] [&nbsp;<A href="#wd">Web-based Demonstration</a>&nbsp;] [&nbsp;<A href="#p">Publications</a>&nbsp;]
-[&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
+[&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#faq">FAQ</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
 </div>
 <IMG ALIGN="LEFT" SRC="parsCit.png" WIDTH="200px" ALT="Picture of ParsCit Swami">
 
 <CENTER><H1>ParsCit: An open-source CRF Reference String Parsing Package</H1></CENTER>
 
-<P>This is the home page of the ParsCit project, which performs
-reference string parsing, sometimes also called citation parsing or
-citation extraction.  It is architected as a supervised machine
+<P>This is the home page of the ParsCit project, which performs two tasks: 1) reference string parsing, sometimes also called citation parsing or
+citation extraction, and 2) logical structure parsing of scienfific documents.  It is architected as a supervised machine
 learning procedure that uses Conditional Random Fields as its learning
 mechanism.  You can download the code below, parse strings online, or
 send batch jobs to our web service (coming soon!).  The code contains
@@ -46,13 +45,14 @@ the system to a web service (used here too).  </P>
 <DL>
   <DT>Reference String:</DT><DD>A text string in the bibliography or reference section of a work, usually at the end of the document that refers to a unique document.  Usually occurs with other reference strings that point to other documents. May also appear as footnotes.</DD>
   <DT>Citation:</DT><DD>A text string (usually explicit) in the document body that points to a corresponding reference string at the end of the document.  Several citations may co-refer to a single reference string.</DD>
+  <DT>Document Logical Structure:</DT><DD> A hierarchy of logical components, for example, titles, authors, affiliations, abstracts, sections, etc., according to (Mao, Rosenfeld, & Kanungo, 2003).<BR>
+       Our logical structure is more comprehensive, comprising not only header metadata and references, but also the logical structure of the internals of the document -- sections, subsections, figures, tables, equations, footnotes and captions. </DD>
 </DL>
 
 <P>This project deals with the problem of parsing the reference
-strings and parsing the metadata information found in the title page
-of the document.  The first task is handled by a module with the
+strings and parsing the logical structure of a document.  The first task is handled by a module with the
 project namesake, ParsCit, and the second task by a separate module
-ParsHed.  Other projects related to ParsCit (some here in WING, some
+SectLabel.  Other projects related to ParsCit (some here in WING, some
 elsewhere) with identifying and linking citations to reference
 strings).
 </P>
@@ -77,8 +77,9 @@ using <CODE>perl</CODE> (must be in your path).
 </P>
 
 <ul>
-  <li> Current version: <A HREF="parscit-090625.zip">090625b</A>: Added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See <A HREF="CHANGELOG_v090625.txt">CHANGELOG.txt</A>; <BR>
+  <li> Current version: <A HREF="parscit-100401.zip">100401</A>: Added SectLabel (logical structure parsing) software from the NUS team, and Iconip training data from Cheong Chi Hong for ParsCit with new ParsCit model retrained. See <A HREF="CHANGELOG_v100401.txt">CHANGELOG.txt</A>; <BR>
   <LI> Other versions: <BR>
+<A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR>
 <A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR>
 <A HREF="parscit-081201.zip">081201</A>: bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt;<BR>
 <A HREF="parscit-080917.zip">080917</A>: minor changes (improved models and mulilingual support), see CHANGELOG.txt;<BR> 
@@ -138,7 +139,7 @@ submits your text input (after suitable cleaning) to the ParsCit
 service to parse the input file or strings.
 </P>
 
-<P><B>Demo #1: Parsing the first page header and/or citation contexts and the reference strings from a whole text file</B></P>
+<P><B>Demo #1: Parsing the first page header and/or citation contexts and the reference strings as well as the whole document's logical structure from a text file</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
@@ -151,15 +152,18 @@ service to parse the input file or strings.
 </P>
 
 <P>Input Method 3) Paste the whole file here:
+<br/>
 <TEXTAREA ROWS="4" COLS="80" NAME="textfile">
 </TEXTAREA>
 </P>
-<P><INPUT TYPE="CHECKBOX" CHECKED NAME="ParsHed">Parse the header metadata using the following model 
-<SELECT NAME="ParsHedModel">
-  <option VALUE="1">line-level (newer more accurate model)
-  <option VALUE="2">token-level (older)
+<P>Parse the document using the following options
+<SELECT NAME="ParsCitOptions">
+  <option VALUE="1">citations</option>
+  <option VALUE="2">header</option>
+  <option VALUE="3">meta</option>
+  <option VALUE="4">section</option>
+  <option VALUE="5">all</option>
 </SELECT>
-<P><INPUT TYPE="CHECKBOX" CHECKED NAME="ParsCit">Parse the citations and show their contexts</P>
 </P>
 
 <bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
@@ -242,6 +246,23 @@ Romanello for contributing the humanities datasets.
   <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant, NUS
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
 </UL>
+
+<!-- FAQ  ---------------------------------------------------------------------- -->
+<A name="faq"></a><H2>FAQ</H2>
+<DL>
+<DT>What is the difference of SectLabel and previous ParsHed?</DT>
+<DD>SectLabel is a newly-developed module that further extends ParsHed in functionalities. It not only classifies header metadata, but analyzes full documents to output the logical structure of the internals of the document -- sections, subsections, figures, tables, equations, footnotes and captions. <BR>
+     For compatible issues, we still keep ParsHed module in our source code and returning results.
+</DD>
+
+<DT>What is "genericHeader" in the output of SectLabel?/DT>
+<DD>Generic headers, such as introduction, methodology, and evaluation, represent generic logical purposes of sections, mapping specific sections names to generic ones (i.e. .5. Text Features. . Methodology).  This promotes comparative viewing of sections with identical purpose across articles.
+</DD>
+
+<DT>Why is there an option to input file in XML format? Which DTD should it follows?</DT>
+<DD>SectLabel is a robust logical document structure inference system that can handle both rich input (produced by OCR software such as font or spatial features) to boost the performance, but still be able to perform inference on impoverished input (plain text) with degraded performance. XML input is currently implied to be the results of Nuance OmniPage (version 16) in XML form, and hence, should follows the DTD by OmniPage. <BR>
+</DD>
+</DL>
 
 <!-- Group Members  ---------------------------------------------------------------------- -->
 <A name="t"></a><H2>Troubleshooting</H2>
@@ -360,6 +381,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Sat Mar 27 06:24:58 2010
+Fri Apr  9 03:19:45 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>

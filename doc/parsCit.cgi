@@ -30,7 +30,7 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }                 # untaint tm
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $installDir = "/home/forecite/services/parscit/";
+my $installDir = "/home/forecite/services/parscit-archive/parscit-thang";
 my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
@@ -82,9 +82,11 @@ my $filename = "/tmp/$seed\.inputFile";
 my $message = "";
 my $demo = 0;
 
-my $parsHed = ($q->param('ParsHed') eq "on") ? 1 : 0;
-my $parsCit = ($q->param('ParsCit') eq "on") ? 1 : 0;
-my $parsHedModel = ($q->param('ParsHedModel') eq "1") ? "line-level" : "token-level"; # Added by Thang (v090625) for switching between old and new models
+#my $parsHed = ($q->param('ParsHed') eq "on") ? 1 : 0;
+#my $parsCit = ($q->param('ParsCit') eq "on") ? 1 : 0;
+#my $parsHedModel = ($q->param('ParsHedModel') eq "1") ? "line-level" : "token-level"; # Added by Thang (v090625) for switching between old and new models
+my $option = $q->param('ParsCitOptions');
+
 
 if ($q->param('ping') ne "") {
 ## Ping web service up
@@ -100,7 +102,7 @@ if ($q->param('ping') ne "") {
   } else {
     print "Web service for extracting citations is down.  Try again later.\n<BR>";
   }
-  print "[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
+  print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
   printTrailer();
   logMessage("# Web service ping");
   exit;
@@ -156,7 +158,7 @@ if ($q->param('ping') ne "") {
   $demo = 2;
 } else {
 ## Oops, no input?
-  print "<P>You must provide some input data.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
+  print "<P>You must provide some input data.  Please <A HREF=\"emma.html\">return to the ParsCit home page</A> to try again.\n";
   printTrailer();
   logMessage("# Demo: None selected\n  Input: <no data>\n  Output: <no data>\n");
   exit;
@@ -172,18 +174,36 @@ my $outputBuf = "";
 
 if ($demo == 1) {		# run demo 1
   $cmd = "./citeExtract.pl ";
-  if ($parsHed == 1) {
-    if ($parsCit == 1) {
-      $cmd .= "-m extract_meta";
-    } else {
-      $cmd .= "-m extract_header";
-    }
-    if($parsHedModel eq "token-level") { # use the old model
-      $cmd .= " -t";
-    }
-  } elsif ($parsCit == 1) {
-    $cmd .= "-m extract_citations";
+
+  if ($option == 1){
+	$cmd .= "-m extract_citations";
   }
+  elsif ($option == 2){
+	$cmd .= "-m extract_header";
+  }
+  elsif ($option ==3){
+	$cmd .= "-m extract_meta";
+  }
+  elsif ($option == 4){
+	$cmd .= "-m extract_section";
+  }
+  elsif ($option == 5){
+	$cmd .= "-m extract_all";
+  }
+#  if ($parsHed == 1) {
+#    if ($parsCit == 1) {
+#      $cmd .= "-m extract_meta";
+#    } else {
+#      $cmd .= "-m extract_header";
+#    }
+#    if($parsHedModel eq "token-level") { # use the old model
+#      $cmd .= " -t";
+#    }
+#  } elsif ($parsCit == 1) {
+#    $cmd .= "-m extract_citations";
+#  }
+  
+  
   $cmd .= " $filename";
   print "Executing <B>$cmd</B>.\n";
   print "Input Method: <B>$inputMethod</B>.";
@@ -205,19 +225,19 @@ if ($demo == 1) {		# run demo 1
   print "</PRE></DIV>";
 } else {
   print "<P>Invalid demo type selected\n";
-  print "[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
+  print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
   printTrailer();
   logMessage("# Demo: Incorrected selected\n");
   exit;
 }
 
-if ($parsHed == 1) { print (processHeader($outputBuf)); }
-if ($parsCit == 1 || $demo == 2) { print (processCitations($outputBuf, $filename)); }
+if ($option == 5 || $option == 2 || $option == 3) { print (processHeader($outputBuf)); }
+if ($option == 5 || $option == 1 || $option == 3 || $demo == 2) { print (processCitations($outputBuf, $filename)); }
 # remove temporary files
 `rm -f /tmp/$seed.*`;
 
 logMessage("  Input: $inputBuf\n  Output: $outputBuf\n\n");
-print "[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
+print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
 printTrailer();
 
 ###
@@ -249,12 +269,14 @@ sub logMessage {
 }
 
 sub processHeader {
+  my $isHeader = 0;
   my $input = shift @_;
   my $output = "<P>";
   my @lines = split (/\n/,$input);
   for (my $i = 0; $i <= $#lines; $i++) {
-    if ($lines[$i] =~ /<\/header>/) { last; }
-    if ($lines[$i] =~ /^<(author|title|affiliation|address|email|abstract)>(.+)/g) {
+  	if ($lines[$i] =~ /<algorithm name="ParsHed".+>/) {$isHeader = 1;}
+    if ($isHeader == 1 && $lines[$i] =~ /<\/algorithm>/) { last; }
+    if ($isHeader == 1 && $lines[$i] =~ /^<(author|title|affiliation|address|email|abstract)[^>]+>(.+)/g) {
       if ($1 eq "author") { $output .= "<BR>"; }
       $output .= "$1: <span class=\"$1\">$2</span><BR>";
     }
@@ -290,7 +312,7 @@ sub processCitations {
       $fieldsBuf = "";
     } elsif ($lines[$i] =~ /^<rawString>(.+)<\/rawString>$/) {
       $rawStringBuf = $1;
-    } elsif ($lines[$i] =~ /^<context position=\"(\d+)\">(.+)<\/context>$/) {
+    } elsif ($lines[$i] =~ /^<context position=\"(\d+)\"[^>]+>(.+)<\/context>$/) {
       $contextIndex++;
       $contextsBuf .= "<P>Context $contextIndex at byte $1: ...$2...</P>";
     } elsif ($lines[$i] =~ /^<(author|date|title|booktitle|note|volume|number|pages|journal|location|marker)>(.+)/) {

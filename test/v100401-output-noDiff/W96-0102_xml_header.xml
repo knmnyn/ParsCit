@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.224230">
+<title confidence="0.999434">MBT: A Memory-Based Part of Speech Tagger-Generator</title>
+<author confidence="0.967335">Walter Daelemans</author>
+<author confidence="0.967335">Jakub Zavrel</author>
+<affiliation confidence="0.9948045">Computational Linguistics and AT Tilburg University</affiliation>
+<address confidence="0.997723">P.O. Box 90153, NL-5000 LE Tilburg</address>
+<email confidence="0.698977">fwalter.daelemans,zavrelleaub.n1</email>
+<author confidence="0.992495">Peter Berck</author>
+<author confidence="0.992495">Steven Gillis</author>
+<affiliation confidence="0.9990845">Center for Dutch Language and Speech University of Antwerp</affiliation>
+<address confidence="0.520012">Universiteitsplein 1, B-2610 Wilrijk</address>
+<email confidence="0.43325">Ipeter.berck,steven.gillislftia.ua.ac.be</email>
+<abstract confidence="0.997397210526316">We introduce a memory-based approach to part of speech tagging. Memory-based learning is a form of supervised learning based on similarity-based reasoning. The part of speech tag of a word in a particular context is extrapolated from the most similar cases held in memory. Supervised learning approaches are useful when a tagged corpus is available as an example of the desired output of the tagger. Based on such a corpus, the tagger-generator automatically builds a tagger which is able to tag new text the same way, diminishing development time for the construction of a tagger considerably. Memory-based tagging shares this advantage with other statistical or machine learning approaches. Additional advantages specific to a memory-based approach include (i) the relatively small tagged corpus size sufficient for training, (ii) incremental learning, (iii) explanation capabilities, (iv) flexible integration of information in case representations, (v) its non-parametric nature, (vi) reasonably good results on unknown words without morphological analysis, and (vii) fast learning and tagging. In this paper we show that a large-scale application of the memory-based approach is feasible: we obtain a tagging accuracy that is on a par with that of known statistical approaches, and with attractive space and time complexity properties when using IGTree, a tree-based formalism for indexing and searching huge case bases. The use of IGTree has as additional advantage that optimal context size for disambiguation is dynamically computed</abstract>
+</variant>
+</algorithm>
+</algorithms>

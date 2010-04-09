@@ -7,9 +7,15 @@
 
 (by Thang)
 - Added SectLabel (bin/sectExtract.pl, bin/sectExtract/, resource/sectExtract, lib/SectExtract)
-- Incorporated GenericSect (by Emma - bin/genericSectExtract.rb, bin/genericSect/, resource/genericSect) into SectLabel
 - Modified bin/citeExtract.pl, lib/ParsCit/PostProcess.pm, lib/ParsHed/PostProcess.pm to combine ParsCit, ParsHed, SectLabel, and standardize XML output
 - Added test/ for testing purpose with 12 samples documents and standard-output of citeExtract.pl in 5 modes (citations, header, section, meta, and all) using both txt and XML inputs
+- Added SectLabel annotated data doc/sectLabel.tagged.txt and doc/sectLabelXml.tagged.txt (40 documents fully annotated)
+- Added in crfpp/traindata CRF++ feature files (sectLabel.train.dataXml, sectLabel.train.data) and templates (sectLabel.templateXml, sectLabel.template)
+
+- Incorporated works by Emma 
+-- Added GenericSect code (bin/sectLabel/genericSectExtract.rb, crfpp/traindata/genericSect.train.data, bin/sectLabel/genericSect/) into SectLabel
+-- Added GenericSect annotated data doc/genericSect.tagged.txt (211 documents with headers annotated)
+-- Added in crfpp/traindata CRF++ feature file (genericSect.train.data) and template (genericSect.template)
 
 090625b 
 - updated documentation only. no change to executables

@@ -70,36 +70,27 @@ my %config = (
 	      'xmlItalic' => 0,
 	      
 	      # object
-	      'xmlDd' => 0,
-	      'xmlCell' => 0,
+	      'xmlPic' => 0,
+	      'xmlTable' => 0,
 	      'xmlBullet' => 0,
 
-	      'xmlPara' => 0,
+	      # bigram differential features
+	      'bi_xmlA' => 0,
+	      'bi_xmlS' => 0,
+	      'bi_xmlF' => 0,
+	      'bi_xmlSF' => 0,
+	      'bi_xmlSFBI' => 0,
+	      'bi_xmlSFBIA' => 0,
+	      'bi_xmlPara' => 0,
 
 	      # unused
-	      'xmlFontFace' => 0,
-	      'xmlFontFaceChange' => 0,
-	      'xmlFontSizeChange' => 0,
-	      'xmlSpace' => 0,
-	      
-	      # linking features
-	      'link-xmlAlign' => 0,
-	      'link-xmlIndent' => 0,
-
-	      'link-xmlFontSize' => 0,
-	      'link-xmlBold' => 0,
-	      'link-xmlItalic' => 0,
-	      
-	      'link-xmlDd' => 0,
-	      'link-xmlCell' => 0,
-	      'link-xmlBullet' => 0,
-
-	      'link-xmlPara' => 0,
+	      'xmlSpace' => 0,	      
 	     );
 
 my %tagMap = (
 	      "LineLevel" => "UL",
 	      "xml" => "UX",
+	      "bi_xml" => "B", # bigram
 	      "1token" => "U1",
 	      "2token" => "U2",
 	      "3token" => "U3",
@@ -307,7 +298,7 @@ sub crfFeature {
   generateLineFeature($line, \@tokens, $index, $numLines, $isAbstract, $isIntro, $feats, "# Line-level features\n", $tagMap{"LineLevel"}, \@templates, \%featureCounts);
 
   ### XML features ###
-  generateXmlFeature($xmlFeature, $feats, "# Xml features\n", $tagMap{"xml"}, \@templates, \%featureCounts);
+  generateXmlFeature($xmlFeature, $feats, "# Xml features\n", $tagMap{"xml"}, $tagMap{"bi_xml"}, \@templates, \%featureCounts);
 
 #  generateNumberFeature(\@tokens, $feats, "#number. features\n", $tagMap{"Number"}, \@templates, \%featureCounts);
   
@@ -352,13 +343,18 @@ sub crfFeature {
 }
 
 sub generateXmlFeature {
-  my ($xmlFeature, $feats, $msg, $label, $templates, $featureCounts) = @_;
+  my ($xmlFeature, $feats, $msg, $label, $biLabel, $templates, $featureCounts) = @_;
 
   my @features = split(/\s+/, $xmlFeature);
   my $count = 0;
   my $type;
+  my %biFeatureFlag = ();
   foreach my $feature (@features) {
-    if($feature =~ /^(xml[a-zA-Z]+)\_.+$/){
+    if($feature =~ /^bi_xml/){
+      $biFeatureFlag{$count} = 1; 
+    }
+
+    if($feature =~ /^((bi_)?xml[a-zA-Z]+)\_.+$/){
       $type = $1;
       if($config{$type}){
 	push(@{$feats}, $feature);
@@ -369,11 +365,11 @@ sub generateXmlFeature {
     }
   }
   
-  updateTemplate(scalar(@{$feats}), $count, $msg, $label, $templates, $featureCounts);
+  updateTemplate(scalar(@{$feats}), $count, $msg, $label, $templates, $featureCounts, $biLabel, \%biFeatureFlag);
 }
 
 sub updateTemplate {
-  my ($curSize, $numFeatures, $msg, $label, $templates, $featureCounts) = @_;
+  my ($curSize, $numFeatures, $msg, $label, $templates, $featureCounts, $biLabel, $biFeatureFlag) = @_;
 
   # crfpp template
   push(@{$templates}, $msg);
@@ -383,7 +379,11 @@ sub updateTemplate {
   
   my $i = 0;
   for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+    if($biFeatureFlag->{$i}){
+      push(@{$templates}, "$biLabel".$i++.":%x[0,$j]\n");
+    } else {
+      push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+    }
   }
   push(@{$templates}, "\n");
 }

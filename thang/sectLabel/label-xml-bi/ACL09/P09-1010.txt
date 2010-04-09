@@ -1,0 +1,747 @@
+title ||| Reinforcement Learning for Mapping Instructions to Actions |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_largest0 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+author ||| S.R.K. Branavan, Harr Chen, Luke S. Zettlemoyer, Regina Barzilay |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+affiliation ||| Computer Science and Artificial Intelligence Laboratory |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+affiliation ||| Massachusetts Institute of Technology |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_header
+email ||| {branavan, harr, lsz, regina}@csail.mit.edu |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+sectionHeader ||| Abstract |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| In this paper, we present a reinforce- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| ment learning approach for mapping nat- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ural language instructions to sequences of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| executable actions. We assume access to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a reward function that defines the qual- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ity of the executed actions. During train- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing, the learner repeatedly constructs ac- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion sequences for a set of documents, ex- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ecutes those actions, and observes the re- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sulting reward. We use a policy gradient |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| algorithm to estimate the parameters of a |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| log-linear model for action selection. We |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| apply our method to interpret instructions |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in two domains — Windows troubleshoot- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing guides and game tutorials. Our results |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| demonstrate that this method can rival su- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pervised learning techniques while requir- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing few or no annotated training exam- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ples.1 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+sectionHeader ||| 1 Introduction |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| The problem of interpreting instructions written |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| in natural language has been widely studied since |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the early days of artificial intelligence (Winograd, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 1972; Di Eugenio, 1992). Mapping instructions to |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a sequence of executable actions would enable the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| automation of tasks that currently require human |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participation. Examples include configuring soft- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ware based on how-to guides and operating simu- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| lators using instruction manuals. In this paper, we |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| present a reinforcement learning framework for in- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ducing mappings from text to actions without the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| need for annotated training examples. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| For concreteness, consider instructions from a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Windows troubleshooting guide on deleting tem- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| porary folders, shown in Figure 1. We aim to map |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 1Code, data, and annotations used in this work are avail- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+footnote ||| able at http://groups.csail.mit.edu/rbg/code/rl/ |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| Figure 1: A Windows troubleshooting article de- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| scribing how to remove the “msdownld.tmp” tem- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| porary folder. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| this text to the corresponding low-level commands |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| and parameters. For example, properly interpret- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing the third instruction requires clicking on a tab, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| finding the appropriate option in a tree control, and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| clearing its associated checkbox. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In this and many other applications, the valid- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ity of a mapping can be verified by executing the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| induced actions in the corresponding environment |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and observing their effects. For instance, in the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| example above we can assess whether the goal |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| described in the instructions is achieved, i.e., the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| folder is deleted. The key idea of our approach |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| is to leverage the validation process as the main |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| source of supervision to guide learning. This form |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of supervision allows us to learn interpretations |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of natural language instructions when standard su- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pervised techniques are not applicable, due to the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| lack of human-created annotations. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Reinforcement learning is a natural framework |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| for building models using validation from an envi- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ronment (Sutton and Barto, 1998). We assume that |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| supervision is provided in the form of a reward |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| function that defines the quality of executed ac- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tions. During training, the learner repeatedly con- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| structs action sequences for a set of given docu- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ments, executes those actions, and observes the re- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sulting reward. The learner’s goal is to estimate a |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 82 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| Proceedings of the 47th Annual Meeting of the ACL and the 4th IJCNLP of the AFNLP, pages 82–90, |XML| xmlLoc_7 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| Suntec, Singapore, 2-7 August 2009. c�2009 ACL and AFNLP |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| policy — a distribution over actions given instruc- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| tion text and environment state — that maximizes |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| future expected reward. Our policy is modeled in a |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| log-linear fashion, allowing us to incorporate fea- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tures of both the instruction text and the environ- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ment. We employ a policy gradient algorithm to |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| estimate the parameters of this model. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| We evaluate our method on two distinct applica- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| tions: Windows troubleshooting guides and puz- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| zle game tutorials. The key findings of our ex- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| periments are twofold. First, models trained only |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| with simple reward signals achieve surprisingly |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| high results, coming within 11% of a fully su- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pervised method in the Windows domain. Sec- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ond, augmenting unlabeled documents with even |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a small fraction of annotated examples greatly re- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duces this performance gap, to within 4% in that |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| domain. These results indicate the power of learn- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing from this new form of automated supervision. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 2 Related Work |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Grounded Language Acquisition Our work |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| fits into a broader class of approaches that aim to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| learn language from a situated context (Mooney, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2008a; Mooney, 2008b; Fleischman and Roy, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2005; Yu and Ballard, 2004; Siskind, 2001; Oates, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2001). Instances of such approaches include |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| work on inferring the meaning of words from |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| video data (Roy and Pentland, 2002; Barnard and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Forsyth, 2001), and interpreting the commentary |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of a simulated soccer game (Chen and Mooney, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2008). Most of these approaches assume some |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| form of parallel data, and learn perceptual co- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| occurrence patterns. In contrast, our emphasis |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| is on learning language by proactively interacting |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| with an external environment. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Reinforcement Learning for Language Pro- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| cessing Reinforcement learning has been previ- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| ously applied to the problem of dialogue manage- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ment (Scheffler and Young, 2002; Roy et al., 2000; |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Litman et al., 2000; Singh et al., 1999). These |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| systems converse with a human user by taking ac- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tions that emit natural language utterances. The |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reinforcement learning state space encodes infor- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mation about the goals of the user and what they |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| say at each time step. The learning problem is to |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| find an optimal policy that maps states to actions, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| through a trial-and-error process of repeated inter- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| action with the user. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Reinforcement learning is applied very differ- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ently in dialogue systems compared to our setup. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In some respects, our task is more easily amenable |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| to reinforcement learning. For instance, we are not |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| interacting with a human user, so the cost of inter- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| action is lower. However, while the state space can |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| be designed to be relatively small in the dialogue |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| management task, our state space is determined by |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the underlying environment and is typically quite |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| large. We address this complexity by developing |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a policy gradient algorithm that learns efficiently |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| while exploring a small subset of the states. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 3 Problem Formulation |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Our task is to learn a mapping between documents |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| and the sequence of actions they express. Figure 2 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| shows how one example sentence is mapped to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| three actions. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Mapping Text to Actions As input, we are |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| given a document d, comprising a sequence of sen- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tences (u1, ... , ut), where each ui is a sequence |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| of words. Our goal is to map d to a sequence of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| actions a� = (a0, ... , a,1). Actions are predicted |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| and executed sequentially.2 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| An action a = (c, R, W') encompasses a com- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| mand c, the command’s parameters R, and the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| words W' specifying c and R. Elements of R re |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| fer to objects available in the environment state, as |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| described below. Some parameters can also refer |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to words in document d. Additionally, to account |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| for words that do not describe any actions, c can |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| be a null command. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The Environment The environment state £ |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| specifies the set of objects available for interac- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion, and their properties. In Figure 2, £ is shown |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| on the right. The environment state £ changes |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in response to the execution of command c with |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| parameters R according to a transition distribu- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion p(£'J£, c, R). This distribution is a priori un- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| known to the learner. As we will see in Section 5, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| our approach avoids having to directly estimate |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| this distribution. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| State To predict actions sequentially, we need to |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| track the state of the document-to-actions map- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ping over time. A mapping state s is a tuple |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (£, d, j, W), where £ refers to the current environ- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| ment state; j is the index of the sentence currently |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| being interpreted in document d; and W contains |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| words that were mapped by previous actions for |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 2That is, action ai is executed before ai+1 is predicted. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+page ||| 83 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| Figure 2: A three-step mapping from an instruction sentence to a sequence of actions in Windows 2000. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| For each step, the figure shows the words selected by the action, along with the corresponding system |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| command and its parameters. The words of W' are underlined, and the words of W are highlighted in |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| grey. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the same sentence. The mapping state s is ob- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| served after each action. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The initial mapping state s0 for document d is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| (£d, d, 0, 0); £d is the unique starting environment |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| state for d. Performing action a in state s = |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (£, d, j, W) leads to a new state s' according to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| distribution p(s'Is, a), defined as follows: £ tran- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| sitions according to p(£'I£, c, R), W is updated |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| with a’s selected words, and j is incremented if |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| all words of the sentence have been mapped. For |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the applications we consider in this work, environ- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ment state transitions, and consequently mapping |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| state transitions, are deterministic. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Training During training, we are provided with |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| a set D of documents, the ability to sample from |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the transition distribution, and a reward function |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| r(h). Here, h = (s0, a0, ... , sn—1, an—1, sn) is |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| a history of states and actions visited while in- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| terpreting one document. r(h) outputs a real- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| valued score that correlates with correct action |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| selection.3 We consider both immediate reward, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| which is available after each action, and delayed |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reward, which does not provide feedback until the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| last action. For example, task completion is a de- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| layed reward that produces a positive value after |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the final action only if the task was completed suc- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| cessfully. We will also demonstrate how manu- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ally annotated action sequences can be incorpo- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| rated into the reward. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 3In most reinforcement learning problems, the reward |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+footnote ||| function is defined over state-action pairs, as r(s, a) — in this |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| case, r(h) _ Et r(st, at), and our formulation becomes a |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| standard finite-horizon Markov decision process. Policy gra- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| dient approaches allow us to learn using the more general |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| case of history-based reward. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The goal of training is to estimate parameters 0 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| of the action selection distribution p(aI s, 0), called |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| the policy. Since the reward correlates with ac- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion sequence correctness, the 0 that maximizes |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| expected reward will yield the best actions. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 4 A Log-Linear Model for Actions |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Our goal is to predict a sequence of actions. We |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| construct this sequence by repeatedly choosing an |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| action given the current mapping state, and apply- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing that action to advance to a new state. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Given a state s = (£, d, j, W), the space of pos- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| sible next actions is defined by enumerating sub- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| spans of unused words in the current sentence (i.e., |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| subspans of the jth sentence of d not in W), and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the possible commands and parameters in envi- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ronment state £ .4 We model the policy distribu- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion p(aIs; 0) over this action space in a log-linear |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fashion (Della Pietra et al., 1997; Lafferty et al., |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2001), giving us the flexibility to incorporate a di- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| verse range of features. Under this representation, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the policy distribution is: |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+equation ||| ee-�(s,a) |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+equation ||| p(aI s; 0) = � ee-0(s,a') ,	(1) |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+equation ||| a/ |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| where 0(s, a) E Rn is an n-dimensional feature |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| representation. During test, actions are selected |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| according to the mode of this distribution. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 4For parameters that refer to words, the space of possible |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+footnote ||| values is defined by the unused words in the current sentence. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 84 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+sectionHeader ||| 5 Reinforcement Learning |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| During training, our goal is to find the optimal pol- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| icy p(aIs; 0). Since reward correlates with correct |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| action selection, a natural objective is to maximize |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| expected future reward — that is, the reward we |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| expect while acting according to that policy from |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| state s. Formally, we maximize the value function: |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+equation ||| Vo(s) = Ep(hJo) [r(h)] ,	(2) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| where the history h is the sequence of states and |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| actions encountered while interpreting a single |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| document d E D. This expectation is averaged |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| over all documents in D. The distribution p(hI0) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| returns the probability of seeing history h when |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| starting from state s and acting according to a pol- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| icy with parameters 0. This distribution can be de- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| composed into a product over time steps: |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Input: A document set D, |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Feature representation �, |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Reward function r(h), |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Number of iterations T |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Initialization: Set 0 to small random values. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 1 fori=1 ... Tdo |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 2	foreach d E D do |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 3	Sample history h — p(hl0) where |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| h = (s0, a0, ... , an-1, sn) as follows: |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 3a	fort =0 ... n-1do |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 3b	Sample action at — p(alst; 0) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+listItem ||| 3c	Execute at on state st: st+1 — p(slst, at) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+listItem ||| end |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 4	A +- Et (O(st, at) — Ea, 0(st, a')p(a' l st; 0)) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| 5	0+-0+r(h)A |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+listItem ||| end |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| end |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| Output: Estimate of parameters 0 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+listItem ||| Algorithm 1: A policy gradient algorithm. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+equation ||| p(hI0) = n�1 H p(atIst; 0)p(st+1 Ist, at).	(3) |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+equation ||| t=0 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+subsectionHeader ||| 5.1 A Policy Gradient Algorithm |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Our reinforcement learning problem is to find the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| parameters 0 that maximize Vo from equation 2. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Although there is no closed form solution, policy |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gradient algorithms (Sutton et al., 2000) estimate |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the parameters 0 by performing stochastic gradi- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ent ascent. The gradient of Vo is approximated by |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| interacting with the environment, and the resulting |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reward is used to update the estimate of 0. Policy |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gradient algorithms optimize a non-convex objec- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tive and are only guaranteed to find a local opti- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mum. However, as we will see, they scale to large |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| state spaces and can perform well in practice. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| To find the parameters 0 that maximize the ob- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| jective, we first compute the derivative of Vo. Ex- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| panding according to the product rule, we have: |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+equation ||| a0Vo(s) = Ep(hJo) Lr(h)	�0 log p(atI st; 0) , |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+equation ||| t |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| (4)  where the inner sum is over all time steps t in |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| the current history h. Expanding the inner partial |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| derivative we observe that: |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+equation ||| �a0 log p(aIs; 0) = 0(s, a)—	0(s, a')p(a'Is; 0), |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+equation ||| a/ |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| (5)  which is the derivative of a log-linear distribution. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Equation 5 is easy to compute directly. How- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ever, the complete derivative of Vo in equation 4 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| is intractable, because computing the expectation |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| would require summing over all possible histo- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ries. Instead, policy gradient algorithms employ |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| stochastic gradient ascent by computing a noisy |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| estimate of the expectation using just a subset of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the histories. Specifically, we draw samples from |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| p(hI0) by acting in the target environment, and |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| use these samples to approximate the expectation |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in equation 4. In practice, it is often sufficient to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sample a single history h for this approximation. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Algorithm 1 details the complete policy gradi- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ent algorithm. It performs T iterations over the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| set of documents D. Step 3 samples a history that |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| maps each document to actions. This is done by |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| repeatedly selecting actions according to the cur- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| rent policy, and updating the state by executing the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| selected actions. Steps 4 and 5 compute the empir- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ical gradient and update the parameters 0. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In many domains, interacting with the environ- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ment is expensive. Therefore, we use two tech- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| niques that allow us to take maximum advantage |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| of each environment interaction. First, a his- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tory h = (s0, a0, ... , sn) contains subsequences |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (si, ai,... sn) for i = 1 to n — 1, each with its |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| own reward value given by the environment as a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| side effect of executing h. We apply the update |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| from equation 5 for each subsequence. Second, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| for a sampled history h, we can propose alterna- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tive histories h' that result in the same commands |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and parameters with different word spans. We can |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| again apply equation 5 for each h', weighted by its |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| probability under the current policy, P�h'Jl1 . |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 85 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| The algorithm we have presented belongs to |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| a family of policy gradient algorithms that have |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| been successfully used for complex tasks such as |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| robot control (Ng et al., 2003). Our formulation is |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| unique in how it represents natural language in the |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reinforcement learning framework. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| 5.2 Reward Functions and ML Estimation |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| We can design a range of reward functions to guide |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| learning, depending on the availability of anno- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| tated data and environment feedback. Consider the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| case when every training document d E D is an- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| notated with its correct sequence of actions, and |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| state transitions are deterministic. Given these ex- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| amples, it is straightforward to construct a reward |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| function that connects policy gradient to maxi- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mum likelihood. Specifically, define a reward |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| function r(h) that returns one when h matches the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| annotation for the document being analyzed, and |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| zero otherwise. Policy gradient performs stochas- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tic gradient ascent on the objective from equa- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion 2, performing one update per document. For |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| document d, this objective becomes: |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+equation ||| Ep(h�e)[r(h)] = X r(h)p(h� e) = p(hd� e), |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+equation ||| h |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| where hd is the history corresponding to the an- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| notated action sequence. Thus, with this reward |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| policy gradient is equivalent to stochastic gradient |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ascent with a maximum likelihood objective. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| At the other extreme, when annotations are |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| completely unavailable, learning is still possi- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ble given informative feedback from the environ- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ment. Crucially, this feedback only needs to cor- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| relate with action sequence quality. We detail |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| environment-based reward functions in the next |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| section. As our results will show, reward func- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tions built using this kind of feedback can provide |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| strong guidance for learning. We will also con- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sider reward functions that combine annotated su- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pervision with environment feedback. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 6 Applying the Model |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| We study two applications of our model: follow- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| ing instructions to perform software tasks, and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| solving a puzzle game using tutorial guides. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+subsectionHeader ||| 6.1 Microsoft Windows Help and Support |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+subsectionHeader ||| On its Help and Support website,5 Microsoft pub- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+subsectionHeader ||| lishes a number of articles describing how to per- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| 5support.microsoft.com |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| Notation |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+table ||| o Parameter referring to an environment object |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| L Set of object class names (e.g. “button”) |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| V Vocabulary |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Features on W and object o |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+table ||| Test if o is visible in s |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| Test if o has input focus |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Test if o is in the foreground |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Test if o was previously interacted with |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Test if o came into existence since last action |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Min. edit distance between w E W and object labels in s |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Features on words in W, command c, and object o |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| `dc' EC,wEV:test ifc'=cand wEW |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| `dc' E C, l E L: test if c' = c and l is the class of o |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+tableCaption ||| Table 1: Example features in the Windows do- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+tableCaption ||| main. All features are binary, except for the nor- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+tableCaption ||| malized edit distance which is real-valued. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| form tasks and troubleshoot problems in the Win- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| dows operating systems. Examples of such tasks |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| include installing patches and changing security |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| settings. Figure 1 shows one such article. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Our goal is to automatically execute these sup- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| port articles in the Windows 2000 environment. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Here, the environment state is the set of visi- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ble user interface (UI) objects, and object prop- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| erties such as label, location, and parent window. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Possible commands include left-click, right-click, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| double-click, and type-into, all of which take a UI |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| object as a parameter; type-into additionally re- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| quires a parameter for the input text. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Table 1 lists some of the features we use for this |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| domain. These features capture various aspects of |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the action under consideration, the current Win- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| dows UI state, and the input instructions. For ex- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ample, one lexical feature measures the similar- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ity of a word in the sentence to the UI labels of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| objects in the environment. Environment-specific |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| features, such as whether an object is currently in |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| focus, are useful when selecting the object to ma- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| nipulate. In total, there are 4,438 features. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Reward Function Environment feedback can |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| be used as a reward function in this domain. An |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| obvious reward would be task completion (e.g., |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| whether the stated computer problem was fixed). |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Unfortunately, verifying task completion is a chal- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| lenging system issue in its own right. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Instead, we rely on a noisy method of check- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| ing whether execution can proceed from one sen- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tence to the next: at least one word in each sen- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| tence has to correspond to an object in the envi- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 86 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+figureCaption ||| Figure 3: Crossblock puzzle with tutorial. For this |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+figureCaption ||| level, four squares in a row or column must be re- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figureCaption ||| moved at once. The first move specified by the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figureCaption ||| tutorial is greyed in the puzzle. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ronment.6 For instance, in the sentence from Fig- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ure 2 the word “Run” matches the Run... menu |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| item. If no words in a sentence match a current |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| environment object, then one of the previous sen- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tences was analyzed incorrectly. In this case, we |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| assign the history a reward of -1. This reward is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not guaranteed to penalize all incorrect histories, |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| because there may be false positive matches be- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tween the sentence and the environment. When |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| at least one word matches, we assign a positive |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reward that linearly increases with the percentage |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of words assigned to non-null commands, and lin- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| early decreases with the number of output actions. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| This reward signal encourages analyses that inter- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pret all of the words without producing spurious |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| actions. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| 6.2 Crossblock: A Puzzle Game |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Our second application is to a puzzle game called |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Crossblock, available online as a Flash game.7 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Each of 50 puzzles is played on a grid, where some |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| grid positions are filled with squares. The object |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of the game is to clear the grid by drawing vertical |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| or horizontal line segments that remove groups of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| squares. Each segment must exactly cross a spe- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| cific number of squares, ranging from two to seven |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| depending on the puzzle. Humans players have |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| found this game challenging and engaging enough |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to warrant posting textual tutorials.8 A sample |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| puzzle and tutorial are shown in Figure 3. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The environment is defined by the state of the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| grid. The only command is clear, which takes a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| parameter specifying the orientation (row or col- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| umn) and grid location of the line segment to be |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 6We assume that a word maps to an environment object if |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+footnote ||| the edit distance between the word and the object’s name is |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+footnote ||| below a threshold value. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| 7hexaditidom.deviantart.com/art/Crossblock-108669149 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| 8www.jayisgames.com/archives/2009/01/crossblock.php |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| removed. The challenge in this domain is to seg- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| ment the text into the phrases describing each ac- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion, and then correctly identify the line segments |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| from references such as “the bottom four from the |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| second column from the left.” |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| For this domain, we use two sets of binary fea- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| tures on state-action pairs (s, a). First, for each |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| vocabulary word w, we define a feature that is one |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| if w is the last word of a’s consumed words W'. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| These features help identify the proper text seg- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| mentation points between actions. Second, we in- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| troduce features for pairs of vocabulary word w |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| and attributes of action a, e.g., the line orientation |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and grid locations of the squares that a would re- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| move. This set of features enables us to match |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| words (e.g., “row”) with objects in the environ- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ment (e.g., a move that removes a horizontal series |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of squares). In total, there are 8,094 features. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Reward Function For Crossblock it is easy to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| directly verify task completion, which we use as |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the basis of our reward function. The reward r(h) |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| is -1 if h ends in a state where the puzzle cannot |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| be completed. For solved puzzles, the reward is |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| a positive value proportional to the percentage of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| words assigned to non-null commands. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 7 Experimental Setup |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Datasets For the Windows domain, our dataset |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| consists of 128 documents, divided into 70 for |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| training, 18 for development, and 40 for test. In |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| the puzzle game domain, we use 50 tutorials, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| divided into 40 for training and 10 for test.9 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Statistics for the datasets are shown below. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	Windows	Puzzle |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+table ||| Total # of documents	128	50 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Total # of words	5562	994 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Vocabulary size	610	46 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Avg. words per sentence	9.93	19.88 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Avg. sentences per document	4.38	1.00 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Avg. actions per document	10.37	5.86 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The data exhibits certain qualities that make |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| for a challenging learning problem. For instance, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| there are a surprising variety of linguistic con- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| structs — as Figure 4 shows, in the Windows do- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| main even a simple command is expressed in at |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| least six different ways. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 9For Crossblock, because the number of puzzles is lim- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+footnote ||| ited, we did not hold out a separate development set, and re- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| port averaged results over five training/test splits. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+page ||| 87 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+figureCaption ||| Figure 4: Variations of “click internet options on |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+figureCaption ||| the tools menu” present in the Windows corpus. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Experimental Framework To apply our algo- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| rithm to the Windows domain, we use the Win32 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| application programming interface to simulate hu- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| man interactions with the user interface, and to |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gather environment state information. The operat- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing system environment is hosted within a virtual |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| machine,10 allowing us to rapidly save and reset |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| system state snapshots. For the puzzle game do- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| main, we replicated the game with an implemen- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tation that facilitates automatic play. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| As is commonly done in reinforcement learn- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing, we use a softmax temperature parameter to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| smooth the policy distribution (Sutton and Barto, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| 1998), set to 0.1 in our experiments. For Windows, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the development set is used to select the best pa- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| rameters. For Crossblock, we choose the parame- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ters that produce the highest reward during train- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing. During evaluation, we use these parameters |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to predict mappings for the test documents. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Evaluation Metrics For evaluation, we com- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pare the results to manually constructed sequences |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of actions. We measure the number of correct ac- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| tions, sentences, and documents. An action is cor- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| rect if it matches the annotations in terms of com- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mand and parameters. A sentence is correct if all |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of its actions are correctly identified, and analo- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gously for documents.11 Statistical significance is |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| measured with the sign test. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Additionally, we compute a word alignment |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| score to investigate the extent to which the input |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| text is used to construct correct analyses. This |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| score measures the percentage of words that are |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| aligned to the corresponding annotated actions in |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| correctly analyzed documents. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Baselines We consider the following baselines |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| to characterize the performance of our approach. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 10VMware Workstation, available at www.vmware.com |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+footnote ||| 11In these tasks, each action depends on the correct execu- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+footnote ||| tion of all previous actions, so a single error can render the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| remainder of that document’s mapping incorrect. In addition, |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+footnote ||| due to variability in document lengths, overall action accu- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| racy is not guaranteed to be higher than document accuracy. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| •	Full Supervision Sequence prediction prob- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| lems like ours are typically addressed us- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing supervised techniques. We measure how |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| a standard supervised approach would per- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| form on this task by using a reward signal |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| based on manual annotations of output ac- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion sequences, as defined in Section 5.2. As |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| shown there, policy gradient with this re- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ward is equivalent to stochastic gradient as- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| cent with a maximum likelihood objective. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| •	Partial Supervision We consider the case |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| when only a subset of training documents is |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| annotated, and environment reward is used |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| for the remainder. Our method seamlessly |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| combines these two kinds of rewards. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| •	Random and Majority (Windows) We con- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_larger xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| sider two naive baselines. Both scan through |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| each sentence from left to right. A com- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| mand c is executed on the object whose name |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| is encountered first in the sentence. This |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| command c is either selected randomly, or |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| set to the majority command, which is left- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| click. This procedure is repeated until no |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more words match environment objects. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| •	Random (Puzzle) We consider a baseline |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| that randomly selects among the actions that |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+listItem ||| are valid in the current game state.12 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+sectionHeader ||| 8 Results |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Table 2 presents evaluation results on the test sets. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| There are several indicators of the difficulty of this |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| task. The random and majority baselines’ poor |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| performance in both domains indicates that naive |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| approaches are inadequate for these tasks. The |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| performance of the fully supervised approach pro- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| vides further evidence that the task is challenging. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| This difficulty can be attributed in part to the large |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| branching factor of possible actions at each step — |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| on average, there are 27.14 choices per action in |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the Windows domain, and 9.78 in the Crossblock |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| domain. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In both domains, the learners relying only |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| on environment reward perform well. Although |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the fully supervised approach performs the best, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| adding just a few annotated training examples |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to the environment-based learner significantly re- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duces the performance gap. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+footnote ||| 12 Since action selection is among objects, there is no natu- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+footnote ||| ral majority baseline for the puzzle. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 88 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| 			Windows					Puzzle |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	Action		Sent.		Doc.	Word	Action		Doc.		Word |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Random baseline	0.128		0.101		0.000	—–		0.081		0.111	—– |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+table ||| Majority baseline	0.287		0.197		0.100	—–		—–		—–	—– |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Environment reward	* 0.647	*	0.590	*	0.375	0.819	*	0.428	*	0.453	0.686 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Partial supervision	*0.723	*	0.702		0.475	0.989		0.575	*	0.523	0.850 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| Full supervision	*0.756		0.714		0.525	0.991		0.632		0.630	0.869 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| Table 2: Performance on the test set with different reward signals and baselines. Our evaluation measures |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+tableCaption ||| the proportion of correct actions, sentences, and documents. We also report the percentage of correct |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| word alignments for the successfully completed documents. Note the puzzle domain has only single- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+tableCaption ||| sentence documents, so its sentence and document scores are identical. The partial supervision line |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| refers to 20 out of 70 annotated training documents for Windows, and 10 out of 40 for the puzzle. Each |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| result marked with * or o is a statistically significant improvement over the result immediately above it; |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| * indicates p < 0.01 and o indicates p < 0.05. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+figureCaption ||| Figure 5: Comparison of two training scenarios where training is done using a subset of annotated |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| documents, with and without environment reward for the remaining unannotated documents. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Figure 5 shows the overall tradeoff between an- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| notation effort and system performance for the two |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| domains. The ability to make this tradeoff is one |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| of the advantages of our approach. The figure also |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| shows that augmenting annotated documents with |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| additional environment-reward documents invari- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ably improves performance. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The word alignment results from Table 2 in- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| dicate that the learners are mapping the correct |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| words to actions for documents that are success- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| fully completed. For example, the models that per- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| form best in the Windows domain achieve nearly |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| perfect word alignment scores. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| To further assess the contribution of the instruc- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion text, we train a variant of our model without |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| access to text features. This is possible in the game |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| domain, where all of the puzzles share a single |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| goal state that is independent of the instructions. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| This variant solves 34% of the puzzles, suggest- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing that access to the instructions significantly im- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| proves performance. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| 9 Conclusions |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| In this paper, we presented a reinforcement learn- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| ing approach for inducing a mapping between in- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| structions and actions. This approach is able to use |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| environment-based rewards, such as task comple- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tion, to learn to analyze text. We showed that hav- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ing access to a suitable reward function can signif- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| icantly reduce the need for annotations. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| Acknowledgments |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_largest-2 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| The authors acknowledge the support of the NSF |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| (CAREER grant IIS-0448168, grant IIS-0835445, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| grant IIS-0835652, and a Graduate Research Fel- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| lowship) and the ONR. Thanks to Michael Collins, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Amir Globerson, Tommi Jaakkola, Leslie Pack |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Kaelbling, Dina Katabi, Martin Rinard, and mem- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| bers of the MIT NLP group for their suggestions |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and comments. Any opinions, findings, conclu- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sions, or recommendations expressed in this paper |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| are those of the authors, and do not necessarily re- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| flect the views of the funding organizations. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 89 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| Jeffrey Mark Siskind. 2001. Grounding the lexical se- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| mantics of verbs in visual perception using force dy- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| namics and event logic. J. Artif. Intell. Res. (JAIR), |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| 15:31–90. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| References |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Kobus Barnard and David A. Forsyth. 2001. Learning |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| the semantics of words and pictures. In Proceedings |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| of ICCV. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| David L. Chen and Raymond J. Mooney. 2008. Learn- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| ing to sportscast: a test of grounded language acqui- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| sition. In Proceedings of ICML. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Stephen Della Pietra, Vincent J. Della Pietra, and |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| John D. Lafferty. 1997. Inducing features of ran- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| dom fields. IEEE Trans. Pattern Anal. Mach. Intell., |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| 19(4):380–393. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Barbara Di Eugenio. 1992. Understanding natural lan- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| guage instructions: the case of purpose clauses. In |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Proceedings of ACL. |XML| xmlLoc_1 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Michael Fleischman and Deb Roy. 2005. Intentional |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| context in situated language learning. In Proceed- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| ings of CoNLL. |XML| xmlLoc_2 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| John Lafferty, Andrew McCallum, and Fernando |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Pereira. 2001. Conditional random fields: Prob- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| abilistic models for segmenting and labeling se- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| quence data. In Proceedings of ICML. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Diane J. Litman, Michael S. Kearns, Satinder Singh, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| and Marilyn A. Walker. 2000. Automatic optimiza- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| tion of dialogue management. In Proceedings of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| COLING. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Raymond J. Mooney. 2008a. Learning language |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| from its perceptual context. In Proceedings of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| ECML/PKDD. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Raymond J. Mooney. 2008b. Learning to connect lan- |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| guage and perception. In Proceedings ofAAAI. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Andrew Y. Ng, H. Jin Kim, Michael I. Jordan, and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Shankar Sastry. 2003. Autonomous helicopter flight |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| via reinforcement learning. In Advances in NIPS. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| James Timothy Oates. 2001. Grounding knowledge |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| in sensors: Unsupervised learning for language and |XML| xmlLoc_5 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| planning. Ph.D. thesis, University of Massachusetts |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Amherst. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Deb K. Roy and Alex P. Pentland. 2002. Learn- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| ing words from sights and sounds: a computational |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| model. Cognitive Science 26, pages 113–146. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Nicholas Roy, Joelle Pineau, and Sebastian Thrun. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 2000. Spoken dialogue management using proba- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| bilistic reasoning. In Proceedings of ACL. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Konrad Scheffler and Steve Young. 2002. Automatic |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| learning of dialogue strategy using dialogue simula- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| tion and reinforcement learning. In Proceedings of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| HLT. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Satinder P. Singh, Michael J. Kearns, Diane J. Litman, |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| and Marilyn A. Walker. 1999. Reinforcement learn- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| ing for spoken dialogue systems. In Advances in |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| NIPS. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Richard S. Sutton and Andrew G. Barto. 1998. Re- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| inforcement Learning: An Introduction. The MIT |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Press. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Richard S. Sutton, David McAllester, Satinder Singh, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| and Yishay Mansour. 2000. Policy gradient meth- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| ods for reinforcement learning with function approx- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| imation. In Advances in NIPS. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Terry Winograd. 1972. Understanding Natural Lan- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| guage. Academic Press. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Chen Yu and Dana H. Ballard. 2004. On the integra- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| tion of grounding language and learning objects. In |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Proceedings ofAAAI. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+page ||| 90 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
