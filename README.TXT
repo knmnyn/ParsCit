@@ -62,7 +62,7 @@ bin/	- Binaries / scripts for running ParsCit
 CHANGELOG.TXT	- Changes between versions of the code.
 crfpp/		- The CRF++ machine learning package used within ParsCit
      /traindata	- Sample training data for the CRF++ code of ParsCit,
-                  ParsHed, and SectLabel # Thang v100401
+                  ParsHed, and SectLabel 
 demodata/	- Test data for sanity checking outputs
 doc/		- The CGI base installation and documentation (scientific 
                   publications) about ParsCit	
