@@ -1,5 +1,6 @@
-#!/usr/bin/perl -CSD
+#!/usr/bin/perl
 # -*- cperl -*-
+#!/usr/bin/perl -CSD
 =head1 NAME
 
 citeExtract.pl
@@ -40,8 +41,8 @@ my $PARSCIT = 1;
 my $PARSHED = 2;
 my $SECTLABEL = 4; # Thang Mar 10
 my $defaultMode = $PARSCIT;
-my $defaultInputType = "raw"; 
-my $outputVersion = "100326";
+my $defaultInputType = "raw";
+my $outputVersion = "100401";
 ### END user customizable section
 
 ### Ctrl-C handler
@@ -59,7 +60,7 @@ sub Help {
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 
   # Thang Mar 10: add new mode (extract_section), and -i <inputType>
-  print STDERR "\t-m <mode>\tMode (extract_header, extract_meta, extract_section, extract_all, default: extract_citations)\n";
+  print STDERR "\t-m <mode>\tMode (extract_citations, extract_header, extract_section, extract_meta, extract_all, default: extract_citations)\n";
   print STDERR "\t-i <inputType>\tType (raw, xml, default: raw)\n";
   print STDERR "\t-t\tUse token level model instead\n";
   print STDERR "\n";

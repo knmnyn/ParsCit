@@ -1,10 +1,14 @@
 ParsCit README
-IGC / MYK 
+(updated in 100401 distribution by MYK)
+Originally by IGC / MYK 
 
 ParsCit is a utility for extracting citations from research papers
 based on Conditional Random Fields and heuristic regularization.
+Please see the installation notes before attempting to use the
+package.  
 
-Command Line Usage:
+------------------------------------------------------------
+COMMAND LINE USAGE:
 
 Command line utilities are provided for extracting citations from
 text documents.  By default, text files are expected to be encoded
@@ -17,7 +21,7 @@ citeExtract.pl [-m mode] textfile [outfile]
 If "outfile" is specified, the XML output will be written to that
 file; otherwise, the XML will be printed to STDOUT.
 
-The mode switch (-m) has three settings: extract_citations,
+The mode switch (-m) has five settings: extract_citations,
 extract_header, extract_meta.  extract_citations is the default and
 extracts and parses the citations in the reference/bibliography
 section of the input text file.  extract_header extracts and parses
@@ -52,6 +56,7 @@ parscit-client.pl filePath repositoryID
 
 If the call is successful, the XML output will be printed to STDOUT.
 
+------------------------------------------------------------
 API:
 
 The ParsCit libraries may be used directly from external perl

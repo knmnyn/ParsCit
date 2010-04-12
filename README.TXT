@@ -33,7 +33,7 @@ scripts written at NUS.
 ----------------------------------------------------------------------
 Files:
 
-bin/		- Binaries / scripts for running ParsCit
+bin/	- Binaries / scripts for running ParsCit
    /archtest.pl		- Used by IST installation
    /citeExtract.pl 	- Script for running the whole pipeline from a text file 
 			  (body/references segmentation, reference string parsing)

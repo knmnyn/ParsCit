@@ -1,18 +1,29 @@
-Installation:
+INSTALLATION:
 
 Please see the README.TXT first to familiarize yourself with the
 binaries (shell scripts) for this software package.  You should first
-attempt to get the basic command line clients working first.  
+attempt to get the basic command line clients working first.  The
+Troubleshooting section of the home page (in doc/index.html in this
+distribution; identical to the ParsCit home page at
+http://wing.comp.nus.edu.sg/parsCit/#t) also contains some notes of
+import.
 
+Please note: Currently the software is not supported by any auto
+install package -- we expect a UNIX-knowledgable person to be able to
+get the installation working within 30 minutes to an hour.
+
+------------------------------------------------------------
 **Command-line client**
 
 These are the two scripts: citeExtract.pl and parseRefStrings.pl.  The
 second script is a subset of the first, and should be your first
 target to get running.
 
-1) You will first need to reinstall,recompile the crfpp package and
-place the binaries at crfpp/. We are using CRF++ version 0.51.  To do
-this follow these instructions in the crfpp directory.
+1) You will first need to reinstall, recompile the crfpp package and
+place the binaries at crfpp/.  We are using CRF++ version 0.51.  To do
+this follow these instructions in the crfpp directory.  CRF++ is the
+core conditional random field learner, that is re-distributed in this
+ParsCit software.  It is due to Taku Kudo.
 
   $ cd crfpp
   # we're going to rebuild CRF 51
@@ -21,12 +32,11 @@ this follow these instructions in the crfpp directory.
   $ cd CRF++-0.51
 
   $ configure  
-  # important! this first command fails for me; not sure why (see below
-  "note of failure")
+  # important! the first "make" command fails for me; not sure why 
   $ make
   $ make clean
   $ make
-  # hopefully by here, you have a successful build of  both crf_test and crf_learn
+  # hopefully by here, you have a successful build of both crf_test and crf_learn
 
   # move executables to where parscit expects to find them
   $  cp crf_learn crf_test ..
@@ -46,6 +56,7 @@ found in demodata.  It should produce the same result as found in the
 
 ./citeExtract.pl -m extract_meta ../demodata/sample2.txt
 
+------------------------------------------------------------
 **Web Service**
 
 These are the remaining parts of the system.  There are two sets of
@@ -61,6 +72,4 @@ Log::Dispatch
 2) Edit lib/ParsCit/Config.pm to provide values appropriate for your
 environment.  Also edit wsdl/ParsCitService.wsdl to reflect any
 changes to your service URL.
-
-
 
