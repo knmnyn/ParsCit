@@ -31,8 +31,9 @@ Current development (from 2008 onwards) has been done at NUS only.
 The newer version of files are supported only through the newer
 scripts written at NUS.
 
-# Thang v100401
-SectLabel has been developed at NUS (2010) to retrieve logical structure of scientific documents. For further information, please refer to the webpage description and FAQ section.
+SectLabel has been developed at NUS (2010) to retrieve logical
+structure of scientific documents. For further information, please
+refer to the webpage description and TroubleShooting section.
 
 ----------------------------------------------------------------------
 Files:
@@ -65,8 +66,6 @@ crfpp/		- The CRF++ machine learning package used within ParsCit
 demodata/	- Test data for sanity checking outputs
 doc/		- The CGI base installation and documentation (scientific 
                   publications) about ParsCit	
-# Thang v100401: @Min, mention about annotated data?
-
 INSTALL.TXT	- installation and basic instructions
 
 lib
