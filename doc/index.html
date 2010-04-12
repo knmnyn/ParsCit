@@ -298,28 +298,25 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite">http://wing.c
      tables, equations, footnotes and captions. <BR> For compatibility
      issues, the ParsHed module is still retained in our source code
      and command line options.  </DD>
-  <DT>What is the "genericHeader" in the output of SectLabel?/DT>
-
+  <DT>What is the "genericHeader" in the output of SectLabel?</DT>
   <DD>Generic headers, such as introduction, methodology, and
      evaluation, represent generic purposes of different sections in a
      scholarly article.  We map all section names to generic ones
      (i.e., "5. Text Features" to "Methodology").  This promotes
      comparative viewing of sections with identical purpose across
      articles.  </DD>
-
   <DT>Why is there an option to input file in XML format? Which DTD
-  should it follow?</DT>
-       
+    should it follow?</DT>
   <DD>SectLabel is a robust logical document structure inference
-  system that can handle both rich input (produced by OCR software
-  such as font or spatial features) to boost recognition performance,
-  but still be able to perform inference on impoverished input (plain
-  text) with degraded performance. Currently, the XML input must be in
-  the form of output from Nuance OmniPage (version 16)'s XML format,
-  and hence, should follows the DTD by OmniPage.  Note: The ParsCit
-  team is not affiliated with Nuance in any way nor does it endorse
-  Omnipage.</DD>
-
+    system that can handle both rich input (produced by OCR software
+    such as font or spatial features) to boost recognition
+    performance, but still be able to perform inference on
+    impoverished input (plain text) with degraded
+    performance. Currently, the XML input must be in the form of
+    output from Nuance OmniPage (version 16)'s XML format, and hence,
+    should follows the DTD by OmniPage.  Note: The ParsCit team is not
+    affiliated with Nuance in any way nor does it endorse
+    Omnipage.</DD>
 </DL>
 
 <!-- Troubleshooting ---------------------------------------------------------------------- -->
@@ -334,85 +331,96 @@ Nevertheless, there are problems with the output occasionally.  Below
 are some common problems people have encountered.
 
 <DL>
-<DT>Issue numbers don't get extracted.</DT>
-<DD>We're looking into this.  The training data does not make a
-distinction about volume and issue number.  We'd like to fix that in a
-subsequent release.
-</DD>
-<DT>Separation of author names and publishing year fails</DT>
-<DD> In some reference data with non-standard sequences of
- first names and family names, e.g.
+  <DT>Issue numbers don't get extracted.</DT>
+  <DD>We're looking into this.  The training data does not make a
+    distinction about volume and issue number.  We'd like to fix that
+    in a subsequent release.</DD>
+  <DT>Separation of author names and publishing year fails</DT>
+
+  <DD> In some reference data with non-standard sequences of
+    first names and family names, e.g.
 <pre>
   Baltes, Paul, Ursula Staudinger, Ulmann Lindenberger (1999): Lifespan
   psychology: theory and application of intellectual functioning; in:
   Annual Review of Psychology, 50, 471-507
 </pre>
-ParsCit's post processing step may not detect and deal with these
-problems reliably.  We're working to fix these too.
-</DD>
-<DT>I passed ParsCit plain text output but in another, non-English language.  I didn't get good results or I got empty results.  Can you help? 
-</DT>
-<DD>Aside from English, ParsCit can handle Italian and German to a limited extent, thanks to the multilingual training data.  However, the demo web interface uploads non-ASCII (e.g., UTF-8 or UTF-16 data) as binary data and fails to execute ParsCit.  However, if you download a copy of ParsCit, the libraries do work on such data.  Here's a <A HREF="humanities.test.out.xml">sample</A>.
+    ParsCit's post processing step may not detect and deal with these
+    problems reliably.  We're working to fix these too. </DD>
+  <DT>I passed ParsCit plain text output but in another, non-English
+    language.  I didn't get good results or I got empty results.  Can
+    you help? </DT>
+  <DD>Aside from English, ParsCit can handle Italian and German to a
+    limited extent, thanks to the multilingual training data.
+    However, the demo web interface uploads non-ASCII (e.g., UTF-8 or
+    UTF-16 data) as binary data and fails to execute ParsCit.
+    However, if you download a copy of ParsCit, the libraries do work
+    on such data.  Here's a <A
+    HREF="humanities.test.out.xml">sample</A>. We'd love to help make
+    a more universal model that can accommodate reference strings in
+    other languages.  If you're willing to help contribute ground
+    truth data, we love to hear from you!</DD>
 
-We'd love to help make a more universal model that can accommodate reference strings in other languages.  If you're willing to help contribute ground truth data, we love to hear from you!  
-</DD>
-<DT>How about retraining ParsCit for another language/domain?
-</DT>
-<DD>You can put your supervised exemplar data into the same format as tagged_references.txt found in crfpp/traindata/.  Once you have this file you can generate the appropriate model for ParsCit, by using three commands (assumes you are in the crfpp/traindata directory):
-<P>
+  <DT>How about retraining ParsCit for another language/domain?</DT>
+  <DD>You can put your supervised exemplar data into the same format
+    as tagged_references.txt found in crfpp/traindata/.  Once you have
+    this file you can generate the appropriate model for ParsCit, by
+    using three commands (assumes you are in the crfpp/traindata
+    directory):
+       <P>
 <CODE>$ ../../bin/tr2crfpp.pl tagged_references.txt > parsCit.train.data
 <BR>
 $ ../crf_learn parsCit.template parsCit.train.data model
 <BR>
 $ mv model ../../resources/parsCit.model
 </CODE>
-<P>The first command creates the input feature file that crfpp uses
-from the training data.  The second creates the model using the
-crf_learn command.  You can then move the model file to the resources/ subdirectory where it can be utilized.  To replace the default model that comes with ParsCit, just execute the final command.  
-</DD> 
-<DT> Can I retrain the package for a different set of tags if I change
-the tagset in the training data?</DT>
-<DD> Yes, you should be able to change the tagset to suit your
-dataset.  You can add, eliminate and change the tagset as you wish.
-You need to retrain the parser system after creating your tag data.
-For more details on the training process, see the documentation for
-CRF++, that is on the web at sourceforge.     
-</DD>
-<DT>When retraining I get a "bad_alloc" error.  What gives?</DT>
-<DD>We're not entirely sure of this.  CRF training is quite memory
-intensive and running a large amount of training data tuples may cause
-the embedded CRF++ package to fail.  You can try with less training
-data, or try training on a machine with a larger amount of RAM.
-</DD> 
-<DT>Does the web service actually work? I can't seem to run it.</DT>
-<DD>Occasionally our school's networking staff changes the firewall
-settings, so the port for our group's web services may be blocked
-(port 4000 on host wing.comp.nus.edu.sg).  If you find you can't
-reach our services (they time out), please let us know.  </DD>
-<DT>I get funny errors with crf_test not being useful.  How do I fix this?</DT>
-<DD>The updated README.txt file in the 090625b distribution fixes
-this.  Basically you need to recompile CRF++ 0.51 and place the
-libraries and the executables in the proper place. See the README for
-details.</DD>
+   <P>The first command creates the input feature file that crfpp uses
+     from the training data.  The second creates the model using the
+     crf_learn command.  You can then move the model file to the
+     resources/ subdirectory where it can be utilized.  To replace the
+     default model that comes with ParsCit, just execute the final
+     command.  </DD>
+  <DT> Can I retrain the package for a different set of tags if I
+     change the tagset in the training data?</DT>
+  <DD> Yes, you should be able to change the tagset to suit your
+     dataset.  You can add, eliminate and change the tagset as you
+     wish.  You need to retrain the parser system after creating your
+     tag data.  For more details on the training process, see the
+     documentation for CRF++, that is on the web at sourceforge.
+     </DD>
+  <DT>When retraining I get a "bad_alloc" error.  What gives?</DT>
+  <DD>We're not entirely sure of this.  CRF training is quite memory
+     intensive and running a large amount of training data tuples may
+     cause the embedded CRF++ package to fail.  You can try with less
+     training data, or try training on a machine with a larger amount
+     of RAM.  </DD>
+  <DT>Does the web service actually work? I can't seem to run it.</DT>
+  <DD>Occasionally our school's networking staff changes the firewall
+    settings, so the port for our group's web services may be blocked
+    (port 4000 on host wing.comp.nus.edu.sg).  If you find you can't
+    reach our services (they time out), please let us know.  </DD>
+    <DT>I get funny errors with crf_test not being useful.  How do I
+    fix this?</DT> <DD>The updated README.txt file in the 090625b
+    distribution fixes this.  Basically you need to recompile CRF++
+    0.51 and place the libraries and the executables in the proper
+    place. See the README for details.</DD>
+
 </DL>
 
 <!-- Kudos ---------------------------------------------------------------------- -->
 <H2>Kudos</H2>
 
 <p>ParsCit owes its continued maintenance and support from its user
-base.  Here we'd like to thank them for their help.
+base.  Here we'd like to thank them for their help.</p>
 
-<!-- Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
-(v100401) and contributing the ICONIP training data. -->
-
-Thanks to Artemy Kolchinsky for fixes in Preprocess.pm
-(v090625). Thanks to Matteo Romanello for the humanities training
-datasets.  Thanks to Dain Kaplan for helping us fix the Preprocess.pm
-bug.  Thanks to Ayeh Bandeh-Ahmadi for correcting the warning in
-parseRefString.pl.  Thanks to Nick Friedrich and J&ouml;ran Beel of
-scienstein.org for all fixes in the v081201 version of ParsCit.  Also
-thanks to Madian Khabsa for indicating problems with installation to
-MacOS.
+<P>Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
+(v100401) and contributing the ICONIP training data.  Thanks to Artemy
+Kolchinsky for fixes in Preprocess.pm (v090625). Thanks to Matteo
+Romanello for the humanities training datasets.  Thanks to Dain Kaplan
+for helping us fix the Preprocess.pm bug.  Thanks to Ayeh
+Bandeh-Ahmadi for correcting the warning in parseRefString.pl.  Thanks
+to Nick Friedrich and J&ouml;ran Beel of scienstein.org for all fixes
+in the v081201 version of ParsCit.  Also thanks to Madian Khabsa for
+indicating problems with installation to MacOS.</p>
 
 <!-- Related Links ---------------------------------------------------------------------- -->
 <H2>Related Links</H2>
@@ -420,17 +428,35 @@ MacOS.
 <P>Other, open-source citation parsers:
 
 <UL>
-  <LI> <A HREF="http://freecite.library.brown.edu/welcome">FreeCite</A>: supported by the Mellon Foundation and Brown University.  Written in Ruby on Rails, with the same CRF++ backend.
-  <LI> An <A HREF="http://purl.net/net/egh/hmm-citation-extractor/">Hidden Markov Model Citation Extractor</A>: written by Erik Hetzner of the California Digital Library.
+  <LI> <A
+  HREF="http://freecite.library.brown.edu/welcome">FreeCite</A>:
+  supported by the Mellon Foundation and Brown University.  Written in
+  Ruby on Rails, with the same CRF++ backend.
+  <LI> An <A
+  HREF="http://purl.net/net/egh/hmm-citation-extractor/">Hidden Markov
+  Model Citation Extractor</A>: written by Erik Hetzner of the
+  California Digital Library.
 </UL>
 
-<P> Other related links.  Contact Min below to get your other related software listed here.  Thanks!
+<P> Other related links.  Contact Min below to get your other related
+software listed here.  Thanks!
+
 <UL>
-  <LI> Perhaps you're interested in open source code for libraries?  If so try the <A HREF="http://dewey.library.nd.edu/mailing-lists/code4lib/">CODE4LIB mailing list</A>.
-  <LI> <A HREF="http://www.scienstein.org">Scienstein.org</A>: A recommendation system for papers. 
-  <LI> PdfBox An open-source package for extracting text information from PDF files.  Does not deal with problems with custom font encodings.
-</UL>
+  <LI> Perhaps you're interested in open source code for libraries?
+    If so try the <A
+    HREF="http://dewey.library.nd.edu/mailing-lists/code4lib/">CODE4LIB
+    mailing list</A>.
 
+  <LI> <A
+    HREF="https://wiki.birncommunity.org:8443/display/NEWBIRNCC/LATISI+-+Literature+Annotation+Tool+from+the+Information+Sciences+Institute">LATISI
+    - Literature Annotation Tool from the Information Sciences
+    Institute</A>.  A related project from ISI, using MBL instead of CRF.
+  <LI> <A HREF="http://www.scienstein.org">Scienstein.org</A>: A
+    recommendation system for papers.
+  <LI> PdfBox: An open-source package for extracting text information
+    from PDF files.  Does not deal with problems with custom font
+    encodings.
+</UL>
 
 <HR>
 <H5><ADDRESS><A HREF="http://www.comp.nus.edu.sg/~kanmy">Min-Yen Kan</A> &lt;<A HREF="mailto:kanmy@comp.nus.edu.sg">kanmy@comp.nus.edu.sg</A>&gt;</ADDRESS>
@@ -439,6 +465,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Mon Apr 12 11:55:42 2010
+Mon Apr 12 12:06:25 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>
