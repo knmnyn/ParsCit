@@ -39,7 +39,7 @@ Files:
 
 bin/	- Binaries / scripts for running ParsCit
    /archtest.pl		- Used by IST installation
-   /citeExtract.pl 	- Script for running the whole pipeline from a text/XML file # Thang v100401 
+   /citeExtract.pl 	- Script for running the whole pipeline from a text/XML file 
 			  (logical structure parsing, body/references segmentation, reference string parsing)
    /parsecit-client.pl	- Original perl web service client (tested at IST)
    /parsecit-server.pl	- Original perl web service server (tested at IST)
@@ -48,13 +48,15 @@ bin/	- Binaries / scripts for running ParsCit
    /ParsCitServer.rb	- Ruby web service server for the parsCit/parsHed modules (tested at NUS)
    /redo.parsCit.pl	- Cross Validation training script and training notes 
 			  (at end of script) for ParsCit
+
+   /headExtract.pl	- Script for running header structure parsing.  
    /parsHed/redo.parsHed.pl	- Cross Validation training script and 
 				  training notes (at end of script) for ParsHed
 
-# Thang v100401
+   /sectExtract.pl	- Script for running sectLabeler module for logical structure parsing.
+   /sectLabel/README.txt	- Detailed descriptions of SectLabel scripts, including GenericSect ones
    /sectLabel/redo.sectLabel.pl	- Cross Validation training script and 
 				  training notes (at end of script) for SectLabel 
-   /sectLabel/README.txt	- Detailed descriptions of SectLabel scripts, including GenericSect ones
 
 CHANGELOG.TXT	- Changes between versions of the code.
 crfpp/		- The CRF++ machine learning package used within ParsCit
@@ -66,22 +68,23 @@ doc/		- The CGI base installation and documentation (scientific
 # Thang v100401: @Min, mention about annotated data?
 
 INSTALL.TXT	- installation and basic instructions
+
 lib
    /ParsCit	- perl libraries for ParsCit 
    /ParsHed	- perl libraries for ParsHed 
-   /SectLabel	- perl libraries for SectLabel # Thang v100401 
+   /SectLabel	- perl libraries for SectLabel
    /cgiLog.txt	- CGI log for running web interface (nb, different than web 
                   service interface)
 README.TXT	- this file
 resources/	- dictionary files and CRF++ trained models
          /parsCitDict.txt - dictionary file shared by ParsCit and ParsHed
          /parsCit.model - default model used by ParsCit
+
          /parsHed/parsHed.model - default model used by ParsHed (trained at line level)
          /parsHed/keywords - most frequent keywords
          /parsHed/bigram - most frequent bigrams
          /parsHed/archive/parsHed.model - old model (trained at token level)
 
-	# Thang v100401
          /sectLabel/sectLabel.model - default model used by SectLabel for plain text input
          /sectLabel/sectLabel.modelXml - default model used by SectLabel for XML input
          /sectLabel/genericSect.model - default model used by GenericSect
