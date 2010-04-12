@@ -33,28 +33,47 @@ function toggleLayer( whichLayer ) {
 
 <CENTER><H1>ParsCit: An open-source CRF Reference String Parsing Package</H1></CENTER>
 
-<P>This is the home page of the ParsCit project, which performs two tasks: 1) reference string parsing, sometimes also called citation parsing or
-citation extraction, and 2) logical structure parsing of scienfific documents.  It is architected as a supervised machine
+<P>This is the home page of the ParsCit project, which performs two
+tasks: 1) reference string parsing, sometimes also called citation
+parsing or citation extraction, and 2) logical structure parsing of
+scienfific documents.  It is architected as a supervised machine
 learning procedure that uses Conditional Random Fields as its learning
 mechanism.  You can download the code below, parse strings online, or
-send batch jobs to our web service (coming soon!).  The code contains
-both the training data, feature generator and shell scripts to connect
-the system to a web service (used here too).  </P>
+send batch jobs to our web service.  The code contains both the
+training data, feature generator and shell scripts to connect the
+system to a web service (used on this web site).</P>
 
-<P>Some definitions (thanks to Robert Dale):
+<P>Some definitions (thanks to Robert Dale for Citations and Reference
+Strings):
+
 <DL>
-  <DT>Reference String:</DT><DD>A text string in the bibliography or reference section of a work, usually at the end of the document that refers to a unique document.  Usually occurs with other reference strings that point to other documents. May also appear as footnotes.</DD>
-  <DT>Citation:</DT><DD>A text string (usually explicit) in the document body that points to a corresponding reference string at the end of the document.  Several citations may co-refer to a single reference string.</DD>
-  <DT>Document Logical Structure:</DT><DD> A hierarchy of logical components, for example, titles, authors, affiliations, abstracts, sections, etc., according to (Mao, Rosenfeld, & Kanungo, 2003).<BR>
-       Our logical structure is more comprehensive, comprising not only header metadata and references, but also the logical structure of the internals of the document -- sections, subsections, figures, tables, equations, footnotes and captions. </DD>
+
+  <DT>Reference String:</DT><DD>A text string in the bibliography or
+  reference section of a work, usually at the end of the document that
+  refers to a unique document.  Usually occurs with other reference
+  strings that point to other documents. May also appear as
+  footnotes.</DD>
+
+  <DT>Citation:</DT><DD>A text string (usually explicit) in the
+  document body that points to a corresponding reference string at the
+  end of the document.  Several citations may co-refer to a single
+  reference string.</DD>
+
+  <DT>Document Logical Structure:</DT><DD> A hierarchy of logical
+  components, for example, titles, authors, affiliations, abstracts,
+  sections, etc., according to (Mao, Rosenfeld &amp;
+  Kanungo,2003). Our logical structure is more comprehensive,
+  comprising not only header metadata and references, but also the
+  logical structure of the internals of the document -- sections,
+  subsections, figures, tables, equations, footnotes and
+  captions. </DD>
+
 </DL>
 
 <P>This project deals with the problem of parsing the reference
-strings and parsing the logical structure of a document.  The first task is handled by a module with the
-project namesake, ParsCit, and the second task by a separate module
-SectLabel.  Other projects related to ParsCit (some here in WING, some
-elsewhere) with identifying and linking citations to reference
-strings).
+strings and parsing the logical structure of a document.  The first
+task is handled by a module with the project namesake, ParsCit, and
+the second task by a separate module SectLabel.
 </P>
 
 <br clear="all" />
@@ -77,7 +96,13 @@ using <CODE>perl</CODE> (must be in your path).
 </P>
 
 <ul>
-  <li> Current version: <A HREF="parscit-100401.zip">100401</A>: Added SectLabel (logical structure parsing) software from the NUS team, and Iconip training data from Cheong Chi Hong for ParsCit with new ParsCit model retrained. See <A HREF="CHANGELOG_v100401.txt">CHANGELOG.txt</A>; <BR>
+
+  <li> Current version: <A HREF="parscit-100401.zip">100401</A>: Added
+  SectLabel (logical structure parsing) software from the NUS team,
+  and Iconip training data from Cheong Chi Hong for ParsCit with new
+  ParsCit model retrained. See <A
+  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; <BR>
+
   <LI> Other versions: <BR>
 <A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR>
 <A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR>
@@ -85,8 +110,11 @@ using <CODE>perl</CODE> (must be in your path).
 <A HREF="parscit-080917.zip">080917</A>: minor changes (improved models and mulilingual support), see CHANGELOG.txt;<BR> 
 <A HREF="parscit-080402.zip">080402</A>: first public release.  Comes with precompiled linux binaries for CRF++;<BR>
 <A HREF="parscit-080310.tgz">080310</A>: beta release.
+
   <li><A HREF="http://crfpp.sourceforge.net">CRF++</A>: A conditional
-random fields toolkit that you may need to install, if the compiled one does not work for you.  As newer versions store the learned model in different file formats we recommend that you use version 0.48.
+random fields toolkit that you may need to install, if the compiled
+one does not work for you.  We recommend that you use version 0.51.
+
 </ul>
 
 <!-- Web Service ---------------------------------------------------------------------- --> 
@@ -158,11 +186,10 @@ service to parse the input file or strings.
 </P>
 <P>Parse the document using the following options
 <SELECT NAME="ParsCitOptions">
-  <option VALUE="1">citations</option>
-  <option VALUE="2">header</option>
-  <option VALUE="3">meta</option>
-  <option VALUE="4">section</option>
-  <option VALUE="5">all</option>
+  <OPTION SELECTED VALUE="5">all</OPTION>
+  <OPTION VALUE="1">citations</OPTION>
+  <OPTION VALUE="2">header</OPTION>
+  <OPTION VALUE="4">section</OPTION>
 </SELECT>
 </P>
 
@@ -170,7 +197,7 @@ service to parse the input file or strings.
 </FORM>
 </DIV>
 
-<P><B>Demo #2: Parsing individual strings only</B></P>
+<P><B>Demo #2: Parsing individual reference strings only (just <CODE>extract_citations</CODE>)</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 
@@ -191,49 +218,61 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite">http://wing.c
 <bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse these lines!"></CENTER>
 </FORM>
 </DIV>
+
 <!-- Publications  ---------------------------------------------------------------------- -->
 <A name="p"></a><H2>Publications</H2>
 <P><B>International Referreed Conference Publications:</B>
 
 <UL>
-  <LI> Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008) <U>ParsCit:
-  An open-source CRF reference string parsing package</U>.  
-  In Proceedings of the Language Resources and Evaluation
-  Conference (LREC 08), Marrakesh, Morrocco, May.
-  <BR> [ <A HREF="lrec08/lrec08.pdf">.pdf</A> ]
-  [ <A HREF="lrec08b.png">Poster (.png)</A> ]
+  <LI> Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008)
+       <U>ParsCit: An open-source CRF reference string parsing
+       package</U>.  In Proceedings of the Language Resources and
+       Evaluation Conference (LREC 08), Marrakesh, Morrocco, May.
+       <BR> [ <A HREF="lrec08/lrec08.pdf">.pdf</A> ]
+       [ <A HREF="lrec08b.png">Poster (.png)</A> ]
 </UL>
 
 <P><B>Others:</B>
 <UL>
+
+  <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (2010)
+       <U>Logical Structure Recovery in Scholarly Articles with Rich
+       Document Features</U>.  Forthcoming in the International
+       Journal of Digital Library Systems.  <BR>
+       [ <A HREF="ijdls-SectLabel.pdf">pre-print .pdf</A> ]
   <LI> Yong Kiat Ng. (2004) <U>Citation Parsing Using Maximum Entropy
-  and Repairs</U>.  Undergraduate thesis.  National University of
-  Singapore. 
-  <BR>[ <A HREF="yongKiatNgThesis.pdf">.pdf</A> ]
+       and Repairs</U>.  Undergraduate thesis.  National University of
+       Singapore.  <BR>
+       [ <A HREF="yongKiatNgThesis.pdf">.pdf</A> ]
 </UL>
 
 <!-- Output ---------------------------------------------------------------------- -->
 <A name="gsiso"></a><H2>Gold Standard Input and Sample Output</H2>
 
 <UL>
-
   <LI>Chunk tagged data for <A HREF="cora.tagged.txt">Cora</A>, <A
-HREF="citeseerx.tagged.txt">CiteSeer<SUP>X</SUP></A>, <A
-HREF="flux-cim-cs.tagged.txt">FLUX-CiM</A> and humanities (<A
-HREF="it-humanities.tagged.txt">Italian</A>, <A
-HREF="en-humanities.tagged.txt">English</A>, and <A
-HREF="mixed-humanities.tagged.txt">mixed language</A>) datasets
-(suitable for ParsCit training).  For FLUX-CiM data, please try the
-original hosting site maintained by Eli Cortez.  Credits to Matteo
-Romanello for contributing the humanities datasets.
-  <LI> <A HREF="iconip.tagged.txt">Chunk tagged data for some ICONIP papers</A>. Contributed by Cheong Chi Hung.
-  <LI>Results of running the current (v080917) version of ParsCit on
-  FLUX-CiM's dataset for [ <A HREF="flux-cim-cs.out.xml">300 computer
-  science references</A> ] [ <A HREF="flux-cim-med.out.xml">2000 medical
-  references</A> ] [ <A HREF="cora.out.xml">on the CORA dataset</A> ].
-  Note that these results are considered cheating as current version
-  has been trained on this data.
-</ul>
+    HREF="citeseerx.tagged.txt">CiteSeer<SUP>X</SUP></A>, <A
+    HREF="flux-cim-cs.tagged.txt">FLUX-CiM</A> and humanities (<A
+    HREF="it-humanities.tagged.txt">Italian</A>, <A
+    HREF="en-humanities.tagged.txt">English</A>, and <A
+    HREF="mixed-humanities.tagged.txt">mixed language</A>) datasets
+    (suitable for ParsCit training).  For FLUX-CiM data, please try
+    the original hosting site maintained by Eli Cortez.  Credits to
+    Matteo Romanello for contributing the humanities datasets.
+  <LI> <A HREF="iconip.tagged.txt">Chunk tagged data for some ICONIP
+    papers</A>. Contributed by Cheong Chi Hung.
+  <LI>Results of running the v080917 version of ParsCit on FLUX-CiM's
+    dataset for [ <A HREF="flux-cim-cs.out.xml">300 computer science
+    references</A> ] [ <A HREF="flux-cim-med.out.xml">2000 medical
+    references</A> ] [ <A HREF="cora.out.xml">on the CORA dataset</A>
+    ].  Note that these results are considered cheating as current
+    version has been trained on this data.
+  <LI> Tagged section data for the SectLabel module.  <BR> [ <A
+    HREF="sectLabelXML.tagged.txt">XML Format</A> ] [ <A
+    HREF="sectLabel.tagged.txt">Plain Text Format</A> ] [ <A
+    HREF="sectLabelCorpus.zip">Corpus containing 579 files (.zip)</A>
+    ]
+</UL>
 
 <!-- Group Members  ---------------------------------------------------------------------- -->
 <A name="gm"></a><H2>Group Members</H2>
@@ -245,26 +284,43 @@ Romanello for contributing the humanities datasets.
   <LI> <A HREF="http://clgiles.ist.psu.edu/">C. Lee Giles</A>, The Pennsylvania State University
   <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant, NUS
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
+  <LI> Thuy Dung Nguyen - Research Assistant, NUS
 </UL>
 
-<!-- FAQ  ---------------------------------------------------------------------- -->
+<!-- FAQ ---------------------------------------------------------------------- -->
 <A name="faq"></a><H2>FAQ</H2>
 <DL>
-<DT>What is the difference of SectLabel and previous ParsHed?</DT>
-<DD>SectLabel is a newly-developed module that further extends ParsHed in functionalities. It not only classifies header metadata, but analyzes full documents to output the logical structure of the internals of the document -- sections, subsections, figures, tables, equations, footnotes and captions. <BR>
-     For compatible issues, we still keep ParsHed module in our source code and returning results.
-</DD>
+  <DT>What is the difference of SectLabel and previous ParsHed?</DT>
+  <DD>SectLabel is a newly-developed module that further extends
+     ParsHed in functionality. It not only classifies header metadata,
+     but analyzes full documents to output the logical structure of
+     the internals of the document -- sections, subsections, figures,
+     tables, equations, footnotes and captions. <BR> For compatibility
+     issues, the ParsHed module is still retained in our source code
+     and command line options.  </DD>
+  <DT>What is the "genericHeader" in the output of SectLabel?/DT>
 
-<DT>What is "genericHeader" in the output of SectLabel?/DT>
-<DD>Generic headers, such as introduction, methodology, and evaluation, represent generic logical purposes of sections, mapping specific sections names to generic ones (i.e. .5. Text Features. . Methodology).  This promotes comparative viewing of sections with identical purpose across articles.
-</DD>
+  <DD>Generic headers, such as introduction, methodology, and
+     evaluation, represent generic purposes of different sections in a
+     scholarly article.  We map all section names to generic ones
+     (i.e., "5. Text Features" to "Methodology").  This promotes
+     comparative viewing of sections with identical purpose across
+     articles.  </DD>
 
-<DT>Why is there an option to input file in XML format? Which DTD should it follows?</DT>
-<DD>SectLabel is a robust logical document structure inference system that can handle both rich input (produced by OCR software such as font or spatial features) to boost the performance, but still be able to perform inference on impoverished input (plain text) with degraded performance. XML input is currently implied to be the results of Nuance OmniPage (version 16) in XML form, and hence, should follows the DTD by OmniPage. <BR>
-</DD>
-</DL>
+  <DT>Why is there an option to input file in XML format? Which DTD
+  should it follow?</DT>
+       
+  <DD>SectLabel is a robust logical document structure inference
+  system that can handle both rich input (produced by OCR software
+  such as font or spatial features) to boost recognition performance,
+  but still be able to perform inference on impoverished input (plain
+  text) with degraded performance. Currently, the XML input must be in
+  the form of output from Nuance OmniPage (version 16)'s XML format,
+  and hence, should follows the DTD by OmniPage.  Note: The ParsCit
+  team is not affiliated with Nuance in any nor does it endorse
+  Omnipage.  </DD> </DL>
 
-<!-- Group Members  ---------------------------------------------------------------------- -->
+<!-- Troubleshooting ---------------------------------------------------------------------- -->
 <A name="t"></a><H2>Troubleshooting</H2>
 
 <P> A list of common problems with ParsCit.  If you find problems,
@@ -338,7 +394,7 @@ libraries and the executables in the proper place. See the README for
 details.</DD>
 </DL>
 
-<!-- ---------------------------------------------------------------------- -->
+<!-- Kudos ---------------------------------------------------------------------- -->
 <H2>Kudos</H2>
 
 <p>ParsCit owes its continued maintenance and support from its user
@@ -356,7 +412,7 @@ scienstein.org for all fixes in the v081201 version of ParsCit.  Also
 thanks to Madian Khabsa for indicating problems with installation to
 MacOS.
 
-<!-- ---------------------------------------------------------------------- -->
+<!-- Related Links ---------------------------------------------------------------------- -->
 <H2>Related Links</H2>
 
 <P>Other, open-source citation parsers:
@@ -381,6 +437,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Fri Apr  9 03:19:45 2010
+Mon Apr 12 11:52:39 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>
