@@ -1,0 +1,1021 @@
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+title ||| The Adaptation of Visual Search Strategy to Expected |XML| xmlLoc_0 xmlBold_yes xmlItalic_no xmlFontSize_largest0 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+title ||| Information Gain |XML| xmlLoc_0 xmlBold_yes xmlItalic_no xmlFontSize_largest0 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+author ||| Yuan-Chi Tseng |XML| xmlLoc_1 xmlBold_yes xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+affiliation ||| The University of Manchester |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_header
+address ||| MBS Crawford House 2.30, Booth Street West, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_header
+address ||| Manchester, M15 6PB, UK |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_header
+email ||| yuan-chi.tseng@postgrad.manchester.ac.uk |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_header
+sectionHeader ||| ABSTRACT |XML| xmlLoc_1 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| An important question for Human-Computer Interaction is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| to understand how and why visual search strategy is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| adapted to the demands imposed by the task of searching |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the results of a search engine. There is emerging evidence |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that a key part of the answer concerns the expected |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information gain of each of the set of available information |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gathering actions. We build on previous research to show |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that people are acutely sensitive to differences in the density |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and in the number of items returned by the search engine. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| These factors cause shifts in the efficiency of the available |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information gathering actions. We focus on an image |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| browsing task, and show that, as a consequence of changes |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to the efficiency of available actions, people make small but |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| significant changes to eye-movement strategy. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| Author Keywords |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+keyword ||| Visual Search, Visual Exploration, Strategy, Cognitive |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+keyword ||| Models, Decision Making, Image Search Results, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+keyword ||| Thumbnails, Eye Movement, Density, Spacing |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| ACM Classification Keywords |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+category ||| H.5.2 Information Interfaces and Presentation: User |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+category ||| Interfaces – Theory and methods; H.1.2 Models and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+category ||| Principles: User/Machine Systems – Human Information |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+category ||| Processing; H.3.3 Information Storage and Retrieval: |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+category ||| Information Search and Retrieval – Selection process |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| INTRODUCTION |XML| xmlLoc_5 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| An important question for Human-Computer Interaction |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| (HCI) is how to design the presentation of search results to |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| facilitate visual search behaviour [9,20,35]. Researchers |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| have proposed many alternatives to the standard list of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| results. They include Space-filling thumbnails of text [7], |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Tabular interface [36], Faceted category interface [42], and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Textually-enhanced thumbnails [41]. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+copyright ||| Permission to make digital or hard copies of all or part of this work for |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+copyright ||| personal or classroom use is granted without fee provided that copies are |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+copyright ||| not made or distributed for profit or commercial advantage and that copies |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise, |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+copyright ||| or republish, to post on servers or to redistribute to lists, requires prior |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+copyright ||| specific permission and/or a fee. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+note ||| CHI 2008, April 5–10, 2008, Florence, Italy. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+copyright ||| Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+author ||| Andrew Howes |XML| xmlLoc_1 xmlBold_yes xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+affiliation ||| The University of Manchester |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+address ||| MBS East F31, Booth Street West, Manchester, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+address ||| M15 6PB, UK |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+email ||| howesa@manchester.ac.uk |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_largest-1 xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The number of proposals is, in part, a reflection of the scale |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| of the design space. Identifying which of the potentially |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| hundreds of interesting points in this space is best might be |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| informed by a theory of how people choose to search |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| through results, e.g. an ACT-R or EPIC theory of the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| cognitive, motor, and perceptual processing required to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| achieve the task [2,18,22,23]. Recent efforts to understand, |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| what Payne, Howes and Reader [28] call interactive search |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tasks, have included [5,6,8,13,31]. However, it is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sometimes difficult to ascertain which interface will be best |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| when the details of the strategy that people will use given a |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| particular task environment are unclear [10,14,17,19]. In |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| this paper we are interested in the strategy choices that |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| people make about visual search, i.e. how they choose to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| look at search results. Our focus is on the assumption that |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| people attempt to maximise expected utility given the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| constraints of the human visual system [8,39] and that |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| design changes which change the efficiency of information |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gathering actions will lead to changes in observed |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| behaviour. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| There is some evidence in the visual perception and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| cognition literature that visual search strategy is adapted to |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the demands imposed by particular task environments |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [4,26,40]. It appears that people seek to maximise the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| efficiency of visual search in the context of the particular |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| display layout. For example, longer fixations enable more |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information to be gathered from fovea and peripheral |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| vision, although longer fixations can only be effective if the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information is available within the perceptual span [26]. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Moreover, people need to manage the trade-off between the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| increased information gain of longer fixations and the effort |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and time cost of holding a fixation. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Some evidence that people adapt their strategy to the task |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| can also be found in the HCI literature. For example, trade- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| offs in the use of wide versus narrow spacing between icons |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [11], in more but smaller text versus fewer but bigger text |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in the same space [15] and in the use of Hyperbolic browser |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| versus standard browser [30]. Even in a standard results |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| layout, such as a simple list of links, there is evidence that |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search strategy is affected by the context in which the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| relevance of items is assessed [5,6,8,13]. The position of a |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| target item in a list and relationship between the relevance |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of this target and distractor items affects search behaviour |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1075 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| [5,6,13]. These finding support the view that search and |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| selection is guided by maximising the expected information |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gain [8]. Strikingly there is evidence that maximising |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| expected gain can involve fixating on every other item in a |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| list, rather than fixating on contiguous items [5,6], |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| particularly in contexts where good results have already |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| been encountered. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In a number of respects people appear to be sensitive to the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| expected information gain of information gathering actions. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In the following section we review in more detail the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| literature on the trade-offs that contribute toward the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| efficiency of information gathering actions during visual |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search. We are interested in the broad class of interactive |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search tasks [28] but our particular focus is on the visual |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search strategies and decision-making processes that people |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| use when looking through items returned by an image |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search engine such as Flickr or Google. Further, we are |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| interested in everyday tasks with somewhat underspecified |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| target criteria, e.g. look for attractive images of the city |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Florence. In what follows we consider the relevance of the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| visual search and HCI literature to understanding these |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| kinds of task. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| RELATED WORK |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+subsectionHeader ||| Visual Search in HCI |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Researchers in HCI have suggested that the details of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| interface design affect visual search strategy (e.g., |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [11,15,30]). Everett and Byrne [11], for example, suggested |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a small difference of 1.6 degrees of visual angle between |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| items can result in participants either fixating on an icon or |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not. Similarly, Halverson and Hornof [15] provided |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| evidence that low density, task-meaningless large words |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| could lead participants to use fewer and shorter fixations |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and so shorter overall search time than when given high |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density, small, task-meaningless, words. Similarly, Pirolli, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Card, and Van Der Wege [30] found that participants used |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more but shorter fixations when using a Hyperbolic browser |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| than when using a standard browser, especially in areas of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the Hyperbolic browser in which small, low information |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| scent items, were grouped closely together. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| Visual Search in Experimental Psychology |XML| xmlLoc_5 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| In the visual search literature, there is compelling evidence |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| that the density of items on the display has consequences |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| for search strategy. Ojanpää, Näsänen and Kojo [26] found |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that decreased spacing in a vertical list of words (common |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Finnish verbs, nouns and adjectives) resulted in longer but |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fewer numerous fixations. Vlaskamp, Over and Hooge [40] |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| found that the fixation duration, number of fixation and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search time increased dramatically with decreasing item |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| spacing, as the range of spacing smaller than 1.5° visual |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| angle. On the other hand, their data showed that at wide |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| spacing range between 1.5° to 7.1° fixation duration, |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of fixations and search time increased slightly as |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the spacing increased. Bertera and Rayner [4] found that as |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the item spacing increased the number of fixations and |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fixation duration increased. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Although allowing a high degree of experimental control |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| the tasks [4,26,40] lack ecological validity. For example, |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Vlaskamp, Over and Hooge [40] used abstract shapes (e.g., |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| squares) in their search task, and, Bertera and Rayner [4] |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| used an unstructured alphanumeric array. Ojanpää, Näsänen |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and Kojo [26]) used common-words, which reduced the |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| task to a simple visual pattern match, rather than a match of |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information scent but it is known that search behaviour is |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| contingent on label relevance [5,6]. The different materials |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| may account for the different effects. Both tasks are far |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| from the real HCI task in which the stimuli are more |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| heterogeneous and complicated. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| Strategy Change during Search |XML| xmlLoc_1 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Visual search strategies are also known to change during |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| the course of a search [27,33]. Over, Hooge, Vlaskamp and |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Erkelens [27] found that fixation duration increased and the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| amplitude of saccade decreased gradually as search |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| progressed. They called this is a coarse-to-fine strategy. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Rao, Zelinsky, Hayhoe and Ballard [33] used a coarse-to- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fine matching mechanism to model the skipping saccades |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| because it could increase the probability of an early match. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In contrast, Brumby and Howes [6] found a fine-to-coarse |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search strategy. People increased saccade amplitude once |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| they had found, but not committed to, a highly relevant |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| target suggesting that although it is known that strategy can |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| change, the reasons for change are not always clear. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Also, it is known that people spend more time examining |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| items that are presented nearer to the top of the returned |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search results [9,13], presumably, and in part, because |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search engines tend to rank order results. However, what is |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not clear is whether people change visual search strategy as |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| they examine links further from the top of the results list. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| For example, they may be more likely to skip i.e. fixate |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| alternate, non-adjacent, items once a potential hit has been |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| found, as was observed in [6]. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| THEORY |XML| xmlLoc_5 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| We assume that people make strategic adaptations in order |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| to improve the efficiency of visual search, that is that they |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| rationally adapt the strategy, given cognitive, perceptual, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and motor constraints, to maximise benefits while |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| minimising costs [1,8,17,28,29]. More specifically, people |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| adapt their eye movement strategy to maximise the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| expected gain of task-relevant information and minimise the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| neural resources devoted to memory [25] and cognitive and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| attentional load [3]. In this paper, we take an “active vision” |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| approach [12] to understanding the complex interactive |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| behaviours that people exhibit when searching for |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information. Understanding these behaviours requires |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| bridging between theories of visual search, visual |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| exploration, and decision-making. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Following Cox and Young [8] we assumed that people are |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| sensitive to the prior probabilities that any particular item |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| will be the target item. Cox and Young operationalised this |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| assumption by assuming that prior probabilities were |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1076 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| normalized over the set of potential targets. More search |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| items implies lower initial priors. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Following Ojanpää, Näsänen and Kojo [26] we assumed |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| that the information that can be gathered given the |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| perceptual span is (1) contingent on the item density, (2) |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| contingent on the duration of fixation. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Combining the theories of Cox and Young [8] and Ojanpää, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Näsänen and Kojo [26] we assume that the visual search |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| strategy is rationally adapted to the information that can be |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gained from the perceptual span. On this basis we made |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| two predictions: |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (1) that packing items together more closely (high density) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| would allow more information to be harvested from the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| perceptual span given sufficient time. We predicate that |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| people would therefore increase the duration spent looking |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| at any one item, and reduce the number of items directly |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fixated. That is, they would take advantage of the fact that |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more information was available for each fixation. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (2) if there are more search items then the gaze durations |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| and the rate of number of items directly fixated in a trial |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| should decrease because the prior probability of any one |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| item being the target item is decreased [8]. In other words, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| when there are more results returned we expect people to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| give each result less time, presumably reducing the quality |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of each evaluation in order to conduct more evaluations. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The eye movement strategy should switch to a lower cost |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| strategy, involving more item skipping [6]. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| EXPERIMENT |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+subsectionHeader ||| Method |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| This study investigates the consequences of expected |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| information gain for the visual search strategy that people |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| use given pages of thumbnails returned by a search engine. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Participants were asked to imagine that they were choosing |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| where to go on holiday, and that they were using the web to |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gather information about various places that they could visit. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In particular, their goal was to use a particular image search |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| engine site to find an image of a visually attractive |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| destination. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsubsectionHeader ||| Stimuli and Design |XML| xmlLoc_5 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| There were 180 unique sets of images. Each set included |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| image thumbnails about a place, such as a resort, city or |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| country. These image thumbnails were selected from the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search results responding to keywords or search phrases |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| input in an image search engine of Flickr, a photo sharing |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| website. Moreover, each set at least contains 1,000 photo |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| results matching the name of the place. For example, Flickr |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| found 423,166 up-to-date results for photos matching |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Florence. We filtered out the tourists’ poor quality self- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| portrait, maps and pictures with special effect, such as High |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Dynamic Range (HDR) images which is not clear in the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| task thumbnail size. Finally, we selected 180 photo |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnails for each set. So, totally, we had unique 32,400 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnails (180 sets × 180 thumbnails). At the eye-to- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| Figure 1: an example of search task with high density |XML| xmlLoc_2 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| layout and one number of pages condition. |XML| xmlLoc_2 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| Figure 2: A sample trial of low density layout and 5 pages |XML| xmlLoc_5 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figureCaption ||| set size. This shows the thumbnails on page 3. |XML| xmlLoc_5 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| screen distance of 60 centimeters used in the experiment, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| the size of thumbnails (75 × 75 pixels) subtended a visual |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| angle of 2.15°. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The experiment was a within-subjects design and had two |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| independent variables. These were thumbnail density and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of pages (set size). Density had two levels with |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| narrow or wide spacing between items displayed in the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search task. Figure 1 shows a sample display from one high |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density trial. The edge-to-edge item spacings were 3 pixels |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (visual angle = 0.085°) in high density layout. Figure 2 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1077 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| shows one low density trial. The edge-to-edge item |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| spacings were 30 pixels (visual angle = 0.85°) in low |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density display. Unlike in Halverson and Hornof [15] and |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Pirolli, Card, and Van Der Wege [30] the size of thumbnails |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| was held constant, so that density was manipulated by |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| changing proximity only. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Number of pages had three levels: 1-page, 2-pages and 5- |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| pages. Each page consisted of exactly 36 thumbnails (6 × 6 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| square layout). In the 1-page condition, there were 36 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnails in total and the first 36 of 180 thumbnails of |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sets were used. In 2-pages condition, 1st to 36th thumbnails |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| were used in the first page; 37th to 72nd thumbnails were |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| used in the second page and there were 72 thumbnails in |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| total. In the 5-pages condition, all 180 thumbnails were |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| used sequentially. There were page links below thumbnails |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in any page. It appeared all the time (see figure 1 and 2). |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Participants could click these links to switch between pages |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| during a trial. So, when Participants searched in the first |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page, they also gained the information about how many |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pages in this task. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In total, there were 6 conditions (2 densities × 3 number of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| pages). Each condition had 30 trials. The total number of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| trials was 180. Each set of thumbnails could be arranged |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| into one of six conditions. The presentations of each set of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnails were counterbalanced across subjects. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsubsectionHeader ||| Apparatus |XML| xmlLoc_3 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| The experiment was performed with a Tobii 1750 eye |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| tracker. The eyetracker is embodied in a 17” monitor. The |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| eye tracker has a tracking rate or the frame rate of 50 Hz. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The temporal resolution of 20 ms is sufficient for |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| monitoring long fixation and eye movements in our task. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Although low temporal resolution could cause noise in |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| signal sampling, noise was reduced by averaging several |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gazes per page and by testing 30 trials per condition. The |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| screen resolutions were set at 1024×768 pixels. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsubsectionHeader ||| Participants |XML| xmlLoc_5 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Participants were twenty four students from University of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Manchester who received 5-10 pounds depending on their |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| time for their volunteer. All participants were between 18 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and 28 years old and have normal vision or corrected-to- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| normal vision. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsubsectionHeader ||| Procedure |XML| xmlLoc_6 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Participants were presented with instructions and then a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| practice block allowed them to become familiar with the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| task. After the practice block, the eye tracker system was |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| calibrated. And then participants completed all 180 trials. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The whole Experiment took between 40 minutes and 70 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| minutes depending on different participants. The variation |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in time was because we didn’t give our participants any |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| time limitation. Some participants were faster than others. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The participant looked at a place label then clicked on the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| search button to make thumbnail search results appear. The |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participant was instructed to move the cursor to a thumbnail |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of a visually attractive destination and click on it to finish a |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| trial. The trial process and interface are shown in Figure 1. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| Results |XML| xmlLoc_0 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Normally, eye movement studies analysed participants’ |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| search time, number of fixations and fixation duration. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| When we observed the participants’ search behaviour, we |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| also found the gaze transitions were not always from one |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| item to the next adjacent item; instead, participants skipped |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| one or more items during their saccade. We calculated how |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| many gaze transitions were not between spatially adjacent |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnails. Therefore, in this study, we were interested in |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| visual search performance, particularly in how (1) search |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| time and (2) number of item gazes (all contiguous fixations |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| on an item were combined to be a single gaze), (3) gaze |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duration (the sum of all fixation durations on a thumbnail |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| prior to moving to another thumbnail), and (4) the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| proportion of skipping gaze transitions (the total number of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gaze transitions divided by the number of skipping gaze |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| transitions), are affected by the thumbnails density and |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of pages. The data in the revisited page were not |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| included. These four measures might reveal the adaptation |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of search strategy while participants interact with different |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| item densities and number of items. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| We predicted that when the thumbnails were displayed |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| close together, participants would spend longer in a gaze, |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and be more likely to skip thumbnails during search in the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| display, than when thumbnails were displayed further apart. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In addition, page links below the thumbnails indicated that |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the number of pages and total items in the task. We |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| predicted that when there are more pages and thumbnails, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| people would adopt a different strategy which would be |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| revealed by these four measures. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsubsectionHeader ||| Overall Performance |XML| xmlLoc_4 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Figure 3 illustrates the overall performance. There were |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| significant main density effect on total search time (F(1,23) |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| = 23.43, p < 0.001), number of gazes (F(1,23) = 15.87, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| p=0.001), gaze duration (F(1,23) = 17.34, p < 0.001), and |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| proportion of skipping gaze transitions (F(1,23) = 35.04, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| p<0.001). The results showed that participant spent less |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| time (M = 12,709 ms vs 14,044 ms, figure 3a), fewer gazes |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| (M = 8.16 vs 9.28, figure 3b), longer gaze (M = 407 ms vs |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 387 ms, figure 3c) and skipped more often (M = 72.4% vs |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 67.7%, figure 3d) in high versus low density. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| There were significant main number of pages effects on |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| total search time (F(2,46) = 136.54, p < 0.001), number of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gazes (F(2,46) = 73.18, p < 0.001), gaze duration (F(2,46) = |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 10.16, p < 0.001), and proportion of skipping gaze |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| transitions (F(2,46) = 8.37, p=0.001). A Bonferroni test |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| revealed that every pairwise comparison was significantly |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| different (p < 0.05). According to the pairwise comparison, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants spent significantly less time (1-page: M = 7,514 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ms, 2-pages: M = 11,482 ms and 5-pages: M = 21,132 ms), |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gazed less (1-page: M = 10.96, 2-pages: M = 15.8 and 5- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pages: M = 28.02), and skipped less often (1-page: M = |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 66.5%, 2-pages: M = 70.7% and 5-pages: M = 72.9%), in |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1078 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figureCaption ||| Figure 3: four measures of overall search performance per |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| density and number of page condition. (a) mean response |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| times; (b) mean number of gazes; (c) mean gaze duration |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| and (d) proportion of skipping gaze transitions for high |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| density (white bars) and low density (grey bars) in each |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| page set size. Error bars indicate 95% confidence intervals |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| and also in all figures below. |XML| xmlLoc_4 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the fewer page condition. Also, pairwise comparison |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| showed that they spent longer gaze duration in the 1-page |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition (M = 401 ms) than 5-page condition (M = 369 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ms), although 2-pages is not significant different to 1-page |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and 5-pages condition. There were no significant |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| interactions on total search time, number of gazes and gaze |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duration, except proportion of skipping gaze transitions, |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| F(2,46) = 3.73, p < 0.05. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Moreover, following Reiman, Young and Howes [34], we |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| analysed the revisiting. Figure 4a shows the number of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| items that were visited at least once and revisited (i.e. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| visited at least twice) for each experimental condition. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Participant revisited around 22% to 27% of visited items for |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| each condition. Density and number of pages had similar |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| effects on the number of visited and the number of revisited |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| items. Participants visited and revisited more items in low |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density (all p’s < 0.01) and when there were more pages (a |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Bonferroni test for analysing three page levels showed |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| every pair was significantly different, p < 0.001). In |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of pages |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| Figure 4: (a) mean number of items visited at least once |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| (bars with solid pattern) and items visited at least twice |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| (bars with line pattern) and (b) mean duration of an item |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| visited at the first time visit (bars with solid pattern) and |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| at the second time visit (bars with line pattern). |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| addition, figure 4b shows that our participants spent more |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| time on an item when they revisited it than when they |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| visited it the fist time, F(1,20) = 99.788, P < 0.001. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Performance in the First Page |XML| xmlLoc_4 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| We analysed data in more detail. In this section we contrast |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| performance in the first page of each condition. (Not all |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| conditions had subsequent pages so the first page provides |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the critical test. In addition, it is the first page behaviour |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that should be affected by information about the number of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pages, rather than by the quality of the additional items.) |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| We analysed our four measures (search time, number of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gazes, gaze duration and skipping rate) taken from the first |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page of search results. We conducted a 2 × 3 (density × |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of pages) repeated-measure ANOVA for each |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| measure separately. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Duration on a page was defined as the total time from the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| display onset to the time leaving the first page by click a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page number link, or from the onset to the start of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants’ last fixation on the clicked target. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| As expected, there was a main effect of density on mean |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| search time in the first page, F(1,23) = 28.27, p < 0.001. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The search performance in the fist page was quicker in high |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density (M = 6082.24 ms) than low density (M = 6742.9 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ms). There was also a main effect of number of pages on |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| search time of the first page, F(2,46) = 15.82,p < 0.001. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1	2	5	(a) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 25 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 20 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 35 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 30 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 15 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 10 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 5 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 0 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1	2	5	(b) |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 450 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 430 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 410 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 390 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 370 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 350 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1	2	5	(c) |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 100% |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 90% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 80% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 70% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 60% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 50% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1	2	5	(d) |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| number of pages |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 30000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 25000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 20000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 15000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 10000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 5000 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| high density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| low density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1	2	5	(a |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1	2	5	(b) |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 35 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 30 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 25 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 20 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 15 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 10 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 5 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 0 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| at least once, high density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| at least tw ice, high density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| at least once, low density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| at least twice, low density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| first time visit, high density |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| second time visit, high density |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| first time visit, low density |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| second time visit, low density |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 700 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 600 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 500 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 400 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 300 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 200 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1079 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Figure 5c illustrates mean first page gaze duration. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Participants’ mean gaze duration in the first page was |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| longer in the high density (M = 407 ms) than low density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| layout (M = 387.259 ms), F(1,23) = 22.414, p < 0.001. The |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| main effect of number of pages was not significant. There |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| was no interaction between density and number of pages. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Figure 5d shows the data of mean proportion of first page |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| skipping gaze transitions. The density had significant effect, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| F (1, 23) = 46.72, p < 0.001. It was found that that |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants were more likely to skip thumbnails in the high |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density (M = 72%) than in the low density layout (M = |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 67.2%). The main effect of number of pages was also |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| significant, F (2, 46) = 15.00, p < 0.001. Every pairwise |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| comparison of number of pages condition was significantly |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| different (p < 0.01). It showed that our participants skipped |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more often in 5-pages condition (M = 66.5%), than they did |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in 2-pages condition (M = 70.3%), which in turn was more |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| often than in the 1-page condition (M = 71.8%). There was |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| no interaction between density and number of pages. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 15 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 12 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 9 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 6 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 3 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1	2	5	(b |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| high density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| low density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1	2	5 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| (a |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 12500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 10500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 8500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 6500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 4500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 2500 |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1	2	5 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| (c |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 450 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 430 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 410 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 390 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 370 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 350 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| Figure 5: the four measures of mean search performance in |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| the first page per density condition and number of page |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| condition. (a) mean duration of first page; (b) mean number |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| of first page gazes; (c) mean first page gaze duration and (d) |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| mean proportion of first page skipping gaze transitions. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 100% |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 90% |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 80% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 70% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 60% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 50% |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1	2	5 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| number of pages |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| (d) |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 10000 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 8000 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 6000 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 4000 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 2000 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 15 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 12 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 9 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 6 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 3 |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| p.1	p.2	p.3	p.4	p.5 |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| (a) |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| Every pair comparison of number of pages condition with |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Bonferroni method was significantly different (p < 0.01). It |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| was found that time spent in the first page was more in the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fewer page condition (1-page: M = 7514.54 ms, 2-pages: M |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| = 6117.07 ms and 5-pages: M = 5606.10 ms). The |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| interaction between density and number of pages was not |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| significant. Results are summarized in Figure 5a. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Figure 5b shows the data of mean number of gazes in the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| first page. Number of gazes was approximate one fewer in |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the high density (M = 8.16) than low density (M = 9.29), |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| F(1,23) = 24.65, p < 0.001. There was also a main effect of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of pages, F(2,46) = 24.9, p < 0.001. Every pair |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| comparison of number of pages condition with Bonferroni |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| method was significantly different (p < 0.001). It showed |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that participants spent greater number of gazes in fewer |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page conditions (1-page: M = 10.96, 2-pages: M = 8.07 and |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 5-pages condition: M = 7.11). In addition, the interaction of |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| density and number of pages was also significant, F(2,46) = |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 4.48, p = 0.017. The fewest number of gazes were made in |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| the first page of the high density display when there were 5- |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pages of items. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (b) |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (d) |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| number of pages |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| Figure 6: the four measures of mean search performance |XML| xmlLoc_6 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figureCaption ||| per page. Page 1, page 1 to 2 and page 1 to 5 of 1-page, 2- |XML| xmlLoc_6 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| pages and 5-pages condition, respectively in high density |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| condition. (a) mean search time per page; (b) mean |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| number of gazes per page; (c) mean gaze duration per |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| page and (d) mean proportion of skipping gaze |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figureCaption ||| transitions per page. |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+figure ||| 	500 450 400 350 300 |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_yes xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+figure ||| 1 page: p.1	2 pages: pp.1-2	5 pages: pp.1-5 (c) |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+figure ||| 	100% 90% 80% 70% 60% 50% |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+page ||| 1080 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+subsubsectionHeader ||| Performance per Page |XML| xmlLoc_0 xmlBold_no xmlItalic_yes xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Figure 6 summarises the mean performance of our eighteen |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| participants’ eye movement behaviour in the high density |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition. (All results of the low density condition has the |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| same trend as in the high density condition) Figure 6a |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| shows mean search duration per page, figure 6b shows |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mean number of gazes per page, figure 6c shows mean gaze |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duration per page and figure 6d shows the proportion of |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| skipping gaze transitions in number of pages condition. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Each bar within a page condition shows the performance on |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| each page of that condition. For example, the only bar in the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 1-page condition shows performance in the 1-page |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition, the two bars in 2-pages condition show each |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| performance in page 1 and 2 and the five bars in 5-page |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition show each performance from page 1 to page 5, |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| from left to right respectively. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| When we examined whether participants adopted different |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| strategies in different pages in a search course, the values of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| four measures of search performance were taken from each |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Because there were four participants who didn’t have data |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| in all five pages in the 5-page condition, we took out these |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| four participants. Then, we arbitrarily selected and removed |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| another two participants from the analysis to keep the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| counterbalanced design. Therefore, in this section, the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| results were from analysing eighteen participants’ data. The |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| following analyses were conducted in 2-pages and 5-pages |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition separately. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In the 2-pages condition, every measure of four search |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| performance of participants was not significantly different |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in page 1 and page2. it indicated that the search strategy did |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not vary in the first and second page, when participants |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| search in a 2-pages display (see Figure 6a, b, c, d, 2-pages |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| condition). |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In 5-pages condition, the results of a 5×2 repeated-measure |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| ANOVA (page number: page 1, 2, 3, 4 and 5 × density: |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| high and low) showed there were main effect of page |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number and density on every measure of search |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| performance our participants’ performance (see Figure 6 a, |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| b, c, d, 5-pages condition). The results of search |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| performance per page in the 5-pages condition are |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| summarized in Table 1. In general, search performance was |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in page number 1 is different to other pages. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pairwise comparisons of page number with Bonferroni |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| method in search duration, number of gazes, and proportion |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of skipping gaze transitions showed that the measures in |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| page 1 were different from those in page 2 to page 5 (pair |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| between page 1 and any other page was significant, p<0.01 |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and pair between page 2 to page 5 were not significant |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| different). There was a significant difference between page |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 1 and page 3 in gaze duration. Although any other pair does |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not reach significant, there was a trend for people to take |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| longer gaze on page 1 than on pages 2, 3, 4, or 5. This |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| indicated that participants search in the first page more |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| carefully than other pages. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| DISCUSSION |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| The results support the claim that visual search strategy is |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| guided by expected information gain when people search |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| results returned by an image search engine: |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 1. Participants were observed to adjust the duration that |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| they attended to each item to the item density. When more |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 		search duration (ms)	number of gazes		gaze duration (ms)	proportion of skipping gaze |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+table ||| 						transitions |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 		mean	SD	mean	SD	mean	SD	mean	SD |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| page number |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 1	5,238.64a	2,048.75	6.83 a	3.49	406.8 1b	55.64	74.64%a	0.08 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 2	4,004.51	1,494.82	5.35	2.72	388.18	37.58	79.33%	0.08 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| high density	p. 3	3,796.32	1,295.97	5.27	2.30	377.32 c	39.58	79.36%	0.06 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 4	3,781.66	1,359.42	5.13	2.41	380.30	34.42	77.55%	0.08 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 5	3,999.54	1,653.50	5.50	2.88	381.00	36.14	77.86%	0.06 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 1	5,810.45a	2,240.65	7.95 a	4.01	399.47 b	57.47	69.53%a	0.08 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 2	4,176.94	1,853.84	5.64	3.20	365.01	37.52	77.33%	0.07 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| low density	p. 3	4,164.26	1,624.12	5.82	2.97	365.20 c	38.85	76.84%	0.09 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 4	4,282.31	1,828.08	5.98	3.14	378.27	55.09	74.17%	0.08 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	p. 5	4,346.20	1,540.77	5.91	2.53	381.86	36.53	74.66%	0.06 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| repeated-measures	spacing	F	MSE	p	F	MSE	p	F	MSE	p	F	MSE	p |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| ANOVA |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 		14.32	4.83E+05 0.001	9.54	1.942	0.007	4.56	757.26	0.048	13.73	0.003	0.002 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+table ||| 	page	29.63	5.21E+05 <0.001	17.06	1.397	<0.001	5.4	998.24	0.001	9.70	0.002	<0.001 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_no xmlTable_yes xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+tableCaption ||| Table 1. Search duration, number of gazes, gaze duration and proportion of skipping gaze transitions across per page in the 5- |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+tableCaption ||| pages condition and per density condition. (Note. p. = page number. asearch performance is significant different to all other pages in the same |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+tableCaption ||| density condition. b,csearch performance is significant different to each other in the same density condition) |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1081 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| items were available within the perceptual span (higher |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| density), longer item visits were used, and when fewer |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| items were available (lower density), shorter item visits |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| were used. Longer visits were only used when they were |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| efficient, i.e. when expected information gain was high. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 2. Longer visits to items were combined with skipping. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Participants in the high density conditions skipped items |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more often, visited fewer items, and spent less time |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| searching overall.	In other words, when the potential |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information gain for longer visits was high, people made |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| more use of longer visits and reduced the number of items |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that they directly fixated. They made more use of the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| perceptual span when it was rational given the constraints |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of the visual system to do so, and gained an overall |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| reduction in the required search time. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 3. Participants were observed to reduce the number of items |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| that they visited, i.e. they skipped, when there was a larger |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| number of items (Figure 5d) but without increasing the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duration spent attending to each item (Figure 5c). These |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| findings suggest that skipping was sensitive to the prior |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| probability that any one item would be attractive enough to |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| be selected but that gaze duration was not. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 4. Participants spent more time on an item, when they |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| revisited it than when they visited it for the first time. this |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| findings indicates that people may use an iterative |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| deepening of attention [34]. This strategy may help |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants to parse large amounts of information quickly |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| using lower tolerance to rule out poor quality items and |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| then focus effort on a smaller set. The difference between |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [34] and our study is that our participants didn’t sample all |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| items before they started to revisit, especially in conditions |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| with more pages (Figure 4b). This finding suggests that the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| set size of potential items may be constrained by the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| capacity limitation in memory. We also observed |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants select an item at the first time visit before |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| sampling all items. This indicated that people also picked |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| an item immediately when the value of the item currently |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| visited is beyond their satisficing criteria [38]. Adopting the |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| coarse-to-fine strategy [27,33] and employing satisficing |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [38] could save lots of visual processing cost for sampling |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| out poor items quickly and gain an item with satisficing |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| value or gain a revisited item with acceptable value. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| In sum, the results support the view that people adjusted |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| their visual search strategy to their expectations of |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information gain, and that these expectations were |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| contingent on (a) the density of items, and (b) the prior |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| likelihood that an item is the one that they will want to |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| select. In the remainder of the Discussion we first offer |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| further explanations for the details of the findings, we then |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| discuss some design implications. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| Further Explanations |XML| xmlLoc_7 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Why, for some designs, is it more efficient to use fewer |XML| xmlLoc_7 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| longer gazes than more, shorter, ones? Essentially, because |XML| xmlLoc_7 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| planning and executing gaze transitions, saccades, is |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| expensive. Planning and executing a new gaze so as to |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| bring a foveal fixation to a new place requires effort, both |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| mental and physical effort. Neurophysiological evidence |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| indicates that making a saccade involves high cost neural |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| processes to keep the visual scene stable (see [37] review). |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Therefore, to prolong an old gaze to gain information about |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| an adjacent item can cost less than to plan and execute a |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| new gaze. For example, in our experiment a new item visit |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| took an extra 400 ms, but a longer gaze took only about 20 |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| ms more. Although each longer gaze takes more time, fewer |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| gazes are required, reducing the overall visual search time. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Why was it not possible for participants to increase |XML| xmlLoc_1 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| perceptual span to cover adjacent items in lower density |XML| xmlLoc_1 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| displays? Findings reported by Hooge, Vlaskamp and Over |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| [16] suggest that information can be gathered from a wider |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| area of a display as gaze durations increase, i.e. it is |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| possible that perceptual span is itself contingent on duration |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of fixation. However, there are clearly limits [4], and it |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| appears as though the reduction in the rate that information |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| can be acquired caused by the lower densities in our |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| experiment pushed participants beyond this limit. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Will the findings generalise to other types of search result |XML| xmlLoc_3 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| items? There is some evidence that the finding would |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| generalise to word items. For example, Pollatsek, Perea |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and Binder [32] found that fixation duration is longer when |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| a word with more neighbours than few neighbours. Longer |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| fixation duration in a more dense display suggests that more |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| information within the perceptual span is required to be |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| processed serially. In contrast, Motter and Belky [24] |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| showed that fixation duration didn’t change as the number |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of items within a 4° constant area and assumed that this |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| result is because items surrounding a fixation are processed |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| in parallel (number of items surrounded the fixation will not |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| affect the fixation duration). These contrary results could be |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| because of the relative complexities of stimuli in these two |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| tasks are so different. Simple items, e.g. symbols, adjacent |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to a fixation can be processed in parallel, but complex items |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| such photographic thumbnails in our task have to be |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| processed in series and result in longer durations. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Why do the findings differ from previous research? The |XML| xmlLoc_5 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| importance of ecological validity. The observed density |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+bodyText ||| effect on gaze duration and number of gazes are consistent |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| with some previous studies [26], but contrary to others |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [4,15]. Unlike most of the previous studies, our target was |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not defined by only one or two visual features (color, shape, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and orientation et al.) or non-words (non-words without |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| semantic meaning can be searched by their shape or the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| order of characters), but was, instead, informed by the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| semantic description of a place. In contrast to these |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| previous studies, participants in our study had to search a |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| target based on aesthetic judgment. They spent longer gaze |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| duration in our task than normal visual search task. These |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| differences in the task environment may lead to the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| different results of the effect on search performance. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Ecological validity is therefore crucial to understanding the |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| constraints on visual search strategy. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1082 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| On the other hand, we have chosen to control some |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| variables that are confounded in studies of potential new |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| designs. For example, in studies of hyperbolic browsers |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| [30] item size and item density are confounded, i.e. items |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that are close together are also smaller than items that are |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| further apart. Although this is perhaps, a natural confound |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| for systems like hyperbolic browsers, failing to isolate what |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| are otherwise independent factors will limit the generality |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of conclusions drawn from the data. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| A downside of our effort to engage our participants in a |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| meaningful task -- looking for attractive images of potential |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| destinations -- was that there was a weak criterion for |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| successful trial completion. The trial was over when |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| participants indicated that they had found an attractive |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnail but some participants may have used radically |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| different thresholds for ‘attractive’ than others. In contrast, |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| experiments in which participants were asked to find a |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| particular item have a strong and measurable criterion for |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| trial completion and moreover participants can make errors. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Although we claim that our design reflects some part of the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| natural task ecology, it also reduces the strength of the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| conclusions that we can draw from the fact that participants |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| took less time, overall, when items were presented with a |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| higher density. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+subsectionHeader ||| Design Implications |XML| xmlLoc_3 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| A persistent problem for HCI is that the exploration of new |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| designs in the absence of adequate empirically grounded |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| theory might lead to the rejection of the design on the basis |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of false negatives. Hyperbolic or other fish-eye view |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| projections have, for example, had no impact on the way |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| that most people use computer systems, despite the huge |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| research investment over many years. It is tempting to take |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| this fact as evidence that hyperbolic browsers are not fit for |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| purpose. However, an alternative reason for their failure to |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| find a role might be that the particular design instances are |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| not tuned to the detailed constraints and adaptive capability |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| of the human visual system. Hyperbolic browsers that fail |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| to let people adapt to the constraints and capabilities |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| imposed by their visual system are unlikely to succeed. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Careful empirical investigation in response to well-formed |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| theory and motivated by the ecology of user’s real task |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| environments may have the potential to address this |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| problem. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| For example, although users might adapt their search |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| strategy to achieve the highest payoff given a particular |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| thumbnail density, some layout designs are better for |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| decreasing of total search time and manual response time. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| The results reported above suggest the high density (3 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| pixels gap between thumbnails) can facilitate search. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Interestingly, even higher densities than we have explored |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+bodyText ||| in this paper are unlikely to produce further gains. Previous |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| work [21] has suggested that when the spacing between |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| icons is zero pixels search becomes more difficult. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Thumbnails require at least some space for visual search, |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| which perhaps reflects common intuitions. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| ACKNOWLEDGMENTS |XML| xmlLoc_0 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| This research is supported by an Overseas Scholarship |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+bodyText ||| Scheme (OSS) Award from the University of Manchester |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| and a Manchester Business School Award to Yuan-Chi |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| Tseng and Office of Naval Research grant (N00014-03-1- |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+bodyText ||| 0087) to Andrew Howes. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+sectionHeader ||| REFERENCES |XML| xmlLoc_1 xmlBold_yes xmlItalic_no xmlFontSize_smaller xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| 1. Anderson, J.R. The Adaptive Character of Thought. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Lawrence Erlbaum Associates, 1990. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 2. Anderson, J.R., Bothell, D., Byrne, M.D., Douglass, S., |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Lebiere, C., and Qin, Y. An integrated theory of the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| mind. Psychological Review 111, 4 (2004), 1036-1060. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 3. Araujo, C.C., Kowler, E.E., and Pavel, M.M. Eye |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| movements during visual search: the costs of choosing |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| the optimal path. Vision Research 41, 25-26 (2001), |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 3613-3625. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 4. Bertera, J.H. and Rayner, K. Eye movements and the |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| span of the effective visual stimulus in visual search. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Perception & Psychophysics 62 (2000), 576-585. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 5. Brumby, D.P. and Howes, A. Good enough but I’ll just |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| check: Web-page search as attentional refocusing. In |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Proc. ICCM 2004, Lawrence Erlbaum Associates |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| (2004). |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 6. Brumby, D.P. and Howes, A. Strategies for guiding |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| interactive search: An empirical investigation into the |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| consequences of label relevance for assessment and |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| selection. Human-Computer Interaction (in press). |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 7. Cockburn, A., Gutwin, C., and Alexander, J. Faster |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| document navigation with space-filling thumbnails. In |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Proc. CHI 2006, ACM Press (2006), 1-10. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 8. Cox, A.L. and Young, R.M. A Rational Model of the |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Effect of Information Scent on the Exploration of |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Menus. In Proc. ICCM 2004, Lawrence Erlbaum |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Associates (2004). |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_yes bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 9. Cutrell, E. and Guan, Z. What are you looking for? An |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| eye-tracking study of information usage in Web search. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| In Proc. CHI 2007, ACM Press (2007). |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 10.Eng, K., Lewis, R.L., Tollinger, I., Chu, A., Howes, A., |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| and Vera, A. Generating automated predictions of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| behavior strategically adapted to specific performance |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| objectives. In Proc. CHI 2006, ACM Press (2006), 621- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 630. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 11.Everett, S.P. and Byrne, M.D. Unintended effects: |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Varying icon spacing changes users' visual search |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| strategy. In Proc. CHI 2004, ACM Press (2004), 695- |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 702. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 12.Findlay, J.M. and Gilchrist, I.D. Active vision-the |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| psychology of looking and seeing. Oxford University |XML| xmlLoc_6 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Press, 2003. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 13.Fu, W.-T. and Pirolli, P. SNIF-ACT: A Cognitive |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Model of User Navigation on the World Wide Web. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Human-Computer Interaction 22 (2007). |XML| xmlLoc_7 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+page ||| 1083 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+note ||| CHI 2008 Proceedings · Search	April 5-10, 2008 · Florence, Italy |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| 14.Gray, W.D. and Boehm-Davis, D.A. Milliseconds |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Matter: An introduction to microstrategies and to their |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| use in describing and predicting interactive behavior. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Journal of Experiment Psychology: Applied 6, 4 (2000), |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 322-335. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 15.Halverson, T. and Hornof, A.J. Explaining eye |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| movements in the visual search of varying density |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| layouts. In Proc. ICCM 2004, Lawrence Erlbaum |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Associates (2004), 124-129. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 16.Hooge, I.T.C., Vlaskamp, B.N.S., and Over, E.A.B. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Saccadic search: the relation between fixation duration |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| and saccade amplitude. Perception 31, ECVP Abstract |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Supplement (2002). |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 17.Howes, A., Vera, A., and Lewis, R.L. Bounding rational |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| analysis: Constraints on asymptotic performance. In |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| W.D. Gray (Ed.), Integrated Models of Cognitive |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Systems, Oxford University Press (2006). |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 18.Kieras, D.E. and Meyer, D.E. An overview of the EPIC |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| architecture for cognition and performance with |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| application to human-computer interaction. Human- |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Computer Interaction 12 (1997), 391-438. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 19.Kieras, D.E. and Meyer, D.E. The role of cognitive task |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| analysis in the application of predictive models of |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| human performance. In J.M. Schraagen and S.F. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Chipman (Eds.), Cognitive task analysis (2000), 237- |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 260. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 20.Klöckner, K., Wirschum, N., and Jameson, A. Depth |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| and breadth-first processing of search result lists. In Ext. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Abstracts CHI 2004, ACM Press (2004), 1539-1539. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 21.Lindberg, T. and Nasanen, R. The effect of icon spacing |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| and size on the speed of icon processing in the human |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| visual system. Displays 24, 3 (2003), 111-120. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 22.Meyer, D.E. and Kieras, D.E. A computational theory of |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| executive control processes and human multiple-task |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| performance: Part 1. Basic Mechanisms. Psychological |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Review 104 (1997), 3-65. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 23.Meyer, D.E. and Kieras, D.E. A computational theory of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| executive control processes and human multiple-task |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| performance: Part 2. Accounts of Psychological |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Refractory-Period Phenomena. Psychological Review |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 104 (1997), 749-791. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 24.Motter, B.C. and Belky, E.J. The zone of focal attention |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| during active visual search. Vision Research 38 (1998), |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 1007-1022. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 25.Najemnik, J. and Geisler, W.S. Optimal eye movement |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| strategy in visual search. Nature 434 (2005), 387-391. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 26.Ojanpää, H., Näsänen, R., and Kojo, I. Eye movements |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| in the visual search of word lists. Vision Research 42, 12 |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| (2002), 1499-1512. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 27.Over, E.A.B., Hooge, I.T.C., Vlaskamp, B.N.S., and |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Erkelens, C.J. Coarse-to-fine eye movement strategy in |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| visual search. Vision Research 47 (2007), 2272-2280. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 28.Payne, S.J., Howes, A., and Reader, W.R. Adaptively |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| distributing cognition: a decision-making perspective on |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| human-computer interaction. Behaviour and Information |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Technology 20, 5 (2001), 339-346. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 29.Pirolli, P. and Card, S.K. Information foraging. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Psychological Review 106, 4 (1999), 643-675. |XML| xmlLoc_0 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 30.Pirolli, P., Card, S.K., and Van Der Wege, M. The |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| effects of information scent on visual search in the |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| hyperbolic tree browser. ACM Transactions on |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Computer Human Interaction 10, 1 (2003), 20-53. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 31.Pirolli, P. and Fu, W.-T. SNIF-ACT: a model of |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| information foraging on the world wide web. In Proc. |XML| xmlLoc_1 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Ninth International Conference on User Modeling, |XML| xmlLoc_1 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| Springer (2003). |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 32.Pollatsek, A., Perea, M., and Binder, K.S. The Effecs of |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Neighborhood Size in Reading and Lexical Decision. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Journal of Experimental Psychology: Human Perception |XML| xmlLoc_2 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| and Performance 25, 4 (1999), 1142-1158. |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 33.Rao, R.P.N., Zelinsky, G., Hayhoe, M.M., and Ballard, |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| D.H. Eye movements in iconic visual search. Vision |XML| xmlLoc_2 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Research 42, 11 (2002), 1447-1463. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 34.Reiman, J., Young, M., and Howes, A. A dual-space |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| model of interatively deepening exploratory learning. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| International Journal of Human-Computer Studies 44 |XML| xmlLoc_3 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| (1996), 743-775. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 35.Rele, R.S. and Duchowski, A.T. Using eye tracking to |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| evaluate alternate search results interfaces. In Proc. |XML| xmlLoc_3 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| HFES 49th Annual Conference (2005). |XML| xmlLoc_4 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 36.Resnick, M.L., Maldonado, C.A., Santos, J.M., and |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Lergier, R. Modeling On-line Search Behavior Using |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Alternative Output Structures. In Proc. HFES 45th |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Annual Conference (2001), 1166-1171. |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 37.Ross, J., Morrone, M.C., Goldberg, M.E., and Burr, |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| D.C. Changes in visual perception at the time of |XML| xmlLoc_4 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| saccades. Trends in Neurosciences 24, 2 (2001), 113- |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 121. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 38.Simon, H.A. A behavioral model of rational choice. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| Quarterly Journal of Economics 69 (1955), 99-118. |XML| xmlLoc_5 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 39.Sperling, G. and Dosher, B.A. Strategy and optimization |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| in human information processing. In K.R. Boff, L. |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Kaufman, and J.P. Thomas (Eds.), Handbook of |XML| xmlLoc_5 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| perception and human performance, Vol. I, Sensory |XML| xmlLoc_6 xmlBold_no xmlItalic_yes xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| processes and perception, Wiley (1986). |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_continue
+reference ||| 40.Vlaskamp, B.N.S., Over, E.A.B., and Hooge, I.T.C. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Saccadic search performance: the effect of element |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| spacing. Experimental Brain Research 3 (2005), 1-14. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 41.Woodruff, A., Faulring, A., Rosenholtz, R., Morrison, |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_new
+reference ||| J., and Pirolli, P. Using Thumbnails to Search the Web. |XML| xmlLoc_6 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| In Proc. CHI 2001, ACM Press (2001), 198-205. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| 42.Yee, K.P., Swearingen, K., Li, K., and Hearst, M. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new
+reference ||| Faceted metadata for image search and browsing. In |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+reference ||| Proc. CHI 2003, ACM Press (2003), 401-408. |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_common xmlPic_no xmlTable_no xmlBullet_no bi_xmlSFBIA_continue bi_xmlPara_continue
+page ||| 1084 |XML| xmlLoc_7 xmlBold_no xmlItalic_no xmlFontSize_none xmlPic_yes xmlTable_no xmlBullet_no bi_xmlSFBIA_new bi_xmlPara_new

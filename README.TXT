@@ -30,13 +30,17 @@ University and at the National University of Singapore (NUS).
 Current development (from 2008 onwards) has been done at NUS only.
 The newer version of files are supported only through the newer
 scripts written at NUS.
+
+# Thang v100401
+SectLabel has been developed at NUS (2010) to retrieve logical structure of scientific documents. For further information, please refer to the webpage description and FAQ section.
+
 ----------------------------------------------------------------------
 Files:
 
 bin/	- Binaries / scripts for running ParsCit
    /archtest.pl		- Used by IST installation
-   /citeExtract.pl 	- Script for running the whole pipeline from a text file 
-			  (body/references segmentation, reference string parsing)
+   /citeExtract.pl 	- Script for running the whole pipeline from a text/XML file # Thang v100401 
+			  (logical structure parsing, body/references segmentation, reference string parsing)
    /parsecit-client.pl	- Original perl web service client (tested at IST)
    /parsecit-server.pl	- Original perl web service server (tested at IST)
    /ParsCitClient.rb	- Ruby web service client for the parsCit/parsHed modules (tested at NUS)
@@ -46,17 +50,26 @@ bin/	- Binaries / scripts for running ParsCit
 			  (at end of script) for ParsCit
    /parsHed/redo.parsHed.pl	- Cross Validation training script and 
 				  training notes (at end of script) for ParsHed
+
+# Thang v100401
+   /sectLabel/redo.sectLabel.pl	- Cross Validation training script and 
+				  training notes (at end of script) for SectLabel 
+   /sectLabel/README.txt	- Detailed descriptions of SectLabel scripts, including GenericSect ones
+
 CHANGELOG.TXT	- Changes between versions of the code.
 crfpp/		- The CRF++ machine learning package used within ParsCit
-     /traindata	- Sample training data for the CRF++ code of ParsCit and 
-                  ParsHed
+     /traindata	- Sample training data for the CRF++ code of ParsCit,
+                  ParsHed, and SectLabel # Thang v100401
 demodata/	- Test data for sanity checking outputs
 doc/		- The CGI base installation and documentation (scientific 
-                  publications) about ParsCit
+                  publications) about ParsCit	
+# Thang v100401: @Min, mention about annotated data?
+
 INSTALL.TXT	- installation and basic instructions
 lib
    /ParsCit	- perl libraries for ParsCit 
    /ParsHed	- perl libraries for ParsHed 
+   /SectLabel	- perl libraries for SectLabel # Thang v100401 
    /cgiLog.txt	- CGI log for running web interface (nb, different than web 
                   service interface)
 README.TXT	- this file
@@ -67,6 +80,12 @@ resources/	- dictionary files and CRF++ trained models
          /parsHed/keywords - most frequent keywords
          /parsHed/bigram - most frequent bigrams
          /parsHed/archive/parsHed.model - old model (trained at token level)
+
+	# Thang v100401
+         /sectLabel/sectLabel.model - default model used by SectLabel for plain text input
+         /sectLabel/sectLabel.modelXml - default model used by SectLabel for XML input
+         /sectLabel/genericSect.model - default model used by GenericSect
+         /sectLabel/funcword - English function word list
 
 tmp/		- guess! :-)
 USAGE.TXT	- Usage files for the citeExtract and web service interface 

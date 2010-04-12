@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.806223">
+<title confidence="0.999642">Teaching Dialogue to Interdisciplinary Teams through Toolkits</title>
+<author confidence="0.997717">Justine Cassell Matthew Stone</author>
+<affiliation confidence="0.9741615">Technology and Social Behavior Computer Science and Cognitive Science Northwestern University Rutgers University</affiliation>
+<email confidence="0.9995">justine@northwestern.edumatthew.stone@rutgers.edu</email>
+<abstract confidence="0.989810125">We present some lessons we have learned from using software infrastructure to support coursework in natural language dialogue and embodied conversational agents. We have a new appreciation for the differences between coursework and research infrastructure—supporting teaching may be harder, because students require a broader spectrum of implementation, a faster learning curve and the ability to explore mistaken ideas as well as promising ones. We outline the collaborative discussion and effort we think is required to create better teaching infrastructure in the future</abstract>
+</variant>
+</algorithm>
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="true">
+<authors>
+<author>Alan Black</author>
+<author>Paul Taylor</author>
+</authors>
+<title>Festival speech synthesis system</title>
+<date>1997</date>
+<booktitle>Technical Report HCRC/TR-83, Human Communication Research Center. http://www.cstr.ed.ac.uk/projects/festival</booktitle>
+<contexts>
+<context position="14066" citStr="Black and Taylor, 1997">gy. For example, we think many of the same issues would arise in asking students to build a multimodal behavior realization system on top of a general-purpose speech synthesis platform like Festival (Black and Taylor, 1997). 3.2 Difficulties with the CSLU toolkit	3.3 Difficulties with TAGLET In Fall 2004, Cassell experimented with using the CSLU dialogue toolkit (Cole, 1999) as a resource for class projects. This is a b</context>
+</contexts>
+<marker>Black, Taylor, 1997</marker>
+<rawString>Alan Black and Paul Taylor. 1997. Festival speech synthesis system. Technical Report HCRC/TR-83, Human Communication Research Center. http://www.cstr.ed.ac.uk/projects/festival/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Cassell</author>
+<author>T Bickmore</author>
+<author>M Billinghurst</author>
+<author>L Campbell</author>
+<author>K Chang</author>
+<author>H Vilhj´almsson</author>
+<author>H Yan</author>
+</authors>
+<date>1999</date>
+<booktitle>Embodiment in conversational characters: Rea. In CHI 99</booktitle>
+<pages>520--527</pages>
+<marker>Cassell, Bickmore, Billinghurst, Campbell, Chang, Vilhj´almsson, Yan, 1999</marker>
+<rawString>J. Cassell, T. Bickmore, M. Billinghurst, L. Campbell, K. Chang, H. Vilhj´almsson, and H. Yan. 1999. Embodiment in conversational characters: Rea. In CHI 99, pages 520–527.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Justine Cassell</author>
+<author>Tim Bickmore</author>
+<author>Lee Campbell</author>
+<author>Hannes Vilhjalmsson</author>
+<author>Hao Yan</author>
+</authors>
+<title>Human conversation as a system framework</title>
+<date>2000</date>
+<booktitle>Embodied Conversational Agents</booktitle>
+<pages>29--63</pages>
+<editor>In J. Cassell, J. Sullivan, S. Prevost, and E. Churchill, editors</editor>
+<publisher>MIT Press</publisher>
+<location>Cambridge, MA</location>
+<contexts>
+<context position="12928" citStr="Cassell et al., 2000">al human animation class. To add the behavior, students also needed to know how this technology was realized in our particular research platform. This proved too much for one semester.	face dialogue (Cassell et al., 2000), the information- state approach to domain-independent practical di-alogue (Larsson and Traum, 2000), or approaches that emphasize the grounding of conversation in the specifics of a particular ongoi</context>
+</contexts>
+<marker>Cassell, Bickmore, Campbell, Vilhjalmsson, Yan, 2000</marker>
+<rawString>Justine Cassell, Tim Bickmore, Lee Campbell, Hannes Vilhjalmsson, and Hao Yan. 2000. Human conversation as a system framework. In J. Cassell, J. Sullivan, S. Prevost, and E. Churchill, editors, Embodied Conversational Agents, pages 29–63. MIT Press, Cambridge, MA.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Manny Rayner</author>
+<author>Beth Ann Hockey</author>
+<author>John Dowding</author>
+</authors>
+<title>An open source environment for compiling typed unification grammars into speech recognisers</title>
+<date>2003</date>
+<booktitle>In Proceedings of the 10th Conference of the European Chapter of</booktitle>
+<note>http://sourceforge.net/projects/regulus</note>
+<contexts>
+<context position="1504" citStr="Rayner et al., 2003">ak code, or build their own application using a dialogue system toolkit. Some popular options include the NLTK (Loper and Bird, 2002), CSLU (Cole, 1999), Trindi (Larsson and Traum, 2000) and Regulus (Rayner et al., 2003) toolkits. However, each of these options has turned 9 out to have disadvantages. Some of the toolkits require too much knowledge of linguistics for the average computer science student, and vice-vers</context>
+<context position="8250" citStr="Rayner et al., 2003">gement of conversation and participants’ real-world collaborations. Our unusual focus means that we can not readily take advantage of software toolkits such as NLTK (Loper and Bird, 2002) or Regulus (Rayner et al., 2003). These toolkits are great at helping students implement and visualize the fundamentals of natural language processing—lexicon, morphology, syntax. They make it easy to experiment with machine learnin</context>
+</contexts>
+<marker>Rayner, Hockey, Dowding, 2003</marker>
+<rawString>Manny Rayner, Beth Ann Hockey, and John Dowding. 2003. An open source environment for compiling typed unification grammars into speech recognisers. In Proceedings of the 10th Conference of the European Chapter of the Association for Computation Linguistics (interactive poster and demo track). http://sourceforge.net/projects/regulus.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Rich</author>
+<author>C L Sidner</author>
+<author>N Lesh</author>
+</authors>
+<title>COLLAGEN: applying collaborative discourse theory to human-computer interaction</title>
+<date>2001</date>
+<journal>AI Magazine</journal>
+<pages>22--15</pages>
+<contexts>
+<context position="13164" citStr="Rich et al., 2001"> state approach to domain-independent practical di-alogue (Larsson and Traum, 2000), or approaches that emphasize the grounding of conversation in the specifics of a particular ongoing collaboration (Rich et al., 2001). The integration of a talking head into the CSLU toolkit epitomizes these limitations with the platform. The toolkit allows for the automatic realization of text with an animated spoken deliv-ery, bu</context>
+</contexts>
+<marker>Rich, Sidner, Lesh, 2001</marker>
+<rawString>C. Rich, C. L. Sidner, and N. Lesh. 2001. COLLAGEN: applying collaborative discourse theory to human-computer interaction. AI Magazine, 22:15–25.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Matthew Stone</author>
+</authors>
+<title>Lexicalized grammar 101</title>
+<date>2002</date>
+<booktitle>In ACL Workshop on Effective Tools and Methodologies for Teaching NLP and CL</booktitle>
+<pages>76--83</pages>
+<marker>Stone, 2002</marker>
+<rawString>Matthew Stone. 2002. Lexicalized grammar 101. In ACL Workshop on Effective Tools and Methodologies for Teaching NLP and CL, pages 76–83. http://www.cs.rutgers.edu/˜mdstone/class/taglet/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Justine Cassell</author>
+<author>Hannes Vilhj´almsson</author>
+<author>Tim Bickmore</author>
+</authors>
+<title>BEAT: the behavioral expression animation toolkit</title>
+<date>2001</date>
+<booktitle>In SIGGRAPH</booktitle>
+<pages>477--486</pages>
+<marker>Cassell, Vilhj´almsson, Bickmore, 2001</marker>
+<rawString>Justine Cassell, Hannes Vilhj´almsson, and Tim Bickmore. 2001. BEAT: the behavioral expression animation toolkit. In SIGGRAPH, pages 477–486.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Ron Cole</author>
+</authors>
+<title>Tools for research and education in speech science</title>
+<date>1999</date>
+<booktitle>In Proceedings of the International Conference of Phonetic Sciences. http://cslu.cse.ogi.edu/toolkit</booktitle>
+<contexts>
+<context position="1436" citStr="Cole, 1999">students to view the code of a working dialogue system, tweak code, or build their own application using a dialogue system toolkit. Some popular options include the NLTK (Loper and Bird, 2002), CSLU (Cole, 1999), Trindi (Larsson and Traum, 2000) and Regulus (Rayner et al., 2003) toolkits. However, each of these options has turned 9 out to have disadvantages. Some of the toolkits require too much knowledge of</context>
+<context position="14220" citStr="Cole, 1999">synthesis platform like Festival (Black and Taylor, 1997). 3.2 Difficulties with the CSLU toolkit	3.3 Difficulties with TAGLET In Fall 2004, Cassell experimented with using the CSLU dialogue toolkit (Cole, 1999) as a resource for class projects. This is a broad toolkit to support research and teaching in spoken language technol-ogy. A particular strength of the toolkit is its sup-port for the design of finit</context>
+</contexts>
+<marker>Cole, 1999</marker>
+<rawString>Ron Cole. 1999. Tools for research and education in speech science. In Proceedings of the International Conference of Phonetic Sciences. http://cslu.cse.ogi.edu/toolkit/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Mark G Core</author>
+<author>James F Allen</author>
+</authors>
+<title>Coding dialogs with the DAMSL annotation scheme</title>
+<date>1997</date>
+<booktitle>In Working Notes of AAAI Fall Symposium on Communicative Action in Humans and Machines. http://www.cs.rochester.edu/research/cisd/resources/damsl</booktitle>
+<contexts>
+<context position="16779" citStr="Core and Allen, 1997"> of research prototypes than we would like in a teaching toolkit. Its dialogue models provide an instructive perspective on actions in discourse, one that nicely complements the perspective of DAMSL (Core and Allen, 1997) in seeing utterances as the combined realization of a specific, constrained range of communicative functions. But we would like to be able to explore a range of other metaphors for organizing the inf</context>
+</contexts>
+<marker>Core, Allen, 1997</marker>
+<rawString>Mark G. Core and James F. Allen. 1997. Coding dialogs with the DAMSL annotation scheme. In Working Notes of AAAI Fall Symposium on Communicative Action in Humans and Machines. http://www.cs.rochester.edu/research/cisd/resources/damsl/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Douglas DeCarlo</author>
+<author>Corey Revilla</author>
+<author>Matthew Stone</author>
+<author>Jennifer Venditti</author>
+</authors>
+<title>Specifying and animating facial signals for discourse in embodied conversational agents</title>
+<date>2004</date>
+<journal>Journal of Visualization and Computer Animation. http://www.cs.rutgers.edu/˜village/ruth</journal>
+<contexts>
+<context position="19090" citStr="DeCarlo et al., 2004">ctivities so that we can find new synergies between research and teaching. For example, we are currently working to expand the repertoire of animated action in our freely-available talking head RUTH (DeCarlo et al., 2004). In our next release, we expect to make dif-ferent kinds of resources available than in the initial release. Originally, we distributed only the model we created. The next version will again provide </context>
+</contexts>
+<marker>DeCarlo, Revilla, Stone, Venditti, 2004</marker>
+<rawString>Douglas DeCarlo, Corey Revilla, Matthew Stone, and Jennifer Venditti. 2004. Specifying and animating facial signals for discourse in embodied conversational agents. Journal of Visualization and Computer Animation. http://www.cs.rutgers.edu/˜village/ruth/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>David DeVault</author>
+<author>Anubha Kothari</author>
+<author>Natalia Kariaeva</author>
+<author>Iris Oved</author>
+<author>Matthew Stone</author>
+</authors>
+<title>An information-state approach to collaborative reference</title>
+<date>2005</date>
+<booktitle>In ACL Proceedings Companion Volume</booktitle>
+<note>interactive poster and demonstration track). http://www.cs.rutgers.edu/˜mdstone/pointers/collabref.html</note>
+<contexts>
+<context position="18551" citStr="DeVault et al., 2005">exploration of dialogue semantics at Rutgers was not the special teaching resources Stone created. It was hooking students up with the systems that were being actively developed in ongo-ing research (DeVault et al., 2005). These research efforts made it practical to provide students with the visualizations, task and context models, and interac-tive architecture they needed to explore substantive issues in dialogue sem</context>
+</contexts>
+<marker>DeVault, Kothari, Kariaeva, Oved, Stone, 2005</marker>
+<rawString>David DeVault, Anubha Kothari, Natalia Kariaeva, Iris Oved, and Matthew Stone. 2005. An information-state approach to collaborative reference. In ACL Proceedings Companion Volume (interactive poster and demonstration track). http://www.cs.rutgers.edu/˜mdstone/pointers/collabref.html.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Staffan Larsson</author>
+<author>David Traum</author>
+</authors>
+<title>Information state and dialogue management in the TRINDI dialogue move engine toolkit. Natural Language Engineering</title>
+<date>2000</date>
+<pages>6--323</pages>
+<contexts>
+<context position="1470" citStr="Larsson and Traum, 2000">code of a working dialogue system, tweak code, or build their own application using a dialogue system toolkit. Some popular options include the NLTK (Loper and Bird, 2002), CSLU (Cole, 1999), Trindi (Larsson and Traum, 2000) and Regulus (Rayner et al., 2003) toolkits. However, each of these options has turned 9 out to have disadvantages. Some of the toolkits require too much knowledge of linguistics for the average compu</context>
+<context position="13029" citStr="Larsson and Traum, 2000">s realized in our particular research platform. This proved too much for one semester.	face dialogue (Cassell et al., 2000), the information- state approach to domain-independent practical di-alogue (Larsson and Traum, 2000), or approaches that emphasize the grounding of conversation in the specifics of a particular ongoing collaboration (Rich et al., 2001). The integration of a talking head into the CSLU toolkit epitomi</context>
+</contexts>
+<marker>Larsson, Traum, 2000</marker>
+<rawString>Staffan Larsson and David Traum. 2000. Information state and dialogue management in the TRINDI dialogue move engine toolkit. Natural Language Engineering, 6:323–340. http://www.ling.gu.se/projekt/trindi/.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Edward Loper</author>
+<author>Steven Bird</author>
+</authors>
+<title>NLTK: the natural language toolkit</title>
+<date>2002</date>
+<booktitle>In Proceedings of the ACL Workshop on Effective Tools and Methodologies for Teaching Natural Language Processing and Computational Linguistics. http://nltk.sourceforge.net</booktitle>
+<contexts>
+<context position="1417" citStr="Loper and Bird, 2002">ith various options to allow students to view the code of a working dialogue system, tweak code, or build their own application using a dialogue system toolkit. Some popular options include the NLTK (Loper and Bird, 2002), CSLU (Cole, 1999), Trindi (Larsson and Traum, 2000) and Regulus (Rayner et al., 2003) toolkits. However, each of these options has turned 9 out to have disadvantages. Some of the toolkits require to</context>
+<context position="8217" citStr="Loper and Bird, 2002">ctions that contribute to the management of conversation and participants’ real-world collaborations. Our unusual focus means that we can not readily take advantage of software toolkits such as NLTK (Loper and Bird, 2002) or Regulus (Rayner et al., 2003). These toolkits are great at helping students implement and visualize the fundamentals of natural language processing—lexicon, morphology, syntax. They make it easy t</context>
+</contexts>
+<marker>Loper, Bird, 2002</marker>
+<rawString>Edward Loper and Steven Bird. 2002. NLTK: the natural language toolkit. In Proceedings of the ACL Workshop on Effective Tools and Methodologies for Teaching Natural Language Processing and Computational Linguistics. http://nltk.sourceforge.net.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>

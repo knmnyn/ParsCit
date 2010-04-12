@@ -1,4 +1,3 @@
-
 package CSXUtil::SafeText;
 ##
 ##  Methods for stripping bad (XML unsafe) characters

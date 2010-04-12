@@ -37,13 +37,16 @@ sub License {
 
 ### HELP Sub-procedure
 sub Help {
-  print STDERR "Generate features for crfpp, similar to tr2crfpp but works at line level with added ngram features\n";
+  print STDERR "Generate SectLabel features for CRF++\n";
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in inFile -c configFile -out outFile [-k keywordFile -b bigramFile -tri triramFile -fourth fourthramFile -template]\n";
+  print STDERR "       $progname -in inFile -c configFile -out outFile [-template -single]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
-  print STDERR "\t-k: Default keywordFile resources/parsHed/keywords\n";
-  print STDERR "\t-b: Default bigramFile resources/parsHed/bigram\n";
+  print STDERR "\t-in inFile: labeled input file\n";
+  print STDERR "\t-c configFile: to specify which feature set to use.\n";
+  print STDERR "\t-out outFile: output file for CRF++ training.\n";
+  print STDERR "\t-template: to output a template used by CRF++ according to the config file.\n";
+  print STDERR "\t-single: indicate that each input document is in single-line format (e.g., doc/sectLabel.tagged.txt)\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
@@ -55,19 +58,13 @@ $dictFile = "$FindBin::Bin/../../$dictFile";
 my $funcFile = $SectLabel::Config::funcFile;
 $funcFile = "$FindBin::Bin/../../$funcFile";
 
-my $keywordFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::keywordFile;
-my $bigramFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::bigramFile;
-my $trigramFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::trigramFile;
-my $fourthgramFile = ""; # = "$FindBin::Bin/../".$SectLabel::Config::fourthgramFile;
 my $configFile = undef;
 my $isTemplate = 0;
+my $isSingle = 0;
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
-			    'k=s' => \$keywordFile,
-			    'b=s' => \$bigramFile,
-			    'tri=s' => \$trigramFile,
-			    'fourth=s' => \$fourthgramFile,
 			    'c=s' => \$configFile,
+			    'single' => \$isSingle,
 			    'template' => \$isTemplate,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
@@ -85,14 +82,19 @@ if (!$QUIET) {
 $inFile = untaintPath($inFile);
 $outFile = untaintPath($outFile);
 $configFile = untaintPath($configFile);
-$keywordFile = untaintPath($keywordFile);
-$bigramFile = untaintPath($bigramFile);
-$trigramFile = untaintPath($trigramFile);
-$fourthgramFile = untaintPath($fourthgramFile);
 $ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin';
 ### End untaint ###
 
-SectLabel::Tr2crfpp::tr2crfpp($inFile, $outFile, $dictFile, $funcFile, $configFile, $isTemplate); #$keywordFile, $bigramFile, $trigramFile, $fourthgramFile,
+if($isSingle){
+  execute("$FindBin::Bin/single2multi.pl -in $inFile -out $inFile.multi -p \"SectLabel_\"");
+  $inFile .= ".multi";
+}
+
+SectLabel::Tr2crfpp::tr2crfpp($inFile, $outFile, $dictFile, $funcFile, $configFile, $isTemplate);
+
+if($isSingle){
+  unlink($inFile);
+}
 
 sub untaintPath {
   my ($path) = @_;
@@ -108,7 +110,7 @@ sub untaintPath {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/]+)$/) {
+  if ($s =~ /^([\w \-\@\(\),\.\/\_\"]+)$/) {
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere

@@ -22,18 +22,21 @@ linePos=1
 4gram=0
 
 xmlLoc=1
-xmlAlign=1
+xmlAlign=0
 
 xmlBold=1
 xmlItalic=1
 xmlFontSize=1
 
-xmlDd=1
-xmlCell=1
+xmlPic=1
+xmlTable=1
 xmlBullet=1
 
-xmlFontFace=0
-xmlFontFaceChange=0
-xmlFontSizeChange=0
-xmlIndent=0
+bi_xmlA=0
+bi_xmlF=0
+bi_xmlSF=0
+bi_xmlSFBI=0
+bi_xmlSFBIA=1
+bi_xmlPara=1
+
 xmlSpace=0

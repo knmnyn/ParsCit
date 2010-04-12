@@ -1,0 +1,1024 @@
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+title ||| Harvesting with SONAR - The Value of Aggregating Social
+title ||| Network Information
+author ||| Ido Guy, Michal Jacovi, Elad Shahar,
+author ||| Noga Meshulam, Vladimir Soroka
+affiliation ||| IBM Haifa Research Lab
+address ||| Mt. Carmel, Haifa 31905, Israel
+email ||| {ido, jacovi, elads, noga, vladi} @il.ibm.com
+sectionHeader ||| ABSTRACT
+bodyText ||| Web 2.0 gives people a substantial role in content and
+bodyText ||| metadata creation. New interpersonal connections are
+bodyText ||| formed and existing connections become evident. This
+bodyText ||| newly created social network (SN) spans across multiple
+bodyText ||| services and aggregating it could bring great value. In this
+bodyText ||| work we present SONAR, an API for gathering and sharing
+bodyText ||| SN information. We give a detailed description of SONAR,
+bodyText ||| demonstrate its potential value through user scenarios, and
+bodyText ||| show results from experiments we conducted with a
+bodyText ||| SONAR-based social networking application within our
+bodyText ||| organizational intranet. These suggest that aggregating SN
+bodyText ||| information across diverse data sources enriches the SN
+bodyText ||| picture and makes it more complete and useful for the end
+bodyText ||| user.
+sectionHeader ||| Author Keywords
+keyword ||| Social networks, SN, social network analysis, SNA,
+keyword ||| aggregation.
+sectionHeader ||| ACM Classification Keywords
+category ||| H.5.3 Group and Organizational Interfaces – Computer-
+category ||| supported cooperative work
+sectionHeader ||| INTRODUCTION
+bodyText ||| Social software – software that has people as its focal point
+bodyText ||| – is the core of Web 2.0. From blogs and wikis through
+bodyText ||| recommender systems to social bookmarking and personal
+bodyText ||| network systems – social applications proliferate. In
+bodyText ||| continuation to its dominance on the internet, social
+bodyText ||| software has recently emerged in organizations, as a mean
+bodyText ||| of connecting employees in a better way and enhancing
+bodyText ||| knowledge management and expertise location. Blogging
+bodyText ||| systems [14], social bookmarking [19], and people tagging
+copyright ||| Permission to make digital or hard copies of all or part of this work for
+copyright ||| personal or classroom use is granted without fee provided that copies are
+copyright ||| not made or distributed for profit or commercial advantage and that copies
+copyright ||| bear this notice and the full citation on the first page. To copy otherwise,
+copyright ||| or republish, to post on servers or to redistribute to lists, requires prior
+copyright ||| specific permission and/or a fee.
+note ||| CHI 2008, April 5–10, 2008, Florence, Italy.
+copyright ||| Copyright 2008 ACM 978-1-60558-011-1/08/04...$5.00.
+author ||| Stephen Farrell
+affiliation ||| IBM Almaden Research Center
+address ||| 650 Harry Road, San Jose, California
+email ||| sfarrell@almaden.ibm.com
+bodyText ||| [7], are examples of social applications that became part of
+bodyText ||| organizations’ intranets in the purpose of promoting intra-
+bodyText ||| organizational interaction.
+bodyText ||| Many of these social applications expose interesting
+bodyText ||| information about people’s relationships. For example, by
+bodyText ||| analysing blog commenters, or bookmarking similarities,
+bodyText ||| connections among people can become evident. By
+bodyText ||| extracting this information and aggregating it across
+bodyText ||| multiple sources, a comprehensive and often intriguing
+bodyText ||| picture of individual and organizational social networks
+bodyText ||| may be revealed.
+bodyText ||| Potential sources of social information are very diverse.
+bodyText ||| Different users make use of different tools, and social
+bodyText ||| information is scattered among many services and
+bodyText ||| applications. As these applications rarely interoperate, each
+bodyText ||| is typically only aware of its own social data and cannot
+bodyText ||| benefit from other applications’ data.
+bodyText ||| The diversity of sources of social networking data also
+bodyText ||| brings a variety of semantics to interpersonal connections.
+bodyText ||| While some of these semantics are straightforward and
+bodyText ||| derived from the nature of the connection (brother, close
+bodyText ||| friend, manager, etc.), others are more complex. Many
+bodyText ||| researchers recognized that people are connected through
+bodyText ||| artifacts. For example, many studies have investigated
+bodyText ||| networks where two people are connected if they have co-
+bodyText ||| authored a paper [22]. Newer examples of artifacts that
+bodyText ||| connect people include email messages [3,28], and web
+bodyText ||| pages [14]. Affiliation networks [29] present people’s
+bodyText ||| connections through groups in which they co-participate,
+bodyText ||| such as a board of directors, or a movie cast [22]. The
+bodyText ||| above examples imply that aggregating social network data
+bodyText ||| presents the challenge of creating a single framework,
+bodyText ||| general yet informative, to fit all types of connections.
+bodyText ||| To address the above challenges, we introduce SONAR
+bodyText ||| (Social Networks Architecture) – an API for sharing social
+bodyText ||| network data and aggregating it across applications to show
+bodyText ||| who is related to whom and how. Applications
+bodyText ||| implementing the SONAR API (SONAR providers) should
+bodyText ||| provide internal information about how strongly people are
+bodyText ||| connected and by what means. SONAR clients can use the
+bodyText ||| SONAR API to access data from a single provider that
+bodyText ||| implements the API. However, the more compelling case is
+page ||| 1017
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| where an intermediate component, an aggregator, is used
+bodyText ||| by clients, with the very same SONAR API, to consolidate
+bodyText ||| the data from different providers. This way, one can choose
+bodyText ||| multiple providers and assign an appropriate weight to each
+bodyText ||| of them. It is expected that federating more data providers
+bodyText ||| will make the resulting answers to queries more complete.
+bodyText ||| Clients of SONAR may vary from expertise miners,
+bodyText ||| through network visualizers, to user interface widgets.
+bodyText ||| SONAR answers questions such as “who does this person
+bodyText ||| communicate with most?”, “what are all the artifacts co-
+bodyText ||| authored by these two individuals?”, “whom should I invite
+bodyText ||| to a brainstorm on a certain topic?”
+bodyText ||| SONAR includes two types of data sources: personal
+bodyText ||| (private) and public. Personal sources, such as email and
+bodyText ||| instant messaging (IM), are only available to their owner
+bodyText ||| and reflect the owner’s personal, or egocentric, social
+bodyText ||| network (i.e., all nodes in the network are directly related to
+bodyText ||| the owner). Public data sources, such as blogs and
+bodyText ||| organizational charts, are available to all users and reflect
+bodyText ||| their extended, or sociocentric, network. SONAR maintains
+bodyText ||| the privacy model of its data sources: only those users who
+bodyText ||| have access to a certain piece of data by the original
+bodyText ||| provider will have access to the social information extracted
+bodyText ||| from this data by SONAR.
+bodyText ||| As of now, we implemented the SONAR API for over ten
+bodyText ||| sources, public and personal, within the IBM intranet.
+bodyText ||| SONAR’s ultimate goal is to be widely used by social
+bodyText ||| networking and Web 2.0 services on the internet and to
+bodyText ||| define a standard, analogous to RSS [11]. SONAR is based
+bodyText ||| on the REST design pattern [9] and uses standard data
+bodyText ||| formats such as Atom [23] and JSON [13].
+bodyText ||| When used for creating a sociocentric view of a social
+bodyText ||| network, SONAR is based solely on public sources. Any
+bodyText ||| user may use this view to examine publicly visible
+bodyText ||| connections within any group of people. When used for
+bodyText ||| creating an egocentric view of a user’s network, SONAR
+bodyText ||| also makes use of the user’s personal sources. Enriching the
+bodyText ||| egocentric network, as reflected in personal sources, with
+bodyText ||| information from public sources, opens up new
+bodyText ||| opportunities for learning about one’s extended network
+bodyText ||| (i.e., one’s connections and their connections with others).
+bodyText ||| Consider, for example, Alice who seeks a social connection
+bodyText ||| to Cindy. Cindy may not appear at all in Alice’s egocentric
+bodyText ||| network based on personal sources. However, examining
+bodyText ||| the extended network, Alice may discover that Bob – who
+bodyText ||| appears on her egocentric network by her personal data – is
+bodyText ||| related to Cindy according to public sources. Alice will then
+bodyText ||| be able to discover a social path to Cindy through Bob,
+bodyText ||| based on aggregation of her personal and public sources.
+bodyText ||| In order to verify the fundamental concepts on which
+bodyText ||| SONAR relies, namely aggregation and the usage of public
+bodyText ||| sources, we conducted three experiments. The first
+bodyText ||| experiment examines different social networks derived
+bodyText ||| from four of SONAR’s implemented public data sources.
+bodyText ||| The second experiment involves a user study in which over
+bodyText ||| a hundred users evaluated different buddylists derived from
+bodyText ||| 24 different combinations of SONAR public as well as
+bodyText ||| personal data sources. For the third experiment we
+bodyText ||| interviewed 12 users about their usage of a SONAR UI and
+bodyText ||| their thoughts on the different buddylists. The experiments
+bodyText ||| examine the diversity of the public data sources, their value
+bodyText ||| to the user, and whether they add value over personal data
+bodyText ||| sources. Finally, we checked whether there exists an ideal
+bodyText ||| weighting scheme of the sources, which may serve as the
+bodyText ||| system’s default, and followed users as they were
+bodyText ||| composing their own ideal weighting scheme.
+bodyText ||| We note that the experiments in this paper examine
+bodyText ||| buddylists and social networks generally, while, in practice,
+bodyText ||| different semantics may yield different social networks. For
+bodyText ||| example, the network consisting of users’ friends may be
+bodyText ||| different from the network of people with whom users
+bodyText ||| communicate most frequently, which may be different from
+bodyText ||| the network of individuals with whom users share similar
+bodyText ||| interests.
+bodyText ||| The rest of the paper is organized as follows. The next
+bodyText ||| section surveys related work, followed by a more detailed
+bodyText ||| description of SONAR and typical usage scenarios. We
+bodyText ||| then describe our hypotheses, research method, and results.
+bodyText ||| The final section discusses conclusions and future work.
+sectionHeader ||| RELATED WORK
+bodyText ||| The formal discipline that studies interpersonal connections
+bodyText ||| is called social network analysis (SNA) [29]. A social
+bodyText ||| network (SN) is a graph that represents social entities and
+bodyText ||| relationships between them. SNs have often been studied
+bodyText ||| through the use of social science tools such as surveys and
+bodyText ||| interviews, which require a great deal of human labor. The
+bodyText ||| evolution of the Web, which is often referred to as Web 2.0
+bodyText ||| [24], has introduced new possibilities for SN research.
+subsectionHeader ||| Gathering SN Data from Computer Applications
+bodyText ||| There are several popular SN services on the Web, which
+bodyText ||| help to connect friends and business acquaintances1. These
+bodyText ||| services define an explicit SN. Users directly specify who
+bodyText ||| their friends are and often manually state the nature of the
+bodyText ||| connection. The manual nature of these networks is perhaps
+bodyText ||| their main disadvantage. Only part of the user’s actual SN
+bodyText ||| will be registered in any such application, and since
+bodyText ||| explicitly entering social data is tedious, even users who are
+bodyText ||| registered are likely to have incomplete information about
+bodyText ||| their network. These applications are useful for SONAR,
+bodyText ||| providing very accurate, even if partial, social connections.
+bodyText ||| The wealth of information in computer databases and
+bodyText ||| applications is a good source for automatically obtaining
+bodyText ||| various kinds of SN data without burdening users with the
+bodyText ||| manual management of their network. For example,
+bodyText ||| Wellman views computer networks as SNs and surveys
+bodyText ||| how computer networks reflect and affect traditional SNs
+footnote ||| 1 {myspace, facebook, linkedin, orkut, friendster}.com
+page ||| 1018
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| [30]. In addition, data mining can discover subtle details of
+bodyText ||| a relationship that a person may not be able to provide
+bodyText ||| accurately. For example, the rate of email communication
+bodyText ||| can be used to estimate the strength of social ties [19].
+bodyText ||| Email is commonly used to extract SNs. Extraction of the
+bodyText ||| sociocentric SN from email logs has been demonstrated in
+bodyText ||| [28] in order to automatically identify communities. Other
+bodyText ||| tools, such as ContactMap [19] and Personal Map [8],
+bodyText ||| analyze emails to extract the user’s egocentric SN. Email is
+bodyText ||| one of the important sources for SONAR, but it is definitely
+bodyText ||| not the only one. SONAR’s philosophy states that there is
+bodyText ||| much important social information outside the inbox.
+bodyText ||| Another common source for SN information is the Web.
+bodyText ||| Adamic et al. [1] describe techniques for mining links and
+bodyText ||| text of homepages to predict social relationships. The
+bodyText ||| strength of a connection between two people can be
+bodyText ||| estimated by querying a search engine with their names and
+bodyText ||| checking for web pages where they co-occur [14,17]. Since
+bodyText ||| various data sources such as papers, organizational charts,
+bodyText ||| and net-news archives are available on the internet or
+bodyText ||| intranet, they too could be mined by web searching [14].
+bodyText ||| SN extraction has been conducted on many other sources,
+bodyText ||| including Usenet data [27] and Instant Messaging logs [25].
+subsectionHeader ||| Public vs. Personal Data Sources
+bodyText ||| Sociocentric network approaches may encounter difficulties
+bodyText ||| using personal data sources due to privacy concerns. For
+bodyText ||| example, mining email, even when results are displayed in
+bodyText ||| aggregated forms, might expose private information [14].
+bodyText ||| One solution is to limit data mining to public sources. For
+bodyText ||| example, Aleman-Meza et al. [2] chose to aggregate only
+bodyText ||| publicly available SN data due to privacy concerns.
+bodyText ||| However, ignoring private information may exclude
+bodyText ||| important data. An alternative solution is to have users opt-
+bodyText ||| in to explicitly give permission to make certain private
+bodyText ||| information public. For example, Smarr [26] suggests
+bodyText ||| requiring users to opt-in to publish their information to a
+bodyText ||| public Friend of a Friend (FOAF) file [10]. However, opt-in
+bodyText ||| requires action and motivation on the part of users – so
+bodyText ||| those publishing their FOAF files will cover only a small
+bodyText ||| percentage of organization members.
+bodyText ||| SONAR can aggregate both private and public sources,
+bodyText ||| without exposing private data to other people, or requiring
+bodyText ||| users to opt-in.
+subsectionHeader ||| Aggregating SN Data from Different Sources
+bodyText ||| No single archive or tool captures all our social relations
+bodyText ||| with others. Aggregating SN data from several sources may
+bodyText ||| improve the completeness of constructed SNs. For example,
+bodyText ||| the ContactMap developers plan to extend their email
+bodyText ||| mining tool to use sources such as voice mail and phone
+bodyText ||| logs due to user complaints on the absence of phone-based
+bodyText ||| contacts [19].
+bodyText ||| Several tools combine different sources to generate better
+bodyText ||| SNs. In [5], an email database is used to extract people
+bodyText ||| names and email addresses – these are then searched on the
+bodyText ||| Web, to extract keywords and to find additional related
+bodyText ||| people for which the search is recursively applied. Web
+bodyText ||| mining, face-to-face communication, and manually entering
+bodyText ||| one’s SN are combined in [12] to construct the SN in a
+bodyText ||| Japanese conference.
+bodyText ||| A basic problem of aggregation is deciding on the
+bodyText ||| algorithm to be used for combining data from various
+bodyText ||| sources. A simple approach is to compute the aggregation
+bodyText ||| as a linear combination of the individual sources. Cai et al.
+bodyText ||| [4] propose a method for learning the optimal linear
+bodyText ||| combination given input from the user that describes the
+bodyText ||| user’s expectation. However, this method requires the user
+bodyText ||| to specify the query in ways which may prove to be
+bodyText ||| complex. Matsuo et al. [16] extract and integrate SNs from
+bodyText ||| several different sources. They provide a rough sketch for
+bodyText ||| integrating the networks into a single one by using a linear
+bodyText ||| combination of the different networks. Our research tests
+bodyText ||| whether there is a weighting scheme which is appropriate to
+bodyText ||| most users, for a specific scenario.
+subsectionHeader ||| Evaluation of Social Network Quality
+bodyText ||| A common approach for validating an automatically
+bodyText ||| constructed SN is to ask the people in the network about its
+bodyText ||| correctness, usually by questionnaires that require rating
+bodyText ||| various aspects of the SNs and/or providing open-ended
+bodyText ||| feedback [8,19,28].
+bodyText ||| Another possible approach used in SNA is to compare the
+bodyText ||| automatically constructed network to external data. For
+bodyText ||| example, Aleman-Meza et al. [2] detect conflict of interests
+bodyText ||| between paper authors and referees by integrating data from
+bodyText ||| several SNs. Their evaluation included comparison to data
+bodyText ||| from an external source: a different existing system for
+bodyText ||| detecting conflict of interest. The problem with this method
+bodyText ||| of evaluation is that it is possible only if there exists a
+bodyText ||| relevant external source, which can be used for comparison.
+bodyText ||| This paper includes three types of evaluation. In the
+bodyText ||| absence of an external source to compare to when
+bodyText ||| evaluating an aggregated network, our first evaluation
+bodyText ||| compares the networks obtained from individual sources to
+bodyText ||| the other sources, to measure their uniqueness. The second
+bodyText ||| evaluation is a user evaluation, where we evaluate and
+bodyText ||| compare numerous linear combinations of different sources.
+bodyText ||| The third evaluation employs interviews in order to receive
+bodyText ||| user feedback on individual sources and their aggregation.
+sectionHeader ||| SONAR IN DETAIL
+bodyText ||| The purpose of the SONAR API is to provide open
+bodyText ||| interfaces to SN data, “locked up” in a multitude of
+bodyText ||| systems. SONAR specifies a way to share weighted SNs as
+bodyText ||| relation lists. Clients may retrieve information about how
+bodyText ||| people are connected based on different parameters. Like
+bodyText ||| RSS, our goal is to make a read-only interface, simple to
+bodyText ||| implement by the provider and consume by the client.
+page ||| 1019
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| The first premise behind the SONAR API is that it is
+bodyText ||| necessary to present the strength of ties between people. In
+bodyText ||| contrast to APIs for specific SN applications like Facebook
+bodyText ||| [6], SONAR does not model any specific semantics of the
+bodyText ||| underlying system like “friending” or “communities”.
+bodyText ||| Instead, it asks providers to boil down these semantics into
+bodyText ||| floating point numbers between 0 and 1. SONAR
+bodyText ||| aggregators combine results from multiple systems using a
+bodyText ||| simple weighted average. This approach enables diverse
+bodyText ||| applications from instant messaging clients through
+bodyText ||| publication databases to SN sites to provide data supporting
+bodyText ||| an aggregated view of relationships among people. SONAR
+bodyText ||| clients are oblivious to the types of relations – when
+bodyText ||| querying for strength of a relationship, all that the client
+bodyText ||| sees is people and the weight of their associations.
+bodyText ||| Users of aggregated SN data frequently want to understand
+bodyText ||| how people are connected, or why a connection is stronger
+bodyText ||| than another. To support this need, SONAR allows queries
+bodyText ||| for evidence. Evidence is essentially a time-ordered log of
+bodyText ||| entries, originating from each of the providers. It may
+bodyText ||| include comments posted by one user in the other user’s
+bodyText ||| blog, email messages or chat transcripts between them, or
+bodyText ||| web sites that they both bookmarked. According to our
+bodyText ||| privacy model, users do not have access to any private
+bodyText ||| material of other people through this interface—it just
+bodyText ||| organizes information they already had access to before.
+subsectionHeader ||| SONAR API Specification
+bodyText ||| We have implemented SONAR as a REST API. The API
+bodyText ||| has four methods. The first three are fetching weighted
+bodyText ||| people relationships, while the fourth provides evidence for
+bodyText ||| connections. The methods are summarized in Table 1.
+subsectionHeader ||| SONAR Aggregator
+bodyText ||| SONAR is designed to enable an aggregator component
+bodyText ||| that merges results from multiple providers. Like an HTTP
+bodyText ||| proxy, the aggregator protocol is in most ways identical to
+bodyText ||| the protocol for interacting with a SONAR provider. In fact,
+bodyText ||| clients communicate with aggregators the exact same way
+bodyText ||| they do with primary providers – through the SONAR API.
+bodyText ||| The aggregator is configured to connect to one or more
+bodyText ||| providers. When a request is received, the aggregator
+bodyText ||| forwards it to each provider. It then processes the results by
+bodyText ||| computing a weighted average and returns the result to the
+bodyText ||| user. The original results from the different sources remain
+bodyText ||| transparent to the user.
+table ||| Name	Parameters*	Output
+table ||| Strength	source (user) , target (user)	Float (0.0 to 1.0)
+table ||| Relations	user(s), limit, offset	<list of people>
+table ||| Network	user(s), degrees, threshold	<graph of people>
+table ||| Evidence	users(s), limit, offset	<list of entries>
+tableCaption ||| Table 1. SONAR API methods*
+footnote ||| * All methods also accept parameters since and until. Since limits results to
+footnote ||| those after the given date, until limits to those before the given date.
+subsectionHeader ||| SONAR Providers
+bodyText ||| We have implemented SONAR providers of over ten
+bodyText ||| sources in our organizational intranet. The following four
+bodyText ||| systems, which serve as public sources, were used in our
+bodyText ||| experiments: BlogCentral (IBM’s corporate blogging
+bodyText ||| system [14]), Fringe, for people tagging and friending [7],
+bodyText ||| Dogear, for social bookmarking [19], and the IBM
+bodyText ||| organizational chart.
+bodyText ||| For the blog system, social relations are derived from the
+bodyText ||| comments made to one’s blog. This information is an
+bodyText ||| indication of the people who leave a trace in a blog, which
+bodyText ||| is likely to imply that the author is aware of them. Fringe
+bodyText ||| supports extraction of social information of both friending
+bodyText ||| and tagging. Friending is a reciprocal action: one person
+bodyText ||| invites the other to be friends and they are defined friends
+bodyText ||| only if the invitation is accepted. Tagging people is one
+bodyText ||| sided, yet indicates some level of connection. The SONAR
+bodyText ||| provider that extracts SNs from Dogear is based on
+bodyText ||| bookmark similarity information. The connections returned
+bodyText ||| by this provider are those of people who bookmark the
+bodyText ||| same pages. From the organizational chart we extracted, for
+bodyText ||| each user, the user’s manager as well as the user’s direct
+bodyText ||| peers - all employees who have the same manager.
+bodyText ||| We have implemented several client-side SONAR
+bodyText ||| providers that have access to the user’s private data. The
+bodyText ||| experiments in this paper use two of these – email and chat
+bodyText ||| transcripts. The outcome of these providers is only visible
+bodyText ||| to the owner, visualizing an egocentric map of connections,
+bodyText ||| but not revealing any private information to others.
+bodyText ||| For the email information, our client requests the user’s
+bodyText ||| password and then crawls the mailbox and collects details
+bodyText ||| of people the user corresponds with. The chat information is
+bodyText ||| easily accessible to our SONAR client, as the client is
+bodyText ||| implemented as a plugin of Lotus Sametime, IBM’s chat
+bodyText ||| system. We extract social information from the history of
+bodyText ||| chat transcripts, as these indicate the people a person
+bodyText ||| actually chats with.
+subsectionHeader ||| SONAR Usage Scenarios
+bodyText ||| To demonstrate the potential usage of the SONAR API, we
+bodyText ||| created SonarBuddies – a plugin for Lotus Sametime. The
+bodyText ||| plugin presents an alternative buddylist, which consists of
+bodyText ||| the people most strongly related to the user, ordered by
+bodyText ||| their strength of connection (see Figure 1(a)).
+bodyText ||| Additional features include showing related people to any
+bodyText ||| buddy on the list, the connection points (evidence) with a
+bodyText ||| buddy (Figure 1(b)), and people who are connected to both
+bodyText ||| the user and a buddy (Figure 1(c)).
+bodyText ||| The SonarBuddies extension has a preference page in which
+bodyText ||| the user may choose the relative weight of each data source,
+bodyText ||| the number of buddies to display, and the number of days in
+bodyText ||| history to consider. When adjusting the preferences, the
+bodyText ||| user may see a preview of the buddylist. This enables fine-
+bodyText ||| tuning the selection of weights (see Figure 2).
+page ||| 1020
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+figureCaption ||| Figure 1. SONARBuddies UI
+bodyText ||| SonarBuddies is just one example of a potential SONAR
+bodyText ||| client. Below, are a few examples of more advanced
+bodyText ||| scenarios that SONAR may support:
+listItem ||| •	Expertise location (e.g., [14,18,31]) – SONAR, integrated
+listItem ||| with search, may be used for scenarios of expertise location,
+listItem ||| such as the basic “who knows about <topic>?”, but also
+listItem ||| “who do I know that knows about <topic>?”, and the related
+listItem ||| “who do I mostly communicate with about <topic>?”
+listItem ||| •	Automatic completion of names (e.g., [21]) and groups–
+listItem ||| completing a single string to a name may sort alternatives by
+listItem ||| strength of social ties and relevance to the context. Moreover,
+listItem ||| the completion of a whole group can be supported - e.g., if
+listItem ||| one participates in a project of 10 people, typing the names of
+listItem ||| 3 of them may automatically be completed to the entire
+listItem ||| group. This may also be useful for resolving “who's missing
+listItem ||| from the mail I’m about to send?”
+listItem ||| •	Finding social paths to someone who is not directly related
+listItem ||| to the user (e.g., [15])
+listItem ||| •	Enhancing SN services by recommending people to connect
+listItem ||| to based on other evidence and by enriching information
+listItem ||| about existing friends: connection strength, evidence, and
+listItem ||| temporal characteristics of relationships
+sectionHeader ||| SONAR EXPERIMENTS
+bodyText ||| SonarBuddies has been made available for download at the
+bodyText ||| IBM intranet and over 1800 users downloaded and used it.
+bodyText ||| SonarBuddies is mainly an egocentric application and it
+bodyText ||| could be assumed that its success is due to heavy usage of
+bodyText ||| private data sources by the users. However, from the usage
+bodyText ||| data it is evident that public sources are explored. We
+bodyText ||| envision the SONAR API as being heavily used by
+bodyText ||| sociocentric applications and thus the interest in public data
+bodyText ||| sources was encouraging.
+bodyText ||| This section states our hypotheses, describes our
+bodyText ||| experiments, and discusses the results.
+subsectionHeader ||| Hypotheses
+subsubsectionHeader ||| Public Data Sources
+bodyText ||| The first group of hypotheses focuses on public data
+bodyText ||| sources and their influence on the users’ SN. Public data
+bodyText ||| sources are different in nature, ranging from social
+bodyText ||| bookmarking systems to blogs and therefore we assume:
+listItem ||| (1) Public data sources provide diverse SN information.
+bodyText ||| There is no single public data source that holds all SN
+bodyText ||| information, and each public source makes a
+bodyText ||| significant contribution to the overall SN information.
+bodyText ||| Moreover, as part of the user activities are performed
+bodyText ||| “outside the mailbox”, the public sources provide valuable
+bodyText ||| SN information which is not reflected in private sources.
+bodyText ||| We thus raise the following 2 hypotheses:
+listItem ||| (2) Public data sources provide SN information that is
+listItem ||| valuable to the user.
+listItem ||| (3) Public data sources enrich egocentric SN information.
+listItem ||| By combining private sources with public sources, one
+listItem ||| can potentially get a more complete picture of the SN.
+subsubsectionHeader ||| Data Source Aggregation
+bodyText ||| An additional hypothesis focuses on aggregation of SN
+bodyText ||| information. A key concept behind SONAR is the ability to
+bodyText ||| consolidate social information from multiple data sources,
+bodyText ||| assuming that there is real value in such aggregation. The
+bodyText ||| following hypothesis is explored:
+listItem ||| (4) Aggregated SN information is of greater value to users
+listItem ||| than information that originates from any single source.
+bodyText ||| A SONAR client based on this hypothesis would need to
+bodyText ||| use some weight combination in order to aggregate the
+bodyText ||| different sources. While the user may have control over the
+bodyText ||| weights, a SONAR client should have a default weight
+bodyText ||| combination that would be reasonably good for all users for
+bodyText ||| the most common scenario (such as finding the people the
+bodyText ||| user communicates with the most). During our experiments,
+bodyText ||| we wish to study the following hypothesis:
+listItem ||| (5) For a basic scenario, there exists a weighting scheme
+listItem ||| by which an aggregation of data sources most
+listItem ||| reasonably represents most users’ SN.
+bodyText ||| If this hypothesis is correct, our experiments may reveal the
+bodyText ||| weighting scheme that we should use as default.
+bodyText ||| Finally, an even more valuable aggregation of SNs can be
+bodyText ||| achieved if users would share some of their private SN with
+bodyText ||| others. While people are hesitant to share their private
+bodyText ||| information, they may agree to share the buddylists created
+bodyText ||| based on it, and thus allow a sociocentric view that is
+bodyText ||| enhanced by private information. We hypothesize:
+listItem ||| (6) People would be willing to share the buddylists created
+listItem ||| based on their private sources
+subsectionHeader ||| Research Method
+bodyText ||| In order to examine our hypotheses, we conducted three
+bodyText ||| experiments on SN information collected by SONAR.
+subsubsectionHeader ||| Experiment 1: Information from Public Sources
+bodyText ||| For the first experiment we gathered information from the
+bodyText ||| four public sources. Our goal was to compare the lists of
+bodyText ||| connected people from the different sources (hypothesis
+bodyText ||| (1)) and show that no source covers the others and may thus
+bodyText ||| serve as a single source of information (hypothesis (4)). The
+bodyText ||| collaboration tools in IBM, like many Web 2.0 services on
+page ||| 1021
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| the internet, are still in their diffusion phase and are not yet
+bodyText ||| used by all. However, they are gaining momentum and have
+bodyText ||| become quite prevalent. As we wanted to compare all
+bodyText ||| sources, we decided to focus on users who use all of the
+bodyText ||| chosen data sources. While such users are not a statistical
+bodyText ||| sample, we refer to them as the early adopters of the
+bodyText ||| technologies, and use their figures as a reflection of the
+bodyText ||| potential of SN information that may be extracted from
+bodyText ||| public sources as Web 2.0 technologies become ubiquitous
+bodyText ||| [24].
+bodyText ||| We started by locating the top 1000 heavy users of each of
+bodyText ||| the tools (BlogCentral, Fringe, and Dogear). For blogs, we
+bodyText ||| defined heavy users as those who received most comments
+bodyText ||| in their blog. For Fringe we took the 1000 users with the
+bodyText ||| largest lists of connections. For Dogear, the 1000 people
+bodyText ||| with most bookmarks. Once we had these three lists, we
+bodyText ||| took their union and received a list of 1761 users. We then
+bodyText ||| obtained results from the different SONAR providers for all
+bodyText ||| 1761 users, and examined those users who had a nonempty
+bodyText ||| result in all four sources (the fourth source being the
+bodyText ||| organizational chart). We ended up with a list of 273 such
+bodyText ||| users. For every one of the four public sources and every
+bodyText ||| one of the 273 users, we calculated the number of unique
+bodyText ||| contributions of this source over the union of all other three
+bodyText ||| sources.
+subsubsectionHeader ||| Experiment 2: Online Questionnaire for Ranking Buddylists
+bodyText ||| For the second experiment we implemented a dedicated
+bodyText ||| plugin for Lotus Sametime. The plugin was easy to install
+bodyText ||| and presented a questionnaire containing three sets of up to
+bodyText ||| eight buddylists that were aggregated from the different
+bodyText ||| sources and tailored specifically for the user. The user could
+bodyText ||| not tell what the sources of the different lists had been.
+bodyText ||| Before starting the experiment, we asked the user to
+bodyText ||| imagine setting up an “ideal” buddylist for communication
+bodyText ||| inside IBM. By this request, we framed the experiment to a
+bodyText ||| basic scenario. The user was then asked to rank the
+bodyText ||| buddylists by how close they were to representing the ideal
+bodyText ||| buddylist. The scale for ranking was 1-4 (where “1” is
+bodyText ||| good, and “4” is bad). In addition, we asked the user to
+bodyText ||| mark a single buddylist as the “best” buddylist – relative to
+bodyText ||| the other lists in that set.
+bodyText ||| The first set of up to eight buddylists was composed solely
+bodyText ||| from public sources. Our goal with this set was to examine
+bodyText ||| the value of extracting SN information from public sources
+bodyText ||| (hypothesis (2)), and to compare the quality of lists created
+bodyText ||| by aggregation of different sources vs. the quality of lists
+bodyText ||| created from a single source. The weight combinations of
+bodyText ||| sources used in this set are displayed in the leftmost
+bodyText ||| columns of Table 2 (1-8). We use the term “up to eight
+bodyText ||| lists”, since if two different combinations created two
+bodyText ||| identical lists (in both content and order), we only presented
+bodyText ||| them once. If the user voted “best” for a list that was
+bodyText ||| created from more than one combination, we added a vote
+bodyText ||| to all these combinations.
+bodyText ||| The second set of buddylists was also focused on public
+bodyText ||| sources. The goal with this set was to learn whether a
+bodyText ||| specific weight combination is preferred by most users and
+bodyText ||| may serve as a default (hypothesis (5)). The weight
+bodyText ||| combinations of sources used in this set are displayed in the
+bodyText ||| rightmost columns of Table 2 (9-16).
+bodyText ||| The last set of buddylists introduced information gathered
+bodyText ||| from the user’s private sources. The goal of this set was to
+bodyText ||| examine the value of information public sources add over
+bodyText ||| private sources (hypothesis (3)), as well as to study the
+bodyText ||| effect aggregation has on the lists (hypothesis (4)) –
+bodyText ||| aggregation of private sources, and aggregation of a mix of
+bodyText ||| private and public sources. The weight combinations of
+bodyText ||| sources used in this set are displayed in Table 5 (17-24).
+bodyText ||| Our plugin reported the user ranking of the buddylists to a
+bodyText ||| dedicated server that produced a report with all results. The
+bodyText ||| results visible to us did not contain any private information
+bodyText ||| nor could we see the buddylists, we only examined the
+bodyText ||| ranks (1-4) and the vote for best list in each set.
+subsubsectionHeader ||| Experiment 3: Sliders UI for Personal Weight Combination
+bodyText ||| A set of interviews we conducted, helped us examine
+bodyText ||| hypotheses (2), (4), and (6), as well as hypothesis (5). It
+bodyText ||| also gave us some insight about how people perceive their
+bodyText ||| SN and what they feel about our UI.
+bodyText ||| The preferences-page of the SONAR plugin allows
+bodyText ||| modifying the weight combination of different sources with
+bodyText ||| sliders and simultaneously seeing a preview of the buddylist
+bodyText ||| created from this combination. The user interface of this
+bodyText ||| feature is shown in Figure 2.
+table ||| 	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16
+table ||| bookmarking	1.0				0.5		0.1	0.25	0.1	0.3	0.3	0.3	0.1	0.1	0.4	0.5
+table ||| people tagging		1.0			0.5		0.2	0.25	0.3	0.1	0.3	0.3	0.2	0.1	0.3	0.3
+table ||| blogs			1.0			0.5	0.3	0.25	0.3	0.3	0.1	0.3	0.3	0.3	0.2	0.1
+table ||| org-chart				1.0		0.5	0.4	0.25	0.3	0.3	0.3	0.1	0.4	0.5	0.1	0.1
+table ||| average score
+table ||| # of “best” votes	0	23	1	63	6	57	58	46	70	48	46	47	63	61	46	43
+table ||| # of score “1”	0	12	0	18	5	14	17	9	20	4	6	9	20	20	7	6
+tableCaption ||| Table 2. Weight combinations and results of the public sources in the first two sets of buddylists
+page ||| 1022
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+figureCaption ||| Figure 2. Weight combination user interface
+bodyText ||| We conducted personal interviews with 12 of the users who
+bodyText ||| took part in experiment 2, in order to learn about their
+bodyText ||| experience with the sliders and follow their line of thought
+bodyText ||| while they are examining the different buddylists. Each
+bodyText ||| interviewee was asked to first reset all sliders and start with
+bodyText ||| an empty list. In order to examine hypotheses (2) and (4),
+bodyText ||| each slider was moved separately, to compare the lists
+bodyText ||| based on single sources to an ideal list (as in the framed
+bodyText ||| scenario of experiment 2). Once all sources were examined,
+bodyText ||| the interviewees were asked to fiddle with the sliders in
+bodyText ||| order to compose a list that is closest to their ideal list. We
+bodyText ||| retrieved the selected weight combinations from our logs
+bodyText ||| and examined them in order to validate hypothesis (5).
+bodyText ||| Finally, we posed the question about sharing the buddylists
+bodyText ||| based on private sources (hypothesis (6)). The question is a
+bodyText ||| multiple choice question: to share automatically vs. share
+bodyText ||| after manual editing; to share with anyone, or only with
+bodyText ||| friends, or only with a specific individual.
+subsectionHeader ||| Experimental Results
+subsubsectionHeader ||| Results of Experiment 1
+bodyText ||| In this experiment we examined the 273 users who had a
+bodyText ||| nonempty result in all four public sources. For each of the
+bodyText ||| four public sources and each of the 273 users, we calculated
+bodyText ||| the number of connections extracted from the source, and
+bodyText ||| the number of unique contributions of this source over the
+bodyText ||| union of all other three sources. The averages of these
+bodyText ||| figures appear in Table 3.
+bodyText ||| Examining the average numbers of unique contributions is
+bodyText ||| interesting. One would assume that the commonalities of
+bodyText ||| the lists from the different sources would be large; that a
+bodyText ||| person would mostly friend with peers from the
+bodyText ||| organizational group; that a person’s friends would be the
+bodyText ||| ones commenting in the blogging system; and even that
+bodyText ||| working in the same group would imply similar interests
+bodyText ||| and thus bookmarking the same web pages. However, our
+bodyText ||| org chart		friending		blogs		bookmarks
+table ||| #	>	#	>	#	>	#	>
+table ||| 15.73	13.91	24.64	20.27	8.57	5.74	423.1	417.7
+tableCaption ||| Table 3. Results of experiment 1: average number of
+tableCaption ||| connections (#) and unique contributions (>)
+table ||| contribution	org chart	friending	blogs	bookmarks
+table ||| full list	107	76	83	55
+table ||| 	(39.2%)	(27.8%)	(30.4%)	(20.1%)
+table ||| nothing	41 0	22 0 (8.1%)	370	00
+table ||| 	(4.0%)		(13.6/0)	(0.0%)
+tableCaption ||| Table 4. Unique contribution over all other sources
+bodyText ||| results reveal a different picture. It seems that for each and
+bodyText ||| every source, the average number of unique contributions
+bodyText ||| over the other three sources is quite close to the average
+bodyText ||| number of connections, implying that the information
+bodyText ||| extracted from the different sources is indeed diverse.
+bodyText ||| Table 4 shows two statistics of the unique contributions of
+bodyText ||| the different sources over all other sources. The first row in
+bodyText ||| the table shows the number of people for whom the source
+bodyText ||| contributed its full list – meaning that the lists from other
+bodyText ||| sources had no intersection with this source. For instance,
+bodyText ||| for 107 of the people (39.19%) – the lists of blog
+bodyText ||| commenters, tagging friends, or similar bookmarkers did
+bodyText ||| not contain anyone from their organizational group. As can
+bodyText ||| be seen on Table 4, these numbers are rather large – 76 for
+bodyText ||| Fringe, 83 for BlogCentral, and 55 for Dogear – indicating
+bodyText ||| the diversity of the sources. There was not even a single
+bodyText ||| person, for whom a single source covered all other sources,
+bodyText ||| proving that aggregation creates a broader picture than any
+bodyText ||| single source. The second row in the table shows the
+bodyText ||| number of people for whom a source contributed nothing
+bodyText ||| over the other lists. These figures indicate cases in which a
+bodyText ||| single source may be dismissed, as the other three sources
+bodyText ||| cover the information it provides. As may be seen on the
+bodyText ||| table, these figures are rather small: up to 37, for
+bodyText ||| BlogCentral, and as low as 0 for Dogear.
+bodyText ||| For 33 out of the 273 people examined (12.08%), there was
+bodyText ||| no intersection between any of the sources – each of their
+bodyText ||| public sources provided a completely different list.
+bodyText ||| The results of this experiment validate hypothesis (1) and
+bodyText ||| support hypothesis (4), showing the diversity of information
+bodyText ||| from public sources, that no single source holds all SN
+bodyText ||| information, and thus that aggregation is likely to be of
+bodyText ||| greater value than information from any single source.
+subsubsectionHeader ||| Results of Experiments 2 and 3
+bodyText ||| Our questionnaire plugin collected information from 116
+bodyText ||| users who responded to all three stages of the experiment.
+bodyText ||| Out of the 116 users, 65 are from the US and Canada, 49
+bodyText ||| are from Europe and the Middle East, and two are from
+bodyText ||| Asia Pacific. 73 of the users who responded are using
+bodyText ||| Fringe, 29 are bloggers, and 62 use Dogear. We believe
+bodyText ||| these users represent a wide range of IBM employees and
+bodyText ||| are thus a good test bed for our hypotheses. In addition,
+bodyText ||| results collected from the in depth interviews with 12 users
+bodyText ||| strengthen some of our hypotheses.
+bodyText ||| The bottom part of Table 2 shows the results of the first two
+bodyText ||| sets of buddylists. On the first step, shown on the bottom
+bodyText ||| left of the table, the list that got the most “best” votes (63)
+bodyText ||| is the one based on a single source: the organizational chart.
+page ||| 1023
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| The average score of this list is 2.36 (on a scale of 1=good,
+bodyText ||| 4=bad). The list that got the best average score is the one
+bodyText ||| based on aggregation of all four sources by weight
+bodyText ||| combination 7 on Table 2. The average score of this list is
+bodyText ||| 2.34 and its number of “best” votes is 58. Over 40% of the
+bodyText ||| users (48) got in this aggregated list an identical list to the
+bodyText ||| one based on the organizational chart. As the score of the
+bodyText ||| aggregated list is better, we may conclude that when the
+bodyText ||| lists were not identical, the aggregated list received better
+bodyText ||| scores. Finally, note that in Table 2, the total number of
+bodyText ||| “best” votes given to aggregations (i.e., combinations 5
+bodyText ||| through 8) was significantly higher than the combined
+bodyText ||| number of “best” votes for all single sources (1 through 4).
+bodyText ||| We consider the above findings as supporting hypothesis
+bodyText ||| (4) – the value of aggregation.
+bodyText ||| The results of the second step are shown on the bottom
+bodyText ||| right of Table 2. All lists of this step received scores that
+bodyText ||| are higher than 2 but lower than 3, and all lists received
+bodyText ||| quite a few “best” votes (over 40). It appears that no
+bodyText ||| optimal weighting scheme exists that may serve a good
+bodyText ||| default for most users. We were therefore unable to prove
+bodyText ||| our hypothesis (5). While conducting the interviews during
+bodyText ||| experiment 3, we had another chance to see how different
+bodyText ||| people prefer different sources. For example, when
+bodyText ||| examining the list from Fringe, one of the users said:
+bodyText ||| “Completely off. Only 7 people, out of them only 3 are
+bodyText ||| familiar” while another said: “Accurate, very accurate
+bodyText ||| actually. [ ...] that would be my ideal buddylist”.
+bodyText ||| The results of the third step are shown on the bottom of
+bodyText ||| Table 5. In this step we compared lists from private sources
+bodyText ||| with lists from public sources and with lists based on a mix
+bodyText ||| of private and public sources. For this step our plugin
+bodyText ||| requested access to users’ private data. Only 55 users
+bodyText ||| granted us access to their private data. We therefore based
+bodyText ||| our analysis on the responses of these 55 users only.
+bodyText ||| As can be expected, the lists based on private sources
+bodyText ||| received better average scores (1.62-1.76) than those based
+bodyText ||| solely on public sources. The list with most “best” votes
+bodyText ||| (17) on is the list based on the (private) chat system.
+table ||| 	17	18	19	20	21	22	23	24
+table ||| Bookmarking	0.25		0.16	0.1	0.2			0.1
+table ||| people tagging	0.25		0.16	0.1	0.2			0.1
+table ||| blogs	0.25		0.16	0.1	0.2			0.1
+table ||| org-chart	0.25		0.16	0.1	0.2			0.1
+table ||| email		0.5	0.16	0.3	0.1	1.0		0.4
+table ||| chat		0.5	0.16	0.3	0.1		1.0	0.2
+table ||| average score
+table ||| # of “best” votes	0	12	2	9	0	10	17	9
+table ||| # of score “1”	3	30	6	23	4	25	26	23
+tableCaption ||| Table 5. Weight combinations and results of public and
+tableCaption ||| private sources in the third set of buddylists
+bodyText ||| However, 17 votes are only 30.9%, indicating that no list
+bodyText ||| significantly outvoted the others. The list with best average
+bodyText ||| score (1.62) is the list based on combination 18 in Table 5
+bodyText ||| (email and chat), supporting the value of aggregating
+bodyText ||| information (private in this case) – hypothesis (4). Yet
+bodyText ||| another supporting point for hypothesis (4) was received
+bodyText ||| during the interviews, when no single user had chosen a list
+bodyText ||| based solely on one source. This observation is less strong,
+bodyText ||| since the experiment setting encouraged people to play with
+bodyText ||| aggregations, yet they clearly had a choice to disable all
+bodyText ||| other sources and stay with one, but did not.
+bodyText ||| Table 2 and Table 5 also show the number of times each of
+bodyText ||| the buddylists in this experiment received score 1. List 18
+bodyText ||| (email and chat) received score 1 for the largest number of
+bodyText ||| times – over 54% of the people granted it a perfect score.
+bodyText ||| Other lists which obtained many high scores are list 20 (mix
+bodyText ||| of public and private), list 22 (email), list 23 (chat), and list
+bodyText ||| 24 (anther mix of public and private). It is obvious from the
+bodyText ||| table that lists based on private sources receive score 1
+bodyText ||| more often, as expected. The value of public sources is
+bodyText ||| evident from the bottom line of Table 2: the lists based
+bodyText ||| solely on public sources received a perfect score a
+bodyText ||| considerable amount of times, supporting hypothesis (2). In
+bodyText ||| experiment 3, seven of 11 used some combination of public
+bodyText ||| and private data sources (the twelfth user had no access to
+bodyText ||| private data) and two of them even preferred the public
+bodyText ||| sources slightly over private ones (see Table 6).
+bodyText ||| Two of the combinations that mixed all six sources (number
+bodyText ||| 20 and number 24 in Table 5) received 9 “best” votes each.
+bodyText ||| Examining our results reveals that each such vote was given
+bodyText ||| by a different user, implying that for 18 people, they created
+bodyText ||| a buddylist that is preferred over the buddylists based solely
+bodyText ||| on private sources. Both these lists received an average
+bodyText ||| score of 1.75, which is identical to the average score of the
+bodyText ||| list based on chat, and they both received a perfect score 23
+bodyText ||| times. This implies that for quite a few people the mix with
+bodyText ||| public sources creates buddylists of high quality. Together
+bodyText ||| with the fact that in experiment 3 most users chose to
+bodyText ||| combine private with public data, we conclude that
+bodyText ||| hypothesis (3) is true - information from public sources
+bodyText ||| may provide a more complete picture of one’s SN.
+bodyText ||| Finally, Experiment 3 revealed what people think about
+bodyText ||| sharing lists coming from their private data sources (see
+bodyText ||| Table 6). Most of the people (10) said that they will be
+table ||| 	1	2	3	4	5	6	7	8	9	10	11	12
+table ||| prv	85	00	100	48	63	100	100	100	69	48	54	54
+table ||| pub	15	100	00	52	37	00	00	00	31	52	46	46
+table ||| shr	2	3	2	2	2	3	2	2	3	3	1	0
+tableCaption ||| Table 6. Experiment 3 results*
+footnote ||| * First row shows percentage of private sources, second row percentage of
+footnote ||| public sources, third row – sharing list preference (3 – automatically with
+footnote ||| anyone, 2- after editing with anyone, 1 – after editing with friends, 0 – will
+footnote ||| not share)
+page ||| 1024
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| willing to share their lists with anyone. Seven stated that
+bodyText ||| they would want to edit first. “I am worried that SONAR
+bodyText ||| results are not accurate enough and would like to [ ...]
+bodyText ||| make sure the people who see the lists get good lists”, said
+bodyText ||| one user. Another user said, at first, “[I am] worried about
+bodyText ||| what my buddies would say about me sharing their names”,
+bodyText ||| but, after thinking about it he decided that it was harmless
+bodyText ||| enough and said he would share his lists. Four users showed
+bodyText ||| great openness by declaring that they would share their list
+bodyText ||| automatically, without any editing, with anyone. Only one
+bodyText ||| user said that he will not share his lists with anyone. One of
+bodyText ||| the users summarized these results nicely: “... I think it
+bodyText ||| should always be left up to the individual as there are
+bodyText ||| dangerous things about SN. [but]... within a company, you
+bodyText ||| have to realize you are probably not going to be that
+bodyText ||| private”. All in all, hypothesis (6) is supported to a high
+bodyText ||| extent. Our results suggest that there is a good chance
+bodyText ||| people will be willing to share their private-based
+bodyText ||| buddylists after applying some editing to it.
+subsubsectionHeader ||| Discussion
+bodyText ||| Our experiments show that information from public sources
+bodyText ||| is very diverse and no single source may provide all SN
+bodyText ||| information. While some sources provide communication
+bodyText ||| data, others provide similarity data. While reacting to lists
+bodyText ||| generated from Dogear, users said: “Far from ideal list”,
+bodyText ||| “Over 50% are strangers”. But another user, while
+bodyText ||| discussing her usage of SNs described: “if my goal was to
+bodyText ||| search for expertise, then I would lean it heavily towards
+bodyText ||| social bookmarking and blogs”. It suggests that diverse
+bodyText ||| sources can become valuable for diverse tasks. It also
+bodyText ||| explains why our hope to locate an optimal default
+bodyText ||| combination of weights for aggregation was not fulfilled -
+bodyText ||| different users with different views and different needs may
+bodyText ||| require different combinations of the sources.
+bodyText ||| The information extracted from public sources is shown to
+bodyText ||| be of value, and while private sources provide better
+bodyText ||| information, public sources do contribute additional
+bodyText ||| information and create a more complete picture of SNs. The
+bodyText ||| value of aggregation is proven both by the diversity of
+bodyText ||| public sources and by user votes for aggregated lists.
+bodyText ||| We saw in our interviews that aggregation and collection of
+bodyText ||| SN information becomes crucial in global organizations.
+bodyText ||| While analyzing the organizational chart data source one of
+bodyText ||| the users noted: “It just looks at people within my world,
+bodyText ||| and I deal with a lot of people outside of my function, if you
+bodyText ||| will”. Another user commented: “Names that were missing
+bodyText ||| on email appear now. Top person on ideal list does not
+bodyText ||| appear here”. It shows that no single data source is
+bodyText ||| sufficient for creating one’s ideal buddylist and thus
+bodyText ||| demonstrates the value of aggregation.
+sectionHeader ||| CONCLUSIONS AND FUTURE WORK
+bodyText ||| In this paper, we present the motivation and challenge for
+bodyText ||| aggregating SN information from multiple data sources. We
+bodyText ||| describe SONAR, an API for exposing relations embedded
+bodyText ||| in numerous applications or services. SONAR allows
+bodyText ||| building weighted networks with evidence for each
+bodyText ||| connection, showing how strongly people are connected.
+bodyText ||| SONAR was implemented for various sources, public and
+bodyText ||| personal, within IBM, and demonstrated through a plugin
+bodyText ||| for Lotus Sametime: SONARBuddies.
+bodyText ||| Our experiments indicate that aggregation produces a more
+bodyText ||| comprehensive SN. Information coming from public data
+bodyText ||| sources is shown to be relevant and diverse. Public sources
+bodyText ||| mainly represent new emerging social technologies on the
+bodyText ||| Web. We believe that people’s involvement in these
+bodyText ||| technologies will continue to grow, while new technologies
+bodyText ||| appear. Hence, more quality social information will be
+bodyText ||| available for frameworks like SONAR. For some users,
+bodyText ||| public sources make a significant contribution over private
+bodyText ||| ones, which may have been considered the predominant
+bodyText ||| sources. It is extremely interesting to continue examining
+bodyText ||| the potential of public sources to actually replace SN
+bodyText ||| information currently extracted from private sources, and
+bodyText ||| thus relieving privacy issues.
+bodyText ||| This paper focuses on general SNs. In practice, there are
+bodyText ||| different types of SNs, which reflect different semantics of
+bodyText ||| connections, like friendship, interpersonal communication,
+bodyText ||| or similarity. Such networks tend to be semantically
+bodyText ||| different even for the same user. Shared bookmarks, for
+bodyText ||| instance, reflect similarity between users rather than a direct
+bodyText ||| connection. The scenario used in our experiments asked the
+bodyText ||| users to rank buddylists, typically used for communication.
+bodyText ||| It was natural that Dogear, which exposes similarity,
+bodyText ||| received low scores by our users. One could think of
+bodyText ||| different scenarios, such as finding potential people for a
+bodyText ||| community on a specific topic, where this similarity
+bodyText ||| network would be a perfect networking tool. It would be
+bodyText ||| interesting to identify different scenarios and examine the
+bodyText ||| contribution of different sources to them.
+bodyText ||| Another interesting direction is deriving contextual
+bodyText ||| networks – networks that are related to a specific context or
+bodyText ||| term. For example, the list of people with whom one
+bodyText ||| communicates most frequently about Java, is likely to be
+bodyText ||| different from the list of people with whom one
+bodyText ||| communicates mostly about SN analysis.
+bodyText ||| Our plans for future work on the SONAR API include
+bodyText ||| extending it to support different types of relations (e.g.,
+bodyText ||| familiarity vs. similarity). We also plan to allow a
+bodyText ||| specification of a search term to support contextual queries
+bodyText ||| such as: “who is most related to <person> w.r.t. <topic>?”
+bodyText ||| These extensions would allow us to further explore the
+bodyText ||| variety of SNs, the differences and relations among them,
+bodyText ||| the value they bring to users, and the patterns of their usage.
+sectionHeader ||| ACKNOWLEDGEMENTS
+bodyText ||| We would like to acknowledge all those who installed
+bodyText ||| SONARBuddies and provided us with feedback about its
+bodyText ||| usage. We are especially grateful to those who participated
+bodyText ||| in our experiments and interviews. We thank James Snell
+page ||| 1025
+note ||| CHI 2008 Proceedings · Online Social Networks	April 5-10, 2008 · Florence, Italy
+bodyText ||| for providing us data about the usage of BlogCentral, and
+bodyText ||| Jonathan Feinberg for data about Dogear. Sigalit Ur and
+bodyText ||| Inbal Ronen participated in numerous discussions and
+bodyText ||| provided enlightening comments, we are indebted to them.
+sectionHeader ||| REFERENCES
+reference ||| 1. Adamic, L. A., and Adar, E. Friends and neighbors on
+reference ||| the Web, Social Networks, 25, 3 (2003), 211-230.
+reference ||| 2. Aleman-Meza, B., Nagarajan, M., Ramakrishnan, C.,
+reference ||| Sheth, A., Arpinar, I., Ding, L., Kolari, P., Josi, A., and
+reference ||| Finin, T. Semantic analytics on social networks:
+reference ||| Experiences in addressing the problem of conflict of
+reference ||| interest detection. Proc. WWW '06, ACM Press (2006),
+reference ||| 407-416.
+reference ||| 3. Bar-Yossef, Z., Guy, I., Lempel, R., Maarek, Y. S., and
+reference ||| Soroka, V. Cluster ranking with an application to
+reference ||| mining mailbox networks. Proc. ICDM '06, IEEE
+reference ||| Computer Society (2006), 63-74.
+reference ||| 4. Cai, D., Shao, Z., He, X., Yan, X., and Han, J. Mining
+reference ||| hidden community in heterogeneous social networks. In
+reference ||| Proc. of the 3rd International Workshop on Link
+reference ||| Discovery (LinkKDD 2005),ACM Press (2005), 58 – 65.
+reference ||| 5. Culotta, A., Bekkerman, R., and McCallum, A.
+reference ||| Extracting social networks and contact information from
+reference ||| email and the Web. First Conference on Email and Anti-
+reference ||| Spam (CEAS 2004) (2004).
+reference ||| 6. Facebook Developers – Documentation.
+reference ||| http://developers.facebook.com/documentation.php .
+reference ||| 7. Farrell, S., and Lau, T. Fringe Contacts: People-Tagging
+reference ||| for the Enterprise. Workshop on Collaborative Web
+reference ||| Tagging, WWW’06, (2006).
+reference ||| 8. Farnham, S., Portnoy, W., Turski, A., Cheng, L., and
+reference ||| Vronay, D. Personal Map: Automatically modeling the
+reference ||| user’s online social network. Proc. INTERACT’03, IOS
+reference ||| Press (2003), 567-574.
+reference ||| 9. Fielding, R.T. Architectural styles and the design of
+reference ||| network-based software architectures. PhD thesis,
+reference ||| University of California, Irvine, CA, (2000).
+reference ||| 10. Friend of a Friend (FOAF) project.
+reference ||| http://www.foaf-project.org/ .
+reference ||| 11. HammerSley, B. Content Syndication with RSS, (2003).
+reference ||| 12. Hope, T., Nishimura, T., and Takeda, H. An integrated
+reference ||| method for social network extraction. Proc. WWW ’06,
+reference ||| ACM Press (2006), 845-846.
+reference ||| 13. Introducing JSON. http://www.json.org/ .
+reference ||| 14. Jackson, A., Yates, J., Orlikowski, W. “Corporate
+reference ||| Blogging: Building community through persistent
+reference ||| digital talk”. Proc. 40th Annual Hawaii International
+reference ||| Conference on System Sciences HICSS'07, (2007), p. 80
+reference ||| 15. Kautz, H., Selman, B., and Shah., M. ReferralWeb:
+reference ||| Combining social networks and collaborative filtering.
+reference ||| Communications of the ACM 40, 3 (1997), 63-65.
+reference ||| 16. Matsuo, Y., Hamasaki, M. et al. Spinning multiple
+reference ||| social networks for semantic Web. Proc. AAAI '06
+reference ||| (2006).
+reference ||| 17. Matsuo, Y., Mori, J., Hamasaki, M., Takeda, H.,
+reference ||| Nishimura, T., Hasida, K., and Ishizuka, M.
+reference ||| POLYPHONET: An advanced social network extraction
+reference ||| system. Proc. WWW ‘06, ACM Press (2006), 397-406.
+reference ||| 18. McDonald D.W. and Ackerman M.S. Expertise
+reference ||| recommender: a flexible recommendation system and
+reference ||| architecture. Proc. CSCW’00, (2000), 231–240.
+reference ||| 19. Millen, D.R., Feinberg, J., and Kerr, B. Dogear: Social
+reference ||| Bookmarking in the Enterprise. Proc. CHI 2006, (2006),
+reference ||| 111-120.
+reference ||| 20. Nardi, B.A., Whittaker, S., Issacs, E., Creech, M.,
+reference ||| Johnson, J., and Hainsworth, J. Integrating
+reference ||| communication and information through contact map.
+reference ||| Communications of the ACM 45, 4 (2002) 89-95.
+reference ||| 21. Neustaedter, C., Brush, A., Smith, M., and Fisher, D.
+reference ||| The social network and relationship finder: Social
+reference ||| sorting for email triage. Proc. CEAS 2005.
+reference ||| 22. Newman, M. E. J. Scientific collaboration networks,
+reference ||| part I. Network construction and fundamental results.
+reference ||| Physical Review E, 64, 016131, (2001).
+reference ||| 23. Nottingham, M., and Sayre, R. RFC 4287 – The Atom
+reference ||| Syndication Format (Proposed Standard).
+reference ||| http://tools.ietf.org/html/rfc4287
+reference ||| 24. O'Reilly, T. What is Web 2.0.
+reference ||| http://www.oreillynet.com/go/web2 .
+reference ||| 25. Resig, J., Dawara, S., Homan, C. M., and Teredesai, A.
+reference ||| Extracting social networks from instant messaging
+reference ||| populations, Proc. of the 7th ACM SIGKDD Workshop
+reference ||| on Link KDD, (2004).
+reference ||| 26. Smarr, J. Technical and privacy challenges for
+reference ||| integrating FOAF into existing applications. In the 1st
+reference ||| Workshop on Friend of a Friend, Social Networking and
+reference ||| the Semantic Web, (2004).
+reference ||| 27. Smith, M. Invisible crowds in cyberspace: Measuring
+reference ||| and mapping the social structure of Usenet. In Smith,
+reference ||| M., and Kollock, P. Eds., Communities in Cyberspace.
+reference ||| Routledge Press, (1999).
+reference ||| 28. Tyler, J.R., Wilkinson, D.M., and Huberman, B.A.
+reference ||| Email as spectroscopy: Automated discovery of
+reference ||| community structure within organizations. In
+reference ||| Communities and Technologies, Huysman, M., Wenger,
+reference ||| E., and V. Wulf, Eds. (2003), 81-96.
+reference ||| 29. Wasserman, S., and Faust, K. Social Network Analysis.
+reference ||| (1994).
+reference ||| 30. Wellman, B. Computer networks as social networks.
+reference ||| Science 293 (2001) 2031-2034.
+reference ||| 31. Zhang, J., Ackerman M.S. Searching for expertise in
+reference ||| social networks: a simulation of potential strategies.
+reference ||| Proc. GROUP 2005, ACM Press (2005), 71-80.
+page ||| 1026

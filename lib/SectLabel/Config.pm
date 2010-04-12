@@ -1,27 +1,23 @@
 package SectLabel::Config;
 
 $algorithmName = "SectLabel";
-$algorithmVersion = "100326";
+$algorithmVersion = "100410";
 
 ## Tr2crfpp
 ## Paths relative to SectLabel root dir ($FindBin::Bin/..)
 $tmpDir = "tmp";
-$dictFile = "resources/sectLabel/parsCitDict.txt";
+$dictFile = "resources/parsCitDict.txt";
 $funcFile = "resources/sectLabel/funcWord";
-$keywordFile = "resources/sectLabel/model/keywords";
-$bigramFile = "resources/sectLabel/model/bigram";
-$trigramFile = "resources/sectLabel/model/trigram";
-$fourthgramFile = "resources/sectLabel/model/fourthgram";
 
 $crf_test = "crfpp/crf_test";
-$modelFile = "resources/sectLabel/model/sectLabel.model";
-$modelXmlFile = "resources/sectLabel/model-xml/sectLabel.model";
+$modelFile = "resources/sectLabel/sectLabel.model";
+$modelXmlFile = "resources/sectLabel/sectLabel.modelXml";
 $configFile = "resources/sectLabel/sectLabel.config";
 $configXmlFile = "resources/sectLabel/sectLabel.configXml";
 
+# Thang v100401: note the keyword feature and configs below are not currently used due to insufficient data
 # list of tags trained in sectLabel, will be used by bin/keywordGen.pl and lib/SectLabel/Tr2crfpp.pm
 # those with value 0 do not have frequent keyword features
-
 %hash = (
 	 #these are mostly for the header part
 	 'title' => 0,

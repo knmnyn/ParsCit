@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="SectLabel" version="100410">
+<variant no="0" confidence="0.059332">
+<title confidence="0.823872">
+Teaching Dialogue to Interdisciplinary Teams through Toolkits
+</title>
+<author confidence="0.768814">
+Justine Cassell Matthew Stone
+</author>
+<affiliation confidence="0.7175915">
+Technology and Social Behavior Computer Science and Cognitive Science
+Northwestern University Rutgers University
+</affiliation>
+<email confidence="0.992948">
+justine@northwestern.edu matthew.stone@rutgers.edu
+</email>
+<sectionHeader confidence="0.991816" genericHeader="abstract">
+Abstract
+</sectionHeader>
+<bodyText confidence="0.9993782">
+We present some lessons we have learned
+from using software infrastructure to
+support coursework in natural language
+dialogue and embodied conversational
+agents. We have a new appreciation
+for the differences between coursework
+and research infrastructure—supporting
+teaching may be harder, because students
+require a broader spectrum of implemen-
+tation, a faster learning curve and the abil-
+ity to explore mistaken ideas as well as
+promising ones. We outline the collabo-
+rative discussion and effort we think is re-
+quired to create better teaching infrastruc-
+ture in the future.
+</bodyText>
+<sectionHeader confidence="0.998322" genericHeader="acknowledgments">
+1 Introduction
+</sectionHeader>
+<bodyText confidence="0.999126214285714">
+Hands-on interaction with dialogue systems is a nec-
+essary component of a course on computational lin-
+guistics and natural language technology. And yet, it
+is clearly impracticable to have students in a quarter-
+long or semester-long course build a dialogue sys-
+tem from scratch. For this reason, instructors of
+these courses have experimented with various op-
+tions to allow students to view the code of a work-
+ing dialogue system, tweak code, or build their own
+application using a dialogue system toolkit. Some
+popular options include the NLTK (Loper and Bird,
+2002), CSLU (Cole, 1999), Trindi (Larsson and
+Traum, 2000) and Regulus (Rayner et al., 2003)
+toolkits. However, each of these options has turned
+</bodyText>
+<page confidence="0.991167">
+9
+</page>
+<bodyText confidence="0.990207705882353">
+out to have disadvantages. Some of the toolkits re-
+quire too much knowledge of linguistics for the av-
+erage computer science student, and vice-versa, oth-
+ers require too much programming for the average
+linguist. What is needed is an extensible dialogue
+toolkit that allows easy application building for be-
+ginning students, and more sophisticated access to,
+and tweakability of, the models of discourse for ad-
+vanced students.
+In addition, as computational linguists become in-
+creasingly interested in the role of non-verbal be-
+havior in discourse and dialogue, more of us would
+like to give our students exposure to models of the
+interaction between language and nonverbal behav-
+iors such as eye gaze, head nods and hand gestures.
+However, the available dialogue system toolkits ei-
+ther have no graphical body or if they do have (part
+of) a body—as in the case of the CSLU toolkit—the
+toolkit does not allow the implementation of alterna-
+tive models of body–language interaction.
+We feel, therefore, that there is a need for a
+toolkit that allows the beginning graduate student—
+who may have some computer science or some lin-
+guistics background, but not both—to implement a
+working embodied dialogue system, as a way to ex-
+periment with models of discourse, dialogue, collab-
+orative conversation and the interaction between ver-
+bal and nonverbal behavior in conversation. We be-
+lieve the community as a whole must be engaged in
+the design, implementation and fielding of this kind
+of educational software. In this paper, we survey
+the experience that has led us to these conclusions
+and frame the broader discussion we hope the TNLP
+workshop will help to further.
+</bodyText>
+<footnote confidence="0.9039443">
+Proceedings of the Second ACL Workshop on Effective Tools and Methodologies for Teaching NLP and CL, pages 9–14,
+Ann Arbor, June 2005. c�2005 Association for Computational Linguistics
+2 Our Courses the course—only fair, since they are at the advan-tage when it comes to implementation. But com-puter scientists see the value in the exercise: even if they do not believe that interfaces should be de-signed to act like people, they still recognize that well-designed interactive systems must be ready to handle the kinds of behaviors people actually carry out. And hands-on experience convinces them that behavior in human conversation is both rich and sur-prising. The computer scientists agree—after turn-ing in impoverished and uninformed “analyses” of their discourse for a brutal critique—that they will never look at conversation the same way again.
+Our perspective in this paper draws on more than fifteen course offerings at the graduate level in dis-course and dialogue over the years. Justine Cassell’s course Theories and Technologies of Human Com-munication is documented on the web here: Our experience suggests that we should be try-ing to give students outside computer science the same kind of eye-opening hands-on experience with technology. For example, we have found that lin-guists are just as challenged and excited by the dis-cipline of technology as computer scientists are by the discipline of empirical observations. Linguists in our classes typically report that successful en-gagement with technology “exposes a lot of de-tails that were missing from my theoretical under-standing that I never would have considered with-out working through the code”. Nothing is better at bringing out the assumptions you bring to an anal-ysis of human-human conversation than the thought experiment of replacing one of the participants by something that has to struggle consciously to un-derstand it— a space alien, perhaps, or, more real-istically, an AI system. We are frustrated that no succinct assignment, comparable to our transcrip-tion homework, yet exists that can reliably deliver this insight to students outside computer science.
+http://www.soc.northwestern.edu/justine/discourse 3 Framing the Problem
+Matthew Stone’s courses Natural Language Pro-cessing and Meaning Machines1 are documented here: Our courses are not typical NLP classes. Our treat-ment of parsing is marginal, and for the most part we ignore the mainstays of statistical language pro-cessing courses: the low-level technology such as finite-state methods; the specific language process-ing challenges for machine learning methods; and “applied” subproblems like named entity extraction, or phrase chunking. Our focus is almost exclu-sively on high-level and interactional issues, such as the structure of discourse and dialogue, informa-tion structure, intentions, turn-taking, collaboration,
+http://www.cs.rutgers.edu/˜mdstone/class/533-spring-03/ http://www.cs.rutgers.edu/˜mdstone/class/672
+These courses are similar in perspective. All ad-dress an extremely diverse and interdisciplinary au-dience of students from computer science, linguis-tics, cognitive science, information science, commu-nication, and education. The typical student is a first or second-year PhD student with a serious interest in doing a dissertation on human-computer communi-cation or in enriching their dissertation research with results from the theory or practice of discourse and dialogue. All are project courses, but no program-ming is required; projects may involve evaluation of existing implementations or the prospective design of new implementations based on ongoing empir-ical research. Nevertheless, the courses retain the dual goals that students should not only understand discourse and the theory of pragmatics, but should also understand how the theory is implemented, ei-ther well enough to talk intelligently about the im-plementation or, if they are computer scientists, to actually carry it out.
+As befits our dual goals, our courses all involve a mix of instruction in human-human dialogue and human-computer dialogue. For example, Cassell be-gins her course with a homework where students collect, transcribe and analyze their own recordings of face-to-face conversation. Students are asked to discuss what constitutes a sufficient record of dis-course, and to speculate on what the most challeng-ing processing issues would be to allow a computer to replace one of the participants. Computer sci-entists definitely have difficulty with this aspect of
+1The catchy title is the inspiration of Deb Roy at MIT.
+</footnote>
+<page confidence="0.999416">
+10
+</page>
+<bodyText confidence="0.999674911111111">
+reference and clarification. Context is central, and
+under that umbrella we explicitly discuss both the
+perceptual environment in which conversation takes
+place and the non-verbal actions that contribute to
+the management of conversation and participants’
+real-world collaborations.
+Our unusual focus means that we can not readily
+take advantage of software toolkits such as NLTK
+(Loper and Bird, 2002) or Regulus (Rayner et al.,
+2003). These toolkits are great at helping students
+implement and visualize the fundamentals of natu-
+ral language processing—lexicon, morphology, syn-
+tax. They make it easy to experiment with machine
+learning or with specific models for a small scale,
+short course assignment in a specific NLP module.
+You can think of this as a “horizontal” approach, al-
+lowing students to systematically develop a compre-
+hensive approach to a single processing task. But
+what we need is a “vertical” approach, which allows
+students to follow a specific choice about the rep-
+resentation of communicative behaviors or commu-
+nicative functions all the way through an end-to-end
+dialogue system. We have not succeeded in concep-
+tualizing how a carefully modularized toolkit would
+support this kind of student experience.
+Still, we have not met with success with alterna-
+tive approaches, either. As we describe in Section
+3.1, our own research systems may allow the kinds
+of experiments we want students to carry out. But
+they demand too much expertise of students for a
+one-semester course. In fact, as we describe in Sec-
+tion 3.2, even broad research systems that come with
+specific support for students to carry out a range of
+tasks may not enable the specific directions that re-
+ally turn students on to the challenge of discourse
+and dialogue. However, our experience with im-
+plementing dedicated modules for teaching, as de-
+scribed in Section 3.3, is that the lack of synergy
+with ongoing research can result in impoverished
+tools that fail to engage students. We don’t have the
+tools we want—but our experience argues that we
+think the tools we really want will be developed only
+through a collaborative effort shared across multiple
+sites and broadly engaged with a range of research
+issues as well as with pedagogical challenges.
+</bodyText>
+<subsectionHeader confidence="0.982783">
+3.1 Difficulties with REA and BEAT
+</subsectionHeader>
+<bodyText confidence="0.999535456521739">
+Cassell has experimented with the use of her re-
+search platforms REA (Cassell et al., 1999) and
+BEAT (Cassell et al., 2001) for course projects in
+discourse and dialogue. REA is an embodied con-
+versational agent that interacts with a user in a real
+estate agent domain. It includes an end-to-end dia-
+logue architecture; it supports speech input, stereo
+vision input, conversational process including pres-
+ence and turn-taking, content planning, the context-
+sensitive generation of communicative action and
+the animated realization of multimodal communica-
+tive actions. BEAT (the behavior expression anima-
+tion toolkit), on the other hand, is a module that fits
+into animation systems. It marks up text to describe
+appropriate synchronized nonverbal behaviors and
+speech to realize on a humanoid talking character.
+In teaching dialogue at MIT, Cassell invited stu-
+dents to adapt her existing REA and BEAT system
+to explore aspects of the theory and practice of dis-
+course and dialogue. This led to a range of interest-
+ing projects. For example, students were able to ex-
+plore hypothetical differences among characters—
+from virtual “Italians” with profuse gesture, to vir-
+tual children whose marked use of a large gesture
+space contrasted with typical adults, to characters
+who showed new and interesting behavior such as
+the repeated foot-tap of frustrated condescension.
+However, we think we can serve students much bet-
+ter. Many of these projects were accomplished only
+with substantial help from the instructor and TAs,
+who were already extremely familiar with the over-
+all system. Students did not have time to learn how
+to make these changes entirely on their own.
+The foot-tapping agent is a good example of this.
+To add foot-tapping is a paradigmatic “vertical”
+modification. It requires adding suitable context to
+the discourse state to represent uncooperative user
+behavior; it requires extending the process for gener-
+ating communicative actions to detect this new state
+and schedule an appropriate behavioral response;
+and then it requires extending the animation plat-
+form to be able to show this behavior. BEAT makes
+the second step easy—as it should be—even for lin-
+guistics students. To handle the first and third steps,
+you would hope that an interdisciplinary team con-
+taining a communication student and a computer sci-
+</bodyText>
+<page confidence="0.998583">
+11
+</page>
+<bodyText confidence="0.9997785">
+ence student would be able to bring the expertise to design the new dialogue state and the new animated behavior. But that wasn’t exactly true. In order to add the behavior to REA, students needed not only background in the relevant technology—like what a computer scientist would learn in a general human animation class. To add the behavior, students also needed to know how this technology was realized in our particular research platform. This proved too much for one semester. face dialogue (Cassell et al., 2000), the informationstate approach to domain-independent practical di-alogue (Larsson and Traum, 2000), or approaches that emphasize the grounding of conversation in the specifics of a particular ongoing collaboration (Rich et al., 2001). The integration of a talking head into the CSLU toolkit epitomizes these limitations with the platform. The toolkit allows for the automatic realization of text with an animated spoken deliv-ery, but does not expose the model to programmers, making it impossible for programmers adapt or con-trol the behavior of the face and head.
+We think this is a general problem with new re-search systems. For example, we think many of the same issues would arise in asking students to build a dialogue system on top of the Trindi toolkit in a one semester course. We think this is a general problem with platforms that are primarily designed to streamline a particular research methodology. For example, we think many of the same issues would arise in asking students to build a multimodal behavior realization system on top of a general-purpose speech synthesis platform like Festival (Black and Taylor, 1997).
+</bodyText>
+<subsectionHeader confidence="0.947372">
+3.2 Difficulties with the CSLU toolkit 3.3 Difficulties with TAGLET
+</subsectionHeader>
+<bodyText confidence="0.999570230769231">
+In Fall 2004, Cassell experimented with using the CSLU dialogue toolkit (Cole, 1999) as a resource for class projects. This is a broad toolkit to support research and teaching in spoken language technol-ogy. A particular strength of the toolkit is its sup-port for the design of finite-state dialogue models. Even students outside computer science appreciated the toolkit’s drag-and-drop interface for scripting di-alogue flow. For example, with this interface, you can add a repair sequence to a dialogue flow in one easy step. However, the indirection the toolkit places between students and the actual constructs of dia-logue theory can by quite challenging. For example, the finite-state architecture of the CSLU toolkit al-lows students to look at floor management and at di-alogue initiative only indirectly: specific transition networks encode specific strategies for taking turns or managing problem solving by scheduling specific communicative functions and behaviors. At this point, the right solution might seem to be to devise resources explicitly for teaching. In fact, Stone advocated more or less this at the 2002 TNLP workshop (2002). There, Stone motivated the poten-tial role for a simple lexicalized formalism for nat-ural language syntax, semantics and pragmatics in a broad NLP class whose emphasis is to introduce topics of current research.
+The way we see it, the CSLU toolkit is more heav- The system, TAGLET, is a context-free treerewriting formalism, defined by the usual comple-mentation operation and the simplest imaginable modification operation. This formalism may in fact be a good way to present computational linguistics to technically-minded cognitive science students— those rare students who come with interest and ex-perience in the science of language as well as a solid ability to program. By implementing a strong com-petence TAGLET parser and generator students si-multaneously get experience with central computer science ideas—data structures, unification, recur-sion and abstraction—and develop an effective start-ing point for their own subsequent projects.
+ily geared towards the rapid construction of particu- However, in retrospect, TAGLET does not serve to introduce students outside computer science to the distinctive insights that come from a computational approach to language use. For one thing, to reach a broad audience, it is a mistake to focus on repre-
+lar kinds of research prototypes than we would like
+in a teaching toolkit. Its dialogue models provide an
+instructive perspective on actions in discourse, one
+that nicely complements the perspective of DAMSL
+(Core and Allen, 1997) in seeing utterances as the
+combined realization of a specific, constrained range
+of communicative functions. But we would like to
+be able to explore a range of other metaphors for
+organizing the information in dialogue. We would
+like students to be able to realize models of face-to-
+</bodyText>
+<page confidence="0.994228">
+12
+</page>
+<bodyText confidence="0.977488923076923">
+sentations that programmers can easily build at the expense of representations that other students can easily understand. These other students need visu-alization; they need to be able to see what the sys-tem computes and how it computes it. Moreover, these other students can tolerate substantial com-plexity in the underlying algorithms if the system can be understood clearly and mechanistically in ab-stract terms. You wouldn’t ask a computer scientist to implement a parser for full tree-adjoining gram-mar but that doesn’t change the fact that it’s still a perfectly natural, and comprehensible, algorithmic abstraction for characterizing linguistic structure. resources for teaching.
+Another set of representations and algorithms might avoid some of these problems. But a new approach could not avoid another problem that we think applies generally to platforms that are de-signed exclusively for teaching: there is no synergy with ongoing research efforts. Rich resources are so crucial to any computational treatment of dialogue: annotated corpora, wide-coverage grammars, plan-recognizers, context models, and the rest. We can’t afford to start from scratch. We have found this con-cretely in our work. What got linguists involved in the computational exploration of dialogue semantics at Rutgers was not the special teaching resources Stone created. It was hooking students up with the systems that were being actively developed in ongo-ing research (DeVault et al., 2005). These research efforts made it practical to provide students with the visualizations, task and context models, and interac-tive architecture they needed to explore substantive issues in dialogue semantics. Whatever we do will have to closely connect teaching and our ongoing re-search. We have reframed our ongoing activities so that we can find new synergies between research and teaching. For example, we are currently working to expand the repertoire of animated action in our freely-available talking head RUTH (DeCarlo et al., 2004). In our next release, we expect to make dif-ferent kinds of resources available than in the initial release. Originally, we distributed only the model we created. The next version will again provide that model, along with a broader and more useful inven-tory of facial expressions for it, but we also want the new RUTH to be more easily extensible than the last one. To do that, we have ported our model to a general-purpose animation environment (Alias Re-search’s Maya) and created software tools that can output edited models into the collection of files that RUTH needs to run. This helps achieve our ob-jective of quickly-learned extensibility. We expect that students with a background in human anima-tion will bring experience with Maya to a dialogue course. (Anyway, learning Maya is much more gen-eral than learning RUTH!) Computer science stu-dents will thus find it easier to assist a team of com-munication and linguistics students in adding new expressions to an animated character.
+4 Looking ahead Creating such resources to span a general system for face-to-face dialogue would be an enormous un-dertaking. It could happen only with broad input from those who teach discourse and dialogue, as we do, through a mix of theory and practice. We hope the TNLP workshop will spark this kind of process. We close with the questions we’d like to consider further. What kinds of classes on dialogue and dis-course pragmatics are currently being offered? What kinds of audiences do others reach, what goals do they bring, and what do they teach them? What are the scientific and technological principles that oth-ers would use toolkits to teach and illustrate? In short, what would your dialogue toolkit make possi-ble? And how can we work together to realize both our visions?
+Our experience teaching dialogue to interdisci- 5 Acknowledgments
+plinary teams through toolkits has been humbling. Thanks to Doug DeCarlo, NSF HLC 0308121.
+We have a new appreciation for the differences
+between coursework and research infrastructure—
+supporting teaching may be harder, because stu-
+dents require a broader spectrum of implementa-
+tion, a faster learning curve and the ability to ex-
+plore mistaken ideas as well as promising ones.
+But we increasingly think the community can and
+should come together to foster more broadly useful
+</bodyText>
+<page confidence="0.997789">
+13
+</page>
+<sectionHeader confidence="0.985476" genericHeader="references">
+References
+</sectionHeader>
+<reference confidence="0.998726196721311">
+Alan Black and Paul Taylor. 1997. Festi-
+val speech synthesis system. Technical Report
+HCRC/TR-83, Human Communication Research Cen-
+ter. http://www.cstr.ed.ac.uk/projects/festival/.
+J. Cassell, T. Bickmore, M. Billinghurst, L. Campbell,
+K. Chang, H. Vilhj´almsson, and H. Yan. 1999. Em-
+bodiment in conversational characters: Rea. In CHI
+99, pages 520–527.
+Justine Cassell, Tim Bickmore, Lee Campbell, Hannes
+Vilhjalmsson, and Hao Yan. 2000. Human conver-
+sation as a system framework. In J. Cassell, J. Sul-
+livan, S. Prevost, and E. Churchill, editors, Embod-
+ied Conversational Agents, pages 29–63. MIT Press,
+Cambridge, MA.
+Manny Rayner, Beth Ann Hockey, and John Dowd-
+ing. 2003. An open source environment for com-
+piling typed unification grammars into speech recog-
+nisers. In Proceedings of the 10th Conference of the
+European Chapter of the Association for Computa-
+tion Linguistics (interactive poster and demo track).
+http://sourceforge.net/projects/regulus.
+C. Rich, C. L. Sidner, and N. Lesh. 2001. COL-
+LAGEN: applying collaborative discourse theory to
+human-computer interaction. AI Magazine, 22:15–25.
+Matthew Stone. 2002. Lexicalized grammar 101.
+In ACL Workshop on Effective Tools and Method-
+ologies for Teaching NLP and CL, pages 76–83.
+http://www.cs.rutgers.edu/˜mdstone/class/taglet/.
+Justine Cassell, Hannes Vilhj´almsson, and Tim Bick-
+more. 2001. BEAT: the behavioral expression ani-
+mation toolkit. In SIGGRAPH, pages 477–486.
+Ron Cole. 1999. Tools for research and ed-
+ucation in speech science. In Proceedings of
+the International Conference of Phonetic Sciences.
+http://cslu.cse.ogi.edu/toolkit/.
+Mark G. Core and James F. Allen. 1997. Cod-
+ing dialogs with the DAMSL annotation scheme.
+In Working Notes of AAAI Fall Symposium on
+Communicative Action in Humans and Machines.
+http://www.cs.rochester.edu/research/cisd/resources/damsl/.
+Douglas DeCarlo, Corey Revilla, Matthew Stone, and
+Jennifer Venditti. 2004. Specifying and animating fa-
+cial signals for discourse in embodied conversational
+agents. Journal of Visualization and Computer Ani-
+mation. http://www.cs.rutgers.edu/˜village/ruth/.
+David DeVault, Anubha Kothari, Natalia Kariaeva,
+Iris Oved, and Matthew Stone. 2005. An
+information-state approach to collaborative ref-
+erence. In ACL Proceedings Companion Vol-
+ume (interactive poster and demonstration track).
+http://www.cs.rutgers.edu/˜mdstone/pointers/collabref.html.
+Staffan Larsson and David Traum. 2000. In-
+formation state and dialogue management in
+the TRINDI dialogue move engine toolkit.
+Natural Language Engineering, 6:323–340.
+http://www.ling.gu.se/projekt/trindi/.
+Edward Loper and Steven Bird. 2002. NLTK: the natu-
+ral language toolkit. In Proceedings of the ACL Work-
+shop on Effective Tools and Methodologies for Teach-
+ing Natural Language Processing and Computational
+Linguistics. http://nltk.sourceforge.net.
+</reference>
+<page confidence="0.9993">
+14
+</page>
+</variant>
+</algorithm>
+</algorithms>

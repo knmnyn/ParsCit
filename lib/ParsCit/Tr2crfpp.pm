@@ -39,12 +39,13 @@ sub prepData {
     readDict($dictFile); # Thang Mar 10: move inside the method, only load when running
 
     unless (open(TMP, ">:utf8", $tmpfile)) {
-	fatal("Could not open tmp file $tmpDir/$tmpfile for writing.");
-	return;
+      fatal("Could not open tmp file $tmpDir/$tmpfile for writing.");
+      return;
     }
 
     foreach (split "\n", $$rCiteText) {
 	if (/^\s*$/) { next; }		# skip blank lines
+
 	my $tag = "";
 	my @tokens = split(/ +/);
 	my @feats = ();
@@ -53,13 +54,12 @@ sub prepData {
 
 	my $j = 0;
 	for (my $i = 0; $i <= $#tokens; $i++) {
-            #for (my $i = $#tokens; $i >= 0; $i--) {
 	    if ($tokens[$i] =~ /^\s*$/) { next; }
-	    if ($tokens[$i] =~ /^\<\/([\p{IsLower}]+)/) {
-		#$tag = $1;
+	    
+	    if ($tokens[$i] =~ /^<\/[a-zA-Z]+/) {#Thang v100401: /^\<\/([\p{IsLower}]+)/) {
 		next;
 	    }
-	    if ($tokens[$i] =~ /^\<([\p{IsLower}]+)/) {
+	    if ($tokens[$i] =~ /^<([a-zA-Z]+)/) { #Thang v100401: /^\<([\p{IsLower}]+)/) {
 		$tag = $1;
 		next;
 	    }
@@ -69,13 +69,19 @@ sub prepData {
 
 	    my $wordNP = $tokens[$i];			      # no punctuation
 	    $wordNP =~ s/[^\w]//g;
+
 	    if ($wordNP =~ /^\s*$/) { $wordNP = "EMPTY"; }
 	    my $wordLCNP = lc($wordNP);    # lowercased word, no punctuation
+
+
 	    if ($wordLCNP =~ /^\s*$/) { $wordLCNP = "EMPTY"; }
 
 	    ## feature generation
 	    $feats[$j][0] = $word;			    # 0 = lexical word
+
 	    my @chars = split(//,$word);
+
+
 	    my $lastChar = $chars[-1];
 	    if ($lastChar =~ /[\p{IsLower}]/) { $lastChar = 'a'; }
 	    elsif ($lastChar =~ /[\p{IsUpper}]/) { $lastChar = 'A'; }
@@ -93,6 +99,7 @@ sub prepData {
 	    push(@{$feats[$j]}, join("",@chars[-4..-1])); # 9 = last 4 chars
 
 	    push(@{$feats[$j]}, $wordLCNP);  # 10 = lowercased word, no punct
+
 
 	    # 11 - capitalization
 	    my $ortho = ($wordNP =~ /^[\p{IsUpper}]$/) ? "singleCap" :
@@ -197,14 +204,7 @@ sub prepData {
 	print TMP "\n";
     }
     close TMP;
-#    open (IN, "<:utf8", $tmpfile);
-#    my $text;
-#    {
-#	local $/ = undef;
-#	$text = <IN>;
-#    }
-#    close IN;
-#    print "$text\n";
+
     return $tmpfile;
 
 }  # prepData
@@ -270,29 +270,22 @@ sub decode {
 	}
 	$codeTokens[$#codeTokens] = $class;
 	@codeLines[$i] = join "\t", @codeTokens;
-	
-#	print Encode::decode_utf8(@codeLines[$i]), "\n";
     }
 
-#    unless (open(OUT, ">:utf8", $outFile)) {
     unless (open(OUT, ">:utf8", $outFile)) {
 	fatal("Could not open crf output file for writing: $!");
 	return;
     }
+
     foreach my $line (@codeLines) {
+      if(!Encode::is_utf8($line)){ # Thang v100401: add this to avoid double decoding
 	print OUT Encode::decode_utf8($line), "\n";
+      } else {
+	print OUT $line, "\n";
+      }
     }
     close OUT;
 
-#    open (IN, "<:utf8", $outFile);
-#    my $text;
-#    {
-#	local $/ = undef;
-#	$text = <IN>;
-#    }
-#    close IN;
-#    print "$text\n";
-    
     return 1;
 
 }  # decode

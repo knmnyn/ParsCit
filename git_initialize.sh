@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Author: Luong Minh Thang <luongmin@comp.nus.edu.sg>, generated at Sun, 01 Jun 2008 15:21:09
+
+date
+
 if [ $# == 1 ]
 then
   dir=$1
@@ -18,6 +22,9 @@ git init
 
 echo "cd .git/hooks/"
 cd .git/hooks/
+
+echo "rm post-update"
+rm post-update
 
 echo "wget http://utsl.gen.nz/git/post-update"
 wget http://utsl.gen.nz/git/post-update

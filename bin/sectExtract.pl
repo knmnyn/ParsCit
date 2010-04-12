@@ -80,11 +80,16 @@ $configFile = "$path/../$configFile";
 if($isXmlInput){
   my $xmlInFile = newTmpFile();
   $xmlInFile = untaintPath($xmlInFile);
-  execute("$path/processOmniXML.pl -in $inFile -out $xmlInFile -xmlFeature");
+  execute("$path/sectLabel/processOmniXML.pl -in $inFile -out $xmlInFile -xmlFeature -decode");
   $inFile = $xmlInFile;
 }
 
-my $rXML = SectLabel::Controller::extractSection($inFile, $isXmlOutput, $modelFile, $configFile, $isXmlInput, $isDebug);
+my $dictFile = $SectLabel::Config::dictFile;
+$dictFile = "$path/../$dictFile";
+
+my $funcFile = $SectLabel::Config::funcFile;
+$funcFile = "$path/../$funcFile";
+my $rXML = SectLabel::Controller::extractSection($inFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
 
 if($isXmlInput){
   unlink($inFile);

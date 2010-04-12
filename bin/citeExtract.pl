@@ -20,7 +20,7 @@ citeExtract.pl
  ORIGIN: created from templateApp.pl version 3.4 by Min-Yen Kan <kanmy@comp.nus.edu.sg>
 
  Min-Yen Kan, 15 Jul 2009.
- Luong Minh Thang, 25 May 2009.
+ Minh-Thang Luong, 25 May 2009.
  Isaac Councill, 08/23/07
 
 =cut
@@ -39,7 +39,7 @@ $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $PARSCIT = 1;
 my $PARSHED = 2;
-my $SECTLABEL = 4; # Thang Mar 10
+my $SECTLABEL = 4; # Thang v100401
 my $defaultMode = $PARSCIT;
 my $defaultInputType = "raw";
 my $outputVersion = "100401";
@@ -59,7 +59,7 @@ sub Help {
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 
-  # Thang Mar 10: add new mode (extract_section), and -i <inputType>
+  # Thang v100401: add new mode (extract_section), and -i <inputType>
   print STDERR "\t-m <mode>\tMode (extract_citations, extract_header, extract_section, extract_meta, extract_all, default: extract_citations)\n";
   print STDERR "\t-i <inputType>\tType (raw, xml, default: raw)\n";
   print STDERR "\t-t\tUse token level model instead\n";
@@ -100,30 +100,52 @@ my $in = shift;						  # input file
 my $out = shift;					# if available
 my $rXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"$outputVersion\">\n";       # output buffer
 
-my $inputType = (!defined $opt_i) ? $defaultInputType : $opt_i; # Thang Mar 10: add input type option
-if($inputType ne "raw" && $inputType ne "xml"){
+### Thang v100401: add input type option, and SectLabel ###
+my $isXmlInput = 0;
+if(defined $opt_i && $opt_i !~ /^(xml|raw)$/){
   print STDERR "Input type needs to be either \"raw\" or \"xml\"\n";
   Help(); exit (0);
+} elsif(defined $opt_i && $opt_i eq "xml"){
+  $isXmlInput = 1;
 }
+
+my $textFile;
+if($isXmlInput){ # extracting text from Omnipage XML output
+  $textFile = newTmpFile();
+  my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $textFile -decode";
+  system($cmd);
+} else {
+  $textFile = $in;
+}
+
+if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
+  my $sectLabelInput = $textFile;
+  if($isXmlInput){ # get XML features and append to $textFile
+    my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $textFile.feature -xmlFeature -decode";
+    system($cmd);
+    $sectLabelInput .= ".feature";
+  }
+
+  my $slXML .= sectLabel($sectLabelInput, $isXmlInput);
+  $rXML .= removeTopLines($slXML, 1) . "\n"; # remove first line <?xml/> 
+
+  if($isXmlInput){ # remove XML feature file
+    unlink($sectLabelInput);
+  }
+}
+### End Thang v100401: add input type option, and SectLabel ###
 
 if (($mode & $PARSHED) == $PARSHED) { # PARSHED
   use ParsHed::Controller;
-  my $phXML = ParsHed::Controller::extractHeader($in, $phModel); 
+  my $phXML = ParsHed::Controller::extractHeader($textFile, $phModel); 
   $rXML .= removeTopLines($$phXML, 1) . "\n"; # remove first line <?xml/> 
 }
 
 if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
   use ParsCit::Controller;
-  my $pcXML = ParsCit::Controller::extractCitations($in);
+  my $pcXML = ParsCit::Controller::extractCitations($textFile, $isXmlInput);
   $rXML .= removeTopLines($$pcXML, 1) . "\n";   # remove first line <?xml/> 
 }
-
-# Thang Mar 10: add sectLabel
-if (($mode & $SECTLABEL) == $SECTLABEL) { # SECTLABEL
-  my $slXML .= sectLabel($in, $inputType);
-  $rXML .= removeTopLines($slXML, 1) . "\n"; # remove first line <?xml/> 
-}
-
 
 $rXML .= "</algorithms>";
 
@@ -133,6 +155,17 @@ if (defined $out) {
   close OUT;
 } else {
   print $rXML;
+}
+
+# clean-up step
+if($isXmlInput){
+  if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
+    # get the normal .body .cite files
+    system("mv $textFile.body $in.body");
+    system("mv $textFile.cite $in.cite");
+  }
+
+  unlink($textFile);
 }
 
 ###
@@ -150,14 +183,14 @@ sub parseMode {
   } elsif ($arg eq "extract_section") {
     return $SECTLABEL;
   } elsif ($arg eq "extract_all") {
-    return ($PARSHED | $PARSCIT | $SECTLABEL);  
+    return ($PARSHED | $PARSCIT | $SECTLABEL);
   } else {
     Help();
     exit(-1);
   }
 }
 
-# Thang Mar 10: remove top n lines
+# Thang v100401: remove top n lines
 sub removeTopLines {
   my ($input, $topN) = @_;
   # remove first line <?xml/> 
@@ -168,16 +201,16 @@ sub removeTopLines {
 
   return join("\n",@lines);
 }
-  
-# Thang Mar 10: generate section info
+
+# Thang v100401: generate section info
 sub sectLabel {
-  my ($in, $inputType) = @_;
+  my ($textFile, $isXmlInput) = @_;
 
   use SectLabel::Controller;
   use SectLabel::Config;
   my $isXmlOutput = 1;
   my $isDebug = 0;
-  my $isXmlInput = ($inputType eq "xml") ?  1 : 0;
+
   my $modelFile = $isXmlInput? $SectLabel::Config::modelXmlFile : $SectLabel::Config::modelFile;
   $modelFile = "$FindBin::Bin/../$modelFile";
 
@@ -190,27 +223,12 @@ sub sectLabel {
   my $configFile = $isXmlInput ? $SectLabel::Config::configXmlFile : $SectLabel::Config::configFile;
   $configFile = "$FindBin::Bin/../$configFile";
 
-  # generate XML features if xml input
-  if($isXmlInput){
-    my $xmlInFile = newTmpFile();
-    my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -in $in -out $xmlInFile -xmlFeature";
-#    print STDERR "$cmd\n";
-    system($cmd);
-    $in = $xmlInFile;
-  }
-
   # classify section
-  my $slXML = SectLabel::Controller::extractSection($in, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
-
-  # remove xml feature file if any
-  if($isXmlInput){
-    unlink($in); 
-  }
-
+  my $slXML = SectLabel::Controller::extractSection($textFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
   return $$slXML;
 }
 
-# Thang Mar 10: method to generate tmp file name
+# Thang v100401: method to generate tmp file name
 sub newTmpFile {
   my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
   chomp($tmpFile);
