@@ -390,8 +390,10 @@ sub processSections {
 			$label =  $1;
 			if ($label eq "sectionHeader")
 			{
-				$lines[$i] =~/genericHeader=\"([a-zA-Z ]+?)\"/;
-				$label == $label . " - Generic Section : " . $1;	
+				if($lines[$i] =~/genericHeader=\"(.+?)\"/)
+				{
+					$label = $label . " - Generic Header : " . $1;	
+				}
 			}
 		}
 		elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/)
