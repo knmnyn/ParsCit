@@ -199,7 +199,7 @@ service to parse the input file or strings.
 </FORM>
 </DIV>
 
-<P><B>Demo #2: Parsing the first page header and/or citation contexts and the reference strings as well as the whole document's logical structure from an XML file</B></P>
+<P><B>Demo #2: As above but using XML input (XML must conform to Omnipage output, for current 100401 version)</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
@@ -218,11 +218,10 @@ service to parse the input file or strings.
 </P>
 <P>Parse the document using the following options
 <SELECT NAME="ParsCitOptions">
-  <option VALUE="1">citations</option>
-  <option VALUE="2">header</option>
-  <option VALUE="3">meta</option>
-  <option VALUE="4">section</option>
-  <option VALUE="5">all</option>
+  <OPTION SELECTED VALUE="5">all</OPTION>
+  <OPTION VALUE="1">citations</OPTION>
+  <OPTION VALUE="2">header</OPTION>
+  <OPTION VALUE="4">section</OPTION>
 </SELECT>
 </P>
 <bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
@@ -508,6 +507,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Mon Apr 12 13:00:11 2010
+Tue Apr 13 14:02:53 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>
