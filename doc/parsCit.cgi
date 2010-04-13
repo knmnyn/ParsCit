@@ -299,7 +299,7 @@ if ($demo == 1 ) {		# run demo 1
 if ($option == 5)
 {
 	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
-	print "<DIV ID=\"hidden2\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+	print "<DIV ID=\"hidden2\" CLASS=\"hidden_1\" STYLE=\"display:none;\"><PRE>";
     print (processSections($outputBuf));
 	print "</DIV>";
 	
@@ -310,13 +310,13 @@ elsif ($option == 4)
 }
 if ($option == 5 || $option == 2) { 
 	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
-	print "<DIV ID=\"hidden3\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
+	print "<DIV ID=\"hidden3\" CLASS=\"hidden_1\" STYLE=\"display:'';\"><PRE>";
 	print (processHeader($outputBuf)); 	
 	print "</DIV>";
 }
 if ($option == 5 ||$option == 1 || $demo == 2) { 
 	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
-	print "<DIV ID=\"hidden4\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
+	print "<DIV ID=\"hidden4\" CLASS=\"hidden_1\" STYLE=\"display:'';\"><PRE>";
 	print (processCitations($outputBuf, $filename)); 
 	print "</DIV>";
 }
@@ -324,7 +324,7 @@ if ($option == 5 ||$option == 1 || $demo == 2) {
 `rm -f /tmp/$seed.*`;
 
 logMessage("  Input: $inputBuf\n  Output: $outputBuf\n\n");
-print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
+print "<br/>[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
 printTrailer();
 
 ###
