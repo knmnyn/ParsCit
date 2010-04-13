@@ -315,10 +315,10 @@ if ($option == 5 || $option == 2) {
 	print "</DIV>";
 }
 if ($option == 5 ||$option == 1 || $demo == 2) { 
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
-	print "<DIV ID=\"hidden4\" STYLE=\"display:'';\"><PRE>";
+#	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
+#	print "<DIV ID=\"hidden4\" STYLE=\"display:'';\"><PRE>";
 	print (processCitations($outputBuf, $filename)); 
-	print "</DIV>";
+#	print "</DIV>";
 }
 # remove temporary files
 `rm -f /tmp/$seed.*`;
@@ -388,7 +388,7 @@ sub processSections {
 		}
 		elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/)
 		{
-			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>"; 
+			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>\n"; 
 			$content = "";
 		}
 		else{
