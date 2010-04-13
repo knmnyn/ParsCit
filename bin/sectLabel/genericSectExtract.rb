@@ -30,10 +30,17 @@ while !f.eof do
 	str = f.gets.chomp.strip
 	if str != ""
 		l = str.split(" ")
+		output = l.at(l.length-1)
+		while output.index("-") != nil
+			output = output.sub("-", " ")
+		end
+		if output == "related works"
+			output = "related work"
+		end
 		if ARGV[1] == nil
-			puts "#{l.at(l.length-1)}"
+			puts "#{output}"
 		else
-			g.write("#{l.at(l.length-1)}\n")
+			g.write("#{output}\n")
 		end
 	end
 end

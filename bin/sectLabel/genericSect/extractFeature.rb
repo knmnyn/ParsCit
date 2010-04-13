@@ -84,10 +84,18 @@ while index < hea_array.length do
 	if  len > 3
 		len = 3
 	end	
-	firstWord = tmp.at(0)
+	
+	firstWord = tmp.at(0).strip
 	secondWord = "null"
-	if len >= 2
-		secondWord = tmp.at(1)
+	if /[0-9]+.?/.match(firstWord) and len > 1
+		firstWord = tmp.at(1).strip
+		if len > 2
+			secondWord = tmp.at(2)
+		end
+	else
+		if len > 1
+			secondWord = tmp.at(1)
+		end
 	end
 	puts "index=#{index} pos=#{pos}/10 firstWord=#{firstWord} secondWord=#{secondWord}  currHeader=#{currHeader} #{assignedHeader}"
 	index = index + 1
