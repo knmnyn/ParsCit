@@ -111,7 +111,7 @@ if(defined $opt_i && $opt_i !~ /^(xml|raw)$/){
 
 my $textFile;
 if($isXmlInput){ # extracting text from Omnipage XML output
-  $textFile = newTmpFile();
+  $textFile = "/tmp/". newTmpFile();
   my $cmd = "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $textFile -decode";
   system($cmd);
 } else {
