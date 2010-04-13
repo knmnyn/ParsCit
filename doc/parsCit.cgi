@@ -30,7 +30,7 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }                 # untaint tm
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $installDir = "/home/forecite/services/parscit-archive/parscit-thang";
+my $installDir = "/home/forecite/services/parscit";
 my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
@@ -108,12 +108,12 @@ if ($q->param('ping') ne "") {
   exit;
 
 ## Try Demo 1
-} elsif ($q->param('urlfile') ne "") { # M1) get input from url
+} elsif (($q->param('urlfile') ne "") and ($q->param('demo') == "1")) { # M1) get input from url
   getstore ($q->param('urlfile'), $filename);
   $inputMethod = "URL";
   $message = "Demo 1: (whole file):\n  Input: $inputMethod\n";
   $demo = 1;
-} elsif ($q->param('datafile') ne "") {	# M2) get input from uploaded text file
+} elsif (($q->param('datafile') ne "") and ($q->param('demo') == "1")) { 	# M2) get input from uploaded text file
   # Copy a binary file to somewhere safe
   open (OUTFILE,">$filename");
   while ($bytesread = read($q->param('datafile'),$buffer,1024)) {
@@ -123,7 +123,7 @@ if ($q->param('ping') ne "") {
   $inputMethod = "upload";
   $message = "Demo 1 (whole file):\n  Input: $inputMethod \n";
   $demo = 1;
-} elsif ($q->param('textfile') ne "") { # M3) by text area
+} elsif (($q->param('textfile') ne "") and ($q->param('demo') == "1")) { # M3) by text area
   open (OUTFILE,">$filename");
   print OUTFILE $q->param('textfile');
   close (OUTFILE);
@@ -132,13 +132,37 @@ if ($q->param('ping') ne "") {
   $message = "Demo 1: (whole file):\n  Input: $inputMethod\n";
   $demo = 1;
 
-## Try Demo 2
-} elsif ($q->param('urllines') ne "") { # M1) get input from url
+} elsif (($q->param('urlfile') ne "") and ($q->param('demo') == "2")) { # M1) get input from url
+  getstore ($q->param('urlfile'), $filename);
+  $inputMethod = "URL";
+  $message = "Demo 2: (whole file):\n  Input: $inputMethod\n";
+  $demo = 2;
+} elsif (($q->param('datafile') ne "") and ($q->param('demo') == "2")) { 	# M2) get input from uploaded text file
+  # Copy a binary file to somewhere safe
+  open (OUTFILE,">$filename");
+  while ($bytesread = read($q->param('datafile'),$buffer,1024)) {
+    print OUTFILE $buffer;
+  }
+  close (OUTFILE);
+  $inputMethod = "upload";
+  $message = "Demo 2 (whole file):\n  Input: $inputMethod \n";
+  $demo = 2;
+} elsif (($q->param('textfile') ne "") and ($q->param('demo') == "2")) { # M3) by text area
+  open (OUTFILE,">$filename");
+  print OUTFILE $q->param('textfile');
+  close (OUTFILE);
+
+  $inputMethod = "text field";
+  $message = "Demo 2: (whole file):\n  Input: $inputMethod\n";
+  $demo = 2;
+
+## Try Demo 3 
+} elsif (($q->param('urllines') ne "") and ($q->param('demo') == "3")){ # M1) get input from url
   getstore ($q->param('urllines'), $filename);
   $inputMethod = "URL";
-  $message = "Demo 2: (line set):\n  Input: $inputMethod\n";
-  $demo = 2;
-} elsif ($q->param('datalines') ne "") { # M2) get urls from uploaded text file
+  $message = "Demo 3: (line set):\n  Input: $inputMethod\n";
+  $demo = 3;
+} elsif (($q->param('datalines') ne "")  and ($q->param('demo') == "3"))  { # M2) get urls from uploaded text file
   # Copy a binary file to somewhere safe
   open (OUTFILE,">$filename");
   while ($bytesread = read($q->param('datalines'),$buffer,1024)) {
@@ -146,16 +170,16 @@ if ($q->param('ping') ne "") {
   }
   close (OUTFILE);
   $inputMethod = "upload";
-  $message = "Demo 2 (line set):\n  Input: $inputMethod \n";
-  $demo = 2;
-} elsif ($q->param('textlines') ne "") { # M3) by text area
+  $message = "Demo 3 (line set):\n  Input: $inputMethod \n";
+  $demo = 3;
+} elsif (($q->param('textlines') ne "")  and ($q->param('demo') == "3")) { # M3) by text area
 
   open (OUTFILE,">$filename");
   print OUTFILE $q->param('textlines');
   close (OUTFILE);
   $inputMethod = "text field";
-  $message = "Demo 2: (line set):\n  Input: $inputMethod\n";
-  $demo = 2;
+  $message = "Demo 3: (line set):\n  Input: $inputMethod\n";
+  $demo = 3;
 } else {
 ## Oops, no input?
   print "<P>You must provide some input data.  Please <A HREF=\"emma.html\">return to the ParsCit home page</A> to try again.\n";
@@ -171,8 +195,7 @@ close $filename;
 
 my $cmd = "";
 my $outputBuf = "";
-
-if ($demo == 1) {		# run demo 1
+if ($demo == 1 ) {		# run demo 1
   $cmd = "./citeExtract.pl ";
 
   if ($option == 1){
@@ -214,6 +237,48 @@ if ($demo == 1) {		# run demo 1
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 } elsif ($demo == 2) {
+  $cmd = "./citeExtract.pl -i xml ";
+
+  if ($option == 1){
+	$cmd .= "-m extract_citations";
+  }
+  elsif ($option == 2){
+	$cmd .= "-m extract_header";
+  }
+  elsif ($option ==3){
+	$cmd .= "-m extract_meta";
+  }
+  elsif ($option == 4){
+	$cmd .= "-m extract_section";
+  }
+  elsif ($option == 5){
+	$cmd .= "-m extract_all";
+  }
+#  if ($parsHed == 1) {
+#    if ($parsCit == 1) {
+#      $cmd .= "-m extract_meta";
+#    } else {
+#      $cmd .= "-m extract_header";
+#    }
+#    if($parsHedModel eq "token-level") { # use the old model
+#      $cmd .= " -t";
+#    }
+#  } elsif ($parsCit == 1) {
+#    $cmd .= "-m extract_citations";
+#  }
+  
+  
+  $cmd .= " $filename";
+  print "Executing <B>$cmd</B>.\n";
+  print "Input Method: <B>$inputMethod</B>.";
+  chdir ("$installDir/bin");
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
+  print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+  $outputBuf = `$cmd`;
+  print CGI::escapeHTML($outputBuf);
+  print "</PRE></DIV>";
+
+} elsif ($demo == 3) {
   $cmd = "./parseRefStrings.pl $filename";
   print "Executing <B>$cmd</B>.\n";
   print "Input Method: <B>$inputMethod</B>.";
@@ -231,8 +296,30 @@ if ($demo == 1) {		# run demo 1
   exit;
 }
 
-if ($option == 5 || $option == 2 || $option == 3) { print (processHeader($outputBuf)); }
-if ($option == 5 || $option == 1 || $option == 3 || $demo == 2) { print (processCitations($outputBuf, $filename)); }
+if ($option == 5)
+{
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+	print "<DIV ID=\"hidden2\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+    print (processSections($outputBuf));
+	print "</DIV>";
+	
+}
+elsif ($option == 4)
+{
+    print (processSections($outputBuf));
+}
+if ($option == 5 || $option == 2) { 
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
+	print "<DIV ID=\"hidden3\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
+	print (processHeader($outputBuf)); 	
+	print "</DIV>";
+}
+if ($option == 5 ||$option == 1 || $demo == 2) { 
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsCit output</A> ]";
+	print "<DIV ID=\"hidden3\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
+	print (processCitations($outputBuf, $filename)); 
+	print "</DIV>";
+}
 # remove temporary files
 `rm -f /tmp/$seed.*`;
 
@@ -283,7 +370,38 @@ sub processHeader {
   }
   $output;
 }
+sub processSections {
+  my $isSection = 0;
+  my $input = shift @_;
+  my @lines = split (/\n/,$input);
+  my $output = "<P>";
+  my $label = "";
+  my $content = "";
+  for (my $i = 0; $i <= $#lines; $i++) {
+  	if ($lines[$i] =~ /<algorithm name="SectLabel".+>/) {$isSection = 1;}
+    if ($isSection == 1 && $lines[$i] =~ /<\/algorithm>/) { last; }
+	if ($isSection == 1)
+	{
+		if ($lines[$i] =~ /^<([a-zA-Z]+?) confidence/)
+		{
+			$label =  $1;
+		}
+		elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/)
+		{
+			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>"; 
+			$content = "";
+		}
+		else{
+			$content .= $lines[$i] . "<br/>";
+		}
+				
 
+	}
+  }
+  $output .= "</P>";
+  $output;
+
+}
 sub processCitations {
   my $input = shift @_;
   my $filename = shift @_;
