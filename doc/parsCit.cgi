@@ -388,10 +388,15 @@ sub processSections {
 		if ($lines[$i] =~ /^<([a-zA-Z]+?) confidence/)
 		{
 			$label =  $1;
+			if ($label eq "sectionHeader")
+			{
+				$lines[$i] =~/genericHeader=\"([a-zA-Z ]+?)\"/;
+				$label == $label . " - Generic Section : " . $1;	
+			}
 		}
 		elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/)
 		{
-			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>\n"; 
+			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>"; 
 			$content = "";
 		}
 		else{
