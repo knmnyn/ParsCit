@@ -315,8 +315,8 @@ if ($option == 5 || $option == 2) {
 	print "</DIV>";
 }
 if ($option == 5 ||$option == 1 || $demo == 2) { 
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsCit output</A> ]";
-	print "<DIV ID=\"hidden3\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
+	print "<DIV ID=\"hidden4\" CLASS=\"hidden\" STYLE=\"display:'';\"><PRE>";
 	print (processCitations($outputBuf, $filename)); 
 	print "</DIV>";
 }
