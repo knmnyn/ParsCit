@@ -306,11 +306,14 @@ if ($option == 5)
 }
 elsif ($option == 4)
 {
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+	print "<DIV ID=\"hidden2\" STYLE=\"display:'';\"><PRE>";
     print (processSections($outputBuf));
+	print "</DIV>";
 }
 if ($option == 5 || $option == 2) { 
 	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
-	print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\"><PRE>";
+	print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\">";
 	print (processHeader($outputBuf)); 	
 	print "</DIV>";
 }
