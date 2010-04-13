@@ -315,10 +315,10 @@ if ($option == 5 || $option == 2) {
 	print "</DIV>";
 }
 if ($option == 5 ||$option == 1 || $demo == 2) { 
-#	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
-#	print "<DIV ID=\"hidden4\" STYLE=\"display:'';\"><PRE>";
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
+	print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
 	print (processCitations($outputBuf, $filename)); 
-#	print "</DIV>";
+	print "</DIV>";
 }
 # remove temporary files
 `rm -f /tmp/$seed.*`;
