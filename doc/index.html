@@ -101,14 +101,14 @@ using <CODE>perl</CODE> (must be in your path).
   SectLabel (logical structure parsing) software from the NUS team,
   and Iconip training data from Cheong Chi Hong for ParsCit with new
   ParsCit model retrained. See <A
-  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; <BR>
+  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; <BR/>
 
-  <LI> Other versions: <BR>
-<A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR>
-<A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR>
-<A HREF="parscit-081201.zip">081201</A>: bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt;<BR>
-<A HREF="parscit-080917.zip">080917</A>: minor changes (improved models and mulilingual support), see CHANGELOG.txt;<BR> 
-<A HREF="parscit-080402.zip">080402</A>: first public release.  Comes with precompiled linux binaries for CRF++;<BR>
+  <LI> Other versions: <BR/>
+<A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
+<A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR/>
+<A HREF="parscit-081201.zip">081201</A>: bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt;<BR/>
+<A HREF="parscit-080917.zip">080917</A>: minor changes (improved models and mulilingual support), see CHANGELOG.txt;<BR/> 
+<A HREF="parscit-080402.zip">080402</A>: first public release.  Comes with precompiled linux binaries for CRF++;<BR/>
 <A HREF="parscit-080310.tgz">080310</A>: beta release.
 
   <li><A HREF="http://crfpp.sourceforge.net">CRF++</A>: A conditional
@@ -173,11 +173,11 @@ service to parse the input file or strings.
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="1" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt</A>).<BR>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
-<P>Input Method 2) Upload a .txt file (ASCII; UTF-8)<BR>
+<P>Input Method 2) Upload a .txt file (ASCII; UTF-8)<BR/>
 <INPUT TYPE="FILE" NAME="datafile">
 </P>
 
@@ -195,7 +195,7 @@ service to parse the input file or strings.
 </SELECT>
 </P>
 
-<bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
+<br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
 </FORM>
 </DIV>
 
@@ -203,11 +203,11 @@ service to parse the input file or strings.
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml</A>).<BR>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
-<P>Input Method 2) Upload a .xml file (ASCII; UTF-8)<BR>
+<P>Input Method 2) Upload a .xml file (ASCII; UTF-8)<BR/>
 <INPUT TYPE="FILE" NAME="datafile">
 </P>
 
@@ -224,7 +224,7 @@ service to parse the input file or strings.
   <OPTION VALUE="4">section</OPTION>
 </SELECT>
 </P>
-<bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
+<br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
 </FORM>
 </DIV>
 
@@ -238,16 +238,16 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
 <INPUT TYPE="text" SIZE="80" NAME="urllines"> 
 </P>
 
-<P>Input Method 2) Upload a file (again, each line should be a separate citation)<BR>
+<P>Input Method 2) Upload a file (again, each line should be a separate citation)<BR/>
 <INPUT TYPE="FILE" NAME="datalines">
 </P>
 
-<P>Input Method 3) Enter a list of plain text citations (again, one per line):<BR>
+<P>Input Method 3) Enter a list of plain text citations (again, one per line):<BR/>
 <TEXTAREA ROWS="4" COLS="80" NAME="textlines">Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008) ParsCit:   An open-source CRF reference string parsing package.  To appear in the proceedings of the Language Resources and Evaluation Conference (LREC 08), Marrakesh, Morrocco, May.
 </TEXTAREA>
 </P>
 
-<bR><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse these lines!"></CENTER>
+<br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse these lines!"></CENTER>
 </FORM>
 </DIV>
 
@@ -260,7 +260,7 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
        <U>ParsCit: An open-source CRF reference string parsing
        package</U>.  In Proceedings of the Language Resources and
        Evaluation Conference (LREC 08), Marrakesh, Morrocco, May.
-       <BR> [ <A HREF="lrec08/lrec08.pdf">.pdf</A> ]
+       <BR/> [ <A HREF="lrec08/lrec08.pdf">.pdf</A> ]
        [ <A HREF="lrec08b.png">Poster (.png)</A> ]
 </UL>
 
@@ -270,11 +270,11 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
   <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (forthcoming)
        <U>Logical Structure Recovery in Scholarly Articles with Rich
        Document Features</U>.  Forthcoming in the International
-       Journal of Digital Library Systems.  <BR>
+       Journal of Digital Library Systems.  <BR/>
        [ <A HREF="ijdls-SectLabel.pdf">pre-print .pdf</A> ]
   <LI> Yong Kiat Ng. (2004) <U>Citation Parsing Using Maximum Entropy
        and Repairs</U>.  Undergraduate thesis.  National University of
-       Singapore.  <BR>
+       Singapore.  <BR/>
        [ <A HREF="yongKiatNgThesis.pdf">.pdf</A> ]
 </UL>
 
@@ -299,11 +299,10 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
     references</A> ] [ <A HREF="cora.out.xml">on the CORA dataset</A>
     ].  Note that these results are considered cheating as current
     version has been trained on this data.
-  <LI> Tagged section data for the SectLabel module.  <BR> [ <A
+  <LI> Tagged section data for the SectLabel module.  <BR/> [ <A
     HREF="sectLabelXML.tagged.txt">XML Format</A> ] [ <A
-    HREF="sectLabel.tagged.txt">Plain Text Format</A> ] [ <A
-    HREF="sectLabelCorpus.zip">Corpus containing 579 files (.zip)</A>
-    ]<BR/>[ <A HREF="genericSect.tagged.txt">GenericSect training data</A> ]
+    HREF="sectLabel.tagged.txt">Plain Text Format</A> ]<BR/>
+       [ <A HREF="genericSect.tagged.txt">GenericSect training data</A> ]
 </UL>
 
 <!-- Group Members  ---------------------------------------------------------------------- -->
@@ -311,7 +310,7 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
 
 <UL>
   <LI> <A HREF="http://www.comp.nus.edu.sg/~kanmy">Min-Yen Kan</A> - Project leader, NUS
-<BR>
+<BR/>
   <LI> <A HREF="http://www.personal.psu.edu/igc2/">Isaac G. Councill</A>, The Pennsylvania State University
   <LI> <A HREF="http://clgiles.ist.psu.edu/">C. Lee Giles</A>, The Pennsylvania State University
   <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant, NUS
@@ -337,7 +336,7 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
      ParsHed in functionality. It not only classifies header metadata,
      but analyzes full documents to output the logical structure of
      the internals of the document -- sections, subsections, figures,
-     tables, equations, footnotes and captions. <BR> For compatibility
+     tables, equations, footnotes and captions. <BR/> For compatibility
      issues, the ParsHed module is still retained in our source code
      and command line options.  </DD>
   <DT>What is the "genericHeader" in the output of SectLabel?</DT>
@@ -358,7 +357,20 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
     output from Nuance OmniPage (version 16)'s XML format, and hence,
     should follows the DTD by OmniPage.  Note: The ParsCit team is not
     affiliated with Nuance in any way nor does it endorse
-    Omnipage.</DD>
+    OmniPage.</DD>
+  <DT> The OmniPage XML doesn't seem to be well-formed.  Is that OK?</DT>
+  <DD> Yes. The sample "XML" provided in the links (for Demo 2) are
+    actual outputs for a sequence of XML pages (one XML file per
+    page).  If you use OmniPage to save an XML file for input to
+    ParsCit, make sure to save individual pages as separate files,
+    then concatenate them to send to ParsCit.  You may want to
+    download the sample links for inspection (as they are
+    concatenations of several XML files, your browser will likely
+    complain about them not being well-formed.</DD>
+  <DT> I ran Demo 2 with the default "all" settings, but sections
+    don't seem to be detected.</DT>
+  <DD> There's no problem.  The demo just hides the SectLabel output
+    by default.  Click "Show SectLabel output" to reveal it.</DD>
 </DL>
 
 <!-- Troubleshooting ---------------------------------------------------------------------- -->
@@ -410,9 +422,9 @@ are some common problems people have encountered.
     directory):
        <P>
 <CODE>$ ../../bin/tr2crfpp.pl tagged_references.txt > parsCit.train.data
-<BR>
+<BR/>
 $ ../crf_learn parsCit.template parsCit.train.data model
-<BR>
+<BR/>
 $ mv model ../../resources/parsCit.model
 </CODE>
    <P>The first command creates the input feature file that crfpp uses
@@ -507,6 +519,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Thu Apr 15 12:38:11 2010
+Fri Apr 16 01:16:15 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>
