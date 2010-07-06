@@ -1,0 +1,275 @@
+<algorithm name="ParsCit" version="090625">
+<citationList>
+<citation valid="true">
+<authors>
+<author>J Allen</author>
+<author>C Perrault</author>
+</authors>
+<title>Analyzing intention in utterances</title>
+<date>1980</date>
+<journal>Artificial Intelligence</journal>
+<volume>15</volume>
+<pages>143--178</pages>
+<contexts>
+<context position="3697">les. The alternative approach to finding the intended meaning of an indirect speech act is to have a small set of general rules that a listener may use to infer the speaker&apos;s plan from the utterance (Allen and Perrault, 1980; Cohen and Perrault, 1979). This approach takes advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content of a conversation (Grosz and Sidner, 1986; Litman and Allen, 19</context>
+<context position="4534"> that is necessary to arrive at the interpretation. For example, Searle (1975) has said: &amp;quot;In normal conversation, of course, no one would consciously go through the steps involved in this reasoning.&amp;quot; Allen and Perrault (1980) have made similar statements that do not leave open the possibility that people unconsciously go through a long inference chain: Note that, in actual fact, people probably use muchmore specialized kn</context>
+<context position="8503">he hearer to give the speaker that object. We address here the issue of learning this rule. We can trace through the understanding cycle used to generate the ATRANS interpretation using the method of Allen and Perrault (1980). sally makes use of backward chaining inference rules for inferring the speakers intentions, and for indicating the effects and preconditions of plans. Figure 1 illustrates four of the rules that are</context>
+<context position="9379">ules, sally can infer: HBSW (INFORMIF (H, S, POSSESS (H, MATCH))) That is, the hearer believes that the speaker wants the hearer to inform the speaker whether 1 Action-Effect and Want-Action are from Allen &amp; Perrault (1980). 2 The Appendix lists the rules using sally&apos;s actual representation. 3 In this discussion, we use Allen and Perrault&apos;s notation because it is more concise than the equivalent representation used in t</context>
+</contexts>
+<marker>Allen, Perrault, 1980</marker>
+<rawString>Allen, J. &amp; Perrault, C. (1980). Analyzing intention in utterances. Artificial Intelligence, 15, 143-178.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J Austin</author>
+</authors>
+<title>How to do things with words</title>
+<date>1962</date>
+<publisher>Harvard University Press</publisher>
+<location>Cambridge, MA</location>
+<contexts>
+<context position="1221">ly, this question is a request for information. However, in most contexts, this question should be interpreted as a request for the listener to give the speaker a match. This is a kind of speech act (Austin, 1962) called an indirect speech act (Searle, 1975), in which the intent of the speaker differs from the direct, literal meaning of the speaker&apos;s utterance. For a computer to take part in a conversation, it</context>
+</contexts>
+<marker>Austin, 1962</marker>
+<rawString>Austin, J. (1962). How to do things with words. Cambridge, MA: Harvard University Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Cohen</author>
+<author>C Perrault</author>
+</authors>
+<title>Elements of a plan-based theory of speech acts</title>
+<date>1979</date>
+<journal>Cognitive Science</journal>
+<volume>3</volume>
+<pages>177--212</pages>
+<contexts>
+<context position="3724">ach to finding the intended meaning of an indirect speech act is to have a small set of general rules that a listener may use to infer the speaker&apos;s plan from the utterance (Allen and Perrault, 1980; Cohen and Perrault, 1979). This approach takes advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content of a conversation (Grosz and Sidner, 1986; Litman and Allen, 1987). Unlike knowledge2 inte</context>
+</contexts>
+<marker>Cohen, Perrault, 1979</marker>
+<rawString>Cohen, P. &amp; Perrault, C. (1979). Elements of a plan-based theory of speech acts. Cognitive Science, 3, 177-212.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>G DeJong</author>
+<author>R Mooney</author>
+</authors>
+<title>Explanation-based learning: An alternate view</title>
+<date>1986</date>
+<booktitle>Machine Learning</booktitle>
+<volume>1</volume>
+<pages>145--176</pages>
+<contexts>
+<context position="5853">e-intensive rule to interpret directly &amp;quot;similar&amp;quot; utterances in the future. The knowledge-intensive rule is created by explanation-based learning techniques (Mitchell, Kedar-Cabelli, and Keller, 1986; DeJong and Mooney, 1986). The &amp;quot;similar&amp;quot; utterances are those that share the features that the plan-based analysis needed to check to infer the interpretation of the indirect speech act. Explanation-based learning Explanation</context>
+</contexts>
+<marker>DeJong, Mooney, 1986</marker>
+<rawString>DeJong, G. &amp; Mooney, R. (1986). Explanation-based learning: An alternate view. Machine Learning, 1, 145-176.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Fikes</author>
+<author>N Nilsson</author>
+</authors>
+<title>STRIPS: A new approach to the application of theorem proving to problem solving</title>
+<date>1971</date>
+<journal>Artificial Intelligence</journal>
+<volume>2</volume>
+<pages>189--208</pages>
+<marker>Fikes, Nilsson, 1971</marker>
+<rawString>Fikes, R. &amp; Nilsson, N. (1971). STRIPS: A new approach to the application of theorem proving to problem solving. Artificial Intelligence, 2, 189-208.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Gibbs</author>
+</authors>
+<title>Do people always process the literal meaning of indirect requests</title>
+<date>1983</date>
+<journal>Journal of Experimental Psychology: Learning, Memory, and Cognition</journal>
+<volume>3</volume>
+<pages>524--533</pages>
+<contexts>
+<context position="5179">tic studies have shown that in many circumstances, it takes no longer for a person to recognize an indirect speech act than to find the direct meaning of an utterance. For example, in one experiment (Gibbs, 1983), subjects found it no more difficult to find the indirect interpretation of a request such as &amp;quot;Can&apos;t you be friendly?&amp;quot; than the literal interpretation. The approach that we take is a hybrid between t</context>
+</contexts>
+<marker>Gibbs, 1983</marker>
+<rawString>Gibbs, R. (1983). Do people always process the literal meaning of indirect requests? Journal of Experimental Psychology: Learning, Memory, and Cognition, 3, 524-533.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Gibbs</author>
+</authors>
+<title>Literal meaning and psychological theory</title>
+<date>1984</date>
+<journal>Cognitive Science</journal>
+<volume>8</volume>
+<pages>275--305</pages>
+<marker>Gibbs, 1984</marker>
+<rawString>Gibbs, R. (1984). Literal meaning and psychological theory. Cognitive Science, 8, 275-305.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B Grosz</author>
+<author>C Sidner</author>
+</authors>
+<title>Attention, intentions and the structure of discourse</title>
+<date>1986</date>
+<journal>American Journal of Computational Linguistics</journal>
+<volume>12</volume>
+<pages>175--204</pages>
+<contexts>
+<context position="3875">from the utterance (Allen and Perrault, 1980; Cohen and Perrault, 1979). This approach takes advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content of a conversation (Grosz and Sidner, 1986; Litman and Allen, 1987). Unlike knowledge2 intensive rules, these general rules can be applied to a variety of examples since the rules operate on a specification of the speaker&apos;s or listener&apos;s plan</context>
+</contexts>
+<marker>Grosz, Sidner, 1986</marker>
+<rawString>Grosz, B. &amp; Sidner, C. (1986). Attention, intentions and the structure of discourse. American Journal of Computational Linguistics, 12, 175-204.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E Hinkleman</author>
+<author>J Allen</author>
+</authors>
+<title>How to do things with words, computationally speaking (Technical Report</title>
+<date>1988</date>
+<institution>Computer Science Department, University of Rochester</institution>
+<location>Rochester, NY</location>
+<marker>Hinkleman, Allen, 1988</marker>
+<rawString>Hinkleman, E. &amp; Allen, J. (1988). How to do things with words, computationally speaking (Technical Report). Rochester, NY: Computer Science Department, University of Rochester.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Keller</author>
+</authors>
+<title>Defining operationality for explanation-based learning</title>
+<date>1987</date>
+<booktitle>Proceedings of the National Conference on Artificial Intelligence (482-487</booktitle>
+<publisher>Morgan-Kaufmann</publisher>
+<location>Seattle, WA</location>
+<contexts>
+<context position="6738">y to produce the explanation. This generalization characterizes the class of problems that will have the same solution for the same reason as the training example. EBL explicates (or operationalizes (Keller, 1987)) information that is implicitly represented in a system. For example, aces (Pazzani, 1987) is a system that learns diagnosis heuristics (i.e., efficient heuristics that associate faults with symptoms</context>
+</contexts>
+<marker>Keller, 1987</marker>
+<rawString>Keller, R. (1987). Defining operationality for explanation-based learning. Proceedings of the National Conference on Artificial Intelligence (482-487). Seattle, WA: Morgan-Kaufmann.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W Lehnert</author>
+</authors>
+<title>The process of question answering. Hillsdale, NJ: Lawrence Erlbaum Associates</title>
+<date>1978</date>
+<contexts>
+<context position="8125">s, the intent of the speaker is not to ask for a verification. Rather, the speaker is requesting some action of the hearer, e.g., to give the match to the speaker. The ATRANS-Request Conversion rule (Lehnert, 1978) states that given a verification request of a possession state of some object which has little value, a possible target interpretation is a request of the hearer to give the speaker that object. We a</context>
+</contexts>
+<marker>Lehnert, 1978</marker>
+<rawString>Lehnert, W. (1978). The process of question answering. Hillsdale, NJ: Lawrence Erlbaum Associates.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Litman</author>
+<author>J Allen</author>
+</authors>
+<title>A plan recognition model for subdialogues in conversation</title>
+<date>1987</date>
+<journal>Cognitive Science</journal>
+<volume>11</volume>
+<pages>163--200</pages>
+<contexts>
+<context position="3900">n and Perrault, 1980; Cohen and Perrault, 1979). This approach takes advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content of a conversation (Grosz and Sidner, 1986; Litman and Allen, 1987). Unlike knowledge2 intensive rules, these general rules can be applied to a variety of examples since the rules operate on a specification of the speaker&apos;s or listener&apos;s plans. However, there are als</context>
+</contexts>
+<marker>Litman, Allen, 1987</marker>
+<rawString>Litman, D. &amp; Allen, J. (1987). A plan recognition model for subdialogues in conversation. Cognitive Science, 11, 163-200.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Mitchell</author>
+<author>S Kedar-Cabelli</author>
+<author>R Keller</author>
+</authors>
+<title>Explanation-based learning: A unifying view</title>
+<date>1986</date>
+<booktitle>Machine Learning</booktitle>
+<volume>1</volume>
+<pages>47--80</pages>
+<contexts>
+<context position="5827">tation has been found, we derive a knowledge-intensive rule to interpret directly &amp;quot;similar&amp;quot; utterances in the future. The knowledge-intensive rule is created by explanation-based learning techniques (Mitchell, Kedar-Cabelli, and Keller, 1986; DeJong and Mooney, 1986). The &amp;quot;similar&amp;quot; utterances are those that share the features that the plan-based analysis needed to check to infer the interpretation of the indirect speech act. Explanation-</context>
+</contexts>
+<marker>Mitchell, Kedar-Cabelli, Keller, 1986</marker>
+<rawString>Mitchell, T., Kedar-Cabelli, S., &amp; Keller, R. (1986). Explanation-based learning: A unifying view. Machine Learning, 1, 47-80.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Mooney</author>
+<author>S Bennett</author>
+</authors>
+<title>A domain independent explanation-based generalizer</title>
+<date>1986</date>
+<booktitle>Proceedings of the Fifth National Conference on Artificial Intelligence (551-555</booktitle>
+<publisher>Morgan Kaufmann</publisher>
+<location>Philadelphia</location>
+<contexts>
+<context position="7062">stem that learns diagnosis heuristics (i.e., efficient heuristics that associate faults with symptoms) from a functional device description. In this work, we are using a modified version of the eggs (Mooney and Bennett, 1986) explanation-based learning algorithm to explicate conditions under which an indirect interpretation of a speech act can be inferred. 3 If the effect of act is e [Action-Effect Rule] and actor wants e</context>
+</contexts>
+<marker>Mooney, Bennett, 1986</marker>
+<rawString>Mooney, R. &amp; Bennett, S. (1986). A domain independent explanation-based generalizer. Proceedings of the Fifth National Conference on Artificial Intelligence (551-555). Philadelphia: Morgan Kaufmann.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Pazzani</author>
+</authors>
+<title>Explanation-based learning for knowledge-based systems</title>
+<date>1987</date>
+<journal>International Journal of Man-Machine Studies</journal>
+<volume>26</volume>
+<pages>413--433</pages>
+<contexts>
+<context position="6829"> will have the same solution for the same reason as the training example. EBL explicates (or operationalizes (Keller, 1987)) information that is implicitly represented in a system. For example, aces (Pazzani, 1987) is a system that learns diagnosis heuristics (i.e., efficient heuristics that associate faults with symptoms) from a functional device description. In this work, we are using a modified version of th</context>
+</contexts>
+<marker>Pazzani, 1987</marker>
+<rawString>Pazzani, M. (1987). Explanation-based learning for knowledge-based systems. International Journal of Man-Machine Studies, 26, 413-433.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Perrault</author>
+<author>J Allen</author>
+</authors>
+<title>A plan-based analysis of indirect speech acts</title>
+<date>1980</date>
+<journal>American Journal of Computational Linguistics</journal>
+<volume>6</volume>
+<pages>167--182</pages>
+<contexts>
+<context position="3338">quired or extended as new plans are learned. The interpretation of an indirect speech act is a function of the plans that the speaker believes the listener is capable of executing (or understanding) (Perrault and Allen, 1980). When an additional plan is acquired, it may be necessary for the knowledge-intensive approach to acquire additional interpretation rules. The alternative approach to finding the intended meaning of </context>
+</contexts>
+<marker>Perrault, Allen, 1980</marker>
+<rawString>Perrault, C. &amp; Allen, J. (1980). A plan-based analysis of indirect speech acts. American Journal of Computational Linguistics, 6, 167-182.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J R Searle</author>
+</authors>
+<title>Indirect speech acts. In</title>
+<date>1975</date>
+<journal>Syntax and Semantics</journal>
+<volume>3</volume>
+<publisher>Academic Press</publisher>
+<location>New York</location>
+<contexts>
+<context position="1266">n. However, in most contexts, this question should be interpreted as a request for the listener to give the speaker a match. This is a kind of speech act (Austin, 1962) called an indirect speech act (Searle, 1975), in which the intent of the speaker differs from the direct, literal meaning of the speaker&apos;s utterance. For a computer to take part in a conversation, it is essential that it have the ability to und</context>
+<context position="4387">etation can be inefficient. Second, as a cognitive model, it is not clear that a human listener goes through the long inference process that is necessary to arrive at the interpretation. For example, Searle (1975) has said: &amp;quot;In normal conversation, of course, no one would consciously go through the steps involved in this reasoning.&amp;quot; Allen and Perrault (1980) have made similar statements that do not leave open </context>
+</contexts>
+<marker>Searle, 1975</marker>
+<rawString>Searle, J. R. (1975). Indirect speech acts. In P. Cole &amp; J. L. Morgan (Eds.), Syntax and Semantics, Vol. 3, Speech Acts. New York: Academic Press.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Wilensky</author>
+</authors>
+<title>Planning and understanding</title>
+<date>1983</date>
+<publisher>Addison-Wesley</publisher>
+<location>Reading, MA</location>
+<contexts>
+<context position="3794">set of general rules that a listener may use to infer the speaker&apos;s plan from the utterance (Allen and Perrault, 1980; Cohen and Perrault, 1979). This approach takes advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content of a conversation (Grosz and Sidner, 1986; Litman and Allen, 1987). Unlike knowledge2 intensive rules, these general rules can be applied to a variety of exampl</context>
+</contexts>
+<marker>Wilensky, 1983</marker>
+<rawString>Wilensky, R. (1983). Planning and understanding. Reading, MA: Addison-Wesley.</rawString>
+</citation>
+</citationList>
+</algorithm>

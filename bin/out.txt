@@ -1,0 +1,1516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="SectLabel" version="100410">
+<variant no="0" confidence="0.000000">
+<title confidence="0.48194">
+Coupling Feature Selection and Machine Learning
+Methods for Navigational Query Identification
+Yumao Lu Fuchun Peng
+</title>
+<author confidence="0.483676">
+Xin Li Nawaaz Ahmed
+</author>
+<affiliation confidence="0.49038">
+Yahoo! Inc.
+</affiliation>
+<address confidence="0.685599">
+701 First Avenue
+Sunnyvale, California 94089
+</address>
+<keyword confidence="0.655979">
+fyumaol, fuchun, xinli, nawaazj@yahoo-inc.com
+</keyword>
+<sectionHeader confidence="0.934577" genericHeader="abstract">
+ABSTRACT
+</sectionHeader>
+<bodyText confidence="0.9979244">
+It is important yet hard to identify navigational queries in
+Web search due to a lack of sufficient information in Web
+queries, which are typically very short. In this paper we
+study several machine learning methods, including naive
+Bayes model, maximum entropy model, support vector ma-
+chine (SVM), and stochastic gradient boosting tree (SGBT),
+for navigational query identification in Web search. To boost
+the performance of these machine techniques, we exploit sev-
+eral feature selection methods and propose coupling feature
+selection with classification approaches to achieve the best
+performance. Different from most prior work that uses a
+small number of features, in this paper, we study the prob-
+lem of identifying navigational queries with thousands of
+available features, extracted from major commercial search
+engine results, Web search user click data, query log, and
+the whole Web’s relational content. A multi-level feature
+extraction system is constructed.
+Our results on real search data show that 1) Among all
+the features we tested, user click distribution features are the
+most important set of features for identifying navigational
+queries. 2) In order to achieve good performance, machine
+learning approaches have to be coupled with good feature
+selection methods. We find that gradient boosting tree, cou-
+pled with linear SVM feature selection is most effective. 3)
+With carefully coupled feature selection and classification
+approaches, navigational queries can be accurately identi-
+fied with 88.1% F1 score, which is 33% error rate reduction
+compared to the best uncoupled system, and 40% error rate
+reduction compared to a well tuned system without feature
+selection.
+</bodyText>
+<sectionHeader confidence="0.991791" genericHeader="categories and subject descriptors">
+Categories and Subject Descriptors
+</sectionHeader>
+<category confidence="0.87453">
+H.4 [Information Systems Applications]: Miscellaneous
+</category>
+<copyright confidence="0.908240571428572">
+*Dr. Peng contributes to this paper equally as Dr. Lu.
+Permission to make digital or hard copies of all or part of this work for
+personal or classroom use is granted without fee provided that copies are
+not made or distributed for profit or commercial advantage and that copies
+bear this notice and the full citation on the first page. To copy otherwise, to
+republish, to post on servers or to redistribute to lists, requires prior specific
+permission and/or a fee.
+</copyright>
+<note confidence="0.993055">
+CIKM’06, November 5–11, 2006, Arlington, Virginia, USA.
+</note>
+<copyright confidence="0.995458">
+Copyright 2006 ACM 1-59593-433-2/06/0011 ...$5.00.
+</copyright>
+<sectionHeader confidence="0.841010666666667" genericHeader="general terms">
+General Terms
+Experimentation
+Keywords
+</sectionHeader>
+<keyword confidence="0.534329">
+Navigational Query Classification, Machine Learning
+</keyword>
+<sectionHeader confidence="0.998423" genericHeader="method">
+1. INTRODUCTION
+</sectionHeader>
+<bodyText confidence="0.998389307692308">
+Nowadays, Web search has become the main method for
+information seeking. Users may have a variety of intents
+while performing a search. For example, some users may
+already have in mind the site they want to visit when they
+type a query; they may not know the URL of the site or
+may not want to type in the full URL and may rely on the
+search engine to bring up the right site. Yet others may have
+no idea of what sites to visit before seeing the results. The
+information they are seeking normally exists on more than
+one page.
+Knowing the different intents associated with a query may
+dramatically improve search quality. For example, if a query
+is known to be navigational, we can improve search results
+by developing a special ranking function for navigational
+queries. The presentation of the search results or the user-
+perceived relevance can also be improved by only showing
+the top results and reserving the rest of space for other pur-
+poses since users only care about the top result of a nav-
+igational query. According to our statistics, about 18% of
+queries in Web search are navigational (see Section 6). Thus,
+correctly identifying navigational queries has a great poten-
+tial to improve search performance.
+Navigational query identification is not trivial due to a
+lack of sufficient information in Web queries, which are nor-
+mally short. Recently, navigational query identification, or
+more broadly query classification, is drawing significant at-
+tention. Many machine learning approaches that have been
+used in general classification framework, including naive Bayes
+classifier, maximum entropy models, support vector ma-
+chines, and gradient boosting tree, can be directly applied
+here. However, each of these approaches has its own advan-
+tages that suit certain problems. Due to the characteristics
+of navigational query identification (more to be addressed
+in Section 2 ), it is not clear which one is the best for the
+task of navigational query identification. Our first contri-
+bution in this paper is to evaluate the effectiveness of these
+machine learning approaches in the context of navigational
+query identification. To our knowledge, this paper is the
+very first attempt in this regard.
+</bodyText>
+<page confidence="0.996166">
+682
+</page>
+<bodyText confidence="0.99733803030303">
+Machine learning models often suffer from the curse of
+feature dimensionality. Feature selection plays a key role
+in many tasks, such as text categorization [18]. In this pa-
+per, our second contribution is to evaluate several feature
+selection methods and propose coupling feature selection
+with classification approaches to achieve the best perfor-
+mance: ranking features by using one algorithm before an-
+other method is used to train the classifier. This approach is
+especially useful when redundant low quality heterogeneous
+features are encountered.
+Most previous studies in query identification are based on
+a small number of features that are obtained from limited
+resources [12]. In this paper, our third contribution is to
+explore thousands of available features, extracted from ma-
+jor commercial search engine results, user Web search click
+data, query log, and the whole Web’s relational content. To
+obtain most useful features, we present a three level system
+that integrates feature generation, feature integration, and
+feature selection in a pipe line.
+The system, after coupling features selected by SVM with
+a linear kernel and stochastic gradient boosting tree as clas-
+sification training method, is able to achieve an average per-
+formance of 88.1% F1 score in a five fold cross-validation.
+The rest of this paper is organized as follows. In the next
+section, we will define the problem in more detail and de-
+scribe the architecture of our system. We then present a
+multi-level feature extraction system in Section 3. We de-
+scribe four classification approaches in Section 4 and three
+feature selection methods in Section 5. We then conduct
+extensive experiments on real search data in Section 6. We
+present detailed discussions in Section 7. We discuss some
+related work in Section 8. Finally, we conclude the paper in
+Section 9.
+</bodyText>
+<sectionHeader confidence="0.998093" genericHeader="method">
+2. PROBLEM DEFINITION
+</sectionHeader>
+<bodyText confidence="0.982855738095238">
+We divide queries into two categories: navigational and
+informational. According to the canonical definition [3, 14],
+a query is navigational if a user already has a Web-site in
+mind and the goal is simply to reach that particular site.
+For example, if a user issues query “amazon”, he/she mainly
+wants to visit “amazon.com”. This definition, however, is
+rather subjective and not easy to formalize. In this paper,
+we extend the definition of navigational query to a more
+general case: a query is navigational if it has one and only
+one perfect site in the result set corresponding to this query.
+A site is considered as perfect if it contains complete infor-
+mation about the query and lacks nothing essential.
+In our definition, navigational query must have a corre-
+sponding result page that conveys perfectness, uniqueness,
+and authority. Unlike Broder’s definition, our definition
+does not require the user to have a site in mind. This makes
+data labeling more objective and practical. For example,
+when a user issues a query “Fulton, NY”, it is not clear
+if the user knows the Web-site “www.fultoncountyny.org”.
+However, this Web-site has an unique authority and per-
+fect content for this query and therefore the query “Fulton,
+NY” is labeled as a navigational query. All non-navigational
+queries are considered informational. For an informational
+query, typically there exist multiple excellent Web-sites cor-
+responding to the query that users are willing to explore.
+To give another example, in our dataset, query “national
+earth science teachers association” has only one perfect cor-
+responding URL “http://www.nestanet.org/” and therefore
+is labeled as navigational query. Query “Canadian gold
+maple leaf” has several excellent corresponding URL’s, in-
+cluding “http://www. goldfingercoin.com/ catalog gold/ cana-
+dian maple leaf.htm”, “http://coins.about.com/ library/weekly/
+aa091802a.htm” and “http://www.onlygold.com/Coins/ Cana-
+dianMapleLeafsFullScreen.asp”. Therefore, query “Cana-
+dian gold maple leaf” is labeled as non-navigational query.
+Figure 1 illustrates the architecture of our navigational
+query identification system. A search engine takes in a query
+and returns a set of URLs. The query and returned URLs
+are sent into a multi-level feature extraction system that
+generates and selects useful features; details are presented
+in the next section. Selected features are then input into a
+machine learning tool to learn a classification model.
+</bodyText>
+<sectionHeader confidence="0.996628" genericHeader="method">
+3. MULTI-LEVEL FEATURE EXTRACTION
+</sectionHeader>
+<bodyText confidence="0.9998556875">
+The multiple level feature system is one of the unique
+features of our system. Unlike prior work with a limited
+number of features or in a simulated environment [11, 12],
+our work is based on real search data, a major search en-
+gine’s user click information and a query log. In order to
+handle large amount of heteorgeneous features in an effi-
+cient way, we propose a multi-level feature system. The first
+level is the feature generation level that calculates statistics
+and induces features from three resources: a click engine,
+a Web-map and a query log. The second level is responsi-
+ble for integrating query-URL pair-wise features into query
+features by applying various functions. The third level is
+a feature selection module, which ranks features by using
+different methods. Below we present the details of the first
+two levels. The third level will be presented separately in
+Section 5 since those feature selection methods are standard.
+</bodyText>
+<subsectionHeader confidence="0.997565">
+3.1 Feature Generation
+</subsectionHeader>
+<bodyText confidence="0.98432752">
+Queries are usually too short and lack sufficient context
+to be classified. Therefore, we have to generate more fea-
+tures from other resources. We use three resources to gen-
+erate features: a click engine, a Web-map, and query logs.
+The click engine is a device to record and analyze user click
+behavior. It is able to generate hundreds of features auto-
+matically based on user click through distributions [16]. A
+Web-map can be considered as a relational database that
+stores hundreds of induced features on page content, an-
+chor text, hyperlink structure of webpages, including the
+inbound, outbound URLs, and etc. Query logs are able to
+provide bag-of-words features and various language model
+based features based on all the queries issued by users over
+a period of time.
+Input to feature generation module is a query-URL pair.
+For each query, the top 100 ULRs are recorded and 100
+query-URLs are generated. Thus for each query-URL pair,
+we record a total of 197 features generated from the following
+four categories:
+9 Click features: Click features record the click informa-
+tion about a URL. We generate a total number of 29
+click features for each query-URL pair. An example of
+a click feature is the click ratio (CR). Let nzk denote
+the number of clicks on URL k for query i and total
+number of clicks
+</bodyText>
+<equation confidence="0.702937">
+nz =X nzk.
+k
+</equation>
+<page confidence="0.962168">
+683
+</page>
+<figure confidence="0.99915108">
+Classifier
+query
+Classification module
+Naive Bayes
+MaxEnt
+SVM
+SGBT
+Search engine
+Selected feature
+query—URL
+Boosting feature selection
+Information gain
+SVM feature ranking
+Feature generation
+Feature selection module
+Webmap
+Click engine
+Query log
+query—url feature
+Feature integration
+Min
+Max
+Entropy
+...
+Integrated feature
+</figure>
+<figureCaption confidence="0.999966">
+Figure 1: Diagram of Result Set Based Navigational Query Identification System
+</figureCaption>
+<bodyText confidence="0.993214333333333">
+The click ratio is the ratio of number of clicks on a
+particular URL K for query i to the total number of
+clicks for this query, which has the form
+</bodyText>
+<equation confidence="0.616145">
+CR(i, K) = ni K
+ni
+9 URL features: URL features measure the characteris-
+</equation>
+<bodyText confidence="0.984948333333333">
+tics of the URL itself. There are 24 URL based features
+in total. One such feature is a URL match feature,
+named urlmr, which is defined as
+urlmr = l(u)
+where l(p) is the length of the longest substring p of the
+query that presents in the URL and l(u) is the length
+of the URL u. This feature is based on the observation
+that Web-sites tend to use their names in the URL’s.
+The distributions confers uniqueness and authority.
+9 Anchor text features: Anchor text is the visible text in
+a hyperlink, which also provides useful information for
+navigational query identification. For example, one an-
+chor text feature is the entropy of anchor link distribu-
+tion [12]. This distribution is basically the histogram
+of inbound anchor text of the destination URL. If an
+URL is pointed to by the same anchor texts, the URL
+is likely to contain perfect content. There are many
+other anchor text features that are calculated by con-
+sidering many factors, such as edit distance between
+query and anchor texts, diversity of the hosts, etc. In
+total, there are 63 features derived from anchor text.
+Since we record the top 100 results for each query and
+each query URL pair has 197 features, in total there are
+19,700 features available for each query. Feature reduction
+becomes necessary due to curse of dimensionality [5]. Before
+applying feature selection, we conduct a feature integration
+procedure that merges redundant features.
+</bodyText>
+<subsectionHeader confidence="0.980739">
+3.2 Feature Integration
+</subsectionHeader>
+<bodyText confidence="0.9853515">
+We design a feature integration operator, named normal-
+ized ratio rk of rank k, as follows:
+</bodyText>
+<equation confidence="0.9997375">
+rk(fj) = max(fj) − fjk
+k=2,5,10,20.max(fj) − min(fj) (1)
+</equation>
+<bodyText confidence="0.999716263157895">
+The design of this operator is motivated by the obser-
+vation that the values of query-URL features for naviga-
+tional query and informational query decrease at different
+rates. Taking the urlmr feature for example and consider-
+ing a navigational query “Walmart” and an informational
+query “Canadian gold maple leaf”, we plot the feature val-
+ues of top 100 URLs for both queries, as shown in Figure 2.
+As we can see, the feature value for the navigational query
+drops quickly to a stable point, while an information query
+is not stable. As we will see in the experiment section, this
+operator is most effective in feature reduction.
+Besides this operator, we use other statistics for feature
+integration, including mean, median, maximum, minimum,
+entropy, standard deviation and value in top five positions
+of the result set query-URL pair features. In total, we now
+have 15 measurements instead of 100 for the top 100 URLs
+for each query. Therefore, for each query, the dimension of
+a feature vector is m = 15 x 197 = 2955, which is much
+smaller than 197, 000.
+</bodyText>
+<sectionHeader confidence="0.998543" genericHeader="method">
+4. CLASSIFICATION METHODS
+</sectionHeader>
+<bodyText confidence="0.9975292">
+We apply the most popular generative (such as naive Bayes
+method), descriptive (such as Maximum Entropy method),
+and discriminative (such as support vector machine and
+stochastic gradient boosting tree) learning methods [19] to
+attack the problem.
+</bodyText>
+<subsectionHeader confidence="0.977309">
+4.1 Naive Bayes Classifier
+</subsectionHeader>
+<bodyText confidence="0.7960945">
+A simple yet effective learning algorithm for classification
+l(p)
+</bodyText>
+<page confidence="0.94383">
+684
+</page>
+<figure confidence="0.985638166666667">
+Query: &amp;apos;Walmart&amp;apos;
+Rank
+Query: &amp;quot;Canadian gold maple leaf&amp;apos;
+0.5
+00 20 40 60 80 100
+Rank
+</figure>
+<figureCaption confidence="0.998876">
+Figure 2: urlmr query-URL feature for navigational
+</figureCaption>
+<bodyText confidence="0.9036995">
+query (upper) and a informational query (lower)
+is based on a simple application of Bayes’ rule
+</bodyText>
+<equation confidence="0.998989">
+P(yl q) = P(y) x P(ql y) (2)
+P(q)
+</equation>
+<bodyText confidence="0.978410444444445">
+In query classification, a query q is represented by a vector of
+K attributes q = (v1, v2, ....vK). Computing p(qly) in this
+case is not trivial, since the space of possible documents
+q = (v1, v2, ....vK) is vast. To simplify this computation,
+the naive Bayes model introduces an additional assumption
+that all of the attribute values, vj, are independent given
+the category label, c. That is, for i =� j, vi and vj are
+conditionally independent given q. This assumption greatly
+simplifies the computation by reducing Eq. (2) to
+</bodyText>
+<equation confidence="0.992552">
+P(q) (3)
+</equation>
+<bodyText confidence="0.946294466666667">
+Based on Eq. (3), a maximum a posteriori (MAP) classifier
+can be constructed by seeking the optimal category which
+maximizes the posterior P(cld):
+(flP(vjly)) arg maYx (5)
+Eq. (5) is called the maximum likelihood naive Bayes classi-
+fier, obtained by assuming a uniform prior over categories.
+To cope with features that remain unobserved during train-
+ing, the estimate of P(vjly) is usually adjusted by Laplace
+smoothing
+Nyj + aj (6)
+Ny + a
+where Ny j is the frequency of attribute j in Dy, Ny =
+Ej Nyj, and a = Ej aj. A special case of Laplace smooth-
+ing is add one smoothing, obtained by setting aj = 1. We
+use add one smoothing in our experiments below.
+</bodyText>
+<subsectionHeader confidence="0.995433">
+4.2 Maximum Entropy Classifier
+</subsectionHeader>
+<bodyText confidence="0.999204407407407">
+Maximum entropy is a general technique for estimating
+probability distributions from data and has been success-
+fully applied in many natural language processing tasks.
+The over-riding principle in maximum entropy is that when
+nothing is known, the distribution should be as uniform as
+possible, that is, have maximal entropy [9]. Labeled train-
+ing data are used to derive a set of constraints for the model
+that characterize the class-specific expectations for the dis-
+tribution. Constraints are represented as expected values
+of features. The improved iterative scaling algorithm finds
+the maximum entropy distribution that is consistent with
+the given constraints. In query classification scenario, max-
+imum entropy estimates the conditional distribution of the
+class label given a query. A query is represented by a set
+of features. The labeled training data are used to estimate
+the expected value of these features on a class-by-class basis.
+Improved iterative scaling finds a classifier of an exponential
+form that is consistent with the constraints from the labeled
+data.
+It can be shown that the maximum entropy distribution
+is always of the exponential form [4]:
+where each fi (q; y) is a feature, λi is a parameter to be
+estimated and Z(q) is simply the normalizing factor to en-
+sure a proper probability: Z(q) = Ey exp(Ei λi f i(q; y)).
+Learning of the parameters can be done using generalized
+iterative scaling (GIS), improved iterative scaling (IIS), or
+quasi-Newton gradient-climber [13].
+</bodyText>
+<subsectionHeader confidence="0.998578">
+4.3 Support Vector Machine
+</subsectionHeader>
+<bodyText confidence="0.990597571428571">
+Support Vector Machine (SVM) is one of the most suc-
+cessful discriminative learning methods. It seeks a hyper-
+plane to separate a set of positively and negatively labeled
+training data. The hyperplane is defined by wT x + b = 0,
+where the parameter w E Rm is a vector orthogonal to the
+hyperplane and b E R is the bias. The decision function is
+the hyperplane classifier
+</bodyText>
+<equation confidence="0.76298">
+H(x) = sign(wTx + b).
+</equation>
+<bodyText confidence="0.833609444444444">
+The hyperplane is designed such that yi (wT xi + b) &amp;gt; 1 —
+ξi, `di = 1, ..., N, where xi E Rm is a training data point
+and yi E {+1, —1� denotes the class of the vector xi. The
+margin is defined by the distance between the two parallel
+hyperplanes wT x +b = 1 and wT x + b = —1, i.e. 2/llwll2.
+The margin is related to the generalization of the classifier
+[17]. The SVM training problem is defined as follows:
+minimize (1/2)wT w + γ1T ξ
+subject to yi(wT xi + b) &amp;gt; 1 — ξi, i = 1, ..., N (7)
+</bodyText>
+<figure confidence="0.972098928571429">
+ξ &amp;gt;0
+0.4
+0.35
+0.3
+0.25
+0.2
+0.15
+0.1
+0.05
+00 20 40 60 80 100
+0.4
+0.3
+0.2
+0.1
+</figure>
+<equation confidence="0.969170857142857">
+( )
+K
+= argmaYx P(y) x P(vjly)
+y∈ ri
+y*
+j=1
+(4)
+P(ylq) = P(y) x P(vjly)
+F�77K
+l 1j=1
+P(vjly) =
+P(ylq) = 1
+exp(X λi fi(q; y))
+Z(q) i
+</equation>
+<page confidence="0.96701">
+685
+</page>
+<bodyText confidence="0.999360272727273">
+where the scalar γ is called the regularization parameter,
+and is usually empirically selected to reduce the testing error
+rate.
+The basic SVM formulation can be extended to the non-
+linear case by using nonlinear kernels. Interestingly, the
+complexity of an SVM classifier representation does not de-
+pend on the number of features, but rather on the number of
+support vectors (the training examples closest to the hyper-
+plane). This property makes SVMs suitable for high dimen-
+sional classification problems [10]. In our experimentation,
+we use a linear SVM and a SVM with radial basis kernel.
+</bodyText>
+<subsectionHeader confidence="0.99657">
+4.4 Gradient Boosting Tree
+</subsectionHeader>
+<bodyText confidence="0.9616045">
+Like SVM, gradient boosting tree model also seeks a pa-
+rameterized classifier. It iteratively fits an additive model [8]
+</bodyText>
+<equation confidence="0.992254333333333">
+T
+ft(x) = Tt(x; Θ0) + λ X
+t=1
+</equation>
+<bodyText confidence="0.996136">
+such that certain loss function L(yi, fT(x + i) is minimized,
+where Tt(x; Θt) is a tree at iteration t, weighted by param-
+eter βt, with a finite number of parameters, Θt and λ is the
+learning rate. At iteration t, tree Tt(x;β) is induced to fit
+the negative gradient by least squares. That is
+statistics. Yang and Pedersen [18] gives a good compari-
+son of these methods. Information gain is one of the most
+effective methods in the context of text categorization. In
+addition to information gain, we also use feature selection
+methods based on SVM’s feature coefficients and stochastic
+gradient boosting tree’s variable importance.
+</bodyText>
+<subsectionHeader confidence="0.959386">
+5.1 Information Gain
+</subsectionHeader>
+<bodyText confidence="0.99343375">
+Information gain is frequently used as a measure of fea-
+ture goodness in text classification [18]. It measures the
+number of bits of information obtained for category predic-
+tion by knowing the presence or absence of a feature. Let
+</bodyText>
+<equation confidence="0.9498889375">
+yi : i = 1..m be the set of categories, information gain of a
+feature f is defined as
+P(yi)logP(yi)
++ P(f ) Xm P(yi1 f)logP(yi1f)
+i=1
++ P(f ) Xm P(yi1 f)logP(yi1f)
+i=1
+Xm
+i=1
+IG(f) = —
+βtTt(x; Θt),
+Θˆ := arg min
+β
+XN
+i
+(—Git — βt Tt(xi); Θ)2,
+</equation>
+<bodyText confidence="0.882326181818182">
+where f indicates f is not present. We compute the infor-
+mation gain for each unique feature and select top ranked
+features.
+where Git is the gradient over current prediction function
+»∂L(yi, f (xi) –
+∂f (xi) f=ft-i
+The optimal weights of trees βt are determined
+L(yi, ft−1(xi) +βT(xi, Θ)).
+If the L-2 loss function [yi — f (xi)]2/2 is used, we have the
+gradient G(xi) = —yi + f (xi). In this paper, the Bernoulli
+loss function
+</bodyText>
+<equation confidence="0.9988294">
+—2X (yif(xi) — log(1 + exp(f(xi))))
+i
+is used and the gradient has the form
+_ 1
+G(xi) — yi — 1 + exp(—f (xi)).
+</equation>
+<bodyText confidence="0.9871871">
+During each iteration of gradient boosting, the feature
+space is further partitioned. This kind of rectangular parti-
+tion does not require any data preprocessing and the result-
+ing classifier can be very robust. However, it may suffer from
+the dead zoom phenomenon, where prediction is not able to
+change with features, due to its discrete feature space par-
+tition. Friedman (2002) found that it helps performance by
+sampling uniformly without replacement from the dataset
+before estimating the next gradient step [6]. This method
+was called stochastic gradient boosting.
+</bodyText>
+<sectionHeader confidence="0.997835" genericHeader="method">
+5. FEATURE SELECTION
+</sectionHeader>
+<bodyText confidence="0.997455333333333">
+Many methods have been used in feature selection for
+text classification, including information gain, mutual infor-
+mation, document frequency thresholding, and Chi-square
+</bodyText>
+<subsectionHeader confidence="0.982423">
+5.2 Linear SVM Feature Ranking
+</subsectionHeader>
+<bodyText confidence="0.996325818181818">
+Linear SVM (7) produces a hyperplane as well as a nor-
+mal vector w. The normal vector w serves as the slope of
+the hyperplane classifier and measures the relative impor-
+tance that each feature contribute to the classifier. An ex-
+treme case is that when there is only one feature correlated
+to sample labels, the optimal classifier hyperplane must be
+perpendicular to this feature axle.
+The L-2 norm of w, in the objective, denotes the inverse
+margin. Also, it can be viewed as a Gaussian prior of random
+variable w. Sparse results may be achieved by assuming a
+laplace prior and using the L-1 norm [2].
+Unlike the previous information gain method, the linear
+SVM normal vector w is not determined by the whole body
+of training samples. Instead, it is determined by an opti-
+mally determined subset, support vectors, that are critical
+to be classified. Another difference is obvious: normal vec-
+tor w is solved jointly by all features instead of one by one
+independently.
+Our results show that linear SVM is able to provide rea-
+sonably good results in feature ranking for our navigational
+query identification problem even when the corresponding
+classifier is weak.
+</bodyText>
+<subsectionHeader confidence="0.999509">
+5.3 Stochastic Gradient Boosting Tree
+</subsectionHeader>
+<bodyText confidence="0.953245166666667">
+Boosting methods construct weak classifiers using subsets
+of features and combines them by considering their predica-
+tion errors. It is a natural feature ranking procedure: each
+feature is ranked by its related classification errors.
+Tree based boosting methods approximate relative influ-
+ence of a feature xj as
+</bodyText>
+<equation confidence="0.997747375">
+XJ2j = I2 k
+splits on xj
+Git =
+.
+βt = arg min
+β
+XN
+i
+</equation>
+<page confidence="0.985939">
+686
+</page>
+<bodyText confidence="0.980596611111111">
+where I2 k is the empirical improvement by k-th splitting on
+xj at that point.
+Unlike the information gain model that considers one fea-
+ture at a time or the SVM method that considers all the
+feature at one time, the boosting tree model considers a set
+of features at a time and combines them according to their
+empirical errors.
+Let R(X) be a feature ranking function based on data set
+X. Information gain feature ranking depends on the whole
+training set RInfo(X) = RInfo(Xtr). Linear SVM ranks fea-
+tures is based on a set of optimally determined dataset. That
+is, RSVM(X) = RSVM(XSV), where XSV is the set of sup-
+port vectors. The stochastic gradient boosting tree (GSBT)
+uses multiple randomly sampled data to induce trees and
+ranks feature by their linear combination. Its ranking func-
+tion can be written as RSGBT(X) = PTt=1βtRtSGBT(Xt),
+where Xt is the training set randomly sampled at iteration
+t.
+</bodyText>
+<sectionHeader confidence="0.993317" genericHeader="evaluation">
+6. EXPERIMENTS
+</sectionHeader>
+<subsectionHeader confidence="0.995162">
+6.1 Data Set
+</subsectionHeader>
+<bodyText confidence="0.9991219375">
+A total number of 2102 queries were uniformly sampled
+from a query log over a four month period. The queries
+were sent to four major search engines, including Yahoo,
+Google, MSN, and Ask. The top 5 URL’s returned by each
+search engine were recorded and sent to trained editors for
+labeling (the number 5 is just an arbitrary number we found
+good enough to measure the quality of retrieval). If there
+exists one and only one perfect URL among all returned
+URLs for a query, this query is labeled as navigational query.
+Otherwise, it is labeled as non-navigational query.
+Out of 2102 queries, 384 queries are labeled as naviga-
+tional. Since they are uniformly sampled from a query log,
+we estimate there are about 18% queries are navigational.
+The data set were divided into five folders for the purpose
+of cross-validation. All results presented in this section are
+average testing results in five fold cross validations.
+</bodyText>
+<subsectionHeader confidence="0.997754">
+6.2 Evaluation
+</subsectionHeader>
+<bodyText confidence="0.999014">
+Classification performance is evaluated using three met-
+rics: precision, recall and F1 score. In each test, Let n++
+denotes the number of positive samples that correctly clas-
+sified (true positive); n_+ denotes the number of negative
+samples that are classified as positive (false positive); n+_
+denotes the number of false positive samples that are classi-
+fied as negative (false negative); and n__ denotes the num-
+ber of negative samples that are correctly classified (true
+negative). Recall is the ratio of the number of true positives
+to the total number of positives samples in the testing set,
+</bodyText>
+<equation confidence="0.953988666666667">
+namely
+recall = n++ .
+n++ + n+_
+</equation>
+<bodyText confidence="0.7423015">
+Precision is the ratio of the number of true positive samples
+to the number samples that are classified as positive, namely
+</bodyText>
+<equation confidence="0.986829">
+precision = n++ .
+n++ + n_+
+</equation>
+<bodyText confidence="0.6844075">
+F1 is a single score that combines precision and recall,
+defined as follows:
+</bodyText>
+<equation confidence="0.976503">
+F1 = 2 × precsion × recall
+</equation>
+<bodyText confidence="0.66043">
+precsion + recall .
+</bodyText>
+<subsectionHeader confidence="0.5684805">
+6.3 Results
+6.3.1 Feature Selection Results
+</subsectionHeader>
+<bodyText confidence="0.774472571428571">
+Table 1 shows the distributions of the top 50 features se-
+lected by different methods. All methods agree that click
+features are the most important. In particular, linear SVM
+and boosting tree select more click features than informa-
+tion gain. On the other hand, information gain select many
+features from anchor text and other metrics such as spam
+scores.
+</bodyText>
+<tableCaption confidence="0.5993685">
+Table 1: Distributions of the Selected Top 50 Fea-
+tures According to Feature Categories
+</tableCaption>
+<figure confidence="0.987550894736842">
+Feature Set
+Info. Gain
+Linear SVM
+Boosting
+Click
+52%
+84%
+74%
+URL
+4%
+2%
+6%
+Anchor Text
+18%
+2%
+12%
+Other metrics
+26%
+12%
+</figure>
+<page confidence="0.60891">
+8%
+</page>
+<bodyText confidence="0.983482555555556">
+Table 2 shows the distribution of the selected features ac-
+cording to feature integration operators. It shows which
+operators applied to result set query-URL pair wise features
+are most useful. We group the 15 operators into 5 types:
+vector, normalized ratios (rk, k = 2, 5, 10, 20), min/max, en-
+tropy/stand deviation, and median/mean. Vector group in-
+cludes all query-URL pair features in top 5 positions; nor-
+malized ratios are defined in (1). As we can see from the
+table, all feature integration operators are useful.
+</bodyText>
+<tableCaption confidence="0.7387595">
+Table 2: Distributions of the Selected Top 50 Fea-
+tures According to Integration Operators
+</tableCaption>
+<figure confidence="0.996873086956522">
+Operators
+Info. Gain
+Linear SVM
+Boosting
+vector
+40%
+22%
+28%
+normalized ratios
+8%
+38%
+22%
+min/max
+6%
+20%
+16%
+entropy/std
+20%
+16%
+18%
+mean/median
+26%
+4%
+</figure>
+<page confidence="0.806254">
+16%
+</page>
+<bodyText confidence="0.996896285714286">
+The number of selected features directly influence the clas-
+sification performance. Figure 3 shows relationship between
+the boosting tree classification performance and the number
+of selected features. As we can see, performance increases
+with cleaner selected features. However, if the number of
+selected feature is too small, performance will decrease. A
+number of 50 works the best in our work.
+</bodyText>
+<subsubsectionHeader confidence="0.75998">
+6.3.2 Classification Results
+</subsubsectionHeader>
+<bodyText confidence="0.999717142857143">
+We first apply four different classification methods: naive
+Bayes, maximum entropy methods, support vector machine
+and stochastic gradient boosting tree model over all available
+features. The results are reported in Table 3. As we can see,
+stochastic gradient boosting tree has the best performance
+with an F1 score of 0.78.
+We then apply those methods to machine selected fea-
+tures. We test 4 different feature sets with 50 number of fea-
+tures, selected by information gain, linear SVM and boosting
+tree. The combined set consists of 30 top features selected by
+linear SVM and 29 top features selected by boosting tree.
+Please note that the total number of features are still 50
+since linear SVM and boosting tree selected 9 same features
+in their top 30 feature set.
+</bodyText>
+<page confidence="0.996788">
+687
+</page>
+<table confidence="0.8162638">
+Classification Performance VS Number of Features
+Number of Features Selected By Boosting Tree
+Figure 3: Classification performance F1 against
+number of features: 25, 50, 100, 200, 400, 800, and
+2955 (all features)
+</table>
+<tableCaption confidence="0.978367">
+Table 3: Results of Various Classification Methods
+</tableCaption>
+<figure confidence="0.975958375">
+over All Features
+Recall
+Precision
+F1
+Naive Bayes
+0.242
+0.706
+0.360
+SVM (Linear Kernel)
+0.189
+1.000
+0.318
+Maximum Entropy
+0.743
+0.682
+0.711
+SVM (RBF Kernel)
+0.589
+0.485
+0.528
+Boosting Trees
+0.724
+0.845
+0.780
+</figure>
+<bodyText confidence="0.976981736842105">
+Table 4 presents the results of the coupled feature selec-
+tion and classification methods. It is obvious that the perfor-
+mance of each method is improved by applying them to ma-
+chine selected clean features, except naive Bayes classifier.
+Surprisingly, the features selected by linear SVM are the
+best set of features. The results show that even if the under-
+lying problem is not linear separable, the linear coefficients
+of the large margin linear classifier still convey important
+feature information. When the stochastic gradient boost-
+ing tree is applied over this set of features, we get the best
+performance with 0.881 F1 score among all cross-methods
+evaluations. Without feature ablation, SGBT is only able
+to achieve 0.738 F1 score. That is, feature selection has
+an effect of error reduction rate 40%. Without introducing
+linear SVM in feature ablation, if SGBT works on the fea-
+ture set selected by its own variable importance ranking, it
+achieves 0.848 F1 score. That is to say, a cross methods
+coupling of feature selection and classification causes a 33%
+error reduction.
+</bodyText>
+<sectionHeader confidence="0.891721" genericHeader="discussions">
+7. DISCUSSION
+</sectionHeader>
+<bodyText confidence="0.999615727272727">
+An interesting result from Table 1 is the features selected
+for navigational query identification. Those features are
+mostly induced from user click information. This is intu-
+itively understandable because if a query is navigational,
+the navigational URL is the most clicked one. On the other
+hand, it might be risky to completely rely on click infor-
+mation. The reasons might be 1) user click features may
+be easier to be spammed, and 2) clicks are often biased by
+various presentation situation such as quality of auto ab-
+straction, etc.
+From Table 4, we observe that linear SVM and boosting
+tree have better feature selection power than information
+gain. The reason that information gain performs inferior to
+linear SVM and boosting tree is probably due to the fact
+that information gain considers each feature independently
+while linear SVM considers all features jointly and boosting
+tree composites feature rank by sum over all used features.
+The results show that URL, anchor text and other metrics
+are helpful only when they are considered jointly with click
+features.
+The most important result is that the stochastic gradi-
+ent boosting tree coupled with linear SVM feature selection
+method achieves much better results than any other combi-
+nation. In this application, the data has very high dimension
+considering the small sample size. The boosting tree method
+needs to partition an ultra-high dimensional feature space
+for feature selection. However, the stochastic step does not
+have enough data to sample from [6]. Therefore, the boosted
+result might be biased by earlier sampling and trapped in
+a local optimum. Support vector machine, however, is able
+to find an optimally determined subset of training samples,
+namely support vectors, and ranks features based on those
+vectors. Therefore, the SVM feature selection step makes
+up the disadvantage of the stochastic boosting tree in its
+initial sampling and learning stages that may lead to a local
+optimum.
+As expected, naive Bayes classifier hardly works for the
+navigational query identification problem. It is also the only
+classifier that performs worse with feature selection. Naive
+Bayes classifiers work well when the selected features are
+mostly orthogonal. However, in this problem, all features
+are highly correlated. On the other hand, classification
+methods such as boosting tree, maximum entropy model
+and SVM do not require orthogonal features.
+</bodyText>
+<sectionHeader confidence="0.95249" genericHeader="related work">
+8. RELATED WORK
+</sectionHeader>
+<bodyText confidence="0.991145758620689">
+Our work is closely related to query classification, a task of
+assigning a query to one or more categories. However, gen-
+eral query classification and navigational query identifica-
+tion are different in the problems themselves. Query classi-
+fication focuses on content classification, thus the classes are
+mainly topic based, such as shopping and products. While
+in navigational query identification, the two classes are in-
+tent based.
+In the classification approaches regard, our work is re-
+lated to Gravano, et al. [7] where authors applied various
+classification methods, including linear and nonlinear SVM,
+decision tree and log-linear regression to classify query lo-
+cality based on result set features in 2003. Their work,
+however, lacked carefully designed feature engineering and
+therefore only achieved a F1 score of 0.52 with a linear SVM.
+Beitzel, et al.[1] realized the limitation of a single classifica-
+tion method in their query classification problem and pro-
+posed a semi-supervised learning method. Their idea is to
+compose the final classifier by combining classification re-
+sults of multiple classification methods. Shen, et al. [15]
+also trained a linear combination of two classifiers. Differ-
+ently, instead of combining two classifiers for prediction, we
+couple feature selection and classification.
+In the feature extraction aspect, our work is related to
+Kang and Kim 2003 [11] where authors extracted heteroge-
+nous features to classify user queries into three categories:
+topic relevance task, the homepage finding task and service
+finding task. They combined those features, for example
+URL feature and content feature, by several linear empiri-
+</bodyText>
+<figure confidence="0.97236845">
+0.86
+0.85
+0.84
+0.83
+0.82
+0.81
+0.8
+0.79
+0.780 500 1000 1500 2000 2500 3000
+688
+Table 4: F1 Scores of Systems with Coupled Feature Selection and Classification Methods
+Methods
+Info. Gain
+Linear SVM
+Boosting
+Combined Set
+SVM (Linear Kernel)
+0.124
+0.733
+0.712
+0.738
+Naive Bayes
+0.226
+0.182
+0.088
+0.154
+Maximum Entropy
+0.427
+0.777
+0.828
+0.784
+SVM (RBF Kernel)
+0.467
+0.753
+0.728
+0.736
+Boosting Tree
+0.627
+0.881
+0.848
+</figure>
+<page confidence="0.57997">
+0.834
+</page>
+<bodyText confidence="0.991961666666667">
+cal linear functions. Each function was applied to a different
+binary classification problem. Their idea was to empha-
+size features for different classification purposes. However,
+the important features were not selected automatically and
+therefore their work is not applicable in applications with
+thousands of features.
+</bodyText>
+<sectionHeader confidence="0.998173" genericHeader="conclusions">
+9. CONCLUSION
+</sectionHeader>
+<bodyText confidence="0.999614263157895">
+We have made three contributions in the paper. First,
+we evaluate the effectiveness of four machine learning ap-
+proaches in the context of navigational query identification.
+We find that boosting trees are the most effective one. Sec-
+ond, we evaluate three feature selection methods and pro-
+pose coupling feature selection with classification approaches.
+Third, we propose a multi-level feature extraction system to
+exploit more information for navigational query identifica-
+tion.
+The underlying classification problem has been satisfacto-
+rily solved with 88.1% F1 score. In addition to the successful
+classification, we successfully identified key features for rec-
+ognizing navigational queries: the user click features. Other
+features, such as URL, anchor text, etc. are also important
+if coupled with user click features.
+In future research, it is of interest to conduct cross meth-
+ods co-training for the query classification problem to utilize
+unlabeled data, as there is enough evidence that different
+training methods may benefit each other.
+</bodyText>
+<sectionHeader confidence="0.688663" genericHeader="references">
+10. REFERENCES
+</sectionHeader>
+<reference confidence="0.999836324324324">
+[1] S. Beitzel, E. Jensen, D. Lewis, A. Chowdhury,
+A. Kolcz, and O. Frieder. Improving Automatic Query
+Classification via Semi-supervised Learning. In The
+Fifth IEEE International Conference on Data Mining,
+pages 27–30, New Orleans, Louisiana, November 2005.
+[2] C. Bhattacharyya, L. R. Grate, M. I. Jordan, L. El
+Ghaoui, and I. S. Mian. Robust Sparse Hyperplane
+Classifiers: Application to Uncertain Molecular
+Profiling Data. Journal of Computational Biology,
+11(6):1073–1089, 2004.
+[3] A. Broder. A Taxonomy of Web Search. In ACM
+SIGIR Forum, pages 3–10, 2002.
+[4] S. della Pietra, V. della Pietra, and J. Lafferty.
+Inducing Features of Random Fields. IEEE
+Transactions on Pattern Analysis and Machine
+Intelligence, 19(4), 1995.
+[5] R. O. Duda, P. E. Hart, and D. G. Stork. Pattern
+Classification. John Wiley, New York, NY, 2nd
+edition, 2000.
+[6] J. H. Friedman. Stochastic Gradient Boosting.
+Computational Statistics and Data Analysis,
+38(4):367–378, 2002.
+[7] L. Gravano, V. Hatzivassiloglou, and R. Lichtenstein.
+Categorizing Web Queries According to Geographical
+Locality. In ACM 12th Conference on Information
+and Knowledge Management (CIKM), pages 27–30,
+New Orleans, Louisiana, November 2003.
+[8] T. Hastie, R. Tibshirani, and J. Friedman. The
+Elements of Statistical Learning: Data Mining,
+Inference, and Predication. Springer Verlag, New
+York, 2001.
+[9] E. T. Jaynes. Papers on Probability, Statistics, and
+Statistical Physics. D. Reidel, Dordrecht, Holland and
+Boston and Hingham, MA, 1983.
+[10] T. Joachims. Text Categorization with Support Vector
+Machines: Learning with Many Relevant Features. In
+Proceedings of the 10th European Conference on
+Machine Learning (ECML), pages 137–142, Chemnitz,
+Germany, 1998.
+[11] I.-H. Kang and G. Kim. Query Type Classification for
+Web Document Retrieval. In Proceedings of the 26th
+annual international ACM SIGIR conference on
+Research and development in informaion retrieval,
+pages 64 – 71, Toronto Canada, July 2003.
+[12] U. Lee, Z. Liu, and J. Cho. Automatic Identification
+of User Goals in Web Search. In Proceedings of the
+14th International World Wide Web Conference
+(WWW), Chiba, Japan, 2005.
+[13] R. Malouf. A Comparison of Algorithms for Maximum
+Entropy Parameter Estimation. In Proceedings of the
+Sixth Conference on Natural Language Learning
+(CoNLL), Taipei, China, 2002.
+[14] D. E. Rose and D. Levinson. Understanding User
+Goals in Web Search. In Proceedings of The 13th
+International World Wide Web Conference (WWW),
+2004.
+[15] D. Shen, R. Pan, J.-T. Sun, J. J. Pan, K. Wu, J. Yin,
+and Q. Yang. Q2C at UST: Our Winning Solution to
+Query Classification in KDDCUP 2005. SIGKDD
+Explorations, 7(2):100–110, 2005.
+[16] L. Sherman and J. Deighton. Banner advertising:
+Measuring effectiveness and optimizing placement.
+Journal of Interactive Marketing, 15(2):60–64, 2001.
+[17] V. Vapnik. The Nature of Statistical Learning Theory.
+Springer Verlag, New York, 1995.
+[18] Y. Yang and J. Pedersen. An Comparison Study on
+Feature Selection in Text Categorization. In
+Proceedings of the 20th annual international ACM
+SIGIR conference on Research and development in
+informaion retrieval, Philadelphia, PA, USA, 1997.
+[19] S.C. Zhu. Statistical modeling and conceptualization
+of visual patterns. IEEE Transactions on Pattern
+Analysis and Machine Intelligence, 25(6):619–712,
+2003.
+</reference>
+<page confidence="0.999008">
+689
+</page>
+</variant>
+</algorithm>
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.030403">
+<title confidence="0.9999205">Coupling Feature Selection and Machine Learning Methods for Navigational Query Identification</title>
+<author confidence="0.8203245">Yumao Lu Fuchun Peng Xin Li Nawaaz Ahmed</author>
+<affiliation confidence="0.999696">Yahoo! Inc</affiliation>
+<address confidence="0.9998075">701 First Avenue Sunnyvale, California 94089</address>
+<email confidence="0.999002">fyumaol,fuchun,xinli,nawaazj@yahoo-inc.com</email>
+<abstract confidence="0.999614387096774">It is important yet hard to identify navigational queries in Web search due to a lack of sufficient information in Web queries, which are typically very short. In this paper we study several machine learning methods, including naive Bayes model, maximum entropy model, support vector machine (SVM), and stochastic gradient boosting tree (SGBT), for navigational query identification in Web search. To boost the performance of these machine techniques, we exploit several feature selection methods and propose coupling feature selection with classification approaches to achieve the best performance. Different from most prior work that uses a small number of features, in this paper, we study the problem of identifying navigational queries with thousands of available features, extracted from major commercial search engine results, Web search user click data, query log, and the whole Web’s relational content. A multi-level feature extraction system is constructed. Our results on real search data show that 1) Among all the features we tested, user click distribution features are the most important set of features for identifying navigational queries. 2) In order to achieve good performance, machine learning approaches have to be coupled with good feature selection methods. We find that gradient boosting tree, coupled with linear SVM feature selection is most effective. 3) With carefully coupled feature selection and classification approaches, navigational queries can be accurately identified with 88.1% F1 score, which is 33% error rate reduction compared to the best uncoupled system, and 40% error rate reduction compared to a well tuned system without feature selection</abstract>
+<keyword confidence="0.5626635">Categories and Subject Descriptors H.4 [Information Systems Applications]: Miscellaneous</keyword>
+<note confidence="0.656048666666667">Dr. Peng contributes to this paper equally as Dr. Lu. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are</note>
+<abstract confidence="0.96960225">not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. To copy otherwise, to republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee</abstract>
+<address confidence="0.822006">CIKM’06, November 5–11, 2006, Arlington, Virginia, USA</address>
+<note confidence="0.973058">Copyright 2006 ACM 1-59593-433-2/06/0011 ...$5.00</note>
+<title confidence="0.954712">General Terms Experimentation</title>
+<keyword confidence="0.63327">Keywords</keyword>
+<intro confidence="0.512531">Navigational Query Classification, Machine Learning</intro>
+</variant>
+</algorithm>
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="true">
+<authors>
+<author>S Beitzel</author>
+<author>E Jensen</author>
+<author>D Lewis</author>
+<author>A Chowdhury</author>
+<author>A Kolcz</author>
+<author>O Frieder</author>
+</authors>
+<title>Improving Automatic Query Classification via Semi-supervised Learning</title>
+<date>2005</date>
+<booktitle>In The Fifth IEEE International Conference on Data Mining</booktitle>
+<pages>27--30</pages>
+<location>New Orleans, Louisiana</location>
+<contexts>
+<context position="34302" citStr="[1]" startWordPosition="5638" endWordPosition="5638">uery locality based on result set features in 2003. Their work, however, lacked carefully designed feature engineering and therefore only achieved a F1 score of 0.52 with a linear SVM. Beitzel, et al.[1] realized the limitation of a single classification method in their query classification problem and proposed a semi-supervised learning method. Their idea is to compose the final classifier by combin</context>
+</contexts>
+<marker>[1]</marker>
+<rawString>S. Beitzel, E. Jensen, D. Lewis, A. Chowdhury, A. Kolcz, and O. Frieder. Improving Automatic Query Classification via Semi-supervised Learning. In The Fifth IEEE International Conference on Data Mining, pages 27–30, New Orleans, Louisiana, November 2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Bhattacharyya</author>
+<author>L R Grate</author>
+<author>M I Jordan</author>
+<author>L El Ghaoui</author>
+<author>I S Mian</author>
+</authors>
+<title>Robust Sparse Hyperplane Classifiers: Application to Uncertain Molecular Profiling Data</title>
+<date>2004</date>
+<journal>Journal of Computational Biology</journal>
+<volume>11</volume>
+<contexts>
+<context position="23135" citStr="[2]" startWordPosition="3814" endWordPosition="3814"> of w, in the objective, denotes the inverse margin. Also, it can be viewed as a Gaussian prior of random variable w. Sparse results may be achieved by assuming a laplace prior and using the L-1 norm [2]. Unlike the previous information gain method, the linear SVM normal vector w is not determined by the whole body of training samples. Instead, it is determined by an optimally determined subset, supp</context>
+</contexts>
+<marker>[2]</marker>
+<rawString>C. Bhattacharyya, L. R. Grate, M. I. Jordan, L. El Ghaoui, and I. S. Mian. Robust Sparse Hyperplane Classifiers: Application to Uncertain Molecular Profiling Data. Journal of Computational Biology, 11(6):1073–1089, 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Broder</author>
+</authors>
+<title>A Taxonomy of Web Search</title>
+<date>2002</date>
+<booktitle>In ACM SIGIR Forum</booktitle>
+<pages>3--10</pages>
+<contexts>
+<context position="6885" citStr="[3, 14]" startWordPosition="1073" endWordPosition="1074">ated work in Section 8. Finally, we conclude the paper in Section 9. 2. PROBLEM DEFINITION We divide queries into two categories: navigational and informational. According to the canonical definition [3, 14], a query is navigational if a user already has a Web-site in mind and the goal is simply to reach that particular site. For example, if a user issues query “amazon”, he/she mainly wants to visit “ama</context>
+</contexts>
+<marker>[3]</marker>
+<rawString>A. Broder. A Taxonomy of Web Search. In ACM SIGIR Forum, pages 3–10, 2002.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S della Pietra</author>
+<author>V della Pietra</author>
+<author>J Lafferty</author>
+</authors>
+<title>Inducing Features of Random Fields</title>
+<date>1995</date>
+<journal>IEEE Transactions on Pattern Analysis and Machine Intelligence</journal>
+<volume>19</volume>
+<contexts>
+<context position="17857" citStr="[4]" startWordPosition="2863" endWordPosition="2863">caling finds a classifier of an exponential form that is consistent with the constraints from the labeled data. It can be shown that the maximum entropy distribution is always of the exponential form [4]: where each fi (q; y) is a feature, λi is a parameter to be estimated and Z(q) is simply the normalizing factor to ensure a proper probability: Z(q) = Ey exp(Ei λi f i(q; y)). Learning of the paramet</context>
+</contexts>
+<marker>[4]</marker>
+<rawString>S. della Pietra, V. della Pietra, and J. Lafferty. Inducing Features of Random Fields. IEEE Transactions on Pattern Analysis and Machine Intelligence, 19(4), 1995.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R O Duda</author>
+<author>P E Hart</author>
+<author>D G Stork</author>
+</authors>
+<title>Pattern Classification</title>
+<date>2000</date>
+<publisher>John Wiley</publisher>
+<location>New York, NY, 2nd edition</location>
+<contexts>
+<context position="13473" citStr="[5]" startWordPosition="2143" endWordPosition="2143">op 100 results for each query and each query URL pair has 197 features, in total there are 19,700 features available for each query. Feature reduction becomes necessary due to curse of dimensionality [5]. Before applying feature selection, we conduct a feature integration procedure that merges redundant features. 3.2 Feature Integration We design a feature integration operator, named normalized ratio</context>
+</contexts>
+<marker>[5]</marker>
+<rawString>R. O. Duda, P. E. Hart, and D. G. Stork. Pattern Classification. John Wiley, New York, NY, 2nd edition, 2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>J H Friedman</author>
+</authors>
+<title>Stochastic Gradient Boosting</title>
+<date>2002</date>
+<journal>Computational Statistics and Data Analysis</journal>
+<volume>38</volume>
+<contexts>
+<context position="22260" citStr="[6]" startWordPosition="3670" endWordPosition="3670">tures, due to its discrete feature space partition. Friedman (2002) found that it helps performance by sampling uniformly without replacement from the dataset before estimating the next gradient step [6]. This method was called stochastic gradient boosting. 5. FEATURE SELECTION Many methods have been used in feature selection for text classification, including information gain, mutual information, do</context>
+<context position="32526" citStr="[6]" startWordPosition="5366" endWordPosition="5366">the small sample size. The boosting tree method needs to partition an ultra-high dimensional feature space for feature selection. However, the stochastic step does not have enough data to sample from [6]. Therefore, the boosted result might be biased by earlier sampling and trapped in a local optimum. Support vector machine, however, is able to find an optimally determined subset of training samples,</context>
+</contexts>
+<marker>[6]</marker>
+<rawString>J. H. Friedman. Stochastic Gradient Boosting. Computational Statistics and Data Analysis, 38(4):367–378, 2002.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>L Gravano</author>
+<author>V Hatzivassiloglou</author>
+<author>R Lichtenstein</author>
+</authors>
+<title>Categorizing Web Queries According to Geographical Locality</title>
+<date>2003</date>
+<booktitle>In ACM 12th Conference on Information and Knowledge Management (CIKM)</booktitle>
+<pages>27--30</pages>
+<location>New Orleans, Louisiana</location>
+<contexts>
+<context position="33955" citStr="[7]" startWordPosition="5586" endWordPosition="5586">pic based, such as shopping and products. While in navigational query identification, the two classes are intent based. In the classification approaches regard, our work is related to Gravano, et al. [7] where authors applied various classification methods, including linear and nonlinear SVM, decision tree and log-linear regression to classify query locality based on result set features in 2003. Thei</context>
+</contexts>
+<marker>[7]</marker>
+<rawString>L. Gravano, V. Hatzivassiloglou, and R. Lichtenstein. Categorizing Web Queries According to Geographical Locality. In ACM 12th Conference on Information and Knowledge Management (CIKM), pages 27–30, New Orleans, Louisiana, November 2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Hastie</author>
+<author>R Tibshirani</author>
+<author>J Friedman</author>
+</authors>
+<title>The Elements of Statistical Learning: Data Mining, Inference, and Predication</title>
+<date>2001</date>
+<publisher>Springer Verlag</publisher>
+<location>New York</location>
+<contexts>
+<context position="20053" citStr="[8]" startWordPosition="3276" endWordPosition="3276"> we use a linear SVM and a SVM with radial basis kernel. 4.4 Gradient Boosting Tree Like SVM, gradient boosting tree model also seeks a parameterized classifier. It iteratively fits an additive model [8] T ft(x) = Tt(x; Θ0) + λ X t=1 such that certain loss function L(yi, fT(x + i) is minimized, where Tt(x; Θt) is a tree at iteration t, weighted by parameter βt, with a finite number of parameters, Θt </context>
+</contexts>
+<marker>[8]</marker>
+<rawString>T. Hastie, R. Tibshirani, and J. Friedman. The Elements of Statistical Learning: Data Mining, Inference, and Predication. Springer Verlag, New York, 2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E T Jaynes</author>
+</authors>
+<title>Papers on Probability, Statistics, and Statistical Physics</title>
+<date>1983</date>
+<location>D. Reidel, Dordrecht, Holland</location>
+<contexts>
+<context position="17018" citStr="[9]" startWordPosition="2733" endWordPosition="2733">in many natural language processing tasks. The over-riding principle in maximum entropy is that when nothing is known, the distribution should be as uniform as possible, that is, have maximal entropy [9]. Labeled training data are used to derive a set of constraints for the model that characterize the class-specific expectations for the distribution. Constraints are represented as expected values of </context>
+</contexts>
+<marker>[9]</marker>
+<rawString>E. T. Jaynes. Papers on Probability, Statistics, and Statistical Physics. D. Reidel, Dordrecht, Holland and Boston and Hingham, MA, 1983.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Joachims</author>
+</authors>
+<title>Text Categorization with Support Vector Machines: Learning with Many Relevant Features</title>
+<date>1998</date>
+<booktitle>In Proceedings of the 10th European Conference on Machine Learning (ECML)</booktitle>
+<pages>137--142</pages>
+<location>Chemnitz, Germany</location>
+<contexts>
+<context position="19825" citStr="[10]" startWordPosition="3238" endWordPosition="3238">n the number of features, but rather on the number of support vectors (the training examples closest to the hyperplane). This property makes SVMs suitable for high dimensional classification problems [10]. In our experimentation, we use a linear SVM and a SVM with radial basis kernel. 4.4 Gradient Boosting Tree Like SVM, gradient boosting tree model also seeks a parameterized classifier. It iterativel</context>
+</contexts>
+<marker>[10]</marker>
+<rawString>T. Joachims. Text Categorization with Support Vector Machines: Learning with Many Relevant Features. In Proceedings of the 10th European Conference on Machine Learning (ECML), pages 137–142, Chemnitz, Germany, 1998.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>I-H Kang</author>
+<author>G Kim</author>
+</authors>
+<title>Query Type Classification for Web Document Retrieval</title>
+<date>2003</date>
+<booktitle>In Proceedings of the 26th annual international ACM SIGIR conference on Research and development in informaion retrieval, pages 64 – 71</booktitle>
+<location>Toronto Canada</location>
+<contexts>
+<context position="9427" citStr="[11, 12]" startWordPosition="1458" endWordPosition="1459">del. 3. MULTI-LEVEL FEATURE EXTRACTION The multiple level feature system is one of the unique features of our system. Unlike prior work with a limited number of features or in a simulated environment [11, 12], our work is based on real search data, a major search engine’s user click information and a query log. In order to handle large amount of heteorgeneous features in an efficient way, we propose a mul</context>
+<context position="34830" citStr="[11]" startWordPosition="5718" endWordPosition="5718">assifiers. Differently, instead of combining two classifiers for prediction, we couple feature selection and classification. In the feature extraction aspect, our work is related to Kang and Kim 2003 [11] where authors extracted heterogenous features to classify user queries into three categories: topic relevance task, the homepage finding task and service finding task. They combined those features, f</context>
+</contexts>
+<marker>[11]</marker>
+<rawString>I.-H. Kang and G. Kim. Query Type Classification for Web Document Retrieval. In Proceedings of the 26th annual international ACM SIGIR conference on Research and development in informaion retrieval, pages 64 – 71, Toronto Canada, July 2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>U Lee</author>
+<author>Z Liu</author>
+<author>J Cho</author>
+</authors>
+<title>Automatic Identification of User Goals in Web Search</title>
+<date>2005</date>
+<booktitle>In Proceedings of the 14th International World Wide Web Conference (WWW)</booktitle>
+<location>Chiba, Japan</location>
+<contexts>
+<context position="5590" citStr="[12]" startWordPosition="866" endWordPosition="866">seful when redundant low quality heterogeneous features are encountered. Most previous studies in query identification are based on a small number of features that are obtained from limited resources [12]. In this paper, our third contribution is to explore thousands of available features, extracted from major commercial search engine results, user Web search click data, query log, and the whole Web’s</context>
+<context position="9427" citStr="[11, 12]" startWordPosition="1458" endWordPosition="1459">del. 3. MULTI-LEVEL FEATURE EXTRACTION The multiple level feature system is one of the unique features of our system. Unlike prior work with a limited number of features or in a simulated environment [11, 12], our work is based on real search data, a major search engine’s user click information and a query log. In order to handle large amount of heteorgeneous features in an efficient way, we propose a mul</context>
+<context position="12827" citStr="[12]" startWordPosition="2033" endWordPosition="2033"> text is the visible text in a hyperlink, which also provides useful information for navigational query identification. For example, one anchor text feature is the entropy of anchor link distribution [12]. This distribution is basically the histogram of inbound anchor text of the destination URL. If an URL is pointed to by the same anchor texts, the URL is likely to contain perfect content. There are </context>
+</contexts>
+<marker>[12]</marker>
+<rawString>U. Lee, Z. Liu, and J. Cho. Automatic Identification of User Goals in Web Search. In Proceedings of the 14th International World Wide Web Conference (WWW), Chiba, Japan, 2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Malouf</author>
+</authors>
+<title>A Comparison of Algorithms for Maximum Entropy Parameter Estimation</title>
+<date>2002</date>
+<booktitle>In Proceedings of the Sixth Conference on Natural Language Learning (CoNLL)</booktitle>
+<location>Taipei, China</location>
+<contexts>
+<context position="18187" citStr="[13]" startWordPosition="2919" endWordPosition="2919">roper probability: Z(q) = Ey exp(Ei λi f i(q; y)). Learning of the parameters can be done using generalized iterative scaling (GIS), improved iterative scaling (IIS), or quasi-Newton gradient-climber [13]. 4.3 Support Vector Machine Support Vector Machine (SVM) is one of the most successful discriminative learning methods. It seeks a hyperplane to separate a set of positively and negatively labeled tr</context>
+</contexts>
+<marker>[13]</marker>
+<rawString>R. Malouf. A Comparison of Algorithms for Maximum Entropy Parameter Estimation. In Proceedings of the Sixth Conference on Natural Language Learning (CoNLL), Taipei, China, 2002.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D E Rose</author>
+<author>D Levinson</author>
+</authors>
+<title>Understanding User Goals in Web Search</title>
+<date>2004</date>
+<booktitle>In Proceedings of The 13th International World Wide Web Conference (WWW)</booktitle>
+<contexts>
+<context position="6885" citStr="[3, 14]" startWordPosition="1073" endWordPosition="1074">ated work in Section 8. Finally, we conclude the paper in Section 9. 2. PROBLEM DEFINITION We divide queries into two categories: navigational and informational. According to the canonical definition [3, 14], a query is navigational if a user already has a Web-site in mind and the goal is simply to reach that particular site. For example, if a user issues query “amazon”, he/she mainly wants to visit “ama</context>
+</contexts>
+<marker>[14]</marker>
+<rawString>D. E. Rose and D. Levinson. Understanding User Goals in Web Search. In Proceedings of The 13th International World Wide Web Conference (WWW), 2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Shen</author>
+<author>R Pan</author>
+<author>J-T Sun</author>
+<author>J J Pan</author>
+<author>K Wu</author>
+<author>J Yin</author>
+<author>Q Yang</author>
+</authors>
+<title>Q2C at UST: Our Winning Solution to Query Classification in KDDCUP</title>
+<date>2005</date>
+<journal>SIGKDD Explorations</journal>
+<volume>7</volume>
+<contexts>
+<context position="34582" citStr="[15]" startWordPosition="5680" endWordPosition="5680">assification problem and proposed a semi-supervised learning method. Their idea is to compose the final classifier by combining classification results of multiple classification methods. Shen, et al. [15] also trained a linear combination of two classifiers. Differently, instead of combining two classifiers for prediction, we couple feature selection and classification. In the feature extraction aspec</context>
+</contexts>
+<marker>[15]</marker>
+<rawString>D. Shen, R. Pan, J.-T. Sun, J. J. Pan, K. Wu, J. Yin, and Q. Yang. Q2C at UST: Our Winning Solution to Query Classification in KDDCUP 2005. SIGKDD Explorations, 7(2):100–110, 2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>L Sherman</author>
+<author>J Deighton</author>
+</authors>
+<title>Banner advertising: Measuring effectiveness and optimizing placement</title>
+<date>2001</date>
+<journal>Journal of Interactive Marketing</journal>
+<volume>15</volume>
+<contexts>
+<context position="10631" citStr="[16]" startWordPosition="1657" endWordPosition="1657"> a Web-map, and query logs. The click engine is a device to record and analyze user click behavior. It is able to generate hundreds of features automatically based on user click through distributions [16]. A Web-map can be considered as a relational database that stores hundreds of induced features on page content, anchor text, hyperlink structure of webpages, including the inbound, outbound URLs, and</context>
+</contexts>
+<marker>[16]</marker>
+<rawString>L. Sherman and J. Deighton. Banner advertising: Measuring effectiveness and optimizing placement. Journal of Interactive Marketing, 15(2):60–64, 2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>V Vapnik</author>
+</authors>
+<title>The Nature of Statistical Learning Theory</title>
+<date>1995</date>
+<publisher>Springer Verlag</publisher>
+<location>New York</location>
+<contexts>
+<context position="18969" citStr="[17]" startWordPosition="3074" endWordPosition="3074">f the vector xi. The margin is defined by the distance between the two parallel hyperplanes wT x +b = 1 and wT x + b = —1, i.e. 2/llwll2. The margin is related to the generalization of the classifier [17]. The SVM training problem is defined as follows: minimize (1/2)wT w + γ1T ξ subject to yi(wT xi + b) &amp;gt; 1 — ξi, i = 1, ..., N (7) ξ &amp;gt;0 0.4 0.35 0.3 0.25 0.2 0.15 0.1 0.05 00 20 40 60 80 100 0.4 </context>
+</contexts>
+<marker>[17]</marker>
+<rawString>V. Vapnik. The Nature of Statistical Learning Theory. Springer Verlag, New York, 1995.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Y Yang</author>
+<author>J Pedersen</author>
+</authors>
+<title>An Comparison Study on Feature Selection in Text Categorization</title>
+<date>1997</date>
+<booktitle>In Proceedings of the 20th annual international ACM SIGIR conference on Research and development in informaion retrieval</booktitle>
+<location>Philadelphia, PA, USA</location>
+<contexts>
+<context position="5069" citStr="[18]" startWordPosition="788" endWordPosition="788">the very first attempt in this regard. 682 Machine learning models often suffer from the curse of feature dimensionality. Feature selection plays a key role in many tasks, such as text categorization [18]. In this paper, our second contribution is to evaluate several feature selection methods and propose coupling feature selection with classification approaches to achieve the best performance: ranking</context>
+<context position="20410" citStr="[18]" startWordPosition="3345" endWordPosition="3345">ter βt, with a finite number of parameters, Θt and λ is the learning rate. At iteration t, tree Tt(x;β) is induced to fit the negative gradient by least squares. That is statistics. Yang and Pedersen [18] gives a good comparison of these methods. Information gain is one of the most effective methods in the context of text categorization. In addition to information gain, we also use feature selection m</context>
+<context position="20831" citStr="[18]" startWordPosition="3410" endWordPosition="3410">VM’s feature coefficients and stochastic gradient boosting tree’s variable importance. 5.1 Information Gain Information gain is frequently used as a measure of feature goodness in text classification [18]. It measures the number of bits of information obtained for category prediction by knowing the presence or absence of a feature. Let yi : i = 1..m be the set of categories, information gain of a feat</context>
+</contexts>
+<marker>[18]</marker>
+<rawString>Y. Yang and J. Pedersen. An Comparison Study on Feature Selection in Text Categorization. In Proceedings of the 20th annual international ACM SIGIR conference on Research and development in informaion retrieval, Philadelphia, PA, USA, 1997.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S C Zhu</author>
+</authors>
+<title>Statistical modeling and conceptualization of visual patterns</title>
+<date>2003</date>
+<journal>IEEE Transactions on Pattern Analysis and Machine Intelligence</journal>
+<volume>25</volume>
+<contexts>
+<context position="15063" citStr="[19]" startWordPosition="2401" endWordPosition="2401">pular generative (such as naive Bayes method), descriptive (such as Maximum Entropy method), and discriminative (such as support vector machine and stochastic gradient boosting tree) learning methods [19] to attack the problem. 4.1 Naive Bayes Classifier A simple yet effective learning algorithm for classification l(p) 684 Query: &amp;apos;Walmart&amp;apos; Rank Query: &amp;quot;Canadian gold maple leaf&amp;apos; 0.5</context>
+</contexts>
+<marker>[19]</marker>
+<rawString>S.C. Zhu. Statistical modeling and conceptualization of visual patterns. IEEE Transactions on Pattern Analysis and Machine Intelligence, 25(6):619–712, 2003.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>

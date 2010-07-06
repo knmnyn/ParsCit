@@ -1,0 +1,49 @@
+CONTENTS
+[0] Directory structure
+[1] Usage Note
+	[1.1] Run for a single mode of citeExtract.pl
+	[1.2] Run for all modes of citeExtract.pl
+[2] Known issues
+
+==============================================================================
+[0] Directory structure
+* fileList: list of test files
+* standard-output/: contain running output of 5 different modes of citeExtract.pl (_citations, _header, _section, _meta & _all) with and without using XML input
+* omnipage/: XML files
+* txt/: txt files
+* pdf/: pdf files
+* bin/: executable scripts
+* ./run_compare_single.sh: generate output for a single mode of citeExtract.pl and compare results with those in standard-output/
+* ./run_compare_all.sh: generate output for all modes of citeExtract.pl and compare results with those in standard-output/
+
+==============================================================================
+[0] Usage Note
+=======================================
+[1.1] To run for a single mode of citeExtract.pl
+Usage: ./run_compare_single.sh <outDir> <outCompareFile> <suffix>
+    outDir: is the output of this new run, and should be different from standard-output
+    outCompareFile: contains the difference of output files in outDir with standard-output
+    suffix: should be either _citations, _header, _section, _meta, or _all
+
+E.g.: run for "_citations" mode
+./run_compare_single.sh newOutput compare.citations _citations
+
+=======================================
+[1.2] To run for all modes of citeExtract.pl
+Usage: ./run_compare_all.sh <outDir> <outCompareFile>
+    outDir: is the output of this new run, and should be different from standard-output
+    outCompareFile: contains the difference of output files in outDir with standard-output
+
+E.g.: ./run_compare_all.sh newOutput compare
+
+==============================================================================
+[2] Known issues
+Seem to encounter internal problems of Perl when dealing with UTF8. For further investigation, please check file lib/ParsCit/Tr2crfpp.pm, look for call of lowercase method "lc"
+
+Executing: ../../bin/citeExtract.pl -m extract_citations -i xml omnipage/xml-concat/W06-0102.txt xml-output/W06-0102_parsCit.xml
+Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.
+Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.
+
+Executing: ../../bin/citeExtract.pl -m extract_citations txt/W06-0102.txt txt-output/W06-0102_parsCit.xml
+Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.
+Use of uninitialized value in lc at /usr/lib/perl5/5.8.8/utf8_heavy.pl line 123.

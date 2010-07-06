@@ -1,0 +1,400 @@
+<algorithm name="ParsCit" version="090625">
+<citationList>
+<citation valid="true">
+<authors>
+<author>P F Brown</author>
+<author>V J Della Pietra</author>
+<author>P V deSouza</author>
+<author>J C Lai</author>
+<author>R L Mercer</author>
+</authors>
+<title>Class-based n-gram Models of Natural Language</title>
+<date>1990</date>
+<journal>Computational Linguistics</journal>
+<volume>16</volume>
+<contexts>
+<context position="8069">ing a given word to a class of related words. Clusters, as used by our probabilistic answer typing system, play a role similar to that of named entity types. Many methods exist for clustering, e.g., (Brown et al., 1990; Cutting et al., 1992; Pereira et al., 1993; Karypis et al., 1999). We used the Clustering By Committee (CBC) 394 Table 1: Words and their clusters Word Clusters suite software, network, wireless, ..</context>
+</contexts>
+<marker>Brown, Pietra, deSouza, Lai, Mercer, 1990</marker>
+<rawString>P.F. Brown, V.J. Della Pietra, P.V. deSouza, J.C. Lai, and R.L. Mercer. 1990. Class-based n-gram Models of Natural Language. Computational Linguistics, 16(2):79–85.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Y Choueka</author>
+<author>S Lusignan</author>
+</authors>
+<title>Disambiguation by Short Contexts. Computer and the Humanities</title>
+<date>1985</date>
+<contexts>
+<context position="14203">hington’s descendants” and “suburban Washington” should not be given the same score when the question is seeking a location. Given that the sense of a word is largely determined by its local context (Choueka and Lusignan, 1985), candidate contexts allow the model to take into account the candidate answers’ senses implicitly. 4 Probabilistic Model The goal of an answer typing model is to evaluate the appropriateness of a can</context>
+</contexts>
+<marker>Choueka, Lusignan, 1985</marker>
+<rawString>Y. Choueka and S. Lusignan. 1985. Disambiguation by Short Contexts. Computer and the Humanities, 19:147–157.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Church</author>
+<author>P Hanks</author>
+</authors>
+<title>Word Association Norms, Mutual Information, and Lexicography</title>
+<date>1989</date>
+<booktitle>In Proceedings of ACL-89</booktitle>
+<pages>76--83</pages>
+<location>Vancouver, British Columbia, Canada</location>
+<contexts>
+<context position="9421">e context in which a word appears often imposes constraints on the semantic type of the word. This basic idea has been exploited by many proposals for distributional similarity and clustering, e.g., (Church and Hanks, 1989; Lin, 1998; Pereira et al., 1993). Similar to Lin and Pantel (2001), we deﬁne the contexts of a word to be the undirected paths in dependency trees involving that word at either the beginning or the </context>
+</contexts>
+<marker>Church, Hanks, 1989</marker>
+<rawString>K. Church and P. Hanks. 1989. Word Association Norms, Mutual Information, and Lexicography. In Proceedings of ACL-89, pages 76–83, Vancouver, British Columbia, Canada.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Cui</author>
+<author>K Li</author>
+<author>R Sun</author>
+<author>T-S Chua</author>
+<author>M-K Kan</author>
+</authors>
+<title>at the TREC-13 Question Answering Main Task</title>
+<date>2004</date>
+<booktitle>In Notebook of TREC</booktitle>
+<pages>34--42</pages>
+<institution>National University of Singapore</institution>
+<location>Gaithersburg, Maryland</location>
+<contexts>
+<context position="5386">known as Qtargets (Echihabi et al., 2003). Most previous approaches classify the answer type of a question as one of a set of predeﬁned types. Many systems construct the classiﬁcation rules manually (Cui et al., 2004; Greenwood, 2004; Hermjakob, 2001). The rules are usually triggered by the presence of certain words in the question. For example, if a question contains “author” then the expected answer type is Per</context>
+</contexts>
+<marker>Cui, Li, Sun, Chua, Kan, 2004</marker>
+<rawString>H. Cui, K. Li, R. Sun, T-S. Chua, and M-K. Kan. 2004. National University of Singapore at the TREC-13 Question Answering Main Task. In Notebook of TREC 2004, pages 34–42, Gaithersburg, Maryland.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D R Cutting</author>
+<author>D Karger</author>
+<author>J Pedersen</author>
+<author>J W Tukey</author>
+</authors>
+<title>Scatter/Gather: A Cluster-based Approach to Browsing Large Document Collections</title>
+<date>1992</date>
+<booktitle>In Proceedings of SIGIR92</booktitle>
+<pages>318--329</pages>
+<location>Copenhagen, Denmark</location>
+<contexts>
+<context position="8091">a class of related words. Clusters, as used by our probabilistic answer typing system, play a role similar to that of named entity types. Many methods exist for clustering, e.g., (Brown et al., 1990; Cutting et al., 1992; Pereira et al., 1993; Karypis et al., 1999). We used the Clustering By Committee (CBC) 394 Table 1: Words and their clusters Word Clusters suite software, network, wireless, ... rooms, bathrooms, re</context>
+</contexts>
+<marker>Cutting, Karger, Pedersen, Tukey, 1992</marker>
+<rawString>D.R. Cutting, D. Karger, J. Pedersen, and J.W. Tukey. 1992. Scatter/Gather: A Cluster-based Approach to Browsing Large Document Collections. In Proceedings of SIGIR92, pages 318–329, Copenhagen, Denmark.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Echihabi</author>
+<author>U Hermjakob</author>
+<author>E Hovy</author>
+<author>D Marcu</author>
+<author>E Melz</author>
+<author>D Ravichandran</author>
+</authors>
+<title>Multiple-Engine Question Answering in TextMap</title>
+<date>2003</date>
+<booktitle>In Proceedings of TREC</booktitle>
+<pages>772--781</pages>
+<location>Gaithersburg, Maryland</location>
+<contexts>
+<context position="5211">rectly, we avoid having multiple candidates with the same level of appropriateness as answers. There have been a variety of approaches to determine the answer types, which are also known as Qtargets (Echihabi et al., 2003). Most previous approaches classify the answer type of a question as one of a set of predeﬁned types. Many systems construct the classiﬁcation rules manually (Cui et al., 2004; Greenwood, 2004; Hermja</context>
+</contexts>
+<marker>Echihabi, Hermjakob, Hovy, Marcu, Melz, Ravichandran, 2003</marker>
+<rawString>A. Echihabi, U. Hermjakob, E. Hovy, D. Marcu, E. Melz, and D. Ravichandran. 2003. Multiple-Engine Question Answering in TextMap. In Proceedings of TREC 2003, pages 772–781, Gaithersburg, Maryland.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Fellbaum</author>
+</authors>
+<title>WordNet: An Electronic Lexical Database</title>
+<date>1998</date>
+<publisher>MIT Press</publisher>
+<location>Cambridge, Massachusetts</location>
+<contexts>
+<context position="6452">arabagiu et al., 2003) combines ﬁxed types with a novel loop-back strategy. In the event that a question cannot be classiﬁed as one of the ﬁxed entity types or semantic concepts derived from WordNet (Fellbaum, 1998), the answer type model backs off to a logic prover that uses axioms derived form WordNet, along with logic rules, to justify phrases as answers. Thus, the LCC system is able to avoid the use of a mis</context>
+</contexts>
+<marker>Fellbaum, 1998</marker>
+<rawString>C. Fellbaum. 1998. WordNet: An Electronic Lexical Database. MIT Press, Cambridge, Massachusetts.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M A Greenwood</author>
+</authors>
+<title>AnswerFinder: Question Answering from your Desktop</title>
+<date>2004</date>
+<booktitle>In Proceedings of the Seventh Annual Colloquium for the UK Special Interest Group for Computational Linguistics (CLUK ’04</booktitle>
+<institution>University of Birmingham, UK</institution>
+<contexts>
+<context position="5403">(Echihabi et al., 2003). Most previous approaches classify the answer type of a question as one of a set of predeﬁned types. Many systems construct the classiﬁcation rules manually (Cui et al., 2004; Greenwood, 2004; Hermjakob, 2001). The rules are usually triggered by the presence of certain words in the question. For example, if a question contains “author” then the expected answer type is Person. The number o</context>
+</contexts>
+<marker>Greenwood, 2004</marker>
+<rawString>M.A. Greenwood. 2004. AnswerFinder: Question Answering from your Desktop. In Proceedings of the Seventh Annual Colloquium for the UK Special Interest Group for Computational Linguistics (CLUK ’04), University of Birmingham, UK.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>S Harabagiu</author>
+<author>D Moldovan</author>
+<author>C Clark</author>
+<author>M Bowden</author>
+<author>J Williams</author>
+<author>J Bensley</author>
+</authors>
+<title>Answer Mining by Combining Extraction Techniques with Abductive Reasoning</title>
+<date>2003</date>
+<booktitle>In Proceedings of TREC</booktitle>
+<pages>375--382</pages>
+<location>Gaithersburg, Maryland</location>
+<contexts>
+<context position="6259">he MUC answer types. In a similar experiment, Li &amp; Roth (2002) train a question classiﬁer based on a modiﬁed version of SNoW using a richer set of answer types than Ittycheriah et al. The LCC system (Harabagiu et al., 2003) combines ﬁxed types with a novel loop-back strategy. In the event that a question cannot be classiﬁed as one of the ﬁxed entity types or semantic concepts derived from WordNet (Fellbaum, 1998), the a</context>
+</contexts>
+<marker>Harabagiu, Moldovan, Clark, Bowden, Williams, Bensley, 2003</marker>
+<rawString>S. Harabagiu, D. Moldovan, C. Clark, M. Bowden, J. Williams, and J. Bensley. 2003. Answer Mining by Combining Extraction Techniques with Abductive Reasoning. In Proceedings of TREC 2003, pages 375–382, Gaithersburg, Maryland.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>U Hermjakob</author>
+</authors>
+<title>Parsing and Question Classiﬁcation for Question Answering</title>
+<date>2001</date>
+<booktitle>In Proceedings of the ACL Workshop on Open-Domain Question Answering</booktitle>
+<location>Toulouse, France</location>
+<contexts>
+<context position="5421"> 2003). Most previous approaches classify the answer type of a question as one of a set of predeﬁned types. Many systems construct the classiﬁcation rules manually (Cui et al., 2004; Greenwood, 2004; Hermjakob, 2001). The rules are usually triggered by the presence of certain words in the question. For example, if a question contains “author” then the expected answer type is Person. The number of answer types as </context>
+</contexts>
+<marker>Hermjakob, 2001</marker>
+<rawString>U. Hermjakob. 2001. Parsing and Question Classiﬁcation for Question Answering. In Proceedings of the ACL Workshop on Open-Domain Question Answering, Toulouse, France.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Ittycheriah</author>
+<author>M Franz</author>
+<author>W-J Zhu</author>
+<author>A Ratnaparkhi</author>
+</authors>
+<title>Question Answering Using Maximum Entropy Components</title>
+<date>2001</date>
+<booktitle>In Proceedings of NAACL 2001</booktitle>
+<location>Pittsburgh, Pennsylvania</location>
+<contexts>
+<context position="1664">e principal city of the kingdom. The goal of answer typing is to determine whether a word’s semantic type is appropriate as an answer for a question. Many previous approaches to answer typing, e.g., (Ittycheriah et al., 2001; Li and Roth, 2002; Krishnan et al., 2005), employ a predeﬁned set of answer types and use supervised learning or manually constructed rules to classify a question according to expected answer type. </context>
+<context position="5928"> used 276 rules for 122 answer types. Greenwood (2004), on the other hand, used 46 answer types with unspeciﬁed number of rules. The classiﬁcation rules can also be acquired with supervised learning. Ittycheriah, et al. (2001) describe a maximum entropy based question classiﬁcation scheme to classify each question as having one of the MUC answer types. In a similar experiment, Li &amp; Roth (2002) train a question classiﬁer ba</context>
+</contexts>
+<marker>Ittycheriah, Franz, Zhu, Ratnaparkhi, 2001</marker>
+<rawString>A. Ittycheriah, M. Franz, W-J. Zhu, and A. Ratnaparkhi. 2001. Question Answering Using Maximum Entropy Components. In Proceedings of NAACL 2001, Pittsburgh, Pennsylvania.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>G Karypis</author>
+<author>E-H Han</author>
+<author>V Kumar</author>
+</authors>
+<title>Chameleon: A Hierarchical Clustering Algorithm using Dynamic Modeling</title>
+<date>1999</date>
+<journal>IEEE Computer: Special Issue on Data Analysis and Mining</journal>
+<volume>32</volume>
+<contexts>
+<context position="8136">by our probabilistic answer typing system, play a role similar to that of named entity types. Many methods exist for clustering, e.g., (Brown et al., 1990; Cutting et al., 1992; Pereira et al., 1993; Karypis et al., 1999). We used the Clustering By Committee (CBC) 394 Table 1: Words and their clusters Word Clusters suite software, network, wireless, ... rooms, bathrooms, restrooms, ... meeting room, conference room, .</context>
+</contexts>
+<marker>Karypis, Han, Kumar, 1999</marker>
+<rawString>G. Karypis, E.-H. Han, and V. Kumar. 1999. Chameleon: A Hierarchical Clustering Algorithm using Dynamic Modeling. IEEE Computer: Special Issue on Data Analysis and Mining, 32(8):68–75.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>V Krishnan</author>
+<author>S Das</author>
+<author>S Chakrabarti</author>
+</authors>
+<title>Enhanced Answer Type Inference from Questions using Sequential Models</title>
+<date>2005</date>
+<booktitle>In Proceedings of HLT/EMNLP</booktitle>
+<pages>315--322</pages>
+<location>Vancouver, British Columbia, Canada</location>
+<contexts>
+<context position="1707">answer typing is to determine whether a word’s semantic type is appropriate as an answer for a question. Many previous approaches to answer typing, e.g., (Ittycheriah et al., 2001; Li and Roth, 2002; Krishnan et al., 2005), employ a predeﬁned set of answer types and use supervised learning or manually constructed rules to classify a question according to expected answer type. A disadvantage of this approach is that the</context>
+</contexts>
+<marker>Krishnan, Das, Chakrabarti, 2005</marker>
+<rawString>V. Krishnan, S. Das, and S. Chakrabarti. 2005. Enhanced Answer Type Inference from Questions using Sequential Models. In Proceedings of HLT/EMNLP 2005, pages 315–322, Vancouver, British Columbia, Canada.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>X Li</author>
+<author>D Roth</author>
+</authors>
+<title>Learning Question Classiﬁers</title>
+<date>2002</date>
+<contexts>
+<context position="1683">ngdom. The goal of answer typing is to determine whether a word’s semantic type is appropriate as an answer for a question. Many previous approaches to answer typing, e.g., (Ittycheriah et al., 2001; Li and Roth, 2002; Krishnan et al., 2005), employ a predeﬁned set of answer types and use supervised learning or manually constructed rules to classify a question according to expected answer type. A disadvantage of t</context>
+<context position="6098">upervised learning. Ittycheriah, et al. (2001) describe a maximum entropy based question classiﬁcation scheme to classify each question as having one of the MUC answer types. In a similar experiment, Li &amp; Roth (2002) train a question classiﬁer based on a modiﬁed version of SNoW using a richer set of answer types than Ittycheriah et al. The LCC system (Harabagiu et al., 2003) combines ﬁxed types with a novel loop-</context>
+</contexts>
+<marker>Li, Roth, 2002</marker>
+<rawString>X. Li and D. Roth. 2002. Learning Question Classiﬁers.</rawString>
+</citation>
+<citation valid="false">
+<booktitle>In Proceedings of COLING 2002</booktitle>
+<pages>556--562</pages>
+<location>Taipei, Taiwan</location>
+<marker></marker>
+<rawString>In Proceedings of COLING 2002, pages 556–562, Taipei, Taiwan.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Light</author>
+<author>G Mann</author>
+<author>E Riloff</author>
+<author>E Breck</author>
+</authors>
+<title>Analyses for Elucidating Current Question Answering Technology</title>
+<date>2001</date>
+<journal>Natural Language Engineering</journal>
+<volume>7</volume>
+<contexts>
+<context position="4454">. Section 5 compares the performance of our model with that of an oracle and a semi-automatic system performing the same task. Finally, the concluding remarks in are made in Section 6. 2 Related Work Light et al. (2001) performed an analysis of the effect of multiple answer type occurrences in a sentence. When multiple words of the same type appear in a sentence, answer typing with ﬁxed types must assign each the sa</context>
+</contexts>
+<marker>Light, Mann, Riloff, Breck, 2001</marker>
+<rawString>M. Light, G. Mann, E. Riloff, and E. Breck. 2001. Analyses for Elucidating Current Question Answering Technology. Natural Language Engineering, 7(4):325–342.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Lin</author>
+<author>P Pantel</author>
+</authors>
+<title>Discovery of Inference Rules for Question Answering</title>
+<date>2001</date>
+<journal>Natural Language Engineering</journal>
+<volume>7</volume>
+<contexts>
+<context position="9489">mantic type of the word. This basic idea has been exploited by many proposals for distributional similarity and clustering, e.g., (Church and Hanks, 1989; Lin, 1998; Pereira et al., 1993). Similar to Lin and Pantel (2001), we deﬁne the contexts of a word to be the undirected paths in dependency trees involving that word at either the beginning or the end. The following diagram shows an example dependency tree: Which c</context>
+</contexts>
+<marker>Lin, Pantel, 2001</marker>
+<rawString>D. Lin and P. Pantel. 2001. Discovery of Inference Rules for Question Answering. Natural Language Engineering, 7(4):343–360.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Lin</author>
+</authors>
+<title>Automatic Retrieval and Clustering of Similar Words</title>
+<date>1998</date>
+<booktitle>In Proceedings of COLING-ACL</booktitle>
+<location>Montreal, Qu´ebec, Canada</location>
+<contexts>
+<context position="9432">d appears often imposes constraints on the semantic type of the word. This basic idea has been exploited by many proposals for distributional similarity and clustering, e.g., (Church and Hanks, 1989; Lin, 1998; Pereira et al., 1993). Similar to Lin and Pantel (2001), we deﬁne the contexts of a word to be the undirected paths in dependency trees involving that word at either the beginning or the end. The fo</context>
+</contexts>
+<marker>Lin, 1998</marker>
+<rawString>D. Lin. 1998. Automatic Retrieval and Clustering of Similar Words. In Proceedings of COLING-ACL 1998, Montreal, Qu´ebec, Canada.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Lin</author>
+</authors>
+<title>Language and Text Analysis Tools</title>
+<date>2001</date>
+<booktitle>In Proceedings of HLT</booktitle>
+<pages>222--227</pages>
+<location>San Diego, California</location>
+<contexts>
+<context position="10874">sing from data sparseness. We have restricted the path length to two (involving at most three words) and require the two ends of the path to be nouns. We parsed the AQUAINT corpus (3GB) with Minipar (Lin, 2001) and collected the frequency counts of words appearing in various contexts. Parsing and database construction is performed off-line as the database is identical for all questions. We extracted 527,768</context>
+</contexts>
+<marker>Lin, 2001</marker>
+<rawString>D. Lin. 2001. Language and Text Analysis Tools. In Proceedings of HLT 2001, pages 222–227, San Diego, California.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Maynard</author>
+<author>V Tablan</author>
+<author>H Cunningham</author>
+<author>C Ursu</author>
+<author>H Saggion</author>
+<author>K Bontcheva</author>
+<author>Y Wilks</author>
+</authors>
+<title>Architectural Elements of Language Engineering Robustness. Natural Language Engineering</title>
+<date>2002</date>
+<pages>8--2</pages>
+<contexts>
+<context position="22293">s answers are copper, oil, red, and iris. The differences in the comparison systems is with respect to how entity types are assigned to the words in the candidate documents. We make use of the ANNIE (Maynard et al., 2002) named entity recognition system, along with a manual assigned “oracle” strategy, to assign types to candidate answers. In each case, the score for a candidate is either 1 if it is tagged as the same </context>
+</contexts>
+<marker>Maynard, Tablan, Cunningham, Ursu, Saggion, Bontcheva, Wilks, 2002</marker>
+<rawString>D. Maynard, V. Tablan, H. Cunningham, C. Ursu, H. Saggion, K. Bontcheva, and Y. Wilks. 2002. Architectural Elements of Language Engineering Robustness. Natural Language Engineering, 8(2/3):257–274.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Moll´a</author>
+<author>B Hutchinson</author>
+</authors>
+<title>Intrinsic versus Extrinsic Evaluations of Parsing Systems</title>
+<date>2003</date>
+<booktitle>In Proceedings of EACL Workshop on Evaluation Initiatives in Natural Language Processing</booktitle>
+<pages>43--50</pages>
+<location>Budapest, Hungary</location>
+<marker>Moll´a, Hutchinson, 2003</marker>
+<rawString>D. Moll´a and B. Hutchinson. 2003. Intrinsic versus Extrinsic Evaluations of Parsing Systems. In Proceedings of EACL Workshop on Evaluation Initiatives in Natural Language Processing, pages 43–50, Budapest, Hungary.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Pantel</author>
+<author>D Lin</author>
+</authors>
+<title>Document Clustering with Committees</title>
+<date>2002</date>
+<booktitle>In Proceedings of SIGIR 2002</booktitle>
+<pages>199--206</pages>
+<location>Tampere, Finland</location>
+<contexts>
+<context position="8600">frog, ... goblins, ghosts, vampires, ghouls, ... punk, reggae, folk, pop, hip-pop, ... huge, larger, vast, signiﬁcant, ... coming-of-age, true-life, ... clouds, cloud, fog, haze, mist, ... algorithm (Pantel and Lin, 2002) on a 10 GB English text corpus to obtain 3607 clusters. The following is an example cluster generated by CBC: tension, anger, anxiety, tensions, frustration, resentment, uncertainty, confusion, conﬂi</context>
+</contexts>
+<marker>Pantel, Lin, 2002</marker>
+<rawString>P. Pantel and D. Lin. 2002. Document Clustering with Committees. In Proceedings of SIGIR 2002, pages 199–206, Tampere, Finland.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>F Pereira</author>
+<author>N Tishby</author>
+<author>L Lee</author>
+</authors>
+<title>Distributional Clustering of English Words</title>
+<date>1993</date>
+<booktitle>In Proceedings of ACL</booktitle>
+<pages>183--190</pages>
+<contexts>
+<context position="8113">ds. Clusters, as used by our probabilistic answer typing system, play a role similar to that of named entity types. Many methods exist for clustering, e.g., (Brown et al., 1990; Cutting et al., 1992; Pereira et al., 1993; Karypis et al., 1999). We used the Clustering By Committee (CBC) 394 Table 1: Words and their clusters Word Clusters suite software, network, wireless, ... rooms, bathrooms, restrooms, ... meeting r</context>
+<context position="9455">ften imposes constraints on the semantic type of the word. This basic idea has been exploited by many proposals for distributional similarity and clustering, e.g., (Church and Hanks, 1989; Lin, 1998; Pereira et al., 1993). Similar to Lin and Pantel (2001), we deﬁne the contexts of a word to be the undirected paths in dependency trees involving that word at either the beginning or the end. The following diagram shows a</context>
+</contexts>
+<marker>Pereira, Tishby, Lee, 1993</marker>
+<rawString>F. Pereira, N. Tishby, and L. Lee. 1993. Distributional Clustering of English Words. In Proceedings of ACL 1992, pages 183–190.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Radev</author>
+<author>W Fan</author>
+<author>H Qi</author>
+<author>H Wu</author>
+<author>A Grewal</author>
+</authors>
+<title>Probablistic Question Answering on the Web</title>
+<date>2002</date>
+<booktitle>In Proceedings of the Eleventh International World Wide Web Conference</booktitle>
+<contexts>
+<context position="7040">st be encoded as axioms into the system. In contrast, our answer type model derives all of its information automatically from unannotated text. Answer types are often used as ﬁlters. It was noted in (Radev et al., 2002) that a wrong guess about the answer type reduces the chance for the system to answer the question correctly by as much as 17 times. The approach presented here is less brittle. Even if the correct ca</context>
+</contexts>
+<marker>Radev, Fan, Qi, Wu, Grewal, 2002</marker>
+<rawString>D. Radev, W. Fan, H. Qi, H. Wu, and A. Grewal. 2002. Probablistic Question Answering on the Web. In Proceedings of the Eleventh International World Wide Web Conference.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E M Voorhees</author>
+</authors>
+<title>Overview of the TREC 2003 Question Answering Track</title>
+<date>2003</date>
+<booktitle>In Proceedings of TREC</booktitle>
+<location>Gaithersburg, Maryland</location>
+<contexts>
+<context position="20892">insic rather than extrinsic evaluation (Moll´a and Hutchinson, 2003) that we believe illustrates the usefulness of our model. The evaluation data consist of 154 questions from the TREC-2003 QA Track (Voorhees, 2003) satisfying the following criteria, along with the top 10 documents returned for each question as identiﬁed by NIST using the PRISE1 search engine. • the question begins with What, Which, or Who. We r</context>
+</contexts>
+<marker>Voorhees, 2003</marker>
+<rawString>E.M. Voorhees. 2003. Overview of the TREC 2003 Question Answering Track. In Proceedings of TREC 2003, Gaithersburg, Maryland.</rawString>
+</citation>
+</citationList>
+</algorithm>

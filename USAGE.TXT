@@ -1,0 +1,92 @@
+ParsCit README
+(updated in 100401 distribution by MYK)
+Originally by IGC / MYK 
+
+ParsCit is a utility for extracting citations from research papers
+based on Conditional Random Fields and heuristic regularization.
+Please see the installation notes before attempting to use the
+package.  
+
+------------------------------------------------------------
+COMMAND LINE USAGE:
+
+Command line utilities are provided for extracting citations from
+text documents.  By default, text files are expected to be encoded
+in UTF-8, but the expected encoding can be adjusted using perl
+command line switches.  To run ParsCit on a single document, execute
+the following command:
+
+# Thang v100401: updated
+citeExtract.pl [-m mode] [-i <inputType>] <filename> [outfile]
+
+If "outfile" is specified, the XML output will be written to that
+file; otherwise, the XML will be printed to STDOUT.
+
+The mode switch (-m) has five settings: extract_citations,
+extract_header, extract_section, extract_meta, and extract_all.
+extract_citations is the default, which extracts and parses the
+citations in the reference/bibliography section of the input text
+file.  extract_header extracts and parses the header (first page) of
+the input text file.  extract_section extracts and parses the full
+document to retrieve logical structures.
+
+extract_meta performs both the extract_citations and extrac_header
+operations.  extract_all performs all three operations (_citations,
+_header, _section).
+
+The mode switch (-i) has two options: raw and xml. With "raw"
+(default), the system accepts raw text input; where as with "xml", the
+system expects XML output from Omnipage.
+
+There is also a web service interface available, using the
+SOAP::Lite perl module.  To start the service, just execute:
+
+parscit-service.pl
+
+By default, the service will start on port 10555, but this is
+configurable in the ParsCit::Config library module.  A WSDL file is
+provided with the distribution that outlines the message details
+expected by the ParsCit service.  If the service port is changed,
+the WSDL file must also be modified to reflect that change.  Expected
+parameters in the input message are "filePath" (a path to the text
+file to parse) and "repositoryID".  The ParsCit service is designed
+for deployment in an environment where text files may be located on
+file systems mounted from arbitrary machines on the network.  Thus,
+"repositoryID" provides a means to map a given shared file system to
+it's mount point.  Repository mappings are configurable in the Config
+module.  The "filePath" parameter provides a path to the text file
+relative to the repository mount point.  The local file system may be
+specified using the reserved repository ID "LOCAL".  In that case, an
+absolute path to the text file may be specified.
+
+A perl client is also provided that demonstrates how to use the
+service.  Execute the client with the following command:
+
+parscit-client.pl filePath repositoryID
+
+If the call is successful, the XML output will be printed to STDOUT.
+
+------------------------------------------------------------
+API:
+
+The ParsCit libraries may be used directly from external perl
+applications.  The interface module is ParsCit::Controller.  If XML
+output is desired, use the
+
+ParsCit::Controller::extractCitations($filePath)
+
+subroutine.  If it is desirable to have faster, more structured access
+to citation data from the external code, it may be more convenient to
+use the
+
+ParsCit::Controller::extractCitationsImpl($filePath)
+
+subroutine instead.  Rather than returning the data in XML
+representation, the parameters returned are a status code (code > 0
+indicates success), an error message (blank if no error), a reference
+to a list of ParsCit::Citation objects containing the parsed citation
+data, and a reference to the body text identified during pre-processing.
+
+If the ParsCit library is used from external Perl applications, remember
+to use the "-CSD" perl option for global unicode stream support (or
+otherwise handle encoding) or risk string corruption.

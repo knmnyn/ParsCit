@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="bibxml.xsl" type="text/xsl" ?>
+<file>
+<entry no="0">
+<variant no="0" confidence="1.0">
+<title>A Probabilistic Answer Type Model</title>
+<author>Christopher Pinchak</author>
+<affiliation>Department of Computing Science University of Alberta</affiliation>
+<address>Edmonton, Alberta, Canada</address>
+<email>pinchak@cs.ualberta.ca</email>
+<author>Dekang Lin</author>
+<affiliation>Google, Inc</affiliation>
+<address>1600 Amphitheatre Parkway Mountain View, CA</address>
+<email>lindek@google.com</email>
+<abstract>All questions are implicitly associated with an expected answer type. Unlike previous approaches that require a prede- ﬁned set of question types, we present a method for dynamically constructing a probability-based answer type model for each different question. Our model evaluates the appropriateness of a potential answer by the probability that it ﬁts into the question contexts. Evaluation is performed against manual and semiautomatic methods using a ﬁxed set of answer labels. Results show our approach to be superior for those questions classiﬁed as having a miscellaneous answer type</abstract>
+</variant>
+</entry>
+</file>

@@ -1,0 +1,105 @@
+BODY {
+  margin: 1em 1.5em;
+  font-family: arial, lucinda, helvetica;
+  color: black;
+  background: white;
+}
+ 
+.text {
+   font-family: arial, lucinda, helvetica;
+}
+
+SPAN.hidden { font-size: .6em; color: white }
+SPAN.red { font-size: .6em; color: red; font-weight: bold; }
+
+P.red { 
+  color: red;
+  font-style: italic;
+  font-size: .8em; 
+}
+ 
+A:link { color: navy }       /* unvisited link */
+A:visited { color: gray }   /* visited links */
+A:active { color: cyan }    /* active links */
+A:hover { color:green; background:lightblue; }
+ 
+TH, TD {
+  font-family: arial, lucinda, helvetica;
+}
+
+DT {
+  font-weight: bold;
+  color: blue;
+}
+  
+B, CODE {
+  font-family: arial, lucinda, helvetica;
+  font-weight: bold;
+  color: blue
+}
+ 
+H1 {
+  text-align: center;
+  font-family: arial, lucinda, helvetica;
+  font-weight: normal; 
+}
+ 
+H2, H3 {
+  text-align: left;
+  font-family: arial, lucinda, helvetica;
+  font-weight: normal; 
+  background: #00BA4A;
+}
+ 
+H4 {
+  color: #000000;
+}
+
+DIV.hidden {
+   border-style: solid;
+   border: 2px;
+   margin: 0px 20px 0px 20px;
+   background-color: #FFF0F0; 
+}
+
+SPAN.marker { background: grey; }
+
+SPAN.number { background: lightblue; font-style: italic }
+
+SPAN.author { background: yellow; }
+SPAN.booktitle { background: red; }
+SPAN.date { background: cyan; }
+SPAN.editor { background: plum;}
+SPAN.institution { background: ivory; font-style: italic }
+SPAN.journal { background: gold; font-style: italic }
+SPAN.location { background: chartreuse; }
+SPAN.note { background: tan; font-style: italic }
+SPAN.pages { background: pink; }
+SPAN.publisher { background: lime; }
+SPAN.tech { background: silver;}
+SPAN.title { background: orange; }
+SPAN.volume { background: magenta; font-style: italic }
+
+SPAN.abstract { background: ivory; font-style: italic }
+SPAN.address { background: red; }
+SPAN.email { background: silver;}
+SPAN.affiliation { background: lime; }
+/* added by Emma */
+SPAN.bodyText {background: cyan;}
+SPAN.category {background: violet;}
+SPAN.construct {background: #FFFF99; }
+SPAN.copyright {background:gold }
+SPAN.equation {background: #33CC33; }
+SPAN.figure {background: #9966ff; }
+SPAN.figureCaption {background: #BEC7FF; }
+SPAN.footnote {background: chartreuse;}
+SPAN.keyword {background: magenta;}
+SPAN.listItem {background: #FF9999; }
+SPAN.page {background: pink;}
+SPAN.reference {background: #993300;}
+SPAN.sectionHeader {background: #cc9900;}
+SPAN.subsectionHeader {background: #99CC00;}
+SPAN.subsubsectionHeader {background: #ccff66;}
+SPAN.table {background: #FFCC99;}
+SPAN.tableCaption {background: #FF00CC;}
+DIV.contexts { font-size: .8em; background: #FFFFFF; border: 1px solid #000000; }
