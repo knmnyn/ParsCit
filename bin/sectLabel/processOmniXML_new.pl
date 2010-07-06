@@ -610,7 +610,11 @@ sub processPara {
       $isTab = 0;
 
       if ($isMarkup){
-	$markupOutput .= "$word $wdAttr\n";
+	$markupOutput .= "$word $wdAttr";
+	if($isRun && $runAttr =~ /(bold|italic)=\"true\"/){ # if both bold and italic, then just use one
+	  $markupOutput .= " $1=\"true\"";
+	}
+	$markupOutput .= "\n";
       }
 
       if($isXmlFeature){ # FontSize & FontFace
@@ -647,7 +651,12 @@ sub processPara {
       $isWd = 0;
       
       if($isMarkup){
-	$markupOutput .= "$wdText $wdAttr\n";
+	$markupOutput .= "$wdText $wdAttr";
+	if($isRun && $runAttr =~ /(bold|italic)=\"true\"/){ # if both bold and italic, then just use one
+	  $markupOutput .= " $1=\"true\"";
+	}
+	$markupOutput .= "\n";
+
 	$wdAttr = "";
       }
     }
