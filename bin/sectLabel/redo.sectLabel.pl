@@ -191,29 +191,29 @@ sub newTmpFile {
   return $tmpFile;
 }
 
-### v100401, micro F1 = 93.38, macro F1 (avg of individual F1s) = 84.72 ###
-#processed 37802 tokens with 37802 phrases; found: 37802 phrases; correct: 35299.
-#  accuracy:  93.38%; precision:  93.38%; recall:  93.38%; FB1:  93.38
-#  address: precision:  88.33%; recall:  82.81%; FB1:  85.48; TP=53 FN=11 FP=7
-#  affiliation: precision:  96.04%; recall:  89.81%; FB1:  92.82; TP=97 FN=11 FP=4
-#  author: precision:  97.01%; recall:  98.48%; FB1:  97.74; TP=65 FN=1 FP=2
-#  bodyText: precision:  95.72%; recall:  98.26%; FB1:  96.97; TP=24636 FN=435 FP=1102
-#  category: precision:  89.55%; recall:  82.19%; FB1:  85.71; TP=60 FN=13 FP=7
-#  construct: precision:  66.67%; recall:  22.03%; FB1:  33.11; TP=50 FN=177 FP=25
-#  copyright: precision:  97.22%; recall:  93.09%; FB1:  95.11; TP=175 FN=13 FP=5
-#  email: precision:  98.41%; recall:  96.88%; FB1:  97.64; TP=62 FN=2 FP=1
-#  equation: precision:  70.88%; recall:  73.17%; FB1:  72.01; TP=611 FN=224 FP=251
-#  figure: precision:  80.89%; recall:  78.99%; FB1:  79.93; TP=1718 FN=457 FP=406
-#  figureCaption: precision:  83.05%; recall:  71.61%; FB1:  76.91; TP=338 FN=134 FP=69
-#  footnote: precision:  89.61%; recall:  56.87%; FB1:  69.58; TP=207 FN=157 FP=24
-#  keyword: precision:  79.66%; recall:  69.12%; FB1:  74.02; TP=47 FN=21 FP=12
-#  listItem: precision:  77.98%; recall:  65.52%; FB1:  71.21; TP=857 FN=451 FP=242
-#  note: precision:  97.90%; recall:  94.59%; FB1:  96.22; TP=140 FN=8 FP=3
-#  page: precision:  97.98%; recall:  97.69%; FB1:  97.84; TP=339 FN=8 FP=7
-#  reference: precision:  99.52%; recall:  99.47%; FB1:  99.50; TP=3945 FN=21 FP=19
-#  sectionHeader: precision:  95.29%; recall:  91.79%; FB1:  93.51; TP=425 FN=38 FP=21
-#  subsectionHeader: precision:  92.41%; recall:  90.40%; FB1:  91.39; TP=292 FN=31 FP=24
-#  subsubsectionHeader: precision:  90.62%; recall:  74.36%; FB1:  81.69; TP=58 FN=20 FP=6
-#  table: precision:  77.92%; recall:  81.33%; FB1:  79.59; TP=893 FN=205 FP=253
-#  tableCaption: precision:  92.61%; recall:  71.49%; FB1:  80.69; TP=163 FN=65 FP=13
-#  title: precision: 100.00%; recall: 100.00%; FB1: 100.00; TP=68 FN=0 FP=0
+### v100401, run on 6 Jul 10, micro F1 = 93.35, macro F1 (avg of individual F1s) =  ###
+#processed 37802 tokens with 37802 phrases; found: 37802 phrases; correct: 35289.
+# accuracy:  93.35%; precision:  93.35%; recall:  93.35%; FB1:  93.35
+# address: precision:  88.71%; recall:  85.94%; FB1:  87.30  62
+# affiliation: precision:  96.04%; recall:  89.81%; FB1:  92.82  101
+# author: precision:  95.59%; recall:  98.48%; FB1:  97.01  68
+# bodyText: precision:  95.64%; recall:  98.31%; FB1:  96.96  25770
+# category: precision:  86.57%; recall:  79.45%; FB1:  82.86  67
+# construct: precision:  54.72%; recall:  12.78%; FB1:  20.71  53
+# copyright: precision:  98.31%; recall:  92.55%; FB1:  95.34  177
+# email: precision:  98.41%; recall:  96.88%; FB1:  97.64  63
+# equation: precision:  68.63%; recall:  76.77%; FB1:  72.47  934
+# figure: precision:  83.96%; recall:  76.78%; FB1:  80.21  1989
+# figureCaption: precision:  83.67%; recall:  70.55%; FB1:  76.55  398
+# footnote: precision:  86.25%; recall:  56.87%; FB1:  68.54  240
+# keyword: precision:  79.31%; recall:  67.65%; FB1:  73.02  58
+# listItem: precision:  77.56%; recall:  67.13%; FB1:  71.97  1132
+# note: precision:  97.22%; recall:  94.59%; FB1:  95.89  144
+# page: precision:  97.41%; recall:  97.41%; FB1:  97.41  347
+# reference: precision:  99.22%; recall:  99.47%; FB1:  99.35  3976
+# sectionHeader: precision:  94.21%; recall:  91.36%; FB1:  92.76  449
+# subsectionHeader: precision:  92.41%; recall:  90.40%; FB1:  91.39  316
+# subsubsectionHeader: precision:  87.88%; recall:  74.36%; FB1:  80.56  66
+# table: precision:  78.26%; recall:  81.97%; FB1:  80.07  1150
+# tableCaption: precision:  94.22%; recall:  71.49%; FB1:  81.30  173
+# title: precision:  98.55%; recall: 100.00%; FB1:  99.27  69
