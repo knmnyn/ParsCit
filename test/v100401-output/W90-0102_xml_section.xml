@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.000248">
-<title confidence="0.4452395">
+<variant no="0" confidence="0.000308">
+<title confidence="0.4781915">
 Generation and
 Synchronous Tree-Adjoining Grammars
 </title>
-<author confidence="0.771683">
+<author confidence="0.817115">
 Stuart M. Shieber
 </author>
-<affiliation confidence="0.830965">
+<affiliation confidence="0.863290333333333">
 Aiken Computation Laboratory
 Division of Applied Sciences
 Harvard University
 </affiliation>
-<address confidence="0.648293">
+<address confidence="0.695618">
 Cambridge, MA 02138
 </address>
-<sectionHeader confidence="0.946417" genericHeader="abstract">
+<sectionHeader confidence="0.942738" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999883428571428">
+<bodyText confidence="0.999878214285714">
 Tree-adjoining grammars (TAG) have been proposed as
 a formalism for generation based on the intuition that
 the extended domain of syntactic locality that TAGs
@@ -36,10 +36,10 @@ requirement previously advocated for generation gram-
 mars as a computational aid is seen to be an inherent
 property of synchronous TAGs.
 </bodyText>
-<subsectionHeader confidence="0.80871">
+<subsectionHeader confidence="0.82302">
 Introduction
 </subsectionHeader>
-<bodyText confidence="0.99994724">
+<bodyText confidence="0.99994512">
 The recent history of grammar reversing can be viewed
 as an effort to recover some notion of semantic local-
 ity on which to base a generation process. For in-
@@ -66,14 +66,14 @@ notion of semantic locality. The same observation runs
 as an undercurrent in the work of McDonald and Puste-
 jovsky (1985), who apply TAGs to the task of genera-
 </bodyText>
-<subsectionHeader confidence="0.928325">
+<subsectionHeader confidence="0.9041412">
 Yves Schabes
 Department of Computer and
 Information Science
 University of Pennsylvania
 Philadelphia, PA 19104
 </subsectionHeader>
-<bodyText confidence="0.999970764705882">
+<bodyText confidence="0.999967823529412">
 tion. As these researchers note, the properties of TAGs
 for describing the syntactic structuring of a natural lan-
 guage mesh quite naturally with the requirements of
@@ -92,10 +92,10 @@ ald and Pustejovsky. In particular, synchronous TAGs
 allow for a precise notion of semantic locality corre-
 sponding to the syntactic locality of pure TAGs.
 </bodyText>
-<subsectionHeader confidence="0.559399">
+<subsectionHeader confidence="0.559817">
 Scope of the Paper
 </subsectionHeader>
-<bodyText confidence="0.999969352941177">
+<bodyText confidence="0.999971352941176">
 The portion of the full-blown generation problem that
 we address here is what might be referred to as the tac-
 tical as opposed to the strategic generation problem.
@@ -114,17 +114,17 @@ issue in its historical research context. The other truly
 difficult issues of general natural-language production
 are well beyond the scope of this paper.
 </bodyText>
-<footnote confidence="0.585458">
-&amp;apos;This issue of canonicality of logical forms is discussed
+<footnote confidence="0.719908">
+&apos;This issue of canonicality of logical forms is discussed
 by Shieber (1988).
 </footnote>
-<page confidence="0.992897">
+<page confidence="0.994089">
 9
 </page>
-<subsectionHeader confidence="0.817766">
+<subsectionHeader confidence="0.826004">
 Semantics in Generation
 </subsectionHeader>
-<bodyText confidence="0.982564">
+<bodyText confidence="0.922243954545455">
 Although Joshi discusses at length the properties of
 TAGs advantageous to the generation task (1987), he
 does not address the issue of characterizing a semantic
@@ -148,24 +148,24 @@ vidual units and allowing them to include references to
 each other.&amp;quot; The units for the example at hand would
 be:
 </bodyText>
-<equation confidence="0.9851515">
+<equation confidence="0.97983425">
 = A(quantity-of-ships).
 attack(Iraq, quantity-of-ships)
 U2 = say(Iraq,U1)
 U3 = report(Reuters, U2)
 </equation>
-<bodyText confidence="0.982005333333333">
+<bodyText confidence="0.980564">
 By composing the units using substitution of equals for
 equals, a more conventional logical form representation
 is revealed:
 </bodyText>
-<equation confidence="0.96869675">
+<equation confidence="0.969581">
 report( Reuters,
 say(Iraq,
 )t(quantity-of-ships).
 attack(Iraq, quantity-of-ships)))
 </equation>
-<bodyText confidence="0.987057916666667">
+<bodyText confidence="0.98695775">
 Three problems present themselves.
 First, the particular decomposition of the full seman-
 tic form must be explicitly specified as part of the input
@@ -179,13 +179,13 @@ the quantity quantifier being inside the say predicate.
 The more standard representation of scoping would be
 akin to
 </bodyText>
-<equation confidence="0.873493">
+<equation confidence="0.87768025">
 A(quantity-of-ships).
 (2) report(Reuters,
 say(Iraq, attack(Iraq,
 quantity-of-ships)))
 </equation>
-<bodyText confidence="0.999903277777778">
+<bodyText confidence="0.999871111111111">
 but this requires one of the elementary semantic units to
 be &amp;quot;broken up&amp;quot;. Consequently, McDonald and Puste-
 jovsky note that they cannot have the logical form (2)
@@ -205,10 +205,10 @@ pose links elementary trees with units of the realization
 specification. Apparently, a more finely structured rep-
 resentation is needed.
 </bodyText>
-<subsectionHeader confidence="0.929413">
+<subsectionHeader confidence="0.930913">
 Synchronous TAGs
 </subsectionHeader>
-<bodyText confidence="0.999924029411765">
+<bodyText confidence="0.999923911764706">
 In order to provide an explicit representation for the se-
 mantics of strings generated by a TAG, and in so doing
 provide a foundation for the generation efforts of Joshi
@@ -244,18 +244,18 @@ grained relationship between syntax and semantics that
 allows decisions about where to perform semantic op-
 erations to be well-defined.
 </bodyText>
-<subsectionHeader confidence="0.951087">
+<subsectionHeader confidence="0.953051">
 An Example Synchronous TAG
 </subsectionHeader>
-<bodyText confidence="0.999354333333333">
+<bodyText confidence="0.999402333333333">
 We introduce synchronous TAGs by example, contin-
 uing with an exegesis of the sentence that McDonald
 and Pustejovsky focus on, and following roughly the
 </bodyText>
-<page confidence="0.989676">
+<page confidence="0.989487">
 10
 </page>
-<figure confidence="0.997276363636364">
+<figure confidence="0.997430454545454">
 a:
 NPi qF
 ;C3
@@ -268,16 +268,16 @@ Reuters V §
 report Comp S*NA
 that
 </figure>
-<figureCaption confidence="0.997648">
+<figureCaption confidence="0.997449">
 Figure 1: Example Synchronous TAG
 </figureCaption>
-<figure confidence="0.96112">
+<figure confidence="0.96238675">
 said Iraq F*
 132:
 How many ships
 Iraq
 </figure>
-<bodyText confidence="0.994912363636364">
+<bodyText confidence="0.994856575757576">
 structure of their TAG analysis.2
 A synchronous TAG sufficient for this example in-
 cludes the three pairings of trees (labeled a, flu, and (32)
@@ -293,7 +293,7 @@ linearization of such trees will be assumed, so that the
 logical form in given for the sample sentence is in the
 language. Some of the nodes in the pairs are linked;
 formally, the interpretation of these links is that oper-
-&amp;apos;The linguistic analysis implicit in the TAG English frag-
+&apos;The linguistic analysis implicit in the TAG English frag-
 ment that we present is not proposed as an appropriate
 one in general. It merely provides sufficient structure to
 make the points vis-i-vis generation. Furthermore, the trees
@@ -312,14 +312,14 @@ choosing a pairing of initial trees from the grammar
 and repeatedly updating it by the following three-step
 process:3
 </bodyText>
-<listItem confidence="0.9850728">
+<listItem confidence="0.986772">
 1. Choose a link to act upon.
 2. Choose a pairing such that the two trees can respec-
 tively act on (substitute at or adjoin at) the respec-
 tive ends of the link chosen in Step 1.
 3. Remove the chosen link from the trees being updated
 </listItem>
-<bodyText confidence="0.830987857142857">
+<bodyText confidence="0.846519285714286">
 and perform the two operations, one in each of the
 trees. If the trees in the chosen pairing themselves
 have links, these are preserved in the result.
@@ -328,15 +328,15 @@ a from Figure 1. We choose the sole link in a, and
 choose i3u as the tree pair to operate with, as the first
 component of flu can operate (by adjunction) on an S
 </bodyText>
-<footnote confidence="0.996916">
+<footnote confidence="0.996938">
 3A fuller description of the formal aspects of synchronous
 TAGs can be found in a previous paper (Shieber and Sch-
 abes, forthcoming).
 </footnote>
-<page confidence="0.998561">
+<page confidence="0.998598">
 11
 </page>
-<figure confidence="0.99932015">
+<figure confidence="0.999364">
 a
 .•■••■
 NPi S
@@ -358,17 +358,17 @@ said NIP VP
 Iraq
 attacked
 </figure>
-<figureCaption confidence="0.991292">
+<figureCaption confidence="0.990684">
 Figure 2: Results of Synchronous Derivation Steps
 </figureCaption>
-<figure confidence="0.9726148">
+<figure confidence="0.9747198">
 Iraq Aux VP
 had
 said NP VP
 Iraq V NP
 attacked
 </figure>
-<bodyText confidence="0.991906470588235">
+<bodyText confidence="0.991055">
 node, and the second on an F node as required by the
 chosen link The result of performing the adjunctions
 is the pairing given as a + th in Figure 2. The link
@@ -387,7 +387,7 @@ plicit in the grammar just as the decomposition of
 the natural-language expressions are, by stating the
 structure of logical forms grammatically.
 </bodyText>
-<listItem confidence="0.718375428571429">
+<listItem confidence="0.749846571428572">
 2. Allows the same operations to be used for composing
 both natural-language expressions and semantic rep-
 resentations as both are stated with the same gram-
@@ -396,7 +396,7 @@ matical tools.
 pressions of natural language and their meanings ex-
 plicit by the technique of node linking.
 </listItem>
-<bodyText confidence="0.997420666666667">
+<bodyText confidence="0.9971655">
 The strong notion of semantic locality that synchronous
 TAGs embody makes these results possible. This se-
 mantic locality, in turn, is only possible because the ex-
@@ -404,10 +404,10 @@ tended domain of locality found in pure TAGs makes it
 possible to localize dependencies that would otherwise
 be spread across several primitive structures.
 </bodyText>
-<page confidence="0.998432">
+<page confidence="0.998568">
 12
 </page>
-<bodyText confidence="0.996016157894737">
+<bodyText confidence="0.995909263157895">
 Translation with Synchronous TAGs
 Synchronous TAGs as informally described here declar-
 atively characterize a relation over strings in two lan-
@@ -466,7 +466,7 @@ Shanker (1988)), and consequently must be normalized
 to put it into canonical form. Under certain config-
 urations of links, the normalization process is nonde-
 </bodyText>
-<figure confidence="0.96934975">
+<figure confidence="0.970484916666667">
 Aq .report(Reuters,
 said(lraq,
 attack(Iraq,q)))
@@ -480,10 +480,10 @@ did Reuters report
 that Iraq had said
 Iraq attacked?
 </figure>
-<figureCaption confidence="0.999734">
+<figureCaption confidence="0.999754">
 Figure 3: Generation by Derivation Translation
 </figureCaption>
-<bodyText confidence="0.999949925925926">
+<bodyText confidence="0.99998062962963">
 terministic; thus one source derivation (necessarily in
 canonical form by virtue of properties of the parsing al-
 gorithm) may be associated with several canonical tar-
@@ -512,12 +512,12 @@ mar and, consequently, more efficient generation. In
 the case of augmented context-free grammars, the se-
 mantic monotonicity requirement precludes &amp;quot;lexicaliza-
 </bodyText>
-<equation confidence="0.597979333333333">
+<equation confidence="0.586166666666667">
 10
 (sYn)
 1 3
 </equation>
-<bodyText confidence="0.999959407407408">
+<bodyText confidence="0.999954481481481">
 tion&amp;quot; of the semantics. It is not possible to require
 nontrivial semantics to be associated with each lexi-
 cal item. This fact, and the inefficiencies of genera-
@@ -546,10 +546,10 @@ synchronous TAG derivation and properties of particu-
 lar grammars; a full explication is beyond the scope of
 this paper.
 </bodyText>
-<subsectionHeader confidence="0.731009">
+<subsectionHeader confidence="0.752874">
 Conclusion
 </subsectionHeader>
-<bodyText confidence="0.99989225">
+<bodyText confidence="0.999892375">
 The extended domain of locality that tree-adjoining
 grammars enjoy would seem to make them ideal candi-
 dates for the task of tactical generation, where seman-
@@ -559,20 +559,20 @@ languages, provide a formal foundation for this intuition
 by making explicit the semantic locality that generation
 requires.
 </bodyText>
-<sectionHeader confidence="0.953052" genericHeader="acknowledgments">
+<sectionHeader confidence="0.952399" genericHeader="acknowledgments">
 Acknowledgements
 </sectionHeader>
-<bodyText confidence="0.9998562">
+<bodyText confidence="0.999868">
 This research was partially funded by ARO grant
 DAAG29-84-K-0061, DARPA grant N00014-85-K0018,
 and NSF grant MCS-82-19196 at the University of
 Pennsylvania. We are indebted to Aravind Joshi for
 his support of this research.
 </bodyText>
-<sectionHeader confidence="0.829166" genericHeader="references">
+<sectionHeader confidence="0.821124" genericHeader="references">
 Bibliography
 </sectionHeader>
-<reference confidence="0.999584050847457">
+<reference confidence="0.999590101694915">
 Jonathan Calder, Mike Reape, and Hank Zeevat. An al-
 gorithm for generation in unification categorial gram-
 mar. In Proceedings of the 4th Conference of the Eu-
@@ -603,10 +603,10 @@ national Workshop on Parsing Technologies, pages
 339-349, Pittsburgh, Pennsylvania, 28-31 August
 1989. Carnegie-Mellon University.
 Yves Schabes, Anne Abeille, and Aravind K. Joshi.
-Parsing strategies with `lexicalized&amp;apos; grammars: Ap-
+Parsing strategies with `lexicalized&apos; grammars: Ap-
 plication to tree adjoining grammars. In Proceedings
 of the 12th International Conference on Computa-
-tional Linguistics (COLING&amp;apos;88), Budapest, August
+tional Linguistics (COLING&apos;88), Budapest, August
 1988.
 Stuart M. Shieber and Yves Schabes. Synchronous tree-
 adjoining grammars. In Proceedings of the 13th Inter-
@@ -633,7 +633,7 @@ derivation. In Proceedings of the 12th International
 Conference on Computational Linguistics, pages 732—
 737, Budapest, Hungary, 1988.
 </reference>
-<page confidence="0.99962">
+<page confidence="0.999587">
 14
 </page>
 </variant>

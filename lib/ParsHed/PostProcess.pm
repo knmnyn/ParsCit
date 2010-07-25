@@ -139,11 +139,12 @@ sub generateOutput {
       $confStr = " confidence=\"".$_->{"confidence"}."\"";
     }
     if($content =~ /^\s*$/) { next; };
-    
+
     ($tag, $content) = normalizeHeaderField($tag, $content);
-    
+
     if($tag eq "authors"){ # handle multiple authors in a line
       foreach my $author (@{$content}){
+	cleanXML(\$author);
 	$output .= "<author$confStr>$author</author>\n";
       }
     }elsif($tag eq "emails"){ # handle multiple emails at a time
@@ -168,7 +169,6 @@ sub normalizeHeaderField {
   $content =~ s/^\s+//g;			# strip leading spaces
   $content =~ s/\s+$//g;		      # remove trailing spaces
   $content =~ s/\- ([a-z])/$1/g;			 # unhyphenate
-  cleanXML(\$content);			       # escape XML characters
 
   # normalize author and break into multiple authors (if any)
   if ($tag eq "author") {
@@ -216,6 +216,7 @@ sub normalizeHeaderField {
       $content =~ s/\s+//g; #remove all white spaces
     }
   } else {
+    cleanXML(\$content);			       # escape XML characters
     $content = ParsCit::PostProcess::stripPunctuation($content);
   }
 

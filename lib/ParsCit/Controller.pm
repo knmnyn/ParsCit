@@ -130,6 +130,16 @@ sub extractCitationsAlreadySegmented {
 
 }
 
+# Thang: tmp method for debugging purpose
+sub printArray {
+  my ($fileName, $tokens) = @_;
+  open(OF, ">:utf8", $fileName);
+  foreach(@{$tokens}){
+    print OF "$_\n";
+  }
+  close OF;
+}
+
 ##
 # Main script for actually walking through the steps of
 # citation processing.  Returns a status code (0 for failure),
@@ -157,8 +167,21 @@ sub extractCitationsImpl {
     }
     close IN;
 
+    ### Thang May 2010 ###
+    my @posArray = (); # map each position in normBodyText -> a position in bodyText, scalar(@posArray) = num tokens in normBodyText
     my ($rCiteText, $rNormBodyText, $rBodyText) =
-	ParsCit::PreProcess::findCitationText(\$text);
+	ParsCit::PreProcess::findCitationText(\$text, \@posArray);
+
+    my @normBodyTokens = split(/\s+/, $$rNormBodyText);
+    my @bodyTokens = split(/\s+/, $$rBodyText);
+    my $size = scalar(@normBodyTokens);
+    my $size1 = scalar(@posArray);
+
+    if($size != $size1){
+      die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n";
+    }
+    ### End Thang May 2010
+
     my ($citeFile, $bodyFile) = ("", "");
     if ($bWriteSplit > 0) {
 	($citeFile, $bodyFile) =
@@ -211,19 +234,26 @@ sub extractCitationsImpl {
 		    $citation->setMarker($marker);
 		}
 ########## modified by Nick Friedrich
-### getCitationContext returns contexts and the position of the contexts
-		my ($rContexts, $rPositions, $rCitStrs) = # Thang: 29/11/2009 add $rCitStrs - in-text ciation strs
-		    ParsCit::CitationContext::getCitationContext($rNormBodyText,
-								 $marker);
+		### getCitationContext returns contexts and the position of the contexts
+		my ($rContexts, $rPositions, $startWordPositions, $endWordPositions, $rCitStrs) = # Thang: Nov 2009 add $rCitStrs - in-text ciation strs
+		ParsCit::CitationContext::getCitationContext($rNormBodyText, \@posArray, $marker); # Thang May 2010: add $rWordPositions, $rBodyText to find word-based positions (0-based) according to the *.body file
+
 		foreach my $context (@{$rContexts}) {
 		    $citation->addContext($context);
 		    my $position = shift @{$rPositions};
 		    $citation->addPosition($position);
 		    
-		    # Thang: 29/11/2009
+		    # Thang: Nov 2009
 		    my $citStr = shift @{$rCitStrs};
 		    $citation->addCitStr($citStr);
-		    # End Thang: 29/11/2009
+		    # End Thang: Nov 2009
+
+		    my $startPos = shift @{$startWordPositions};
+		    my $endPos = shift @{$endWordPositions};
+		    $citation->addStartWordPosition($posArray[$startPos]);
+		    $citation->addEndWordPosition($posArray[$endPos]);
+#		    print STDERR "$citStr --> $bodyTokens[$posArray[$startPos]]\t$posArray[$startPos] ### $posArray[$endPos]\t$bodyTokens[$posArray[$endPos]]\n";
+
 ##########
 		}
 		push @validCitations, $citation;

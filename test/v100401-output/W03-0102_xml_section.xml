@@ -2,44 +2,44 @@
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
 <variant no="0" confidence="0.000000">
-<title confidence="0.951778">
+<title confidence="0.960933">
 Pointing to places in a deductive geospatial theory
 </title>
-<author confidence="0.854279">
+<author confidence="0.882573">
 Richard Waldinger
 </author>
-<affiliation confidence="0.5840045">
+<affiliation confidence="0.6302945">
 Artificial Intelligence Center
 SRI International
 </affiliation>
-<email confidence="0.963768">
+<email confidence="0.968606">
 waldinger@ai.sri.com
 </email>
-<author confidence="0.897477">
+<author confidence="0.917354">
 Peter Jarvis
 </author>
-<affiliation confidence="0.5986585">
+<affiliation confidence="0.6412935">
 Artificial Intelligence Center
 SRI International
 </affiliation>
-<email confidence="0.977379">
+<email confidence="0.979203">
 jarvis@ai.sri.com
 </email>
-<author confidence="0.983455">
+<author confidence="0.984639">
 Jennifer Dungan
 </author>
-<affiliation confidence="0.705286666666667">
+<affiliation confidence="0.712731333333333">
 Ecosystem Science and
 Technology Branch
 NASA Ames Research Center
 </affiliation>
-<email confidence="0.996152">
+<email confidence="0.996282">
 jennifer@gaia.arc.nasa.gov
 </email>
-<sectionHeader confidence="0.998822" genericHeader="abstract">
+<sectionHeader confidence="0.998896" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999355">
+<bodyText confidence="0.999389">
 Issues in the description of places are discussed
 in the context of a logical geospatial theory.
 This theory lies at the core of the system Ge-
@@ -47,10 +47,10 @@ oLogica, which deduces answers to geographi-
 cal questions based on knowledge provided by
 multiple agents.
 </bodyText>
-<sectionHeader confidence="0.999108" genericHeader="categories_and_subject_descriptors">
+<sectionHeader confidence="0.999173" genericHeader="keywords">
 1 Introduction
 </sectionHeader>
-<bodyText confidence="0.999805884615385">
+<bodyText confidence="0.999811230769231">
 Many questions cannot be answered from information in
 a single geographical source; often the answer must be
 deduced from information provided by several sources.
@@ -78,10 +78,10 @@ given description. We’ll discuss the solution of a sample
 problem, mention some related work, and describe pro-
 posed extensions.
 </bodyText>
-<sectionHeader confidence="0.999237" genericHeader="general_terms">
+<sectionHeader confidence="0.99926" genericHeader="introduction">
 2 Outline of GeoLogica
 </sectionHeader>
-<bodyText confidence="0.999889717391304">
+<bodyText confidence="0.999893673913044">
 Questions are posed to GeoLogica in a subset of English
 and translated into logic by a natural language parser,
 the system Gemini (Dowding et al., 1993). The logi-
@@ -129,13 +129,13 @@ lows SNARK to behave as if the information possessed
 by the external agents were represented as axioms in the
 geospatial theory.
 </bodyText>
-<sectionHeader confidence="0.998735" genericHeader="introduction">
+<sectionHeader confidence="0.998871" genericHeader="method">
 3 Agents
 </sectionHeader>
-<bodyText confidence="0.971113">
+<bodyText confidence="0.974225">
 Among the external agents we have been accessing are
 </bodyText>
-<listItem confidence="0.993345766666667">
+<listItem confidence="0.992416633333333">
 • the Alexandria Digital Library Gazetteer (Hill et al.,
 1999): a repository of information about some six
 million place names, including a latitude/longitude
@@ -167,16 +167,16 @@ ical images, including TerraVision (Reddy et al.,
 ping Tools, the NASA Goddard Distributed Active
 Archive, and the NASA Landsat Project.
 </listItem>
-<bodyText confidence="0.9961715">
+<bodyText confidence="0.9966025">
 A new agent can be added to the system by introduc-
 ing one or more axiom that advertise its capabilities and
 introducing a link between a symbol in the theory and the
 agent.
 </bodyText>
-<sectionHeader confidence="0.972179" genericHeader="method">
+<sectionHeader confidence="0.975518" genericHeader="method">
 4 Answer extraction from proofs
 </sectionHeader>
-<bodyText confidence="0.97380352">
+<bodyText confidence="0.97372104">
 A query to GeoLogica is translated by Gemini into a log-
 ical expression Q[?x], which contains a variable ?x. (Our
 convention is to prefix variables with question marks.)
@@ -203,10 +203,10 @@ by a single axiom; a sequence of inferences will be nec-
 essary, and components of the answer will only be dis-
 covered gradually.
 </bodyText>
-<sectionHeader confidence="0.988752" genericHeader="method">
+<sectionHeader confidence="0.990731" genericHeader="method">
 5 The geospatial theory
 </sectionHeader>
-<bodyText confidence="0.999653625">
+<bodyText confidence="0.99966275">
 The geospatial theory provides the meanings for the sym-
 bols in the query, describes the relationships between var-
 ious geospatial concepts, advertises the capabilities of our
@@ -224,7 +224,7 @@ mail to provide a logical term that designates a named
 place.
 We distinguish between
 </bodyText>
-<listItem confidence="0.8609806">
+<listItem confidence="0.862739066666667">
 • regions, which stand for areas on Earth, not neces-
 sarily contiguous.
 • geographical feature types, such as countries, cities,
@@ -241,20 +241,20 @@ is the subregion of ?region whose name
 is ?subregion-indicator and whose type is
 ?geographical-feature-type.
 </listItem>
-<bodyText confidence="0.963547">
+<bodyText confidence="0.9624752">
 Our convention is that ?region is a variable that stands for
 a region, and so forth.
 For instance,
 feature(country, Canada, Earth)
 stands for the country Canada, and
 </bodyText>
-<equation confidence="0.90175325">
+<equation confidence="0.88423475">
 feature(
 city,
 Paris,
 feature(country, France, Earth))
 </equation>
-<bodyText confidence="0.915193684210526">
+<bodyText confidence="0.924426">
 stands for the city Paris, France. GeoLogica abbreviates
 countries by their names; thus Canada is simply canada.
 It is not intended that notations of the above form are
@@ -294,12 +294,12 @@ than for countries. The relation between the name for a
 region and the region itself is called region-val. In other
 words,
 </bodyText>
-<equation confidence="0.902008666666667">
+<equation confidence="0.915715333333333">
 region-val(
 regionq(?region-string),
 ?country)
 </equation>
-<bodyText confidence="0.91390619047619">
+<bodyText confidence="0.911686380952381">
 is true if ?region-string is a name for ?country. Thus, for
 example,
 region-val(
@@ -322,11 +322,11 @@ uses plural strings to stand for types. Thus the string
 ”countries” corresponds to the geographical feature type
 country.
 </bodyText>
-<sectionHeader confidence="0.96815" genericHeader="method">
+<sectionHeader confidence="0.970122" genericHeader="method">
 6 Latitude/longitude pairs and bounding
 boxes
 </sectionHeader>
-<bodyText confidence="0.995381428571429">
+<bodyText confidence="0.995598904761905">
 Another way of describing places on Earth is by coor-
 dinate systems, such as latitude and longitude. There
 are many representations for latitudes and longitudes, in
@@ -349,12 +349,12 @@ from one representation to another.
 For latitudes and longitudes represented in compass
 notation, there is a function symbol
 </bodyText>
-<equation confidence="0.633213">
+<equation confidence="0.633147666666667">
 lat-long-compass(
 ?lat-compass,
 ?long-compass)
 </equation>
-<bodyText confidence="0.880816090909091">
+<bodyText confidence="0.876115181818182">
 that yields the corresponding latitude/longitude pair.
 Similarly, for the signed notation, there is the function
 symbol
@@ -367,14 +367,14 @@ ing box are made of latitude and longitude lines. Our
 notations for bounding boxes resembles those for lati-
 tude/longitude pairs. Thus
 </bodyText>
-<equation confidence="0.6871336">
+<equation confidence="0.6999198">
 bounding-box-sign-string(
 ?lat-sign-string1,
 ?lat-sign-string2,
 ?long-sign-string1,
 ?long-sign-string2)
 </equation>
-<bodyText confidence="0.99768152631579">
+<bodyText confidence="0.997456157894737">
 is the bounding box determined by the four numbers
 given in signed string notation. The numbers correspond
 to the north, south, east, and west extremes, respectively,
@@ -395,10 +395,10 @@ while the proof is in progress. Let us consider a sim-
 ple example. Suppose that our proof-in-progress contains
 somewhere the term
 </bodyText>
-<equation confidence="0.495073">
+<equation confidence="0.518811">
 plus (? real, 2) ,
 </equation>
-<bodyText confidence="0.999877714285714">
+<bodyText confidence="0.999873">
 where ?real stands for a real number. Assume that the
 symbol plus is attached to an agent, an ordinary pro-
 gram, that performs numerical addition. Because ?real is
@@ -407,10 +407,10 @@ a value, the agent cannot operate. But now assume that,
 at some step in the proof, the variable ?real is instantiated
 by constant 3. Then the resulting term
 </bodyText>
-<equation confidence="0.56974">
+<equation confidence="0.583226">
 plus (3, 2)
 </equation>
-<bodyText confidence="0.997031777777778">
+<bodyText confidence="0.997053444444444">
 is sent to the external addition program, which returns the
 constant 5.
 The Alexandria Digital Library gazetteer is used for
@@ -421,7 +421,7 @@ simply to find the bounding box corresponding to some
 place whose name is ?region-string and whose type is
 named ?geo-feature-type-string.
 </bodyText>
-<footnote confidence="0.702290428571429">
+<footnote confidence="0.711757428571429">
 place-to-lat-long(
 ?region-string,
 ?geo-feature-type-string,
@@ -430,14 +430,14 @@ place-to-lat-long(
 ?long-sign-string1,
 ?long-sign-string2).
 </footnote>
-<bodyText confidence="0.9364654">
+<bodyText confidence="0.9318966">
 The above place-to-lat-long is used mainly to find
 countries, which are usually uniquely specified by their
 names.
 For example, suppose our proof-in-progress contains
 the formula
 </bodyText>
-<footnote confidence="0.846119333333333">
+<footnote confidence="0.819809833333333">
 place-to-lat-long(
 &amp;quot;Zimbabwe&amp;quot;, &amp;quot;countries&amp;quot;,
 ?lat-sign-string1,
@@ -445,18 +445,18 @@ place-to-lat-long(
 ?long-sign-string1,
 ?long-sign-string2).
 </footnote>
-<bodyText confidence="0.99884175">
+<bodyText confidence="0.997956">
 Then the ADL Gazetteer will be invoked to find the
 bounding box for Zimbabwe. The variables in the above
 formula will be instantiated appropriately. SNARK will
 behave exactly as if the axiom
 </bodyText>
-<equation confidence="0.965787">
+<equation confidence="0.861969333333333">
 place-to-lat-long(
 &amp;quot;Zimbabwe&amp;quot;, &amp;quot;countries&amp;quot;,
 &amp;quot;-15.22&amp;quot;,&amp;quot;-22.93&amp;quot;,&amp;quot;33.65&amp;quot;,&amp;quot;25.11&amp;quot;).
 </equation>
-<bodyText confidence="0.99475580952381">
+<bodyText confidence="0.993684809523809">
 were included in the geospatial theory. For this reason,
 we call the above sentence a ”virtual axiom.”
 Other symbols are procedurally attached to more com-
@@ -479,7 +479,7 @@ For example, the agent that translates from the signed
 string notation to the compass notation for latitude and
 longitude is advertised by the axiom
 </bodyText>
-<equation confidence="0.958970714285714">
+<equation confidence="0.964030714285714">
 lat-long-compass(
 ?lat-compass, ?long-compass) =
 lat-long-sign-string(
@@ -488,7 +488,7 @@ lat-compass-to-sign-string(
 long-compass-to-sign-string(
 ?long-compass)).
 </equation>
-<bodyText confidence="0.992603">
+<bodyText confidence="0.992131142857143">
 Here lat-compass-to-sign-string and long-compass-to-
 sign-string are function symbols with procedural attach-
 ments to programs that perform the conversion from com-
@@ -497,7 +497,7 @@ longitudes, respectively.
 Applying this axiom to a lat-long pair in compass no-
 tation, such as
 </bodyText>
-<equation confidence="0.765727166666667">
+<equation confidence="0.789114">
 lat-long-compass(&amp;quot;37N&amp;quot;, &amp;quot;122E&amp;quot;)
 will yield the term
 lat-long-sign-string(
@@ -505,7 +505,7 @@ lat-compass-to-sign-string(&amp;quot;37N&amp;quot;),
 long-compass-to-
 sign-string(&amp;quot;122E&amp;quot;)).
 </equation>
-<bodyText confidence="0.999648375">
+<bodyText confidence="0.99968025">
 Because of the procedural attachments to the function
 symbols, the compass notation will be converted to
 signed string notation, yielding the term lat-long-sign-
@@ -515,28 +515,26 @@ the Alexandria Digital Library Gazetteer. The following
 axiom will invoke the gazetteer to find the bounding box
 for a country:
 </bodyText>
-<equation confidence="0.974666">
+<equation confidence="0.790529352941177">
 (region-to-lat-long(?country) =
 bounding-box-sign-string(
 ?lat-sign-string1,
 ?lat-sign-string2,
 ?long-sign-string1,
 ?long-sign-string2))
-&amp;lt;=
+&lt;=
 (region-val (
 regionq(
 ?region-string),
-?country) &amp;amp;
+?country) &amp;
 place-to-lat-long(
-</equation>
-<footnote confidence="0.6885404">
 ?region-string, &amp;quot;countries&amp;quot;,
 ?lat-sign-string1,
 ?lat-sign-string2,
 ?long-sign-string1,
 ?long-sign-string2)).
-</footnote>
-<bodyText confidence="0.99523">
+</equation>
+<bodyText confidence="0.995635">
 In other words, to find the bounding box (in signed string
 notation) for a country, find a string that can serve as a
 name for the country and submit that string, with geo-
@@ -544,10 +542,10 @@ graphical feature type string ”countries”, to the gazetteer.
 The resulting four number strings will correspond to the
 desired bounding box.
 </bodyText>
-<sectionHeader confidence="0.987974" genericHeader="method">
+<sectionHeader confidence="0.989543" genericHeader="method">
 7 A Sample Problem.
 </sectionHeader>
-<bodyText confidence="0.992935666666667">
+<bodyText confidence="0.992700444444444">
 Let us consider a problem solved by GeoLogica to illus-
 trate the discovery of a place characterized by a logical
 combination of properties. The query is
@@ -558,19 +556,19 @@ satellite image, using the TerraVision three-dimensional
 terrain viewer.
 The logical form of the query is
 </bodyText>
-<equation confidence="0.9978498">
+<equation confidence="0.9988505">
 find ?x such that
-show (? x) &amp;amp;
-patient (? x, ? y) &amp;amp;
-petrified-forest (? y) &amp;amp;
-in (? y, zimbabwe) &amp;amp;
+show (? x) &amp;
+patient (? x, ? y) &amp;
+petrified-forest (? y) &amp;
+in (? y, zimbabwe) &amp;
 within-dist-of (? y,
-within-dist-of (? z, ?u)) &amp;amp;
-mile-unit (? z) &amp;amp;
-count (? z, 750) &amp;amp;
-capital (?u) &amp;amp;
+within-dist-of (? z, ?u)) &amp;
+mile-unit (? z) &amp;
+count (? z, 750) &amp;
+capital (?u) &amp;
 </equation>
-<bodyText confidence="0.956889818181818">
+<bodyText confidence="0.971352863636364">
 capital-of(?u, south-africa).
 In other words, we want to find ?x which is a showing of
 ?y, where ?y is a petrified forest that is in Zimbabwe and
@@ -594,7 +592,7 @@ Then we search for petrified forests within that bound-
 ing box, checking to see that they are indeed in Zim-
 babwe. The subquery is
 </bodyText>
-<footnote confidence="0.82251025">
+<footnote confidence="0.793557875">
 place-to-lat-long-part-of-type-bounds(
 ?region-string, &amp;quot;petrified forests&amp;quot;,
 &amp;quot;Zimbabwe&amp;quot;, &amp;quot;countries&amp;quot;,
@@ -604,7 +602,7 @@ place-to-lat-long-part-of-type-bounds(
 ?long-sign-string1,
 ?long-sign-string2).
 </footnote>
-<bodyText confidence="0.999685375">
+<bodyText confidence="0.999508125">
 This causes an invocation of the Alexandria Digital Li-
 brary Gazetteer in a more complicated way than before.
 We only specify the type, petrified forest, of the region
@@ -614,15 +612,17 @@ found region be a subregion of the country Zimbabwe.
 The location of the single petrified forest in Zimbabwe
 is given by the virtual axiom
 </bodyText>
-<footnote confidence="0.54904475">
+<footnote confidence="0.496439">
 place-to-lat-long-part-of-type-bounds(
 &amp;quot;Makuku Fossil Forest&amp;quot;,
 &amp;quot;petrified forests&amp;quot;,
 &amp;quot;Zimbabwe&amp;quot;, &amp;quot;countries&amp;quot;,
 </footnote>
-<bodyText confidence="0.9540065">
+<table confidence="0.7249305">
 &amp;quot;- 15.22&amp;quot;,&amp;quot;- 22.93&amp;quot;, &amp;quot;33.65&amp;quot;, &amp;quot;25.11&amp;quot;
 &amp;quot;- 15.65&amp;quot;,&amp;quot;- 15.65&amp;quot;, &amp;quot;29.95&amp;quot;, &amp;quot;29.95&amp;quot;).
+</table>
+<bodyText confidence="0.998274666666667">
 Note that, though we have requested a bounding box,
 the ADL has actually given us a latitude/longitude pair
 -15.65, 29.95; the north and south latitudes, and the east
@@ -642,26 +642,26 @@ latitude/longitudes for the forest and for Pretoria is suf-
 ficiently small. The virtual axiom provided by the agent
 is
 </bodyText>
-<equation confidence="0.620649">
+<equation confidence="0.606155333333333">
 lat-long-dist(&amp;quot;25.75S&amp;quot;,&amp;quot;28.16667E&amp;quot;,
 &amp;quot;15.65S&amp;quot;,&amp;quot;29.95E&amp;quot;,
 &amp;quot;708.0386&amp;quot;).
 </equation>
-<bodyText confidence="0.99891525">
+<bodyText confidence="0.99893425">
 Note that this agent requires compass notation—it will
 not accept signed strings. The agent determines that the
 distance between Pretoria and the forest is 708 miles,
 within the 750-mile limit that was specified in the query.
 </bodyText>
-<sectionHeader confidence="0.999137" genericHeader="method">
+<sectionHeader confidence="0.999204" genericHeader="method">
 8 SNARK
 </sectionHeader>
-<bodyText confidence="0.995936666666667">
+<bodyText confidence="0.996447666666667">
 Although many theorem provers can be used for ques-
 tion answering, SNARK is particularly well suited, for a
 number of reasons.
 </bodyText>
-<listItem confidence="0.997912111111111">
+<listItem confidence="0.998033888888889">
 • It has strategic controls that allow it to exhibit high
 performance in a particular subject domain, finding
 proofs of hundreds of steps in theories with hun-
@@ -682,10 +682,10 @@ of the Kestrel Institute, as well as several SRI systems.
 The current geospatial theory has about a thousand ax-
 ioms.
 </bodyText>
-<sectionHeader confidence="0.985426" genericHeader="method">
+<sectionHeader confidence="0.988418" genericHeader="method">
 9 Other query forms
 </sectionHeader>
-<bodyText confidence="0.999873357142857">
+<bodyText confidence="0.999878392857143">
 Here are some other forms of queries that can be an-
 swered using the current implementation of GeoLogica:
 Is Zimbabwe north of South Africa?
@@ -715,10 +715,10 @@ ision then displays a satellite image of Ruzyne. It might
 be mentioned that it is unclear whether such a meeting
 ever did take place.
 </bodyText>
-<sectionHeader confidence="0.609772" genericHeader="method">
+<sectionHeader confidence="0.637419" genericHeader="method">
 10 Use of the gazetteer
 </sectionHeader>
-<bodyText confidence="0.999904555555556">
+<bodyText confidence="0.999905611111111">
 The ADL Gazetteer is the agent we rely on most. We
 have found that we needed to exhibit care in two areas,
 the treatment of variant or alternative names and the treat-
@@ -756,10 +756,10 @@ state of Kansas. Thus, Kansas City, Kansas, is listed
 as a part of Wyandotte County, which in turn is part of
 Kansas.
 </bodyText>
-<sectionHeader confidence="0.899858" genericHeader="method">
+<sectionHeader confidence="0.897312" genericHeader="method">
 11 Relation to other work
 </sectionHeader>
-<bodyText confidence="0.9999801875">
+<bodyText confidence="0.999981375">
 There is a large body of work, not surveyed here, in us-
 ing theorem proving to answer questions or to synthesize
 programs from specifications. The approach of using pro-
@@ -777,10 +777,10 @@ Hobbs (Hobbs et al., 1999) is leading a team in build-
 ing a more spatial ontology and theory in DAML. These
 should be valuable resources for us.
 </bodyText>
-<sectionHeader confidence="0.970857" genericHeader="method">
+<sectionHeader confidence="0.972467" genericHeader="method">
 12 Plans for Future Work
 </sectionHeader>
-<bodyText confidence="0.999956378378378">
+<bodyText confidence="0.999959054054054">
 Rather than merely finding and displaying individual
 places, we hope to introduce capabilities for dealing with
 and manipulating data, obtained from online agents, for
@@ -819,10 +819,10 @@ tion is not so reliable as that obtained from other sources.
 We are currently applying similar techniques to pro-
 vide tools of interest to intelligence analysts.
 </bodyText>
-<sectionHeader confidence="0.989114" genericHeader="conclusions">
+<sectionHeader confidence="0.989209" genericHeader="conclusions">
 13 Conclusion
 </sectionHeader>
-<bodyText confidence="0.999547818181818">
+<bodyText confidence="0.999521363636363">
 Automating question answering forces us to look closely
 at the relationship between descriptions and places, and a
 logical geospatial theory is an ideal arena for making this
@@ -835,10 +835,10 @@ Fry, Jerry Hobbs, David Martin, Martin Reddy, Susanne
 Riehemann, Mark Stickel and Mabry Tyson for contribu-
 tions to the ideas behind this work.
 </bodyText>
-<sectionHeader confidence="0.996798" genericHeader="references">
+<sectionHeader confidence="0.996591" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.999247872340426">
+<reference confidence="0.999387510638298">
 Douglas E. Appelt and David L. Martin 1999.
 Named entity recognition in speech: ap-
 proach and results using the TextPro system

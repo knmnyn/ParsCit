@@ -1,3 +1,14 @@
+100401d
+- Minor changes to documentation and ParsHed library updating.
+
+100401c
+- Minor changes for correcting errors with punctuation and XML
+  entities in reference string parsing.  Reported by Cheong Chi Hong
+  and Mario Lipinski.  Fixed by Minh-Thang Luong.
+
+100401b
+- Minor changes (bug fixes) to section labeler model.
+
 100401 
 - Major Change: Added SectLabel module (due to Minh-Thang Luong and
   Thuy Dung Nguyen)

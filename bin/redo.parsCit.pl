@@ -8,7 +8,7 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }		      # untaint tmpfile var
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $parscitHome = "/home/forecite/services/parscit/";
+my $parscitHome = "/home/wing.nus/services/parscit/tools/";
 my $tr2crfppLoc = "$parscitHome/bin/tr2crfpp.pl";
 my $crf_learnLoc = "$parscitHome/crfpp/crf_learn";
 my $crf_testLoc = "$parscitHome/crfpp/crf_test";

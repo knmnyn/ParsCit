@@ -2,40 +2,40 @@
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
 <variant no="0" confidence="0.000001">
-<title confidence="0.982332">
+<title confidence="0.982525">
 Using Long Runs as Predictors of Semantic Coherence in a
 Partial Document Retrieval System
 </title>
-<author confidence="0.973972">
+<author confidence="0.976668">
 Hyopil Shin
 </author>
-<affiliation confidence="0.978469">
+<affiliation confidence="0.98134">
 Computing Research Laboratory, NMSU
 </affiliation>
-<address confidence="0.9871225">
+<address confidence="0.9873525">
 PO Box 30001
 Las Cruces, NM, 88003
 </address>
-<email confidence="0.988032">
+<email confidence="0.987056">
 hshin@crl.nmsu.edu
 </email>
-<author confidence="0.959177">
+<author confidence="0.962509">
 Jerrold F. Stach
 </author>
-<affiliation confidence="0.993036">
+<affiliation confidence="0.994502">
 Computer Science Telecommunications, UMKC
 </affiliation>
-<address confidence="0.991508">
+<address confidence="0.9915225">
 5100 Rockhill Road
 Kansas City, MO, 64110
 </address>
-<email confidence="0.994296">
+<email confidence="0.99407">
 stach@cstp.umkc.edu
 </email>
-<sectionHeader confidence="0.992639" genericHeader="abstract">
+<sectionHeader confidence="0.993035" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999981045454545">
+<bodyText confidence="0.999982318181818">
 We propose a method for dealing with
 semantic complexities occurring in
 information retrieval systems on the basis of
@@ -59,10 +59,10 @@ weight of long runs of content words is a
 strong predictor of the semantic coherence
 of the paragraph.
 </bodyText>
-<subsectionHeader confidence="0.854928">
+<subsectionHeader confidence="0.861537">
 Introduction
 </subsectionHeader>
-<bodyText confidence="0.987107054054054">
+<bodyText confidence="0.98337172972973">
 One of the fundamental deficiencies of current
 information retrieval methods is that the words
 searchers use to construct terms often are not the
@@ -101,10 +101,10 @@ precision. 2. Long runs of content words have a
 linguistic basis for Semantic Weight and can
 also be verified statistically.
 </bodyText>
-<sectionHeader confidence="0.933963" genericHeader="method">
+<sectionHeader confidence="0.94175" genericHeader="method">
 1 A Brief Overview of Previous Approaches
 </sectionHeader>
-<bodyText confidence="0.999837111111111">
+<bodyText confidence="0.999835222222222">
 There have been several attempts to deal with
 complexity using semantic information. These
 methods are hampered by the lack of
@@ -115,10 +115,10 @@ Wendlandt et. al. (1991) demonstrate only
 simple examples and are restricted to small
 numbers of words. In order to overcome this
 </bodyText>
-<page confidence="0.994668">
+<page confidence="0.994618">
 6
 </page>
-<bodyText confidence="0.99995835">
+<bodyText confidence="0.99996255">
 deficiency, we propose to incorporate the
 structural information of the thesaurus, semantic
 categories (SEMCATs). However, we must also
@@ -160,13 +160,13 @@ information, it is necessary to adopt existing
 mathematical methods including probabilistic
 methods and statistical methods.
 </bodyText>
-<sectionHeader confidence="0.946503" genericHeader="method">
+<sectionHeader confidence="0.948336" genericHeader="method">
 2 Theoretical Background
 </sectionHeader>
-<subsectionHeader confidence="0.972042">
+<subsectionHeader confidence="0.971239">
 2.1 Long Runs
 </subsectionHeader>
-<bodyText confidence="0.99281052">
+<bodyText confidence="0.99188138">
 Partial Information Retrieval has to with
 detection of main ideas. Main ideas are topic
 sentences that have central meaning to the text.
@@ -196,8 +196,8 @@ subject complement positions. According to
 Halliday (1985), a preposition is explained as a
 minor verb. It functions as a minor Predicator
 having a nominal group as its complement. Thus
-the internal structure of &amp;apos;across the lake&amp;apos; is like
-that of &amp;apos;crossing the lake&amp;apos;, with a non-finite
+the internal structure of &apos;across the lake&apos; is like
+that of &apos;crossing the lake&apos;, with a non-finite
 verb as Predicator (thus our choice of 3 words
 as a long run). When we interpret the
 preposition as a &amp;quot;minor Predicator&amp;quot; and &amp;quot;minor
@@ -213,25 +213,25 @@ her subject, i.e. their referent. If long runs
 largely appear in predication positions, it would
 suggest that the speaker is saying something
 important and the longer runs of content words
-would signal a locus of the speaker&amp;apos;s intention.
+would signal a locus of the speaker&apos;s intention.
 Extending from the statistical analysis of Jang
 (1997) and our observations of those long runs
 in the collection, we give a basic assumption of
 </bodyText>
-<sectionHeader confidence="0.338818" genericHeader="method">
+<sectionHeader confidence="0.345147" genericHeader="method">
 OUT study:
 </sectionHeader>
-<bodyText confidence="0.9939922">
+<bodyText confidence="0.994227">
 Long runs of content words contain
 significant semantic information that a
 speaker wants to express and focus,
 and thus are semantic indicators or loci
 or main ideas.
 </bodyText>
-<page confidence="0.99767">
+<page confidence="0.997628">
 7
 </page>
-<bodyText confidence="0.999842166666667">
+<bodyText confidence="0.9998495">
 In this paper, we examine the SEMCAT
 values of long and short runs, extracted from a
 random document of the collection in Jang
@@ -239,11 +239,11 @@ random document of the collection in Jang
 long runs of content words are semantic
 predictors.
 </bodyText>
-<subsectionHeader confidence="0.992895">
+<subsectionHeader confidence="0.99308">
 2.2 SEMCATs
 </subsectionHeader>
-<bodyText confidence="0.998137">
-We adopted Roget&amp;apos;s Thesaurus for our basic
+<bodyText confidence="0.998042777777778">
+We adopted Roget&apos;s Thesaurus for our basic
 semantic categories (SEMCATs). We extracted
 the semantic categories from the online
 Thesaurus for convenience. We employ the 39
@@ -253,10 +253,10 @@ general, and the many sub-categories are too
 narrow to be taken into account. We refer to
 these 39 categories as SEMCATs.
 </bodyText>
-<tableCaption confidence="0.988216">
+<tableCaption confidence="0.98809">
 Table 1: Semantic Categories (SEMCATs)
 </tableCaption>
-<sectionHeader confidence="0.843170090909091" genericHeader="method">
+<sectionHeader confidence="0.952000857142857" genericHeader="method">
 Abbreviation Full Description
 1 AFIG Affection in General
 2 ANT Antagonism
@@ -271,6 +271,8 @@ EXIS Existence
 11 GINV General Inter social Volition
 12 INOM Inorganic Matter
 13 MECO Means of Communication
+</sectionHeader>
+<table confidence="0.835701666666667">
 14 MFRE Materials for Reasoning
 15 MIG Matter ingeneral
 16 MOAF Moral Affections
@@ -279,8 +281,6 @@ EXIS Existence
 19 NOIC Nature of Ideas Communicated
 20 NUM Number
 21 opm Operations of Intelligence
-</sectionHeader>
-<table confidence="0.998039526315789">
 In General
 22 ORD Order
 23 ORGM Organic Matter
@@ -301,10 +301,10 @@ ao RELN Relation
 38 VOAC Voluntary Action
 39 VOIG Volition in General
 </table>
-<subsectionHeader confidence="0.989652">
+<subsectionHeader confidence="0.989726">
 2.3 Indexing Space and Stop Lists
 </subsectionHeader>
-<bodyText confidence="0.999934761904762">
+<bodyText confidence="0.999941952380952">
 Many of the most frequently occurring words in
 English, such as &amp;quot;the,&amp;quot; &amp;quot;of,&amp;quot; &amp;quot;and,&amp;quot; &amp;quot;to,&amp;quot; etc. are
 non-discriminators with respect to information
@@ -327,26 +327,26 @@ usually need much larger indexing spaces than
 statistical-based methods due to processes for
 tagging and parsing.
 </bodyText>
-<sectionHeader confidence="0.98455" genericHeader="evaluation">
+<sectionHeader confidence="0.986342" genericHeader="method">
 3 Experimental Basis
 </sectionHeader>
-<bodyText confidence="0.99967775">
+<bodyText confidence="0.99969975">
 In order to verify that long runs contribute to
 resolve semantic complexities and can be used
 as predictors of semantic intent, we employed a
 probabilistic, vector processing methodology.
 </bodyText>
-<subsectionHeader confidence="0.99032">
+<subsectionHeader confidence="0.98958">
 3.1 Revised Probability and Vector Processing
 </subsectionHeader>
-<bodyText confidence="0.97328">
+<bodyText confidence="0.97231">
 In order to understand the calculation of
 SEMCATs, it is helpful to look at the structure
 </bodyText>
-<page confidence="0.997105">
+<page confidence="0.997304">
 8
 </page>
-<bodyText confidence="0.999936285714286">
+<bodyText confidence="0.999944285714286">
 of a preprocessed document. One document
 &amp;quot;Barbie&amp;quot; in the Jang (1997) collection has a total
 of 1,468 words comprised of 755 content words
@@ -355,10 +355,10 @@ paragraphs. Filtering out function words using
 the Brown Corpus exposed the runs of content
 words as shown in Figure 1.
 </bodyText>
-<figureCaption confidence="0.996469">
+<figureCaption confidence="0.996757">
 Figure 1: Preprocessed Text Document
 </figureCaption>
-<equation confidence="0.988245727272727">
+<equation confidence="0.987259181818182">
 BARBIE * * * * FAVORITE COMPANION
 DETRACTORS LOVE * * * PLASTIC
 PERFECTION * FASHION DOLL * *
@@ -371,29 +371,29 @@ POISED * STRUT * * CHANGE * * MALE
 DOMINATED WORLD * MULTIMEDIA
 SOFTWARE * VIDEO GAMES
 </equation>
-<bodyText confidence="0.8756256">
+<bodyText confidence="0.8700376">
 In Figure 1, asterisks occupy positions where
 function words were filtered out. The bold type
 indicates the location of the longest runs of
 content words. The run length distribution of
 Figure 1 is shown below:
 </bodyText>
-<tableCaption confidence="0.7345875">
+<tableCaption confidence="0.678242">
 Table 2: Distribution of Content Run Lengths in
 a sam le Document
 </tableCaption>
-<table confidence="0.6775698">
+<table confidence="0.6112778">
 Run Length Frequency
 1 II
 2 8
 3 2
 4 2
 </table>
-<bodyText confidence="0.987237">
+<bodyText confidence="0.988272">
 The traditional vector processing model
 requires the following set of terms:
 </bodyText>
-<listItem confidence="0.992396444444445">
+<listItem confidence="0.993582777777778">
 • (dl) the number of documents in the
 collection that each word occurs in
 • (id° the inverse document frequency of each
@@ -404,7 +404,7 @@ idf is undefined.
 • The category probability of each query
 word.
 </listItem>
-<bodyText confidence="0.999496047619048">
+<bodyText confidence="0.999440857142857">
 Wendlandt (1991) points out that it is useful to
 retrieve a set of documents based upon key
 words only, and then considers only those
@@ -427,26 +427,26 @@ simplifying assumption, we assume SEMCATs
 have a uniform probability distribution with
 regard to a word.
 </bodyText>
-<subsectionHeader confidence="0.998261">
+<subsectionHeader confidence="0.998393">
 3.2 Calculating SEMCATs
 </subsectionHeader>
-<bodyText confidence="0.94910935483871">
+<bodyText confidence="0.946685419354839">
 Our first task in computing SEMCAT values
 was to create a SEMCAT dictionary for our
 method. We extracted SEMCATs for every
 word from the World Wide Web version of
-Roget&amp;apos;s thesaurus. SEMCATs give probabilities
+Roget&apos;s thesaurus. SEMCATs give probabilities
 of a word corresponding to a semantic category.
-The content word run &amp;apos;favorite companion
-detractors love&amp;apos; is of length 4. Each word of the
+The content word run &apos;favorite companion
+detractors love&apos; is of length 4. Each word of the
 run maps to at least one SEMCAT. The word
-`favorite&amp;apos; maps to categories `PEAF and SYAF&amp;apos;.
-&amp;apos;companion&amp;apos; maps to categories &amp;apos;ANT, MECO,
+`favorite&apos; maps to categories `PEAF and SYAF&apos;.
+&apos;companion&apos; maps to categories &apos;ANT, MECO,
 NUM, ORD, ORGM, PEAF, PRVO, QUAN,
-and SYAF&amp;apos;. &amp;apos;detractor&amp;apos; maps to `MOAF&amp;apos;. &amp;apos;love&amp;apos;
+and SYAF&apos;. &apos;detractor&apos; maps to `MOAF&apos;. &apos;love&apos;
 maps to `AFIG, ANT, MECO, MOAF, MOCO,
 ORGM, PEAF, PORE, PRVO, SYAF, and
-VOIG&amp;apos;. We treat the long runs as a semantic
+VOIG&apos;. We treat the long runs as a semantic
 core from which to calculate SEMCAT values.
 SEMCAT weights are calculated based on the
 following equations.
@@ -463,12 +463,14 @@ is the sum of each SEMCATO weight
 of long runs based on their probabilities.
 In the above example, the long run
 </bodyText>
-<page confidence="0.825998">
+<page confidence="0.951369">
 9
 </page>
-<equation confidence="0.828325375">
-&amp;apos;favorite companion detractors love,&amp;apos; the
-SEMCAT `MOAF&amp;apos; has SWMOAF
+<bodyText confidence="0.477722">
+&apos;favorite companion detractors love,&apos; the
+</bodyText>
+<equation confidence="0.853884260869565">
+SEMCAT `MOAF&apos; has SWMOAF
 (detractor(1) love(.09)) = 1.09. We
 can write;
 SWi = I p,,
@@ -492,10 +494,10 @@ W; = Swjxidw;
 Eq.6 Relevance Weights (Semantic
 Coherence)
 </equation>
-<bodyText confidence="0.967743">
+<bodyText confidence="0.965102">
 Our method performs the following steps:
 </bodyText>
-<listItem confidence="0.9454832">
+<listItem confidence="0.9459078">
 1. calculate the SEMCAT weight of each long
 content word run in every paragraph (Sw)
 2. calculate the expected data weight of each
@@ -507,7 +509,7 @@ paragraph (Swxidw)
 5. calculate coherence weights (total relevance)
 by summing the weights of (Swxidw).
 </listItem>
-<bodyText confidence="0.9756843125">
+<bodyText confidence="0.987145133333333">
 In every paragraph, extraction of SEMCATs
 from long runs is done first. The next step is
 finding the same SEMCATs of long runs
@@ -516,16 +518,16 @@ data weight), then calculate idw, and finally
 Swxidw. The final, total relevance weights are
 an accumulation of all weights of SEMCATs of
 content words in a paragraph. Total relevance
-tells how many SEMCATs of the Query&amp;apos;s long
+tells how many SEMCATs of the Query&apos;s long
 runs appear in a paragraph. Higher values imply
 that the paragraph is relevant to the long runs of
 the Query.
 The following is a program output for
 calculating SEMCAT weights for an arbitrary
 long run: &amp;quot;SEVEN INTERACTIVE
-PRODUCTS LED&amp;quot;
 </bodyText>
-<figure confidence="0.598679882352941">
+<figure confidence="0.878486777777778">
+PRODUCTS LED&amp;quot;
 SEMCAT: EXOT Sw : 1.00 edw : 1.99 idw :
 1.44 Swxidw : 1.44
 SEMCAT: GINV Sw : 0.33 edw : 1.62 idw :
@@ -544,10 +546,10 @@ SEMCAT: SYAF Sw : 0.33 edw : 1.19 idw :
 1.66 Swxidw : 0.55
 Total (Swxidw) : 4,79
 </figure>
-<sectionHeader confidence="0.974668" genericHeader="evaluation">
+<sectionHeader confidence="0.972026" genericHeader="evaluation">
 4 Experimental Results
 </sectionHeader>
-<bodyText confidence="0.999955347826087">
+<bodyText confidence="0.999956608695652">
 The goal of employing probability and vector
 processing is to prove the linguistic basis that
 long runs of content words can be used as
@@ -572,10 +574,10 @@ of long runs of content words and short runs of
 content words in a collection of paragraphs are
 drawn from different populations. This implies
 </bodyText>
-<page confidence="0.998405">
+<page confidence="0.998533">
 10
 </page>
-<bodyText confidence="0.9998236">
+<bodyText confidence="0.999807866666667">
 that either long runs or short runs are predictors,
 but since all paragraphs contain short runs, i.e. a
 single content word separated by function
@@ -592,7 +594,7 @@ To proceed in establishing the viability of
 our approach, we proposed the following
 experimental hypotheses:
 </bodyText>
-<listItem confidence="0.713923714285714">
+<listItem confidence="0.731098">
 (111) The SEMCAT weights for long runs
 of content words are statistically greater
 than weights for short runs of content
@@ -608,7 +610,7 @@ run SEMCAT weights is statistically
 different from the distribution of short
 run SEMCAT weights.
 </listItem>
-<bodyText confidence="0.976462923076923">
+<bodyText confidence="0.973887538461539">
 (H3) There is a positive correlation
 between the sum of long run SEMCAT
 weights and the semantic coherence of a
@@ -623,10 +625,10 @@ gives the SEMCAT weights for seventeen
 paragraphs randomly chosen from one document
 in the collection of Jang (1997).
 </bodyText>
-<tableCaption confidence="0.978388">
+<tableCaption confidence="0.979393">
 Table 3: SEMCAT Weights of 17 Paragraphs Chosen
 </tableCaption>
-<table confidence="0.9885208">
+<table confidence="0.9895021">
 Randomly From a Collection
 Paragraph Short Runs Long Runs
 Weight Weight
@@ -648,16 +650,16 @@ Weight Weight
 16 17.11 00.00
 17 31.86 00.00
 </table>
-<bodyText confidence="0.99574375">
+<bodyText confidence="0.9958945">
 The data was evaluated using a standard two way
 F test and analysis of variance table with ot = .05.
 The analysis of variance table for the paragraphs
 in Table 3 is shown in Table 4.
 </bodyText>
-<tableCaption confidence="0.994269">
+<tableCaption confidence="0.994502">
 Table 4: Analysis of Variance for Table 2 Data
 </tableCaption>
-<table confidence="0.99225275">
+<table confidence="0.99235575">
 Variation Degrees of Mean Square F
 Freedom
 Between 1 2904.51 68.56
@@ -671,9 +673,9 @@ V,= 677.77
 Total 33
 V = 5085.11
 </table>
-<bodyText confidence="0.9982709375">
+<bodyText confidence="0.998320125">
 At the .05 significance level, Fa 05 = 4.49 for
-1,16 degrees of freedom. Since 68.56 &amp;gt; 4.49 we
+1,16 degrees of freedom. Since 68.56 &gt; 4.49 we
 reject the assertion that column means (run
 weights) are equal in Table 2. Long run and
 short run weights come from different
@@ -681,7 +683,7 @@ populations. We accept Hl.
 For the between paragraph treatment, the
 row means (paragraph weights) have an F value
 of 2.21. At the .05 significance level, Fa . 05 =
-2.28 for 16,16 degrees of freedom. Since 2.21 &amp;lt;
+2.28 for 16,16 degrees of freedom. Since 2.21 &lt;
 2.28 we cannot reject the assertion that there is
 no significant difference in SEMCAT weights
 between paragraphs. That is, paragraph weights
@@ -689,10 +691,10 @@ do not appear to be taken from different
 populations, as do the long run and short run
 weight distributions. Thus, the semantic weight
 </bodyText>
-<page confidence="0.998968">
+<page confidence="0.999079">
 11
 </page>
-<bodyText confidence="0.998969111111111">
+<bodyText confidence="0.999030888888889">
 of the content words in a paragraph cannot be
 used to predict the semantic weight of the
 paragraph. We therefore proceed to examine H2.
@@ -703,11 +705,11 @@ with long runs to see if long runs are
 discriminators. Table 5 summarizes those
 paragraphs.
 </bodyText>
-<tableCaption confidence="0.9164155">
+<tableCaption confidence="0.91001">
 Table 5: SEMCAT weights of 11 paragraphs
 containing Ion runs and short runs
 </tableCaption>
-<table confidence="0.996296384615385">
+<table confidence="0.997907230769231">
 Paragraph Short Runs Long Runs
 Weight Weight
 1 29.84 18.60
@@ -722,14 +724,14 @@ Weight Weight
 14 17.91 10.55
 15 19.70 05.83
 </table>
-<tableCaption confidence="0.7099196">
+<tableCaption confidence="0.6160408">
 This data was evaluated using a standard two way
 F test and analysis of variance with a = .05. The
 analysis of variance table for the paragraphs in
 Table 5 follows.
 Table 6: Analysis of Variance for Table 5 Data
 </tableCaption>
-<table confidence="0.994780083333333">
+<table confidence="0.995042166666667">
 Variation ._ Mean Square F
 Degrees
 of Freedom
@@ -743,11 +745,11 @@ V,...- 49.19
 Total 21
 V = 2424.26
 </table>
-<bodyText confidence="0.98164352631579">
+<bodyText confidence="0.982840526315789">
 At the .05 significance level, F. .05 = 4.10 for
-2,10 degrees of freedom. 4.10 &amp;lt; 291.44. At the
+2,10 degrees of freedom. 4.10 &lt; 291.44. At the
 .05 significance level, F. = 2.98 for 10,10
-degrees of freedom. 2.98 &amp;lt; 19.22. For
+degrees of freedom. 2.98 &lt; 19.22. For
 paragraphs in a collection containing both long
 and short runs: the SEMCAT weights of the
 long runs and short runs are drawn from
@@ -764,11 +766,11 @@ weights and paragraph SEMCAT weights for
 those paragraphs with both long and short
 content word runs.
 </bodyText>
-<tableCaption confidence="0.8775845">
+<tableCaption confidence="0.8743035">
 Table 7: Correlation of Long Run SEMCAT
 Wei hts to Para ra h SEMCAT Weight
 </tableCaption>
-<figure confidence="0.989604166666667">
+<figure confidence="0.98723125">
 Paragraph Long Runs Semantic Weight Paragraph Semantic Weight
 1 18.60 48.44
 2 12.81 44.10
@@ -782,7 +784,7 @@ Paragraph Long Runs Semantic Weight Paragraph Semantic Weight
 14 10.55 28.46
 15 05.83 25.53
 </figure>
-<bodyText confidence="0.966731571428571">
+<bodyText confidence="0.967078857142857">
 The weights in Table have a positive Pearson
 Product Correlation coefficient of .952. We
 therefore accept 1-13. There is a positive
@@ -791,10 +793,10 @@ SEMCAT weights and the semantic coherence
 of a paragraph, the total paragraph SEMCAT
 weight.
 </bodyText>
-<sectionHeader confidence="0.991033" genericHeader="conclusions">
+<sectionHeader confidence="0.991881" genericHeader="conclusions">
 5. Conclusion
 </sectionHeader>
-<bodyText confidence="0.9988985">
+<bodyText confidence="0.9989866">
 This research tested three statistical hypotheses
 extending from two observations: (1) fang
 (1997) observed the clustering of long runs of
@@ -806,10 +808,10 @@ from the prepositional phrase and subject
 complement positions. According to Halliday
 (1985) those grammar structures function as
 </bodyText>
-<page confidence="0.998285">
+<page confidence="0.998456">
 12
 </page>
-<bodyText confidence="0.9999582">
+<bodyText confidence="0.9999605">
 minor predication and as such are loci of
 semantic intent or coherence. In order to
 facilitate the use of long runs as predictors, we
@@ -821,18 +823,18 @@ method we propose were used in the statistical
 experiments presented above. The main findings
 of this work are
 </bodyText>
-<listItem confidence="0.938737">
+<listItem confidence="0.947623">
 1. the distribution semantic coherence
 </listItem>
-<bodyText confidence="0.922115">
+<bodyText confidence="0.919870333333333">
 (SEMCAT weights) of long runs is not
 statistically greater than that of short
 runs,
 </bodyText>
-<listItem confidence="0.563986">
+<listItem confidence="0.603933">
 2. for paragraphs containing both long runs
 </listItem>
-<bodyText confidence="0.980629952380952">
+<bodyText confidence="0.976795476190476">
 and short runs, the SEMCAT weight
 distributions are drawn from different
 populations
@@ -855,10 +857,10 @@ coherence of long runs. Significantly, our
 approach does not require knowledge of the
 collection.
 </bodyText>
-<sectionHeader confidence="0.980822" genericHeader="references">
+<sectionHeader confidence="0.979851" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.999467413793103">
+<reference confidence="0.999533413793103">
 Boyd R., Driscoll J, and Syu I. (1994) incorporating
 Semantics Within a Connectionist Model and a
 Vector Processing Model. In Proceedings of the
@@ -889,7 +891,7 @@ Wendlandt E. and Driscoll R. (1991) Incorporating a
 semantic analysis into a document retrieval
 strategy. CACM 31, pp. 54-48.
 </reference>
-<page confidence="0.999656">
+<page confidence="0.999633">
 13
 </page>
 </variant>

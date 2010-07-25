@@ -14,6 +14,15 @@ use utf8;
 my $contextRadius = $ParsCit::Config::contextRadius;
 my $maxContexts = $ParsCit::Config::maxContexts;
 
+sub countTokens {
+  my ($text) = @_;
+
+  my $trimText = $text;
+  $trimText =~ s/^\s+//;       $trimText =~ s/\s+$//;
+  my @tokens = split(/\s+/, $trimText);
+  return scalar(@tokens);
+}
+
 ##
 # Build a list of potential regular expressions based on the supplied
 # citation marker and applies the expressions to the specified body text.
@@ -21,40 +30,62 @@ my $maxContexts = $ParsCit::Config::maxContexts;
 # expanded to radius $contextRadius.
 ##
 sub getCitationContext {
-    my ($rBodyText, $marker) = @_;
+  my ($rBodyText, $posArray, $marker) = @_;
+  
+  my ($prioritize, @markers) = guessPossibleMarkers($marker);
+#  print STDERR join "::", @markers;
+#  print STDERR "\n";
+  my @matches = ();
+  my @citStrs = (); # Thang Nov 2009: store the in-text citation strings
+  my @startWordPositions = (); # Thang May 2010: store start word positions of citation markers
+  my @endWordPositions = (); # Thang May 2010: store end word positions of citation markers
 
-    my ($prioritize, @markers) = guessPossibleMarkers($marker);
-   	#print join "::", @markers;
-    #print "\n";
-    my @matches = ();
-    my @citStrs = (); # Thang 29/11/09: store the in-text citation strings
-########## modified by Nick Friedrich
-	my @positions = ();
-	my $position;
+  ########## modified by Nick Friedrich
+  my @positions = ();
+  my $position;
+  
+  my $contextsFound = 0;
+  foreach my $mark (@markers) {
+    
+    while (($contextsFound < $maxContexts) &&
+	   $$rBodyText =~ m/(.{$contextRadius}($mark).{$contextRadius})/gs) {
+      # Thang May 2010: check mark length
+      my $citStr = $2;
+      my $citLength = countTokens($citStr);
+#      print STDERR "#Thang: $citStr\t$citLength\n";
+      if($citLength == 0) {
+	next;
+      }
 
-    my $contextsFound = 0;
-    foreach my $mark (@markers) {
-	while (($contextsFound < $maxContexts) &&
-	       $$rBodyText =~ m/(.{$contextRadius}($mark).{$contextRadius})/gs) {
-		push @positions, (pos $$rBodyText) - $contextRadius;
-		push @matches, $1;
+      push @positions, (pos $$rBodyText) - $contextRadius;
+      push @matches, $1;
 
-		# Thang 29/11/09
-		my $citStr = $2;
-		if($citStr !~ /\(.+\)$/ && $citStr =~ /\)$/){
-		  $citStr =~ s/\)$//; # trim ending bracket
-		}
-		push @citStrs, $citStr;
-		# End Thang 29/11/09
+      my $beforeMark = substr($$rBodyText, 0, (pos $$rBodyText) - $contextRadius-length($citStr));
+      my $beforeLength = countTokens($beforeMark);
 
-	    $contextsFound++;
-	}
-	if (($prioritize > 0) && ($#matches >= 0)) {
-	    last;
-	}
+      if($beforeMark =~ / $/ || $citStr =~ /^ /){
+	push(@startWordPositions, $beforeLength);
+	push(@endWordPositions, $beforeLength+$citLength-1);
+      } else { # no space in btw
+	push(@startWordPositions, $beforeLength-1);
+	push(@endWordPositions, $beforeLength-1+$citLength-1);
+      }
+
+      # Thang Nov 2009
+      if($citStr !~ /\(.+\)$/ && $citStr =~ /\)$/){
+	$citStr =~ s/\)$//; # trim ending bracket
+      }
+      push @citStrs, $citStr;
+      # End Thang Nov 2009
+      
+      $contextsFound++;
     }
-    return ( \@matches, \@positions, \@citStrs);
-##########
+    if (($prioritize > 0) && ($#matches >= 0)) {
+      last;
+    }
+  }
+  return ( \@matches, \@positions, \@startWordPositions, \@endWordPositions, \@citStrs);
+  ##########
 }  # getCitationContext
 
 
@@ -80,6 +111,7 @@ sub getCitationContext {
 ##
 sub guessPossibleMarkers {
     my $marker = shift;
+
     if ($marker =~ m/^([\[\(])([\p{IsUpper}\p{IsLower}\-\d]+)([\]\)])/) {
 	my $open = makeSafe($1);
 	my $mark = makeSafe($2);

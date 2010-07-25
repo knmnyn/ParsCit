@@ -13,6 +13,12 @@ install package -- we expect a UNIX-knowledgable person to be able to
 get the installation working within 30 minutes to an hour.
 
 ------------------------------------------------------------
+**Prerequisites**
+
+You must have ruby and perl and a working C++ compiler on your local
+machine.
+
+------------------------------------------------------------
 **Command-line client**
 
 These are the two scripts: citeExtract.pl and parseRefStrings.pl.  The
@@ -36,10 +42,15 @@ ParsCit software.  It is due to Taku Kudo.
   $ make
   $ make clean
   $ make
+  # optional, you may want to use sudo or root privileges to install CRF binaries so that other applications can use CRF.  Thanks to Priya Venkateshan for this.
+  $ sudo make install
   # hopefully by here, you have a successful build of both crf_test and crf_learn
 
   # move executables to where parscit expects to find them
-  $  cp crf_learn crf_test ..
+    $ cp crf_learn crf_test ..
+    # on Windows you may have to do this instead, as the executables are named with .exe
+    $ copy crf_learn.exe ../crf_learn
+    $ copy crf_test.exe ../crf_test
   $ cd .libs
   $ cp -Rf * ../../.libs
 
@@ -54,7 +65,9 @@ directory to point to the proper versions of perl
 found in demodata.  It should produce the same result as found in the
 .out files. In the bin/ directory try:
 
-./citeExtract.pl -m extract_meta ../demodata/sample2.txt
+./citeExtract.pl -m extract_all ../demodata/sample2.txt
+
+./citeExtract.pl -i xml -m extract_all ../demodata/E06-1050.xml
 
 ------------------------------------------------------------
 **Web Service**
@@ -70,6 +83,6 @@ Log::Log4perl
 Log::Dispatch
 
 2) Edit lib/ParsCit/Config.pm to provide values appropriate for your
-environment.  Also edit wsdl/ParsCitService.wsdl to reflect any
-changes to your service URL.
+environment.  Also edit wsdl/ParsCit.wsdl to reflect any changes to
+your service URL.
 

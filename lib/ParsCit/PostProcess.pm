@@ -116,6 +116,7 @@ sub normalizeFields {
     my @citeBlocks = m/<citation>(.*?)<\/citation>/gs;
     foreach my $block (@citeBlocks) {
 	my %citeInfo;
+#	print STDERR "$block\n";
 	while($block =~ m/<(.*?)>(.*?)<\/\1>/gs) {
 	    my ($tag, $content) = ($1, $2);
 	    if ($tag eq "author") {
@@ -147,8 +148,29 @@ sub normalizeFields {
 
 sub stripPunctuation {
     my $text = shift;
-    $text =~ s/^[^\p{IsLower}\p{IsUpper}0-9]+//;
-    $text =~ s/[^\p{IsLower}\p{IsUpper}0-9]+$//;
+
+    # Thang v100401c: not remove open (\p{Ps}) and close (\p{Pe}) brackets
+    my $stop = 0;
+    while(!$stop){
+      $text =~ s/^[^\p{IsLower}\p{IsUpper}0-9\p{Ps}]+//; 
+      $text =~ s/[^\p{IsLower}\p{IsUpper}0-9\p{Pe}]+$//;
+
+      # sanity check
+      $stop = 1;
+      if($text =~ /\p{Pe}$/){ # check ending brackets
+	if($text !~ /\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}$/){ # not a proper bracket pair
+	  $text =~ s/\p{Pe}+$//; #strip ending brackets
+	  $stop = 0; # continue stripping
+	}
+      }
+
+      if($text =~ /^\p{Ps}/){ # check starting brackets
+	if($text !~ /^\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}/){ # not a proper bracket pair
+	  $text =~ s/^\p{Ps}+//; #strip starting brackets
+	  $stop = 0; # continue stripping
+	}
+      }
+    }
     return $text;
 }
 

@@ -13,6 +13,8 @@ CONTENTS
 * processOmniXML.pl: Process Omnipage XML output (concatenated results
   fromm all pages of a PDF file), and extract text lines together with
   other XML infos
+Note: the current script is complicated since it mixes 2 things: process Omnipage XML as well as extract XML features. We are planning to break into 2 scripts: 1) simplifyOmniXML.pl (Done!) -- to convert Omnipage into output into internal format, and 2) extractXMLFeatures.pl (TODO) -- to take input as the internal results produced by simplifyOmniXML.pl and generate XML features.
+
 * redo.sectLabel.pl: Perform stratified cross-validation for SectLabel
 * tr2crfpp.pl: Generate SectLabel features for CRF++
 * single2multi.pl: Convert SectLabel training file

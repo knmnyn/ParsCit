@@ -30,7 +30,7 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }                 # untaint tm
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $installDir = "/home/forecite/services/parscit";
+my $installDir = "/home/wing.nus/services/parscit/tools";
 my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
@@ -90,7 +90,7 @@ my $option = $q->param('ParsCitOptions');
 
 if ($q->param('ping') ne "") {
 ## Ping web service up
-  my $cmd = "./ParsCitClient.rb -a status";
+  my $cmd = "nice ./ParsCitClient.rb -a status";
   print "Web service ping request initiated\n<BR>";
   chdir ("$installDir/bin");
   print "<pre>\n";
@@ -196,7 +196,7 @@ close $filename;
 my $cmd = "";
 my $outputBuf = "";
 if ($demo == 1 ) {		# run demo 1
-  $cmd = "./citeExtract.pl ";
+  $cmd = "nice ./citeExtract.pl ";
 
   if ($option == 1){
 	$cmd .= "-m extract_citations";
@@ -213,19 +213,6 @@ if ($demo == 1 ) {		# run demo 1
   elsif ($option == 5){
 	$cmd .= "-m extract_all";
   }
-#  if ($parsHed == 1) {
-#    if ($parsCit == 1) {
-#      $cmd .= "-m extract_meta";
-#    } else {
-#      $cmd .= "-m extract_header";
-#    }
-#    if($parsHedModel eq "token-level") { # use the old model
-#      $cmd .= " -t";
-#    }
-#  } elsif ($parsCit == 1) {
-#    $cmd .= "-m extract_citations";
-#  }
-  
   
   $cmd .= " $filename";
   print "Executing <B>$cmd</B>.\n";
@@ -237,7 +224,7 @@ if ($demo == 1 ) {		# run demo 1
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 } elsif ($demo == 2) {
-  $cmd = "./citeExtract.pl -i xml ";
+  $cmd = "nice ./citeExtract.pl -i xml ";
 
   if ($option == 1){
 	$cmd .= "-m extract_citations";
@@ -254,19 +241,6 @@ if ($demo == 1 ) {		# run demo 1
   elsif ($option == 5){
 	$cmd .= "-m extract_all";
   }
-#  if ($parsHed == 1) {
-#    if ($parsCit == 1) {
-#      $cmd .= "-m extract_meta";
-#    } else {
-#      $cmd .= "-m extract_header";
-#    }
-#    if($parsHedModel eq "token-level") { # use the old model
-#      $cmd .= " -t";
-#    }
-#  } elsif ($parsCit == 1) {
-#    $cmd .= "-m extract_citations";
-#  }
-  
   
   $cmd .= " $filename";
   print "Executing <B>$cmd</B>.\n";
@@ -296,33 +270,34 @@ if ($demo == 1 ) {		# run demo 1
   exit;
 }
 
-if ($option == 5)
-{
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
-	print "<DIV ID=\"hidden2\" STYLE=\"display:none;\"><PRE>";
-    print (processSections($outputBuf));
-	print "</DIV>";
-	
-}
-elsif ($option == 4)
-{
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
-	print "<DIV ID=\"hidden2\" STYLE=\"display:'';\"><PRE>";
-    print (processSections($outputBuf));
-	print "</DIV>";
+if ($option == 5) {
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+  print "<DIV ID=\"hidden2\" STYLE=\"display:none;\"><PRE>";
+  print (processSections($outputBuf));
+  print "</DIV>";
+} elsif ($option == 4) {
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+  print "<DIV ID=\"hidden2\" STYLE=\"display:'';\"><PRE>";
+  print (processSections($outputBuf));
+  print "</DIV>";
 }
 if ($option == 5 || $option == 2) { 
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
-	print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\">";
-	print (processHeader($outputBuf)); 	
-	print "</DIV>";
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
+  print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\">";
+  print (processHeader($outputBuf)); 	
+  print "</DIV>";
 }
-if ($option == 5 ||$option == 1 || $demo == 2) { 
-	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
-	print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
-	print (processCitations($outputBuf, $filename)); 
-	print "</DIV>";
+if ($option == 5 || $option == 1 || $demo == 2 || $demo == 3) { 
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
+  print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
+  print "PROCESS CITATIONS";
+  print (processCitations($outputBuf, $filename)); 
+  print "</DIV>";
 }
+
+print "$option << = option";
+print "$demo << = demo";
+
 # remove temporary files
 `rm -f /tmp/$seed.*`;
 
@@ -373,6 +348,7 @@ sub processHeader {
   }
   $output;
 }
+
 sub processSections {
   my $isSection = 0;
   my $input = shift @_;
@@ -381,37 +357,28 @@ sub processSections {
   my $label = "";
   my $content = "";
   for (my $i = 0; $i <= $#lines; $i++) {
-  	if ($lines[$i] =~ /<algorithm name="SectLabel".+>/) {$isSection = 1;}
+    if ($lines[$i] =~ /<algorithm name="SectLabel".+>/) {$isSection = 1;}
     if ($isSection == 1 && $lines[$i] =~ /<\/algorithm>/) { last; }
-	if ($isSection == 1)
-	{
-		if ($lines[$i] =~ /^<([a-zA-Z]+?) confidence/)
-		{
-			$label =  $1;
-			if ($label eq "sectionHeader")
-			{
-				if($lines[$i] =~/genericHeader=\"(.+?)\"/)
-				{
-					$label = $label . " - Generic Header : " . $1;	
-				}
-			}
-		}
-		elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/)
-		{
-			$output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>"; 
-			$content = "";
-		}
-		else{
-			$content .= $lines[$i] . "<br/>";
-		}
-				
-
-	}
+    if ($isSection == 1) {
+      if ($lines[$i] =~ /^<([a-zA-Z]+?) confidence/) {
+        $label =  $1;
+        if ($label eq "sectionHeader") {
+          if($lines[$i] =~/genericHeader=\"(.+?)\"/) {
+            $label = $label . " - Generic Header : " . $1;	
+          }
+        }
+      } elsif ($label ne "" and $lines[$i] =~ /<\/([a-zA-Z]+)>/) {
+        $output .= "<span class=\"$label\" onmouseover=\"tooltip(\'$label\')\" onmouseout=\"exit()\">$content</span>"; 
+        $content = "";
+      } else {
+        $content .= $lines[$i] . "<br/>";
+      }				
+    }
   }
   $output .= "</P>";
   $output;
-
 }
+
 sub processCitations {
   my $input = shift @_;
   my $filename = shift @_;

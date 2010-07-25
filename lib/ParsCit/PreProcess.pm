@@ -31,7 +31,7 @@ my %markerTypes = (
 # the citation text, normalized body text, and original body text.
 ##
 sub findCitationText {
-    my ($rText) = @_;
+    my ($rText, $posArray) = @_;
     my $text = $$rText;
     my $bodyText = '0';
     my $citeText = '0';
@@ -42,6 +42,7 @@ sub findCitationText {
 	$bodyText = substr $text, 0, pos $text;
 	$citeText = substr $text, pos $text unless (pos $text < 1);
     }
+
     if (length($citeText) >= 0.8*length($bodyText)) {
 	print STDERR "Citation text longer than article body: ignoring\n";
 	$citeText = "";
@@ -57,7 +58,7 @@ sub findCitationText {
     }
 
     return (normalizeCiteText(\$citeText),
-	    normalizeBodyText(\$bodyText),
+	    normalizeBodyText(\$bodyText, $posArray),
 	    \$bodyText);
 
 }  # findCitationText
@@ -97,6 +98,92 @@ sub normalizeCiteText {
 
 }  # normalizeCiteText
 
+##
+# Thang May 2010
+# Address the problem Nick mentioned in method normalizeBodyText()
+# This method handle multiple bracket references in a line, e.g "abc [1, 2-5, 11] def [1-3, 5] ghi jkl"
+# + this method maps the position of tokens in normalized body text --> positions of tokens in body text (for later retrieve context positions)
+##
+sub expandBracketMarker {
+  my ($line, $posArray, $tokenCount) = @_;
+  #  $line = "abc [1, 2-5, 11] def [1-3, 5] ghi jkl";
+  #  $line = "abc[1, 2-5, 11]def[1-3, 5]ghi jkl";
+  #  $line = "abc def ghi jkl";
+
+  my $count = 0;
+  my $front = "";
+  my $match = "";
+  my $remain = $line;
+  my $newLine = "";
+  my $spaceFlag = 0;
+  while($line =~ m/\[(\d+[,;] *)*((\d+)-(\d+))([,;] *\d+)*\]/g){
+    #print STDERR "$line\n";
+
+    $front = $`;
+    $match = $&;
+    $line = $';
+    
+    # handle front part
+    if($spaceFlag == 1) {
+      $newLine .= " ";
+    }
+    $newLine .= $front;
+    my @tokens  = split(/\s+/, $front);
+    my $length = scalar(@tokens);
+    for(my $i=0; $i<$length; $i++){
+      if($i < ($length -1) || $front =~ / $/) {
+#	print STDERR "$tokens[$i] --> ".$tokenCount."\n";
+	push(@{$posArray}, $tokenCount++);
+      }
+    }
+    
+    # handle match part
+    my $numNewTokens = 0;
+    if($match =~ /^\[(\d+[,;] *)*((\d+)-(\d+))([,;] *\d+)*\]$/){
+      $numNewTokens = $4-$3;
+      if($numNewTokens > 0){
+	$match = "[".$1.transformMarker($3,$4).$5."]";
+      } else {
+	$numNewTokens = 0;
+      }
+    }
+    $newLine .= $match;
+    
+    my @tokens = split(/\s+/, $match);
+    my $length = scalar(@tokens);
+    for(my $i=0; $i<$length; $i++){
+      if($i < ($length -1) || $line =~ /^ /) {
+#	print STDERR "$tokens[$i] --> ".$tokenCount."\n";
+	if($i >= ($length - $numNewTokens-1) && $i < ($length -1)){
+	  push(@{$posArray}, $tokenCount);
+	} else {
+	  push(@{$posArray}, $tokenCount++);
+	}
+      }
+    }
+    
+    if($line =~ /^ /){
+      $spaceFlag = 1;
+      $line =~ s/^\s+//;
+    } else {
+      $spaceFlag = 0;
+    }
+    $count++;
+  }
+  
+  if($spaceFlag == 1) {
+    $newLine .= " ";
+  }
+  $newLine .= $line;
+  my @tokens = split(/\s+/, $line);
+  my $length = scalar(@tokens);
+  for(my $i=0; $i<$length; $i++){
+#    print STDERR "$tokens[$i] --> ".$tokenCount."\n";
+    push(@{$posArray}, $tokenCount++);
+  }
+
+  return ($newLine, $tokenCount);
+}
 
 ##
 # Removes lines that appear to be junk from the body text,
@@ -114,31 +201,43 @@ sub normalizeCiteText {
 #
 ##
 sub normalizeBodyText {
-    my ($rText) = @_;
-    my @lines = split "\n", $$rText;
-    my $text = "";
-    foreach my $line (@lines) {
+  my ($rText, $posArray) = @_;
+  my @lines = split "\n", $$rText;
+  my $text = "";
+  my $tokenCount = 0;
+  foreach my $line (@lines) {
+    $line =~ s/^\s+//; # Thang May 2010: trip leading spaces
 
-##################
-	$line =~ s/\[(\d+[,;] *)*((\d+)-(\d+))([,;] *\d+)*\]/"[".$1.transformMarker($3,$4).$5."]"/e;
-###################
-	if ($line =~ m/^\s*$/) {
-	    next;
-	}
-
-	### modified by Artemy Kolchinsky (v090625)
-	# !!! merge without removing "-" if preceeded by numbers...
-	if ($text =~ s/([A-Za-z])\-$/$1/) {
-	    $text .= $line;
-	} else {
-	    if ($text !~ m/\-\s*$/) { $text .= " " }
-	    $text .= $line;
-	}
-	### end modified by Artemy Kolchinsky (v090625)
+    ##################
+    my @tmpPosArray = ();
+    ($line, $tokenCount) = expandBracketMarker($line, \@tmpPosArray, $tokenCount); # Thang May 2010
+    my @tokens = split(/\s+/, $line);
+    if(scalar(@tokens) != scalar(@tmpPosArray)){
+      die "scalar(@tokens) != scalar(@tmpPosArray)\n$line\n";
     }
-    $text =~ s/\s{2,}/ /g;
-    return \$text;
+#    $line =~ s/\[(\d+[,;] *)*((\d+)-(\d+))([,;] *\d+)*\]/"[".$1.transformMarker($3,$4).$5."]"/e;
 
+    ###################
+    if ($line =~ m/^\s*$/) {
+      next;
+    }
+    
+    ### modified by Artemy Kolchinsky (v090625)
+    # !!! merge without removing "-" if preceeded by numbers...
+    if ($text =~ s/([A-Za-z])\-$/$1/) {
+      $text .= $line;
+      shift(@tmpPosArray); 
+    } else {
+      if ($text !~ m/\-\s+$/ && $text ne "") { $text .= " " } # Thang May 2010: change m/\-\s*$/ -> m/\-\s+$/
+      $text .= $line;
+    }
+
+    push(@{$posArray}, @tmpPosArray);
+    ### end modified by Artemy Kolchinsky (v090625)
+  }
+  $text =~ s/\s{2,}/ /g;
+  return \$text;
+  
 } # normalizeBodyText
 
 sub transformMarker {

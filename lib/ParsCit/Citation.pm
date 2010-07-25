@@ -11,51 +11,58 @@ use strict;
 use CSXUtil::SafeText qw(cleanAll cleanXML);
 
 sub new {
-    my ($class) = @_;
-    my @authors = ();
-    my @contexts = ();
-########## modified by Nick Friedrich
-### added array @positions for storing position of the marker of a context
-#
-# HISTORY: Nick (v081201)
-#
-# As Joran wrote I added functionality to find the position of a
-# reference (context) in the (body)text. I added an array "positions"
-# and also an add-method und get-method to Citation.pm. To find the
-# positions I modified CitationContext::getCitationContext. When a
-# context is found, the position of the match (subtract the context
-# radius) is stored in an array. The method returns an array with the
-# positions in addition to the array with the
-# contexts.Controller::extractCitationsImpl is modified accordingly.
-#
-    my @positions = ();
-    my @citStrs = (); # Thang 29/11/09 add in-text citation strings e.g. Brown et al., 1990 which might differ from the marker Brown, Pietra, deSouza, Lai, Mercer, 1990
-    my $self = {
-	'_rawString' => undef,
-	'_markerType' => undef,
-	'_marker' => undef,
-        '_authors' => \@authors,
-	'_title' => undef,
-	'_year' => undef,
-	'_publisher' => undef,
-	'_location' => undef,
-	'_booktitle' => undef,
-	'_journal' => undef,
-	'_pages' => undef,
-	'_volume' => undef,
-	'_number' => undef,
-	'_contexts' => \@contexts,
-	'_tech' => undef,
-	'_institution' => undef,
-	'_editor' => undef,
-	'_note' => undef,
-	'_positions' => \@positions,
-	'_citStrs' => \@citStrs, # Thang 29/11/09 add in-text citation strings
-    };
-##########
-    bless $self, $class;
-    return $self;
+  my ($class) = @_;
+  my @authors = ();
+  my @contexts = ();
+  ########## modified by Nick Friedrich
+  ### added array @positions for storing position of the marker of a context
+  #
+  # HISTORY: Nick (v081201)
+  #
+  # As Joran wrote I added functionality to find the position of a
+  # reference (context) in the (body)text. I added an array "positions"
+  # and also an add-method und get-method to Citation.pm. To find the
+  # positions I modified CitationContext::getCitationContext. When a
+  # context is found, the position of the match (subtract the context
+  # radius) is stored in an array. The method returns an array with the
+  # positions in addition to the array with the
+  # contexts.Controller::extractCitationsImpl is modified accordingly.
+  #
+  my @positions = ();
+  my @citStrs = (); # Thang Nov 09 add in-text citation strings e.g. Brown et al., 1990 which might differ from the marker Brown, Pietra, deSouza, Lai, Mercer, 1990
 
+  # Thang May 10 add positions (word unit, 0-based) for in-text citation strings
+  my @startWordPositions = ();   my @endWordPositions = ();
+
+  my $self = {
+	      '_rawString' => undef,
+	      '_markerType' => undef,
+	      '_marker' => undef,
+	      '_authors' => \@authors,
+	      '_title' => undef,
+	      '_year' => undef,
+	      '_publisher' => undef,
+	      '_location' => undef,
+	      '_booktitle' => undef,
+	      '_journal' => undef,
+	      '_pages' => undef,
+	      '_volume' => undef,
+	      '_number' => undef,
+	      '_contexts' => \@contexts,
+	      '_tech' => undef,
+	      '_institution' => undef,
+	      '_editor' => undef,
+	      '_note' => undef,
+	      '_positions' => \@positions,
+	      '_citStrs' => \@citStrs, # Thang Nov 09 add in-text citation strings
+	      
+	      # Thang May 10
+	      '_startWordPositions' => \@startWordPositions, 
+	      '_endWordPositions' => \@endWordPositions, 
+	     };
+  ##########
+  bless $self, $class;
+  return $self;
 } # new
 
 
@@ -264,17 +271,32 @@ sub toXML {
 ### the xml-element "context" contains now an attribute "position"
     my @contexts = $self->getContexts();
     my @positions = $self->getPositions();
-    my @citStrs = $self->getCitStrs(); # Thang 29/11/09
+    my @citStrs = $self->getCitStrs(); # Thang Nov 09
+
+    # Thang May 10
+    my @startWordPositions = $self->getStartWordPositions(); 
+    my @endWordPositions = $self->getEndWordPositions(); 
+
     if ($#contexts >= 0) {
 	$xml .= "<contexts>\n";
 	foreach my $context (@contexts) {
 	    cleanAll(\$context);
 	    my $pos = shift(@positions);
-	    my $citStr = shift(@citStrs); # Thang 29/11/09
+	    my $citStr = shift(@citStrs); # Thang Nov 09
 	    cleanAll(\$citStr);
+
+	    # Thang May 10
+	    my $startWordPosition = shift(@startWordPositions); 
+	    my $endWordPosition = shift(@endWordPositions);
+
 	    $xml .= "<context";
 	    $xml .= " position=\"".$pos."\"";
-	    $xml .= " citStr=\"".$citStr."\""; # Thang 29/11/09
+	    $xml .= " citStr=\"".$citStr."\""; # Thang Nov 09
+
+	    # Thang May 10
+	    $xml .= " startWordPosition=\"".$startWordPosition."\""; 
+	    $xml .= " endWordPosition=\"".$endWordPosition."\"";
+
 	    $xml .= ">$context</context>\n";
 	}
 	$xml .= "</contexts>\n";
@@ -310,7 +332,7 @@ sub addPosition {
     $self->{'_positions'} = \@positions;
 }
 
-# Thang 29/11/09 add in-text citation strings
+# Thang Nov 09 add in-text citation strings
 sub getCitStrs {
     my ($self) = @_;
     return @{$self->{'_citStrs'}};
@@ -322,7 +344,32 @@ sub addCitStr {
     push @citStrs, $citStr;
     $self->{'_citStrs'} = \@citStrs;
 }
-# End Thang 29/11/09 add in-text citation strings
+# End Thang Nov 09 add in-text citation strings
+
+# Thang May 10 add positions (in word unit, 0-based) for in-text citation strings
+sub getStartWordPositions {
+    my ($self) = @_;
+    return @{$self->{'_startWordPositions'}};
+}
+sub addStartWordPosition {
+    my ($self, $startWordPosition) = @_;
+    my @startWordPositions = @{$self->{'_startWordPositions'}};
+    push @startWordPositions, $startWordPosition;
+    $self->{'_startWordPositions'} = \@startWordPositions;
+}
+
+sub getEndWordPositions {
+    my ($self) = @_;
+    return @{$self->{'_endWordPositions'}};
+}
+sub addEndWordPosition {
+    my ($self, $endWordPosition) = @_;
+    my @endWordPositions = @{$self->{'_endWordPositions'}};
+    push @endWordPositions, $endWordPosition;
+    $self->{'_endWordPositions'} = \@endWordPositions;
+}
+
+# End Thang May 10 add positions (in word unit) for in-text citation strings
 
 sub getString {
     my ($self) = @_;

@@ -150,7 +150,7 @@ if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
 $rXML .= "</algorithms>";
 
 if (defined $out) {
-  open (OUT, ">$out") or die "$progname fatal\tCould not open \"$out\" for writing: $!";
+  open (OUT, ">:utf8", "$out") or die "$progname fatal\tCould not open \"$out\" for writing: $!";
   print OUT $rXML;
   close OUT;
 } else {

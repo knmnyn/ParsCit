@@ -40,9 +40,10 @@ sub Help {
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-xmlFeature: append XML feature together with text extracted\n";
   print STDERR "\t-decode: decode HTML entities and then output, to avoid double entity encoding later\n";
+  print STDERR "\t-para: marking in the output each paragraph with # Para lineId numLines\n";
+  print STDERR "\t-markup: marking in the output detailed word-level info ### Page w h\\n## Para l t r b\\n# Line l t r b\\nword l t r b\n";
 
   print STDERR "\t-tag tagFile: count XML tags/values for statistics purpose\n";
-  print STDERR "\t-markup: add factor infos (bold, italic etc) per word using the format \"word|||(b|nb)|||(i|ni)\", useful to extract bold/italic phrases\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
@@ -88,6 +89,9 @@ $tagFile = untaintPath($tagFile);
 $ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin';
 ### End untaint ###
 
+### Mark page, para, line, word
+my %gPageHash = ();
+
 ### Mark paragraph
 my @gPara = ();
 
@@ -111,12 +115,13 @@ my @gBullet = (); # bullet feature
 #my %gSpaceHash = (); my @gSpace = ();
 ### End XML features ###
 
-my $gCurrentPage = -1;
 my %tags = ();
 
 if($isDebug){
   print STDERR "\n# Processing file $inFile & output to $outFile\n";
 }
+
+my $markupOutput = "";
 my $allText = processFile($inFile, $outFile, \%tags);
 
 # Find header part
@@ -126,7 +131,14 @@ my ($headerLength, $bodyLength, $bodyStartId) =
   SectLabel::PreProcess::findHeaderText(\@lines, 0, $numLines);
 
 # Output
-output(\@lines, $outFile);
+if($isMarkup){
+  open(OF, ">:utf8", "$outFile") || die"#Can't open file \"$outFile\"\n";
+  print OF "$markupOutput";
+  close OF;
+} else {
+  output(\@lines, $outFile);
+}
+
 if($tagFile ne ""){
   printTagInfo(\%tags, $tagFile);
 }
@@ -157,10 +169,16 @@ sub processFile {
 
     #    if ($line =~ /<\?xml version.+>/){    } ### Xml ###
     #    if ($line =~ /^<\/column>$/){    } ### Column ###
+    if ($isMarkup && $line =~ /<theoreticalPage (.*)\/>/ && $isMarkup){    
+      $markupOutput .= "### Page $1\n";
+    }
 
     ### pic ###
-    if ($line =~ /^<dd .*>$/){
+    if ($line =~ /^<dd (.*)>$/){
       $isPic = 1;
+      if($isMarkup){
+	$markupOutput .= "### Dd $1\n";
+      }
     }
     elsif ($line =~ /^<\/dd>$/){
       $isPic = 0;
@@ -188,9 +206,13 @@ sub processFile {
 
     ### Paragraph ###
     # Note: table processing should have higher priority than paragraph, i.e. the priority does matter
-    elsif ($line =~ /^<para .+>$/){
+    elsif ($line =~ /^<para (.*)>$/){
       $text .= $line."\n"; # we need the header
       $isPara = 1;
+
+      if($isMarkup){
+	$markupOutput .= "## Para $1\n";
+      }
     }
     elsif ($line =~ /^<\/para>$/){
       my ($paraText, $l, $t, $r, $b);
@@ -233,6 +255,8 @@ sub output {
   my $paraLineCount = 0;
   foreach my $line (@{$lines}) {
     $id++;
+
+    $line =~ s/\cM$//; # remove ^M character at the end of each line if any
 
     if($line =~ /^\s*$/){ # # empty lines
       if(!$isAllowEmpty){
@@ -480,7 +504,6 @@ sub getSpaceLabels {
   }
 }
 
-
 sub processTable {
   my ($inputText, $isPic) = @_;
 
@@ -503,6 +526,11 @@ sub processTable {
   foreach my $line (@lines) {
     if ($line =~ /^<table (.+?)>$/){
       my $attr = $1;
+      
+      if($isMarkup){
+	$markupOutput .= "### Table $attr\n";
+      }
+
       if ($attr =~ /^.*l=\"(\d+)\" t=\"(\d+)\" r=\"(\d+)\" b=\"(\d+)\".*alignment=\"(.+?)\".*$/){
 	my ($l, $t, $r, $bottom) = ($1, $2, $3, $4);
 	$align = $5;
@@ -526,6 +554,7 @@ sub processTable {
       $rowFrom = $3;
       $rowTill = $4;
 	
+#      print STDERR "$rowFrom $rowTill $colFrom $colTill\n";
       $isCell = 1;
     }
     elsif ($line =~ /^<\/cell>$/){ # end cell
@@ -591,7 +620,7 @@ sub processTable {
       } else {
 	$rowText =~ s/\t$/\n/;
 	$allText .= $rowText;
-
+#	print STDERR "$rowText";
 	# para
 	if($isFirstLinePara){
 	  push(@gPara, "yes");
@@ -627,6 +656,7 @@ sub processTable {
 
   }
 
+#  print STDERR "\n";
   return $allText;
 }
 
@@ -638,9 +668,13 @@ sub processCell {
   my $isPara = 0;
   my $flag = 0;
   foreach my $line (@lines) {    
-    if ($line =~ /^<para .+>$/){
+    if ($line =~ /^<para (.*)>$/){
       $text .= $line."\n"; # we need the header
       $isPara = 1;
+
+      if($isMarkup){
+	$markupOutput .= "## ParaTable $1\n";
+      }
     }
     elsif ($line =~ /^<\/para>$/){
       my ($paraText, $l, $t, $r, $b) = processPara($text, 1, $isPic);
@@ -703,8 +737,6 @@ sub processPara {
   my $isBullet = 0;
 
   my $isForcedEOF = "none";  # 3 signals for end of L: forcedEOF=\"true\" in attribute of <ln> or || <nl orig=\"true\"\/> || end of </para> without encountering any of the above signal in the para plus $isSpace = 0
-  my $isWd = 0;
-
   # xml feature
   my $align = "none"; 
   my ($l, $t, $r, $bottom);
@@ -716,6 +748,7 @@ sub processPara {
 
   my $lnAttr; my $isLn = 0; my $lnBold = "none"; my $lnItalic = "none";
   my $runAttr;  my $runText = ""; my $isRun = 0; my $runBold = "none"; my $runItalic = "none";
+  my $wdAttr; my $wdText = ""; my $isWd = 0;
 
   my $wdIndex = 0; # word index in a line. When encountering </ln>, this parameter indicates the number of words in a line
   my $lnBoldCount = 0;
@@ -744,12 +777,16 @@ sub processPara {
       $lnAttr = $1;
       $isLn = 1;
 
+      if ($isMarkup){
+	$markupOutput .= "# Line $lnAttr\n";
+      }
+
       if ($lnAttr =~ /^.*l=\"(\d+)\" t=\"(\d+)\" r=\"(\d+)\" b=\"(\d+)\".*$/){
 	($l, $t, $r, $bottom) = ($1, $2, $3, $4);
       }
       $isForcedEOF = getAttrValue($lnAttr, "forcedEOF");
 
-      if($isXmlFeature || $isMarkup){ # Bold & Italic
+      if($isXmlFeature){ # Bold & Italic
 	$lnBold = getAttrValue($lnAttr, "bold");
 	$lnItalic = getAttrValue($lnAttr, "italic");
       }
@@ -763,11 +800,12 @@ sub processPara {
       $isTab = 0;
       $isRun = 1;
 
-      if($line =~ /^<wd .*?>/){  # new wd
+      if($line =~ /^<wd (.*?)>/){  # new wd, that consists of many runs
 	$isWd = 1;
+	$wdAttr = $1;
       }
 
-      if($isXmlFeature || $isMarkup){ # Bold & Italic
+      if($isXmlFeature){ # Bold & Italic
 	$runBold = getAttrValue($runAttr, "bold");
 	$runItalic = getAttrValue($runAttr, "italic");
       }
@@ -775,43 +813,34 @@ sub processPara {
 
     ## wd
     elsif ($line =~ /^<wd (.+)?>(.+)<\/wd>$/){
-      my $wdAttr = $1;
+      $wdAttr = $1;
       my $word = $2;
       $isSpace = 0;
       $isTab = 0;
+
+      if ($isMarkup){
+	$markupOutput .= "$word $wdAttr\n";
+      }
 
       if($isXmlFeature){ # FontSize & FontFace
 	checkFontAttr($wdAttr, "fontSize", \%fontSizeHash, 1);
 	checkFontAttr($wdAttr, "fontFace", \%fontFaceHash, 1);
       }
 	
-      if($isXmlFeature || $isMarkup){ # Bold & Italic
+      if($isXmlFeature){ # Bold & Italic
 	my $wdBold = getAttrValue($wdAttr, "bold");
 	my $wdItalic = getAttrValue($wdAttr, "italic");
 
-#	print STDERR "$wdBold\t$wdItalic\n";
 	if($wdBold eq "true" || $runBold eq "true" || $lnBold eq "true"){
 	  $boldArray[$wdIndex] = 1;
 	  $lnBoldCount++;
-
-	  if($isMarkup){
-	    $word .= "|b";
-	  }
-	} elsif($isMarkup){
-	  $word .= "|nb";
 	}
 	
 	if($wdItalic eq "true" || $runItalic eq "true" || $lnItalic eq "true"){
 	  $italicArray[$wdIndex] = 1;
 	  $lnItalicCount++;
-
-	  if($isMarkup){
-	    $word .= "|i";
-	  }
-	} elsif($isMarkup){
-	  $word .= "|ni";
 	}
-      } # if($isXmlFeature || $isMarkup)
+      } # if($isXmlFeature)
 
       ## add text
       $text .= "$word";
@@ -825,48 +854,38 @@ sub processPara {
     ## end wd
     elsif ($line =~ /^<\/wd>$/){
       $isWd = 0;
+      
+      if($isMarkup){
+	$markupOutput .= "$wdText $wdAttr\n";
+	$wdAttr = "";
+      }
     }
 
     ## end run
     elsif ($line =~ /^(.*)<\/run>$/){ 
       my $word = $1;
+
       ## add text
       if($word ne ""){
-	if($isXmlFeature || $isMarkup){ # Bold & Italic
+	if($isXmlFeature){ # Bold & Italic
 	  if($runBold eq "true" || $lnBold eq "true"){
 	    $boldArray[$wdIndex] = 1;
 	    $lnBoldCount++;
-	 
-	    if($isMarkup){
-	      $word .= "|b";
-	    }
-	  } elsif($isMarkup){
-	    $word .= "|nb";
 	  }
 	  
 	  if($runItalic eq "true" || $lnItalic eq "true"){
 	    $italicArray[$wdIndex] = 1;
 	    $lnItalicCount++;
-	 
-	    if($isMarkup){
-	      $word .= "|i";
-	    }
-	  } elsif($isMarkup){
-	    $word .= "|ni";
 	  }
 	}
 
-	if($isLn){
-	  $text .= "$word";
-	  
-	  if($isMarkup){
-	    $text .= " ";
-	  }
-	}
+	# appear in the final result
+	if($isLn){ $text .= "$word"; }
 
-	if($isRun){
-	  $runText .= "$word ";
-	}	
+	# for internal record
+	if($isRun){ $runText .= "$word "; }	
+	if($isWd){ $wdText .= "$word"; }	
+
 	$wdIndex++;
       }
 
@@ -886,7 +905,7 @@ sub processPara {
       $isRun = 0;      
       $isSpecialSpace = 0;
 
-      if($isXmlFeature || $isMarkup){ # Bold & Italic
+      if($isXmlFeature){ # Bold & Italic
 	$runBold = "none";
 	$runItalic = "none";
 
@@ -927,10 +946,6 @@ sub processPara {
 	  # assumtion that: fontSize is either occur in <ln>, or within multiple <run> under <ln>, but not both
 	  checkFontAttr($lnAttr, "fontSize", \%fontSizeHash, $numWords);
 	  checkFontAttr($lnAttr, "fontFace", \%fontFaceHash, $numWords);
-
-#	  if($space ne "none"){
-#	    $gSpaceHash{$space} = $gSpaceHash{$space} ? ($gSpaceHash{$space}+1) : 1;
-#	  }
 	}
 	
 	if($isXmlFeature && !$isCell && !$isSpecialSpace){
@@ -951,7 +966,6 @@ sub processPara {
 	    push(@gBold, "no"); # bold feature	  
 	    push(@gItalic, "no"); # italic feature
 	    push(@gBullet, "no"); # bullet feature
-#	    push(@gSpace, "none"); # space feature
 	  } else {
 	    push(@gPic, "no");
 
@@ -969,7 +983,7 @@ sub processPara {
       $isSpecialSpace = 0;
       $wdIndex = 0;
 
-      if($isXmlFeature || $isMarkup){ # Bold & Italic
+      if($isXmlFeature){ # Bold & Italic
 	$lnBold = "none";
 	$lnItalic = "none";
 

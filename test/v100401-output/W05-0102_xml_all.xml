@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.096552">
-<title confidence="0.988232">
+<variant no="0" confidence="0.107213">
+<title confidence="0.989152">
 Teaching Dialogue to Interdisciplinary Teams through Toolkits
 </title>
-<author confidence="0.883722">
+<author confidence="0.893492">
 Justine Cassell Matthew Stone
 </author>
-<affiliation confidence="0.91042">
+<affiliation confidence="0.914866">
 Technology and Social Behavior Computer Science and Cognitive Science
 Northwestern University Rutgers University
 </affiliation>
-<email confidence="0.996255">
+<email confidence="0.99593">
 justine@northwestern.edu matthew.stone@rutgers.edu
 </email>
-<sectionHeader confidence="0.998821" genericHeader="abstract">
+<sectionHeader confidence="0.998891" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999994466666667">
+<bodyText confidence="0.999994866666667">
 We present some lessons we have learned
 from using software infrastructure to
 support coursework in natural language
@@ -35,10 +35,10 @@ rative discussion and effort we think is re-
 quired to create better teaching infrastruc-
 ture in the future.
 </bodyText>
-<sectionHeader confidence="0.999496" genericHeader="acknowledgments">
+<sectionHeader confidence="0.999539" genericHeader="acknowledgments">
 1 Introduction
 </sectionHeader>
-<bodyText confidence="0.999488642857143">
+<bodyText confidence="0.999469857142857">
 Hands-on interaction with dialogue systems is a nec-
 essary component of a course on computational lin-
 guistics and natural language technology. And yet, it
@@ -54,10 +54,10 @@ popular options include the NLTK (Loper and Bird,
 Traum, 2000) and Regulus (Rayner et al., 2003)
 toolkits. However, each of these options has turned
 </bodyText>
-<page confidence="0.725195">
+<page confidence="0.743602">
 9
 </page>
-<bodyText confidence="0.999941470588235">
+<bodyText confidence="0.999941941176471">
 out to have disadvantages. Some of the toolkits re-
 quire too much knowledge of linguistics for the av-
 erage computer science student, and vice-versa, oth-
@@ -93,13 +93,13 @@ the experience that has led us to these conclusions
 and frame the broader discussion we hope the TNLP
 workshop will help to further.
 </bodyText>
-<subsubsectionHeader confidence="0.601163">
+<subsubsectionHeader confidence="0.608314">
 Proceedings of the Second ACL Workshop on Effective Tools and Methodologies for Teaching NLP and CL, pages 9–14,
 </subsubsectionHeader>
-<bodyText confidence="0.396163">
+<bodyText confidence="0.379936">
 Ann Arbor, June 2005. c�2005 Association for Computational Linguistics
 </bodyText>
-<figure confidence="0.913846444444444">
+<figure confidence="0.951539555555555">
 2 Our Courses the course—only fair, since they are at the advan-tage when it comes to implementation. But com-puter scientists see the value in the exercise: even if they do not believe that interfaces should be de-signed to act like people, they still recognize that well-designed interactive systems must be ready to handle the kinds of behaviors people actually carry out. And hands-on experience convinces them that behavior in human conversation is both rich and sur-prising. The computer scientists agree—after turn-ing in impoverished and uninformed “analyses” of their discourse for a brutal critique—that they will never look at conversation the same way again.
 Our perspective in this paper draws on more than fifteen course offerings at the graduate level in dis-course and dialogue over the years. Justine Cassell’s course Theories and Technologies of Human Com-munication is documented on the web here: Our experience suggests that we should be try-ing to give students outside computer science the same kind of eye-opening hands-on experience with technology. For example, we have found that lin-guists are just as challenged and excited by the dis-cipline of technology as computer scientists are by the discipline of empirical observations. Linguists in our classes typically report that successful en-gagement with technology “exposes a lot of de-tails that were missing from my theoretical under-standing that I never would have considered with-out working through the code”. Nothing is better at bringing out the assumptions you bring to an anal-ysis of human-human conversation than the thought experiment of replacing one of the participants by something that has to struggle consciously to un-derstand it— a space alien, perhaps, or, more real-istically, an AI system. We are frustrated that no succinct assignment, comparable to our transcrip-tion homework, yet exists that can reliably deliver this insight to students outside computer science.
 http://www.soc.northwestern.edu/justine/discourse 3 Framing the Problem
@@ -110,7 +110,7 @@ As befits our dual goals, our courses all involve a mix of instruction in human-
 1The catchy title is the inspiration of Deb Roy at MIT.
 10
 </figure>
-<bodyText confidence="0.999589977777778">
+<bodyText confidence="0.999571822222223">
 reference and clarification. Context is central, and
 under that umbrella we explicitly discuss both the
 perceptual environment in which conversation takes
@@ -157,10 +157,10 @@ through a collaborative effort shared across multiple
 sites and broadly engaged with a range of research
 issues as well as with pedagogical challenges.
 </bodyText>
-<subsectionHeader confidence="0.998437">
+<subsectionHeader confidence="0.998458">
 3.1 Difficulties with REA and BEAT
 </subsectionHeader>
-<bodyText confidence="0.999968130434783">
+<bodyText confidence="0.999971695652174">
 Cassell has experimented with the use of her re-
 search platforms REA (Cassell et al., 1999) and
 BEAT (Cassell et al., 2001) for course projects in
@@ -208,10 +208,10 @@ guistics students. To handle the first and third steps,
 you would hope that an interdisciplinary team con-
 taining a communication student and a computer sci-
 </bodyText>
-<page confidence="0.998297">
+<page confidence="0.998445">
 11
 </page>
-<bodyText confidence="0.989738645161291">
+<bodyText confidence="0.989760032258065">
 ence student would be able to bring the expertise to design the new dialogue state and the new animated behavior. But that wasn’t exactly true. In order to add the behavior to REA, students needed not only background in the relevant technology—like what a computer scientist would learn in a general human animation class. To add the behavior, students also needed to know how this technology was realized in our particular research platform. This proved too much for one semester. face dialogue (Cassell et al., 2000), the informationstate approach to domain-independent practical di-alogue (Larsson and Traum, 2000), or approaches that emphasize the grounding of conversation in the specifics of a particular ongoing collaboration (Rich et al., 2001). The integration of a talking head into the CSLU toolkit epitomizes these limitations with the platform. The toolkit allows for the automatic realization of text with an animated spoken deliv-ery, but does not expose the model to programmers, making it impossible for programmers adapt or con-trol the behavior of the face and head.
 We think this is a general problem with new re-search systems. For example, we think many of the same issues would arise in asking students to build a dialogue system on top of the Trindi toolkit in a one semester course. We think this is a general problem with platforms that are primarily designed to streamline a particular research methodology. For example, we think many of the same issues would arise in asking students to build a multimodal behavior realization system on top of a general-purpose speech synthesis platform like Festival (Black and Taylor, 1997).
 3.2 Difficulties with the CSLU toolkit 3.3 Difficulties with TAGLET
@@ -244,10 +244,10 @@ But we increasingly think the community can and
 should come together to foster more broadly useful
 13
 </bodyText>
-<sectionHeader confidence="0.993959" genericHeader="references">
+<sectionHeader confidence="0.993321" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.999519491803279">
+<reference confidence="0.999555819672131">
 Alan Black and Paul Taylor. 1997. Festi-
 val speech synthesis system. Technical Report
 HCRC/TR-83, Human Communication Research Cen-
@@ -310,7 +310,7 @@ shop on Effective Tools and Methodologies for Teach-
 ing Natural Language Processing and Computational
 Linguistics. http://nltk.sourceforge.net.
 </reference>
-<page confidence="0.999617">
+<page confidence="0.999585">
 14
 </page>
 </variant>

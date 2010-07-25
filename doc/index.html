@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
 
 <HTML><HEAD>
-<META HTTP-EQUIV="Keywords" NAME="Keywords" CONTENT="citations, citation parser, references, reference parser, bibliography parser, reference string parser, bibtex, citation, citation extraction">
+<META HTTP-EQUIV="Keywords" NAME="Keywords" CONTENT="citations, citation parser, references, reference parser, bibliography parser, reference string parser, bibtex, citation, citation extraction, logical structure, document logical structure">
 <LINK REL="stylesheet" HREF="parsCit.css"><TITLE>ParsCit: An open-source CRF Reference String Parsing Package</TITLE>
 <script type="text/javascript">
 function toggleLayer( whichLayer ) {
@@ -24,7 +24,7 @@ function toggleLayer( whichLayer ) {
 
 <div style="align:left; border: 1px solid green; font-size:9pt" id="toc">
 [ <A href="http://wing.comp.nus.edu.sg/">Back to the WING home page</A> ] [
-<A href="http://wing.comp.nus.edu.sg/~forecite/services/">Back to ForeCite/CiteSeer web services</A> ] 
+<A href="http://wing.comp.nus.edu.sg/~wing.nus/services/">Back to WING web services</A> ] 
 <BR/>
 [&nbsp;<A href="#d">Download</a>&nbsp;] [&nbsp;<A href="#ws">Web Service</a>&nbsp;] [&nbsp;<A href="#wd">Web-based Demonstration</a>&nbsp;] [&nbsp;<A href="#p">Publications</a>&nbsp;]
 [&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#faq">FAQ</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
@@ -97,7 +97,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version: <A HREF="parscit-100401.zip">100401</A>: Added
+  <li> Current version: <A HREF="parscit-100401.zip">100401d</A>: Added
   SectLabel (logical structure parsing) software from the NUS team,
   and Iconip training data from Cheong Chi Hong for ParsCit with new
   ParsCit model retrained. See <A
@@ -135,7 +135,7 @@ some traffic your way.
 </P> 
 
 <UL>
-  <LI> <A HREF="forecite.wsdl">Download the WSDL file</A> for the service at NUS.
+  <LI> <A HREF="wing.nus.wsdl">Download the WSDL file</A> for the service at NUS.
   <LI> <A HREF="ParsCitClientWSDL.rb">Download the sample ruby client
        that uses the WSDL file</A> to dynamically generate the ParsCit web
        service call to the NUS server.  Edit the file to see how to
@@ -173,7 +173,7 @@ service to parse the input file or strings.
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="1" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt</A>).<BR/>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
@@ -203,7 +203,7 @@ service to parse the input file or strings.
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml</A>).<BR/>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
@@ -233,8 +233,8 @@ service to parse the input file or strings.
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="3" style="display:none;">
 <P>Input Method 1) Enter a URL to a file on the web in the correct format (each line should be a separate citation; e.g., <A
-HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite</A> or <A
-HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite</A>).
+HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite</A> or <A
+HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite</A>).
 <INPUT TYPE="text" SIZE="80" NAME="urllines"> 
 </P>
 
@@ -253,8 +253,16 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
 
 <!-- Publications  ---------------------------------------------------------------------- -->
 <A name="p"></a><H2>Publications</H2>
-<P><B>International Referreed Conference Publications:</B>
+<P><B>Journal Papers:</B>
+<UL>
+  <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (forthcoming)
+       <U>Logical Structure Recovery in Scholarly Articles with Rich
+       Document Features</U>.  Forthcoming in the International
+       Journal of Digital Library Systems.  <BR/>
+       [ <A HREF="ijdls-SectLabel.pdf">pre-print .pdf</A> ]
+</UL>
 
+<P><B>International Referreed Conference Publications:</B>
 <UL>
   <LI> Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008)
        <U>ParsCit: An open-source CRF reference string parsing
@@ -266,12 +274,6 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
 
 <P><B>Others:</B>
 <UL>
-
-  <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (forthcoming)
-       <U>Logical Structure Recovery in Scholarly Articles with Rich
-       Document Features</U>.  Forthcoming in the International
-       Journal of Digital Library Systems.  <BR/>
-       [ <A HREF="ijdls-SectLabel.pdf">pre-print .pdf</A> ]
   <LI> Yong Kiat Ng. (2004) <U>Citation Parsing Using Maximum Entropy
        and Repairs</U>.  Undergraduate thesis.  National University of
        Singapore.  <BR/>
@@ -367,7 +369,7 @@ HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.c
     download the sample links for inspection (as they are
     concatenations of several XML files, your browser will likely
     complain about them not being well-formed.</DD>
-  <DT> I ran Demo 2 with the default "all" settings, but sections
+  <DT> I ran Demos 1 and 2 with the default "all" settings, but sections
     don't seem to be detected.</DT>
   <DD> There's no problem.  The demo just hides the SectLabel output
     by default.  Click "Show SectLabel output" to reveal it.</DD>
@@ -385,6 +387,12 @@ Nevertheless, there are problems with the output occasionally.  Below
 are some common problems people have encountered.
 
 <DL>
+  <DT>I tried downloading and running ParsCit but I get complaints
+    about /bin/sed and crf not being found.  Help?</DT>
+  <DD>Please read the INSTALL.txt directions.  You need to recompile
+    CRF++ for your platform.  The paths included with the install are
+    for our version, you need to recompile to have the paths point
+    correctly.</DD>
   <DT>Issue numbers don't get extracted.</DT>
   <DD>We're looking into this.  The training data does not make a
     distinction about volume and issue number.  We'd like to fix that
@@ -467,10 +475,14 @@ $ mv model ../../resources/parsCit.model
 base.  Here we'd like to thank them for their help.</p>
 
 <P>Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
-(v100401) and contributing the ICONIP training data.  Thanks to Artemy
-Kolchinsky for fixes in Preprocess.pm (v090625). Thanks to Matteo
-Romanello for the humanities training datasets.  Thanks to Dain Kaplan
-for helping us fix the Preprocess.pm bug.  Thanks to Ayeh
+(v100401) and contributing the ICONIP training data and XML entity
+problems in reference string parsing (v100401).  Thanks to Priya
+Venkateshan for pointing out sudo/root installation possibilities
+(v100401).  Thanks to Mario Lipinski for reporting punctuation
+stripping problems in reference string parsing (v100401).  Thanks to
+Artemy Kolchinsky for fixes in Preprocess.pm (v090625). Thanks to
+Matteo Romanello for the humanities training datasets.  Thanks to Dain
+Kaplan for helping us fix the Preprocess.pm bug.  Thanks to Ayeh
 Bandeh-Ahmadi for correcting the warning in parseRefString.pl.  Thanks
 to Nick Friedrich and J&ouml;ran Beel of scienstein.org for all fixes
 in the v081201 version of ParsCit.  Also thanks to Madian Khabsa for
@@ -519,6 +531,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Fri Apr 16 01:16:15 2010
+Sat May  1 15:57:47 2010
 <!-- hhmts end -->
 </H5></BODY> </HTML>

@@ -2,28 +2,28 @@
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
 <variant no="0" confidence="0.000000">
-<title confidence="0.9727975">
+<title confidence="0.973902">
 Approaches to Japanese zero pronouns:
 Centering and relevance
 </title>
-<author confidence="0.937613">
+<author confidence="0.941864">
 Tomoko Matsui
 </author>
-<affiliation confidence="0.907003">
+<affiliation confidence="0.91232">
 International Christian University
 Division of Languages
 </affiliation>
-<address confidence="0.922326">
+<address confidence="0.9309605">
 3-10-2 Osawa
 Mitaka, Tokyo, JAPAN 181
 </address>
-<email confidence="0.960348">
+<email confidence="0.96302">
 matsui@icu.acjp
 </email>
-<sectionHeader confidence="0.992536" genericHeader="abstract">
+<sectionHeader confidence="0.992417" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999863333333333">
+<bodyText confidence="0.999875233333333">
 Accessibility of candidate referents is a crucial
 factor in successful reference assignment and
 this intuition has been adequately
@@ -37,7 +37,7 @@ theory of reference. In the field of pragmatics,
 however, the role of context has always been
 one of the central issues and the recent
 approach to context selection based on the
-notion of relevance (Sperber &amp;amp; Wilson
+notion of relevance (Sperber &amp; Wilson
 1986/1995) seems to be currently the most
 promising. In this paper, I will review and
 assess the recent centering approach to the
@@ -48,17 +48,17 @@ way of complementing it. In order to
 incorporate a needed mechanism of contextual
 selection into a model of reference assignment,
 model builders must take into account the
-hearer&amp;apos;s ability to anticipate certain cognitive
+hearer&apos;s ability to anticipate certain cognitive
 effects that may be achieved by upcoming
 utterances. It is my hope that this paper will
 lead to a fruitful discussion of finding possible
-ways of using Sperber &amp;amp; Wilson&amp;apos;s notion of
+ways of using Sperber &amp; Wilson&apos;s notion of
 relevance in practical applications.
 </bodyText>
-<sectionHeader confidence="0.98354" genericHeader="categories_and_subject_descriptors">
+<sectionHeader confidence="0.982969" genericHeader="keywords">
 1. Introduction
 </sectionHeader>
-<bodyText confidence="0.991669909090909">
+<bodyText confidence="0.992339363636364">
 When a system has to assign a referent to a
 referring expression, it is almost always the
 case that there is more than one candidate
@@ -67,50 +67,46 @@ eliminating the wrong candidates in order to
 choose the right one.
 There are two main ways of doing this.
 First, candidate referents can be ranked on the
-basis of accessibility (Erku &amp;amp; Gundel 1987;
+basis of accessibility (Erku &amp; Gundel 1987;
 Fretheim and Gundel 1996; Gernbacher and
 Hargreaves 1988, Grosz et al. 1995; Sidner
 </bodyText>
-<listItem confidence="0.526101142857143">
+<listItem confidence="0.681614714285714">
 1983a, b; Walker et al. 1998). Alternatively,
 they can be checked against the accessibility
 of contextual assumptions (Fmcher-Kiefer
 1993; Kintsch 1988, Magliano et al. 1993;
-• McKoon &amp;amp; Ratcliff 1992; Sanford &amp;amp; Garrod
-1981; Sharkey &amp;amp; Sharkey 1987; Singer 1993,
+• McKoon &amp; Ratcliff 1992; Sanford &amp; Garrod
+1981; Sharkey &amp; Sharkey 1987; Singer 1993,
 1995).
 </listItem>
-<bodyText confidence="0.9922404">
+<bodyText confidence="0.959469571428571">
 In either case, once a candidate is singled
 out, the acceptability of the referent needs to
 be tested against some pragmatic criteria.
 Currently, we seem to have at least three
 distinct criteria available:
-</bodyText>
-<figureCaption confidence="0.5884912">
 i. Truth-based criterion — i.e. whether the
 overall, interpretation is likely to be
-factually plausible (Clark 1977; Clark &amp;amp;
-Haviland 1977; Erku &amp;amp; Gundel 1987;
-Sanford &amp;amp; Garrod 1981; Sidner 1983a);
-</figureCaption>
-<bodyText confidence="0.994866818181818">
+factually plausible (Clark 1977; Clark &amp;
+Haviland 1977; Erku &amp; Gundel 1987;
+Sanford &amp; Garrod 1981; Sidner 1983a);
 Coherence-based criterion — i.e. whether
 the overall interpretation is likely to be
-coherent (Asher &amp;amp; Lascaries 1993; Grosz
+coherent (Asher &amp; Lascaries 1993; Grosz
 et al. 1995, 1998; Hobbs 1979; Lascarides
-&amp;amp; Asher 1993; Sanders et al. 1992; Walker
+&amp; Asher 1993; Sanders et al. 1992; Walker
 et al. 1994,1998);
 ill. Relevance-based criterion — i.e. whether
 the overall interpretation is likely to be
 optimally relevant (Matsui 1993, 1995,
-1998; Wilson 1992; Wilson &amp;amp; Matsui
+1998; Wilson 1992; Wilson &amp; Matsui
 1998).
 </bodyText>
-<page confidence="0.999624">
+<page confidence="0.999666">
 11
 </page>
-<bodyText confidence="0.891298842105263">
+<bodyText confidence="0.93764">
 In this paper, I will focus on one version of
 coherence-based criterion, namely, centering
 theory. One of the goals of centering theory is
@@ -120,18 +116,18 @@ various referring expressions is regarded as
 one such mechanism. Among the various
 hypotheses put forward by centering theory,
 what concerns us most is the following: that
-&amp;apos;each utterance [except the initial utterance] in
+&apos;each utterance [except the initial utterance] in
 •a coherent discourse segment contains a single•
 semantic entity the backward-looking center
 [or Cb] that provides a link to the previous
 utterance, and an ordered set of entities the
 forward-looking centers [or Cl] that offer
-potential links to the next utterance &amp;apos;(Gordon et
+potential links to the next utterance &apos;(Gordon et
 al. 1993:311). There are two rules to provide
 constraints on choosing centers, which are
 shown in (1):
 </bodyText>
-<footnote confidence="0.399937375">
+<footnote confidence="0.360433375">
 (1 )Rule 1: If any element of Cf (Un) is
 realised by a pronoun in Un+1 then the
 Cb (Un+1) must be realised by a
@@ -141,7 +137,7 @@ preferred over sequences of retaining;
 and sequences of retaining are to be
 preferred over sequences of shifting.
 </footnote>
-<bodyText confidence="0.997509777777778">
+<bodyText confidence="0.998278555555556">
 The first rule states that the most highly
 ranked element of the forward-looking center
 of a previous utterance is the backward-
@@ -152,7 +148,7 @@ by a pronoun in the current utterance. The
 following example from Gordon et 4(1993),
 shown here in (2), illustrates this rule:
 </bodyText>
-<footnote confidence="0.962238714285714">
+<footnote confidence="0.965875142857143">
 (2)[1]Susan gave Betsy a pet hamster.
 Cf=( Susan, Betsy, hamster 1)
 [2]She reminded her such hamsters were
@@ -161,17 +157,17 @@ Cb=Susan; Cf::(Susan, Betsy, hamsters)
 [3]She asked Betsy whether she liked
 the gift.
 </footnote>
-<subsectionHeader confidence="0.3545245">
+<subsectionHeader confidence="0.382505">
 Cb=Susan; Cf=f Susan, Betsy,
 gift=hamster 1)
 </subsectionHeader>
-<bodyText confidence="0.9110531">
+<bodyText confidence="0.9466455">
 [3 1Susan asked her whether she liked
 the gift.
 Here, the first utterance has no Cb because it is
 the initial sentence of a discourse. Its Cf
-includes the referents oV &amp;apos;Susan&amp;apos; and &amp;apos;Betsy&amp;apos;
-and the semantic interpretation of &amp;apos;a hamster
+includes the referents oV &apos;Susan&apos; and &apos;Betsy&apos;
+and the semantic interpretation of &apos;a hamster
 ranked in that order. The second utterance has
 Susan as the Cb and a Cf with Susan. as its
 most highly ranked element. The third
@@ -194,10 +190,10 @@ etc., can affect the Cf ranking. Thus, I will
 simply assume here the following preference
 in ranking forward-looking center shown in
 (3), as suggested by Grosz et al. (ibid.):
-(3)SUBJECr&amp;gt;OBJECT&amp;gt;OTHERS
+(3)SUBJECr&gt;OBJECT&gt;OTHERS
 The highest ranked member of the set of
 forward-looking centers is called the
-&amp;apos;preferred center or &amp;apos;Cp As mentioned
+&apos;preferred center or &apos;Cp As mentioned
 above, Cp is regarded as the most likely
 candidate for Cb in the following utterance.
 Another important claim made by centering
@@ -209,24 +205,24 @@ et al. adopt the following 4 types of transition
 between discourse segments, each
 corresponding to different degree of
 coherence, using the notion of Cb and Cp; .
-namely, &amp;apos;continue &amp;apos;retain&amp;apos;, &amp;apos;smooth-shift&amp;apos;
-and &amp;apos;rough-shift&amp;apos;. These are shown in (4).
+namely, &apos;continue &apos;retain&apos;, &apos;smooth-shift&apos;
+and &apos;rough-shift&apos;. These are shown in (4).
 When two utterances, say Ui-1 and U share the
 same Cb, and the same entity is also the
 highest-ranked Cf, i.e. Cp, in Ui-1, the
-transition from Ui-1 to Ui is called &amp;apos;continue
+transition from Ui-1 to Ui is called &apos;continue
 When Ui-1 and Ui share the same Cb, but the
 </bodyText>
-<page confidence="0.421594">
+<page confidence="0.407939">
 12 •
 </page>
-<bodyText confidence="0.998017916666667">
+<bodyText confidence="0.998750916666667">
 same entity is not the highest-ranked Cf in Ui,
-the transition is called &amp;apos;retain When Ui-1 and
+the transition is called &apos;retain When Ui-1 and
 Ui do not share the same Cb, there are two
 possibilities: if Cb in Ui is the same as Cp in
-Ui, the transition is &amp;apos;smooth-shift&amp;apos;; if Cb in Ui
-is not the same as Cp in Ui, it is &amp;apos;rough-shift
+Ui, the transition is &apos;smooth-shift&apos;; if Cb in Ui
+is not the same as Cp in Ui, it is &apos;rough-shift
 It is claimed that when the hearer has to
 choose one from several possible
 interpretations, the one based on the most •
@@ -234,27 +230,27 @@ coherent transition should be chosen. The 4
 transition states are ordered in the following
 way according to their preference:
 </bodyText>
-<sectionHeader confidence="0.1868755" genericHeader="introduction">
-(4)CONTINUE&amp;gt;RETAIN&amp;gt;SMOOTH-
-SHIFT&amp;gt;ROUGH-SHIFT
+<sectionHeader confidence="0.4681075" genericHeader="introduction">
+(4)CONTINUE&gt;RETAIN&gt;SMOOTH-
+SHIFT&gt;ROUGH-SHIFT
 </sectionHeader>
-<subsectionHeader confidence="0.4894995">
+<subsectionHeader confidence="0.3177665">
 The second of the two rules in (1) is about this
-ordered preference of transition states.&amp;apos;
+ordered preference of transition states.&apos;
 </subsectionHeader>
-<bodyText confidence="0.7869442">
+<bodyText confidence="0.7886068">
 2. Walker et al. (1994) and Japanese zero
 pronoun resolution
 Walker et al. (1994) propose the following
 ranking order of forward-looking centers to
 deal with Japanese:
 </bodyText>
-<sectionHeader confidence="0.929821666666667" genericHeader="method">
-(5)(Grammatical or Zero) TOPIC &amp;gt;
-EMPATHY &amp;gt; SUBJECT &amp;gt; OBJECT2 &amp;gt;
+<sectionHeader confidence="0.949405333333333" genericHeader="method">
+(5)(Grammatical or Zero) TOPIC &gt;
+EMPATHY &gt; SUBJECT &gt; OBJECT2 &gt;
 OBJECT OTHERS
 </sectionHeader>
-<bodyText confidence="0.996747142857143">
+<bodyText confidence="0.998009142857143">
 As you can see, they add two new grammatical
 roles, namely, topic and empathy, to the list of
 factors affecting pronoun resolution. Since the
@@ -262,25 +258,25 @@ notion of topic will become important in the
 discussion which follows, I will briefly
 describe the Japanese topic marker below. For
 empathy-loaded verbs, please refer to Kuno
-1987 and ICuno &amp;amp; Kaburald 1977.
+1987 and ICuno &amp; Kaburald 1977.
 In Japanese, both in written and spoken
 discourse, NPs which can be recovered from
 context are often omitted. The omitted NPs are
-often called &amp;apos;zero pronouns It is widely
+often called &apos;zero pronouns It is widely
 agreed that missing NPs in Japanese behave
 like pronouns in other languages such as
 </bodyText>
-<construct confidence="0.9976198">
+<construct confidence="0.9976428">
 There were only three transition states in the original.
-formulation by Grosz et &amp;apos;IL (1983, 1995), namely,
+formulation by Grosz et &apos;IL (1983, 1995), namely,
 CONTINUE. RETABV and SHIFT The distinction
 between SMOOTH-SHIFT and ROUGH-SHIFT war
 first proposed in Brennan (1987).
 </construct>
-<bodyText confidence="0.993795827586207">
+<bodyText confidence="0.994852137931035">
 English. Japanese zero pronouns should be
-distinguished from missing NPs in &amp;apos;pro-drop&amp;apos;
-languages such as Italian, since in &amp;apos;pro-drop&amp;apos;
+distinguished from missing NPs in &apos;pro-drop&apos;
+languages such as Italian, since in &apos;pro-drop&apos;
 languages, information to recover missing NPs
 is morphologically encoded elsewhere in the
 sentence, e.g. in the form of verb inflection,
@@ -297,54 +293,54 @@ pronouns, please refer to e.g. Hasegawa 1985
 and Kameyama 1986.
 In Japanese, there are several postpositional
 particles. The one we are interested in here is
-lwa which is often called a &amp;apos;topic marker&amp;apos;.
-As the name suggests, &amp;apos;via&amp;apos; is typically used to
+lwa which is often called a &apos;topic marker&apos;.
+As the name suggests, &apos;via&apos; is typically used to
 construct a grammatical topic of a sentence,
 which is characterised as an entity whose
-existence is preSupposed. The function of *a&amp;apos;
+existence is preSupposed. The function of *a&apos;
 might become clearer when it is compared
-with another particle &amp;apos;ga which marks a NP
+with another particle &apos;ga which marks a NP
 in the subject position, which typically
 conveys a new information. Compare (6a) and
 (6b):
 </bodyText>
-<figure confidence="0.7992954">
+<figure confidence="0.8452818">
 (6) a. John ga hana o katta.
 SUB flowers ACC bought
-&amp;apos;John bought flowers.&amp;apos;
+&apos;John bought flowers.&apos;
 b. John wa hana o katta.
 TOP flowers ACC bought
 </figure>
-<subsectionHeader confidence="0.264363">
-&amp;apos;John bought flowers.&amp;apos;
+<subsectionHeader confidence="0.487121">
+&apos;John bought flowers.&apos;
 </subsectionHeader>
-<bodyText confidence="0.779636333333333">
+<bodyText confidence="0.958501333333333">
 (6a) and (6b) share the same propositional
 content. However, only (6a) is acceptable as
 an answer to the question such as Who
-bought flowers?&amp;apos; while only (6b) is acceptable
-as an ansvver to the question such as &amp;apos;What did
+bought flowers?&apos; while only (6b) is acceptable
+as an ansvver to the question such as &apos;What did
 John buy? There are various suggestions
 about how to characterise functions of the two
 particles (see e.g. Shibatani 1990; Tanaka
 1991), and although it is an interesting
-question on its own, it shouldn &amp;apos;t concern us
+question on its own, it shouldn &apos;t concern us
 here. This is because Walker et al. are only.
-interested in the surface form of `NP+wa&amp;apos;,
+interested in the surface form of `NP+wa&apos;,
 </bodyText>
-<page confidence="0.99923">
+<page confidence="0.999267">
 13
 </page>
-<bodyText confidence="0.998856555555556">
+<bodyText confidence="0.998942055555556">
 which is automatically given the highest
 accessibility ranking in their framework.
 Walker et al. claim that a topic NP is more
 likely to be realised as a zero pronoun in the
 subsequent discourse than any other NPs due
 to its highest degree of accessibility.
-Moreover, in Walker et al.&amp;apos;s framework, topic
+Moreover, in Walker et al.&apos;s framework, topic
 NP is given two further advantages: they
-suggest (a) that a NP marked by &amp;apos;wa&amp;apos; becomes
+suggest (a) that a NP marked by &apos;wa&apos; becomes
 the backward-looking center even at the onset
 of the discourse; and (b) that once topic NP is
 realised as the backward-looking center ,as
@@ -352,14 +348,14 @@ long as it continues to be realised as a zero
 pronoun in subsequent discourse, it could
 continue to be the backward-looking center.
 The second advantage given to the topic NP is
-called &amp;apos;zero topic assignment&amp;apos;, which is
+called &apos;zero topic assignment&apos;, which is
 defined as in (7):
 </bodyText>
-<equation confidence="0.8785085">
+<equation confidence="0.8747005">
 (7)Zero Topic Assignment (ZTA)
 (optional)
 </equation>
-<bodyText confidence="0.9961796">
+<bodyText confidence="0.9969749">
 When a zero in Ui+1 represents an entity
 that was Cb (Ui), and when no other
 CONTINUE transition is available, that
@@ -371,29 +367,29 @@ topic assignment, can successfully explain the
 preference in the interpretation of the last
 sentence in (8):
 </bodyText>
-<figure confidence="0.727143666666667">
+<figure confidence="0.724695666666667">
 (8)[1] Hanako wa siken o oete,
 TOP exam ACC finish
 kyooshitu ni modotimashita.
 </figure>
-<figureCaption confidence="0.637498">
+<figureCaption confidence="0.633121">
 classroom to returned
 </figureCaption>
-<bodyText confidence="0.980146">
+<bodyText confidence="0.98169">
 lianako returned to the classroom,
-finishing her exams&amp;apos;
+finishing her exams&apos;
 </bodyText>
-<equation confidence="0.1622355">
+<equation confidence="0.226765">
 Cb=Hanako; Cf=filanako, exam)
 [2] 0 hon o rokka ni shimaimashita.
 </equation>
-<bodyText confidence="0.44556825">
+<bodyText confidence="0.6451645">
 book ACC locker in took-away
-&amp;apos;(She) put her books in the locker
+&apos;(She) put her books in the locker
 amHanako; Cf=(Hanako, book)
 [CONTINUE]
 </bodyText>
-<figure confidence="0.857444071428571">
+<figure confidence="0.745569136363636">
 [3] awn° no yooni Michiko ga
 always like SUB
 0 mondai no tokikata o
@@ -401,27 +397,23 @@ questions solve-way ACC
 setumeishimashita.
 explained
 `Michiko, as usual, explained (to her)
-how to answer questions.&amp;apos;
+how to answer questions.&apos;
 Cb=Hanalco;
 Cf1=(Hanako, Michiko ...} ZTA
 [CONTINUE]
 Cf2=(Michiko, Hanalco, ...}
 [RETAIN]
 [4] 0 0 ohiru ni sasoimashita
-</figure>
-<figureCaption confidence="0.207">
 lunch to invited
-</figureCaption>
-<equation confidence="0.379964857142857">
-&amp;apos;(She) invited (her) to lunch&amp;apos;
+&apos;(She) invited (her) to lunch&apos;
 Cbl= Hanako;
 Cf1=(Hanako, lunch, Michiko)
 [CONTINUE]from [3]-Cfl
 Cb2=Michiko
 Cf2=(Michiko, lunch, Hanako)
 [S-SHIFT]from [3]-Cf2
-</equation>
-<bodyText confidence="0.975802913043478">
+</figure>
+<bodyText confidence="0.977588217391304">
 According to the questionnaire carried out by
 Walker et al., the preferred interpretation of
 [4] is that Hanako invited Michiko to lunch.
@@ -432,9 +424,9 @@ backward-looking center and the ranking of
 forward-looking center in [4]. In their analysis
 of (8), the preference in the interpretation in
 [4] is explained by zero topic assignment in
-• [3] and preference on &amp;apos;continue&amp;apos; transition in
+• [3] and preference on &apos;continue&apos; transition in
 [4].
-In summary, Walker et al.&amp;apos;s account of
+In summary, Walker et al.&apos;s account of
 Japanese zero pronoun is based on two
 independent preference mechanisms: the first
 one is the forward center ranking, and the
@@ -446,20 +438,20 @@ forward looking centers, the predictions of the
 theory tend to depend more largely on the
 forward center ranking.
 </bodyText>
-<sectionHeader confidence="0.660685" genericHeader="method">
+<sectionHeader confidence="0.692295" genericHeader="method">
 3. Problems with Walker et al.
 </sectionHeader>
-<bodyText confidence="0.9995668">
+<bodyText confidence="0.9995982">
 Now I would like to discuss some problems
-with Walker et al.&amp;apos;s framework. Needless to
+with Walker et al.&apos;s framework. Needless to
 say, it has great advantages, such as relative
 ease of computational implementation.
 Moreover, I agree that accessibility of
 </bodyText>
-<page confidence="0.999212">
+<page confidence="0.999277">
 14
 </page>
-<bodyText confidence="0.999344375">
+<bodyText confidence="0.9993739375">
 discourse entities plays an important role in
 reference assignment, and their forward center
 ranking is an adequate enough approximation
@@ -477,12 +469,12 @@ Walker et al. is not an exception here. I will
 illustrate two problems they need to solve
 below.
 </bodyText>
-<subsectionHeader confidence="0.887007">
+<subsectionHeader confidence="0.886031">
 3.1. Multiple topics
 </subsectionHeader>
-<bodyText confidence="0.91428815625">
+<bodyText confidence="0.999659071428571">
 One of the most obvious shortcomings of
-Walker et al. &amp;apos;s approach is that it cannot
+Walker et al. &apos;s approach is that it cannot
 handle situations where there is more than one
 topic in a sentence. In their framework, in
 order to identify zero pronouns, the backward-
@@ -496,9 +488,9 @@ above. However, notice that it is only useful if
 there is no more than one entity in each
 category in a sentence.
 Let us concentrate on the category of topic
-here. In Walker et al. &amp;apos;s framework, the topic
-matter `wa &amp;apos; is given a special status: the topic
-marker `wa &amp;apos; is so powerful that the topic NP
+here. In Walker et al. &apos;s framework, the topic
+matter `wa &apos; is given a special status: the topic
+marker `wa &apos; is so powerful that the topic NP
 becomes the most highly ranked forward-
 looking center even at the onset of a discourse;
 in addition, once a topic NP is realised as the
@@ -509,40 +501,42 @@ the backward-looking center. This status of the
 topic NP rightly allows the possibility of
 multiple topics as in (9), which is very often
 seen in Japanese discourse:
-(9)(l] Mary to Jane wa shinyuu da.
-and TOP best friends are
-&amp;apos;Mary and Jane are each other&amp;apos;s best
-friend.&amp;apos;
 </bodyText>
-<table confidence="0.848441615384615">
+<subsubsectionHeader confidence="0.331551">
+(9)(l] Mary to Jane wa shinyuu da.
+</subsubsectionHeader>
+<table confidence="0.848816625">
+and TOP best friends are
+&apos;Mary and Jane are each other&apos;s best
+friend.&apos;
 [2]..Senshuu no Doyoubi, Mary wa kaze
 last week GEN Saturday TOP cold
 o hiite nete-ita
 ACC had lying-was
 Last Saturday, Mary had a cold and
-was lying on the bed.&amp;apos;
+was lying on the bed.&apos;
 [3]Itsumo no youni, Jane wa
 always GEN as TOP
 ohiru goro denwa shita.
 noon around telephone did
-&amp;apos;As always, Jane phoned (Mary) around
+&apos;As always, Jane phoned (Mary) around
 noon.
 [4]0 0 eiga ni sasou tsumori datta.
 </table>
-<bodyText confidence="0.982699636363636">
+<bodyText confidence="0.973644121212121">
 film to invite planning to was
 `(She) was planning to invite (her) to a
-film.&amp;apos;
+film.&apos;
 However, cases of multiple topics cause a
 serious problem to Walker et al. Here, the
 preferred interpretation of [4] is that Jane was
 planning to invite Mary to a film. Walker et al.
 might explain this preference by saying that
-this is because &amp;apos;Jane&amp;apos; is the backward-looking
+this is because &apos;Jane&apos; is the backward-looking
 center in [4]. According to their framework,
 however, the alternative interpretation,
 namely, that Mary was planning to invite Jane
-to a film, is equally accessible, since Mary&amp;apos;
+to a film, is equally accessible, since Mary&apos;
 could continue to be the backward-looking
 center in [4]. The problem is that in their
 current framework, Walker et al. do not
@@ -551,95 +545,95 @@ interpretation and discard the other.
 There is another problem concerning
 multiplicity of entities with equal degree of
 accessibility. In Japanese, post-positional
-particles such as &amp;apos;wa &amp;apos; and &amp;apos;ga &amp;apos; shouldn &amp;apos;t be
+particles such as &apos;wa &apos; and &apos;ga &apos; shouldn &apos;t be
 used more than once in a sentence. Thus, you
-wouldn&amp;apos;t come across sentences with two
+wouldn&apos;t come across sentences with two
 overtly marked topics or subjects. However, it
 is possible to have more than one NP with
 more or less equal salience in one sentence, for
 example, when two nouns, the first being a
 modifier and the second being the head noun,
 form a NP. A noun modifier is followed by a
-particle &amp;apos;no 1, the Genitive Case particle. Some
+particle &apos;no 1, the Genitive Case particle. Some
 examples of NPs which contain noun
 modifiers are shown in (10):
 </bodyText>
-<page confidence="0.953928">
+<page confidence="0.954786">
 15
 </page>
-<figure confidence="0.868847">
+<figure confidence="0.925058888888889">
 (10)a. Mary no tomodachi
 GEN friend
-&amp;apos;Mary&amp;apos;s friend&amp;apos;
+&apos;Mary&apos;s friend&apos;
 b. Niwa no ki
 garden GEN tree
-&amp;apos;A tree in the garden&amp;apos;
+&apos;A tree in the garden&apos;
 c. Tegami no henji
 letter GEN reply
-&amp;apos;A reply to the letter&amp;apos;
+&apos;A reply to the letter&apos;
 </figure>
-<bodyText confidence="0.99670775">
+<bodyText confidence="0.99676075">
 Here, the first noun in each NP is the modifier.
 The most typical relation exhibited between
-two nouns combined by the particle &amp;apos;no&amp;apos; is the
-&amp;apos;possessive&amp;apos; relation, as in (10a): However, the
-use of &amp;apos;no&amp;apos; is by no means restricted to that
+two nouns combined by the particle &apos;no&apos; is the
+&apos;possessive&apos; relation, as in (10a): However, the
+use of &apos;no&apos; is by no means restricted to that
 relation, as illustrated in (10b) and (10c). Now
 consider (11), which include a NP with this
 structure:
 </bodyText>
-<equation confidence="0.357171666666667">
+<equation confidence="0.374237333333333">
 (11)(A memo written by a man, and
 addressed to his wife)
 [1]Kooto no botan ga toreta.
 </equation>
-<bodyText confidence="0.679001">
+<bodyText confidence="0.773017">
 coat GEN button SUB came off
-&amp;apos;One of the buttons of (my) coat has
-come off&amp;apos;
+&apos;One of the buttons of (my) coat has
+come off&apos;
 [2)00 sagashi-temo, 0 mitsukaranalcatra
 search-although was not found
-II) tried to find (it), but failed.&amp;apos;
+II) tried to find (it), but failed.&apos;
 </bodyText>
-<equation confidence="0.502445111111111">
+<equation confidence="0.447095">
 [3]Kyou jyuu ni 000 sagashite
 today within at find•
 tsukete-hoshii.
 fix -want
-&amp;apos;(l) want (you) to find and fix (it)
-today.&amp;apos;
+&apos;(l) want (you) to find and fix (it)
+today.&apos;
 [4]Ashita 00 hitsuyou da.
 tomorrow need
-Tomorrow, (I) will need (it) &amp;apos;
+Tomorrow, (I) will need (it) &apos;
 </equation>
-<bodyText confidence="0.526743333333333">
+<bodyText confidence="0.587947666666667">
 (12)[1]Sakuban, John wa jitensha no kagi
 last night TOP bicycle GEN key
 o kake-wasureta.
 </bodyText>
-<sectionHeader confidence="0.759664" genericHeader="method">
+<sectionHeader confidence="0.798686" genericHeader="method">
 ACC lock-forget
 </sectionHeader>
-<bodyText confidence="0.542399666666667">
-&amp;apos;Last night, John forgot&amp;apos; to use the key to
-lock his bicycle&amp;apos;
+<bodyText confidence="0.667718333333333">
+&apos;Last night, John forgot&apos; to use the key to
+lock his bicycle&apos;
 [2]Kesa, mou 0 nakunatteita.
 </bodyText>
-<subsectionHeader confidence="0.573971">
+<subsectionHeader confidence="0.574666">
 this morning already gone-has
-This morning, (it) has already gone&amp;apos;
+This morning, (it) has already gone&apos;
 </subsectionHeader>
-<bodyText confidence="0.968254872340426">
-In (11), &amp;apos;one of the buttons of my coat&amp;apos; is
+<bodyText confidence="0.971399510638298">
+In (11), &apos;one of the buttons of my coat&apos; is
 introduced in [1] as the subject of the sentence.
 What is important here is thatthe NP
 introduces two conceptual entities, namely, a
-&amp;apos;coat&amp;apos; and a button which are equally
+&apos;coat&apos; and a button which are equally
 accessible. The question is whether Walker et
-al. &amp;apos;s framework can handle cases like (11). For
+al. &apos;s framework can handle cases like (11). For
 [2], the preferred interpretation is that the
 speaker wants his wife to find and fix the
-button today. Walker et al. &amp;apos;s system would
+button today. Walker et al. &apos;s system would
 successfully predict that the button is the
 backward-center. for [2] and [3]. However, for
 [4], the preferred interpretation is that the
@@ -665,7 +659,7 @@ preference of transition states shown in (4).
 • Walker at al., as well as centering theorists in
 general, assume that when there are more than
 one possible overall interpretation available,
-the one which exhibits &amp;apos;continue&amp;apos; transition is
+the one which exhibits &apos;continue&apos; transition is
 preferred.. This is based on the assumption that
 maximally coherent segments are those that
 require less processing effort and the hearer
@@ -678,16 +672,16 @@ and (14):
 yesterday with telephone by
 jikan o kakunin dekita?
 </bodyText>
-<page confidence="0.990588">
+<page confidence="0.989178">
 16
 </page>
-<figure confidence="0.791790214285714">
+<figure confidence="0.812651428571429">
 time ACC confirm could
-&amp;apos;Could you confirm the time with Peter by
-phone yesterday?&amp;apos;
+&apos;Could you confirm the time with Peter by
+phone yesterday?&apos;
 John [2] lya, 0 dekinakatta.
-no couldn&amp;apos;t
-NO, (I) couldn &amp;apos;t&amp;apos;
+no couldn&apos;t
+NO, (I) couldn &apos;t&apos;
 John [3] 0 ie ni inakatta.
 home at present-not-was
 a. (I) was not at home. [CONTINUE]
@@ -697,30 +691,30 @@ TOP boss with head SUB
 agaranai.
 hold-not
 </figure>
-<figureCaption confidence="0.766386666666667">
-&amp;apos;John cannot hold up his head before his boss
+<figureCaption confidence="0.852326666666667">
+&apos;John cannot hold up his head before his boss
 (i.e. John cannot help feeling ashamed of
 himself in front of his boss).
 </figureCaption>
-<bodyText confidence="0.876553666666667">
-Pyrstinto 0 kaisha ni 0 said ni kart&amp;amp;
+<bodyText confidence="0.897932333333333">
+Pyrstinto 0 kaisha ni 0 said ni kart&amp;
 always office to earlier come
-&amp;apos;(He) always comes to the office earlier
+&apos;(He) always comes to the office earlier
 </bodyText>
-<listItem confidence="0.9311406">
-(than him).&amp;apos;
+<listItem confidence="0.9042846">
+(than him).&apos;
 a. (John) always comes to the office earlier
 (than his boss).
-b. (John&amp;apos;s boss) always comes to the office
+b. (John&apos;s boss) always comes to the office
 than (John).
 </listItem>
-<bodyText confidence="0.999691125">
+<bodyText confidence="0.9997119375">
 Let us look at (13) rust. What interests me
 here is the interpretation of the zero pronoun
 in [3]. Notice that both [3a] and (3b) are
 equally acceptable in terms of factual
 plausibility. In such case, Walker et al. would
-predict that Pa], which exhibits a &amp;apos;continue&amp;apos;
+predict that Pa], which exhibits a &apos;continue&apos;
 transition should be preferred. However, for
 some reason, the preferred interpretation for
 [3] is not [3a], but [3b]. Similarly, in (14), the
@@ -732,31 +726,31 @@ transition states makes wrong predictions. In
 the next section, I will consider why this is the
 case.
 </bodyText>
-<sectionHeader confidence="0.4260935" genericHeader="method">
+<sectionHeader confidence="0.430614" genericHeader="method">
 4. A relevance-theoretic solution to
 problems with Walker et al.
 </sectionHeader>
-<bodyText confidence="0.9981316">
-Sperber &amp;amp; Wilson&amp;apos;s relevance theory (Sperber
-&amp;amp; Wilson 1986/95) inherits the Gricean
-assumption that the hearer&amp;apos;s goal of verbal
+<bodyText confidence="0.997453133333333">
+Sperber &amp; Wilson&apos;s relevance theory (Sperber
+&amp; Wilson 1986/95) inherits the Gricean
+assumption that the hearer&apos;s goal of verbal
 understanding is to find an interpretation
 intended by the speaker. However, it differs
 from Gricean approach in two crucial points: it
 does not take the view that we have to follow
 maxims, nor the view that we have to -be co-
 operative, to achieve successful
-communication. Sperber &amp;amp; Wilson claim that
+communication. Sperber &amp; Wilson claim that
 what makes communication achievable at all
 is a fundamental mechanism built in our
 cognitive system, namely, the pursuit of
 relevance. This is expressed as the First, or
 Cognitive, Principle of Relevance:
 </bodyText>
-<subsectionHeader confidence="0.844207">
+<subsectionHeader confidence="0.843889">
 (15)Cognitive Principle of Relevance
 </subsectionHeader>
-<bodyText confidence="0.9871725">
+<bodyText confidence="0.9873295">
 Human Cognition tends to be geared to the
 maximisation of relevance.
 The notion of relevance is defined in terms
@@ -764,10 +758,10 @@ cognitive effects, i.e. some changes in the
 belief system, and processing effort to obtain
 such effects:
 </bodyText>
-<subsectionHeader confidence="0.598875">
+<subsectionHeader confidence="0.60777">
 (16)Relevance
 </subsectionHeader>
-<bodyText confidence="0.99740275">
+<bodyText confidence="0.99776715">
 a. The greater the cognitive effects, the greater
 the relevance;
 b. The smaller the effort needed to achieve
@@ -789,28 +783,28 @@ than one possible interpretation, the hearer
 should look for the one which satisfies the
 following conditions of optimal relevance:
 </bodyText>
-<subsectionHeader confidence="0.542741">
+<subsectionHeader confidence="0.564097">
 (17)Optimal relevance
 </subsectionHeader>
-<bodyText confidence="0.772879">
+<bodyText confidence="0.792674666666667">
 An utterance is optimally relevant to the hearer
 iff:
-a. it is relevant enough to be worth the hearer&amp;apos;s
+a. it is relevant enough to be worth the hearer&apos;s
 </bodyText>
-<page confidence="0.998762">
+<page confidence="0.998799">
 17
 </page>
-<bodyText confidence="0.8291712">
+<bodyText confidence="0.8102554">
 processing effort;
 b. it is the most relevant one compatible with
-the speaker&amp;apos;s abilities and preferences.
+the speaker&apos;s abilities and preferences.
 The Second, or Communicative Principle of
 Relevance, governs this search process:
 </bodyText>
-<subsectionHeader confidence="0.468619">
+<subsectionHeader confidence="0.46555">
 (18)Communicative Principle of Relevance
 </subsectionHeader>
-<bodyText confidence="0.979129712643679">
+<bodyText confidence="0.980602367816092">
 Every utterance communicates a presumption
 of its own optimal relevance.
 The pursuit of optimally relevant interpretation
@@ -832,7 +826,7 @@ Japanese zero pronoun resolution illustrated in
 developed the idea proposed by Wilson (1992)
 that in addition to the factor of accessibility of
 candidate referents, there is another important
-factor which affects the hearer&amp;apos;s choice of
+factor which affects the hearer&apos;s choice of
 referent, namely, accessibility of contextual
 assumptions. Accessibility of contextual
 assumptions becomes particularly crucial
@@ -844,9 +838,9 @@ contextual assumptions in reference resolution
 had been recognised before and various
 proposals were made as to how to retrieve the
 right context: some appeal to situationally
-partitioned knowledge (e.g. Sanford &amp;amp; Garrod
+partitioned knowledge (e.g. Sanford &amp; Garrod
 1981) and others are motivated by textual
-coherence (e.g. Hobbs 1979; Asher &amp;amp;
+coherence (e.g. Hobbs 1979; Asher &amp;
 Lascarides 1993). The account pursued here is
 different from any existing accounts in that it
 claims that the selection of contextual
@@ -895,21 +889,21 @@ effects.
 Consider examples (11) and (12) in the
 context discussed above. In (11), the utterance
 in [31 is a request to the wife to find and fix
-the missing button of the speaker&amp;apos;s coat before
+the missing button of the speaker&apos;s coat before
 tomorrow. Generally, if someone asks you to
 do something by certain time, there should be
 </bodyText>
-<page confidence="0.99864">
+<page confidence="0.998786">
 18
 </page>
-<bodyText confidence="0.999779775510204">
+<bodyText confidence="0.999809816326531">
 a good reason for such a time limit, since the
 time limit in turn may create certain priority.
 Thus, it should be reasonable to assume that
 after hearing the utterance in [3], the question
-such as &amp;apos;why do I have to do it today?&amp;apos; or
-&amp;apos;can &amp;apos;t it wait a little while?&amp;apos; occurred in the
-hearer &amp;apos;s mind. If so, the utterance in [4] can
+such as &apos;why do I have to do it today?&apos; or
+&apos;can &apos;t it wait a little while?&apos; occurred in the
+hearer &apos;s mind. If so, the utterance in [4] can
 readily be interpreted as the reason why he
 made such a request he wants to wear the coat
 on the following day. The referent is assigned
@@ -917,18 +911,18 @@ automatically during the process of finding
 expected the cognitive effects. Of course, what
 he needs is the coat with the button fixed, and
 this interpretation is only possible with the
-overall interpretation in which the &amp;apos;coat&amp;apos;,
-rather than the &amp;apos;button , is the referent of the
+overall interpretation in which the &apos;coat&apos;,
+rather than the &apos;button , is the referent of the
 zero pronoun. The first utterance in (12), on
 the other hand, seems to create different kind
 of expectation in the hearer. After hearing that
 the bicycle was left unlocked, the most likely
-question occurs to everyone&amp;apos;s mind is &amp;apos;what
-happened to the bicycle?&amp;apos; We all know the
+question occurs to everyone&apos;s mind is &apos;what
+happened to the bicycle?&apos; We all know the
 likely consequence of the unlocked bicycle,
 and the hearer of (12) gets the expected
 contextual effects by interpreting the zero
-pronoun as the &amp;apos;bicycle&amp;apos;, rather than the &amp;apos;key
+pronoun as the &apos;bicycle&apos;, rather than the &apos;key
 In both (13) and (14), it is reasonably
 assumed that the hearer will have a why-
 question in his mind before hearing the final
@@ -945,20 +939,20 @@ assumptions might become moderately
 accessible (but not necessarily at the conscious
 level) to the hearer: e.g. various assumptions
 about John and his boss, and more general
-assumptions about being ashamed of&amp;apos;, e.g.
+assumptions about being ashamed of&apos;, e.g.
 that one must feel unhappy about such
 situation, or that one must have specific
 reasons for such feeling, etc. In this way,
 contextual assumptions might contribute to
-form the hearer&amp;apos;s anticipation about the way
+form the hearer&apos;s anticipation about the way
 subsequent utterances achieve relevance.
 When the hearer interprets the second
 utterance in (14), further&amp;quot; -assumptions related
-to the event described, such as that &amp;apos;workers
-are encouraged to come to work early &amp;apos;, or
-&amp;apos;bosses like their workers to arrive before
+to the event described, such as that &apos;workers
+are encouraged to come to work early &apos;, or
+&apos;bosses like their workers to arrive before
 them&amp;quot; etc., might become highly accessible.
-Such assumptions contribute to the hearer&amp;apos;s
+Such assumptions contribute to the hearer&apos;s
 search for the way the utterance could achieve
 cognitive effects. At the final stage of the
 interpretation process, the hearer finds the only
@@ -973,7 +967,7 @@ Furthermore, notice that as a consequence
 of using the notion of accessibility of
 contextual assumptions, an ad hoc system such
 as the ordered preference in transition states in
-Walker et aL &amp;apos;s account becomes automatically
+Walker et aL &apos;s account becomes automatically
 unnecessary. For example, our framework
 could easily accommodate cases such as (13)
 and (14), where the referent of a zero pronoun
@@ -985,7 +979,7 @@ referent chosen on the basis of the preferred
 overall interpretation. Recall that the ordered
 transition states is created on the basis of the
 assumption that the hearer prefers an
-interpretation which exhibits &amp;apos;continue&amp;apos;
+interpretation which exhibits &apos;continue&apos;
 relation, because such an interpretation
 requires less processing effort. I suggest that
 this assumption is ultimately wrong for the
@@ -995,17 +989,17 @@ enough cognitive effects worth his processing
 effort, rather than the one which merely
 requires less processing effort. Walker et al.
 would predict that the preferred interpretation
-for the second sentence in (14) is that &amp;apos;John
+for the second sentence in (14) is that &apos;John
 always comes to his office earlier than his
-boss.&amp;apos; The question we have to ask here is:
+boss.&apos; The question we have to ask here is:
 how could this interpretation possibly achieve
 relevance? I cannot easily see how. Relevance
 theory predicts that such interpretation will
 </bodyText>
-<page confidence="0.999112">
+<page confidence="0.999183">
 19
 </page>
-<bodyText confidence="0.956783846153846">
+<bodyText confidence="0.997464588235294">
 never be considered when there is an
 alternative interpretation accessible which
 achieves relevance, even if the latter might
@@ -1023,7 +1017,11 @@ second sentence in (14) is more accessible
 overall for most of us, than the alternative
 interpretation, is adequately explained in this
 framework.
+</bodyText>
+<sectionHeader confidence="0.432828" genericHeader="method">
 S. Summary
+</sectionHeader>
+<bodyText confidence="0.9997325">
 In this paper, I have proposed a way of
 complementing centering theory from a
 relevance-theoretic perspective. I have
@@ -1033,28 +1031,26 @@ based on the accessibility of candidate
 referents such as centering theory should
 ultimately accommodate some mechanism of
 contextual selection and pointed out that the
-hearer&amp;apos;s expectation of specific contextual
+hearer&apos;s expectation of specific contextual
 effects (a type of forward inferences) should
 be taken advantage of in creating such a
 mechanism. Recently, Oberlander (1998) says
-that &amp;apos;the key lesson from the work on pronoun
+that &apos;the key lesson from the work on pronoun
 generation and interpretation is that we must
 develop a more sophisticated view of
-&amp;apos;expectation.&amp;quot; I hope this paper makes some
+&apos;expectation.&amp;quot; I hope this paper makes some
 contribution towards that goal.
-Main References
-Asher, N. &amp;amp; Lascarides, A. 1993. Lexical
-disambiguation in a discourse context.
 </bodyText>
-<sectionHeader confidence="0.268584" genericHeader="method">
+<reference confidence="0.955733770833333">
+Main References
+Asher, N. &amp; Lascarides, A. 1993. Lexical
+disambiguation in a discourse context.
 - Journal of semantics 12:69-108.
-</sectionHeader>
-<reference confidence="0.996224522727273">
-Gordon, P., Grosz, B. &amp;amp; Gilliom, L. 1993.
+Gordon, P., Grosz, B. &amp; Gilliom, L. 1993.
 Pronouns, names, and the centering of
 attention in discourse. Cognitive Science
 17:311-347.
-Grosz, B., Joshi, A. &amp;amp; Weinstein, S. 1995.
+Grosz, B., Joshi, A. &amp; Weinstein, S. 1995.
 Centering: A framework for modeling the
 local coherence of discourse.
 Computational Linguistics 21(2):203-224.
@@ -1071,31 +1067,31 @@ Pragmatics and Cognition 6(1/2), 47-97.
 Oberlander, J. 1998. Do the right thing ... but
 expect the unexpected. Computational
 Linguistics 24(3):501-507.
-Sanford, A. &amp;amp; Gannd, S. 1981. Understanding
+Sanford, A. &amp; Gannd, S. 1981. Understanding
 Written Language: Explorations in
 Comprehension Beyond Sentence.
 Chichester: Wiley,
 Sidner, C. 1983a. Focusing and discourse.
 Discourse Processes 6:107-130.
-Sperber, D. &amp;amp; Wilson, D. 1986/1995.
+Sperber, D. &amp; Wilson, D. 1986/1995.
 Relevance: Communication and Cognition.
 Oxford: Blackwell
-Walker, M.A., Iida, M. &amp;amp; Cotes, S. 1994.
+Walker, M.A., Iida, M. &amp; Cotes, S. 1994.
 Japanese Discourse and the Process of
 Centering. Computational Linguistics
 20(2), 193-232.
-Walker, M. A., Joshi, A.K. &amp;amp; Prince, E.F.
+Walker, M. A., Joshi, A.K. &amp; Prince, E.F.
 1998. Centering Theory in Discourse.
 Oxford: Clarendon Press.
 Wilson, D. 1992. Reference and relevance.
 UCL Working Papers in linguistics 4:167-
 191.
-Wilson, D. &amp;amp; Matsui, T. 1998. Recent
+Wilson, D. &amp; Matsui, T. 1998. Recent
 Approaches to bridging: Truth, coherence
 and relevance.UCL Working Papers in
 Linguistics 10:173-200.
 </reference>
-<page confidence="0.998855">
+<page confidence="0.998746">
 20
 </page>
 </variant>

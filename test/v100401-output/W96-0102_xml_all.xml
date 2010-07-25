@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <algorithms version="100401">
 <algorithm name="SectLabel" version="100410">
-<variant no="0" confidence="0.001096">
-<title confidence="0.918378">
+<variant no="0" confidence="0.001330">
+<title confidence="0.916721">
 MBT: A Memory-Based Part of Speech Tagger-Generator
 </title>
-<author confidence="0.95464">
+<author confidence="0.9586">
 Walter Daelemans, Jakub Zavrel
 </author>
-<affiliation confidence="0.9754915">
+<affiliation confidence="0.9770445">
 Computational Linguistics and AT
 Tilburg University
 </affiliation>
-<address confidence="0.980138">
+<address confidence="0.977452">
 P.O. Box 90153, NL-5000 LE Tilburg
 </address>
-<email confidence="0.819869">
+<email confidence="0.782587">
 fwalter.daelemans,zavrelleaub.n1
 </email>
-<author confidence="0.990535">
+<author confidence="0.990797">
 Peter Berck, Steven Gillis
 </author>
-<affiliation confidence="0.994728">
+<affiliation confidence="0.9953225">
 Center for Dutch Language and Speech
 University of Antwerp
 </affiliation>
-<address confidence="0.876365">
+<address confidence="0.875178">
 Universiteitsplein 1, B-2610 Wilrijk
 </address>
-<email confidence="0.765008">
+<email confidence="0.749688">
 Ipeter.berck,steven.gillislftia.ua.ac.be
 </email>
-<sectionHeader confidence="0.951827" genericHeader="abstract">
+<sectionHeader confidence="0.955744" genericHeader="abstract">
 Abstract
 </sectionHeader>
-<bodyText confidence="0.999684166666667">
+<bodyText confidence="0.999679055555556">
 We introduce a memory-based approach to part of speech tagging. Memory-based
 learning is a form of supervised learning based on similarity-based reasoning. The part
 of speech tag of a word in a particular context is extrapolated from the most similar
@@ -54,10 +54,10 @@ space and time complexity properties when using IGTree, a tree-based formalism f
 indexing and searching huge case bases. The use of IGTree has as additional advantage
 that optimal context size for disambiguation is dynamically computed.
 </bodyText>
-<sectionHeader confidence="0.999482" genericHeader="introduction">
+<sectionHeader confidence="0.999526" genericHeader="introduction">
 1 Introduction
 </sectionHeader>
-<bodyText confidence="0.9978022">
+<bodyText confidence="0.9979005">
 Part of Speech (POS) tagging is a process in which syntactic categories are assigned to
 words. It can be seen as a mapping from sentences to strings of tags.
 Automatic tagging is useful for a number of applications: as a preprocessing stage
@@ -69,21 +69,21 @@ man the boats). Several approaches have been proposed to construct automatic tag
 Most work on statistical methods has used n-gram models or Hidden Markov Model-based
 taggers (e.g. Church, 1988; DeRose, 1988; Cutting et al. 1992; Merialdo, 1994, etc.). In
 </bodyText>
-<page confidence="0.999558">
+<page confidence="0.9996">
 14
 </page>
-<bodyText confidence="0.999732315789474">
+<bodyText confidence="0.999731157894737">
 these approaches, a tag sequence is chosen for a sentence that maximizes the product of
 lexical and contextual probabilities as estimated from a tagged corpus.
 In rule-based approaches, words are assigned a tag based on a set of rules and a
-lexicon. These rules can either be hand-crafted (Garside et al., 1987; Klein &amp;amp; Simmons,
+lexicon. These rules can either be hand-crafted (Garside et al., 1987; Klein &amp; Simmons,
 1963; Green 8.6 Rubin, 1971), or learned, as in Hindle (1989) or the transformation-based
 error-driven approach of Brill (1992).
 In a memory-based approach, a set of cases is kept in memory. Each case consists of a
 word (or a lexical representation for the word) with preceding and following context, and
 the corresponding category for that word in that context. A new sentence is tagged by
 selecting for each word in the sentence and its context the most similar case(s) in memory,
-and extrapolating the category of the word from these &amp;apos;nearest neighbors&amp;apos;. A memory-
+and extrapolating the category of the word from these &apos;nearest neighbors&apos;. A memory-
 based approach has features of both learning rule-based taggers (each case can be regarded
 as a very specific rule, the similarity based reasoning as a form of conflict resolution and
 rule selection mechanism) and of stochastic taggers: it is fundamentally a form of k-nearest
@@ -93,10 +93,10 @@ new word in context that has to be tagged, has to be compared to each pattern ke
 in memory. In this paper we show that a heuristic case base compression formalism
 (Daelemans et al., 1996), makes the memory-based approach computationally attractive.
 </bodyText>
-<sectionHeader confidence="0.999215" genericHeader="method">
+<sectionHeader confidence="0.999341" genericHeader="method">
 2 Memory-Based Learning
 </sectionHeader>
-<bodyText confidence="0.999900380952381">
+<bodyText confidence="0.999904333333334">
 Memory-based Learning is a form of supervised, inductive learning from examples. Ex-
 amples are represented as a vector of feature values with an associated category label.
 During training, a set of examples (the training set) is presented in an incremental fash-
@@ -119,22 +119,22 @@ tactic and semantic disambiguation); Daelemans (1995, an overview of work in the
 nineties on memory-based computational phonology and morphology); Jones (1996, an
 overview of example-based machine translation research); Federici and Pirrelli (1996).
 </bodyText>
-<subsectionHeader confidence="0.986141">
+<subsectionHeader confidence="0.987249">
 2.1 Similarity Metric
 </subsectionHeader>
-<bodyText confidence="0.965689">
+<bodyText confidence="0.968805">
 Performance of a memory-based system (accuracy on the test set) crucially depends on
 the distance metric (or similarity metric) used. The most straightforward distance metric
 would be the one in equation (1), where X and Y are the patterns to be compared, and
 6(x, yi) is the distance between the values of the i-th feature in a pattern with n features.
 </bodyText>
-<page confidence="0.931987">
+<page confidence="0.934206">
 15
 </page>
-<equation confidence="0.669181">
+<equation confidence="0.673533">
 A(X, Y) E .6(xi,y•) (1)
 </equation>
-<bodyText confidence="0.975927866666667">
+<bodyText confidence="0.975796133333333">
 Distance between two values is measured using equation (2), an overlap metric, for
 symbolic features (we will have no numeric features in the tagging application).
 S(xt, yz) = 0 if xi = yi, else 1 (2)
@@ -148,16 +148,16 @@ equally important in solving the classification problem, but this is not necessa
 case. In tagging, the focus word to be assigned a category is obviously more relevant than
 any of the words in its context. We therefore weigh each feature with its information gain;
 a number expressing the average amount of reduction of training set information entropy
-when knowing the value of the feature (Daelemans &amp;amp; van de Bosch, 1992, Quinlan, 1993;
+when knowing the value of the feature (Daelemans &amp; van de Bosch, 1992, Quinlan, 1993;
 Hunt et al. 1966) (Equation 3). We will call this algorithm IB-IG.
 </bodyText>
-<equation confidence="0.998842">
+<equation confidence="0.998846">
 ,A(X,Y) = E G(fi)5(xi,yi) (3)
 </equation>
-<sectionHeader confidence="0.976191" genericHeader="method">
+<sectionHeader confidence="0.976826" genericHeader="method">
 3 IGTrees
 </sectionHeader>
-<bodyText confidence="0.999580714285714">
+<bodyText confidence="0.999585285714286">
 Memory-based learning is an expensive algorithm: of each test item, all feature values
 must be compared to the corresponding feature values of all training items. Without
 optimisation, it has an asymptotic retrieval complexity of 0(NF) (where N is the number
@@ -166,10 +166,10 @@ is of course found for memory storage in this approach. We use IGTrees (Daeleman
 al. 1996) to compress the memory. IGTree is a heuristic approximation of the IB-IG
 algorithm.
 </bodyText>
-<subsectionHeader confidence="0.995705">
+<subsectionHeader confidence="0.995591">
 3.1 The IGTree Algorithms
 </subsectionHeader>
-<bodyText confidence="0.999987733333333">
+<bodyText confidence="0.9999866">
 IGTree combines two algorithms: one for compressing a case base into a trees, and one for
 retrieving classification information from these trees. During the construction of IGTree
 decision trees, cases are stored as paths of connected nodes. All nodes contain a test
@@ -179,21 +179,21 @@ A feature relevance ordering technique (in this case information gain, see Secti
 used to determine the order in which features are used as tests in the tree. This order
 is fixed in advance, so the maximal depth of the tree is always equal to the number of
 features, and at the same level of the tree, all nodes have the same test (they are an
-instance of oblivious decision trees; cf. Langley &amp;amp; Sage, 1994). The reasoning behind this
+instance of oblivious decision trees; cf. Langley &amp; Sage, 1994). The reasoning behind this
 reorganisation (which is in fact a compression) is that when the computation of feature
 relevance points to one feature clearly being the most important in classification, search
 can be restricted to matching a test case to those stored cases that have the same feature
 value at that feature. Besides restricting search to those memory cases that match only
 on this feature, the case memory can be optimised by further restricting search to the
 </bodyText>
-<page confidence="0.996547">
+<page confidence="0.996358">
 16
 </page>
-<bodyText confidence="0.762176">
+<bodyText confidence="0.75536">
 Procedure BUILD-IG-TREE:
 Input:
 </bodyText>
-<listItem confidence="0.968615833333333">
+<listItem confidence="0.96933925">
 • A training set T of cases with their classes (start value: a full case base),
 • an information-gain-ordered list of features (tests) Fz...Fn (start value: Fi...Fn).
 Output: A (sub)tree.
@@ -207,10 +207,10 @@ with the same value for this feature in the same subset).
 • For each je{l, m}: BUILD-IG-TREE (T3, Fi+1.-Fn),
 connect the root of this subtree to N and label the arc with v.,.
 </listItem>
-<figureCaption confidence="0.974048">
-Figure I: Algorithm for building IGTrees (`BUILD-IG-TREE&amp;apos;).
+<figureCaption confidence="0.974471">
+Figure I: Algorithm for building IGTrees (`BUILD-IG-TREE&apos;).
 </figureCaption>
-<bodyText confidence="0.999758285714286">
+<bodyText confidence="0.999771928571429">
 second most important feature, followed by the third most important feature, etc. A
 considerable compression is obtained as similar cases share partial paths.
 Instead of converting the case base to a tree in which all cases are fully represented as
@@ -235,19 +235,19 @@ match fails.
 A final compression is obtained by pruning the derived tree. All leaf-node daughters
 of a mother node that have the same class as that node are removed from the tree, as
 their class information does not contradict the default class information already present
-at the mother node. Again, this compression does not affect IGTree&amp;apos;s generalisation
+at the mother node. Again, this compression does not affect IGTree&apos;s generalisation
 performance.
 The recursive algorithms for tree construction (except the final pruning) and retrieval
 are given in Figures 1 and 2. For a detailed discussion, see Daelemans et al. (1996).
 </bodyText>
-<page confidence="0.994591">
+<page confidence="0.994541">
 17
 </page>
-<figure confidence="0.315138">
+<figure confidence="0.3415865">
 Procedure SEARCH-IC-TREE:
 Input:
 </figure>
-<listItem confidence="0.998277888888889">
+<listItem confidence="0.998197222222222">
 • The root node N of a subtree (start value: top node of a complete IGTree),
 • an unlabeled case I with information-gain-ordered feature values ft... fn, (start value: fi.•./.).
 Output: A class label.
@@ -258,13 +258,13 @@ class c associated with N.
 • new node M is the end node of the arc originating from N with as label L.
 • SEARCH-IG-TREE (M, fi+i
 </listItem>
-<figureCaption confidence="0.987797">
-Figure 2: Algorithm for searching IGTrees (&amp;apos;SEARCH-IG-TREE&amp;apos;).
+<figureCaption confidence="0.988107">
+Figure 2: Algorithm for searching IGTrees (&apos;SEARCH-IG-TREE&apos;).
 </figureCaption>
-<subsectionHeader confidence="0.982433">
+<subsectionHeader confidence="0.983961">
 3.2 IGTree Complexity
 </subsectionHeader>
-<bodyText confidence="0.999478545454545">
+<bodyText confidence="0.999494909090909">
 The asymptotic complexity of IGTree (i.e, in the worst case) is extremely favorable.
 Complexity of searching a query pattern in the tree is proportional to F * log(V), where
 F is the number of features (equal to the maximal depth of the tree), and V is the average
@@ -277,10 +277,10 @@ N * log(V) * F in the worst case (compare 0(N) for training in IB1).
 In practice, for our part-of-speech tagging experiments, IGTree retrieval is 100 to 200
 times faster than normal memory-based retrieval, and uses over 95% less memory.
 </bodyText>
-<sectionHeader confidence="0.667397" genericHeader="method">
+<sectionHeader confidence="0.706181" genericHeader="method">
 4 Architecture of the Tagger
 </sectionHeader>
-<bodyText confidence="0.9999915">
+<bodyText confidence="0.999991857142857">
 The architecture takes the form of a tagger generator given a corpus tagged with the
 desired tag set, a POS tagger is generated which maps the words of new text to tags
 in this tag set according to the same systematicity. The construction of a POS tagger
@@ -296,16 +296,16 @@ case base. In each case, output is a best guess of the category for the word in 
 context. In the remainder of this section, we will describe each step in more detail. We
 start from a training set of tagged sentences T.
 </bodyText>
-<page confidence="0.99913">
+<page confidence="0.999201">
 18
 </page>
-<subsectionHeader confidence="0.966001">
+<subsectionHeader confidence="0.965212">
 4.1 Lexicon Construction
 </subsectionHeader>
-<bodyText confidence="0.999917222222222">
+<bodyText confidence="0.999920055555556">
 A lexicon is extracted from T by computing for each word in T the number of times it
 occurs with each category. E.g. when using the first 2 million words of the Wall Street
-Journal corpus&amp;apos; as T, the word once would get the lexical definition RB: 330; IN: 77,
+Journal corpus&apos; as T, the word once would get the lexical definition RB: 330; IN: 77,
 i.e. once was tagged 330 times as an adverb, and 77 times as a preposition/subordinating
 conjunction.2
 Using these lexical definitions, a new, possibly ambiguous, tag is produced for each
@@ -322,11 +322,11 @@ whether or not they can be found there, a case representation is constructed for
 and they are retrieved from either the known words case base or the unknown words case
 base.
 </bodyText>
-<subsectionHeader confidence="0.972234">
+<subsectionHeader confidence="0.972835">
 4.2 Known Words
 </subsectionHeader>
-<bodyText confidence="0.99996508">
-A windowing approach (Sejnowski &amp;amp; Rosenberg, 1987) was used to represent the tagging
+<bodyText confidence="0.99996776">
+A windowing approach (Sejnowski &amp; Rosenberg, 1987) was used to represent the tagging
 task as a classification problem. A case consists of information about a focus word to
 be tagged, its left and right context, and an associated category (tag) valid for the focus
 word in that context.
@@ -352,20 +352,20 @@ fused in a single case representation. The window size used by the algorithm wil
 dynamically change depending on the information present in the context for the disam-
 biguation of a particular focus symbol (see Schiitze et al., 1994, and Pereira et al., 1995
 </bodyText>
-<footnote confidence="0.9823526">
+<footnote confidence="0.9838266">
 1ACL Data Collection Initiative CD-ROM 1, September 1991.
 2We disregarded a category associated with a word when less than 10% of the word tokens were tagged
 with that category. This way, noise in the training material is filtered out. The value for this parameter will
 have to be adapted for other training sets, and was chosen here to maximise generalization accuracy (accuracy
 on tagging unseen text).
 </footnote>
-<page confidence="0.999518">
+<page confidence="0.999557">
 19
 </page>
-<tableCaption confidence="0.996708">
+<tableCaption confidence="0.996465">
 Table 1: Case representation and information gain pattern for known words.
 </tableCaption>
-<table confidence="0.9516055">
+<table confidence="0.95348675">
 word d case representation d f a t
 IG .06 .22 .82 .23
 Pierre Vinken , = = np = np np , np np np
@@ -375,10 +375,10 @@ old cd nns jj-np
 ,
 for similar approaches).
 </table>
-<subsectionHeader confidence="0.900111">
+<subsectionHeader confidence="0.898023">
 4.3 Unknown Words
 </subsectionHeader>
-<bodyText confidence="0.994193448275862">
+<bodyText confidence="0.994636620689655">
 If a word is not present in the lexicon, its ambiguous category cannot be retrieved. In that
 case, a category can be guessed only on the basis of the form or the context of the word.
 Again, we take advantage of the data fusion capabilities of a memory-based approach by
@@ -399,7 +399,7 @@ about suffixes) indirectly to the tagger by encoding the three last letters of t
 as separate features in the case representation. The first letter is encoded as well because
 it contains information about prefix and capitalization of the word. Context information
 is added to the case representation in a similar way as with known words. It turned out
-that in combination with the &amp;apos;morphological&amp;apos; features, a context of one disambiguated tag
+that in combination with the &apos;morphological&apos; features, a context of one disambiguated tag
 of the word to the left of the unknown word and one ambiguous category of the word to
 the right, gives good results. We will call this case representation pdassst:3 three suffix
 letters (s), one prefix letter (p), one left disambiguated context words (d), and one am-
@@ -409,17 +409,17 @@ of open-class words, only open-class words are used during construction of the u
 words case base.
 Table 2 shows part of the case base for unknown words.
 </bodyText>
-<footnote confidence="0.9819985">
+<footnote confidence="0.983342">
 3These parameters (optimal context size and number of suffix features) were again optimised for general-
 ization accuracy.
 </footnote>
-<page confidence="0.998994">
+<page confidence="0.99905">
 20
 </page>
-<tableCaption confidence="0.977445">
+<tableCaption confidence="0.974654">
 Table 2: Case representation and information gain pattern for unknown words.
 </tableCaption>
-<table confidence="0.993021166666667">
+<table confidence="0.9936445">
 word p d case representation a s s s t
 IG .21 .21 .14 .15 .20 .32
 Pierre Vinken 61 P V 6 y o = np r k = r e 6 r 1 e n 1 s d np np cd nns
@@ -427,10 +427,10 @@ years np , a o jj
 old , nns jj-np
 cd nns ,
 </table>
-<subsectionHeader confidence="0.946049">
+<subsectionHeader confidence="0.946714">
 4.4 Control
 </subsectionHeader>
-<bodyText confidence="0.999457777777778">
+<bodyText confidence="0.999501222222222">
 Figure 3 shows the architecture of the tagger-generator: a tagger is produced by extracting
 a lexicon and two case-bases from the tagged example corpus. During tagging, the control
 is the following: words are looked up in the lexicon and separated into known and unknown
@@ -441,25 +441,25 @@ word. As far as disambiguated tags for left context words are used, these are of
 not obtained by retrieval from the lexicon (which provides ambiguous categories), but by
 using the previous decisions of the tagger.
 </bodyText>
-<figure confidence="0.9673972">
+<figure confidence="0.9914028">
 TAGGER GENERATION TAGGING
-LEXICON word -&amp;gt; a
+LEXICON word -&gt; a
 KNOWN WORDS ■ CASE BASE
-ddfa -&amp;gt; t
+ddfa -&gt; t
 UNKNOWN WORDS i CASE BASE
-pdasss -&amp;gt; t
+pdasss -&gt; t
 TAGGER
 Tagged Corpus
 New Text
 - Tagged Text
 </figure>
-<figureCaption confidence="0.999815">
+<figureCaption confidence="0.999874">
 Figure 3: Architecture of the tagger-generator: flow of control.
 </figureCaption>
-<subsectionHeader confidence="0.886332">
+<subsectionHeader confidence="0.886752">
 4.5 IGTrees for Tagging
 </subsectionHeader>
-<bodyText confidence="0.999913857142857">
+<bodyText confidence="0.999914">
 As explained earlier, both case bases are implemented as IGTrees. For the known words
 case base, paths in the tree represent variable size context widths. The first feature
 (the expansion of the root node of the tree) is the focus word, then context features are
@@ -468,32 +468,32 @@ completely. Further expansion is halted at that point. In some cases, short cont
 (corresponding to bigrams, e g) are sufficient to disambiguate a focus word, in other cases,
 more context is needed. IGTrees provide an elegant way of automatic determination of
 </bodyText>
-<page confidence="0.999013">
+<page confidence="0.999078">
 21
 </page>
-<bodyText confidence="0.9984236">
+<bodyText confidence="0.9982198">
 optimal context size. In the unknown words case base, the trie representation provides
 an automatic integration of information about the form and the context of a focus word
 not encountered before. In general, the top levels of the tree represent the morphological
 information (the three suffix letter features and the prefix letter), while the deeper levels
 contribute contextual disambiguation.
 </bodyText>
-<sectionHeader confidence="0.999464" genericHeader="method">
+<sectionHeader confidence="0.999519" genericHeader="method">
 5 Experiments
 </sectionHeader>
-<bodyText confidence="0.9994534">
+<bodyText confidence="0.9994402">
 In this section, we report first results on our memory-based tagging approach. In a first
 set of experiments, we compared our IGTree implementation of memory-based learning
 to more traditional implementations of the approach. In further experiments we studied
 the performance of our system on predicting the category of both known and unknown
 words.
 </bodyText>
-<subsectionHeader confidence="0.780624">
+<subsectionHeader confidence="0.77236">
 Experimental Set-up
 </subsectionHeader>
-<bodyText confidence="0.9999135">
+<bodyText confidence="0.999896375">
 The experimental methodology was taken from Machine Learning practice (e.g. Weiss
-&amp;amp; Kulikowski, 1991): independent training and test sets were selected from the origi-
+&amp; Kulikowski, 1991): independent training and test sets were selected from the origi-
 nal corpus, the system was trained on the training set, and the generalization accuracy
 (percentage of correct category assignments) was computed on the independent test set.
 Storage and time requirements were computed as well. Where possible, we used a 10-fold
@@ -501,10 +501,10 @@ cross-validation approach. In this experimental method, a data set is partitione
 times into 90% training material, and 10% testing material. Average accuracy provides a
 reliable estimate of the generalization accuracy.
 </bodyText>
-<subsectionHeader confidence="0.979564">
+<subsectionHeader confidence="0.980227">
 5.1 Experiment 1: Comparison of Algorithms
 </subsectionHeader>
-<bodyText confidence="0.998811416666667">
+<bodyText confidence="0.998765833333333">
 Our goal is to adhere to the concept of memory-based learning with full memory while
 at the same time keeping memory and processing speed within attractive bounds. To
 this end, we applied the IGTree formalism to the task. In order to prove that IGTree is a
@@ -518,45 +518,45 @@ accuracy, storage requirements and speed for the three algorithms using a ddf at
 a 100,000 word training set, and a 10,000 word test set. In this experiment, accuracy was
 tested on known words only.
 </bodyText>
-<tableCaption confidence="0.998539">
+<tableCaption confidence="0.998566">
 Table 3: Comparison of three memory-based learning techniques.
 </tableCaption>
-<table confidence="0.99735175">
+<table confidence="0.99758875">
 Algorithm Accuracy Time Memory (Kb)
 IB1 92.5 0:43:34 977
 IB1-IG 96.0 0:49:45 977
 IGTree 96.0 0:00:29 35
 </table>
-<bodyText confidence="0.9852205">
+<bodyText confidence="0.9870505">
 The IGTree version turns out to be better or equally good in terms of generalization
 accuracy, but also is more than 100 times faster for tagging of new words4, and compresses
 </bodyText>
-<footnote confidence="0.974938">
+<footnote confidence="0.978863">
 4In training, i.e. building the case base, TM. and IB1-IG (4 seconds) are faster than IGTree (26 seconds)
 because the latter has to build a tree instead of just storing the patterns.
 </footnote>
-<page confidence="0.99887">
+<page confidence="0.998981">
 22
 </page>
-<bodyText confidence="0.99993125">
+<bodyText confidence="0.99994175">
 the original case base to 4% of the size of the original case base. This experiment shows
 that for this problem, we can use IGTree as a time and memory saving approximation
 of memory-based learning (IB-IG version), without loss in generalization accuracy. The
 time and speed advantage of IGTree grows with larger training sets.
 </bodyText>
-<subsectionHeader confidence="0.995489">
+<subsectionHeader confidence="0.995545">
 5.2 Experiment 2: Learning Curve
 </subsectionHeader>
-<bodyText confidence="0.995736285714286">
+<bodyText confidence="0.995272142857143">
 A ten-fold cross-validation experiment on the first two million words of the WSJ corpus
 shows an average generalization performance of IGTree (on known words only) of 96.3%.
 We did 10-fold cross-validation experiments for several sizes of datasets (in steps of 100,000
 memory items), revealing the learning curve in Figure 4. Training set size is on the X-axis,
 generalization performance as measured in a 10-fold cross-validation experiment is on the
-Y-axis. the &amp;apos;error&amp;apos; range indicate averages plus and minus one standard deviation on each
-10-fold cross-validation experiment.&amp;apos;
+Y-axis. the &apos;error&apos; range indicate averages plus and minus one standard deviation on each
+10-fold cross-validation experiment.&apos;
 </bodyText>
-<figure confidence="0.899682142857143">
+<figure confidence="0.898410285714286">
 Part of Speech Tagging Learning Curve
 96.4
 96.2
@@ -565,10 +565,10 @@ Part of Speech Tagging Learning Curve
 500 1000 1500 2000
 Training size (x1000)
 </figure>
-<figureCaption confidence="0.999903">
+<figureCaption confidence="0.999906">
 Figure 4: Learning curve for tagging.
 </figureCaption>
-<bodyText confidence="0.999818428571429">
+<bodyText confidence="0.999813142857143">
 Already at small data set sizes, performance is relatively high. With increasingly
 larger data sets, the performance becomes more stable (witness the error ranges). It
 should be noted that in this experiment, we assumed correctly disambiguated tags in the
@@ -577,34 +577,34 @@ disambiguated tags in the left context of the current word to be tagged are the 
 a previous decision of the tagger, which may be a mistake. To test the influence of this
 effect we performed a third experiment.
 </bodyText>
-<subsectionHeader confidence="0.970173">
+<subsectionHeader confidence="0.969687">
 5.3 Experiment 3: Overall Accuracy
 </subsectionHeader>
-<bodyText confidence="0.991971714285714">
+<bodyText confidence="0.996273714285714">
 We performed the complete tagger generation process on a 2 million words training set
 (lexicon construction and known and unknown words case-base construction), and tested
 on 200,000 test words. Performance on known words, unknown words, and total are given
 in Table 4. In this experiment, numbers were not stored in the known words case base;
 they are looked up in the unknown words case base.
-&amp;apos;We are not convinced that variation in the results of the experiments in a 10-fold-cv set-up is statistically
+&apos;We are not convinced that variation in the results of the experiments in a 10-fold-cv set-up is statistically
 meaningful (the 10 experiments are not independent), but follow common practice here.
 </bodyText>
-<page confidence="0.999552">
+<page confidence="0.999568">
 23
 </page>
-<tableCaption confidence="0.996584">
+<tableCaption confidence="0.996641">
 Table 4: Accuracy of IGTree tagging on known and unknown words
 </tableCaption>
-<table confidence="0.9993195">
+<table confidence="0.99936025">
 Accuracy Percentage
 Known 96.7 94.5
 Unknown 90.6 5.5
 Total 96.4 100.0
 </table>
-<sectionHeader confidence="0.993045" genericHeader="related_work">
+<sectionHeader confidence="0.993192" genericHeader="method">
 6 Related Research
 </sectionHeader>
-<bodyText confidence="0.999973428571428">
+<bodyText confidence="0.999975380952381">
 A case-based approach, similar to our memory-based approach, was also proposed by
 Cardie (1993a, 1994) for sentence analysis in limited domains (not only POS tagging but
 also semantic tagging and structural disambiguation). We will discuss only the reported
@@ -621,8 +621,8 @@ tagging for unknown words. Percentage unknown words was 20.6% of the test words,
 and overall tagging accuracy (known and unknown) 95%. Notice that her algorithm
 gives no initial preference to training cases that match the test word during its initial
 case retrieval. On the other hand, after retrieving the top k cases, the algorithm does
-prefer those cases that match the test word when making its final predictions. So, it&amp;apos;s
-understandable that the algorithm is doing better on words that it&amp;apos;s seen during training
+prefer those cases that match the test word when making its final predictions. So, it&apos;s
+understandable that the algorithm is doing better on words that it&apos;s seen during training
 as opposed to unknown words.
 In our memory-based approach, feature weighting (rather than feature selection) for
 determining the relevance of features is integrated more smoothly with the similarity
@@ -648,13 +648,13 @@ proach provides a uniform approach for all disambiguation tasks, more flexibilit
 engineering of case representations, and a more elegant approach to handling of unknown
 words (see e.g. Cardie 1994).
 </bodyText>
-<page confidence="0.999407">
+<page confidence="0.999433">
 24
 </page>
-<sectionHeader confidence="0.999384" genericHeader="conclusions">
+<sectionHeader confidence="0.999403" genericHeader="conclusions">
 7 Conclusion
 </sectionHeader>
-<bodyText confidence="0.999986142857143">
+<bodyText confidence="0.999987714285714">
 We have shown that a memory-based approach to large-scale tagging is feasible both
 in terms of accuracy (comparable to other statistical approaches), and also in terms of
 computational efficiency (time and space requirements) when using IGTree to compress
@@ -663,11 +663,11 @@ rule-based and statistical systems (small training corpora needed, incremental l
 understandable and explainable behavior of the system). More specifically, memory-based
 tagging with IGTrees has the following advantages.
 </bodyText>
-<listItem confidence="0.957047851851852">
+<listItem confidence="0.958196407407408">
 • Accurate generalization from small tagged corpora. Already at small corpus size
 (300-400 K tagged words), performance is good. These corpus sizes can be easily
 handled by our system.
-• Incremental learning. New &amp;apos;cases&amp;apos; (e.g. interactively corrected output of the tagger)
+• Incremental learning. New &apos;cases&apos; (e.g. interactively corrected output of the tagger)
 can be incrementally added to the case bases, continually improving the performance
 of the overall system.
 • Explanation capabilities. To explain the classification behavior of the system, a path
@@ -692,112 +692,112 @@ information) for more than 90%.
 and tagging are extremely fast. Tagging speed in our current implementation is
 about 1000 words per second.
 </listItem>
-<bodyText confidence="0.999964166666667">
+<bodyText confidence="0.999967166666667">
 We have barely begun to optimise the approach: a more intelligent similarity metric
 would also take into account the differences in similarity between different values of the
 same feature. E.g. the similarity between the tags rb-in-nn and rb-in should be bigger than
 the similarity between rb-in and vb-nn. Apart from linguistic engineering refinements of
 the similarity metric, we are currently experimenting with statistical measures to compute
-such more fine-grained similarities (e.g. Stanfill &amp;amp; Waltz, 1986, Cost &amp;amp; Salzberg, 1994).
+such more fine-grained similarities (e.g. Stanfill &amp; Waltz, 1986, Cost &amp; Salzberg, 1994).
 </bodyText>
-<sectionHeader confidence="0.980128" genericHeader="acknowledgments">
+<sectionHeader confidence="0.980027" genericHeader="acknowledgments">
 Acknowledgements
 </sectionHeader>
-<bodyText confidence="0.99952">
+<bodyText confidence="0.99945625">
 Research of the first author was done while he was a visiting scholar at NIAS (Netherlands
 Institute for Advanced Studies) in Wassenaar. Thanks to Antal van den Bosch, Ton
 Weijters, and Gert Durieux for discussions about tagging, IGTree, and machine learning
 of natural language.
 </bodyText>
-<page confidence="0.999181">
+<page confidence="0.999222">
 25
 </page>
-<sectionHeader confidence="0.998251" genericHeader="references">
+<sectionHeader confidence="0.998109" genericHeader="references">
 References
 </sectionHeader>
-<reference confidence="0.999697">
-Aha, D. W., Kibler, D., &amp;amp; Albert, M. (1991). &amp;apos;Instance-based learning algorithms&amp;apos;.
+<reference confidence="0.9997342">
+Aha, D. W., Kibler, D., &amp; Albert, M. (1991). &apos;Instance-based learning algorithms&apos;.
 Machine Learning, 7, 37-66.
-Brill, E. (1992) &amp;apos;A simple rule-based part-of-speech tagger&amp;apos;. Proceedings Third ACL
+Brill, E. (1992) &apos;A simple rule-based part-of-speech tagger&apos;. Proceedings Third ACL
 Applied, Trento, Italy, 152-155.
-Cardie, C. (1993a). &amp;apos;A case-based approach to knowledge acquisition for domain-specific
-sentence analysis&amp;apos;. In AAAI-93, 798-803.
-Cardie, C. (1993b). &amp;apos;Using Decision Trees to Improve Case-Based Learning&amp;apos;. In Pro-
+Cardie, C. (1993a). &apos;A case-based approach to knowledge acquisition for domain-specific
+sentence analysis&apos;. In AAAI-93, 798-803.
+Cardie, C. (1993b). &apos;Using Decision Trees to Improve Case-Based Learning&apos;. In Pro-
 ceedings of the Tenth International Conference on Machine Learning, 25-32.
-Cardie, C. (1994). &amp;apos;Domain-Specific Knowledge Acquisition for Conceptual Sentence
-Analysis&amp;apos;. Ph.D. Thesis, University of Massachusetts, Amherst, MA.
-Chandler, S. (1992). &amp;apos;Are rules and modules really necessary for explaining language?&amp;apos;
+Cardie, C. (1994). &apos;Domain-Specific Knowledge Acquisition for Conceptual Sentence
+Analysis&apos;. Ph.D. Thesis, University of Massachusetts, Amherst, MA.
+Chandler, S. (1992). &apos;Are rules and modules really necessary for explaining language?&apos;
 Journal of Psycholinguistic research, 22(6): 593-606.
-Church, K. (1988). &amp;apos;A stochastic parts program and noun phrase parser for unrestricted
-text&amp;apos;. Proceedings Second ACL Applied NLP, Austin, Texas, 136-143.
-Cost, S. and Salzberg, S. (1993). &amp;apos;A weighted nearest neighbour algorithm for learning
-with symbolic features.&amp;apos; Machine Learning, 10, 57-78.
+Church, K. (1988). &apos;A stochastic parts program and noun phrase parser for unrestricted
+text&apos;. Proceedings Second ACL Applied NLP, Austin, Texas, 136-143.
+Cost, S. and Salzberg, S. (1993). &apos;A weighted nearest neighbour algorithm for learning
+with symbolic features.&apos; Machine Learning, 10, 57-78.
 Cutting, D., Kupiec, J., Pederson, J., Sibun, P. (1992). A practical part of speech tagger.
 Proceedings Third ACL Applied NLP, Trento, Italy, 133-140.
-Daelemans, W. (1995). &amp;apos;Memory-based lexical acquisition and processing.&amp;apos; In Steffens,
+Daelemans, W. (1995). &apos;Memory-based lexical acquisition and processing.&apos; In Steffens,
 P., editor, Machine Translation and the Lexicon, Lecture Notes in Artificial Intelli-
 gence 898. Berlin: Springer, 85-98.
-Daelemans, W., Van den Bosch, A. (1992). &amp;apos;Generalisation performance of backprop-
-agation learning on a syllabification task.&amp;apos; In M. Drossaers &amp;amp; A. Nijholt (Eds.),
+Daelemans, W., Van den Bosch, A. (1992). &apos;Generalisation performance of backprop-
+agation learning on a syllabification task.&apos; In M. Drossaers &amp; A. Nijholt (Eds.),
 TWLT3: Connectionism and Natural Language Processing. Enschede: Twente Uni-
 versity, 27-38.
-Daelemans, W., Van den Bosch, A., Weijters, T. (1996). &amp;apos;IGTree: Using Trees for
-Compression and Classification in Lazy Learning Algorithms.&amp;apos; In Aha, D. (ed.). Al
+Daelemans, W., Van den Bosch, A., Weijters, T. (1996). &apos;IGTree: Using Trees for
+Compression and Classification in Lazy Learning Algorithms.&apos; In Aha, D. (ed.). Al
 Review Special Issue on Lazy Learning, forthcoming.
-DeRose, S. (1988). &amp;apos;Grammatical category disambiguation by statistical optimization.
+DeRose, S. (1988). &apos;Grammatical category disambiguation by statistical optimization.
 Computational Linguistics 14, 31-39.
-Derwing, B. L. and Skousen, R. (1989). &amp;apos;Real Time Morphology: Symbolic Rules or
-Analogical Networks&amp;apos;. Berkeley Linguistic Society 15: 48-62.
-Federici S. and V. Pirelli. (1996). &amp;apos;Analogy, Computation and Linguistic Theory.&amp;apos; In
+Derwing, B. L. and Skousen, R. (1989). &apos;Real Time Morphology: Symbolic Rules or
+Analogical Networks&apos;. Berkeley Linguistic Society 15: 48-62.
+Federici S. and V. Pirelli. (1996). &apos;Analogy, Computation and Linguistic Theory.&apos; In
 Jones, D. (ed.) New Methods in Language Processing. London: UCL Press, forth-
 coming.
 Garside, R., Leech, G. and Sampson, G. (1987). The computational analysis of English:
 A corpus-based approach, London: Longman, 1987.
 Greene, B.B. and Rubin, G.M. (1971). Automatic Grammatical Tagging of English.
 Providence RI: Department of Linguistics, Brown University.
-Hindle, Donald. (1989). &amp;apos;Acquiring disambiguation rules from text.&amp;apos; In Proceedings,
+Hindle, Donald. (1989). &apos;Acquiring disambiguation rules from text.&apos; In Proceedings,
 27th Annual Meeting of the Association for Computational Linguistics, Vancouver,
 BC.
 Hunt, E., J. Mann, P. Stone. (1966). Experiments in Induction. New York: Academic
 Press.
 Jones, D. Analogical Natural Language Processing. London: UCL Press, 1996.
 </reference>
-<page confidence="0.961569">
+<page confidence="0.96027">
 26
 </page>
-<reference confidence="0.9995481">
-Klein S. and Simmons, R. (1963). &amp;apos;A grammatical approach to grammatical coding of
-English words.&amp;apos; JACM 10, 334-347.
+<reference confidence="0.9995655">
+Klein S. and Simmons, R. (1963). &apos;A grammatical approach to grammatical coding of
+English words.&apos; JACM 10, 334-347.
 Kolodner, J. (1993). Case-Based Reasoning. San Mateo: Morgan Kaufmann.
-Langley, P. and Sage, S. (1994). &amp;apos;Oblivious decision trees and abstract cases.&amp;apos; In
+Langley, P. and Sage, S. (1994). &apos;Oblivious decision trees and abstract cases.&apos; In
 D. W. Aha (Ed.), Case-Based Reasoning: Papers from the 1994 Workshop (Techni-
 cal Report WS-94-01). Menlo Park, CA: AAAI Press.
-Merialdo, B. ( 1994). &amp;apos;Tagging English Text with a Probabilistic Model.&amp;apos; Computational
+Merialdo, B. ( 1994). &apos;Tagging English Text with a Probabilistic Model.&apos; Computational
 Linguistics 20 (2), 155-172.
-Pereira, F., Y. Singer, N. Tishby. (1995). &amp;apos;Beyond Word N-grams.&amp;apos; Proceedings Third
+Pereira, F., Y. Singer, N. Tishby. (1995). &apos;Beyond Word N-grams.&apos; Proceedings Third
 Workshop on Very Large Corpora, MIT, Cambridge Mass., 95-106.
 Quinlan, J. (1993). C4.5: Programs for Machine Learning. San Mateo, CA: Morgan
 Kaufmann.
-Salzberg, S. (1990) &amp;apos;A nearest hyperrectangle learning method&amp;apos;. Machine Learning 6,
+Salzberg, S. (1990) &apos;A nearest hyperrectangle learning method&apos;. Machine Learning 6,
 251-276.
-Samuelsson, C. (1994) &amp;apos;Morphological Tagging Based Entirely on Bayesian Inference.&amp;apos; In
+Samuelsson, C. (1994) &apos;Morphological Tagging Based Entirely on Bayesian Inference.&apos; In
 Proceedings of the 9th Nordic Conference on Computational Linguistics, Stockholm
 University, Sweden, 1994.
-Scha, R. (1992) &amp;apos;Virtuele Grammatica&amp;apos;s en Creatieve Algoritmen.&amp;apos; Gramma/TTT 1 (1),
+Scha, R. (1992) &apos;Virtuele Grammatica&apos;s en Creatieve Algoritmen.&apos; Gramma/TTT 1 (1),
 57-77.
-Schmid, H. (1994) &amp;apos;Part-of-speech tagging with neural networks.&amp;apos; In Proceedings of
+Schmid, H. (1994) &apos;Part-of-speech tagging with neural networks.&apos; In Proceedings of
 COLING, Kyoto, Japan.
-Schiitze, H., and Y. Singer. (1994) &amp;apos;Part-of-speech Tagging Using a Variable Context
-Markov Model&amp;apos; Proceedings of ACL 1994, Las Cruces, New Mexico.
+Schiitze, H., and Y. Singer. (1994) &apos;Part-of-speech Tagging Using a Variable Context
+Markov Model&apos; Proceedings of ACL 1994, Las Cruces, New Mexico.
 Skousen, R. (1989). Analogical Modeling of Language. Dordrecht: Kluwer.
 Sejnowski, T. J., Rosenberg, C. S. (1987). Parallel networks that learn to pronounce
 English text. Complex Systems, 1, 145-168.
-Stanfill, C. and Waltz, D. (1986). &amp;apos;Toward memory-based reasoning.&amp;apos; Communications
+Stanfill, C. and Waltz, D. (1986). &apos;Toward memory-based reasoning.&apos; Communications
 of the ACM, 29, 1212-1228.
 Weiss, S. and Kulikowski, C. (1991). Computer systems that learn. San-Mateo: Morgan
 Kaufmann.
 </reference>
-<page confidence="0.999396">
+<page confidence="0.999341">
 27
 </page>
 </variant>
@@ -1002,7 +1002,7 @@ Kaufmann.
 <title>IGTree: Using Trees for Compression and Classification in Lazy Learning Algorithms</title>
 <date>1996</date>
 <booktitle>Al Review Special Issue on Lazy Learning, forthcoming</booktitle>
-<editor>In Aha, D. (ed</editor>
+<editor>In Aha, D. (ed.)</editor>
 <marker>Daelemans, Van den Bosch, Weijters, 1996</marker>
 <rawString>Daelemans, W., Van den Bosch, A., Weijters, T. (1996). &apos;IGTree: Using Trees for Compression and Classification in Lazy Learning Algorithms.&apos; In Aha, D. (ed.). Al Review Special Issue on Lazy Learning, forthcoming.</rawString>
 </citation>
@@ -1043,7 +1043,7 @@ Kaufmann.
 <date>1996</date>
 <booktitle>New Methods in Language Processing</booktitle>
 <pages>forthcoming.</pages>
-<editor>In Jones, D. (ed</editor>
+<editor>In Jones, D. (ed.)</editor>
 <publisher>UCL Press</publisher>
 <location>London</location>
 <marker>Federici, Pirelli, 1996</marker>
@@ -1157,7 +1157,7 @@ Kaufmann.
 <title>Oblivious decision trees and abstract cases</title>
 <date>1994</date>
 <booktitle>In D. W. Aha (Ed.), Case-Based Reasoning: Papers from the 1994 Workshop</booktitle>
-<tech>Technical Report WS-94-01</tech>
+<tech>(Technical Report WS-94-01)</tech>
 <publisher>AAAI Press</publisher>
 <location>Menlo Park, CA</location>
 <contexts>

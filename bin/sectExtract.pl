@@ -33,7 +33,7 @@ sub License {
 ### HELP Sub-procedure
 sub Help {
   print STDERR "usage: $progname -h\t[invokes help]\n";
-  print STDERR "       $progname -in inFile [-out outFile -no-xmlInput -no-xmlOutput -log]\n";
+  print STDERR "       $progname -in inFile [-out outFile -no-xmlInput -no-xmlOutput -log -new]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
   print STDERR "\t-out: indicate output file (if not specified output to STDOUT)\n";
@@ -48,11 +48,13 @@ my $outFile = undef;
 my $isXmlInput = 1;
 my $isXmlOutput = 1;
 my $isDebug = 0;
+my $isNew = 0; # if = 1, use processOmniXml_new.pl
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'xmlInput!' => \$isXmlInput,
 			    'xmlOutput!' => \$isXmlOutput,
 			    'log' => \$isDebug,
+			    'new' => \$isNew,
 			    'h' => \$HELP,
 			    'q' => \$QUIET);
 
@@ -80,7 +82,10 @@ $configFile = "$path/../$configFile";
 if($isXmlInput){
   my $xmlInFile = newTmpFile();
   $xmlInFile = untaintPath($xmlInFile);
-  execute("$path/sectLabel/processOmniXML.pl -in $inFile -out $xmlInFile -xmlFeature -decode");
+  my $cmd = "$path/sectLabel/";
+  $cmd .= ($isNew) ? "processOmniXML_new.pl" : "processOmniXML.pl";
+  $cmd .= " -in $inFile -out $xmlInFile -xmlFeature -decode";
+  execute($cmd);
   $inFile = $xmlInFile;
 }
 

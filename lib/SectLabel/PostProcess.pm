@@ -1,4 +1,3 @@
-
 package SectLabel::PostProcess;
 #
 # Utilities for normalizing the output of CRF++ into standard
@@ -141,19 +140,8 @@ sub generateOutput {
     my $confStr = " confidence=\"".$_->{"confidence"}."\"";
     if($content =~ /^\s*$/) { next; };
     
-    ($tag, $content) = normalizeDocumentField($tag, $content);
-    
-    if($tag eq "authors"){ # handle multiple authors in a line
-      foreach my $author (@{$content}){
-	$output .= "<author$confStr>\n$author\n</author>\n";
-      }
-    }elsif($tag eq "emails"){ # handle multiple emails at a time
-      foreach my $email (@{$content}){
-	$output .= "<email$confStr>\n$email\n</email>\n";
-      }
-    } else {
-      $output .= "<$tag$confStr>\n$content\n</$tag>\n";
-    }
+    ($tag, $content) = normalizeDocumentField($tag, $content, 1);
+    $output .= "<$tag$confStr>\n$content\n</$tag>\n";
   }
 
   return $output;
@@ -175,6 +163,10 @@ sub wrapDocument {
   open(IN, "<:utf8", $inFile) or return (undef, undef, 0, "couldn't open infile: $!");
   my $lineId = -1;
   while (<IN>) {
+    if (/^\# ([\.\d]+)/) { # overall confidence info
+      next;
+    }
+
     $lineId++;
     while($blankLines->{$lineId}){
       print STDERR "#! Insert none label for line id $lineId\n";
@@ -193,11 +185,17 @@ sub wrapDocument {
       my $sys = $tokens[-1];
       my $gold = $tokens[-2];
 
-      # train at line level, get the original line
+      ## train at line level, get the original line
       @tokens = split(/\|\|\|/, $line);
       $line = join(" ", @tokens);
 
-      ($sys, $line) = normalizeDocumentField($sys, $line);
+      if($sys =~ /^(.+)\/[\d\.]+$/){ #process confidence info in the format e.g, sectionHeader/0.989046
+	$sys = $1;
+      } else {
+	die "Die in SectLabel:PostProcess::wrapDocument : incorrect format \"tag/prob\" $sys\n";
+      }
+
+      ($sys, $line) = normalizeDocumentField($sys, $line, 0);
       $xml .= "$sys $line\n";
     }
   }
@@ -230,19 +228,21 @@ sub simpleNormalize {
 # Document normalization subroutine.  Reads in a tag and its content, perform normalization based on that tag.
 ##
 sub normalizeDocumentField {
-  my ($tag, $content) = @_;;
+  my ($tag, $content, $isEscape) = @_;;
 
-  # remove keyword at the beginning and strip leading spaces
-  $content =~ s/^\s*$tag\s+//i;
+#  # remove keyword at the beginning and strip leading spaces
+#  $content =~ s/^\s*$tag\s+//i;
 
   # remove trailing spaces
   $content =~ s/\s+$//g;
 
-  # unhyphenation
-  $content =~ s/\- ([a-z])/$1/g;
+#  # unhyphenation
+#  $content =~ s/\- ([a-z])/$1/g;
 
   # escape XML characters
-  cleanXML(\$content);
+  if($isEscape){
+    cleanXML(\$content);
+  }
   
 #  $content = ParsCit::PostProcess::stripPunctuation($content);
   return ($tag, $content);
