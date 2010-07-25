@@ -290,7 +290,6 @@ if ($option == 5 || $option == 2) {
 if ($option == 5 || $option == 1 || $demo == 2 || $demo == 3) { 
   print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
   print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
-  print "PROCESS CITATIONS";
   print (processCitations($outputBuf, $filename)); 
   print "</DIV>";
 }
