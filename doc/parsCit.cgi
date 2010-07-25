@@ -294,9 +294,6 @@ if ($option == 5 || $option == 1 || $demo == 2 || $demo == 3) {
   print "</DIV>";
 }
 
-print "$option << = option";
-print "$demo << = demo";
-
 # remove temporary files
 `rm -f /tmp/$seed.*`;
 
