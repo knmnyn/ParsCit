@@ -76,7 +76,7 @@ task is handled by a module with the project namesake, ParsCit, and
 the second task by a separate module SectLabel.
 </P>
 
-<br clear="all" />
+<br clear="all"/>
 <!-- License ---------------------------------------------------------------------- -->
 <A NAME="l"></A><H2>License</H2>
 
@@ -159,7 +159,7 @@ some traffic your way.
        </FORM>
 </UL>
 
-<!-- Web demo ------------------------------------------------------------------------> 
+<!-- Web demo ----------------------------------------------------------------------- -> 
 <A name="wd"></a><H2>Web-based Demonstration</H2>
 
 <P CLASS="red">N.B.: We keep logs of what's parsed in these demos, to
@@ -399,6 +399,13 @@ are some common problems people have encountered.
     CRF++ for your platform.  The paths included with the install are
     for our version, you need to recompile to have the paths point
     correctly.</DD>
+  <DT>When running citeExtract.pl I get some errors complaining about the wrong ELF class of the binaries.  How can I fix this?</DT>
+  <DD>This seems to be a problem with the compiled executables of CRF++ bundled with the software.  Follow the INSTALL instructions but after step 1 do:
+<P>
+<CODE>$ cp -Rf * ../../.libs
+$ cp crf_learn ../../.libs/lt-crf_learn<BR/>
+$ cp crf_test ../../.libs/lt-crf_test<BR/>
+</CODE></DD>
   <DT>Issue numbers don't get extracted.</DT>
   <DD>We're looking into this.  The training data does not make a
     distinction about volume and issue number.  We'd like to fix that
@@ -480,7 +487,8 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
+<P>Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
+Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
 (v100401) and contributing the ICONIP training data and XML entity
 problems in reference string parsing (v100401).  Thanks to Priya
 Venkateshan for pointing out sudo/root installation possibilities
