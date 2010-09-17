@@ -24,7 +24,7 @@ function toggleLayer( whichLayer ) {
 
 <div style="align:left; border: 1px solid green; font-size:9pt" id="toc">
 [ <A href="http://wing.comp.nus.edu.sg/">Back to the WING home page</A> ] [
-<A href="http://wing.comp.nus.edu.sg/~forecite/services/">Back to ForeCite/CiteSeer web services</A> ] 
+<A href="http://wing.comp.nus.edu.sg/portal/web-services.html">Back to WING web services</A> ] 
 <BR/>
 [&nbsp;<A href="#d">Download</a>&nbsp;] [&nbsp;<A href="#ws">Web Service</a>&nbsp;] [&nbsp;<A href="#wd">Web-based Demonstration</a>&nbsp;] [&nbsp;<A href="#p">Publications</a>&nbsp;]
 [&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#faq">FAQ</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
@@ -76,7 +76,7 @@ task is handled by a module with the project namesake, ParsCit, and
 the second task by a separate module SectLabel.
 </P>
 
-<br clear="all" />
+<br clear="all"/>
 <!-- License ---------------------------------------------------------------------- -->
 <A NAME="l"></A><H2>License</H2>
 
@@ -101,7 +101,12 @@ using <CODE>perl</CODE> (must be in your path).
   SectLabel (logical structure parsing) software from the NUS team,
   and Iconip training data from Cheong Chi Hong for ParsCit with new
   ParsCit model retrained. See <A
-  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; <BR/>
+  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; 
+
+<BR/>
+We have also pushed a copy of the ParsCit current distribution into 
+<A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates.
+<BR/>
 
   <LI> Other versions: <BR/>
 <A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
@@ -135,7 +140,7 @@ some traffic your way.
 </P> 
 
 <UL>
-  <LI> <A HREF="forecite.wsdl">Download the WSDL file</A> for the service at NUS.
+  <LI> <A HREF="wing.nus.wsdl">Download the WSDL file</A> for the service at NUS.
   <LI> <A HREF="ParsCitClientWSDL.rb">Download the sample ruby client
        that uses the WSDL file</A> to dynamically generate the ParsCit web
        service call to the NUS server.  Edit the file to see how to
@@ -154,7 +159,7 @@ some traffic your way.
        </FORM>
 </UL>
 
-<!-- Web demo ------------------------------------------------------------------------> 
+<!-- Web demo ----------------------------------------------------------------------- --> 
 <A name="wd"></a><H2>Web-based Demonstration</H2>
 
 <P CLASS="red">N.B.: We keep logs of what's parsed in these demos, to
@@ -164,7 +169,8 @@ yourself?</P>
 
 <P>You can also run ParsCit directly in your browser.  The form below
 submits your text input (after suitable cleaning) to the ParsCit
-service to parse the input file or strings.
+service to parse the input file or strings.  <FONT COLOR="red">
+Note that if system loads gets high, your demo call may not be executed.  If you want to run this program in batch, please download your own copy.</FONT>
 </P>
 
 <P><B>Demo #1: Parsing the header, logical structure and/or reference strings (and citation contexts) from a text file</B></P>
@@ -173,7 +179,7 @@ service to parse the input file or strings.
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="1" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.txt</A>).<BR/>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
@@ -203,7 +209,7 @@ service to parse the input file or strings.
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
-<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.xml</A>).<BR/>
+<P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
 
@@ -233,8 +239,8 @@ service to parse the input file or strings.
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="3" style="display:none;">
 <P>Input Method 1) Enter a URL to a file on the web in the correct format (each line should be a separate citation; e.g., <A
-HREF="http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite">http://wing.comp.nus.edu.sg/~forecite/samples/E06-1050.cite</A> or <A
-HREF="http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite">http://wing.comp.nus.edu.sg/~forecite/samples/W06-0102.cite</A>).
+HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite</A> or <A
+HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite</A>).
 <INPUT TYPE="text" SIZE="80" NAME="urllines"> 
 </P>
 
@@ -393,6 +399,13 @@ are some common problems people have encountered.
     CRF++ for your platform.  The paths included with the install are
     for our version, you need to recompile to have the paths point
     correctly.</DD>
+  <DT>When running citeExtract.pl I get some errors complaining about the wrong ELF class of the binaries.  How can I fix this?</DT>
+  <DD>This seems to be a problem with the compiled executables of CRF++ bundled with the software.  Follow the INSTALL instructions but after step 1 do:
+<P>
+<CODE>$ cp -Rf * ../../.libs
+$ cp crf_learn ../../.libs/lt-crf_learn<BR/>
+$ cp crf_test ../../.libs/lt-crf_test<BR/>
+</CODE></DD>
   <DT>Issue numbers don't get extracted.</DT>
   <DD>We're looking into this.  The training data does not make a
     distinction about volume and issue number.  We'd like to fix that
@@ -474,7 +487,8 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
+<P>Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
+Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
 (v100401) and contributing the ICONIP training data and XML entity
 problems in reference string parsing (v100401).  Thanks to Priya
 Venkateshan for pointing out sudo/root installation possibilities

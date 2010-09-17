@@ -1,1 +1,103 @@
-../CHANGELOG.txt
+100401e (done by Min on 100725)
+- Minor changes to paths and to make it work again from wing.nus directory
+  (moved from forecite, due to restructuring of WING server)
+
+100401d
+- Minor changes to documentation and ParsHed library updating.
+
+100401c
+- Minor changes for correcting errors with punctuation and XML
+  entities in reference string parsing.  Reported by Cheong Chi Hong
+  and Mario Lipinski.  Fixed by Minh-Thang Luong.
+
+100401b
+- Minor changes (bug fixes) to section labeler model.
+
+100401 
+- Major Change: Added SectLabel module (due to Minh-Thang Luong and
+  Thuy Dung Nguyen)
+- Added Iconip training data from Cheong Chi Hong
+- Updated default model to include Iconip data
+- Updated CGI demo to call new SectLabel module as well
+- Updated documentation
+- Corrected small regexp error in lib/ParsCit/PreProcess.pm
+- Corrected small problem with training data in mixed-humanities
+
+(by Thang)
+- Added SectLabel (bin/sectExtract.pl, bin/sectExtract/, resource/sectExtract, lib/SectExtract)
+- Modified bin/citeExtract.pl, lib/ParsCit/PostProcess.pm, lib/ParsHed/PostProcess.pm to combine ParsCit, ParsHed, SectLabel, and standardize XML output
+- Added test/ for testing purpose with 12 samples documents and standard-output of citeExtract.pl in 5 modes (citations, header, section, meta, and all) using both txt and XML inputs
+- Added SectLabel annotated data doc/sectLabel.tagged.txt and doc/sectLabelXml.tagged.txt (40 documents fully annotated)
+- Added in crfpp/traindata CRF++ feature files (sectLabel.train.dataXml, sectLabel.train.data) and templates (sectLabel.templateXml, sectLabel.template)
+
+- Incorporated works by Emma 
+-- Added GenericSect code (bin/sectLabel/genericSectExtract.rb, crfpp/traindata/genericSect.train.data, bin/sectLabel/genericSect/) into SectLabel
+-- Added GenericSect annotated data doc/genericSect.tagged.txt (211 documents with headers annotated)
+-- Added in crfpp/traindata CRF++ feature file (genericSect.train.data) and template (genericSect.template)
+
+090625b 
+- Updated documentation only. no change to executables
+- Released on 30 September 2009
+
+090625 (due to Minh-Thang Luong)
+- Standardized and improved ParsHed model with line-level
+  classification instead of token-level as previously.
+- Add a post-processing module for ParsHed to normalize field data,
+  e.g. authors, email, etc.
+- Detailed changes are reflected as follows:
+  * Added resources/parsHed - all parsHed-related including models
+   (old models in resources/parsHed/archive), template file, and
+   top frequent keyword files.
+  * Added lib/ParsHed - similar architect as lib/ParsCit to
+    modularizes and faciliates line-level training in ParsHed.
+	lib/ParsHed/Tr2crf.pm: line-level CRF feature extractor
+	lib/ParsHed/PostProcess.pm: post-processing of field data
+  * Added bin/parsHed - all parsHed-related scripts (redo.parsHed.pl,
+    and tr2crffpp_parsHed.pl).  Includes parseXmlHeader.pl and
+    convert2TokenLevel.pl used by redo.parsHed.pl to convert output
+    from line to token-level.
+  * Updated bin/headExtract.pl - to use the new model lib/ParsHed, as
+    well as old model (with -tokenLevel flag).
+  * Bug fixes in Citation.pm and Preprocess.pm (see
+    doc/v090625-Artemy-issues.txt). Thanks to Artemy Kolchinsky for
+    reporting these issues.
+  * Reordered the CHANGELOG into descending chronological order. 
+090625 (due to Min-Yen KAN)
+- Deprecated and unified ParsHedClient.rb into ParsCitClient.rb
+- Deprecated and unified ParsHedServer.rb into ParsCitServer.rb
+- Added wsdl/forecite.wsdl which describes the ParsCit portion of the services
+- Added bin/ParsCitClientWSDL.rb which demonstrates the use of forecite.wsdl
+
+090316:
+- Adds ParsHed module, updates to:
+  * resources/ -  parsHed.*.model model files for binaries
+  * doc/ - svm_headerparse.tagged.txt (from CiteSeer; 935 headers)
+  * bin/ - headExtract.pl, phOutput2xml.pl, redo.parsCit.pl, redo.parsHed.pl
+  * crfpp/traindata/ - parsHed.train.data (converted from svm_headerparse.tagged.txt)
+  Changes doc/index.html, doc/parsCit.cgi to handle parsHed call (not
+  yet entirely integrated, still separate module).
+
+081201:
+- Bug fixes from Scienstein.org team
+  * Added context positions
+  * Handle reference patterns such as [1-5]
+  * Handles context references within same window
+  * See doc/v081201-sciensteinEmail.txt for detailed notes
+- Updated ParsCit.cgi to update for context position output
+
+080917:
+- Added new training data from Matteo Romanello
+- Fixed Preprocess.pm bug (thanks to Dain Kaplan)
+- Upgraded CRF++ model to 0.51 (now bundled with CRF++ source just in case it is no longer available on sourceforge)
+- Added bin/redo.pl script to retrain model
+
+080402:
+- Added re-tagged data from FLUX-CiM
+- Added conlleval.pl evaluation script
+- Added output2xml.pl transformation script
+- Corrected warning in parseRefString.pl (thanks to Ayeh Bandeh-Ahmadi)
+
+080310:
+- First released version to Peter Weiland
+- Web services working for wing machines at NUS
+
