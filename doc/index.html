@@ -97,10 +97,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version: <A HREF="parscit-100401.zip">100401d</A>: Added
-  SectLabel (logical structure parsing) software from the NUS team,
-  and Iconip training data from Cheong Chi Hong for ParsCit with new
-  ParsCit model retrained. See <A
+  <li> Current version: 100901 (Coming soon): Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> software. See <A
   HREF="CHANGELOG.txt">CHANGELOG.txt</A>; 
 
 <BR/>
@@ -109,6 +106,10 @@ We have also pushed a copy of the ParsCit current distribution into
 <BR/>
 
   <LI> Other versions: <BR/>
+<A HREF="parscit-100401.zip">100401d</A>: Added 
+  SectLabel (logical structure parsing) software from the NUS team,
+  and Iconip training data from Cheong Chi Hong for ParsCit with new
+  ParsCit model retrained. See CHANGELOG.txt; <BR/> 
 <A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
 <A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR/>
 <A HREF="parscit-081201.zip">081201</A>: bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt;<BR/>
@@ -201,6 +202,16 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 </SELECT>
 </P>
 
+<P>Citation export formats
+  <INPUT TYPE=CHECKBOX NAME="ads1">ADS
+  <INPUT TYPE=CHECKBOX NAME="bib1" CHECKED>BIB
+  <INPUT TYPE=CHECKBOX NAME="end1">EndNote
+  <INPUT TYPE=CHECKBOX NAME="isi1">ISI
+  <INPUT TYPE=CHECKBOX NAME="ris1">RIS
+  <INPUT TYPE=CHECKBOX NAME="wordbib1">WordBib
+</P>
+
+
 <br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
 </FORM>
 </DIV>
@@ -230,6 +241,15 @@ Note that if system loads gets high, your demo call may not be executed.  If you
   <OPTION VALUE="4">section</OPTION>
 </SELECT>
 </P>
+<P>Citation export formats
+  <INPUT TYPE=CHECKBOX NAME="ads2">ADS
+  <INPUT TYPE=CHECKBOX NAME="bib2" CHECKED>BIB
+  <INPUT TYPE=CHECKBOX NAME="end2">EndNote
+  <INPUT TYPE=CHECKBOX NAME="isi2">ISI
+  <INPUT TYPE=CHECKBOX NAME="ris2">RIS
+  <INPUT TYPE=CHECKBOX NAME="wordbib2">WordBib
+</P>
+
 <br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
 </FORM>
 </DIV>
@@ -251,6 +271,15 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
 <P>Input Method 3) Enter a list of plain text citations (again, one per line):<BR/>
 <TEXTAREA ROWS="4" COLS="80" NAME="textlines">Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008) ParsCit:   An open-source CRF reference string parsing package.  To appear in the proceedings of the Language Resources and Evaluation Conference (LREC 08), Marrakesh, Morrocco, May.
 </TEXTAREA>
+</P>
+
+<P>Citation export formats
+  <INPUT TYPE=CHECKBOX NAME="ads3">ADS
+  <INPUT TYPE=CHECKBOX NAME="bib3" CHECKED>BIB
+  <INPUT TYPE=CHECKBOX NAME="end3">EndNote
+  <INPUT TYPE=CHECKBOX NAME="isi3">ISI
+  <INPUT TYPE=CHECKBOX NAME="ris3">RIS
+  <INPUT TYPE=CHECKBOX NAME="wordbib3">WordBib
 </P>
 
 <br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse these lines!"></CENTER>
@@ -487,7 +516,7 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
+<P>Thanks to Matteo Romanello for the suggestion and permission to incorporate BiblioScript software. Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
 Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
 (v100401) and contributing the ICONIP training data and XML entity
 problems in reference string parsing (v100401).  Thanks to Priya
