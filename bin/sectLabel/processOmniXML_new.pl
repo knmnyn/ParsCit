@@ -161,7 +161,7 @@ sub processFile {
   while (<IF>) { #each line contains a header
     if (/^\#/) { next; }			# skip comments
     chomp;
-    s/\cM$//; # remove ^M character at the end of the file if any
+    s/\cM//; # remove ^M character
     my $line = $_;
 
     if($tagFile ne ""){
@@ -658,6 +658,7 @@ sub processPara {
 	$markupOutput .= "\n";
 
 	$wdAttr = "";
+        $wdText = "";
       }
     }
 

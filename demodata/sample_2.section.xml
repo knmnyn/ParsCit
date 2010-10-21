@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="SectLabel" version="100410">
+<variant no="0" confidence="0.000415">
+<figure confidence="0.859484666666667">
+Explanation-Based Learning of
+Indirect Speech Act Interpretation Rules
+David Schulenburg (schulenb@ics.uci.edu)
+Michael J. Pazzani (pazzani@ics.uci.edu)
+Technical Report -- 89 -- 11
+10 May 1989
+</figure>
+<affiliation confidence="0.848597">
+Department of Information &amp; Computer Science
+University of California, Irvine, CA 92717 USA
+</affiliation>
+<bodyText confidence="0.520669">
+copyright c fl 1989 University of California, Irvine
+</bodyText>
+<sectionHeader confidence="0.947518" genericHeader="abstract">
+Abstract
+</sectionHeader>
+<bodyText confidence="0.99578688372093">
+We describe an approach to deriving efficient rules for interpreting the intended meaning
+of indirect speech acts. We have constructed a system called sally that starts with a few,
+very general principles for understanding the intention of the speaker of an utterance. After
+inferring the intended meaning of a particular utterance, sally creates a specialized rule
+to understand directly similar utterances in the future.
+Introduction: Indirect Speech Acts
+Responding appropriately to a question often requires the listener to understand the intention
+of the speaker. For example, consider the following simple question:
+Q: Do you have a match?
+Taken literally, this question is a request for information. However, in most contexts, this
+question should be interpreted as a request for the listener to give the speaker a match. This
+is a kind of speech act (Austin, 1962) called an indirect speech act (Searle, 1975), in which the
+intent of the speaker differs from the direct, literal meaning of the speaker&apos;s utterance. For a
+computer to take part in a conversation, it is essential that it have the ability to understand
+indirect speech acts. An important part of this capability is to gain an understanding of
+the class of situations in which the indirect interpretation should be preferred to the direct
+interpretation. For example, a slight variant of the above question is typically interpreted
+differently:
+Q: Do you have a BMW?
+Two approaches to the interpretation of indirect speech acts have been proposed in computational
+linguistics. One approach, typified by qualm (Lehnert, 1979), makes use of a large
+number of fairly specific, knowledge-intensive interpretation rules. For example, qualm
+contains one rule that interprets a question to verify if the listener possesses an object as a
+request for the listener to give the speaker the object, if the object is small and inexpensive.
+The primary advantage of the knowledge-intensive approach is that it is efficient. A discrimination
+net that indexes the interpretation rules directs the search for an interpretation.
+There are several disadvantages with the knowledge-intensive approach as implemented in
+qualm. First, it is difficult if not impossible, to encode an exhaustive set of rules that would
+perform well on a large variety of examples. Second, the knowledge-intensive approach does
+not capture any of the generalities among interpretation rules. A wide variety of knowledgeintensive
+interpretation rules are specialized forms of a general rule: one interpretation of
+a question to verify that a precondition of a plan is true is that the speaker wants the
+listener to execute the plan. Finally, as a cognitive model, the approach does not specify
+how the interpretation rules might be acquired or extended as new plans are learned. The
+interpretation of an indirect speech act is a function of the plans that the speaker believes
+the listener is capable of executing (or understanding) (Perrault and Allen, 1980). When
+an additional plan is acquired, it may be necessary for the knowledge-intensive approach to
+acquire additional interpretation rules.
+The alternative approach to finding the intended meaning of an indirect speech act is to
+have a small set of general rules that a listener may use to infer the speaker&apos;s plan from
+the utterance (Allen and Perrault, 1980; Cohen and Perrault, 1979). This approach takes
+advantage of planning formalisms (Wilensky, 1983; Fikes, 1971) to represent the content
+of a conversation (Grosz and Sidner, 1986; Litman and Allen, 1987). Unlike knowledge-
+</bodyText>
+<page confidence="0.980965">
+2
+</page>
+<bodyText confidence="0.995234820512821">
+intensive rules, these general rules can be applied to a variety of examples since the rules
+operate on a specification of the speaker&apos;s or listener&apos;s plans. However, there are also several
+disadvantages to this approach. First, the search for an interpretation can be inefficient.
+Second, as a cognitive model, it is not clear that a human listener goes through the long
+inference process that is necessary to arrive at the interpretation. For example, Searle (1975)
+has said: &amp;quot;In normal conversation, of course, no one would consciously go through the steps
+involved in this reasoning.&amp;quot; Allen and Perrault (1980) have made similar statements that do
+not leave open the possibility that people unconsciously go through a long inference chain:
+Note that, in actual fact, people probably use muchmore specialized knowledge
+to infer the plans of others, thereby bypassing many of the particular inferences
+we suggest. Our approach so far, has been to specify a minimal set of reasoning
+tools that can account for the behavior observed.
+Psycholinguistic studies have shown that in many circumstances, it takes no longer for a
+person to recognize an indirect speech act than to find the direct meaning of an utterance.
+For example, in one experiment (Gibbs, 1983), subjects found it no more difficult to find
+the indirect interpretation of a request such as &amp;quot;Can&apos;t you be friendly?&amp;quot; than the literal
+interpretation.
+The approach that we take is a hybrid between the specific, knowledge-intensive approach
+and the general, plan-based approach. In particular, we make use of general plan-based
+rules to interpret novel (to the system) utterances. However, once an interpretation has
+been found, we derive a knowledge-intensive rule to interpret directly &amp;quot;similar&amp;quot; utterances in
+the future. The knowledge-intensive rule is created by explanation-based learning techniques
+(Mitchell, Kedar-Cabelli, and Keller, 1986; DeJong and Mooney, 1986). The &amp;quot;similar&amp;quot; utterances
+are those that share the features that the plan-based analysis needed to check to
+infer the interpretation of the indirect speech act.
+Explanation-based learning
+Explanation-based learning (EBL) is a learning method which analytically generalizes an
+example. EBL systems share a common approach to generalization. First, an example
+problem is solved producing an explanation (occasionally called a justification, or a proof)
+that indicates what information (e.g., features of the example and inference rules) was needed
+to arrive at a solution. Next, the example is generalized by retaining only those features of the
+example which were necessary to produce the explanation. This generalization characterizes
+the class of problems that will have the same solution for the same reason as the training
+example. EBL explicates (or operationalizes (Keller, 1987)) information that is implicitly
+represented in a system. For example, aces (Pazzani, 1987) is a system that learns diagnosis
+heuristics (i.e., efficient heuristics that associate faults with symptoms) from a functional
+device description. In this work, we are using a modified version of the eggs (Mooney and
+Bennett, 1986) explanation-based learning algorithm to explicate conditions under which an
+indirect interpretation of a speech act can be inferred.
+</bodyText>
+<page confidence="0.989651">
+3
+</page>
+<bodyText confidence="0.997054666666667">
+If the effect of act is e [Action-Effect Rule]
+and actor wants e
+then actor wants act.
+If actor1 wants actor2 to want to do act [Want-Action Rule]
+then actor1 wants actor2 to do act
+A precondition for actor atransing object [give requires have]
+is that actor possess object.
+actor1 will atrans (cheap) object to actor2
+if actor1 and actor2 are friends.
+</bodyText>
+<figureCaption confidence="0.929676">
+Figure 1. Speech act interpretation rules
+</figureCaption>
+<page confidence="0.911896">
+1
+</page>
+<bodyText confidence="0.998702769230769">
+Learning to interpret indirect speech acts
+We illustrate the process that sally goes through to learn a rule to interpret directly indirect
+speech acts with an example. Consider again the request: &amp;quot;Do you have a match?&amp;quot; The
+surface speech act here is a verification of possession of a match. However, in most contexts,
+the intent of the speaker is not to ask for a verification. Rather, the speaker is requesting
+some action of the hearer, e.g., to give the match to the speaker. The ATRANS-Request
+Conversion rule (Lehnert, 1978) states that given a verification request of a possession state
+of some object which has little value, a possible target interpretation is a request of the hearer
+to give the speaker that object. We address here the issue of learning this rule. We can trace
+through the understanding cycle used to generate the ATRANS interpretation using the
+method of Allen and Perrault (1980). sally makes use of backward chaining inference rules
+for inferring the speakers intentions, and for indicating the effects and preconditions of plans.
+Figure 1 illustrates four of the rules that are used in the following example.
+</bodyText>
+<page confidence="0.96423">
+2
+</page>
+<bodyText confidence="0.927084">
+The initial representation of the surface speech act is:
+</bodyText>
+<page confidence="0.980559">
+3
+</page>
+<bodyText confidence="0.940312428571429">
+HBSW (S-REQUEST (S, H, INFORMIF (H, S, POSSESS (H, MATCH))))
+This is read as: &amp;quot;The hearer believes the speaker wants : : : &amp;quot; (this is the intentional part of
+the speaker&apos;s speech act) &amp;quot;:
+: :
+to perform a yes-no question regarding the hearer&apos;s possession
+of a match.&amp;quot; Using the action-effect (an effect of the S-REQUEST is that HW(HDo action))
+and want-action rules, sally can infer:
+</bodyText>
+<figure confidence="0.781261833333333">
+HBSW (INFORMIF (H, S, POSSESS (H, MATCH)))
+That is, the hearer believes that the speaker wants the hearer to inform the speaker whether
+1
+Action-Effect and Want-Action are from Allen &amp; Perrault (1980).
+2
+The Appendix lists the rules using sally&apos;s actual representation.
+</figure>
+<page confidence="0.810347">
+3
+</page>
+<bodyText confidence="0.7279835">
+In this discussion, we use Allen and Perrault&apos;s notation because it is more concise than the equivalent
+representation used in the computer implementation.
+</bodyText>
+<page confidence="0.966332">
+4
+</page>
+<bodyText confidence="0.8896755">
+or not the hearer possesses the match. An effect of INFORMIF is KNOWIF; using the
+action-effect rule again sally can infer:
+HBSW (KNOWIF (S, POSSESS (H, MATCH)))
+From here, sally can use the know-positive rule and infer:
+</bodyText>
+<sectionHeader confidence="0.498209" genericHeader="categories and subject descriptors">
+HBSW (POSSESS (H, MATCH))
+</sectionHeader>
+<bodyText confidence="0.987909310344828">
+Since possessing a match is a precondition to giving it away, sally can use the preconditionaction
+rule to infer:
+HBSW (ATRANS (H, S, MATCH))
+This inference process interprets the surface speech act of asking about possession of a match
+as an indirect speech act of requesting the hearer to give a match to the speaker. For a request
+speech act to have the desired effect, it is necessary that that the hearer want to comply
+with the request. sally has a rule stating that someone will give someone else an object
+if it is of little value and there is an amicable relationship between the two people. Using
+a small data-base of plan-based rules, sally constructs an inference chain of length seven
+to infer the speaker&apos;s intent in this question. Explanation-based learning techniques can be
+used to &amp;quot;compile&amp;quot; this inference process.
+The effect of explanation-based learning on this example is to create a knowledge-intensive
+rule which avoids many of the intermediate steps of the plan-based inference. The knowledgeintensive
+rule has the same conclusion as the longer inference process. The preconditions
+on this rule are exactly those features of the surface speech act and the situation which
+were tested during the inference process to establish the conclusion. In this case, these
+preconditions are that the object of the inquiry be of little value, and that the relationship
+between the speaker and the hearer be an amicable one. Figure 2 illustrates the result of
+the explanation-based learning process on this example.
+Once sally has acquired the rule in Figure 2, the interpretation of similar queries is more
+direct. For example, to interpret the question &amp;quot;Do you have some gum?&amp;quot; requires an
+inference chain of length two. The constraints that are derived during the explanation-based
+learning process do not allow utterances such as &amp;quot;Do you have a BMW?&amp;quot; to be interpreted
+as requests.
+Current status
+sally is implemented in Common Lisp. It does not currently contain a parser. The input
+to sally is a representation of the surface speech act of an utterance; the output is an
+identification of the intended speech act (e.g., REQUEST, INFORM, etc.). Using a similar
+line of reasoning to the above example, we have been able to reconstruct some of qualm&apos;s
+</bodyText>
+<figure confidence="0.984700217391304">
+5
+(!- (INTERPRETATION (S-REQUEST (SPEAKER ?S)
+(HEARER ?H)
+(ACT (TYPE INFORMIF)
+(ACTOR ?h)
+(TO ?S)
+(STATE (TYPE POSSESS)
+(OBJECT (P-OBJ (TYPE ?T)
+(OWNER ?H)
+(LOC ?L)
+(VALUE CHEAP)))
+(ACTOR ?H))))
+(REQUEST (SPEAKER ?H)
+(HEARER ?S)
+(ACT (TYPE ATRANS)
+(ACTOR ?H)
+(OBJECT (P-OBJ (TYPE ?T)
+(OWNER ?H)
+(LOC ?L)
+(VALUE CHEAP)))
+(TO ?S)
+(FROM ?H))))
+(RELATIONSHIP ?H ?S AMICABLE))
+</figure>
+<figureCaption confidence="0.995956">
+Figure 2. A knowledge-intensive indirect speech act interpretation rule.
+</figureCaption>
+<page confidence="0.992496">
+3
+</page>
+<bodyText confidence="0.983210631578947">
+knowledge-intensive heuristics from a minimal set of interpretation rules and a library of
+plans. For example, we can generate the Function-Request Conversion rule. Consider: &amp;quot;Do
+you have your car here?&amp;quot; The surface speech act is a verification request regarding the
+location of the hearer&apos;s car. An indirect interpretation could be &amp;quot;Would you drive your
+car?&amp;quot; Recognizing that possession of some object in the immediate vicinity is a precondition
+to using that object, we can infer the desired indirect interpretation.
+One limitation of sally is that it is limited to utterances that can be addressed in the
+plan-based approach to interpreting indirect speech acts. For example, there is no difference
+in the literal meanings of &amp;quot;Can you pass the salt?&amp;quot; and &amp;quot;Are you able to pass the salt?&amp;quot;
+However, the indirect interpretation is acceptable of the former but not the latter. Planbased
+approaches such as ours ignore the linguistic information associated with the literal
+meaning of the utterance (Hinkleman, 1988). One solution to this problem, which is more
+faithful to the psycholinguistic data, is to have rules that map phrases to interpretations
+without having an intermediate representation of the literal meaning.
+Conclusion
+We have proposed a hybrid approach to the interpretation of indirect speech acts that combines
+the best features of knowledge-intensive and plan-based approaches. In particular, the
+intended meaning of common types of indirect speech acts are found rapidly by knowledgeintensive
+rules that directly map the surface speech act of an utterance to the intended
+</bodyText>
+<page confidence="0.980687">
+4
+</page>
+<bodyText confidence="0.997684">
+Questions of the form &amp;quot;Do you possess an inexpensive object?&amp;quot; are interpreted as a request for the hearer
+to give the speaker the object if the speaker and the hearer have an amicable relationship.
+</bodyText>
+<page confidence="0.991203">
+6
+</page>
+<bodyText confidence="0.99522475">
+meaning. However, it is not necessary to hand-code and maintain a large set of interpretation
+rules. The knowledge-intensive rules are acquired by using explanation-based learning
+after the interpretation of a novel utterance is found by a general, but inefficient search
+process.
+</bodyText>
+<sectionHeader confidence="0.869784" genericHeader="acknowledgments">
+Acknowledgements
+</sectionHeader>
+<bodyText confidence="0.996074">
+We would like to thank Ray Mooney for discussions on EGGS and Elizabeth Hinkleman for
+discussions on interpreting indirect speech acts.
+</bodyText>
+<sectionHeader confidence="0.954692" genericHeader="references">
+References
+</sectionHeader>
+<reference confidence="0.991366181818182">
+Allen, J. &amp; Perrault, C. (1980). Analyzing intention in utterances. Artificial Intelligence,
+15, 143-178.
+Austin, J. (1962). How to do things with words. Cambridge, MA: Harvard University Press.
+Cohen, P. &amp; Perrault, C. (1979). Elements of a plan-based theory of speech acts. Cognitive
+Science, 3, 177-212.
+DeJong, G. &amp; Mooney, R. (1986). Explanation-based learning: An alternate view. Machine
+Learning, 1, 145-176.
+Fikes, R. &amp; Nilsson, N. (1971). STRIPS: A new approach to the application of theorem
+proving to problem solving. Artificial Intelligence, 2, 189-208.
+Gibbs, R. (1983). Do people always process the literal meaning of indirect requests? Journal
+of Experimental Psychology: Learning, Memory, and Cognition, 3, 524-533.
+Gibbs, R. (1984). Literal meaning and psychological theory. Cognitive Science, 8, 275-305.
+Grosz, B. &amp; Sidner, C. (1986). Attention, intentions and the structure of discourse. American
+Journal of Computational Linguistics, 12, 175-204.
+Hinkleman, E. &amp; Allen, J. (1988). How to do things with words, computationally speaking
+(Technical Report). Rochester, NY: Computer Science Department, University of Rochester.
+Keller, R. (1987). Defining operationality for explanation-based learning. Proceedings of the
+National Conference on Artificial Intelligence (482-487). Seattle, WA: Morgan-Kaufmann.
+Lehnert, W. (1978). The process of question answering. Hillsdale, NJ: Lawrence Erlbaum
+Associates.
+Litman, D. &amp; Allen, J. (1987). A plan recognition model for subdialogues in conversation.
+Cognitive Science, 11, 163-200.
+</reference>
+<page confidence="0.96913">
+7
+</page>
+<reference confidence="0.990478416666667">
+Mitchell, T., Kedar-Cabelli, S., &amp; Keller, R. (1986). Explanation-based learning: A unifying
+view. Machine Learning, 1, 47-80.
+Mooney, R. &amp; Bennett, S. (1986). A domain independent explanation-based generalizer.
+Proceedings of the Fifth National Conference on Artificial Intelligence (551-555). Philadelphia:
+Morgan Kaufmann.
+Pazzani, M. (1987). Explanation-based learning for knowledge-based systems. International
+Journal of Man-Machine Studies, 26, 413-433.
+Perrault, C. &amp; Allen, J. (1980). A plan-based analysis of indirect speech acts. American
+Journal of Computational Linguistics, 6, 167-182.
+Searle, J. R. (1975). Indirect speech acts. In P. Cole &amp; J. L. Morgan (Eds.), Syntax and
+Semantics, Vol. 3, Speech Acts. New York: Academic Press.
+Wilensky, R. (1983). Planning and understanding. Reading, MA: Addison-Wesley.
+</reference>
+<page confidence="0.638753">
+8
+</page>
+<figure confidence="0.883250246153846">
+Appendix
+; indirect interpretation
+(!- (interpretation (s-request (speaker ?s)
+(hearer ?l)
+?a1)
+(request (speaker ?l)
+(hearer ?s)
+?a2)))
+; &amp;quot;want precondition&amp;quot;
+(want ?s (request (speaker ?s)
+(hearer ?l)
+?a1)
+?a2)
+(want-perform ?l ?s ?a2))
+; &amp;quot;action effect&amp;quot; rule
+(!- (want ?a ?act ?res)
+(effect ?act ?e)
+(want ?a ?e ?res))
+; &amp;quot;want-action&amp;quot; rule
+(!- (want ?a (want ?s ?act ?res1) ?res2)
+(want ?a ?act ?res2))
+; &amp;quot;know positive&amp;quot; rule
+(!- (want ?a (knowif ?a ?p) ?res)
+(want ?a ?p ?res))
+; &amp;quot;precondition-action&amp;quot; rule
+(!- (want ?a ?p ?res)
+(precondition ?p ?res))
+; an &amp;quot;amicable&amp;quot; relationship is required for ATRANSing cheap objects
+(!- (want-perform ?actor ?for (act (type atrans)
+(actor ?actor)
+(object (p-obj (type ?x)
+(owner ?actor)
+(loc ?loc)
+(value cheap)))
+(to ?for)
+(from ?actor)))
+(relationship ?actor ?for amicable))
+9
+; precondition for ATRANSing is possession
+(!- (precondition (state (type possess)
+(object ?o)
+(actor ?a))
+(act (type atrans)
+(actor ?a)
+(object ?o)
+(to ?to)
+(from ?a))))
+; precondition for using is possession
+(!- (precondition (state (type possess)
+(object ?o)
+(actor ?l))
+(plan (type use)
+(actor ?a)
+(object ?o))))
+; effect of request is want
+(!- (effect (request (speaker ?a)
+(hearer ?s)
+?act)
+(want ?s ?act ?res)))
+; effect of informif is knowif
+(!- (effect (act (type informif)
+(actor ?a)
+(to ?s)
+?p)
+(knowif ?s ?p)))
+</figure>
+</variant>
+</algorithm>
+</algorithms>
