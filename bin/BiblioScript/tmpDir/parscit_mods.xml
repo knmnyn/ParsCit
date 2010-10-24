@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<modsCollection xmlns="http://www.loc.gov/mods/v3"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-2.xsd"><!-- ### JOURNAL ARTICLES ### --><mods ID="d1e50">
+      <titleInfo>
+         <title>Indexing by Latent Semantic Anaysis</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">S</namePart>
+         <namePart type="family">Deerwester</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">G</namePart>
+         <namePart type="family">Furnas</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">T</namePart>
+         <namePart type="family">Landauer</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">R</namePart>
+         <namePart type="family">Harshman</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title>Journal of the American Society of Information Science</title>
+         </titleInfo>
+         <originInfo>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <part>
+            <extent unit="page">
+               <start>41</start>
+               <end>6</end>
+            </extent>
+         </part>
+         <genre authority="marc">journal</genre>
+         <genre>academic journal</genre>
+      </relatedItem>
+      <identifier type="citekey">d1e50</identifier>
+   </mods>
+   <mods ID="d1e260">
+      <typeOfResource>text</typeOfResource>
+      <relatedItem type="host">
+         <titleInfo>
+            <title>Journal of Computer Science and Information Management</title>
+         </titleInfo>
+         <originInfo>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <genre authority="marc">journal</genre>
+         <genre>academic journal</genre>
+      </relatedItem>
+      <identifier type="citekey">d1e260</identifier>
+   </mods>
+   <mods ID="d1e288">
+      <titleInfo>
+         <title>Incorporating a semantic analysis into a document retrieval strategy</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">E</namePart>
+         <namePart type="family">Wendlandt</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">R</namePart>
+         <namePart type="family">Driscoll</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title>CACM</title>
+         </titleInfo>
+         <originInfo>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <part>
+            <extent unit="page">
+               <start>54</start>
+               <end>48</end>
+            </extent>
+         </part>
+         <genre authority="marc">journal</genre>
+         <genre>academic journal</genre>
+      </relatedItem>
+      <identifier type="citekey">d1e288</identifier>
+   </mods>
+   <!-- ### BOOKS ### --><mods ID="d1e87">
+      <titleInfo>
+         <title>An Introduction to Functional Grammar. Edward</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">M</namePart>
+         <namePart type="given">A</namePart>
+         <namePart type="given">K</namePart>
+         <namePart type="family">Halliday</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">creator</roleTerm>
+         </role>
+      </name>
+      <originInfo>
+         <dateIssued>1985</dateIssued>
+         <place>
+            <placeTerm type="text">Arnold, London</placeTerm>
+         </place>
+         <issuance>monographic</issuance>
+      </originInfo>
+      <identifier type="citekey">d1e87</identifier>
+   </mods>
+   <mods ID="d1e121">
+      <titleInfo>
+         <title>Extracting Context from Unstructured Text Documents by Content Word Density</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">S</namePart>
+         <namePart type="family">Jang</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">creator</roleTerm>
+         </role>
+      </name>
+      <originInfo>
+         <dateIssued>1997</dateIssued>
+         <issuance>monographic</issuance>
+      </originInfo>
+      <identifier type="citekey">d1e121</identifier>
+   </mods>
+   <mods ID="d1e202">
+      <titleInfo>
+         <title>Incorporating Semantic Categories (SEMCATs) into a Partial Information Retrieval System</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">H</namePart>
+         <namePart type="family">Shin</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">creator</roleTerm>
+         </role>
+      </name>
+      <originInfo>
+         <dateIssued>1997</dateIssued>
+         <issuance>monographic</issuance>
+      </originInfo>
+      <identifier type="citekey">d1e202</identifier>
+   </mods>
+   <mods ID="d1e236">
+      <titleInfo>
+         <title>Incorporating Probabilistic Semantic Categories (SEMCATs) Into Vector Space Techniques for Partial Document Retrieval</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">H</namePart>
+         <namePart type="family">Shin</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">creator</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">J</namePart>
+         <namePart type="family">Stach</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">creator</roleTerm>
+         </role>
+      </name>
+      <originInfo>
+         <dateIssued>1999</dateIssued>
+         <issuance>monographic</issuance>
+      </originInfo>
+      <identifier type="citekey">d1e236</identifier>
+   </mods>
+   <!-- ### BOOK SECTIONS ### --><mods ID="d1e7">
+      <titleInfo>
+         <title>incorporating Semantics Within a Connectionist Model and a Vector Processing Model</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">R</namePart>
+         <namePart type="family">Boyd</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">J</namePart>
+         <namePart type="family">Driscoll</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">I</namePart>
+         <namePart type="family">Syu</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title>In Proceedings of the TREC-2</title>
+         </titleInfo>
+         <part>
+            <extent unit="page">
+               <start>NIST.</start>
+               <end/>
+            </extent>
+         </part>
+         <originInfo>
+            <issuance>monographic</issuance>
+            <dateIssued>1994</dateIssued>
+         </originInfo>
+         <genre>collection</genre>
+      </relatedItem>
+      <identifier type="citekey">d1e7</identifier>
+   </mods>
+   <mods ID="d1e167">
+      <titleInfo>
+         <title>Retrieval of Partial Documents</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <name type="personal">
+         <namePart type="given">A</namePart>
+         <namePart type="family">Moffat</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">R</namePart>
+         <namePart type="family">Davis</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">R</namePart>
+         <namePart type="family">Wilkinson</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <name type="personal">
+         <namePart type="given">J</namePart>
+         <namePart type="family">Zobel</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="text">author</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title>In Proceedings of TREC-2</title>
+         </titleInfo>
+         <originInfo>
+            <issuance>monographic</issuance>
+            <dateIssued>1994</dateIssued>
+         </originInfo>
+         <genre>collection</genre>
+      </relatedItem>
+      <identifier type="citekey">d1e167</identifier>
+   </mods>
+</modsCollection>
+

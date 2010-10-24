@@ -1,0 +1,222 @@
+Keyphrase_NNP Extraction_NNP in_IN Scientific_NNP Publications_NNP Thuy_NNP Dung_NNP Nguyen_NNP and_CC Min-Yen_NNP Kan_NNP Department_NNP of_IN Computer_NNP Science,_NNP School_NNP of_IN Computing,_NNP National_NNP University_NNP of_IN Singapore,_NNP Singapore,_NNP Computing,_NNP 117543_CD kanmy@comp.nus.edu.sg_. 
+Abstract._NNP 
+We_PRP present_VBP a_DT keyphrase_NN extraction_NN algorithm_NN for_IN scientific_JJ publica-_NN tions._. 
+Different_NN from_IN previous_JJ work,_NN we_PRP introduce_VB features_NNS that_IN capture_NN the_DT posi-_JJ tions_NNS of_IN phrases_NNS in_IN document_NN with_IN respect_NN to_TO logical_JJ sections_NNS found_VBN in_IN scientific_JJ discourse._NN 
+We_PRP also_RB introduce_VB features_NNS that_IN capture_NN salient_NN morphological_JJ phenom-_JJ ena_NN found_VBN in_IN scientific_JJ keyphrases,_NNS such_JJ as_IN whether_IN a_DT candidate_NN keyphrase_NN is_VBZ an_DT acronyms_NN or_CC uses_VBZ specific_JJ terminologically_RB productive_JJ suffixes._. 
+We_PRP have_VBP imple-_JJ mented_VBN these_DT features_NNS on_IN top_NN of_IN a_DT baseline_NN feature_NN set_VBD used_VBN by_IN Kea_NNP [1]._. 
+In_IN our_PRP$ evaluation_NN using_VBG a_DT corpus_NN of_IN 120_CD scientific_JJ publications_NNS multiply_RB annotated_VBN for_IN keyphrases,_NN our_PRP$ system_NN significantly_RB outperformed_VBD Kea_NN at_IN the_DT P_NN &lt;_IN .05_CD level._. 
+As_IN we_PRP know_VBP of_IN no_DT other_JJ existing_VBG multiply_NNS annotated_VBD keyphrase_NN document_NN collec-_JJ tions,_IN we_PRP have_VBP also_RB made_VBN our_PRP$ evaluation_NN corpus_NN publicly_RB available._. 
+We_PRP hope_VBP that_IN this_DT contribution_NN will_MD spur_VB future_JJ comparative_NN research._. 
+1_CD Introduction_NN Keyphrases_NNS are_VBP defined_VBN as_IN phrases_NNS that_IN capture_NN the_DT main_JJ topics_NNS discussed_VBN in_IN a_DT document._NN 
+As_IN they_PRP offer_VBP a_DT brief_JJ yet_CC precise_JJ summary_NN of_IN a_DT document_NN content,_NN they_PRP can_MD be_VB utilized_VBN for_IN various_JJ applications._NN 
+In_IN an_DT information_NN retrieval_NN (IR)_NNS environment,_VBP they_PRP serve_VBP as_IN an_DT indication_NN of_IN document_NN relevance_NN for_IN users,_JJ as_IN the_DT list_NN of_IN keyphrases_NNS can_MD quickly_RB help_VB determine_VB whether_IN a_DT given_VBN document_NN is_VBZ relevant_JJ to_TO their_PRP$ interest._JJ 
+As_IN keyphrases_NNS reflect_VBP a_DT document???s_JJ main_JJ topics,_NN they_PRP can_MD be_VB utilized_VBN to_TO cluster_VB documents_NNS into_IN groups_NNS by_IN measuring_VBG the_DT overlap_NN between_IN the_DT keyphrases_NNS assigned_VBN to_TO them._VB 
+Keyphrases_NNS also_RB be_VB used_VBN proactively_RB in_IN IR,_NNP in_IN indexing._JJ 
+Good_JJ keyphrases_NNS supplement_NN full-text_JJ indexing_NN by_IN assisting_VBG users_NNS in_IN finding_VBG relevant_JJ documents._NN 
+Despite_IN these_DT known_JJ advantages_NNS of_IN keyphrases,_NN only_RB a_DT minority_NN of_IN documents_NNS have_VBP keyphrases_NNS assigned_VBN to_TO them._VB 
+This_DT is_VBZ because_IN authors_NNS provide_VBP keyphrases_NNS only_RB when_WRB they_PRP are_VBP instructed_VBN to_TO do_VB so_RB [1],_JJ as_IN manual_JJ assignment_NN of_IN keyphrases_NNS is_VBZ expensive_JJ and_CC time-consuming._JJ 
+This_DT need_NN motivates_VBZ research_NN in_IN finding_VBG automated_VBN approaches_NNS to_TO keyphrase_VB gen-_NN eration._. 
+Most_JJS existing_VBG automatic_JJ keyphrase_NN generation_NN programs_NNS view_VBP this_DT task_NN as_IN a_DT supervised_JJ machine_NN learning_VBG classification_NN task,_NNS where_WRB labeled_VBN keyphrases_NNS are_VBP used_VBN to_TO learn_VB a_DT model_NN of_IN how_WRB true_JJ keyphrases_NNS differentiate_VBP themselves_PRP from_IN other_JJ possible_JJ can-_JJ didate_NN phrases._. 
+The_DT model_NN is_VBZ constructed_VBN using_VBG a_DT set_NN of_IN features_NNS that_IN capture_NN the_DT saliency_NN of_IN a_DT phrase_NN as_IN a_DT keyphrase._NN 
+In_IN this_DT work,_NN we_PRP extend_VBP an_DT existing_VBG state-of-the-art_JJ feature_NN set_VBN with_IN additional_JJ fea-_JJ tures_NNS that_IN capture_NN the_DT logical_JJ position_NN and_CC additional_JJ morphological_JJ characteristics_NNS of_IN 2_CD Nguyen_NNP and_CC Kan_NNP keyphrases._. 
+Unlike_IN earlier_JJR work_NN that_IN aim_NN for_IN a_DT domain-independant_NN algorithm,_IN our_PRP$ work_NN is_VBZ tailored_VBN to_TO scientific_JJ publications,_NN where_WRB keyphrases_NNS manifest_JJS domain-specific_JJ charac-_NN teristics._. 
+With_IN our_PRP$ extended_JJ feature_NN set,_IN we_PRP demonstrate_VB a_DT statistically_RB significant_JJ perfor-_JJ mance_NN improvement_NN over_IN the_DT well-known_JJ Kea_NN algorithm_IN [1]_NN for_IN scientific_JJ publications._NN 
+We_PRP first_RB review_VBP previous_JJ approaches_NNS in_IN automatic_JJ keyphrase_NN generation_NN next._. 
+We_PRP then_RB describe_VBP the_DT overall_JJ methodology_NN for_IN our_PRP$ system_NN is_VBZ described_VBN in_IN Section_NN 3,_IN which_WDT details_NNS our_PRP$ new_JJ features_NNS used_VBN to_TO enhance_VB the_DT baseline_NN feature_NN set._. 
+Evaluation,_NNP including_VBG our_PRP$ compilation_NN of_IN a_DT suitable_JJ multiply-annotated_JJ corpus,_NN is_VBZ detailed_VBN in_IN Section_NN 4._CD 2_, Related_VBN Work_NN Work_NN on_IN keyphrase_NN generation_NN can_MD be_VB categorized_VBN into_IN two_CD major_JJ approaches:_NNS extraction_NN and_CC assignment._VB 
+Keyphrase_NNP Extraction._NNP 
+Keyphrase_NNP extraction_NN methods_NNS select_VBP phrases_NNS present_VBP in_IN the_DT source_NN document_NN itself._. 
+Such_JJ approaches_NNS usually_RB consist_VBP of_IN a_DT candidate_NN identification_NN stage_NN and_CC a_DT selection_NN stage._. 
+In_IN the_DT candidate_NN identification_NN stage,_NN systems_NNS restrict_VBP the_DT number_NN of_IN candidate_NN phrases_NNS for_IN later_JJ consideration_NN in_IN order_NN to_TO bound_VBN the_DT computational_JJ complexity_NN of_IN the_DT latter_JJ se-_JJ lection_NN stage._. 
+Most_JJS systems_NNS we_PRP surveyed_VBD place_NN either_CC a_DT length_NN or_CC phrase_NN type_NN restriction_NN (e.g.,_IN noun_JJ phrases_NNS only)._. 
+Kim_NNP and_CC Wilbur_NNP [2]_TO study_VB this_DT stage_NN in_IN more_RBR depth,_JJ propos-_NN ing_VBG three_CD statistical_JJ techniques_NNS for_IN identifying_VBG content_JJ bearing_NN terms,_NN by_IN examining_VBG the_DT distributional_JJ properties_NNS of_IN a_DT candidate_NN versus_IN its_PRP$ context._JJ 
+Tomokiyo_NNP and_CC Hurst_NNP [3]_MD take_VB a_DT language_NN modeling_VBG approach_NN to_TO keyphrase_VB generation_NN by_IN calculating_VBG the_DT phraseness_NN of_IN a_DT candidate,_NN which_WDT represents_VBZ the_DT extent_NN to_TO which_WDT a_DT word_NN sequence_NN is_VBZ considered_VBN to_TO have_VB a_DT phrasal_NN quality._. 
+The_DT bulk_NN ofthe_NN work_NN comes_VBZ in_IN the_DT selection_NN stage,_NN where_WRB the_DT program_NN judges_NNS whether_IN a_DT candidate_NN is_VBZ a_DT keyphrase_NN or_CC not._JJ 
+In_IN a_DT supervised_JJ learning_NN scenario,_IN this_DT stage_NN criti-_NN cally_RB hinges_VBZ on_IN the_DT features_NNS used_VBD to_TO describe_VB a_DT candidate._JJ 
+Barker_NNP and_CC Cornacchia_NNP [4]_NNP used_VBD three_CD features_NNS to_TO build_VB their_PRP$ model:_JJ candidate_NN word_NN length,_NN occurrence_NN frequency,_NN and_CC head_NN noun_NN frequency._. 
+Turney???s_NNP GenEx_NNP [5]_, system_NN computed_VBD a_DT vector_NN of_IN nine_CD fea-_JJ tures_NNS to_TO represent_VB candidates._JJ 
+These_DT features_NNS captured_VBN candidate_NN length_NN and_CC frequency_NN like_IN Barker_NNP and_CC Cornacchia???s_NNP system,_, but_CC additionally_RB modeled_VBD the_DT candidate???s_JJ position_NN within_IN the_DT document._NN 
+Frank_NNP et_NNP al._. 
+[1]_PRP introduced_VBD Kea_NNP keyphrasing_NN system._. 
+Although_IN they_PRP pursued_VBD numerous_JJ features,_IN their_PRP$ final_JJ feature_NN set_NN only_RB used_VBD three_CD independent_JJ fea-_JJ tures_NNS for_IN classification:_NNS 1)_IN the_DT TFxIDF_NNP score,_NN 2)_IN the_DT position_NN of_IN the_DT first_JJ occurrence,_NN and_CC 3)_JJ corpus_JJ keyphrase_NN frequency,_, which_WDT measures_VBZ how_WRB many_JJ times_NNS the_DT candiate_NN was_VBD assigned_VBN as_IN a_DT keyphrase_NN in_IN other_JJ training_NN documents._. 
+Despite_IN the_DT reduced_JJ size_NN of_IN their_PRP$ feature_NN set,_IN Kea???s_NNP performance_NN is_VBZ reported_VBN as_RB comparable_JJ to_TO GenEx._VB 
+Work_NN by_IN Turney_NNP [6]_NNP noted_VBD that_DT candidate_NN selection_NN decisions_NNS are_VBP not_RB independent._JJ 
+In_IN other_JJ words,_NNS prior_RB keyphrase_VBP selections_NNS should_MD have_VB an_DT influence_NN on_IN the_DT remaining_VBG selection_NN decisions._. 
+He_PRP proposed_VBD to_TO model_VB the_DT coherence_NN of_IN an_DT entire_JJ set_NN of_IN candidate_NN phrases_NNS using_VBG pointwise_JJ mutual_JJ information_NN (PMI)_NN between_IN a_DT candidate_NN and_CC k_NN previ-_JJ ously_RB selected_VBN phrases._. 
+However,_IN the_DT PMI_NNP for_IN these_DT sets_NNS are_VBP difficult_JJ to_TO obtain_VB without_IN sufficiently_RB large_JJ datasets;_NN Turney_NN proposed_VBN using_VBG web_DT search_NN engine_NN queries_NNS to_TO obtain_VB Keyphrase_JJ Extraction_NN in_IN Scientific_NNP Publications_NNP 3_NNP rough_JJ collocation_NN estimates,_, although_IN this_DT has_VBZ marked_VBN drawbacks_NNS in_IN terms_NNS of_IN network_NN bandwidth_NN and_CC time_NN inefficiency._. 
+Supervised_VBN text_NN classification_NN is_VBZ not_RB the_DT only_JJ method_NN for_IN keyword_NN extraction._. 
+Proba-_NNP bilistic_JJ topic_NN models_NNS [7]_TO treat_VB documents_NNS as_IN a_DT mixture_NN of_IN topics_NNS and_CC topics_NNS as_IN a_DT probabil-_JJ ity_NN distributions_NNS over_IN words._NN 
+Thus,_IN topic_NN models_NNS can_MD be_VB considered_VBN as_IN generative_JJ models_NNS for_IN documents,_NN and_CC dually,_VB given_VBN a_DT document_NN one_NN can_MD infer_VB the_DT topic(s)_NN responsible_JJ for_IN generating_VBG that_WDT document._. 
+While_IN quite_RB potent,_JJ topic_NN models_NNS also_RB rely_VBP on_IN large_JJ amounts_NNS of_IN training_NN data,_NN and_CC are_VBP ineffective_JJ for_IN small_JJ corpora._JJ 
+Keyphrase_NNP Assignment._NNP 
+In_IN contrast_NN to_TO extraction,_VB keyphrase_NN assignment_NN is_VBZ typi-_JJ cally_RB used_VBN when_WRB the_DT set_NN of_IN possible_JJ keyphrases_NNS is_VBZ limited_VBN to_TO a_DT known,_NN fixed_VBN set,_NNS usually_RB derived_VBN from_IN a_DT controlled_JJ vocabulary_NN or_CC set_NN of_IN subject_NN headings._. 
+Here,_NNP binary_JJ classifiers_NNS can_MD be_VB trained_VBN for_IN each_DT keyphrase_NN k_VBN in_IN the_DT set,_NN and_CC the_DT assignment_NN of_IN keyphrases_NNS for_IN a_DT document_NN is_VBZ given_VBN by_IN running_VBG all_DT k_JJ classifiers_NNS and_CC assigning_VBG those_DT which_WDT indicate_VBP a_DT positive_JJ result._JJ 
+In_IN essence,_NN keyphrase_NN assignment_NN is_VBZ the_DT same_JJ as_IN traditional_JJ multiclass_NNS text_NN classification._. 
+For_IN such_JJ approaches,_NNS as_IN the_DT keyphrases_NNS are_VBP known_VBN a_DT priori,_NN mutual_JJ information_NN be-_NN tween_IN the_DT keyphrase_NN and_CC other_JJ words_NNS in_IN the_DT document_NN can_MD be_VB used_VBN to_TO do_VB feature_NN selection_NN [8]._. 
+If_IN the_DT keyphrases_NNS form_VBP a_DT ontology_NN with_IN broader,_NN narrower_JJR and_CC related_JJ term_NN linkages,_IN these_DT relations_NNS can_MD also_RB be_VB harnessed_VBN to_TO provide_VB additional_JJ evidence_NN for_IN inference_NN [9]._. 
+Medelyan_NNP and_CC Witten_NNP [10]_VBP used_VBN thesaural_JJ relations_NNS as_IN edges_NNS to_TO calculate_VB the_DT connec-_JJ tivity_NN degree_NN of_IN a_DT candidate_NN keyphrase,_NN showing_VBG that_IN this_DT feature_NN (in_NN conjunction_NN with_IN others)_NNS also_RB statistically_RB improved_VBN assignment_NN accuracy._. 
+A_DT drawback_NN of_IN the_DT keyphrase_NN assignment_NN method_NN is_VBZ that_IN it_PRP requires_VBZ a_DT large_JJ annotated_JJ corpus,_NN as_IN suitable_JJ number_NN of_IN training_NN examples_NNS need_VBP to_TO be_VB found_VBN for_IN each_DT possible_JJ keyphrase._. 
+3_LS Methodology_NN Given_VBN the_DT current_JJ state_NN of_IN keyphrase_NN generation,_NN we_PRP chose_VBD to_TO use_VB an_DT extraction_NN based_VBN approach,_RB as_IN no_DT suitable_JJ compilation_NN of_IN subject_JJ headings_NNS or_CC ontology_NN exists_VBZ that_DT aim_NN to_TO facilitate_VB retrieval_NN effectiveness._. 
+Extraction-based_JJ methods_NNS also_RB generate_VBP a_DT more_JJR diverse_JJ set_NN of_IN keyphrases,_NN which_WDT we_PRP believe_VBP would_MD better_RB support_VB relevance_NN assessment._. 
+We_PRP also_RB chose_VBD to_TO use_VB a_DT supervised_JJ approach,_NN as_IN other_JJ methods_NNS require_VBP large_JJ amounts_NNS of_IN annotated_JJ corpora,_NN which_WDT we_PRP did_VBD not_RB have._VB 
+Among_IN the_DT surveyed_VBN related_VBN work,_TO the_DT Kea_NNP algorithm_NN fits_VBZ this_DT specification_NN quite_RB well._JJ 
+Kea_NNP uses_VBZ just_RB a_DT few_JJ domain-independent_JJ features_NNS that_WDT have_VBP been_VBN shown_VBN to_TO yield_VB robust_JJ yet_RB state-of-the-art_JJ results._. 
+For_IN these_DT reasons,_NN we_PRP chose_VBD it_PRP as_IN the_DT baseline_NN system_NN for_IN comparison._JJ 
+In_IN developing_VBG a_DT keyphrase_NN method_NN for_IN scientific_JJ publications,_NN we_PRP note_VBP that_IN such_JJ doc-_JJ uments_NNS distinguish_VBP themselves_PRP from_IN others_NNS based_VBN on_IN their_PRP$ use_NN of_IN technical_JJ language_NN as_RB well_RB as_IN their_PRP$ rich_JJ document_NN structure._. 
+As_IN such,_NN we_PRP have_VBP tried_VBN to_TO capitalize_VB on_IN these_DT features_NNS in_IN modeling_VBG as_IN well._JJ 
+Key_NNP enhancements_NNS in_IN our_PRP$ work_NN is_VBZ to_TO compute_VB such_JJ addi-_JJ tional_JJ features_NNS that_IN model_NN keyphrases_NNS in_IN terms_NNS of_IN their_PRP$ 1)_JJ morphological_JJ status_NN and_CC 2)_JJ document-centric_JJ structural_JJ character._NN 
+Figure_NN 1_CD shows_VBZ the_DT outline_NN of_IN our_PRP$ system_NN and_CC highlights_VBZ our_PRP$ new_JJ contributions_NNS to_TO keyphrase_VB extraction_NN in_IN gray._JJ 
+Like_IN the_DT baseline_NN system_NN Kea,_VB our_PRP$ system_NN follows_VBZ a_DT su-_JJ 4_CD Nguyen_NNP and_CC Kan_NNP Fig._NNP 
+1._JJ 
+System_NNP architecture._VBZ 
+Contributions_NNS of_IN this_DT paper_NN are_VBP highlighted_VBN in_IN gray._JJ 
+pervised_JJ machine_NN learning_NN approach._. 
+Training_JJ documents_NNS are_VBP used_VBN to_TO generate_VB linguis-_JJ tically_RB motivated_JJ features_NNS and_CC the_DT extracted_JJ annotation_NN from_IN the_DT training_NN data_NN serves_VBZ as_IN the_DT class_NN label_NN C_NNP =_NNP {keyPhrase,_NNP {keyPhrase,???keyPhrase}._. 
+Preprocessing_NNP is_VBZ first_RB done_VBN to_TO convert_VB the_DT document_NN from_IN PDF_NNP to_TO plain_JJ text_NN and_CC HTML_NN formats,_NN using_VBG the_DT PDF995_JJ utility_NN suite._. 
+The_DT plain_JJ text_NN form_NN is_VBZ first_JJ processed_VBN to_TO delimit_VB sentences,_NNS then_RB passed_VBD to_TO a_DT modern_JJ maximum_NN entropy_NN based_VBN part-of-speech_JJ (POS)_NNP tagger_NN [11]._. 
+For_IN candidate_NN identification,_IN all_DT simplex_JJ noun_NN phrases_VBZ (i.e.,_JJ ones_NNS without_IN post_NN mod-_JJ ification,_NNS such_JJ as_IN relative_JJ clauses_NNS and_CC prepositional_JJ phrases)_NNS are_VBP deemed_VBN as_IN keyphrase_NN candidates._. 
+Case_NNP folding_NN and_CC stemming_VBG is_VBZ also_RB done_VBN to_TO conflate_VB statistics_NNS for_IN variants,_NN but_CC only_RB after_IN the_DT relevant_JJ morphological_JJ features_NNS for_IN the_DT individual_JJ candidate_NN are_VBP cal-_JJ culated._. 
+Candidate_NNP selection_NN is_VBZ the_DT primary_JJ workhorse_NN for_IN keyphrase_NN extraction._. 
+As_IN stated,_IN our_PRP$ key_JJ contribution_NN is_VBZ in_IN introducing_VBG two_CD additional_JJ sets_NNS of_IN features_NNS that_WDT help_VBP to_TO model_VB the_DT document_NN structure_NN of_IN scientific_JJ publications_NNS as_RB well_RB as_IN the_DT characteristic_JJ termino-_NN logical_JJ morphology._. 
+All_DT extracted_JJ features_NNS (detailed_VBN in_IN the_DT next_JJ three_CD subsections_NNS are_VBP used_VBN as_IN evidence_NN to_TO create_VB a_DT keyphrase_NN model_NN using_VBG the_DT standard_JJ Naive_JJ Bayes_NNPS learner_JJR implemented_VBN in_IN the_DT Weka_NNP machine_NN learning_VBG toolkit_NN [12]._. 
+3.1_CD Baseline_NN feature_VBP set_VBN We_PRP first_RB review_VBP the_DT two_CD domain-independent_JJ features_NNS used_VBN by_IN Kea_NNP and_CC also_RB in_IN our_PRP$ en-_JJ hanced_NNS system._. 
+Note_VB that_IN we_PRP did_VBD not_RB use_VB the_DT keyphrase_NN frequency_NN feature_NN of_IN Kea,_NNP as_IN this_DT feature_NN was_VBD reported_VBN only_RB effective_JJ when_WRB sufficiently_RB large_JJ training_NN data_NN is_VBZ provided._JJ 
+Term_JJ frequency_NN x_IN Inverse_JJ document_NN frequency_NN (TFxIDF)_, -_: This_DT is_VBZ the_DT standard_JJ (TFxIDF)salience_NN metric_JJ used_VBN in_IN information_NN retrieval._. 
+Within_IN a_DT single_JJ document,_NN frequently_RB occur-_JJ ring_NN terms_NNS are_VBP given_VBN high_JJ weight;_NN over_IN an_DT entire_JJ corpus,_JJ terms_NNS that_WDT occur_VBP in_IN few_JJ documents_NNS are_VBP given_VBN high_JJ weight._. 
+There_EX are_VBP many_JJ specific_JJ formulations_NNS of_IN tfx_NN idf;_NNS here_RB we_PRP use_VBP a_DT logarithm_NN to_TO dampen_VB the_DT inverse_JJ frequency_NN term:_IN fijwij=max(fij)_JJ x_NNS fijwij=max(fij)log2_VBP fijwij=max(fij)log2fz_VBN (1)_IN Keyphrase_NNP Extraction_NNP in_IN Scientific_NNP Publications_NNP 5_CD Position_NN of_IN first_JJ occurrence_NN -_: This_DT feature_NN reflects_VBZ the_DT belief_NN that_IN keyphrases_NNS tend_VBP to_TO appear_VB at_IN specific_JJ locations_NNS in_IN the_DT document_NN (e.g.,_NN at_IN the_DT beginning)._JJ 
+Position_NNP is_VBZ calculated_VBN as_IN the_DT number_NN of_IN words_NNS that_WDT precede_VBP its_PRP$ first_JJ appearance,_NN divided_VBN by_IN the_DT number_NN of_IN words_NNS in_IN the_DT document._NN 
+3.2_CD Extended_JJ structural_JJ features_NNS Different_JJ logical_JJ sections_NNS of_IN scientific_JJ publications_NNS contribute_VBP keyphrases_NNS at_IN different_JJ rates._. 
+For_IN example,_DT few_JJ true_JJ keyphrases_NNS appear_VBP in_IN experimental_JJ results_NNS but_CC more_JJR oc-_JJ cur_NN in_IN the_DT Abstract_NN or_CC Methods_NNS sections._. 
+In_IN a_DT sense,_NN the_DT baseline_JJ position_NN feature_NN is_VBZ a_DT coarse-grained_JJ approximation_NN of_IN this,_NN as_IN academic_JJ publications_NNS tend_VBP to_TO follow_VB a_DT consis-_JJ tent_NN sequential_JJ structure:_NN with_IN an_DT Abstract,_NN followed_VBN by_IN an_DT Abstract,Introduction,_NNP Related_NNP Abstract,Introduction,Work,_NNP Abstract,Introduction,Work,Methods,_NNP Abstract,Introduction,Work,Methods,Evaluation,_NNP Conclusions_NNPS and_CC Abstract,Introduction,Work,Methods,Evaluation,References._NNP 
+We_PRP thus_RB add_VBP an_DT additional_JJ set_NN of_IN features_NNS to_TO add_VB this_DT to_TO our_PRP$ keyphrase_NN model._. 
+Section_NN occurrence_NN vector_NN -_: We_PRP model_NN the_DT distribution_NN of_IN the_DT keyphrase_NN among_IN differ-_JJ ent_JJ logical_JJ sections_NNS as_IN a_DT vector_NN of_IN frequency_NN features_NNS for_IN 14_CD generic_JJ section_NN headers_NNS (as_VBP shown_VBN in_IN Table_NNP 1._. 
+However,_NNP as_IN headers_NNS in_IN individual_JJ papers_NNS may_MD deviate_VB signifi-_JJ cantly_RB from_IN the_DT norm_NN (e.g.,_IN ???Discussion???_NNS often_RB should_MD map_VB to_TO Evaluation,_VB inferring_VBG how_WRB individual_JJ header_NN instances_NNS map_VBP to_TO generic_JJ headers_NNS is_VBZ difficult._FW 
+We_PRP created_VBD a_DT maximum_JJ entropy_JJ (ME)_NN based_VBN classifier_JJR that_IN used_VBN four_CD features_NNS ???_IN corresponding_JJ to_TO 1)_DT section_NN number,_IN 2)_JJ relative_JJ position,_NN 3)_IN previous_JJ section_NN header_NN and_CC 4)_JJ cur-_JJ rent_NN section_NN header_NN ???_VBD to_TO infer_VB the_DT generic_JJ section_NN header_NN (from_IN our_PRP$ own_JJ list_NN of_IN 14_CD headers,_NNS as_IN shown_VBN below_IN in_IN Table_JJ 1)_NNS for_IN the_DT input_NN documents._. 
+The_DT ME_NN method_NN was_VBD evaluated_VBN using_VBG ten_NN fold_VBP cross_NN validation_NN on_IN a_DT corpus_NN of_IN 1020_CD annotated_JJ headers,_NNS garnering_VBG 938_CD correct_JJ assignments_NNS (92%_. accuracy)._'' 
+We_PRP also_RB tried_VBD using_VBG the_DT same_JJ features_NNS in_IN a_DT Hidden_JJ Markov_NNP Model_NNP (HMM)_NNP framework,_, but_CC this_DT only_RB achieved_VBD 369_CD correct_JJ assignments,_NN accruing_VBG a_DT much_JJ lower_JJR accuracy_NN (36%)._. 
+We_PRP thus_RB employ_VBP the_DT ME_NNP version_NN of_IN the_DT header_NN mapper_NN on_IN an_DT individual_JJ paper???s_NN headers_NNS (detected_VBD using_VBG orthography_NN and_CC numbering_VBG cues_NNS from_IN the_DT HTML_NNP converted_VBD format)_RB to_TO create_VB the_DT feature_NN vector._. 
+Details_NNS of_IN this_DT header_NN processing_NN are_VBP omitted_VBN for_IN space_NN reasons;_IN the_DT interested_JJ reader_NN is_VBZ referred_VBN to_TO the_DT first_JJ author???s_NN thesis_NN [13]._. 
+Abstract_NNP Categories_NNPS and_CC Subject_NNP Descriptors_NNPS General_NNP Terms_NNS Related_VBD Work_NN Acknowledgments_NNS Introduction_NNP Conclusions_NNPS Motivation_NNP Background_NNP References_NNPS Implementation_NN Methods_NNP Evaluation_NNP Applications_NNPS Table_NNP 1._. 
+The_DT 14_CD generic_JJ headers_NNS used_VBN by_IN our_PRP$ logical_JJ section_NN detection_NN module._. 
+3.3_CD Extended_JJ morphological_JJ features_NNS Jones_NNP and_CC Paynter???s_NNP study_NN [14]_, has_VBZ validated_VBN claims_NNS that_IN authors_NNS often_RB do_VBP choose_VB good_JJ keyphrases_NNS for_IN their_PRP$ own_JJ documents._NN 
+We_PRP thus_RB analyzed_VBD author-provided_JJ keyphrases_NNS of_IN 6_CD Nguyen_NNP and_CC Kan_NNP scientific_JJ publications_NNS to_TO assess_VB what_WP characteristics_NNS a_DT good_JJ keyphrase_NN should_MD possess._VB 
+We_PRP focused_VBD on_IN the_DT linguistics_NNS characteristics_NNS of_IN keyphrases_NNS assigned_VBN by_IN authors._JJ 
+POS_NNP sequence_NN -_: We_PRP observed_VBD that_IN almost_RB all_DT of_IN the_DT author_NN assigned_VBN keyphrases_NNS are_VBP noun_JJ phrases,_JJ but_CC whose_WP$ part-of-speech_JJ tag_NN sequence_NN varies._. 
+For_IN example,_DT nominal_JJ modifiers_NNS to_TO the_DT headword_NN feature_NN occur_VBP more_RBR frequently_RB than_IN adjectival_JJ ones_NNS (e.g.,_IN ???additive???/NN_NNP versus_NNP ???additional???/JJ)._. 
+This_DT trend_NN was_VBD observed_VBN for_IN both_DT bigram_NN and_CC trigram_NN keyphrases._. 
+We_PRP use_VBP the_DT POS_NNP tag_NN sequence_NN of_IN the_DT candidate_NN as_IN a_DT single_JJ feature_NN in_IN our_PRP$ extended_JJ feature_NN set._. 
+Suffix_NNP sequence_NN -_: In_IN English,_NNP suffixes_NNS also_RB hint_VBP at_IN the_DT terminological_JJ status_NN of_IN a_DT can-_NN didate._. 
+Headwords_NNS of_IN keyphrases_NNS manifest_FW different_JJ suffix_NN distributions_NNS than_IN mod-_NN ifiers._. 
+We_PRP noticed_VBD that_IN some_DT suffixes_NNS such_JJ as_IN ???ion,_DT ???ion,???ics,_NN ???ion,???ics,???ment_NN often_RB appear_VBP on_IN headwords_NNS while_IN others_NNS like_IN ???ion,???ics,???ment???ive,_DT ???ion,???ics,???ment???ive,???al,_NN ???ion,???ics,???ment???ive,???al,???ic_TO appear_VB on_IN modifiers._JJ 
+We_PRP use_VBP the_DT se-_JJ quence_NN of_IN morphological_JJ suffixes_NNS in_IN a_DT candidate_NN as_IN single_JJ feature._JJ 
+This_DT feature_NN par-_NN tially_RB overlaps_VBZ with_IN the_DT POS_NNP sequence_NN feature_NN but_CC is_VBZ considerably_RB more_JJR par-_NN fine-grained._. 
+Acronym_NNP status_NN -_: Authors_NNS often_RB introduce_VB acronyms_NNS for_IN phrases_NNS that_WDT are_VBP used_VBN par-_JJ fine-grained._. 
+many_JJ times_NNS in_IN a_DT document,_NN saving_NN space_NN and_CC making_VBG reference_NN considerably_RB easier._. 
+par-_NN fine-grained._NN 
+many_JJ While_IN there_EX are_VBP considerably_RB more_RBR sophisticated_JJ methods_NNS to_TO detect_VB acronyms,_NN we_PRP par-_VBP fine-grained._JJ 
+many_JJ While_IN found_VBD it_PRP sufficed_VBD to_TO use_VB use_NN a_DT simple_JJ approach._NN 
+Our_PRP$ approach_NN (Algorithm_VBD 1_CD scans_NNS for_IN par-_NN fine-grained._. 
+many_JJ While_IN found_VBN par-_JJ enthetical_JJ expressions_NNS in_IN the_DT text_NN and_CC the_DT preceding_VBG text_NN can_MD be_VB considered_VBN a_DT par-_NN fine-grained._. 
+many_JJ While_IN found_VBN par-_JJ corre-_NN spondance._. 
+We_PRP use_VBP a_DT binary_JJ feature_NN to_TO indicate_VB whether_IN a_DT candidate_NN is_VBZ an_DT acronym._NN 
+Algorithm_NNP 1_CD Psuedocode_NN for_IN our_PRP$ simple_JJ acronym_NN detection_NN algorithm._. 
+Retrieve_VB all_PDT the_DT texts_NNS T,..._. 
+T,...TNwithin_NNP 
+parentheses_NNS ()_VBP in_IN document_NN for_IN i=1toNdo_NN if_IN length_NN of_IN Ti_NNP &lt;_NNP 2_, then_RB Consider_VB Ti_NNS as_IN being_VBG neither_DT acronym_NN nor_CC definition,_NN continue_VBP end_NN if_IN if_IN (Ti_NNP is_VBZ in_IN upper-_JJ or_CC mixed-case)_JJ AND_CC length_NN of_IN (TiTi_NNP &lt;_NNP MAX_NNP then_RB Assume_VB Ti_NNP is_VBZ an_DT acronym_NN Move_NN toward_IN the_DT left_NN to_TO get_VB its_PRP$ definition_NN de_IN fi_FW if_IN de_FW fi_FW exists_VBZ then_RB Record_VB the_DT acronym_NN Ti_NN and_CC its_PRP$ definition_NN de_IN Tifi_NNP end_NN if_IN else_JJ Assume_NNP Ti_NNP is_VBZ the_DT definition_NN Move_NN toward_IN the_DT left_NN to_TO get_VB its_PRP$ acronym_NN acroi_NN if_IN acroi_NN exists_VBZ then_RB Record_VB the_DT acronym_NN acroi_NN and_CC its_PRP$ definition_NN acroiTi_NN end_NN if_IN end_NN if_IN end_NN for_IN Keyphrase_NNP Extraction_NNP in_IN Scientific_NNP Publications_NNP 7_CD 4_CD Evaluation_NN Two_CD main_JJ approaches_NNS to_TO evaluation_NN present_NN themselves._. 
+The_DT first_JJ approach_NN involves_VBZ the_DT manual_JJ evaluation_NN of_IN generated_VBN keyphrases._. 
+Here,_NNP subjects_NNS are_VBP given_VBN the_DT document_NN and_CC the_DT generated_VBN keyphrase_NN list_NN and_CC asked_VBD to_TO rank_VB the_DT relevance_NN of_IN each_DT phrase._JJ 
+A_DT disadvantage_NN of_IN this_DT approach_NN is_VBZ that_IN it_PRP requires_VBZ manual_JJ effort,_, but_CC more_JJR significantly,_NNS such_PDT an_DT approach_NN does_VBZ not_RB aid_VB any_DT subsequent_JJ evaluation,_NN as_IN the_DT relevant_JJ assessment_NN needs_VBZ to_TO be_VB done_VBN from_IN scratch_NN every_DT time._JJ 
+The_DT second_JJ approach_NN adopts_VBZ the_DT standard_JJ IR_NN metrics_NNS of_IN precision_NN and_CC recall_VBP to_TO measure_VB how_WRB well_RB the_DT generated_VBN keyphrases_NNS match_VBP a_DT gold-standard_NN assigned_VBN keyphrases._. 
+We_PRP take_VBP this_DT second_JJ approach,_NN but_CC a_DT question_NN of_IN how_WRB to_TO come_VB up_RP with_IN a_DT gold_JJ standard_NN arises._. 
+4.1_CD Data_NNP Collection_NNP Evaluating_NNP keyphrases_NNS has_VBZ shown_VBN to_TO be_VB subjective_JJ and_CC difficult._JJ 
+Jones_NNP and_CC Paynter_NNP (2001)_NNP proved_VBD that_DT author_NN keyphrases_NNS are_VBP good_JJ representations_NNS of_IN the_DT subject_NN of_IN a_DT doc-_NN ument._. 
+However,_NNP generate_VBP keyphrase_NN extraction_NN evaluation_NN requires_VBZ multiple_JJ judgments_NNS and_CC cannot_NN rely_VBP merely_RB on_IN the_DT single_JJ set_NN of_IN author-provided_JJ keyphrases_NNS [10]._. 
+Although_IN author_NN assigned_VBN keyphrases_NNS are_VBP usually_RB viewed_VBN as_IN a_DT good_JJ representation_NN of_IN the_DT subject_NN of_IN a_DT document,_NN they_PRP may_MD not_RB be_VB able_JJ to_TO cover_VB all_PDT the_DT good_JJ keyphrases_NNS in_IN a_DT document_NN as_IN keyphrase_NN assignment_NN is_VBZ inherently_RB subjective:_JJ keyphrases_NNS assigned_VBN by_IN one_CD annotator_NN are_VBP not_RB the_DT only_JJ correct_JJ ones._JJ 
+Unfortunately,_NN we_PRP could_MD not_RB find_VB a_DT publicly_RB available_JJ scientific_JJ document_NN dataset_VBN tagged_VBN by_IN multiple_JJ reliable_JJ annotators_NNS with_IN keyphrases1._JJ 
+We_PRP thus_RB constructed_VBN our_PRP$ own_JJ data_NNS set_VBP that_DT fits_VBZ these_DT qualities_NNS for_IN the_DT evaluation_NN of_IN our_PRP$ algorithm._JJ 
+We_PRP first_RB found_VBD suitable_JJ publications_NNS and_CC then_RB collected_VBD keyphrases_NNS from_IN manual_NN annotators._. 
+We_PRP first_RB used_VBD the_DT Google_NNP SOAP_NNP API_NNP to_TO find_VB documents_NNS using_VBG variants_NNS of_IN the_DT query_NN ???keywords_VBZ general_JJ terms_NNS filetype:pdf???._. 
+We_PRP downloaded_VBD over_IN 250_CD of_IN these_DT PDF_NNP documents_NNS for_IN futher_NN processing._. 
+Documents_NNS were_VBD then_RB manually_RB restricted_VBN to_TO scientific_JJ conference_NN papers,_NN with_IN a_DT length_NN range_NN of_IN 4-12_CD pages._. 
+As_IN our_PRP$ program_NN only_RB deals_VBZ with_IN textual_JJ input,_NN we_PRP converted_VBD the_DT PDF_NN to_TO plain_JJ text_NN using_VBG the_DT the_DT PDF995_NNP software_NN suite_NN as_IN it_PRP handled_VBD two-columned_JJ text_NN better_JJR than_IN other_JJ programs_NNS tried._. 
+At_IN the_DT end_NN of_IN this_DT process,_NN we_PRP had_VBD 211_CD documents_NNS in_IN plain_JJ text_NN format_NN which_WDT were_VBD converted_VBN successfully_RB without_IN problems._JJ 
+We_PRP then_RB recruited_VBD student_NN volunteers_NNS from_IN our_PRP$ department_NN to_TO participate_VB in_IN man-_JJ ual_JJ keyphrase_NN assignment._. 
+Each_DT volunteer_NN was_VBD given_VBN three_CD of_IN PDF_NNP files_NNS (with_VBP author-_JJ assigned_VBN keyphrases_NNS hidden)_VBP to_TO assign_VB keyphrases_NNS to._. 
+To_TO spur_VB future_JJ research_NN on_IN auto-_JJ matic_JJ keyphrasing,_NN we_PRP are_VBP making_VBG the_DT full_JJ dataset_NN and_CC its_PRP$ details_NNS publicly_RB available_JJ 2._IN 4.2_CD Results_NNS For_IN the_DT experiments_NNS reported_VBN in_IN this_DT chapter,_NN we_PRP used_VBD a_DT subset_NN of_IN full_JJ dataset_NN consisting_VBG of_IN 120_CD documents,_NN each_DT of_IN which_WDT has_VBZ two_CD keyphrase_NN sets:_VBD one_CD by_IN the_DT original_JJ author_NN 1_LS We_PRP considered_VBD a_DT corpus_NN of_IN socially_RB ???tagged???_JJ papers_NNS from_IN citeulike.org,_NN but_CC rejected_VBD this_DT as_RB authors_NNS occasionally_RB choose_VBP keyphrases_NNS for_IN purposes_NNS other_JJ than_IN document_NN description._. 
+2http://wing.comp.nus.edu.sg/downloads/keyphraseCorpus_JJ 
+8_CD Nguyen_NNP and_CC Kan_NNP and_CC the_DT other_JJ by_IN our_PRP$ volunteer._FW 
+For_IN each_DT document,_NN accuracy_NN is_VBZ the_DT number_NN of_IN matches_NNS among_IN keyphrases_NNS in_IN the_DT standard_JJ set_NN and_CC ten_NN top-ranked_JJ extracted_JJ phrases._JJ 
+To_TO ensure_VB clean_JJ separation_NN between_IN training_NN and_CC testing_NN documents_NNS for_IN our_PRP$ system_NN and_CC the_DT trainable_JJ Kea_NN baseline,_IN all_DT results_NNS reported_VBN here_RB are_VBP obtained_VBN using_VBG ten-fold_JJ cross_NN validation._. 
+System_NNP Average_NNP #_# of_IN exact_JJ matches_NNS Average_JJ score_NN based_VBN on_IN weight_NN Kea_NN (baseline)_IN Our_PRP$ system_NN 3.03_CD 3.25_CD (0.024)_. 
+3.61_CD 3.84_CD (0.033)_. 
+Table_JJ 2._JJ Evaluation_NN results._. 
+Statistical_JJ signficance_NN over_IN the_DT baseline_NN shown_VBN in_IN parentheses_NNS (2-_IN tailed_VBN paired_JJ t-tests)._. 
+Table_JJ 2_CD shows_VBZ the_DT average_JJ number_NN of_IN exact_JJ matches_NNS of_IN the_DT two_CD algorithms_NNS with_IN respect_NN to_TO the_DT gold_JJ standard_NN in_IN the_DT second_JJ column._NN 
+Aside_RB from_IN an_DT exact_JJ match_NN of_IN keyphrase_NN in_IN the_DT gold_NN standard,_NN we_PRP can_MD calculate_VB a_DT weighted_JJ match_NN score_NN based_VBN on_IN the_DT number_NN of_IN keyphrase_NN sets_NNS in_IN which_WDT the_DT keyphrase_NN appears._. 
+Let_VB n_PRP be_VB the_DT num-_JJ ber_NN of_IN keyphrases_NNS set_VBN in_IN which_WDT a_DT phrase_NN p_NN appears._. 
+Its_PRP$ weight_NN w(p)_NN is_VBZ computed_VBN as_IN w(p)w(p)_JJ =_NNP 1_CD +_NN w(p)w(p)ln(n)._. 
+A_DT corresponding_JJ average_NN matching_VBG score_NN based_VBN on_IN this_DT weight_NN is_VBZ shown_VBN also_RB in_IN Table_JJ 2_CD as_IN the_DT third_JJ column._NN 
+We_PRP perform_VBP two-tailed_JJ paired_JJ t-test_NN to_TO see_VB whether_IN the_DT improvements_NNS are_VBP significant._VBN 
+The_DT corresponding_JJ p-values_NNS are_VBP also_RB shown_VBN in_IN the_DT table,_NN which_WDT indicate_VBP that_IN the_DT results_NNS are_VBP significant_JJ at_IN the_DT p_NN &lt;_VBD 0.05_CD level._NN 
+4.3_CD Error_NN Analysis_NN We_PRP performed_VBD some_DT post-experimental_JJ analysis_NN of_IN the_DT errors_NNS created_VBN by_IN both_DT systems_NNS that_WDT lead_VBP to_TO the_DT generation_NN of_IN poor_JJ keyphrases._. 
+Our_PRP$ analysis_NN leads_VBZ to_TO two_CD problematic_JJ areas_NNS for_IN future_NN improvement._. 
+One_CD difficulty_NN is_VBZ in_IN deciding_VBG whether_IN a_DT general_JJ term_NN is_VBZ a_DT good_JJ keyphrase_NN or_CC not._JJ 
+This_DT can_MD be_VB seen_VBN in_IN Table_JJ 3_CD document._NN 
+Phrases_NNS such_JJ as_IN ???data???_NNS and_CC ???cell???_NNS are_VBP too_RB general_JJ to_TO be_VB useful_JJ keyphrases._. 
+These_DT phrases_NNS appear_VBP many_JJ times_NNS in_IN the_DT document,_NN having_VBG high_JJ TF_NNP ??_NNP IDF_NNP scores,_NN and_CC also_RB appear_VBP in_IN important_JJ sections,_NNS such_JJ as_IN the_DT abstract_JJ and_CC introduction,_JJ which_WDT results_NNS in_IN their_PRP$ sectionrelated_JJ features_NNS are_VBP the_DT same_JJ with_IN those_DT of_IN correct_JJ keyphrases._. 
+Another_DT problem_NN area_NN is_VBZ in_IN generating_VBG suitable_JJ long_JJ keyphrases_NNS (i.e.,_IN phrases_NNS with_IN three_CD words_NNS or_CC more)._VB 
+Currently,_NNP these_DT are_VBP rarely_RB generated_VBN by_IN the_DT current_JJ methodol-_NN ogy._. 
+In_IN the_DT sample_NN text,_IN no_DT three-or-more_JJ word_NN phrases_NNS are_VBP generated_VBN among_IN in_IN the_DT ten_NN outputs,_NN although_IN they_PRP make_VBP up_RP 5_CD of_IN the_DT 14_CD manually_RB assigned_VBN keyphrases_NNS in_IN the_DT gold_JJ standard_NN set._. 
+5_LS Conclusion_NN We_PRP have_VBP presented_VBN an_DT improved_VBN feature_NN set_VBN for_IN the_DT problem_NN of_IN keyphrase_NN extraction_NN in_IN scientific_JJ publications._NN 
+The_DT set_NN adds_VBZ features_NNS for_IN representing_VBG logical_JJ position_NN of_IN the_DT Keyphrase_NNP Extraction_NN in_IN Scientific_NNP Publications_NNP 9_CD Assigned_VBD keyphrases_NNS Kea_NNP baseline_NN Our_PRP$ system_NN Neural_JJ network_NN algorithm_IN Handover_NNP 3G_NNP network_NN Soft_NN handover_NN Visualization_NN capability_NN 3G_NNP Cluster_NNP analysis_NN Clusters_NNS Self_NN organizing_VBG map_NN 3G_JJ network_NN Hierarchical_JJ clustering_VBG Cell_NNP Key_NNP performance_NN indicator_NN of_IN handover_NN Cell_NNP pairs_VBZ Two-phase_JJ clustering_VBG algorithm_IN SHO_NNP Soft_NNP handover_NN (2)_, Active_JJ set_NN Clusters_NNS Soft_VBP handover_NN Data_NNP 3G_NNP network_NN Interesting_VBG clusters_NNS Handover_NNP attempts_VBZ Method_NNP Neural_NNP network_NN Measurements_NNS Histograms_NNPS Decrease_NN in_IN computational_JJ complexity_NN Mobility_NN management_NN Data_NNS mining_VBG neural_JJ networks_NNS Handover_NNP measurements_NNS Handover_NNP measurement_NN Table_JJ 3._NN Author_NN and_CC generated_VBD keyphrases_NNS for_IN the_DT sample_NN document_NN Analysis_NN of_IN Soft_NNP Han-_NNP dover_NN Measurements_NNS in_IN 3G_NNP Network_NNP (36.pdf)_, in_IN our_PRP$ keyphrase_NN corpus._. 
+Only_RB the_DT ???soft_NN handover???_NN keyphrase_NN was_VBD provided_VBN by_IN both_DT the_DT author_NN and_CC the_DT volunteer_NN annotator._. 
+Output_NN keyphrases_NNS that_WDT match_VBP with_IN assigned_VBN keyphrases_NNS are_VBP presented_VBN in_IN italic_NN font._. 
+keyphrase_NN instances_NNS with_IN respect_NN to_TO sections_NNS of_IN the_DT document,_NN and_CC features_NNS to_TO model_VB whether_IN a_DT candidate_NN phrases_NNS is_VBZ an_DT acronym_NN or_CC abbreviation,_DT two_CD salient_JJ sources_NNS of_IN keyphrases_NNS in_IN scientific_JJ discourse._NN 
+Applying_VBG the_DT new_JJ features_NNS in_IN Naive_NNP Bayes_NNP model_NN does_VBZ have_VB a_DT significant_JJ improvement_NN against_IN the_DT state-of-the-art_JJ baseline_NN Kea_NN [1]._. 
+In_IN evaluating_VBG our_PRP$ work,_NN we_PRP have_VBP also_RB compiled_VBN a_DT corpus_NN of_IN more_JJR than_IN 200_CD scien-_NNS tific_JJ publications,_NN with_IN multiple_JJ keyphrase_NN sets._. 
+Each_DT publication_NN was_VBD annotated_VBN by_IN vol-_JJ unteers_NNS to_TO provide_VB additional_JJ keyphrase_NN coverage_NN aside_RB from_IN the_DT set_NN provided_VBN by_IN the_DT original_JJ author._NN 
+Such_JJ coverage_NN is_VBZ essential_JJ to_TO the_DT evaluation_NN of_IN keyphrase_NN extraction_NN al-_IN gorithms_NNS in_IN terms_NNS of_IN coverage_NN and_CC importance_NN of_IN individual_NN keyphrases._. 
+We_PRP have_VBP made_VBN this_DT corpus_JJ publicly_RB available_JJ and_CC we_PRP believe_VBP that_IN it_PRP will_MD be_VB useful_JJ in_IN future_JJ work_NN on_IN keyphrase_NN extraction._. 
+Our_PRP$ current_JJ work_NN focuses_VBZ on_IN deployment,_NN in_IN which_WDT we_PRP apply_VBP this_DT keyphrase_NN ex-_VBZ traction_NN module_NN automatically_RB over_IN a_DT large_JJ set_NN of_IN freely_RB available_JJ scientific_JJ publications_NNS found_VBN on_IN the_DT web_JJ (i.e.,_NN CiteSeer)._. 
+We_PRP are_VBP interested_JJ in_IN merging_VBG such_PDT an_DT automated_VBN fa-_NN cility_NN with_IN social_JJ user_NN tagging._. 
+Future_JJ work_NN on_IN the_DT extraction_NN algorithm_IN itself_PRP will_MD focus_VB on_IN generating_VBG longer,_RB more_RBR descriptive_JJ keyphrases,_IN a_DT key_JJ weakness_NN as_IN discussed_VBN in_IN our_PRP$ error_NN analysis._. 
+References_NNP 1._NNP 
+Frank,_NNP E.,_NNP Paynter,_NNP G.W.,_NNP H.Witten,_NNP I.,_NNP Gutwin,_NNP C.,_NNP Nevill-Manning,_NNP C.G.:_NNP Domain_NNP specific_JJ keyphrase_NN extraction._. 
+In:_NNP Proceedings_NNP of_IN the_DT 16th_JJ International_NNP Joint_NNP Conference_NNP on_IN Artificial_NNP Intelligence._NNP 
+(1999)_DT 668???673_CD 2._CD Kim,_NNP W.,_NNP Wilbur,_NNP W.J.:_NNP Corpus-based_JJ statistical_JJ screening_NN for_IN content-bearing_NN terms._. 
+J._NNP Am._NNP 
+Soc._NNP 
+Inf._NNP 
+Sci._NNP 
+Technol._NNP 
+52_CD (2001)_CD 247???259_CD 3._CD Tomokiyo,_NNP T.,_NNP Hurst,_NNP M.:_NNP A_DT language_NN model_NN approach_NN to_TO keyphrase_NN extraction._. 
+In:_NNP Proceed-_NNP ings_NNS of_IN ACL_NNP Workshop_NNP on_IN Multiword_NNP Expressions._NNP 
+(2003)_NNP 4._NNP Barker,_NNP K.,_NNP Cornacchia,_NNP N.:_NNP Using_VBG noun_JJ phrase_NN heads_NNS to_TO extract_VB document_NN keyphrases._. 
+In:_NNP Proc._NNP 
+of_IN the_DT 13th_JJ Biennial_NNP Conf._NNP 
+of_IN the_DT Canadian_NNP Society_NNP on_IN Computational_JJ Studies_NNS of_IN Intel-_NNP ligence,_NNP London,_NNP UK,_NNP Springer-Verlag_NNP (2000)_IN 40???52_CD 10_CD Nguyen_NNP and_CC Kan_NNP 5._NNP Turney,_NNP P.D.:_NNP Learning_NNP to_TO extract_VB keyphrases_NNS from_IN text._JJ 
+Technical_NNP Report_NNP ERB-1057,_NNP Na-_NNP tional_JJ Research_NNP Council,_NNP Institute_NNP for_IN Information_NNP Technology_NNP (1999)_NNP 6._. 
+Turney,_NNP P.D.:_NNP Coherent_NNP keyphrase_NN extraction_NN via_IN web_NN mining._. 
+In:_NNP Proceedings_NNP of_IN the_DT Eigh-_NNP teenth_NNP International_NNP Joint_NNP Conference_NNP on_IN Artificial_NNP Intelligence_NNP (IJCAI-03)._. 
+(2003)_DT 434???439_CD 7._NNP Steyvers,_NNP M.,_NNP Griffiths,_NNP T.:_NNP Probabilistic_NNP topic_NN models._. 
+In_IN Landauer,_NNP T.,_NNP Mcnamara,_NNP D.,_NNP Dennis,_NNP S.,_NNP Kintsch,_NNP W.,_NNP eds.:_NNP Latent_NNP Semantic_NNP Analysis:_NNP A_NNP Road_NNP to_TO Meaning._VB 
+Laurence_NNP Erlbaum_NNP (2005)_NNP 8._. 
+Dumais,_NNP S.T.,_NNP Platt,_NNP J.,_NNP Hecherman,_NNP D.,_NNP Sahami,_NNP M.:_NNP Inductive_NNP learning_VBG algorithms_NNS and_CC rep-_JJ resentations_NNS for_IN text_NN categorization._. 
+In:_NNP Proc._NNP 
+of_IN 7th_NNP International_NNP Conference_NNP on_IN Information_NNP and_CC Knowledge_NNP Management_NNP (CIKM)._. 
+(1998)_DT 148???155_CD 9._CD Pouliquen,_NNP B.,_NNP Steinberger,_NNP R.,_NNP Ignat,_NNP C.:_NNP Automatic_NNP annotation_NN of_IN multilingual_JJ text_NN collec-_NN tions_NNS with_IN a_DT conceptual_JJ thesaurus._NN 
+In:_NNP BUG._NNP 
+(2003)_DT 10._JJ 
+Medelyan,_NNP O.,_NNP Witten,_NNP I.H.:_NNP Thesaurus_VBZ based_VBN automatic_JJ keyphrase_NN indexing._. 
+In:_NNP Proceedings_NNP of_IN the_DT 6th_JJ ACM/IEEE-CS_NNP joint_JJ conference_NN on_IN Digital_NNP libraries,_POS New_NNP York,_NNP NY,_NNP USA,_NNP ACM_NNP Press_NNP (2006)_, 296???297_CD 11._. 
+Ratnaparkhi,_NNP A.:_NNP A_DT maximum_NN entropy_JJ part_NN of_IN speech_NN tagger._. 
+In:_NNP Proc._NNP 
+ACL-SIGDAT_NNP Con-_NNP ference_NN on_IN Empirical_JJ Methods_NNS in_IN Natural_JJ Language_NNP Processing,_NNP Philadelphia_NNP (1996)_. 12._'' 
+Witten,_NNP I.H.,_NNP Frank,_NNP E.:_NNP Data_NNP Mining:_NNP Practical_NNP machine_NN learning_NN tools_NNS and_CC techniques._. 
+2nd_NNP edn._FW 
+Morgan_NNP Kaufmann,_NNP San_NNP Francisco_NNP (2005)_NNP 13._. 
+Nguyen,_NNP T.D.:_NNP Automatic_NNP keyphrase_NN generation._. 
+Technical_NNP report,_NNP National_NNP University_NNP of_IN Singapore_NNP (2007)_NNP 14._. 
+Jones,_NNP S.,_NNP Paynter,_NNP G.W.:_NNP Human_NNP evaluation_NN of_IN Kea,_VBG an_DT automatic_JJ keyphrasing_NN system._. 
+In:_NNP ACM/IEEE_NNP Joint_NNP Conference_NN on_IN Digital_NNP Libraries._NNP 
+(2001)_JJ 

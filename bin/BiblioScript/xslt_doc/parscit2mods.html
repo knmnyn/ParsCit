@@ -1,0 +1,2204 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Stylesheet documentation for: parscit2mods.xsl</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        var parametersBoxes= new Array('prs_M_authorS_parscit2mods.xsl');
+
+        
+        var usedByBoxes= new Array('uB_T_titleS_parscit2mods.xsl');
+
+        var docBoxes= new Array('dS_M_citationS_parscit2mods.xsl', 
+				'dS_M_authorsM_journal_articleS_parscit2mods.xsl', 
+				'dS_M_authorsM_bookS_parscit2mods.xsl', 
+				'dS_M_authorS_parscit2mods.xsl', 
+				'dS_O_S_parscit2mods.xsl');
+
+        var sourceBoxes= new Array('src_M_citationListS_parscit2mods.xsl', 
+				'src_M_citationS_parscit2mods.xsl', 
+				'src_M_authorsM_journal_articleS_parscit2mods.xsl', 
+				'src_M_authorsM_bookS_parscit2mods.xsl', 
+				'src_M_authorS_parscit2mods.xsl', 
+				'src_T_titleS_parscit2mods.xsl', 
+				'src_M_titleS_parscit2mods.xsl', 
+				'src_M_journalM_journal_articleS_parscit2mods.xsl', 
+				'src_M_pagesM_journal_articleS_parscit2mods.xsl', 
+				'src_M_volumeM_journal_articleS_parscit2mods.xsl', 
+				'src_M_dateM_journal_articleS_parscit2mods.xsl', 
+				'src_M_locationM_bookS_parscit2mods.xsl', 
+				'src_M_dateM_bookS_parscit2mods.xsl', 
+				'src_M_publisherM_bookS_parscit2mods.xsl', 
+				'src_M_notesM_journal_articleS_parscit2mods.xsl', 
+				'src_M_locationM_journal_articleS_parscit2mods.xsl', 
+				'src_M_titleM_journal_articleS_parscit2mods.xsl', 
+				'src_O_S_parscit2mods.xsl');
+
+        
+        
+        var referencesBoxes= new Array('refs_M_titleS_parscit2mods.xsl', 
+				'refs_M_journalM_journal_articleS_parscit2mods.xsl');
+
+        
+        
+        
+        
+        var button_prefix = 'bt_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updPT(message) {
+            top.document.title = "Stylesheet documentation for: " + message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+         var selectIds = new Array('toc_group_by_location', 'toc_group_by_component_type', 'toc_group_by_namespace', 'toc_group_by_mode');
+            // Make all the tabs invisible.
+            for (i = 0; i < 4; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cTL"></td>
+               <td class="rt_lT"></td>
+               <td class="rt_cTR"></td>
+            </tr>
+            <tr>
+               <td class="rt_lL"></td>
+               <td class="rt_cnt">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, docBoxes);"
+                                     class="control" /></span><span class="globalControlName">Documentation
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, parametersBoxes);"
+                                     class="control" /></span><span class="globalControlName">Parameters </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, referencesBoxes);"
+                                     class="control" /></span><span class="globalControlName">References </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lR"></td>
+            </tr>
+            <tr>
+               <td class="rt_cBL"></td>
+               <td class="rt_lB"></td>
+               <td class="rt_cBR"></td>
+            </tr>
+         </table>
+      </div>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC"
+                          onchange="selectTOCGroupBy(this.options[this.selectedIndex].value);">
+                     <option value="toc_group_by_location" selected="selected">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option>
+                     <option value="toc_group_by_namespace">Namespace</option>
+                     <option value="toc_group_by_mode">Mode</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:none">
+            <div>
+               <div class="level2">
+                  <p><input id="bt_boxIdNamespace1" type="image" value="-" src="img/btM.gif"
+                            onclick="switchState('boxIdNamespace1');"
+                            class="control" /><span class="indexGroupTitle">No namespace</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cTL"></td>
+                              <td class="rt_lT"></td>
+                              <td class="rt_cTR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lL"></td>
+                              <td class="rt_cnt">
+                                 <div class="componentGroupTitle">Templates</div>
+                                 <div id="boxIdNamespace1template" style="display:block"><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="nRf">title</span></a><a href="parscit2mods.html#M_authorS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="mRfI">author</span></a><a href="parscit2mods.html#M_citationS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">citation</span></a><a href="parscit2mods.html#M_citationListS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">citationList</span></a><a href="parscit2mods.html#M_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="mRfI">title</span></a><a href="parscit2mods.html#M_authorsM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">authors</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_dateM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">date</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_locationM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">location</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_publisherM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">publisher</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_authorsM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">authors</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_dateM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">date</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_journalM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">journal</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_locationM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">location</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_notesM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">notes</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_pagesM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">pages</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_titleM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">title</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_volumeM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">volume</span><span class="mdRf">journal_article</span></a></div>
+                              </td>
+                              <td class="rt_lR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cBL"></td>
+                              <td class="rt_lB"></td>
+                              <td class="rt_cBR"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cTL"></td>
+                              <td class="rt_lT"></td>
+                              <td class="rt_cTR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lL"></td>
+                              <td class="rt_cnt">
+                                 <div class="componentGroupTitle">Output</div>
+                                 <div id="boxIdNamespace1output" style="display:block"><a href="parscit2mods.html#O_S_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="cRfI">(default)</span></a></div>
+                              </td>
+                              <td class="rt_lR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cBL"></td>
+                              <td class="rt_lB"></td>
+                              <td class="rt_cBR"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_mode" style="display:none">
+            <div class="level2">
+               <p><input id="bt_boxIdMode1" type="image" value="-" src="img/btM.gif"
+                         onclick="switchState('boxIdMode1');"
+                         class="control" /><span class="indexGroupTitle">#default</span></p>
+               <div id="boxIdMode1" style="display:block">
+                  <div class="horizontalLayout">
+                     <table class="rt">
+                        <tr>
+                           <td class="rt_cTL"></td>
+                           <td class="rt_lT"></td>
+                           <td class="rt_cTR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_lL"></td>
+                           <td class="rt_cnt">
+                              <div class="componentGroupTitle">Templates</div>
+                              <div id="boxIdMode1template" style="display:block"><a href="parscit2mods.html#M_authorS_parscit2mods.xsl" target="_self" class="iRf"
+                                    title="No namespace"><span class="mRfI">author</span></a><a href="parscit2mods.html#M_citationS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">citation</span></a><a href="parscit2mods.html#M_citationListS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">citationList</span></a><a href="parscit2mods.html#M_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                    title="No namespace"><span class="mRfI">title</span></a></div>
+                           </td>
+                           <td class="rt_lR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_cBL"></td>
+                           <td class="rt_lB"></td>
+                           <td class="rt_cBR"></td>
+                        </tr>
+                     </table>
+                  </div>
+                  <div style="clear:left"></div>
+               </div>
+            </div>
+            <div class="level2">
+               <p><input id="bt_boxIdMode2" type="image" value="-" src="img/btM.gif"
+                         onclick="switchState('boxIdMode2');"
+                         class="control" /><span class="indexGroupTitle">journal_article</span></p>
+               <div id="boxIdMode2" style="display:block">
+                  <div class="horizontalLayout">
+                     <table class="rt">
+                        <tr>
+                           <td class="rt_cTL"></td>
+                           <td class="rt_lT"></td>
+                           <td class="rt_cTR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_lL"></td>
+                           <td class="rt_cnt">
+                              <div class="componentGroupTitle">Templates</div>
+                              <div id="boxIdMode2template" style="display:block"><a href="parscit2mods.html#M_authorsM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">authors</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_dateM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">date</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_journalM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">journal</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_locationM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">location</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_notesM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">notes</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_pagesM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">pages</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_titleM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">title</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_volumeM_journal_articleS_parscit2mods.xsl"
+                                    target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">volume</span><span class="mdRf">journal_article</span></a></div>
+                           </td>
+                           <td class="rt_lR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_cBL"></td>
+                           <td class="rt_lB"></td>
+                           <td class="rt_cBR"></td>
+                        </tr>
+                     </table>
+                  </div>
+                  <div style="clear:left"></div>
+               </div>
+            </div>
+            <div class="level2">
+               <p><input id="bt_boxIdMode3" type="image" value="-" src="img/btM.gif"
+                         onclick="switchState('boxIdMode3');"
+                         class="control" /><span class="indexGroupTitle">book</span></p>
+               <div id="boxIdMode3" style="display:block">
+                  <div class="horizontalLayout">
+                     <table class="rt">
+                        <tr>
+                           <td class="rt_cTL"></td>
+                           <td class="rt_lT"></td>
+                           <td class="rt_cTR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_lL"></td>
+                           <td class="rt_cnt">
+                              <div class="componentGroupTitle">Templates</div>
+                              <div id="boxIdMode3template" style="display:block"><a href="parscit2mods.html#M_authorsM_bookS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">authors</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_dateM_bookS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">date</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_locationM_bookS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">location</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_publisherM_bookS_parscit2mods.xsl" target="_self"
+                                    class="iRf"
+                                    title="No namespace"><span class="mRfI">publisher</span><span class="mdRf">book</span></a></div>
+                           </td>
+                           <td class="rt_lR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_cBL"></td>
+                           <td class="rt_lB"></td>
+                           <td class="rt_cBR"></td>
+                        </tr>
+                     </table>
+                  </div>
+                  <div style="clear:left"></div>
+               </div>
+            </div>
+            <div class="level2">
+               <p><input id="bt_boxIdNoMode" type="image" value="-" src="img/btM.gif"
+                         onclick="switchState('boxIdNoMode');"
+                         class="control" /><span class="indexGroupTitle"> Components without mode </span></p>
+               <div id="boxIdNoMode" style="display:block">
+                  <div class="horizontalLayout">
+                     <table class="rt">
+                        <tr>
+                           <td class="rt_cTL"></td>
+                           <td class="rt_lT"></td>
+                           <td class="rt_cTR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_lL"></td>
+                           <td class="rt_cnt">
+                              <div class="componentGroupTitle">Template</div>
+                              <div id="boxIdNoModetemplate" style="display:block"><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                    title="No namespace"><span class="nRf">title</span></a></div>
+                           </td>
+                           <td class="rt_lR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_cBL"></td>
+                           <td class="rt_lB"></td>
+                           <td class="rt_cBR"></td>
+                        </tr>
+                     </table>
+                  </div>
+                  <div class="horizontalLayout">
+                     <table class="rt">
+                        <tr>
+                           <td class="rt_cTL"></td>
+                           <td class="rt_lT"></td>
+                           <td class="rt_cTR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_lL"></td>
+                           <td class="rt_cnt">
+                              <div class="componentGroupTitle">Output</div>
+                              <div id="boxIdNoModeoutput" style="display:block"><a href="parscit2mods.html#O_S_parscit2mods.xsl" target="_self" class="iRf"
+                                    title="No namespace"><span class="cRfI">(default)</span></a></div>
+                           </td>
+                           <td class="rt_lR"></td>
+                        </tr>
+                        <tr>
+                           <td class="rt_cBL"></td>
+                           <td class="rt_lB"></td>
+                           <td class="rt_cBR"></td>
+                        </tr>
+                     </table>
+                  </div>
+                  <div style="clear:left"></div>
+               </div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_component_type" style="display:none">
+            <div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cTL"></td>
+                        <td class="rt_lT"></td>
+                        <td class="rt_cTR"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lL"></td>
+                        <td class="rt_cnt">
+                           <div class="componentGroupTitle">Templates</div>
+                           <div id="template" style="display:block"><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                 title="No namespace"><span class="nRf">title</span></a><a href="parscit2mods.html#M_authorS_parscit2mods.xsl" target="_self" class="iRf"
+                                 title="No namespace"><span class="mRfI">author</span></a><a href="parscit2mods.html#M_citationS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">citation</span></a><a href="parscit2mods.html#M_citationListS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">citationList</span></a><a href="parscit2mods.html#M_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                 title="No namespace"><span class="mRfI">title</span></a><a href="parscit2mods.html#M_authorsM_bookS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">authors</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_dateM_bookS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">date</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_locationM_bookS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">location</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_publisherM_bookS_parscit2mods.xsl" target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">publisher</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_authorsM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">authors</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_dateM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">date</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_journalM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">journal</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_locationM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">location</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_notesM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">notes</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_pagesM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">pages</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_titleM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">title</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_volumeM_journal_articleS_parscit2mods.xsl"
+                                 target="_self"
+                                 class="iRf"
+                                 title="No namespace"><span class="mRfI">volume</span><span class="mdRf">journal_article</span></a></div>
+                        </td>
+                        <td class="rt_lR"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cBL"></td>
+                        <td class="rt_lB"></td>
+                        <td class="rt_cBR"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cTL"></td>
+                        <td class="rt_lT"></td>
+                        <td class="rt_cTR"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lL"></td>
+                        <td class="rt_cnt">
+                           <div class="componentGroupTitle">Output</div>
+                           <div id="output" style="display:block"><a href="parscit2mods.html#O_S_parscit2mods.xsl" target="_self" class="iRf"
+                                 title="No namespace"><span class="cRfI">(default)</span></a></div>
+                        </td>
+                        <td class="rt_lR"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cBL"></td>
+                        <td class="rt_lB"></td>
+                        <td class="rt_cBR"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div style="clear:left"></div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_location" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="bt_parscit2mods.xsl" type="image" value="-" src="img/btM.gif"
+                            onclick="switchState('parscit2mods.xsl');"
+                            class="control" /><span class="indexGroupTitle"><a href="parscit2mods.html#parscit2mods.xsl" target="_self" title="No namespace">parscit2mods.xsl</a><em> - main file</em></span></p>
+                  <div id="parscit2mods.xsl" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cTL"></td>
+                              <td class="rt_lT"></td>
+                              <td class="rt_cTR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lL"></td>
+                              <td class="rt_cnt">
+                                 <div class="componentGroupTitle">Templates</div>
+                                 <div id="parscit2mods.xsltemplate" style="display:block"><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="nRf">title</span></a><a href="parscit2mods.html#M_authorS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="mRfI">author</span></a><a href="parscit2mods.html#M_citationS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">citation</span></a><a href="parscit2mods.html#M_citationListS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">citationList</span></a><a href="parscit2mods.html#M_titleS_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="mRfI">title</span></a><a href="parscit2mods.html#M_authorsM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">authors</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_dateM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">date</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_locationM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">location</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_publisherM_bookS_parscit2mods.xsl" target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">publisher</span><span class="mdRf">book</span></a><a href="parscit2mods.html#M_authorsM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">authors</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_dateM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">date</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_journalM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">journal</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_locationM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">location</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_notesM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">notes</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_pagesM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">pages</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_titleM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">title</span><span class="mdRf">journal_article</span></a><a href="parscit2mods.html#M_volumeM_journal_articleS_parscit2mods.xsl"
+                                       target="_self"
+                                       class="iRf"
+                                       title="No namespace"><span class="mRfI">volume</span><span class="mdRf">journal_article</span></a></div>
+                              </td>
+                              <td class="rt_lR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cBL"></td>
+                              <td class="rt_lB"></td>
+                              <td class="rt_cBR"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cTL"></td>
+                              <td class="rt_lT"></td>
+                              <td class="rt_cTR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lL"></td>
+                              <td class="rt_cnt">
+                                 <div class="componentGroupTitle">Output</div>
+                                 <div id="parscit2mods.xsloutput" style="display:block"><a href="parscit2mods.html#O_S_parscit2mods.xsl" target="_self" class="iRf"
+                                       title="No namespace"><span class="cRfI">(default)</span></a></div>
+                              </td>
+                              <td class="rt_lR"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cBL"></td>
+                              <td class="rt_lB"></td>
+                              <td class="rt_cBR"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div><a id="parscit2mods.xsl"></a><div class="cmpT">Main stylesheet
+         <span class="qname">parscit2mods.xsl</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Stylesheet version</td>
+                        <td>2.0</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_citationListS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">citationList</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>citationList</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_citationListS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_citationListS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_citationListS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"citationList"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"modsCollection"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"xsi:schemaLocation"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.w3.org/2001/XMLSchema-instance"</span><span class="tXSLEl">&gt;</span><span class="tT">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-2.xsd</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:comment</span><span class="tXSLEl">&gt;</span><span class="tT">### JOURNAL ARTICLES ###</span><span class="tXSLEl">&lt;/xsl:comment&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"citation[journal]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:comment</span><span class="tXSLEl">&gt;</span><span class="tT">### BOOKS ###</span><span class="tXSLEl">&lt;/xsl:comment&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"citation[title and not(booktitle) and not(pages) and not(journal)]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_citationS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">citation</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_citationS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_citationS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_citationS_parscit2mods.xsl" style="display:block"><pre>&lt;xd:doc&gt; Here is where most of the inetersting stuff happen. &lt;/xd:doc&gt;</pre></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>citation</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_citationS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_citationS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_citationS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"citation"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"mods"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"ID"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!-- add compatibility check for saxon or not --&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"generate-id()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"title"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- heuristic to determine the kind of resource --&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!-- CASE 1: Paper in a Journal--&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"./journal"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"authors"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"relatedItem"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">host</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"journal"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"originInfo"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"issuance"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tT">continuing</span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"part"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"*[name()!='authors'][name()!='journal']"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"genre"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"authority"</span><span class="tXSLEl">&gt;</span><span class="tT">marc</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">journal</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"genre"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">academic journal</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!-- CASE 2: Book --&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">".[title and not(booktitle) and not(pages) and not(journal)]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"authors"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"originInfo"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"location | date | publisher"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"issuance"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tT">monographic</span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"*[name()!='authors']"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!--&lt;xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"&gt;text&lt;/xsl:element&gt;--&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"identifier"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">citekey</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"generate-id()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_authorsM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">authors</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_authorsM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_authorsM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_authorsM_journal_articleS_parscit2mods.xsl" style="display:block"><pre>&lt;xd:doc&gt;Auhtors of a journal article&lt;/xd:doc&gt;</pre></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>authors</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_authorsM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_authorsM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_authorsM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"authors"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"author"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:with-param</span><span class="tAN"> name=</span><span class="tAV">"mode"</span><span class="tXSLEl">&gt;</span><span class="tT">journal_article</span><span class="tXSLEl">&lt;/xsl:with-param&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:apply-templates&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_authorsM_bookS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">authors</span><span class="titleTemplateMode">book</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_authorsM_bookS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_authorsM_bookS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_authorsM_bookS_parscit2mods.xsl" style="display:block"><pre>&lt;xd:doc&gt;Auhtors of a book&lt;/xd:doc&gt;</pre></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>authors</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>book</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_authorsM_bookS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_authorsM_bookS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_authorsM_bookS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"authors"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tAN"> select=</span><span class="tAV">"author"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:with-param</span><span class="tAN"> name=</span><span class="tAV">"mode"</span><span class="tXSLEl">&gt;</span><span class="tT">book</span><span class="tXSLEl">&lt;/xsl:with-param&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:apply-templates&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_authorS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">author</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_authorS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('dS_M_authorS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_authorS_parscit2mods.xsl" style="display:block"><pre>&lt;xd:doc&gt;Handles the creation of name elements in mods format. &lt;xd:param type="string"&gt;The current mode.&lt;/xd:param&gt;
+    &lt;/xd:doc&gt;</pre></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>author</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Parameters</div>
+                           <div class="flR"><input id="bt_prs_M_authorS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('prs_M_authorS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="prs_M_authorS_parscit2mods.xsl" style="display:block">
+                              <table class="attsT">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Namespace</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="fCol">mode</td>
+                                    <td>No namespace</td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_authorS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('src_M_authorS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_authorS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"author"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:param</span><span class="tAN"> name=</span><span class="tAV">"mode"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"name"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">personal</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:for-each</span><span class="tAN"> select=</span><span class="tAV">"tokenize(.,' ')"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"namePart"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"string-length(.)=1"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">given</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">family</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:for-each&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"role"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"roleTerm"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"authority"</span><span class="tXSLEl">&gt;</span><span class="tT">marcrelator</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">text</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$mode='journal_article'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">author</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$mode='book'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">creator</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="T_titleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateName">title</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_T_titleS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('uB_T_titleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_T_titleS_parscit2mods.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Templates</td>
+                                    <td><a href="parscit2mods.html#M_titleS_parscit2mods.xsl" target="_self"
+                                          title="No namespace"><span class="mRf">title</span></a>; <a href="parscit2mods.html#M_journalM_journal_articleS_parscit2mods.xsl"
+                                          target="_self"
+                                          title="No namespace"><span class="mRf">journal</span><span class="mdRf">journal_article</span></a></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_T_titleS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('src_T_titleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_T_titleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> name=</span><span class="tAV">"title"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"titleInfo"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"title"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_titleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">title</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>title</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_titleS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('refs_M_titleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_titleS_parscit2mods.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self"
+                                          title="No namespace"><span class="nRf">title</span></a></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_titleS_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('src_M_titleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_titleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"title"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"title"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_journalM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">journal</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>journal</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_journalM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_M_journalM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_journalM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td><a href="parscit2mods.html#T_titleS_parscit2mods.xsl" target="_self"
+                                          title="No namespace"><span class="nRf">title</span></a></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_journalM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_journalM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_journalM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"journal"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"title"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_pagesM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">pages</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>pages</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_pagesM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_pagesM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_pagesM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"pages"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"extent"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"unit"</span><span class="tXSLEl">&gt;</span><span class="tT">page</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"start"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"tokenize(.,'--')[1]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"end"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"tokenize(.,'--')[2]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_volumeM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">volume</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>volume</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_volumeM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_volumeM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_volumeM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"volume"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"detail"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">volume</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"number"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_dateM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">date</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>date</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_dateM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_dateM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_dateM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tAN"> match=</span><span class="tAV">"date"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"date"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_locationM_bookS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">location</span><span class="titleTemplateMode">book</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>location</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>book</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_locationM_bookS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_locationM_bookS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_locationM_bookS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"location"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"place"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"placeTerm"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"type"</span><span class="tXSLEl">&gt;</span><span class="tT">text</span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_dateM_bookS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">date</span><span class="titleTemplateMode">book</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>date</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>book</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_dateM_bookS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_dateM_bookS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_dateM_bookS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"date"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"dateIssued"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_publisherM_bookS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">publisher</span><span class="titleTemplateMode">book</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>publisher</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>book</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_publisherM_bookS_parscit2mods.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_publisherM_bookS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_publisherM_bookS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"publisher"</span><span class="tAN"> mode=</span><span class="tAV">"book"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:element</span><span class="tAN"> name=</span><span class="tAV">"publisher"</span><span class="tAN"> namespace=</span><span class="tAV">"http://www.loc.gov/mods/v3"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:element&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_notesM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">notes</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>notes</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_notesM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_notesM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_notesM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"notes"</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:comment</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:comment&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_locationM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">location</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>location</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_locationM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_locationM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_locationM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tAN"> match=</span><span class="tAV">"location"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="M_titleM_journal_articleS_parscit2mods.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">title</span><span class="titleTemplateMode">journal_article</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>title</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>journal_article</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_titleM_journal_articleS_parscit2mods.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_titleM_journal_articleS_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_titleM_journal_articleS_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> mode=</span><span class="tAV">"journal_article"</span><span class="tAN"> match=</span><span class="tAV">"title"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="O_S_parscit2mods.xsl"></a><div class="cmpT">Output
+         <span class="qname">(default)</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_O_S_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('dS_O_S_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_O_S_parscit2mods.xsl" style="display:block"><pre>&lt;xd:author&gt;Matteo Romanello&lt;/xd:author&gt;</pre></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Output properties</div>
+                           <div class="flR"><input id="bt_o_" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('o_');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="o_" style="display:block">
+                              <table class="attsT">
+                                 <thead>
+                                    <tr>
+                                       <th>method</th>
+                                       <th>indent</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td>xml</td>
+                                    <td>yes</td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_O_S_parscit2mods.xsl" type="image" src="img/btM.gif" value="-"
+                                     onclick="switchState('src_O_S_parscit2mods.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_O_S_parscit2mods.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:output</span><span class="tAN"> method=</span><span class="tAV">"xml"</span><span class="tAN"> indent=</span><span class="tAV">"yes"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div>
+      <div class="footer">
+         <hr />
+         <div align="center">Stylesheet documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                    // The namespace is the selected option in the TOC combo.
+                    
+                    // The corresponding div is already visible conf. to its style attr.                     
+                    
+                    
+                    // Floats the toolbar.
+                    var globalControls = getElementObject("global_controls"); 
+                    
+                    if(globalControls != null){
+                    var browser=navigator.appName;
+                    var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+                    
+                    var IE6 = false;
+                    if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+                    IE6 = true;
+                    }
+                    
+                    //alert (IE6 + " |V| " + version);
+                    
+                    if(IE6){
+                    // On IE 6 the 'fixed' property is not supported. We must use javascript. 
+                    globalControls.style.position='absolute';                         
+                    // The global controls will do not exist in the TOC frame, when chunking.
+                    findAndFloat("global_controls", 225, 30);    
+                    } else {
+                    globalControls.style.position='fixed';                     	
+                    }
+                    
+                    globalControls.style.right='0';                       
+                    }
+                --></script></body>
+</html>

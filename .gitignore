@@ -1,7 +1,8 @@
-doc/parscit*tgz
+doc/*.zip
+doc/*.tgz
 lib/cgiLog.txt
-doc/parscit*.zip
+*~
+thang/*
 tmp/*
 archive/*
-thang/sectLabel/experiments
-thang/genericSect
+doc/.htaccess

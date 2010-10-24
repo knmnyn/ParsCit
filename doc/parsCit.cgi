@@ -29,12 +29,13 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }                 # untaint tm
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $installDir = "/home/wing.nus/services/parscit/tools";
+#my $installDir = "/home/wing.nus/services/parscit/tools";
+my $installDir = "/home/lmthang/public_html/parsCit";
 my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
 my $debug = 0;
-my $loadThreshold = 0.5;
+my $loadThreshold = 2;
 ### END user customizable section
 
 $| = 1;								    # flush output
@@ -202,102 +203,112 @@ exit;
 my $cmd = "";
 my $outputBuf = "";
 if ($demo == 1 ) {		# run demo 1
-$cmd = "nice ./citeExtract.pl ";
+  # Thang v100901: call BiblioScript
+  biblioScript($option, $q, $filename, "all");
 
-if ($option == 1){
-$cmd .= "-m extract_citations";
-}
-elsif ($option == 2){
-$cmd .= "-m extract_header";
-}
-elsif ($option ==3){
-$cmd .= "-m extract_meta";
-}
-elsif ($option == 4){
-$cmd .= "-m extract_section";
-}
-elsif ($option == 5){
-$cmd .= "-m extract_all";
-}
+  $cmd = "nice ./citeExtract.pl ";
 
-$cmd .= " $filename";
-print "Executing <B>$cmd</B>.\n";
-print "Input Method: <B>$inputMethod</B>.";
-chdir ("$installDir/bin");
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
-print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
-$outputBuf = `$cmd`;
-print CGI::escapeHTML($outputBuf);
-print "</PRE></DIV>";
+  if ($option == 1){
+    $cmd .= "-m extract_citations";
+  }
+  elsif ($option == 2){
+    $cmd .= "-m extract_header";
+  }
+  elsif ($option ==3){
+    $cmd .= "-m extract_meta";
+  }
+  elsif ($option == 4){
+    $cmd .= "-m extract_section";
+  }
+  elsif ($option == 5){
+    $cmd .= "-m extract_all";
+  }
+
+  $cmd .= " $filename";
+  print "Executing <B>$cmd</B>.\n";
+  print "Input Method: <B>$inputMethod</B>.";
+  chdir ("$installDir/bin");
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
+  print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+  $outputBuf = `$cmd`;
+  print CGI::escapeHTML($outputBuf);
+  print "</PRE></DIV>";
 } elsif ($demo == 2) {
-$cmd = "nice ./citeExtract.pl -i xml ";
+  # Thang v100901: call BiblioScript
+  biblioScript($option, $q, $filename, "xml");
 
-if ($option == 1){
-$cmd .= "-m extract_citations";
-}
-elsif ($option == 2){
-$cmd .= "-m extract_header";
-}
-elsif ($option ==3){
-$cmd .= "-m extract_meta";
-}
-elsif ($option == 4){
-$cmd .= "-m extract_section";
-}
-elsif ($option == 5){
-$cmd .= "-m extract_all";
-}
+  $cmd = "nice ./citeExtract.pl -i xml ";
 
-$cmd .= " $filename";
-print "Executing <B>$cmd</B>.\n";
-print "Input Method: <B>$inputMethod</B>.";
-chdir ("$installDir/bin");
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
-print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
-$outputBuf = `$cmd`;
-print CGI::escapeHTML($outputBuf);
-print "</PRE></DIV>";
+  if ($option == 1){
+    $cmd .= "-m extract_citations";
+  }
+  elsif ($option == 2){
+    $cmd .= "-m extract_header";
+  }
+  elsif ($option ==3){
+    $cmd .= "-m extract_meta";
+  }
+  elsif ($option == 4){
+    $cmd .= "-m extract_section";
+  }
+  elsif ($option == 5){
+    $cmd .= "-m extract_all";
+  }
+
+
+  $cmd .= " $filename";
+  print "Executing <B>$cmd</B>.\n";
+  print "Input Method: <B>$inputMethod</B>.";
+  chdir ("$installDir/bin");
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
+  print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+  $outputBuf = `$cmd`;
+  print CGI::escapeHTML($outputBuf);
+  print "</PRE></DIV>";
 
 } elsif ($demo == 3) {
-$cmd = "./parseRefStrings.pl $filename";
-print "Executing <B>$cmd</B>.\n";
-print "Input Method: <B>$inputMethod</B>.";
-chdir ("$installDir/bin");
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
-print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
-$outputBuf = `$cmd`;
-print CGI::escapeHTML($outputBuf);
-print "</PRE></DIV>";
+  # Thang v100901: call BiblioScript
+  biblioScript(1, $q, $filename, "ref");
+
+  $cmd = "./parseRefStrings.pl $filename";
+  print "Executing <B>$cmd</B>.\n";
+  print "Input Method: <B>$inputMethod</B>.";
+  chdir ("$installDir/bin");
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
+  print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+  $outputBuf = `$cmd`;
+  print CGI::escapeHTML($outputBuf);
+  print "</PRE></DIV>";
 } else {
-print "<P>Invalid demo type selected\n";
-print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
-printTrailer();
-logMessage("# Demo: Incorrected selected\n");
-exit;
+  print "<P>Invalid demo type selected\n";
+  print "[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
+  printTrailer();
+  logMessage("# Demo: Incorrected selected\n");
+  exit;
 }
 
 if ($option == 5) {
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
-print "<DIV ID=\"hidden2\" STYLE=\"display:none;\"><PRE>";
-print (processSections($outputBuf));
-print "</DIV>";
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+  print "<DIV ID=\"hidden2\" STYLE=\"display:none;\"><PRE>";
+  print (processSections($outputBuf));
+  print "</DIV>";
 } elsif ($option == 4) {
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
-print "<DIV ID=\"hidden2\" STYLE=\"display:'';\"><PRE>";
-print (processSections($outputBuf));
-print "</DIV>";
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden2')\">Show SectLabel output</A> ]";
+  print "<DIV ID=\"hidden2\" STYLE=\"display:'';\"><PRE>";
+  print (processSections($outputBuf));
+  print "</DIV>";
 }
 if ($option == 5 || $option == 2) { 
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
-print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\">";
-print (processHeader($outputBuf)); 	
-print "</DIV>";
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden3')\">Show ParsHed output</A> ]";
+  print "<DIV ID=\"hidden3\"  STYLE=\"display:'';\">";
+  print (processHeader($outputBuf)); 	
+  print "</DIV>";
 }
 if ($option == 5 || $option == 1 || $demo == 2 || $demo == 3) { 
-print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
-print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
-print (processCitations($outputBuf, $filename)); 
-print "</DIV>";
+  print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden4')\">Show ParsCit output</A> ]";
+  print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
+  print (processCitations($outputBuf, $filename)); 
+  print "</DIV>";
 }
 
 # remove temporary files
@@ -310,6 +321,56 @@ printTrailer();
 ###
 ### END of main program
 ###
+
+# Thang v100901: incorporate BiblioScript
+sub biblioScript {
+  my ($option, $q, $fileName, $inputFormat) = @_;
+
+  if($option =~ /^(1|3|5)$/) {# citations requested
+    # get export types (selected checkboxes)
+    my @exportTypes = ();
+    foreach my $type ("ads", "bib", "end", "isi", "ris", "wordbib"){
+      #print "Check box $type$demo \"".$q->param("$type$demo")."\"</BR>";
+      if($q->param("$type$demo") eq "on"){
+        push(@exportTypes, $type);
+      }
+    }
+
+    my $tmpDir = "/tmp/".newTmpFile();
+    my $size = scalar(@exportTypes);
+    if($size > 0){
+      chdir ("$installDir/bin");
+
+      # call to BiblioScript
+      my $format = $exportTypes[0];
+      $cmd = "./BiblioScript/biblio_script.sh -q -i $inputFormat -o $format $fileName $tmpDir";
+      system($cmd);
+
+      # reuse the MODS file generated in the first call
+      for(my $i = 1; $i<$size; $i++){
+        $format = $exportTypes[$i];
+        $cmd = "./BiblioScript/biblio_script.sh -q -i mods -o $format $tmpDir/parscit_mods.xml $tmpDir";
+        system($cmd);
+      }
+
+      # get the output
+      foreach $format(@exportTypes){
+        open(BIBLIO, "<:utf8", "$tmpDir/parscit.$format");
+        my @lines = <BIBLIO>;
+        my $outputBuf .= join("", @lines);  
+        close(BIBLIO);
+
+        print "[ <A HREF=\"javascript:toggleLayer('$format')\">Show $format</A> ]";
+        print "<DIV ID=\"$format\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
+        print CGI::escapeHTML($outputBuf);
+        print "</PRE></DIV>";
+      }
+      print "</BR></BR>";
+    }
+  }
+
+  system("rm -rf $tmpDir");
+}
 
 sub loadTooHigh {
 my $load = `uptime`;
@@ -529,4 +590,11 @@ function exit()
 }
 </script>
 TOOLTIP
+}
+
+# Thang v100901: method to generate tmp file name
+sub newTmpFile {
+  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
+  chomp($tmpFile);
+  return $tmpFile;
 }

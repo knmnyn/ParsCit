@@ -1,0 +1,640 @@
+/*----------------------------------------
+    Global 
+-----------------------------------------*/
+
+body{
+}
+body, table {
+    font-family:arial, helvetica, sans-serif;
+    font-size:12px;
+}
+
+@media print{
+    body, table {
+        font-size:10px;
+    }
+}
+
+/*--------------------------------------------
+    Source code in the instance, source or 
+    annotations.
+--------------------------------------------*/
+span.tEl {
+    color: #000096;
+    background-color:inherit;
+}
+span.tXSLEl {
+    color: #0064C8;
+    background-color:inherit;
+}
+span.tAN {
+    color: #F5844C;
+    background-color:inherit;
+}
+span.tAV {
+    color: #993300;
+    background-color:inherit;
+}
+span.tI {
+    color: #000000;
+    background-color:inherit;
+}
+span.tT {
+    color: #000000;
+    background-color:inherit;
+}
+span.tC {
+    color: #006400;
+    background-color:inherit;
+}
+span.tCD {
+    color: #008C00;
+    background-color:inherit;
+}
+span.tPI {
+    color: #8B26C9;
+    background-color:inherit;
+}
+span.tEn {
+    color: #969600;
+    background-color:inherit;
+}
+/* Title sections */
+span.qname{
+    color:black;
+    background-color:inherit;
+}
+
+span.titleTemplateName{
+    background-image:url('img/tplN16.gif');
+    background-position:left 0;
+    background-repeat:no-repeat;
+    padding-left:20px;
+    color:black;
+}
+
+span.titleTemplateMatch {
+    color:black;
+    background-color:inherit;
+    margin-left:5px;
+    margin-right:10px;
+}
+
+span.titleTemplateMode:before {
+    content:'[';
+    /*margin-left:10px;*/
+}
+span.titleTemplateMode:after {
+    content:']';
+}
+span.titleTemplateMode {
+    color:gray;
+    background-color:inherit;
+    font-style:italic;
+}
+
+/* Template reference sections*/
+span.nRf{
+  background-image:url('img/tplN12.gif');
+  background-repeat:no-repeat;
+  padding-left:14px;
+  margin-right:4px;
+}
+
+span.mRfI{
+  padding-left:14px;
+  margin-right:4px;
+}
+
+span.mRf{
+  margin-right:4px;
+}
+
+span.cRfI{
+  padding-left:14px;
+}
+
+span.mdRf:before {
+    content:'[';
+    margin-left:4px;
+}
+span.mdRf:after{
+    content:']';
+}
+span.mdRf{
+    color:gray;
+    font-style:italic;
+}
+
+/* Indent the wrapping lines to the right.
+   Only the first line is at 0, the rest are 
+   some distance to the right.*/
+.rt_content div[id]{
+ /*margin-left:30px;*/
+}
+
+/*-----------------------------------------
+    Documentation sections.
+------------------------------------------*/
+
+div.cmpT {
+    font-size:1.4em;
+    font-weight:bold;
+    text-align:left;
+    margin-top:1.4em;
+    margin-bottom:0.7em;
+}
+div.cmpT{
+/*    color:rgb(255, 160, 100);*/
+    color:#333333;
+    background-color:inherit;
+}
+
+
+/* Tables. */
+
+td, th {
+    padding:2px 2px 2px 5px;
+    text-align:left;
+    vertical-align:top;
+}
+
+tr > th {
+    background-color:rgb(206, 239, 174);
+    color:inherit;
+}
+
+/* Contrast for the titles*/
+table.component {
+    width:100%;
+    border-spacing:1px;
+}
+
+@media print{
+    table.component{
+        border:1px solid gray;
+        border-collapse:collapse;
+    }
+    
+    table.component td{
+        border:1px solid gray;
+    }
+}
+
+
+
+table.component td.fCol{
+/* pink */
+    /*background-color:#FFC0C0;*/
+/*green */
+     background-color:rgb(210, 240, 180);
+/*bleu*/
+    /*background-color:#89C6E2;*/
+/*orange*/
+    /*background-color:#FFD697;*/
+/*brown*/
+    /*background-color:#D5BC8E;*/
+/*lilla*/    
+    /*background-color:#DDDDFF;*/
+/*gray-bleu*/
+    /*background-color:#CAD0DD;*/
+/*brown-light*/
+    /*background-color:#DECFB8;*/
+/*gray-green*/
+    /*background-color:#C6D0CD;*/
+/*bleu-2*/
+    /*background-color:#B5D5FF;*/
+/*gray*/
+    /*background-color:#CCCCCC;*/
+
+
+/*bleu 
+background-color:#C4DAF4;
+*/
+    
+     
+
+    color:black;
+    width:12%;
+}
+
+table.component table td.fCol{
+    border:none;
+    background-color:rgb(225, 245, 206);
+    color: inherit;
+}
+
+td.fCol b{
+    font-weight:normal;
+}
+
+
+/* The Name and Expand/Collapse control are on the same line
+ but at different ends.*/
+td.fCol div.flL{
+    float:left;
+}
+td.fCol div.flR{
+    float:right;
+}
+
+/* Subtables */
+table.component table{
+    width:100%;
+}
+table.component table,
+table.component table td,
+table.component table th{
+    border:0;
+}
+
+
+/* Properties table */
+table.propertiesTable {
+    border-spacing:1px;
+}
+table.propertiesTable td.fCol{
+    width:140px;
+    text-transform:capitalize;        
+}
+/* Used by table */
+table.uBT {
+    border-spacing:1px;
+}
+table.uBT td.fCol{
+    width:140px;
+    text-transform:capitalize;        
+}
+
+/* Facets table*/
+table.facetsTable {
+    border-spacing:1px;
+}
+table.facetsTable td.fCol{
+    width:140px;
+    text-transform:capitalize;        
+}
+
+/* Attributes table */
+table.attsT {
+    border-spacing:1px;
+}
+table.attsT th{
+    font-weight:normal;
+}
+table.attsT tr:hover{
+    color:inherit;
+   background-color:rgb(225,245,206);
+}
+
+
+/* Identity constraints table */
+table.identityConstraintsTable {
+    border-spacing:1px;
+}
+table.identityConstraintsTable th{
+    font-weight:normal;
+}
+table.identityConstraintsTable tr:hover{
+    color:inherit;
+    background-color:rgb(225,245,206);
+}
+
+
+
+/*---------------------------------------
+    The diagram.    
+----------------------------------------*/
+
+table.component td.diagram {
+    background-color:white;
+    color:inherit;
+}
+
+
+/* This table is a workaround for an IE bug regarding pre-wrap */
+table.pWCont,
+table.pWCont td{
+    border:0;
+    margin:0;
+    padding:0;
+}
+
+
+/* Annotations. */
+div.annotation{    
+}
+div.annotation pre{
+    font-family:arial, helvetica, sans-serif;
+    margin:0;
+}
+div.annotation,
+div.annotation table,
+div.annotation table td{
+    margin:0;
+    padding:0;
+}
+
+/*  Hierarchy */
+ul > li{
+    list-style:none;
+}
+
+ul {
+    margin:2px;
+    padding:0;
+}
+
+ul ul li {
+    padding-left:10px;
+    
+    list-style-image:url('img/hierarchy_arrow.gif');
+    list-style-position:inside;
+}
+
+/*-------------------------------------
+    Rounded tables.
+---------------------------------------*/
+
+table.rt,
+table.rt_with_bg{
+    border-collapse:collapse;
+    border-spacing:0;
+    width:100%;
+} 
+table.rt_with_bg{
+    /*background-color:#C0F0A0;*/
+    background-color:white;
+    color:inherit;
+}
+
+
+.rt_cTL{
+    background-color:transparent;
+    background-repeat:no-repeat;
+    background-position:right;    
+    width:8px;
+    height:8px;
+    margin:0;
+    padding:0;
+}
+.rt_cTL{
+    background-image:url('img/cTL.gif');
+}
+
+
+.rt_cBL{
+    background-color:transparent;
+    background-repeat:no-repeat;
+    background-position:right;    
+    width:8px;
+    height:8px;
+    margin:0;
+    padding:0;
+}
+.rt_cBL{
+    background-image:url('img/cBL.gif');
+}
+
+
+.rt_cTR{
+    background-color:transparent;
+    background-repeat:no-repeat;
+    width:8px;
+    height:8px;
+    margin:0;
+    padding:0;
+
+}
+.rt_cTR{
+    background-image:url('img/cTR.gif');
+}
+
+
+.rt_cBR{
+    background-color:transparent;
+    background-repeat:no-repeat;
+    width:8px;
+    height:8px;
+    margin:0;
+    padding:0;
+
+}
+.rt_cBR{
+    background-image:url('img/cBR.gif');    
+}
+
+
+.rt_cnt{
+    background-color:white;
+    color:inherit;
+    width:auto;
+    margin:0;
+    padding:0;
+}
+
+
+.rt_lL{
+    background-color:transparent;
+    background-repeat:repeat-y;
+    background-position:right;    
+    width:8px;
+    margin:0;
+    padding:0;
+
+}
+.rt_lL{
+    background-image:url('img/lL.gif');
+}
+
+
+.rt_lR{
+    background-repeat:repeat-y;
+    width:8px;
+    margin:0;
+    padding:0;
+}
+.rt_lR{
+    background-image:url('img/lR.gif');
+}
+
+
+.rt_lT{
+    background-color:transparent;
+    background-repeat:repeat-x;
+    height:8px;
+    width:auto;
+    margin:0;
+    padding:0;
+}
+.rt_lT{
+    background-image:url('img/lT.gif');        
+}
+
+.rt_lB{
+    background-color:transparent;
+    background-repeat:repeat-x;
+    height:8px;
+    width:auto;
+    margin:0;
+    padding:0;
+}
+.rt_lB{
+    background-image:url('img/lB.gif');
+}
+
+
+/* -------------------------------------- 
+    Controls for bulk showing/hidding sections 
+    from the documentation.
+----------------------------------------*/
+
+.globalControls h3{
+    margin:0.1em;
+    font-size:1.2em;
+}
+
+.globalControls table td{
+    padding:0;
+    margin:0;
+}
+
+.globalControls{
+    position:fixed;
+    right:0;
+    background-color:transparent;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom:0.5em;
+    width:190px;
+}
+
+@media print{
+    .globalControls{
+        display:none;
+    }
+}
+
+/* Expand/collapse of a single section. */
+input.control {
+    text-align:center;
+    vertical-align:middle;
+    padding:0;
+    padding-right:3px;
+    padding-bottom:2px;
+    
+}
+
+
+/* close button */
+td.rt_content div span input{
+    font-size:0.8em;
+}
+
+@media print{
+    input.control{
+        display:none;
+    }
+}
+
+/*-----------------------------------------
+    Navigation.
+------------------------------------------*/
+a, a:visited {
+    color:rgb(0, 0, 150);
+    background-color:inherit;
+    font-weight: bold;
+}
+a:link, a:visited {
+    text-decoration:none; 
+}
+a:hover {
+    text-decoration:underline;
+}
+a.iRf {
+    display: block;
+}
+
+div.toTop{
+    text-align:right;
+}
+div.toTop a{
+    font-weight:normal;
+}
+
+/*------------------------------------------
+  The second level of index. Floating DIVs
+-------------------------------------------*/
+.toc {
+}
+.toc div.verticalLayout, div.horizontalLayout{
+    float:left;
+    display:block;
+
+    background-color:white;
+    color:inherit;
+
+    min-width:130px;
+    min-height:50px;
+    
+    padding:0.5em;
+}
+/* This is not used. */
+.toc div.verticalLayout {
+    clear:left;
+}
+
+/* Hack for the IE - acts like a minimum height.*/
+* html .toc div.horizontalLayout, 
+* html .toc div.verticalLayout {
+    width:120px;
+    height:60px;
+}
+
+.toc div.componentGroupTitle{
+    font-weight:bold;
+    margin-bottom:0.5em;
+    color:black;
+    background-color:inherit;
+}
+
+/* Namespacces or system ids in the TOC. */
+.toc .indexGroupTitle {
+    font-weight:bold;
+    margin-bottom:0.5em;
+}
+
+/*----------------
+    The footer. 
+-----------------*/
+.footer{
+    margin-top:3em;
+}
+.redX{
+    color:red;
+    background-color:inherit;
+    font-size:1.2em;
+}
+.oXygenLogo{
+    color:#1166DD;
+    background-color:inherit;
+    font-weight:bold;
+    font-size:1.2em;
+}
+
+
+/*  List item from documentation format */
+ul > li.doc{
+    list-style:disc;
+    margin-left:10px;
+}
+
+/* Wrap the long lines in the 'pre' section. */
+pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    _white-space: pre;   /* IE only hack to re-specify in addition to word-wrap  */
+}

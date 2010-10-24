@@ -161,7 +161,7 @@ sub processFile {
   while (<IF>) { #each line contains a header
     if (/^\#/) { next; }			# skip comments
     chomp;
-    s/\cM$//; # remove ^M character at the end of the file if any
+    s/\cM//; # remove ^M character
     my $line = $_;
 
     if($tagFile ne ""){
@@ -610,7 +610,11 @@ sub processPara {
       $isTab = 0;
 
       if ($isMarkup){
-	$markupOutput .= "$word $wdAttr\n";
+	$markupOutput .= "$word $wdAttr";
+	if($isRun && $runAttr =~ /(bold|italic)=\"true\"/){ # if both bold and italic, then just use one
+	  $markupOutput .= " $1=\"true\"";
+	}
+	$markupOutput .= "\n";
       }
 
       if($isXmlFeature){ # FontSize & FontFace
@@ -647,8 +651,14 @@ sub processPara {
       $isWd = 0;
       
       if($isMarkup){
-	$markupOutput .= "$wdText $wdAttr\n";
+	$markupOutput .= "$wdText $wdAttr";
+	if($isRun && $runAttr =~ /(bold|italic)=\"true\"/){ # if both bold and italic, then just use one
+	  $markupOutput .= " $1=\"true\"";
+	}
+	$markupOutput .= "\n";
+
 	$wdAttr = "";
+        $wdText = "";
       }
     }
 
