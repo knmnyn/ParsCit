@@ -488,7 +488,7 @@ sub readDict {
 sub untaintPath {
   my ($path) = @_;
 
-  if ( $path =~ /^([-_\/\w\.]+)$/ ) {
+  if ( $path =~ /^([-_\/\w\.\p{P}]+)$/ ) {
     $path = $1;
   } else {
     die "Bad path $path\n";
@@ -499,7 +499,7 @@ sub untaintPath {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/]+)$/) {
+  if ($s =~ /^([\w \-\@\(\),\.\/\p{P}]+)$/) {
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere

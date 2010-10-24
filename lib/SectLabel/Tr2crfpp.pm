@@ -1029,7 +1029,7 @@ sub loadListHash {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) {
+  if ($s =~ /^([\w \-\@\(\),\.\/<>\p{P}]+)$/) {
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere

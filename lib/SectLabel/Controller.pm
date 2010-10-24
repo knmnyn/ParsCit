@@ -222,7 +222,7 @@ sub insertGenericHeaders {
 sub untaintPath {
   my ($path) = @_;
 
-  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) {
+  if ( $path =~ /^([-_\/\w\.\d: \p{P}]+)$/ ) {
     $path = $1;
   } else {
     die "Bad path $path\n";
