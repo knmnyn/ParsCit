@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Added by Min Sat Jul 18 15:19:58 SGT 2009 -->
-<!-- Excerpt of the ForeCite full WSDL file at -->
-<!-- http://wing.comp.nus.edu.sg/~forecite/forecite.wsdl -->
   <wsdl:definitions name="ForeCite" 
     xmlns:tns="urn:ForeCite"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
@@ -11,7 +8,7 @@
     xmlns="http://schemas.xmlsoap.org/wsdl/">
 
   <!-- MESSAGES : The messages used by the web service -->
-  <!-- ----------------------------------------------- -->
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
   <wsdl:message name="extract_citations_request">
     <wsdl:part name="uri_or_path" type="xsd:string"/>
   </wsdl:message>
@@ -33,8 +30,16 @@
     <wsdl:part name="metadata" type="xsd:string"/>
   </wsdl:message>
 
+  <wsdl:message name="extract_kp_request">
+    <wsdl:part name="uri_or_path" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="extract_kp_response">
+    <wsdl:part name="metadata" type="xsd:string"/>
+  </wsdl:message>
+
+
   <!-- PORTTYPES : The operations performed by the web service -->
-  <!-- ------------------------------------------------------- -->
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
   <wsdl:portType name="ForeCitePortType">
     <wsdl:operation name="extract_citations">
       <wsdl:documentation>
@@ -58,10 +63,19 @@
       <wsdl:input message="extract_meta_request"/>
       <wsdl:output message="extract_meta_response"/>
     </wsdl:operation>
+    <wsdl:operation name="extract_kp">
+      <wsdl:documentation>
+        Extracting keyphrases from a scholarly article
+      </wsdl:documentation>
+      <wsdl:input message="extract_kp_request"/>
+      <wsdl:output message="extract_kp_response"/>
+    </wsdl:operation>
+
+
   </wsdl:portType>
   
   <!-- BINDINGS : The communication protocols used by the web service -->
-  <!-- -------------------------------------------------------------- -->
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
   <wsdl:binding name="ForeCiteBinding" type="ForeCitePortType">
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="extract_citations">
@@ -91,16 +105,27 @@
                                encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="extract_kp">
+      <soap:operation style="rpc" soapAction="extract_kp"/>
+      <wsdl:input> <soap:body use="literal" namespace="urn:ForeCite"
+                              encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output> <soap:body use="literal" namespace="urn:ForeCite"
+                               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+
+
   </wsdl:binding>
 
   <!-- SERVICE : The service name -->
-  <!-- -------------------------- -->
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%% -->
   <wsdl:service name="ForeCite">
     <wsdl:documentation>
       Web Services for the ForeCite Project at School of Computing, NUS.  Hosted by Web IR / NLP Group (WING)
     </wsdl:documentation>
     <wsdl:port name="ForeCitePort" binding="ForeCiteBinding">
-      <soap:address location="http://wing.comp.nus.edu.sg:10570/"/>
+      <soap:address location="http://wing.comp.nus.edu.sg:4000/"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

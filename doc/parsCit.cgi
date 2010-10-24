@@ -102,7 +102,7 @@ print "Yay! Web service is up.\n<BR>";
 } else {
 print "Web service for extracting citations is down.  Try again later.\n<BR>";
 }
-print "[ <A HREF=\"emma.html\">Back to ParsCit Home Page</A> ]\n";
+print "[ <A HREF=\"index.html\">Back to ParsCit Home Page</A> ]\n";
 printTrailer();
 logMessage("# Web service ping");
 exit;

@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="100401">
+<algorithm name="SectLabel" version="100410">
+<variant no="0" confidence="0.000003">
+<title confidence="0.508076">
+Generation and
+Synchronous Tree-Adjoining Grammars
+</title>
+<author confidence="0.914283">
+Stuart M. Shieber
+</author>
+<affiliation confidence="0.927974666666667">
+Aiken Computation Laboratory
+Division of Applied Sciences
+Harvard University
+</affiliation>
+<address confidence="0.874597">
+Cambridge, MA 02138
+</address>
+<sectionHeader confidence="0.965538" genericHeader="abstract">
+Abstract
+</sectionHeader>
+<bodyText confidence="0.994219675">
+Tree-adjoining grammars (TAG) have been proposed as
+a formalism for generation based on the intuition that
+the extended domain of syntactic locality that TAGs
+provide should aid in localizing semantic dependencies
+as well, in turn serving as an aid to generation from
+semantic representations. We demonstrate that this
+intuition can be made concrete by using the formal-
+ism of synchronous tree-adjoining grammars. The use
+of synchronous TAGs for generation provides solutions
+to several problems with previous approaches to TAG
+generation. Furthermore, the semantic monotonicity
+requirement previously advocated for generation gram-
+mars as a computational aid is seen to be an inherent
+property of synchronous TAGs.
+Introduction
+The recent history of grammar reversing can be viewed
+as an effort to recover some notion of semantic local-
+ity on which to base a generation process. For in-
+stance, Wedekind (1988) requires a property of a gram-
+mar that he refers to as connectedness, which spec-
+ifies that complements be semantically connected to
+their head. Shieber (1988) defines a notion of semantic
+monotonicity, a kind of compositionality property that
+guarantees that it can be locally determined whether
+phrases can contribute to forming an expression with
+a given meaning. Generation schemes that reorder
+top-down generation (Dymetman and Isabelle, 1988;
+Strzalkowski, 1989) so as to make available information
+that well-founds the top-down recursion also fall into
+the mold of localizing semantic information. Semantic-
+head-driven generation (Shieber et al., forthcoming;
+Calder et al., 1989) uses semantic heads and their com-
+plements as a locus of semantic locality.
+Joshi (1987) points out that tree-adjoining grammars
+may be an especially appropriate formalism for gen-
+eration because of their syntactic locality properties,
+which, intuitively at least, ought to correlate with some
+notion of semantic locality. The same observation runs
+as an undercurrent in the work of McDonald and Puste-
+jovsky (1985), who apply TAGs to the task of genera-
+</bodyText>
+<author confidence="0.547716">
+Yves Schabes
+</author>
+<affiliation confidence="0.708495666666667">
+Department of Computer and
+Information Science
+University of Pennsylvania
+</affiliation>
+<address confidence="0.833402">
+Philadelphia, PA 19104
+</address>
+<bodyText confidence="0.992449513513514">
+tion. As these researchers note, the properties of TAGs
+for describing the syntactic structuring of a natural lan-
+guage mesh quite naturally with the requirements of
+natural-language generation. Nonetheless, generation is
+not, as typically viewed, a problem in natural-language
+syntax. Any system that attempts to use the TAG for-
+malism as a substrate upon which to build a generation
+component must devise some mechanism by which a
+TAG can articulate appropriately with semantic infor-
+mation. In this paper, we discuss one such mechanism,
+synchronous TAGs, which we have previously proposed
+in the arena of semantic interpretation and automatic
+translation, and examine how it might underly a gener-
+ation system of the sort proposed by Joshi and McDon-
+ald and Pustejovsky. In particular, synchronous TAGs
+allow for a precise notion of semantic locality corre-
+sponding to the syntactic locality of pure TAGs.
+Scope of the Paper
+The portion of the full-blown generation problem that
+we address here is what might be referred to as the tac-
+tical as opposed to the strategic generation problem.
+That is, we are concerned only with how to compute
+instances of a well-defined relation between strings and
+canonical logical forms1 in the direction from logical
+forms to strings, a problem that is sometimes referred
+to as &amp;quot;reversing&amp;quot; a grammar. This aspect of the gen-
+eration problem, which ignores the crucial issues in de-
+termining what content to communicate, what predi-
+cates to use in the communication, and so forth, can
+be seen as the reverse of the problem of parsing natu-
+ral language to derive a semantic representation. The
+citations in the first paragraph can serve to place the
+issue in its historical research context. The other truly
+difficult issues of general natural-language production
+are well beyond the scope of this paper.
+&apos;This issue of canonicality of logical forms is discussed
+by Shieber (1988).
+</bodyText>
+<page confidence="0.982179">
+9
+</page>
+<bodyText confidence="0.914906347826087">
+Semantics in Generation
+Although Joshi discusses at length the properties of
+TAGs advantageous to the generation task (1987), he
+does not address the issue of characterizing a semantic
+representation off of which generation can proceed. Mc-
+Donald and Pustejovsky do mention this issue. Because
+TAGs break up complex syntactic structures into ele-
+mentary structures in a particular way, their semantic
+representation follows this structuring by breaking up
+the logical form into corresponding parts. McDonald
+and Pustejovsky consider the sentence
+(1)How many ships did Reuters report that Iraq had
+said it attacked?
+Its semantic representation follows the decomposi-
+tion of the sentence into its elementary TAG trees—
+corresponding (roughly) to &amp;quot;How many ships ...it at-
+tacked&amp;quot;, &amp;quot;did Reuters report that ...&amp;quot; , &amp;quot;Iraq had said
+&amp;quot; . McDonald and Pustejovsky describe their se-
+mantic representation: &amp;quot;The representation we use ...
+amounts to breaking up the logical expression into indi-
+vidual units and allowing them to include references to
+each other.&amp;quot; The units for the example at hand would
+be:
+</bodyText>
+<equation confidence="0.939166">
+= A(quantity-of-ships).
+attack(Iraq, quantity-of-ships)
+U2 = say(Iraq,U1)
+U3 = report(Reuters, U2)
+</equation>
+<bodyText confidence="0.9825327125">
+By composing the units using substitution of equals for
+equals, a more conventional logical form representation
+is revealed:
+report( Reuters,
+say(Iraq,
+)t(quantity-of-ships).
+attack(Iraq, quantity-of-ships)))
+Three problems present themselves.
+First, the particular decomposition of the full seman-
+tic form must be explicitly specified as part of the input
+to the generation system.
+Second, the basic operation that is used (implicitly)
+to compose the individual parts, namely substitution
+does not parallel the primitive operation that TAGs
+make available, namely adjunction. In the particular
+example, this latter problem is revealed in the scope of
+the quantity quantifier being inside the say predicate.
+The more standard representation of scoping would be
+akin to
+A(quantity-of-ships).
+(2) report(Reuters,
+say(Iraq, attack(Iraq,
+quantity-of-ships)))
+but this requires one of the elementary semantic units to
+be &amp;quot;broken up&amp;quot;. Consequently, McDonald and Puste-
+jovsky note that they cannot have the logical form (2)
+as the source of the example sentence (1).
+Third, the grammatical information alone does not
+determine where adjunctions should occur. McDonald
+and Pustejovsky allude to this problem when they note
+that &amp;quot;the [generator] must have some principle by which
+to judge where to start.&amp;quot; In their own example, they
+say that &amp;quot;the two pending units, U2 and U3 are then
+attached to this matrix ... into complement positions,&amp;quot;
+but do not specify how the particular attachment po-
+sitions within the elementary trees are chosen (which
+of course has an impact on the semantics). The rela-
+tionship between syntax and semantics that they pro-
+pose links elementary trees with units of the realization
+specification. Apparently, a more finely structured rep-
+resentation is needed.
+Synchronous TAGs
+In order to provide an explicit representation for the se-
+mantics of strings generated by a TAG, and in so doing
+provide a foundation for the generation efforts of Joshi
+and McDonald and Pusteiovsky, we present an exten-
+sion to TAGs, synchronous TAGs, which was originally
+developed just to characterize the declarative relation-
+ship between strings and representations of their se-
+mantics. The formalism allows us to circumvent some
+of the problems discussed above.
+The idea underlying synchronous TAGs is simple.
+One can characterize both a natural language and a
+logical form language with TAGs. The relation be-
+tween strings in the two languages (sentences and log-
+ical forms, respectively) can then be rigorously stated
+by pairing the elementary trees of the two grammars
+and linking the corresponding nodes, forming a new
+grammar whose elements are linked pairs of elementary
+trees.
+The synchronous TAG formalism addresses all three
+of the problems mentioned above. First, a synchronous
+TAG characterizes a relation between languages. Thus,
+we need not assume that the sentences of the logical
+form language come pre-packaged into their constituent
+units (just as in the case of sentence parsing, where we
+need not assume that sentences come pre-bracketed).
+Second, the operations that are used to build the two
+structures—natural language sentences and semantic
+representations—are stated using the same kinds of
+operations, as they are both characterized by TAGs.
+Third, the linking of individual nodes in the elemen-
+tary trees of a synchronous TAG provides just the fine-
+grained relationship between syntax and semantics that
+allows decisions about where to perform semantic op-
+erations to be well-defined.
+An Example Synchronous TAG
+We introduce synchronous TAGs by example, contin-
+uing with an exegesis of the sentence that McDonald
+and Pustejovsky focus on, and following roughly the
+</bodyText>
+<figure confidence="0.953816416666667">
+10
+a:
+NPi qF
+;C3
+attack Iraq q
+V NP
+attacked ei
+report Reuters F*
+did NP VP
+Reuters V §
+report Comp S*NA
+that
+</figure>
+<figureCaption confidence="0.991241">
+Figure 1: Example Synchronous TAG
+</figureCaption>
+<figure confidence="0.808836">
+said Iraq F*
+132:
+How many ships
+Iraq
+</figure>
+<bodyText confidence="0.939572090909091">
+structure of their TAG analysis.2
+A synchronous TAG sufficient for this example in-
+cludes the three pairings of trees (labeled a, flu, and (32)
+found in Figure 1. Note that the first components of the
+three pairs constitute a TAG grammar sufficient to gen-
+erate the sentence &amp;quot;How many ships did Reuters report
+that Iraq attacked&amp;quot; or &amp;quot;How many ships did Reuters
+report that Iraq said that Iraq attacked&amp;quot;. The second
+components generate strings in a logical form language.
+The syntax of that language includes such phrase types
+as formula (F) or abstracted property (A). The obvious
+linearization of such trees will be assumed, so that the
+logical form in given for the sample sentence is in the
+language. Some of the nodes in the pairs are linked;
+formally, the interpretation of these links is that oper-
+&apos;The linguistic analysis implicit in the TAG English frag-
+ment that we present is not proposed as an appropriate
+one in general. It merely provides sufficient structure to
+make the points vis-i-vis generation. Furthermore, the trees
+that we present here for expository purposes as elementary
+should actually themselves be built from more primitive
+trees. Finally, we gloss over details such as features nec-
+essary to control for agreement or verb-form checking, and
+we replace the pronoun with its proper noun antecedent to
+finesse issues in pronominal interpretation.
+ations on the tree pairs must occur at both ends of a
+link For simplicity, we have marked only those links
+that will be needed for the derivation of the sample
+sentence.
+Derivation in the synchronous grammar proceeds by
+choosing a pairing of initial trees from the grammar
+and repeatedly updating it by the following three-step
+process:3
+</bodyText>
+<listItem confidence="0.9978324">
+1. Choose a link to act upon.
+2. Choose a pairing such that the two trees can respec-
+tively act on (substitute at or adjoin at) the respec-
+tive ends of the link chosen in Step 1.
+3. Remove the chosen link from the trees being updated
+</listItem>
+<bodyText confidence="0.8636178">
+and perform the two operations, one in each of the
+trees. If the trees in the chosen pairing themselves
+have links, these are preserved in the result.
+For instance, we might start with the initial tree pair
+a from Figure 1. We choose the sole link in a, and
+choose i3u as the tree pair to operate with, as the first
+component of flu can operate (by adjunction) on an S
+3A fuller description of the formal aspects of synchronous
+TAGs can be found in a previous paper (Shieber and Sch-
+abes, forthcoming).
+</bodyText>
+<page confidence="0.966176">
+11
+</page>
+<figure confidence="0.99374605">
+a
+.•■••■
+NPi S
+How many shipsNP VP said Iraq F
+attack Iraq q
+a+13-1-13:
+12 —
+S
+NP S
+How many ships Aux report Reuters F
+did NP VP said Iraq F
+Reuters V attack Iraq q
+report Comp S
+I
+that NP VP
+Iraq Aux VP
+had ir
+said NIP VP
+Iraq
+attacked
+</figure>
+<figureCaption confidence="0.91423">
+Figure 2: Results of Synchronous Derivation Steps
+</figureCaption>
+<figure confidence="0.9436974">
+Iraq Aux VP
+had
+said NP VP
+Iraq V NP
+attacked
+</figure>
+<bodyText confidence="0.957576933333333">
+node, and the second on an F node as required by the
+chosen link The result of performing the adjunctions
+is the pairing given as a + th in Figure 2. The link
+in the A. pair is preserved in the resultant, and can
+serve as the chosen link in the next round of the deriva-
+tion. This time, we use f32 to operate at each end of the
+link resulting in the pairing labeled a + + This
+pairing manifests the association between the English
+string &amp;quot;How many ships did Reuters report that Iraq
+said that Iraq attacked&amp;quot; and the logical form represen-
+tation in (2).
+Returning to the three issues cited previously, the
+synchronous TAG presented here:
+1. Makes the decomposition of the logical forms im-
+plicit in the grammar just as the decomposition of
+the natural-language expressions are, by stating the
+structure of logical forms grammatically.
+2. Allows the same operations to be used for composing
+both natural-language expressions and semantic rep-
+resentations as both are stated with the same gram-
+matical tools.
+3. Makes the fine-grained correspondance between ex-
+pressions of natural language and their meanings ex-
+plicit by the technique of node linking.
+The strong notion of semantic locality that synchronous
+TAGs embody makes these results possible. This se-
+mantic locality, in turn, is only possible because the ex-
+tended domain of locality found in pure TAGs makes it
+possible to localize dependencies that would otherwise
+be spread across several primitive structures.
+</bodyText>
+<page confidence="0.982454">
+12
+</page>
+<bodyText confidence="0.990913228070175">
+Translation with Synchronous TAGs
+Synchronous TAGs as informally described here declar-
+atively characterize a relation over strings in two lan-
+guages without priority of one of the languages over
+the other. Any method for computing this relation in
+one direction will perforce be applicable to the other
+direction as well. The distinction between parsing and
+generation is a purely informal one depending merely on
+which side of the relation one chooses to compute from;
+both are instances of a process of translating between
+two TAG languages appropriately synchronized.
+The question of generation with synchronous TAGs
+reverts then to one of whether this relation can be com-
+puted in general. There are many issues involved in
+answering this question, most importantly, what the
+underlying TAG formalism (the base formalism) is that
+the two linked TAGs are stated in. The simple exam-
+ple above required a particularly simple base formalism,
+namely pure TAGs with adjunction as the only opera-
+tion. The experience of grammar writers has demon-
+strated that substitution is a necessary operation to
+be added to the formalism, and that a limited form
+of feature structures with equations are helpful as well.
+Work on the use of synchronous TAGs to capture quan-
+tifier scoping possibilities makes use of so-called multi-
+component TAGs. Finally, the base TAGs may be lex-
+icalized (Schabes et al., 1988) or not.
+Once the base formalism has been decided upon (we
+currently are using lexicalized multi-component TAGs
+with substitution and adjunction), a simple translation
+strategy from a source string to a target is to parse the
+string using an appropriate TAG parser for the base
+formalism. Each derivation of the source string can
+be mapped according to the synchronizing links in the
+grammar to a target derivation. Such a target deriva-
+tion defines a string in the target language which is a
+translate of the source string.
+In the case of generation, the source string is a se-
+mantic representation, the target is a natural-language
+realization. For example, the logical form (2) has a sin-
+gle derivation in the pure TAG formed by projecting the
+synchronous TAG onto its semantic component. (We
+might notate the semantic components with a(sem),
+1(sem), and fl2(sem), and analogously for the syntac-
+tic components.) That derivation can be recovered by
+&amp;quot;parsing&amp;quot; the logical form with the projected logical
+form grammar, as depicted in Figure 3. The pairings
+whose semantic components were used in this deriva-
+tion and the links operated on implicitly define a corre-
+sponding derivation on the syntactic side. The yield of
+this derivation is a string whose meaning is represented
+by the logical form that we started with.
+The target derivation might not, unlike in the exam-
+ple above, be in canonical form (as defined by Vijay-
+Shanker (1988)), and consequently must be normalized
+to put it into canonical form. Under certain config-
+urations of links, the normalization process is nonde-
+</bodyText>
+<figure confidence="0.916924916666667">
+Aq .report(Reuters,
+said(lraq,
+attack(Iraq,q)))
+Iparse
+a (sem) a (syn)
+12 linking 12
+f3 Immum4111 161 (sYn)
+Iyield
+How many ships
+did Reuters report
+that Iraq had said
+Iraq attacked?
+</figure>
+<figureCaption confidence="0.999919">
+Figure 3: Generation by Derivation Translation
+</figureCaption>
+<bodyText confidence="0.994738444444444">
+terministic; thus one source derivation (necessarily in
+canonical form by virtue of properties of the parsing al-
+gorithm) may be associated with several canonical tar-
+get derivations. In translation from natural language
+to logical forms, the multiple translates typically corre-
+spond to scope ambiguities in the source sentence (as
+quantifier scope or scope of negation or adverbs). On
+the other hand, we have not observed the linking config-
+urations that give rise to such ambiguities in translating
+in the other direction, that is, in performing generation.
+In previous work, one of us noted that generation
+according to an augmented context-free grammar can
+be made more efficient by requiring the grammar to
+be semantically monotonic (Shieber, 1988); the derived
+semantics for an expression must include, in an appro-
+priate sense, the semantic material of all its sub con-
+stituents. It is interesting to note that synchronous
+TAGs are inherently semantically monotonic, and the
+computational advantages that accrue to such gram-
+mars apply to synchronous TAG generation as well.
+Furthermore, it is reasonable to require that the se-
+mantic component of a synchronous TAG be lexical-
+ized (in the sense of Schabes et al. (1988)), allowing for
+more efficient parsing according to the semantic gram-
+mar and, consequently, more efficient generation. In
+the case of augmented context-free grammars, the se-
+mantic monotonicity requirement precludes &amp;quot;lexicaliza-
+</bodyText>
+<figure confidence="0.636365">
+10
+(sYn)
+1 3
+</figure>
+<bodyText confidence="0.987032666666666">
+tion&amp;quot; of the semantics. It is not possible to require
+nontrivial semantics to be associated with each lexi-
+cal item. This fact, and the inefficiencies of genera-
+tion thatfollow from it, was the initial motivation for
+the move to semantic-head-driven generation (Shieber
+et at, forthcoming). The efficiencies that that algorith-
+mgains for augmented-context-free generation inhere in
+the synchronous TAG generation process if the semantic
+gramamr is lexicalized. In summary, just as lexicaliza-
+tion of the syntactic grammar aids parsing (Schabes and
+Joshi, 1989), so lexicalization of the semantic grammar
+aids generation.
+The simple generation algorithm that we have just
+presented seems to require that we completely analyze
+the logical form before generating the target string, as
+the process is a cascade of three subprocesses: parsing
+the logical form to a source derivation, mapping from
+source to target derivation, and computing the target
+derivation yield. As is common in such cases, portions
+of these computations can be interleaved, so that gen-
+eration of the target string can proceed incrementally
+while traversing the source logical form. To what ex-
+tent this incrementality can be achieved in practice de-
+pends on subtleties in the exact formal definition of
+synchronous TAG derivation and properties of particu-
+lar grammars; a full explication is beyond the scope of
+this paper.
+Conclusion
+The extended domain of locality that tree-adjoining
+grammars enjoy would seem to make them ideal candi-
+dates for the task of tactical generation, where seman-
+tic locality is of great importance. Synchronous TAGs,
+which extend pure TAGs to allow for mappings between
+languages, provide a formal foundation for this intuition
+by making explicit the semantic locality that generation
+requires.
+</bodyText>
+<sectionHeader confidence="0.944264" genericHeader="acknowledgments">
+Acknowledgements
+</sectionHeader>
+<bodyText confidence="0.983187">
+This research was partially funded by ARO grant
+DAAG29-84-K-0061, DARPA grant N00014-85-K0018,
+and NSF grant MCS-82-19196 at the University of
+Pennsylvania. We are indebted to Aravind Joshi for
+his support of this research.
+</bodyText>
+<sectionHeader confidence="0.349211" genericHeader="references">
+Bibliography
+</sectionHeader>
+<reference confidence="0.998229389830508">
+Jonathan Calder, Mike Reape, and Hank Zeevat. An al-
+gorithm for generation in unification categorial gram-
+mar. In Proceedings of the 4th Conference of the Eu-
+ropean Chapter of the Association for Computational
+Linguistics, pages 233-240, Manchester, England, 10-
+12 April 1989. University of Manchester Institute of
+Science and Technology.
+Marc Dymetman and Pierre Isabelle. Reversible logic
+grammars for machine translation. In Proceedings of
+the Second International Conference on Theoretical
+and Methodological Issues in Machine Translation of
+Natural Languages, Pittsburgh, Pennsylvania, 1988.
+Carnegie-Mellon University.
+Aravind K. Joshi. The relevance of tree adjoining gram-
+mar to generation. In Gerard Kempen, editor, Nat-
+ural Language Generation, chapter 16, pages 233—
+252. Martinus Nijhoff Publishers, Dordrecht, Hol-
+land, 1987.
+David D. McDonald and James D. Pustejovsky. TAGs
+as a grammatical formalism for generation. In Pro-
+ceedings of the 23rd Annual Meeting of the Associ-
+ation for Computational Linguistics, pages 94-103,
+University of Chicago, Chicago, Illinois, 8-12 July
+1985.
+Yves Schabes and Aravind K. Joshi. The relevance of
+lexicalization to parsing. In Proceedings of the Inter-
+national Workshop on Parsing Technologies, pages
+339-349, Pittsburgh, Pennsylvania, 28-31 August
+1989. Carnegie-Mellon University.
+Yves Schabes, Anne Abeille, and Aravind K. Joshi.
+Parsing strategies with `lexicalized&apos; grammars: Ap-
+plication to tree adjoining grammars. In Proceedings
+of the 12th International Conference on Computa-
+tional Linguistics (COLING&apos;88), Budapest, August
+1988.
+Stuart M. Shieber and Yves Schabes. Synchronous tree-
+adjoining grammars. In Proceedings of the 13th Inter-
+national Conference on Computational Linguistics,
+University of Helsinki, Helsinki, Finland, forthcom-
+ing.
+Stuart M. Shieber, Gertjan van Noord, Fernando C. N.
+Pereira, and Robert C. Moore. Semantic-head-driven
+generation. Computational Linguistics, forthcoming.
+Stuart M. Shieber. A uniform architecture for pars-
+ing and generation. In Proceedings of the 12th Inter-
+national Conference on Computational Linguistics,
+pages 614-619, Karl Marx University of Economics,
+Budapest, Hungary, 22-27 August 1988.
+Tomek Strzalkowski. Automated inversion of a unifi-
+cation parser into a unification generator. Technical
+Report 465, Department of Computer Science, New
+York University, New York, New York, 1989.
+K Vijay-Shanker. A Study of Tree Adjoining Gram-
+mars. PhD thesis, University of Pennsylvania,
+Philadelphia, Pennsylvania, 1988.
+Jiirgen Wedekind. Generation as structure driven
+derivation. In Proceedings of the 12th International
+Conference on Computational Linguistics, pages 732—
+737, Budapest, Hungary, 1988.
+</reference>
+<page confidence="0.999257">
+14
+</page>
+</variant>
+</algorithm>
+<algorithm name="ParsHed" version="100401">
+<variant no="0" confidence="0.993690">
+<title confidence="0.9997675">Generation and Synchronous Tree-Adjoining Grammars</title>
+<author confidence="0.999986">Stuart M Shieber</author>
+<affiliation confidence="0.999925333333333">Aiken Computation Laboratory Division of Applied Sciences Harvard University</affiliation>
+<address confidence="0.999991">Cambridge, MA 02138</address>
+<abstract confidence="0.9996094">Tree-adjoining grammars (TAG) have been proposed as a formalism for generation based on the intuition that the extended domain of syntactic locality that TAGs provide should aid in localizing semantic dependencies as well, in turn serving as an aid to generation from semantic representations. We demonstrate that this intuition can be made concrete by using the formalism of synchronous tree-adjoining grammars. The use of synchronous TAGs for generation provides solutions to several problems with previous approaches to TAG generation. Furthermore, the semantic monotonicity requirement previously advocated for generation grammars as a computational aid is seen to be an inherent property of synchronous TAGs</abstract>
+</variant>
+</algorithm>
+<algorithm name="ParsCit" version="100401">
+<citationList>
+<citation valid="true">
+<authors>
+<author>Jonathan Calder</author>
+<author>Mike Reape</author>
+<author>Hank Zeevat</author>
+</authors>
+<title>An algorithm for generation in unification categorial grammar</title>
+<date>1989</date>
+<booktitle>In Proceedings of the 4th Conference of the European Chapter of the Association for Computational Linguistics</booktitle>
+<pages>233--240</pages>
+<institution>University of Manchester Institute of Science and Technology</institution>
+<location>Manchester, England</location>
+<contexts>
+<context position="1767" citStr="Calder et al., 1989">9) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Calder et al., 1989) uses semantic heads and their complements as a locus of semantic locality. Joshi (1987) points out that tree-adjoining grammars may be an especially appropriate formalism for generation because of th</context>
+</contexts>
+<marker>Calder, Reape, Zeevat, 1989</marker>
+<rawString>Jonathan Calder, Mike Reape, and Hank Zeevat. An algorithm for generation in unification categorial grammar. In Proceedings of the 4th Conference of the European Chapter of the Association for Computational Linguistics, pages 233-240, Manchester, England, 10-12 April 1989. University of Manchester Institute of Science and Technology.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Marc Dymetman</author>
+<author>Pierre Isabelle</author>
+</authors>
+<title>Reversible logic grammars for machine translation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the Second International Conference on Theoretical and Methodological Issues in Machine Translation of Natural Languages</booktitle>
+<institution>Carnegie-Mellon University</institution>
+<location>Pittsburgh, Pennsylvania</location>
+<contexts>
+<context position="1528" citStr="Dymetman and Isabelle, 1988">tionality property that guarantees that it can be locally determined whether phrases can contribute to forming an expression with a given meaning. Generation schemes that reorder top-down generation (Dymetman and Isabelle, 1988; Strzalkowski, 1989) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et</context>
+</contexts>
+<marker>Dymetman, Isabelle, 1988</marker>
+<rawString>Marc Dymetman and Pierre Isabelle. Reversible logic grammars for machine translation. In Proceedings of the Second International Conference on Theoretical and Methodological Issues in Machine Translation of Natural Languages, Pittsburgh, Pennsylvania, 1988. Carnegie-Mellon University.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Aravind K Joshi</author>
+</authors>
+<title>The relevance of tree adjoining grammar to generation</title>
+<date>1987</date>
+<booktitle>Natural Language Generation, chapter 16</booktitle>
+<pages>233--252</pages>
+<editor>In Gerard Kempen, editor</editor>
+<publisher>Martinus Nijhoff Publishers</publisher>
+<location>Dordrecht, Holland</location>
+<contexts>
+<context position="1855" citStr="Joshi (1987)">e mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Calder et al., 1989) uses semantic heads and their complements as a locus of semantic locality. Joshi (1987) points out that tree-adjoining grammars may be an especially appropriate formalism for generation because of their syntactic locality properties, which, intuitively at least, ought to correlate with </context>
+</contexts>
+<marker>Joshi, 1987</marker>
+<rawString>Aravind K. Joshi. The relevance of tree adjoining grammar to generation. In Gerard Kempen, editor, Natural Language Generation, chapter 16, pages 233— 252. Martinus Nijhoff Publishers, Dordrecht, Holland, 1987.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>David D McDonald</author>
+<author>James D Pustejovsky</author>
+</authors>
+<title>TAGs as a grammatical formalism for generation</title>
+<date>1985</date>
+<booktitle>In Proceedings of the 23rd Annual Meeting of the Association for Computational Linguistics</booktitle>
+<pages>94--103</pages>
+<institution>University of Chicago</institution>
+<location>Chicago, Illinois</location>
+<contexts>
+<context position="2180" citStr="McDonald and Pustejovsky (1985)">tion because of their syntactic locality properties, which, intuitively at least, ought to correlate with some notion of semantic locality. The same observation runs as an undercurrent in the work of McDonald and Pustejovsky (1985), who apply TAGs to the task of generaYves Schabes Department of Computer and Information Science University of Pennsylvania Philadelphia, PA 19104 tion. As these researchers note, the properties of T</context>
+</contexts>
+<marker>McDonald, Pustejovsky, 1985</marker>
+<rawString>David D. McDonald and James D. Pustejovsky. TAGs as a grammatical formalism for generation. In Proceedings of the 23rd Annual Meeting of the Association for Computational Linguistics, pages 94-103, University of Chicago, Chicago, Illinois, 8-12 July 1985.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Yves Schabes</author>
+<author>Aravind K Joshi</author>
+</authors>
+<title>The relevance of lexicalization to parsing</title>
+<date>1989</date>
+<booktitle>In Proceedings of the International Workshop on Parsing Technologies</booktitle>
+<pages>339--349</pages>
+<location>Pittsburgh, Pennsylvania</location>
+<contexts>
+<context position="18736" citStr="Schabes and Joshi, 1989">or augmented-context-free generation inhere in the synchronous TAG generation process if the semantic gramamr is lexicalized. In summary, just as lexicalization of the syntactic grammar aids parsing (Schabes and Joshi, 1989), so lexicalization of the semantic grammar aids generation. The simple generation algorithm that we have just presented seems to require that we completely analyze the logical form before generating </context>
+</contexts>
+<marker>Schabes, Joshi, 1989</marker>
+<rawString>Yves Schabes and Aravind K. Joshi. The relevance of lexicalization to parsing. In Proceedings of the International Workshop on Parsing Technologies, pages 339-349, Pittsburgh, Pennsylvania, 28-31 August 1989. Carnegie-Mellon University. Yves Schabes, Anne Abeille, and Aravind K. Joshi.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>Stuart M Shieber</author>
+<author>Yves Schabes</author>
+</authors>
+<title>Parsing strategies with `lexicalized&apos; grammars: Application to tree adjoining grammars</title>
+<date>1988</date>
+<journal>Computational Linguistics, forthcoming</journal>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics (COLING&apos;88)</booktitle>
+<institution>University of Helsinki</institution>
+<location>Budapest</location>
+<marker>Shieber, Schabes, 1988</marker>
+<rawString>Parsing strategies with `lexicalized&apos; grammars: Application to tree adjoining grammars. In Proceedings of the 12th International Conference on Computational Linguistics (COLING&apos;88), Budapest, August 1988. Stuart M. Shieber and Yves Schabes. Synchronous treeadjoining grammars. In Proceedings of the 13th International Conference on Computational Linguistics, University of Helsinki, Helsinki, Finland, forthcoming. Stuart M. Shieber, Gertjan van Noord, Fernando C. N. Pereira, and Robert C. Moore. Semantic-head-driven generation. Computational Linguistics, forthcoming.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Stuart M Shieber</author>
+</authors>
+<title>A uniform architecture for parsing and generation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics</booktitle>
+<pages>614--619</pages>
+<institution>Karl Marx University of Economics</institution>
+<location>Budapest, Hungary</location>
+<contexts>
+<context position="1240" citStr="Shieber (1988)">base a generation process. For instance, Wedekind (1988) requires a property of a grammar that he refers to as connectedness, which specifies that complements be semantically connected to their head. Shieber (1988) defines a notion of semantic monotonicity, a kind of compositionality property that guarantees that it can be locally determined whether phrases can contribute to forming an expression with a given m</context>
+<context position="4232" citStr="Shieber (1988)">torical research context. The other truly difficult issues of general natural-language production are well beyond the scope of this paper. &apos;This issue of canonicality of logical forms is discussed by Shieber (1988). 9 Semantics in Generation Although Joshi discusses at length the properties of TAGs advantageous to the generation task (1987), he does not address the issue of characterizing a semantic representat</context>
+<context position="17472" citStr="Shieber, 1988">rforming generation. In previous work, one of us noted that generation according to an augmented context-free grammar can be made more efficient by requiring the grammar to be semantically monotonic (Shieber, 1988); the derived semantics for an expression must include, in an appropriate sense, the semantic material of all its sub constituents. It is interesting to note that synchronous TAGs are inherently seman</context>
+</contexts>
+<marker>Shieber, 1988</marker>
+<rawString>Stuart M. Shieber. A uniform architecture for parsing and generation. In Proceedings of the 12th International Conference on Computational Linguistics, pages 614-619, Karl Marx University of Economics, Budapest, Hungary, 22-27 August 1988.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Tomek Strzalkowski</author>
+</authors>
+<title>Automated inversion of a unification parser into a unification generator</title>
+<date>1989</date>
+<tech>Technical Report 465</tech>
+<institution>Department of Computer Science, New York University</institution>
+<location>New York, New York</location>
+<contexts>
+<context position="1549" citStr="Strzalkowski, 1989">ntees that it can be locally determined whether phrases can contribute to forming an expression with a given meaning. Generation schemes that reorder top-down generation (Dymetman and Isabelle, 1988; Strzalkowski, 1989) so as to make available information that well-founds the top-down recursion also fall into the mold of localizing semantic information. Semantichead-driven generation (Shieber et al., forthcoming; Ca</context>
+</contexts>
+<marker>Strzalkowski, 1989</marker>
+<rawString>Tomek Strzalkowski. Automated inversion of a unification parser into a unification generator. Technical Report 465, Department of Computer Science, New York University, New York, New York, 1989.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Vijay-Shanker</author>
+</authors>
+<title>A Study of Tree Adjoining Grammars</title>
+<date>1988</date>
+<tech>PhD thesis</tech>
+<institution>University of Pennsylvania</institution>
+<location>Philadelphia, Pennsylvania</location>
+<marker>Vijay-Shanker, 1988</marker>
+<rawString>K Vijay-Shanker. A Study of Tree Adjoining Grammars. PhD thesis, University of Pennsylvania, Philadelphia, Pennsylvania, 1988.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Jiirgen Wedekind</author>
+</authors>
+<title>Generation as structure driven derivation</title>
+<date>1988</date>
+<booktitle>In Proceedings of the 12th International Conference on Computational Linguistics</booktitle>
+<pages>732--737</pages>
+<location>Budapest, Hungary</location>
+<contexts>
+<context position="1082" citStr="Wedekind (1988)">y of synchronous TAGs. Introduction The recent history of grammar reversing can be viewed as an effort to recover some notion of semantic locality on which to base a generation process. For instance, Wedekind (1988) requires a property of a grammar that he refers to as connectedness, which specifies that complements be semantically connected to their head. Shieber (1988) defines a notion of semantic monotonicity</context>
+</contexts>
+<marker>Wedekind, 1988</marker>
+<rawString>Jiirgen Wedekind. Generation as structure driven derivation. In Proceedings of the 12th International Conference on Computational Linguistics, pages 732— 737, Budapest, Hungary, 1988.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>
