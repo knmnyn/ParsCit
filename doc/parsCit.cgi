@@ -29,13 +29,14 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }                 # untaint tm
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-#my $installDir = "/home/wing.nus/services/parscit/tools";
-my $installDir = "/home/lmthang/public_html/parsCit";
+my $installDir = "/home/wing.nus/services/parscit/tools";
+#my $installDir = "/home/lmthang/public_html/parsCit";
 my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
 my $debug = 0;
-my $loadThreshold = 2;
+my $loadThreshold = 0.2;
+my $internalKey = "wing"; # Thang: to bypass load check
 ### END user customizable section
 
 $| = 1;								    # flush output
@@ -195,7 +196,7 @@ while (<IF>) { $inputBuf .= $_; }
 close $filename;
 
 # check load if possible to do demo
-if (loadTooHigh()) {
+if ($q->param('key') ne $internalKey && loadTooHigh()) {
 printLoadTooHigh();
 exit;
 }

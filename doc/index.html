@@ -97,7 +97,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version: 100901 (Coming soon): Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> software. See <A
+  <li> Current version: <A HREF="parscit-100901.zip">100901</A>: Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> and BibUtils (http://www.scripps.edu/~cdputnam/software/bibutils/) software. See <A
   HREF="CHANGELOG.txt">CHANGELOG.txt</A>; 
 
 <BR/>
@@ -178,7 +178,9 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
-<P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text.</p>
+<P>NB - this demo does not handle PDF input at this time.  You can use another web service or software to convert PDFs to text. </BR>
+<I>Key (internal use):</I> <INPUT TYPE="password" SIZE="4" NAME="key">
+</P> 
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="1" style="display:none;">
 <P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.txt</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.txt</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
@@ -220,6 +222,7 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
+<I>Key (internal use):</I> <INPUT TYPE="password" SIZE="4" NAME="key">
 <P>Input Method 1) Enter a URL to a file on the web (e.g., <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.xml</A> or <A HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.xml</A>).<BR/>
 <INPUT TYPE="text" SIZE="80" NAME="urlfile"> 
 </P>
@@ -258,6 +261,7 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="3" style="display:none;">
+<I>Key (internal use):</I> <INPUT TYPE="password" SIZE="4" NAME="key">
 <P>Input Method 1) Enter a URL to a file on the web in the correct format (each line should be a separate citation; e.g., <A
 HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/E06-1050.cite</A> or <A
 HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite</A>).
@@ -408,6 +412,10 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
     don't seem to be detected.</DT>
   <DD> There's no problem.  The demo just hides the SectLabel output
     by default.  Click "Show SectLabel output" to reveal it.</DD>
+  <DT> I ran ParsCit using the OmniPage XML output, but encountered malformed UTF8 character errors.</DT>
+  <DD> OmniPage normally outputs XML results in UTF-16 format, a conversion into UTF-8 will solve the problem, see below: </BR>
+<I>&nbsp; &nbsp; &nbsp; iconv --from-code UTF-16 --to-code UTF-8 omnipageOutput.xml > newOmnipageOutput.xml</I>
+</DD>
 </DL>
 
 <!-- Troubleshooting ---------------------------------------------------------------------- -->
@@ -516,7 +524,7 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks to Matteo Romanello for the suggestion and permission to incorporate BiblioScript software. Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
+<P>Thanks Nikolay Nikolov for suggesting the conversion of OmniPage XML results from UTF-16 to UTF-8 to avoid encoding problems. Thanks to Matteo Romanello for the suggestion and permission to incorporate BiblioScript software (v100901). Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
 Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
 (v100401) and contributing the ICONIP training data and XML entity
 problems in reference string parsing (v100401).  Thanks to Priya
