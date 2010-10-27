@@ -111,7 +111,7 @@ if(defined $opt_i && $opt_i !~ /^(xml|raw)$/){
   $isXmlInput = 1;
 }
 
-### Thang v100901: add export type option & incorporate BibUtils###
+### Thang v101101: add export type option & incorporate BibUtils###
 my @exportTypes = ();
 if(defined $opt_e && $opt_e ne ""){
   # sanity checks
@@ -177,7 +177,7 @@ if (($mode & $PARSCIT) == $PARSCIT) { # PARSCIT
   my $pcXML = ParsCit::Controller::extractCitations($textFile, $isXmlInput);
   $rXML .= removeTopLines($$pcXML, 1) . "\n";   # remove first line <?xml/> 
 
-  # Thang v100901: call to BiblioScript
+  # Thang v101101: call to BiblioScript
   if(scalar(@exportTypes) != 0){
     biblioScript(\@exportTypes, $$pcXML, $out);
   }
@@ -264,7 +264,7 @@ sub sectLabel {
   return $$slXML;
 }
 
-# Thang v100901: incorporate BiblioScript
+# Thang v101101: incorporate BiblioScript
 sub biblioScript {
   my ($types, $pcXML, $outFile) = @_;
 

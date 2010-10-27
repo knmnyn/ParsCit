@@ -35,7 +35,7 @@ my $libDir = "$installDir/lib/";
 my $logFile = "$libDir/cgiLog.txt";
 my $seed = $$;
 my $debug = 0;
-my $loadThreshold = 0.2;
+my $loadThreshold = 2;
 my $internalKey = "wing"; # Thang: to bypass load check
 ### END user customizable section
 
@@ -204,7 +204,7 @@ exit;
 my $cmd = "";
 my $outputBuf = "";
 if ($demo == 1 ) {		# run demo 1
-  # Thang v100901: call BiblioScript
+  # Thang v101101: call BiblioScript
   biblioScript($option, $q, $filename, "all");
 
   $cmd = "nice ./citeExtract.pl ";
@@ -235,7 +235,7 @@ if ($demo == 1 ) {		# run demo 1
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 } elsif ($demo == 2) {
-  # Thang v100901: call BiblioScript
+  # Thang v101101: call BiblioScript
   biblioScript($option, $q, $filename, "xml");
 
   $cmd = "nice ./citeExtract.pl -i xml ";
@@ -268,7 +268,7 @@ if ($demo == 1 ) {		# run demo 1
   print "</PRE></DIV>";
 
 } elsif ($demo == 3) {
-  # Thang v100901: call BiblioScript
+  # Thang v101101: call BiblioScript
   biblioScript(1, $q, $filename, "ref");
 
   $cmd = "./parseRefStrings.pl $filename";
@@ -323,7 +323,7 @@ printTrailer();
 ### END of main program
 ###
 
-# Thang v100901: incorporate BiblioScript
+# Thang v101101: incorporate BiblioScript
 sub biblioScript {
   my ($option, $q, $fileName, $inputFormat) = @_;
 
@@ -593,7 +593,7 @@ function exit()
 TOOLTIP
 }
 
-# Thang v100901: method to generate tmp file name
+# Thang v101101: method to generate tmp file name
 sub newTmpFile {
   my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
   chomp($tmpFile);
