@@ -9,7 +9,7 @@ options = OpenStruct.new()
 #options.hostname = Default_Hostname = "wing.comp.nus.edu.sg"
 options.hostname = Default_Hostname = "aye"
 options.port = Default_Port = "10570"
-options.service_id = Default_Service_ID = "urn:ForeCite"
+options.service_id = Default_Service_ID = "urn:WING.NUS"
 options.action = Default_Action = "extract_header"
 
 opts = OptionParser.new do |opts|

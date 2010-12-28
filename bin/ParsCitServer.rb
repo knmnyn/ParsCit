@@ -6,9 +6,9 @@ require 'tempfile'
 require 'uri'
 
 @@PORT = 10555
-@@SERVICE = 'urn:ForeCite/ParsCit'
+@@SERVICE = 'urn:WING.NUS/ParsCit'
 @@ID = 'ParsCit'
-@@Web_Service_ID = 'urn:ForeCite'
+@@Web_Service_ID = 'urn:WING.NUS'
 @@Web_Service_Port = '4000' # changed by min '10570'
 #@@Web_Service_Host = 'wing.comp.nus.edu.sg'
 @@Web_Service_Host = 'aye'
