@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <wsdl:definitions name="ForeCite" 
-    xmlns:tns="urn:ForeCite"
+  <wsdl:definitions name="WING.NUS" 
+    xmlns:tns="urn:WING.NUS"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -32,7 +32,7 @@
 
   <!-- PORTTYPES : The operations performed by the web service -->
   <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-  <wsdl:portType name="ForeCitePortType">
+  <wsdl:portType name="WING.NUSPortType">
     <wsdl:operation name="extract_citations">
       <wsdl:documentation>
         Extracting and parsing citations from a text file representing a scholarly article
@@ -59,32 +59,32 @@
   
   <!-- BINDINGS : The communication protocols used by the web service -->
   <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-  <wsdl:binding name="ForeCiteBinding" type="ForeCitePortType">
+  <wsdl:binding name="WING.NUSBinding" type="WING.NUSPortType">
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="extract_citations">
       <soap:operation style="rpc" soapAction="extract_citations"/>
-      <wsdl:input> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:input> <soap:body use="literal" namespace="urn:WING.NUS"
                               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
-      <wsdl:output> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:output> <soap:body use="literal" namespace="urn:WING.NUS"
                                encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="extract_header">
       <soap:operation style="rpc" soapAction="extract_header"/>
-      <wsdl:input> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:input> <soap:body use="literal" namespace="urn:WING.NUS"
                               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
-      <wsdl:output> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:output> <soap:body use="literal" namespace="urn:WING.NUS"
                                encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="extract_meta">
       <soap:operation style="rpc" soapAction="extract_meta"/>
-      <wsdl:input> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:input> <soap:body use="literal" namespace="urn:WING.NUS"
                               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
-      <wsdl:output> <soap:body use="literal" namespace="urn:ForeCite"
+      <wsdl:output> <soap:body use="literal" namespace="urn:WING.NUS"
                                encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
@@ -92,11 +92,11 @@
 
   <!-- SERVICE : The service name -->
   <!-- %%%%%%%%%%%%%%%%%%%%%%%%%% -->
-  <wsdl:service name="ForeCite">
+  <wsdl:service name="WING.NUS">
     <wsdl:documentation>
-      Web Services for the ForeCite Project at School of Computing, NUS.  Hosted by Web IR / NLP Group (WING)
+      Web Services provided by the Web IR / NLP Group (WING) of the School of Computing, NUS.
     </wsdl:documentation>
-    <wsdl:port name="ForeCitePort" binding="ForeCiteBinding">
+    <wsdl:port name="WING.NUSPort" binding="WING.NUSBinding">
       <soap:address location="http://wing.comp.nus.edu.sg:4000/"/>
     </wsdl:port>
   </wsdl:service>
