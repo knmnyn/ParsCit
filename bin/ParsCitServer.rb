@@ -9,13 +9,12 @@ require 'uri'
 @@SERVICE = 'urn:ForeCite/ParsCit'
 @@ID = 'ParsCit'
 @@Web_Service_ID = 'urn:ForeCite'
-#@@Web_Service_Port = '4000' # changed by min '10570'
-@@Web_Service_Port = '4000'
+@@Web_Service_Port = '4000' # changed by min '10570'
 #@@Web_Service_Host = 'wing.comp.nus.edu.sg'
 @@Web_Service_Host = 'aye'
 
 class ParsCitServer < SOAP::RPC::StandaloneServer
-  @@PARSCIT_CMD = "~/services/parscit/bin/citeExtract.pl"
+  @@PARSCIT_CMD = "~/tools/citationTools/parscit/bin/citeExtract.pl"
 
   def on_init
     @log.level = Logger::Severity::INFO
@@ -53,6 +52,9 @@ class ParsCitServer < SOAP::RPC::StandaloneServer
       tempfile.close()
       localfile = tempfile.path()
     end
+    #run older version of perl 5.8.8
+    `export PATH=/usr/bin:$PATH`
+    `export PERL5LIB=""`
     `#{command} #{localfile}`
   end
 end
