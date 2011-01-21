@@ -1,229 +1,318 @@
 package ParsCit::PostProcess;
-#
+
+###
 # Utilities for normalizing the output of CRF++ into standard
 # representations.
 #
 # Isaac Councill, 07/20/07
-#
+###
 
-use strict;
 use utf8;
+use strict;
 use CSXUtil::SafeText qw(cleanXML);
 
-##
-# Main normalization subroutine.  Reads in a CRF++ output file
-# and normalizes each field of individual citations.  An intermediate
+###
+# Main normalization subroutine.  Reads in a CRF++ output file and 
+# normalizes each field of individual citations.  An intermediate
 # XML representation is used to keep track of the tags discovered by
 # the model.  Returns a reference to the raw XML (may not be encoded
 # safely) and a reference to a list of hashes containing the normalized
 # citation subfields, keyed by tag name.
-##
-sub readAndNormalize {
-    my ($inFile) = @_;
+###
+sub readAndNormalize 
+{
+    my ($infile) = @_;
 
-    my $status = 1;
-    my $msg = "";
+    my $status	= 1;
+    my $msg		= "";
+    my $xml		= "";
 
-    open(IN, "<:utf8", $inFile) or return (undef, undef, 0,
-				    "couldn't open infile: $!");
+    open(IN, "<:utf8", $infile) or return (undef, undef, 0, "couldn't open infile: $!");
 
-    my $currentTag;
-    my @currentTokens = ();
+    my $current_tag		= undef;
+    my @current_tokens	= ();
+    my $new_citation	= 1;
 
-    my $newCitation = 1;
+    while(<IN>) 
+	{
+		# Blank line separates citations
+		if (m/^\s*$/) 
+		{
+	    	if ($new_citation <= 0) 
+			{
+				finishCitation(\$xml, \$current_tag, \@current_tokens);
+				@current_tokens	= ();
+				$new_citation	= 1;
+				next;
+	    	}
+		}
 
-    my $xml = "";
+		if ($new_citation > 0) 
+		{
+	    	$xml .= "<citation>\n";
+	    	$new_citation = 0;
+		}
+		
+		my @fields	= split /\s+/;
+		my $token	= $fields[0];
+		my $tag		= $fields[ $#fields ];
+	
+		if (!defined $current_tag) { $current_tag = $tag; }
 
-    while(<IN>) {
-	if (m/^\s*$/) { # blank line separates citations
-	    if ($newCitation <= 0) {
-		finishCitation(\$xml, \$currentTag, \@currentTokens);
-		@currentTokens = ();
-		$newCitation = 1;
-		next;
-	    }
-	}
-	if ($newCitation > 0) {
-	    $xml .= "<citation>\n";
-	    $newCitation = 0;
-	}
-	my @fields = split /\s+/;
-	my $token = $fields[0];
-	my $tag = $fields[$#fields];
-	if (!defined $currentTag) {
-	    $currentTag = $tag;
-	}
-	if ($tag eq $currentTag) {
-	    push @currentTokens, $token;
-	} else {
-	    $xml .= makeSegment($currentTag, @currentTokens);
-	    $currentTag = $tag;
-	    @currentTokens = ();
-	    push @currentTokens, $token;
-	}
+		if ($tag eq $current_tag) 
+		{
+	    	push @current_tokens, $token;
+		} 
+		else 
+		{
+	    	$xml .= makeSegment($current_tag, @current_tokens);
+	    	$current_tag	= $tag;
+	    	@current_tokens	= ();
+	    
+			push @current_tokens, $token;
+		}
     }
 
     close IN;
 
-    if ($newCitation <= 0) {
-	finishCitation(\$xml, \$currentTag, \@currentTokens);
-	@currentTokens = ();
-	$newCitation = 1;
+    if ($new_citation <= 0) 
+	{
+		finishCitation(\$xml, \$current_tag, \@current_tokens);
+		@current_tokens = ();
+		$new_citation = 1;
     }
 
-    my $rCiteInfo = normalizeFields(\$xml);
+    my $rcite_info = normalizeFields(\$xml);
 
-    return \$xml, $rCiteInfo, $status, $msg;
-
-}  # readAndNormalize
-
-##
-# Utility for adding a closing tag to a citation in the
-# intermediate XML, and setting the currentTag value to undef.
-##
-sub finishCitation {
-    my ($r_xml, $r_currentTag, $r_currentTokens) = @_;
-    if (defined $$r_currentTag) {
-	$$r_xml .= makeSegment($$r_currentTag, @$r_currentTokens);
-    }
-    $$r_xml .= "</citation>\n";
-    $$r_currentTag = undef;
-
-}  # finishCitation
-
-
-##
-# Makes an XML segment based on the specifed tag and token list.
-##
-sub makeSegment {
-    my ($tag, @tokens) = @_;
-    my $segment = join " ", @tokens;
-    return "<$tag>$segment</$tag>\n";
+    return \$xml, $rcite_info, $status, $msg;
 }
 
+###
+# Utility for adding a closing tag to a citation in the
+# intermediate XML, and setting the currentTag value to undef.
+###
+sub finishCitation 
+{
+    my ($r_xml, $r_current_tag, $r_current_tokens) = @_;
 
-##
+	if (defined $$r_current_tag) { $$r_xml .= makeSegment($$r_current_tag, @$r_current_tokens); }
+    $$r_xml .= "</citation>\n";
+    $$r_current_tag = undef;
+}
+
+###
+# Makes an XML segment based on the specifed tag and token list.
+###
+sub makeSegment 
+{
+    my ($tag, @tokens) = @_;
+    my $segment = join " ", @tokens;
+	return "<$tag>$segment</$tag>\n";
+}
+
+###
 # Switching utility for reading through the intermediate XMl
 # and passing control to an appropriate normalization routine
 # for each field encountered.  Returns a reference to a list
 # of hashes containing normalized fields, keyed by tag name.
-##
-sub normalizeFields {
-    my ($rXML) = @_;
-    my @citeInfos = ();
+###
+sub normalizeFields 
+{
+    my ($rxml) = @_;
 
-    $_ = $$rXML;
-    my @citeBlocks = m/<citation>(.*?)<\/citation>/gs;
-    foreach my $block (@citeBlocks) {
-	my %citeInfo;
-#	print STDERR "$block\n";
-	while($block =~ m/<(.*?)>(.*?)<\/\1>/gs) {
-	    my ($tag, $content) = ($1, $2);
-	    if ($tag eq "author") {
-		$tag = "authors";
-		$content = normalizeAuthorNames($content);
-	    } elsif ($tag eq "date") {
-		$content = normalizeDate($content);
-	    } elsif ($tag eq "volume") {
-		$content = normalizeNumber($content);
-	    } elsif ($tag eq "number") {
-		$content = normalizeNumber($content);
-	    } elsif ($tag eq "pages") {
-		$content = normalizePages($content);
-	    } else {
-		$content = stripPunctuation($content);
-	    }
-	    # Heuristic - only get first instance of tag.
-	    # TODO: we can do better than that...
-	    unless (defined $citeInfo{$tag}) {
-		$citeInfo{$tag} = $content;
-	    }
-	}
-	push @citeInfos, \%citeInfo;
+    my @cite_infos = ();
+
+    $_ = $$rxml;
+
+    my @cite_blocks = m/<citation>(.*?)<\/citation>/gs;
+
+	foreach my $block (@cite_blocks) 
+	{
+		my %cite_info = ();
+
+		while ($block =~ m/<(.*?)>(.*?)<\/\1>/gs) 
+		{
+	    	my ($tag, $content) = ($1, $2);
+
+			if ($tag eq "author") 
+			{
+				$tag	 = "authors";
+				# Content is a reference to a list of author
+				$content = normalizeAuthorNames($content);
+	    	} 
+			elsif ($tag eq "date") 
+			{
+				$content = normalizeDate($content);
+	    	} 
+			###
+			# Huydhn: Volume fix, e.g now we have main-volume and sub-volume
+			####
+			elsif ($tag eq "volume") 
+			{
+				$content = normalizeVolume($content);
+	    	} 
+			elsif ($tag eq "number") 
+			{
+				$content = normalizeNumber($content);
+	    	} 
+			elsif ($tag eq "pages") 
+			{
+				$content = normalizePages($content);
+	    	} 
+			else 
+			{
+				$content = stripPunctuation($content);
+	    	}
+	    
+			# Heuristic - only get first instance of tag.
+	    	# TODO: we can do better than that...
+	    	unless (defined $cite_info{ $tag }) { $cite_info{ $tag } = $content; }
+		}
+	
+		push @cite_infos, \%cite_info;
     }
-    return \@citeInfos;
 
-}  # normalizeFields
+    return \@cite_infos;
+}
 
-
-sub stripPunctuation {
+sub stripPunctuation 
+{
     my $text = shift;
 
     # Thang v100401c: not remove open (\p{Ps}) and close (\p{Pe}) brackets
     my $stop = 0;
-    while(!$stop){
-      $text =~ s/^[^\p{IsLower}\p{IsUpper}0-9\p{Ps}]+//; 
-      $text =~ s/[^\p{IsLower}\p{IsUpper}0-9\p{Pe}]+$//;
+    while (!$stop)
+	{
+		# Remove punctuation at the begining of the text
+		$text =~ s/^[^\p{IsLower}\p{IsUpper}0-9\p{Ps}]+//; 
 
-      # sanity check
-      $stop = 1;
-      if($text =~ /\p{Pe}$/){ # check ending brackets
-	if($text !~ /\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}$/){ # not a proper bracket pair
-	  $text =~ s/\p{Pe}+$//; #strip ending brackets
-	  $stop = 0; # continue stripping
-	}
-      }
+		###
+		# Huydhn: do not need to remove the last punctuation
+		# e.g. title = smth &amp;
+		###
+		# Remove punctuation at the end of the text
+		# $text =~ s/[^\p{IsLower}\p{IsUpper}0-9\p{Pe}]+$//;
 
-      if($text =~ /^\p{Ps}/){ # check starting brackets
-	if($text !~ /^\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}/){ # not a proper bracket pair
-	  $text =~ s/^\p{Ps}+//; #strip starting brackets
-	  $stop = 0; # continue stripping
-	}
-      }
+      	# Sanity check
+      	$stop = 1;
+		# Check ending brackets
+      	if ($text =~ /\p{Pe}$/)
+		{
+			# Not a proper bracket pair
+			if($text !~ /\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}$/)
+			{
+	  			$text =~ s/\p{Pe}+$//;	# Strip ending brackets
+	  			$stop = 0; 				# Continue stripping
+			}
+      	}
+	
+		# Check starting brackets
+      	if ($text =~ /^\p{Ps}/)
+		{
+			# Not a proper bracket pair
+			if ($text !~ /^\p{Ps}[^\p{Ps}\p{Pe}]+\p{Pe}/)
+			{
+	  			$text =~ s/^\p{Ps}+//;	# Strip starting brackets
+	  			$stop = 0;				# Continue stripping
+			}
+      	}
     }
     return $text;
 }
 
+###
+# Normalize volume number, tries to separate volume and sub volume
+# e.g 5 (1)
+###
+sub normalizeVolume
+{
+	my ($volume_number) = @_;
 
-##
+	# First number is main volume, the second one is sub-volume number
+	my @volumes = ();
+
+	###
+	# Huydhn: special case fo volume tag: 5 (1)
+	# separate into main volume and sub-volume tag
+	###
+	if ($volume_number =~ m/(\d+)\s*[\(\{\[]+(\d+)[\)\}\]]?/)
+	{
+		push @volumes, $1;
+		push @volumes, $2;
+	}
+	elsif ($volume_number =~ m/(\d+)/) 
+	{
+		push @volumes, $1;
+    } 
+	else 
+	{
+		push @volumes, $volume_number;
+    }
+
+	return \@volumes;
+}
+
+###
 # Tries to split the author tokens into individual author names
 # and then normalizes these names individually.  Returns a
 # list of author names.
-##
-sub normalizeAuthorNames {
-    my ($authorText) = @_;
+###
+sub normalizeAuthorNames 
+{
+    my ($author_text) = @_;
 
-    my @tokens = repairAndTokenizeAuthorText($authorText);
+    my @tokens = repairAndTokenizeAuthorText($author_text);
 
-    my @authors = ();
-    my @currentAuth = ();
-    my $beginAuth = 1;
+    my @authors		 = ();
+    my @current_auth = ();
+    my $begin_auth	 = 1;
 
-    foreach my $tok (@tokens) {
-	if ($tok =~ m/^(&|and)$/i) {
-	    if ($#currentAuth >= 0) {
-		my $auth = normalizeAuthorName(@currentAuth);
-		push @authors, $auth;
-	    }
-	    @currentAuth = ();
-	    $beginAuth = 1;
-	    next;
-	}
-	if ($beginAuth > 0) {
-	    push @currentAuth, $tok;
-	    $beginAuth = 0;
-	    next;
-	}
-	if ($tok =~ m/,$/) {
-	    push @currentAuth, $tok;
-	    if ($#currentAuth>0) {
-		my $auth = normalizeAuthorName(@currentAuth);
-		push @authors, $auth;
-		@currentAuth = ();
-		$beginAuth = 1;
-	    }
-	} else {
-	    push @currentAuth, $tok;
-	}
+    foreach my $tok (@tokens) 
+	{
+		if ($tok =~ m/^(&|and)$/i) 
+		{
+	    	if ($#current_auth >= 0) 
+			{
+				my $auth = normalizeAuthorName(@current_auth);
+				push @authors, $auth;
+	    	}
+	    	@current_auth = ();
+	    	$begin_auth = 1;
+	    	next;
+		}
+	
+		if ($begin_auth > 0) 
+		{
+	    	push @current_auth, $tok;
+	    	$begin_auth = 0;
+	    	next;
+		}
+	
+		if ($tok =~ m/,$/) 
+		{
+	    	push @current_auth, $tok;
+	    	if ($#current_auth>0) 
+			{
+				my $auth = normalizeAuthorName(@current_auth);
+				push @authors, $auth;
+				@current_auth = ();
+				$begin_auth = 1;
+	    	}
+		} 
+		else 
+		{
+	    	push @current_auth, $tok;
+		}
     }
-    if ($#currentAuth >= 0) {
-	my $auth = normalizeAuthorName(@currentAuth);
-	push @authors, $auth;
+
+    if ($#current_auth >= 0) 
+	{
+		my $auth = normalizeAuthorName(@current_auth);
+		push @authors, $auth;
     }
+
     return \@authors;
-
-}  # normalizeAuthorNames
-
+}
 
 ##
 # Strips unexpected punctuation and removes tokens that
@@ -350,19 +439,23 @@ sub normalizeDate {
 }  # normalizeDate
 
 
-##
+###
 # If a field should be numeric only, this utility is used
 # to extract the first number string only.
-##
-sub normalizeNumber {
-    my $numText = shift;
-    if ($numText =~ m/(\d+)/) {
-	return $1;
-    } else {
-	return $numText;
+###
+sub normalizeNumber 
+{
+    my $num_text = shift;
+    
+	if ($num_text =~ m/(\d+)/) 
+	{
+		return $1;
+    } 
+	else 
+	{
+		return $num_text;
     }
-
-}  # normalizeNumber
+}
 
 
 ##

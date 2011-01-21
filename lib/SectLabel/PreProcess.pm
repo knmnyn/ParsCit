@@ -19,39 +19,39 @@ use utf8;
 ## Output: header length, body length, body start id)
 ##
 sub findHeaderText {
-    my ($lines, $startId, $numLines) = @_;
+		my ($lines, $startId, $numLines) = @_;
 
-    if($startId >= $numLines){
-      die "Die in SectLabel::PreProcess::findHeaderText: start id $startId >= num lines $numLines\n";
-    }
+		if($startId >= $numLines){
+			die "Die in SectLabel::PreProcess::findHeaderText: start id $startId >= num lines $numLines\n";
+		}
 
-    my $bodyStartId = $startId;
-    for(; $bodyStartId<$numLines; $bodyStartId++){
-      if($lines->[$bodyStartId] =~ /^(.*?)\b(Abstract|ABSTRACT|Introductions?|INTRODUCTIONS?)\b(.*?):?\s*$/) {
+		my $bodyStartId = $startId;
+		for(; $bodyStartId<$numLines; $bodyStartId++){
+			if($lines->[$bodyStartId] =~ /^(.*?)\b(Abstract|ABSTRACT|Introductions?|INTRODUCTIONS?)\b(.*?):?\s*$/) {
 	if(countTokens($3) > 0){ # there are trailing text after the word introduction
-	  if($3 =~ /background/i){ # INTRODUCTION AND BACKGROUND
-	    last;
-	  }
+	 if($3 =~ /background/i){ # INTRODUCTION AND BACKGROUND
+		 last;
+	 }
 	} else {
-	  last;
+	 last;
 	}
-      }
-    }
-    
-    my $headerLength = $bodyStartId - $startId;
-    my $bodyLength = $numLines - $bodyStartId;
-    if ($headerLength >= 0.8*$bodyLength) {
+			}
+		}
+		
+		my $headerLength = $bodyStartId - $startId;
+		my $bodyLength = $numLines - $bodyStartId;
+		if ($headerLength >= 0.8*$bodyLength) {
 	print STDERR "Header text $headerLength longer than 80% article body length $bodyLength: ignoring\n";
 	$bodyStartId = $startId;
 	$headerLength = 0;
 	$bodyLength = $numLines - $bodyStartId;
-    }
+		}
 
-    if ($headerLength == 0){
+		if ($headerLength == 0){
 	print STDERR "warning: no header text found\n";
-    }
+		}
 
-    return ($headerLength, $bodyLength, $bodyStartId);
+		return ($headerLength, $bodyLength, $bodyStartId);
 }  # findHeaderText
 
 
@@ -66,43 +66,43 @@ sub findHeaderText {
 ## Output: body length, citation length, body end id
 ##
 sub findCitationText {
-    my ($lines, $startId, $numLines) = @_;
+		my ($lines, $startId, $numLines) = @_;
 
-    if($startId >= $numLines){
-      die "Die in SectLabel::PreProcess::findCitationText: start id $startId >= num lines $numLines\n";
-    }
+		if($startId >= $numLines){
+			die "Die in SectLabel::PreProcess::findCitationText: start id $startId >= num lines $numLines\n";
+		}
 
-    my $bodyEndId = ($numLines - 1);
-    for(; $bodyEndId >= $startId; $bodyEndId--){
-      if($lines->[$bodyEndId] =~ /(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCES?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*$/) {
+		my $bodyEndId = ($numLines - 1);
+		for(; $bodyEndId >= $startId; $bodyEndId--){
+			if($lines->[$bodyEndId] =~ /(References?|REFERENCES?|Bibliography|BIBLIOGRAPHY|References?\s+and\s+Notes?|References?\s+Cited|REFERENCES?\s+CITED|REFERENCES?\s+AND\s+NOTES?):?\s*$/) {
 	last;
-      }
-    }
-    
-    my $bodyLength = $bodyEndId - $startId + 1;
-    my $citationLength = $numLines -1 - $bodyEndId;
-    if ($citationLength >= 0.8*$bodyLength) {
+			}
+		}
+		
+		my $bodyLength = $bodyEndId - $startId + 1;
+		my $citationLength = $numLines -1 - $bodyEndId;
+		if ($citationLength >= 0.8*$bodyLength) {
 	print STDERR "Citation text $citationLength longer than 80% article body length $bodyLength: ignoring\n";
 	$bodyEndId = ($numLines - 1);
 	$citationLength = 0;
 	$bodyLength = $bodyEndId - $startId + 1;
-    }
+		}
 
-    if ($citationLength == 0){
+		if ($citationLength == 0){
 	print STDERR "warning: no citation text found\n";
-    }
+		}
 
-    return ($bodyLength, $citationLength, $bodyEndId);
+		return ($bodyLength, $citationLength, $bodyEndId);
 }  # findHeaderText
 
 sub countTokens {
-  my ($text) = @_;
+	my ($text) = @_;
 
-  $text =~ s/^\s+//; # trip leading spaces
-  $text =~ s/\s+$//; # trip trailing spaces
-  my @tokens = split(/\s+/, $text);
+	$text =~ s/^\s+//; # trip leading spaces
+	$text =~ s/\s+$//; # trip trailing spaces
+	my @tokens = split(/\s+/, $text);
 
-  return scalar(@tokens);
+	return scalar(@tokens);
 }
 
 1;

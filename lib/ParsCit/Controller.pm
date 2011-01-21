@@ -1,5 +1,6 @@
 package ParsCit::Controller;
-#
+
+###
 # This package is used to pull together various citation
 # processing modules in the ParsCit distribution, serving
 # as a script for handling the entire citation processing
@@ -9,329 +10,447 @@ package ParsCit::Controller;
 # to get direct access to the list of citation objects.
 #
 # Isaac Councill, 07/23/07
-#
+###
+
 require 'dumpvar.pl';
+
 use strict;
+# Local libraries
+use ParsCit::Config;
+use ParsCit::Tr2crfpp;
 use ParsCit::PreProcess;
 use ParsCit::PostProcess;
-use ParsCit::Tr2crfpp;
 use ParsCit::CitationContext;
-use ParsCit::Config;
+# Omnipage libraries
+use Omni::Omnidoc;
+# Dependencies
 use CSXUtil::SafeText qw(cleanXML);
 
+###
+# Main API method for generating an XML document including
+# all citation data.  Returns a reference XML document and
+# a reference to the article body text.
+###
 
-##
-# Main API method for generating an XML document including all
-# citation data.  Returns a reference XML document and a
-# reference to the article body text.
-##
-sub extractCitations {
-    my ($textFile) = @_;
+# Extract citations from text
+sub extractCitations 
+{
+    my ($text_file, $org_file, $is_xml) = @_;
 
-    my ($status, $msg, $rCitations, $rBodyText)
-	= extractCitationsImpl($textFile);
-    if ($status > 0) {
-	return buildXMLResponse($rCitations);
-    } else {
-	my $error = "Error: $msg";
-	return \$error;
+	# Real works are in there
+    my ($status, $msg, $citations, $body_text) = extractCitationsImpl($text_file, $org_file, $is_xml);
+
+	# Check the result status
+    if ($status > 0) 
+	{
+		return buildXMLResponse($citations);
+    } 
+	else 
+	{
+		# Return error message
+		my $error = "Error: " . $msg; return \$error;
     }
+} 
 
-} # extractCitationsx
-
-
-sub extractCitationsAlreadySegmented {
-    my ($textFile) = @_;
+sub extractCitationsAlreadySegmented 
+{
+    my ($text_file) = @_;
 
     my ($status, $msg) = (1, "");
 
-    if (!open(IN, "<:utf8", $textFile)) {
-	return (-1, "Could not open file $textFile: $!");
+	# Cannot open input file, return error message
+    if (! open(IN, "<:utf8", $text_file)) {	return (-1, "Could not open file " . $text_file . ": " . $!); }
+
+	#
+    my @raw_citations		= ();
+    my $current_citation	= undef;
+
+	while (<IN>) 
+	{
+		# Remove eol
+		chomp();
+	
+		# Save current citation
+		if (m/^\s*$/ && defined $current_citation) 
+		{
+	    	my $cite = new ParsCit::Citation();
+	    	$cite->setString($current_citation);
+	    	push @raw_citations, $cite;
+	    	$current_citation = undef;
+	    	next;
+		}
+
+		# Current citation eq current line
+		if (! defined $current_citation) 
+		{
+	    	$current_citation = $_;
+		}
+		# Append the current line to the current citation
+		else 
+		{
+	    	$current_citation = $current_citation . " " . $_;
+		}
     }
 
-    my @rawCitations = ();
-    my $currentCitation;
-    while(<IN>) {
-	chomp();
-	if (m/^\s*$/ && defined $currentCitation) {
-	    my $cite = new ParsCit::Citation();
-	    $cite->setString($currentCitation);
-	    push @rawCitations, $cite;
-	    $currentCitation = undef;
-	    next;
-	}
-	if (!defined $currentCitation) {
-	    $currentCitation = $_;
-	} else {
-	    $currentCitation .= " ".$_;
-	}
-    }
+	# Close the input after reading
     close IN;
-    if (defined $currentCitation) {
-	my $cite = new ParsCit::Citation();
-	push @rawCitations, $cite;
+
+	# Save the last citation
+	if (defined $current_citation) 
+	{
+		my $cite = new ParsCit::Citation();
+		push @raw_citations, $cite;
     }
 
-    my @citations;
-    my @validCitations = ();
-    my $normalizedCiteText;
-    foreach my $citation (@rawCitations) {
-	# Tr2cfpp needs an enclosing tag for initial class seed.
-	my $citeString = $citation->getString();
-	if (defined $citeString && $citeString !~ m/^\s*$/) {
-	    $normalizedCiteText .=
-		"<title> ".$citation->getString(). " </title>\n";
-	    push @citations, $citation;
-	}
+    my @citations 				= ();
+    my @valid_citations			= ();
+    my $normalized_cite_text	= "";
+
+    foreach my $citation (@raw_citations) 
+	{
+		# Tr2cfpp needs an enclosing tag for initial class seed.
+		my $cite_string = $citation->getString();
+
+		if (defined $cite_string && $cite_string !~ m/^\s*$/) 
+		{
+	    	$normalized_cite_text .= "<title> " . $citation->getString() . " </title>\n";
+			push @citations, $citation;
+		}
     }
 
-    if ($#citations < 0) {
 	# Stop - nothing left to do.
-	return ($status, $msg, \@validCitations);
+    if ($#citations < 0) { return ($status, $msg, \@valid_citations); }
+
+    my $tmpfile = ParsCit::Tr2crfpp::prepData(\$normalized_cite_text, $text_file);
+    my $outfile = $tmpfile . "_dec";
+
+    if (ParsCit::Tr2crfpp::decode($tmpfile, $outfile))
+	{
+		my ($raw_xml, $cite_info, $tstatus, $tmsg) = ParsCit::PostProcess::readAndNormalize($outfile);
+
+		if ($tstatus <= 0) { return ($tstatus, $msg, undef, undef); }
+
+		my @all_cite_info = @{ $cite_info };
+
+		if ($#citations == $#all_cite_info) 
+		{
+	    	for (my $i = 0; $i <= $#citations; $i++) 
+			{
+				my $citation	= $citations[ $i ];
+				my %cite_hash	= %{ $all_cite_info[ $i ] };
+				
+				foreach my $key (keys %cite_hash)
+				{
+		    		$citation->loadDataItem($key, $cite_hash{ $key });
+				}
+		
+				my $marker = $citation->getMarker();
+
+				if (! defined $marker) 
+				{
+		    		$marker = $citation->buildAuthYearMarker();
+		    		$citation->setMarker($marker);
+				}
+				
+				push @valid_citations, $citation;
+	    	}
+		} 
+		else 
+		{
+	    	$status	= -1;
+	    	$msg	= "Mismatch between expected citations and cite info";
+		}
     }
 
-    my $tmpFile = ParsCit::Tr2crfpp::prepData(\$normalizedCiteText, $textFile);
-    my $outFile = $tmpFile."_dec";
+    unlink($tmpfile);
+    unlink($outfile);
 
-    if (ParsCit::Tr2crfpp::decode($tmpFile, $outFile)) {
-	my ($rRawXML, $rCiteInfo, $tstatus, $tmsg) =
-	    ParsCit::PostProcess::readAndNormalize($outFile);
-	if ($tstatus <= 0) {
-	    return ($tstatus, $msg, undef, undef);
-	}
-	my @citeInfo = @{$rCiteInfo};
-	if ($#citations == $#citeInfo) {
-	    for (my $i=0; $i<=$#citations; $i++) {
-		my $citation = $citations[$i];
-		my %citeInfo = %{$citeInfo[$i]};
-		foreach my $key (keys %citeInfo) {
-		    $citation->loadDataItem($key, $citeInfo{$key});
-		}
-#		unless ($citation->isValid()>0) {
-#		    next;
-#		}
-		my $marker = $citation->getMarker();
-		if (!defined $marker) {
-		    $marker = $citation->buildAuthYearMarker();
-		    $citation->setMarker($marker);
-		}
-		push @validCitations, $citation;
-	    }
-	} else {
-	    $status = -1;
-	    $msg = "Mismatch between expected citations and cite info";
-	}
-    }
-
-    unlink($tmpFile);
-    unlink($outFile);
-
-    return buildXMLResponse(\@validCitations);
-
+    return buildXMLResponse(\@valid_citations);
 }
 
 # Thang: tmp method for debugging purpose
-sub printArray {
-  my ($fileName, $tokens) = @_;
-  open(OF, ">:utf8", $fileName);
-  foreach(@{$tokens}){
-    print OF "$_\n";
-  }
-  close OF;
+sub printArray 
+{
+	my ($filename, $tokens) = @_;
+  	open(OF, ">:utf8", $filename);
+  	foreach (@{ $tokens }) { print OF $_, "\n"; }
+	close OF;
 }
 
-##
-# Main script for actually walking through the steps of
-# citation processing.  Returns a status code (0 for failure),
-# an error message (may be blank if no error), a reference to
-# an array of citation objects and a reference to the body
-# text of the article being processed.
-##
-sub extractCitationsImpl {
-    my ($textFile, $bWriteSplit) = @_;
+###
+# Main script for actually walking through the steps of citation
+# processing.  Returns a status code (0 for failure), an error 
+# message (may be blank if no error), a reference to an array of 
+# citation objects and a reference to the body text of the article
+# being processed.
+###
+sub extractCitationsImpl 
+{
+    my ($textfile, $orgfile, $is_xml, $bwrite_split) = @_;
 
-    if (!defined $bWriteSplit) {
-	$bWriteSplit = $ParsCit::Config::bWriteSplit;
-    }
+    if (! defined $bwrite_split) { $bwrite_split = $ParsCit::Config::bWriteSplit; }
 
+	# Status and error message initialization
     my ($status, $msg) = (1, "");
+	
+	# NOTE: What are their purpose?
+	my ($citefile, $bodyfile) = ("", "");
+	# NOTE: What is its purpose?
+	my @pos_array = (); 
+	# Reference text, boby text, and normalize body text
+	my ($rcite_text, $rnorm_body_text, $rbody_text) = undef;
+	# Reference to an array of single reference
+	my $rraw_citations = undef;
 
-    if (!open (IN, "<:utf8", "$textFile")) {
-	return (-1, "Could not open text file $textFile: $!");
-    }
+	# Find and separate reference
+	if ($is_xml)
+	{
+		###
+		# Huydhn: input is xml from Omnipage
+		###
+		if (! open(IN, "<:utf8", $orgfile)) { return (-1, "Could not open xml file " . $orgfile . ": " . $!); }
+		my $xml = do { local $/; <IN> };
+		close IN;
 
-    my $text;
-    {
-	local $/ = undef;
-	$text = <IN>;
-    }
-    close IN;
+		###
+		# Huydhn
+		# NOTE: the omnipage xml is not well constructed (concatenated multiple xml files).
+		# This merged xml need to be fixed first before pass it to xml processing libraries, e.g. xml::twig
+		###
+		# Remove <?xml version="1.0" encoding="UTF-8"?>
+		$xml =~ s/<\?xml.+?>\n//g;
+		# Remove <!--XML document generated using OCR technology from ScanSoft, Inc.-->
+		$xml =~ s/<\!\-\-XML.+?>\n//g; 
+		# Add the root tag
+		$xml = "<root>" . "\n" . $xml . "\n" . "</root>";
 
-    ### Thang May 2010 ###
-    my @posArray = (); # map each position in normBodyText -> a position in bodyText, scalar(@posArray) = num tokens in normBodyText
-    my ($rCiteText, $rNormBodyText, $rBodyText) =
-	ParsCit::PreProcess::findCitationText(\$text, \@posArray);
+		# New document
+		my $doc = new Omni::Omnidoc();
+		$doc->set_raw($xml);
+		
+		# Extract the reference portion from the XML
+		my ($start_ref, $end_ref, $rcite_text_from_xml) = ParsCit::PreProcess::findCitationTextXML($doc);
+		# Extract the reference portion from the text. 
+		# TODO: NEED TO BE REMOVED FROM HERE
+		my $content = $doc->get_content();
+		($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::findCitationText(\$content, \@pos_array);
 
-    my @normBodyTokens = split(/\s+/, $$rNormBodyText);
-    my @bodyTokens = split(/\s+/, $$rBodyText);
-    my $size = scalar(@normBodyTokens);
-    my $size1 = scalar(@posArray);
+		my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
+    	my @body_tokens			= split(/\s+/, $$rbody_text);
 
-    if($size != $size1){
-      die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n";
-    }
-    ### End Thang May 2010
+		my $size	= scalar(@norm_body_tokens);
+    	my $size1	= scalar(@pos_array);
 
-    my ($citeFile, $bodyFile) = ("", "");
-    if ($bWriteSplit > 0) {
-	($citeFile, $bodyFile) =
-	    writeSplit($textFile, $rCiteText, $rBodyText);
-    }
+	    if($size != $size1) { die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n"; }
+		# TODO: TO HERE
+		
+		# Filename initialization
+    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = writeSplit($textfile, $rcite_text_from_xml, $rbody_text); }
 
-    my $rRawCitations = ParsCit::PreProcess::segmentCitations($rCiteText);
-    my @citations = ();
-    my @validCitations = ();
+		# Prepare to split unmarked reference portion
+		my $tmp_file = ParsCit::Tr2crfpp::prepDataUnmarked($doc, $start_ref, $end_ref);
 
-    my $normalizedCiteText;
-    foreach my $citation (@{$rRawCitations}) {
-	# Tr2cfpp needs an enclosing tag for initial class seed.
-	my $citeString = $citation->getString();
-	if (defined $citeString && $citeString !~ m/^\s*$/) {
-	    $normalizedCiteText .=
-		"<title> ".$citation->getString(). " </title>\n";
-	    push @citations, $citation;
+		# Extract citations from citation text
+	    $rraw_citations	= ParsCit::PreProcess::segmentCitationsXML($rcite_text_from_xml, $tmp_file);
 	}
+	else
+	{
+		if (! open(IN, "<:utf8", $textfile)) { return (-1, "Could not open text file " . $textfile . ": " . $!); }
+		my $text = do { local $/; <IN> };
+		close IN;
+
+		###
+    	# Thang May 2010
+	    # Map each position in norm_body_text to a position in body_text, scalar(@pos_array) = number of tokens in norm_body_text
+		# TODO: Switch this function to sectlabel module
+    	($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::findCitationText(\$text, \@pos_array);
+
+	    my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
+    	my @body_tokens			= split(/\s+/, $$rbody_text);
+
+		my $size	= scalar(@norm_body_tokens);
+    	my $size1	= scalar(@pos_array);
+
+	    if($size != $size1) { die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n"; }
+    	# End Thang May 2010
+		###
+
+		# Filename initialization
+    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = writeSplit($textfile, $rcite_text, $rbody_text); }
+
+		# Extract citations from citation text
+	    $rraw_citations	= ParsCit::PreProcess::segmentCitations($rcite_text);
+	}
+
+	my @citations		= ();
+    my @valid_citations	= ();
+
+	# Process each citation
+    my $normalized_cite_text = "";
+    foreach my $citation (@{ $rraw_citations }) 
+	{
+		# Tr2cfpp needs an enclosing tag for initial class seed.
+		my $cite_string = $citation->getString();
+		if (defined $cite_string && $cite_string !~ m/^\s*$/) 
+		{
+	    	$normalized_cite_text .= "<title> " . $citation->getString() . " </title>\n";
+	    	push @citations, $citation;
+		}
     }
 
-    if ($#citations < 0) {
 	# Stop - nothing left to do.
-	return ($status, $msg, \@validCitations, $rNormBodyText);
-    }
+    if ($#citations < 0) { return ($status, $msg, \@valid_citations, $rnorm_body_text); }
 
-    my $tmpFile = ParsCit::Tr2crfpp::prepData(\$normalizedCiteText, $textFile);
-    my $outFile = $tmpFile."_dec";
+    my $tmpfile = ParsCit::Tr2crfpp::prepData(\$normalized_cite_text, $textfile);
+    my $outfile = $tmpfile . "_dec";
 
-    if (ParsCit::Tr2crfpp::decode($tmpFile, $outFile)) {
-	my ($rRawXML, $rCiteInfo, $tstatus, $tmsg) =
-	    ParsCit::PostProcess::readAndNormalize($outFile);
-	if ($tstatus <= 0) {
-	    return ($tstatus, $msg, undef, undef);
-	}
-	my @citeInfo = @{$rCiteInfo};
-	if ($#citations == $#citeInfo) {
-	    for (my $i=0; $i<=$#citations; $i++) {
-		my $citation = $citations[$i];
-		my %citeInfo = %{$citeInfo[$i]};
-		foreach my $key (keys %citeInfo) {
-		    $citation->loadDataItem($key, $citeInfo{$key});
-		}
-#		unless ($citation->isValid()>0) {
-#		    next;
-#		}
-		my $marker = $citation->getMarker();
-		if (!defined $marker) {
-		    $marker = $citation->buildAuthYearMarker();
-		    $citation->setMarker($marker);
-		}
-########## modified by Nick Friedrich
-		### getCitationContext returns contexts and the position of the contexts
-		my ($rContexts, $rPositions, $startWordPositions, $endWordPositions, $rCitStrs) = # Thang: Nov 2009 add $rCitStrs - in-text ciation strs
-		ParsCit::CitationContext::getCitationContext($rNormBodyText, \@posArray, $marker); # Thang May 2010: add $rWordPositions, $rBodyText to find word-based positions (0-based) according to the *.body file
+    if (ParsCit::Tr2crfpp::decode($tmpfile, $outfile)) 
+	{
+		my ($rraw_xml, $rcite_info, $tstatus, $tmsg) = ParsCit::PostProcess::readAndNormalize($outfile);
+		if ($tstatus <= 0) { return ($tstatus, $msg, undef, undef); }
 
-		foreach my $context (@{$rContexts}) {
-		    $citation->addContext($context);
-		    my $position = shift @{$rPositions};
-		    $citation->addPosition($position);
+		my @cite_info = @{ $rcite_info };
+
+		if ($#citations == $#cite_info) 
+		{
+	    	for (my $i = 0; $i <= $#citations; $i++) 
+			{
+				my $citation	= $citations[ $i ];
+				my %cite_info	= %{ $cite_info[ $i ] };
+				
+				foreach my $key (keys %cite_info) 
+				{
+		    		$citation->loadDataItem($key, $cite_info{ $key });
+				}
+		
+				my $marker = $citation->getMarker();
+				if (!defined $marker) 
+				{
+		    		$marker = $citation->buildAuthYearMarker();
+		    		$citation->setMarker($marker);
+				}
+				
+				###
+				# Modified by Nick Friedrich
+				### getCitationContext returns contexts and the position of the contexts
+				###
+				# Thang: Nov 2009 add $rcit_strs - in-text ciation strs
+				###
+				my ($rcontexts, $rpositions, $start_word_positions, $end_word_positions, $rcit_strs) = ParsCit::CitationContext::getCitationContext($rnorm_body_text, 
+																																					\@pos_array, 
+																																					$marker);
+
+				###
+				# Thang May 2010: add $rWordPositions, $rBodyText to find word-based positions (0-based) according to the *.body file
+				###
+
+				foreach my $context (@{ $rcontexts }) 				
+				{
+					# Next citation context
+		    		$citation->addContext($context);
+		    		
+					# Next citation position
+					my $position = shift @{ $rpositions };
+		    		$citation->addPosition($position);
 		    
-		    # Thang: Nov 2009
-		    my $citStr = shift @{$rCitStrs};
-		    $citation->addCitStr($citStr);
-		    # End Thang: Nov 2009
+					##
+		    		# Thang: Nov 2009, add $rcit_strs
+					###
+					# Next citation string
+		    		my $cit_str = shift @{ $rcit_strs };
+		    		$citation->addCitStr($cit_str);
+		    		# End Thang: Nov 2009
 
-		    my $startPos = shift @{$startWordPositions};
-		    my $endPos = shift @{$endWordPositions};
-		    $citation->addStartWordPosition($posArray[$startPos]);
-		    $citation->addEndWordPosition($posArray[$endPos]);
-#		    print STDERR "$citStr --> $bodyTokens[$posArray[$startPos]]\t$posArray[$startPos] ### $posArray[$endPos]\t$bodyTokens[$posArray[$endPos]]\n";
+		    		# Next start and end of citation
+					my $start_pos	= shift @{ $start_word_positions };
+		    		my $end_pos		= shift @{ $end_word_positions };
 
-##########
+		    		$citation->addStartWordPosition( $pos_array[ $start_pos ] );
+		    		$citation->addEndWordPosition( $pos_array[ $end_pos ] );
+					# print STDERR $cit_str, " --> ", $body_tokens[ $pos_array[ $start_pos ] ], " \t ", $pos_array[ $start_pos], " ### "; 
+					# print STDERR $pos_array[ $end_pos], " \t ", $body_tokens[ $pos_array[ $end_pos ] ], "\n";
+				}
+		
+				push @valid_citations, $citation;
+	    	}
+		} 
+		else 
+		{
+	    	$status	= -1;
+	    	$msg	= "Mismatch between expected citations and cite info";
 		}
-		push @validCitations, $citation;
-	    }
-	} else {
-	    $status = -1;
-	    $msg = "Mismatch between expected citations and cite info";
-	}
     }
 
-    unlink($tmpFile);
-    unlink($outFile);
+    unlink($tmpfile);
+    unlink($outfile);
 
-    return ($status, $msg, \@validCitations,
-	    $rBodyText, $citeFile, $bodyFile);
+	# Our work here is done
+    return ($status, $msg, \@valid_citations, $rbody_text, $citefile, $bodyfile);
+}
 
-} # extractCitationsImpl
+# Write citation list in xml format 
+sub buildXMLResponse 
+{
+    my ($rcitations) = @_;
 
+    my $l_alg_name		= $ParsCit::Config::algorithmName;
+    my $l_alg_version	= $ParsCit::Config::algorithmVersion;
 
-sub buildXMLResponse {
-    my ($rCitations) = @_;
-    my $l_algName = $ParsCit::Config::algorithmName;
-    my $l_algVersion = $ParsCit::Config::algorithmVersion;
-    cleanXML(\$l_algName);
-    cleanXML(\$l_algVersion);
+    cleanXML(\$l_alg_name);
+    cleanXML(\$l_alg_version);
 
-    my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" .
-      "<algorithm name=\"$l_algName\" " .
-	"version=\"$l_algVersion\">\n";
-    $xml .= "<citationList>\n";
+    my $xml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" . "<algorithm name=\"$l_alg_name\" " . "version=\"$l_alg_version\">\n";
+    $xml	= $xml . "<citationList>\n";
 
-    foreach my $citation (@$rCitations) {
-	$xml .= $citation->toXML();
-    }
+	# Write output
+    foreach my $citation (@$rcitations) { $xml .= $citation->toXML(); }
 
     $xml .= "</citationList>\n";
     $xml .= "</algorithm>\n";
-
     return \$xml;
 
-} # buildXMLResponse
+} 
 
+# 
+sub writeSplit 
+{
+    my ($textfile, $rcite_text, $rbody_text) = @_;
 
-sub writeSplit {
-    my ($textFile, $rCiteText, $rBodyText) = @_;
+    my $citefile = changeExtension($textfile, "cite");
+    my $bodyfile = changeExtension($textfile, "body");
 
-    my $citeFile = changeExtension($textFile, "cite");
-    my $bodyFile = changeExtension($textFile, "body");
-
-    if (open(OUT, ">$citeFile")) {
-	binmode OUT, ":utf8";
-	print OUT $$rCiteText;
-	close OUT;
-    } else {
-	print STDERR "Could not open .cite file for writing: $!\n";
+    if (open(OUT, ">$citefile")) 
+	{
+		binmode OUT, ":utf8";
+		print 	OUT $$rcite_text;
+		close 	OUT;
+    } 
+	else 
+	{
+		print STDERR "Could not open .cite file for writing: $!\n";
     }
 
-    if (open(OUT, ">$bodyFile")) {
-	binmode OUT, ":utf8";
-	print OUT $$rBodyText;
-	close OUT;
-    } else {
-	print STDERR "Could not open .body file for writing: $!\n";
+    if (open(OUT, ">$bodyfile")) 
+	{
+		binmode OUT, ":utf8";
+		print 	OUT $$rbody_text;
+		close 	OUT;
+    } 
+	else 
+	{
+		print STDERR "Could not open .body file for writing: $!\n";
     }
 
-    return ($citeFile, $bodyFile);
+	# Our work here is done
+    return ($citefile, $bodyfile);
+} 
 
-} # writeSplit
-
-
-sub changeExtension {
+# Support function: change the extension of a file
+sub changeExtension 
+{
     my ($fn, $ext) = @_;
-    unless ($fn =~ s/^(.*)\..*$/$1\.$ext/) {
-	$fn .= ".$ext";
-    }
+    unless ($fn =~ s/^(.*)\..*$/$1\.$ext/) { $fn .= "." . $ext; }
     return $fn;
-
-} # changeExtension
-
+} 
 
 1;

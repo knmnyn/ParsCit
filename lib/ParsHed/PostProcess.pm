@@ -1,226 +1,320 @@
 package ParsHed::PostProcess;
-#
+
+###
 # Utilities for normalizing the output of CRF++ into standard
 # representations.
 #
 # Luong Minh Thang 25 May, 09. Adopted from Isaac Councill, 07/20/07
-#
+###
 use strict;
 use utf8;
 use CSXUtil::SafeText qw(cleanXML);
 use ParsCit::PostProcess; # qw(normalizeAuthorNames stripPunctuation);
 use ParsCit::Config; # qw(normalizeAuthorNames stripPunctuation);
 
-##
+###
 ## Main method for processing header data. Specifically, it reads CRF
 ## output, performs normalization to individual fields, and outputs to
 ## XML
-##
-sub wrapHeaderXml {
-  my ($inFile, $confInfo, $isTokenLevel) = @_; # Thang Nov 09: $confInfo to add confidence info
+###
+sub wrapHeaderXml 
+{
+	# Thang Nov 09: $confInfo to add confidence info
+	my ($infile, $conf_info, $is_token_level) = @_; 
 
-  my $status = 1;
-  my $msg = "";
-  my $xml = "";
-  my $lastTag = "";
-  my $variant = "";
-  my $overallConfidence = "1.0"; # Thang Nov 09: rename $confidence -> $overallConfidence
+  	my $status		= 1;
+  	my $msg			= "";
+  	my $xml			= "";
+  	my $last_tag	= "";
+  	my $variant		= "";
 
-  ## output XML file for display
-  $xml .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	# Thang Nov 09: rename $confidence -> $overallConfidence
+  	my $overall_confidence = "1.0"; 
 
-  my @fields = (); #array of hash: each element of fields correspond to a pairs of (tag, content) accessible through $fields[$i]->{"tag"} and $fields[$i]->{"content"}
-  my $curContent = "";
-  my $curConfidence = 0; # for lines of the same label
-  my $count = 0;
-  open(IN, "<:utf8", $inFile) or return (undef, undef, 0, "couldn't open infile: $!");
-  while (<IN>) {
-    if (/^\# ([\.\d]+)/) { # confidence info
-      $overallConfidence = $1;
-      next;
-    }
-    elsif (/^\#/) { next; }                              # skip comments
+  	# Output XML file for display
+  	$xml .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
-    if (/^\s*$/) { # end of a header, output (useful to handle multiple header classification
-      addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);      # add the last field
+	# Array of hash: each element of fields correspond to a pairs of (tag, content) 
+	# accessible through $fields[$i]->{"tag"} and $fields[$i]->{"content"}
+  	my @fields	= ();
+  	my $count	= 0;
 
-      if ($variant eq "") {
-	### generate XML output
-	my $output = generateOutput(\@fields, $confInfo);
-	my $l_algName = $ParsHed::Config::algorithmName;
-	my $l_algVersion = $ParsHed::Config::algorithmVersion;
-	$xml .= "<algorithm name=\"$l_algName\" version=\"$l_algVersion\">\n". "<variant no=\"0\" confidence=\"$overallConfidence\">\n". $output . "</variant>\n</algorithm>\n";
-      }
+	my $cur_content		= "";
+	# For lines of the same label
+	my $cur_confidence	= 0; 
+
+	# Input file is the result output of crf++ test
+	open(IN, "<:utf8", $infile) or return (undef, undef, 0, "couldn't open infile: $!");
+
+  	while (<IN>) 
+	{	
+		# Confidence info
+    	if (/^\# ([\.\d]+)/) 
+		{
+      		$overall_confidence = $1;
+      		next;
+    	}
+		# Skip comments
+    	elsif (/^\#/) 
+		{ 
+			next; 
+		}                              
+
+		# End of a header, output (useful to handle multiple header classification
+    	if (/^\s*$/) 
+		{
+			# Add the last field
+      		addFieldInfo(\@fields, $last_tag, $cur_content, $cur_confidence, $count);      
+
+      		if ($variant eq "") 
+			{
+				# Generate XML output
+				my $output = generateOutput(\@fields, $conf_info);
+
+				my $l_alg_name = $ParsHed::Config::algorithmName;
+				my $l_alg_version = $ParsHed::Config::algorithmVersion;
+				$xml .= "<algorithm name=\"$l_alg_name\" version=\"$l_alg_version\">\n". "<variant no=\"0\" confidence=\"$overall_confidence\">\n". $output . "</variant>\n</algorithm>\n";
+      		}
       
-      @fields = (); #reset
-      $lastTag = "";
-    } else { # in a middle of a header
-      chop;
-      my @tokens = split (/\t/);
+      		@fields		= (); #reset
+      		$last_tag	= "";
+    	} 
+		# In a middle of a header
+		else 
+		{
+      		chop;
+      		my @tokens		= split (/\t/);
 
-      my $token = $tokens[0];
-      my $sys = $tokens[-1];
-      my $gold = $tokens[-2];
-      my $confidence = 0;
+      		my $token		= $tokens[0];
+			
+      		my $sys			= $tokens[-1];
+      		my $gold		= $tokens[-2];
+      		my $confidence	= 0;
 
-      my $confidence = 0; # for this line
-      if(!defined $isTokenLevel){ 
-	# train at line level, get the original line
-	my @tokens = split(/\|\|\|/, $token);
-	$token = join(" ", @tokens);
-
-	### Thang Nov 09: process confidence output from CRFPP
-	if($confInfo){ #$sys contains probability info of the format "tag/prob"
-	  if($sys =~ /^(.+)\/([\d\.]+)$/){
-	    $sys = $1;
-	    $confidence += $2;
-#	    print STDERR "$token\t$sys\t$2\n";
-	  } else {
-	    die "Die in ParsHed::PostProcess::wrapHeaderXml : incorrect format \"tag/prob\" $sys\n";
-	  }
-	}
-	### End Thang Nov 09: process confidence output from CRFPP
-      }
-
-      if ($sys ne $lastTag && $lastTag ne "") { # start a new tag, not an initial value, output
-	addFieldInfo(\@fields, $lastTag, $curContent, $curConfidence, $count);
+      		if (!defined $is_token_level)
+			{
+				# Train at line level, get the original line
+				my @tokens	= split(/\|\|\|/, $token);
+				$token		= join(" ", @tokens);
+				
+				###
+				# Thang Nov 09: process confidence output from crf++
+				###
+				if($conf_info)
+				{
+					# $sys contains probability info of the format "tag/prob"
+	  				if ($sys =~ /^(.+)\/([\d\.]+)$/)
+					{
+	    				$sys		= $1;
+	    				$confidence	+= $2;
+	  				} 
+					else 
+					{
+	    				die "Die in ParsHed::PostProcess::wrapHeaderXml : incorrect format \"tag/prob\" $sys\n";
+	  				}
+				}
+				###
+				# End Thang Nov 09: process confidence output from crf++
+				###
+      		}
+	
+			# Start a new tag, not an initial value, output
+      		if ($sys ne $last_tag && $last_tag ne "") 
+			{ 
+				addFieldInfo(\@fields, $last_tag, $cur_content, $cur_confidence, $count);
 	  
-	#reset the value
-	$curContent = ""; 
-	$curConfidence = 0;
-	$count = 0;
-      } # end if ($lastTag ne "")
+				# Reset the value
+				$cur_content	= ""; 
+				$cur_confidence	= 0;
+				$count			= 0;
+      		}
 
-      if(defined $isTokenLevel && $token eq "+L+"){ 
-	next;
-      }
+	      	if (defined $is_token_level && $token eq "+L+") { next; }
 
-      $curContent .= "$token ";
-      $curConfidence += $confidence;
-      $count++;
-      $lastTag = $sys; #update lastTag
-    }
-  }
+    	 	$cur_content	.= $token . " ";
+      		$cur_confidence	+= $confidence;
+	      	$count++;
+	
+			# Update last tag
+      		$last_tag = $sys;
+		}
+  	}
 
-  close (IN);
-
-  return $xml;
+  	close (IN);
+  	return $xml;
 }
 
-## Thang Mar 10: refactor this part of code into a method, to add per-field info 
-sub addFieldInfo {
-  my ($fields, $lastTag, $curContent, $curConfidence, $count) = @_;
+###
+# Thang Mar 10: refactor this part of code into a method, to add per-field info
+###
+sub addFieldInfo 
+{
+  	my ($fields, $last_tag, $cur_content, $cur_confidence, $count) = @_;
 
-  my %tmpHash = ();
-  $tmpHash{"tag"} = $lastTag;
-  $tmpHash{"content"} = $curContent;
+  	my %tmp_hash		 = ();
+  	$tmp_hash{"tag"}	 = $last_tag;
+  	$tmp_hash{"content"} = $cur_content;
   
-  ### Thang Nov 09: compute confidence score
-  if($count > 0){
-    $tmpHash{"confidence"} = $curConfidence/$count;
-  }
+  	### Thang Nov 09: compute confidence score
+  	if ($count > 0) { $tmp_hash{"confidence"} = $cur_confidence / $count; }
 
-  push(@{$fields}, \%tmpHash);
+	# Save
+  	push(@{ $fields }, \%tmp_hash);
 }
 
-## Thang Mar 10: refactor this part of code into a method, wrap all field infos into XML form
-sub generateOutput {
-  my ($fields, $confInfo) = @_;
+###
+# Thang Mar 10: refactor this part of code into a method, wrap all field infos into XML form
+###
+sub generateOutput 
+{
+  	my ($fields, $conf_info) = @_;
 
-  my $output = "";
+  	my $output = "";
   
-  foreach(@{$fields}) {
-    my $tag = $_->{"tag"};
-    my $content = $_->{"content"};
-    
-    ### Thang Nov 09: modify to output confidence score
-    my $confStr = "";
-    if($confInfo){
-      $confStr = " confidence=\"".$_->{"confidence"}."\"";
-    }
-    if($content =~ /^\s*$/) { next; };
+  	foreach (@{ $fields }) 
+	{
+    	my $tag		= $_->{"tag"};
+    	my $content	= $_->{"content"};
 
-    ($tag, $content) = normalizeHeaderField($tag, $content);
+		###
+    	# Thang Nov 09: modify to output confidence score
+		###
+    	my $conf_str = "";
+    	if ($conf_info) { $conf_str = " confidence=\"".$_->{"confidence"}."\""; }
 
-    if($tag eq "authors"){ # handle multiple authors in a line
-      foreach my $author (@{$content}){
-	cleanXML(\$author);
-	$output .= "<author$confStr>$author</author>\n";
-      }
-    }elsif($tag eq "emails"){ # handle multiple emails at a time
-      foreach my $email (@{$content}){
-	$output .= "<email$confStr>$email</email>\n";
-      }
-    } else {
-      $output .= "<$tag$confStr>$content</$tag>\n";
-    }
-    ### End Thang Nov 09: modify to output confidence score
-  } # end for each fields
+		# Blank content
+    	if ($content =~ /^\s*$/) { next; };
+
+    	($tag, $content) = normalizeHeaderField($tag, $content);
+
+		# Handle multiple authors in a line
+    	if ($tag eq "authors")
+		{
+      		foreach my $author (@{ $content })
+			{
+				cleanXML(\$author);
+				$output .= "<author$conf_str>$author</author>\n";
+      		}
+    	}
+		# Handle multiple emails at a time
+		elsif ($tag eq "emails")
+		{
+      		foreach my $email (@{ $content })
+			{
+				$output .= "<email$conf_str>$email</email>\n";
+      		}
+    	} 
+		else 
+		{
+      		$output .= "<$tag$conf_str>$content</$tag>\n";
+    	}
+		###
+    	# End Thang Nov 09: modify to output confidence score
+		###
+  	} # end for each fields
   
-  return $output;    
+  	return $output;    
 }
 
-##
-# Header normalization subroutine.  Reads in a tag and its content, perform normalization based on that tag.
-##
-sub normalizeHeaderField {
-  my ($tag, $content) = @_;;
-  $content =~ s/^\W*$tag\W+//i;	     # remove keyword at the beginning
-  $content =~ s/^\s+//g;			# strip leading spaces
-  $content =~ s/\s+$//g;		      # remove trailing spaces
-  $content =~ s/\- ([a-z])/$1/g;			 # unhyphenate
+###
+# Header normalization subroutine.  Reads in a tag and its content, 
+# perform normalization based on that tag.
+###
+sub normalizeHeaderField 
+{
+  	my ($tag, $content) = @_;;
 
-  # normalize author and break into multiple authors (if any)
-  if ($tag eq "author") {
-    $tag = "authors";
-    $content =~ s/\d//g; # remove numbers
-    $content = ParsCit::PostProcess::normalizeAuthorNames($content);
-  } elsif ($tag eq "email") {
-    if($content =~ /^\{(.+)\}(.+)$/){ # multiple emails of the form {kanmy,luongmin}@nus.edu.sg
-      my $begin = $1;
-      my $end = $2;
-      my $separator = ",";
+	# Remove keyword at the beginning
+	$content =~ s/^\W*$tag\W+//i;
+	# Strip leading spaces
+  	$content =~ s/^\s+//g;
+	# Remove trailing spaces
+  	$content =~ s/\s+$//g;		      
+	# Unhyphenate
+  	$content =~ s/\- ([a-z])/$1/g;
 
-      # find possible separator of emails, beside ","
-      my @separators = ($begin =~ /\s+(\S)\s+/g); 
-      if(scalar(@separators) > 1){
-	my $cand = $separators[0];
-	my $flag = 1;
-	foreach(@separators) {
-	  if($_ ne $cand){ #should be the same
-	    $flag = 0;
-	    last;
-	  }
+  	# Normalize author and break into multiple authors (if any)
+  	if ($tag eq "author") 
+	{
+    	$tag	 = "authors";
+    	$content =~ s/\d//g; # remove numbers
+    	$content = ParsCit::PostProcess::normalizeAuthorNames($content);
+  	} 
+	elsif ($tag eq "email") 
+	{
+		# Multiple emails of the form {kanmy,luongmin}@nus.edu.sg
+    	if($content =~ /^\{(.+)\}(.+)$/)
+		{
+      		my $begin	  = $1;
+      		my $end		  = $2;
+      		my $separator = ",";
+
+	      	# Find possible separator of emails, beside ","
+    	  	my @separators = ($begin =~ /\s+(\S)\s+/g); 
+      		if (scalar(@separators) > 1)
+			{	
+				my $cand = $separators[0];
+				my $flag = 1;
+				foreach (@separators) 
+				{
+					# Should be the same
+	  				if($_ ne $cand)
+					{
+		    			$flag = 0;
+	    				last;
+	  				}
+				}
+
+				# All separator are the same, and the number of separator > 1, update separator
+				if($flag == 1) 
+				{
+	  				$separator = $cand;
+				}	
+    	  	}
+
+	      	my @tokens = split(/$separator/, $begin);
+
+			# Remove all white spaces
+      		$end =~ s/\s+//g; 
+
+			# There are actually multiple emails
+    	  	if (scalar(@tokens) > 1) 
+			{
+				my @emails = ();
+
+				foreach my $token (@tokens)
+				{
+					# Remove all white spaces
+	  				$token =~ s/\s+//g; 
+	  				push (@emails, "$token$end");
+				}
+
+				$tag	 = "emails";
+				$content = \@emails;
+	      	}
+    	} 
+		# Only one email
+		else 
+		{
+			# Remove all white spaces
+      		$content =~ s/\s+//g; 
+    	}
+  	} 
+	else 
+	{
+		# Escape XML characters
+    	cleanXML(\$content);
+
+		###
+		# Huydhn: don't understand why need to remove punctuation here
+		# just for the sake of appearance
+		#
+		# 17 jan 2011
+		###
+    	$content = ParsCit::PostProcess::stripPunctuation($content);
 	}
 
-	if($flag == 1) { #all separator are the same, and the number of separator > 1, update separator
-	  $separator = $cand;
-	}
-      }
-
-      my @tokens = split(/$separator/, $begin);
-      $end =~ s/\s+//g; #remove all white spaces
-
-      if(scalar(@tokens) > 1) { #there are actually multiple emails
-	my @emails = ();
-
-	foreach my $token (@tokens){
-	  $token =~ s/\s+//g; #remove all white spaces
-	  push (@emails, "$token$end");
-	}
-
-	$tag = "emails";
-	$content = \@emails;
-      }
-    } else { # only one email
-      $content =~ s/\s+//g; #remove all white spaces
-    }
-  } else {
-    cleanXML(\$content);			       # escape XML characters
-    $content = ParsCit::PostProcess::stripPunctuation($content);
-  }
-
-  return ($tag, $content);
-}  # normalizeFields
+  	return ($tag, $content);
+}
 
 1;

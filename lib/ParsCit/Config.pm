@@ -1,34 +1,35 @@
 package ParsCit::Config;
 
 ## Global
-
-$algorithmName = "ParsCit";
-$algorithmVersion = "10111111111111111111111101";
+$algorithmName		= "ParsCit";
+$algorithmVersion	= "110121";
 
 ## Repository Mappings
-
-%repositories = ('rep1' => '/repositories/rep1',
-                 'example1' => '/',
-		 'example2' => '/home',
-		 );
+%repositories	= (	'rep1'		=> '/repositories/rep1',
+                 	'example1'	=> '/',
+		 		 	'example2'	=> '/home');
 
 ## WS settings
-$serverURL = '130.203.133.46';
-$serverPort = 10555;
-$URI = 'http://citeseerx.org/algorithms/parscit/wsdl';
+$serverURL	= '130.203.133.46';
+$serverPort	= 10555;
+$URI		= 'http://citeseerx.org/algorithms/parscit/wsdl';
 
 ## Tr2crfpp
 ## Paths relative to ParsCit root dir ($FindBin::Bin/..)
-$tmpDir = "tmp";
-$dictFile = "resources/parsCitDict.txt";
-$crf_test = "crfpp/crf_test";
-$modelFile = "resources/parsCit.model";
+$tmpDir		= "tmp";
+$dictFile	= "resources/parsCitDict.txt";
+$crf_test	= "crfpp/crf_test";
+
+## Tr2crfpp parscit model
+$modelFile	= "resources/parsCit.model";
+## Tr2crfpp parscit split reference model
+$splitModelFile	= "resources/parsCit.split.model";
 
 ## Citation Context
-$contextRadius = 200;
-$maxContexts = 5;
+$contextRadius	= 200;
+$maxContexts	= 5;
 
 ## Write citation and body file components
-$bWriteSplit = 1;
+$bWriteSplit	= 1;
 
 1;
