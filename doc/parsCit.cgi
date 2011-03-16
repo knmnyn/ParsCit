@@ -89,7 +89,6 @@ my $demo = 0;
 #my $parsHedModel = ($q->param('ParsHedModel') eq "1") ? "line-level" : "token-level"; # Added by Thang (v090625) for switching between old and new models
 my $option = $q->param('ParsCitOptions');
 
-
 if ($q->param('ping') ne "") {
 ## Ping web service up
 my $cmd = "nice ./ParsCitClient.rb -a status";
