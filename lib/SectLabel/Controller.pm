@@ -133,7 +133,7 @@ sub extractSectionImpl {
 sub getGenericHeaders {
   my ($headers, $genericHeaders) = @_;
 
-  my $numHeaders = scalar(@{$headers});  
+  my $numHeaders = scalar( @{$headers} );  
 
   # put the list of headers to file
   my $headerFile = "/tmp/".newTmpFile();
@@ -222,7 +222,7 @@ sub insertGenericHeaders {
 sub untaintPath {
   my ($path) = @_;
 
-  if ( $path =~ /^([-_\/\w\.\d: \p{P}]+)$/ ) {
+  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) {
     $path = $1;
   } else {
     die "Bad path $path\n";

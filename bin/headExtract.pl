@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -CSD
 #
 # Simple command script for executing ParsHed in an
 # offline mode (direct API call instead of going through

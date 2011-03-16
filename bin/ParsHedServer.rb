@@ -6,9 +6,9 @@ require 'tempfile'
 require 'uri'
 
 @@PORT = 10556
-@@SERVICE = 'urn:WING.NUS/ParsHed'
+@@SERVICE = 'urn:ForeCite/ParsHed'
 @@ID = 'ParsHed'
-@@Web_Service_ID = 'urn:WING.NUS'
+@@Web_Service_ID = 'urn:ForeCite'
 @@Web_Service_Port = '10570'
 #@@Web_Service_Host = 'wing.comp.nus.edu.sg'
 @@Web_Service_Host = 'aye'

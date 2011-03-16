@@ -20,100 +20,127 @@ use ParsCit::CitationContext;
 use ParsHed::Config;
 use CSXUtil::SafeText qw(cleanXML);
 
-##
+###
 # Main API method for generating an XML document including all
 # header data.  Returns a reference XML document.
-#
-sub extractHeader {
-    my ($textFile, $isTokenLevel) = @_; 
-    my $confLevel = 1; # Thang 10/11/09: add confidence score option - 1: enable, 0: disable
+###
+sub extractHeader 
+{
+    my ($text_file, $is_token_level) = @_; 
 
-    my ($status, $msg, $xml)
-	= extractHeaderImpl($textFile, $isTokenLevel, $confLevel);
-    if ($status > 0) {
-	return \$xml;
-    } else {
-	my $error = "Error: $msg";
-	return \$error;
+	# Thang 10/11/09: add confidence score option - 1: enable, 0: disable
+    my $conf_level = 1; 
+    my ($status, $msg, $xml) = extractHeaderImpl($text_file, $is_token_level, $conf_level);
+
+    if ($status > 0) 
+	{
+		return \$xml;
+    } 
+	else 
+	{
+		my $error = "Error: $msg";
+		return \$error;
     }
+}
 
-} # extractHeader
 
-
-##
+###
 # Main script for actually walking through the steps of
 # header processing.  Returns a status code (0 for failure),
-# an error message (may be blank if no error), a reference to
-# an XML document.
+# an error message (may be blank if no error), a reference 
+# to an XML document.
 #
-# $isTokenLevel: flag to enable previous token-level model (for performance comparison).
+# $is_token_level: flag to enable previous token-level model 
+# (for performance comparison).
 # Todo: catch errors and return $status < 0
-##
+###
+sub extractHeaderImpl 
+{
+	# Thang 10/11/09: $confLevel to add confidence info
+	my ($text_file, $is_token_level, $conf_level, $model_file) = @_;
 
-sub extractHeaderImpl {
-  my ($textFile, $isTokenLevel, $confLevel, $modelFile) = @_;  # Thang 10/11/09: $confLevel to add confidence info
-
-  if (!defined $modelFile) {
-    $modelFile = $ParsCit::Config::modelFile;
-  }
+	# Model file for parscit header
+  	if (!defined $model_file) { $model_file = $ParsCit::Config::modelFile; }
   
-  my ($status, $msg) = (1, "");
+  	my ($status, $msg) = (1, "");
 
-  if (!open (IN, "<:utf8", "$textFile")) {
-    return (-1, "Could not open text file $textFile: $!");
-  }
+	# Open input text file
+  	if (!open (IN, "<:utf8", "$text_file")) { return (-1, "Could not open text file $text_file: $!"); }
     
-  my $buf = "";
-  while (<IN>) {
-    chomp;
-    s/\cM$//; # remove ^M character at the end of the file if any
+  	my $buf = "";
+	while (<IN>) 
+	{
+    	chomp;
 
-    if (/^\#/) { next; }			# skip comments
-    elsif (/^\s+$/) { next; }		# skip blank lines
-    else {
-      if (/INTRODUCTION/i) {					    # sample RE for header stop.
-	last;
-      }
+		# Remove ^M character at the end of the file if any
+		s/\cM$//; 
+	
+		# Skip comments
+    	if (/^\#/) 
+		{ 
+			next; 
+		}
+		# Skip blank lines
+		elsif (/^\s+$/) 
+		{ 
+			next; 
+		}
+    	else 
+		{
+			# sample RE for header stop.
+	      	if (/INTRODUCTION/i) { last; }
       
-      if($isTokenLevel){
-	$buf .= "$_";
-	$buf .= " +L+ ";
-      } else {
-	$buf .= "$_\n";
-      }
-    }
-  }
-  close IN;
+      		if($is_token_level)
+			{
+				$buf .= "$_";
+				$buf .= " +L+ ";
+      		} 
+			else 
+			{
+				$buf .= "$_\n";
+      		}
+    	}
+  	}
+  	close IN;
 
-  if($isTokenLevel){ # for compatible reason
-    $buf = "<title> $buf </title>\n";
-  }
+	# For compatible reason
+  	if($is_token_level) { $buf = "<title> $buf </title>\n"; }
 
-  # run tr2crfpp to prepare feature files
-  my $tmpFile;
-  if($isTokenLevel){
-    $tmpFile = ParsHed::Tr2crfpp_token::prepData(\$buf, $textFile);
-  } else {
-    $tmpFile = ParsHed::Tr2crfpp::prepData(\$buf, $textFile);
-  }
+  	# Run tr2crfpp to prepare feature files
+	my $tmpfile;
+  	if($is_token_level)
+	{
+    	$tmpfile = ParsHed::Tr2crfpp_token::prepData(\$buf, $text_file);
+  	} 
+	else 
+	{
+    	$tmpfile = ParsHed::Tr2crfpp::prepData(\$buf, $text_file);
+  	}
 
-  # run crf_test, output2xml
-  my $outFile = $tmpFile."_dec";
-  my $xml;
+  	my $xml = undef;
+  	# run crf_test, output2xml
+	my $outfile = $tmpfile."_dec";
 
-  if($isTokenLevel){
-    if (ParsHed::Tr2crfpp_token::decode($tmpFile, $outFile)) {
-      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile, 0, $isTokenLevel);
-    }
-  } else {
-    if (ParsHed::Tr2crfpp::decode($tmpFile, $outFile, $confLevel)) {  # Thang 10/11/09: $confLevel to add confidence info
-      $xml = ParsHed::PostProcess::wrapHeaderXml($outFile, $confLevel);  # Thang 10/11/09: $confLevel to add confidence info
-    }
-  }
+  	if($is_token_level)
+	{
+    	if (ParsHed::Tr2crfpp_token::decode($tmpfile, $outfile)) 
+		{
+			$xml = ParsHed::PostProcess::wrapHeaderXml($outfile, 0, $is_token_level);
+    	}
+  	} 
+	else 
+	{
+		# Thang 10/11/09: $confLevel to add confidence info
+    	if (ParsHed::Tr2crfpp::decode($tmpfile, $outfile, $conf_level)) 
+		{
+			# Thang 10/11/09: $confLevel to add confidence info
+      		$xml = ParsHed::PostProcess::wrapHeaderXml($outfile, $conf_level);  
+    	}
+  	}
 
-  unlink($tmpFile);
-  unlink($outFile);
-  return ($status, $msg, $xml);
+  	unlink($tmpfile);
+  	unlink($outfile);
+  	return ($status, $msg, $xml);
 }
 
 1;

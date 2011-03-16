@@ -1,325 +1,1077 @@
 package ParsCit::Tr2crfpp;
-#
+
+###
 # Created from templateAppl.pl version 3.4 by Min-Yen Kan <kanmy@comp.nus.edu.sg>.
 # Modified by Isaac Councill on 7/20/07: wrapped the code as a package for use by
 # an external controller.
 #
 # Copyright 2005 \251 by Min-Yen Kan (not sure what this means for IGC edits, but
 # what the hell -IGC)
-#
+###
 
-use strict 'vars';
 use utf8;
+use strict 'vars';
+
 use FindBin;
-use ParsCit::Config;
 use Encode ();
+use ParsCit::Config;
 
 ### USER customizable section
+my $tmp_dir		= $ParsCit::Config::tmpDir;
+$tmp_dir		= "$FindBin::Bin/../$tmp_dir";
 
-my $tmpDir = $ParsCit::Config::tmpDir;
-$tmpDir = "$FindBin::Bin/../$tmpDir";
+my $dict_file	= $ParsCit::Config::dictFile;
+$dict_file		= "$FindBin::Bin/../$dict_file";
 
-my $dictFile = $ParsCit::Config::dictFile;
-$dictFile = "$FindBin::Bin/../$dictFile";
+my $crf_test	= $ParsCit::Config::crf_test;
+$crf_test		= "$FindBin::Bin/../$crf_test";
 
-my $crf_test = $ParsCit::Config::crf_test;
-$crf_test = "$FindBin::Bin/../$crf_test";
+my $model_file	= $ParsCit::Config::modelFile;
+$model_file		= "$FindBin::Bin/../$model_file";
 
-my $modelFile = $ParsCit::Config::modelFile;
-$modelFile = "$FindBin::Bin/../$modelFile";
-
+my $split_model_file	= $ParsCit::Config::splitModelFile;
+$split_model_file		= "$FindBin::Bin/../$split_model_file";
 ### END user customizable section
 
+###
+# Huydhn: don't know its function
+###
 my %dict = ();
 
-sub prepData {
-    my ($rCiteText, $filename) = @_;
+###
+# Huydhn: prepare data for trfpp, segmenting unmarked reference
+###
+sub prepDataUnmarked
+{
+	my ($omnidoc, $ref_start_line, $ref_end_line) = @_;
+
+	# Generate a temporary file
+	my $tmpfile	= buildTmpFile("");
+
+	# Fetch te dictionary
+	readDict($dict_file);
+
+	# Open the temporary file, prepare to write
+	my $output_tmp = undef;
+	unless (open($output_tmp, ">:utf8", $tmpfile)) 
+	{
+		fatal("Could not open tmp file " . $tmp_dir . "/" . $tmpfile . " for writing.");
+      	return;
+    }
+	
+	# Calculate the average length in character and in word of the whole cite text
+	my @avg_chars = ();
+	my @avg_words = ();
+	# Calculate the average font size
+	my @avg_font_sizes	 = ();
+	# Calculate the average line starting point
+	my @avg_start_points = ();
+
+	# Get all pages
+	my $pages		= $omnidoc->get_pages_ref();
+	my $start_page	= $ref_start_line->{ 'PAGE' };
+	my $end_page	= $ref_end_line->{ 'PAGE' };
+
+	for (my $x = $start_page; $x <= $end_page; $x++)
+	{
+		my $columns 	 = $pages->[ $x ]->get_cols_ref();
+		my $start_column =	($x == $ref_start_line->{ 'PAGE' })	? 
+							$ref_start_line->{ 'COLUMN' }	: 0;
+		my $end_column	 =	($x == $ref_end_line->{ 'PAGE' })	? 
+							$ref_end_line->{ 'COLUMN' }	: (scalar(@{ $columns }) - 1);
+
+		for (my $y = $start_column; $y <= $end_column; $y++)
+		{
+			my $paras		= $columns->[ $y ]->get_paras_ref();
+			my $start_para	=	(($x == $ref_start_line->{ 'PAGE' }) && ($y == $ref_start_line->{ 'COLUMN' }))	? 
+								$ref_start_line->{ 'PARA' }	: 0;
+			my $end_para	=	(($x == $ref_end_line->{ 'PAGE' }) && ($y == $ref_end_line->{ 'COLUMN' }))		? 
+								$ref_end_line->{ 'PARA' }	: (scalar(@{ $paras }) - 1);
+
+			for (my $z = $start_para; $z <= $end_para; $z++)
+			{
+				my $lines = $paras->[ $z ]->get_lines_ref();
+
+				my $start_line	=	(($x == $ref_start_line->{ 'PAGE' }) && ($y == $ref_start_line->{ 'COLUMN' }) && ($z == $ref_start_line->{ 'PARA' }))	? 
+									$ref_start_line->{ 'LINE' }	: 0;
+				my $end_line	=	(($x == $ref_end_line->{ 'PAGE' }) && ($y == $ref_end_line->{ 'COLUMN' }) && ($z == $ref_end_line->{ 'PARA' }))			? 
+									$ref_end_line->{ 'LINE' }		: (scalar(@{ $lines }) - 1);
+			
+				# Total number of line in the paragraph
+				my $total_ln	= 0;
+				# Average per paragraph
+				my $avg_char	= 0;
+				my $avg_word	= 0;
+				my $avg_font_size	= 0;
+				my $avg_start_point	= 0;
+
+				for (my $t = $start_line; $t <= $end_line; $t++)
+				{
+					# Get content
+					my $ln = $lines->[ $t ]->get_content();
+
+					# Trim line
+					$ln	=~ s/^\s+|\s+$//g;
+					# Skip blank lines
+					if ($ln =~ m/^\s*$/) { next; }
+
+					# Total length in char
+					$avg_char	+= length($ln);
+
+					# All words in a line
+					my @tokens	= split(/ +/, $ln);
+
+					# Total length in word
+					$avg_word	+= scalar(@tokens);
+
+					my $xml_runs = $lines->[ $t ]->get_runs_ref();
+					# Font size
+					$avg_font_size	 += ($xml_runs->[ 0 ]->get_font_size() eq '') ? 0 : $xml_runs->[ 0 ]->get_font_size();
+					# Line starting point
+					$avg_start_point += ($lines->[ $t ]->get_left_pos() eq '') ? 0 : $lines->[ $t ]->get_left_pos();
+
+					# Total number of non-blank line
+					$total_ln++;
+				}
+
+				# Calculate the average length
+				$avg_char = ($total_ln != 0) ? ($avg_char / $total_ln) : 0;
+				$avg_word = ($total_ln != 0) ? ($avg_word / $total_ln) : 0;
+
+				# Calculate the average font size
+				$avg_font_size	 = ($total_ln != 0) ? ($avg_font_size / $total_ln) : 0;
+				# Calculate the average line starting point
+				$avg_start_point = ($total_ln != 0) ? ($avg_start_point / $total_ln) : 0;
+
+				# Save the average
+				push @avg_chars, $avg_char;
+				push @avg_words, $avg_word;
+				push @avg_font_sizes, $avg_font_size;
+				push @avg_start_points, $avg_start_point;
+			}
+		}
+	}
+
+	# A line which has length Less than 0.8 * average is likely to be the end of a reference
+	my $lower_ratio = 0.8;
+	my $upper_ratio = 1.2;
+
+	# Line start point ratio
+	my $start_lower_ratio = 0.98;
+	my $start_upper_ratio = 1.02;
+
+	# Get all pages
+	$pages		= $omnidoc->get_pages_ref();
+	$start_page	= $ref_start_line->{ 'PAGE' };
+	$end_page	= $ref_end_line->{ 'PAGE' };
+
+	for (my $x = $start_page; $x <= $end_page; $x++)
+	{
+		my $columns 	 = $pages->[ $x ]->get_cols_ref();
+		my $start_column =	($x == $ref_start_line->{ 'PAGE' })	? 
+							$ref_start_line->{ 'COLUMN' }	: 0;
+		my $end_column	 =	($x == $ref_end_line->{ 'PAGE' })	? 
+							$ref_end_line->{ 'COLUMN' }	: (scalar(@{ $columns }) - 1);
+
+		for (my $y = $start_column; $y <= $end_column; $y++)
+		{
+			my $paras		= $columns->[ $y ]->get_paras_ref();
+			my $start_para	=	(($x == $ref_start_line->{ 'PAGE' }) && ($y == $ref_start_line->{ 'COLUMN' }))	? 
+								$ref_start_line->{ 'PARA' }	: 0;
+			my $end_para	=	(($x == $ref_end_line->{ 'PAGE' }) && ($y == $ref_end_line->{ 'COLUMN' }))		? 
+								$ref_end_line->{ 'PARA' }	: (scalar(@{ $paras }) - 1);
+			
+			my $prev_para	= (-1);
+			for (my $z = $start_para; $z <= $end_para; $z++)
+			{
+				my $lines = $paras->[ $z ]->get_lines_ref();
+
+				my $start_line	=	(($x == $ref_start_line->{ 'PAGE' }) && ($y == $ref_start_line->{ 'COLUMN' }) && ($z == $ref_start_line->{ 'PARA' }))	? 
+									$ref_start_line->{ 'LINE' }	: 0;
+				my $end_line	=	(($x == $ref_end_line->{ 'PAGE' }) && ($y == $ref_end_line->{ 'COLUMN' }) && ($z == $ref_end_line->{ 'PARA' }))			? 
+									$ref_end_line->{ 'LINE' }		: (scalar(@{ $lines }) - 1);
+
+				# Average value
+				my $avg_char	= shift(@avg_chars);
+				my $avg_word	= shift(@avg_words);
+				my $avg_font_size	= shift(@avg_font_sizes);
+				my $avg_start_point	= shift(@avg_start_points);
+
+				for (my $t = $start_line; $t <= $end_line; $t++)
+				{
+					# Get content
+					my $ln = $lines->[ $t ]->get_content();
+
+					# Trim line
+					$ln	=~ s/^\s+|\s+$//g;
+					# Skip blank lines
+					if ($ln =~ m/^\s*$/) { next; }
+
+					# All words in a line
+					my @tokens	= split(/\s+/, $ln);
+				
+					# Features will be stored here
+					my @feats	= ();
+					# Current feature
+					my $current = 0;
+
+					# The first one is the whole line, separate by |||
+					push @feats, $tokens[ 0 ];
+					for (my $i = 1; $i < scalar(@tokens); $i++)
+					{
+						$feats[ $current ] = $feats[ $current ] . "|||" . $tokens[ $i ];
+					}
+					$current++;
+
+					# Length in characters
+					push @feats, ((length($ln) > $lower_ratio * $avg_char) ? "normal" : "short");
+					$current++;
+
+					# Line has year number
+					if ($ln =~ m/\b\(?[1-2][0-9]{3}[\p{IsLower}]?[\)?\s,\.]*(\s|\b)/s)
+					{
+						push @feats, "hasYear";
+					}
+					else
+					{
+						push @feats, "noYear";
+					}
+					$current++;
+
+					# The line contains many authors and doesn't has number
+					if ($ln =~ m/\d/) 
+					{ 
+						push @feats, "noLongAuthorLine";
+					}
+					else
+					{
+						$_			= $ln;
+						my $n_sep	= s/([,;])/$1/g;
+
+						# Have enough author, this line is a long author line
+						if ($n_sep >= 3)
+						{
+							push @feats, "isLongAuthorLine";		
+						}
+						else
+						{
+							push @feats, "noLongAuthorLine";	
+						}
+					}
+					$current++;
+
+					# Ending punctuation
+					my $last_word		= $tokens[ scalar(@tokens) - 1 ];
+					# Last character
+					my @last_word_chars	= split(//, $last_word);
+					my $last_char		= $last_word_chars[ scalar(@last_word_chars) - 1 ];
+					# Last char is a dot					
+					if ($last_char eq ".")
+					{
+						push @feats, "period";
+					}
+					elsif ($last_char eq ",")
+					{
+						push @feats, "comma";
+					}
+					elsif ($last_char eq ";")
+					{
+						push @feats, "semicolon";
+					}
+					elsif ($last_char eq ":")
+					{
+						push @feats, "colon";
+					}
+					elsif ($last_char eq "?")
+					{
+						push @feats, "question";
+					}
+					elsif ($last_char eq "!")
+					{
+						push @feats, "exclamation";
+					}
+					elsif (($last_char eq ")") || ($last_char eq "]") || ($last_char eq "}"))
+					{
+						push @feats, "cbracket";
+					}
+					elsif (($last_char eq ")") || ($last_char eq "]") || ($last_char eq "}"))
+					{
+						push @feats, "obracket";
+					}
+					elsif ($last_char eq "-")
+					{
+						push @feats, "hyphen";
+					}
+					else
+					{
+						push @feats, "other";
+					}
+					$current++;
+
+					# First word
+					my $first_word		= $tokens[ 0 ];
+					prepDataUnmarkedToken($first_word, \@feats, \$current);
+					# Second word
+					my $second_word		= (scalar(@tokens) > 1) ? $tokens[ 1 ] : "EMPTY";
+					prepDataUnmarkedToken($second_word, \@feats, \$current);
+					# Last word
+					prepDataUnmarkedToken($last_word, \@feats, \$current);
+	
+					# XML features
+					# Bullet
+					my $bullet = $lines->[ $t ]->get_bullet();
+					if ((defined $bullet) && ($bullet eq 'true'))
+					{
+						push @feats, 'xmlBullet_yes';	
+					}
+					else
+					{
+						push @feats, 'xmlBullet_no';
+					}
+					$current++;
+
+					# First word format: bold, italic, font size
+					my $xml_runs = $lines->[ $t ]->get_runs_ref();
+			
+					# First word format: bold
+					my $bold = $xml_runs->[ 0 ]->get_bold();
+					if ((defined $bold) && ($bold eq 'true'))
+					{	
+						push @feats, 'xmlBold_yes'; 
+					}
+					else
+					{
+						push @feats, 'xmlBold_no';	
+					}
+					$current++;
+
+					# First word format: italic
+					my $italic = $xml_runs->[ 0 ]->get_italic();
+					if ((defined $italic) && ($italic eq 'true'))
+					{
+						push @feats, 'xmlItalic_yes'; 
+					}	
+					else
+					{
+						push @feats, 'xmlItalic_no';	
+					}
+					$current++;
+
+					# First word format: font size
+					my $font_size = $xml_runs->[ 0 ]->get_font_size();
+					if ($font_size > $avg_font_size * $upper_ratio)
+					{
+						push @feats, 'xmlFontSize_large';
+					}
+					elsif ($font_size < $avg_font_size * $lower_ratio)
+					{
+						push @feats,  'xmlFontSize_small';
+					}
+					else
+					{
+						push @feats,  'xmlFontSize_normal';
+					}
+					$current++;
+
+					# First word format: starting point, left alignment
+					my $start_point = $lines->[ $t ]->get_left_pos();
+					if ($start_point > $avg_start_point * $start_upper_ratio)
+					{
+						push @feats, 'xmlBeginLine_right';
+					}
+					elsif ($start_point < $avg_start_point * $start_lower_ratio)
+					{
+						push @feats, 'xmlBeginLine_left';
+					}
+					else
+					{
+						push @feats, 'xmlBeginLine_normal';
+					}
+					$current++;
+
+					# Paragraph
+					if ($z != $prev_para)
+					{
+						push @feats, 'xmlPara_new';
+						$prev_para = $z;
+					}
+					else
+					{
+						push @feats, 'xmlPara_continue';
+					}
+					$current++;
+
+					# Output tag
+					push @feats, "parsCit_unknown";
+					$current++;
+
+					# Export output: print
+					print $output_tmp $feats[ 0 ];
+					for (my $i = 1; $i < scalar(@feats); $i++) { print $output_tmp " " . $feats[ $i ]; }
+					print $output_tmp "\n";
+				}
+			}
+		}
+	}
+
+	close $output_tmp;
+
+	# Finish preparing data
+    return $tmpfile;
+}
+
+###
+# Huydhn: prepare data for trfpp, segmenting unmarked reference, token level
+###
+sub prepDataUnmarkedToken
+{
+	my ($token, $feats, $current) = @_;
+	
+	# No punctuation
+	my $token_np	= $token;
+   	$token_np		=~ s/[^\w]//g;
+
+	# and in lower case
+	my $token_lc_np	= lc($token_np);    
+
+	push @{ $feats }, "TOKEN-" . $token;
+	$$current++;
+
+	# Characters
+	my @token_chars = split(//, $token);
+		
+	# First char
+	push @{ $feats }, $token_chars[ 0 ];
+	$$current++;
+		
+	# First 2 chars
+	push @{ $feats }, join("", @token_chars[0..1]);
+	$$current++;
+
+	# First 3 chars
+	push @{ $feats }, join("", @token_chars[0..2]);
+	$$current++;
+
+	# First 4 chars
+    push @{ $feats }, join("", @token_chars[0..3]);
+	$$current++;
+			
+	# Last char
+    push @{ $feats }, $token_chars[-1];
+	$$current++;
+			
+	# Last 2 chars
+    push @{ $feats }, join("", @token_chars[-2..-1]);
+	$$current++;
+
+	# Last 3 chars
+    push @{ $feats }, join("", @token_chars[-3..-1]);
+	$$current++;
+
+	# Last 4 chars
+	push @{ $feats }, join("", @token_chars[-4..-1]);
+	$$current++;
+
+	# Caption
+	if ($token_np eq "")
+	{
+		push @{ $feats }, "other";
+	}
+	else
+	{
+		my $ortho =	($token_np =~ /^[\p{IsUpper}]$/)				? "singleCap"	:				
+					($token_np =~ /^[\p{IsUpper}][\p{IsLower}]+/)	? "InitCap"		: 
+					($token_np =~ /^[\p{IsUpper}]+$/)				? "AllCap"		: "others";
+    	push @{ $feats }, $ortho;
+	}
+	$$current++;
+
+	# Numbers
+   	my $num =	($token_np	=~ /^(19|20)[0-9][0-9]$/)	? "year"		 :
+				($token		=~ /[0-9]\-[0-9]/)			? "possiblePage" :
+				($token		=~ /[0-9]\([0-9]+\)/)		? "possibleVol"	 :
+				($token_np	=~ /^[0-9]$/)				? "1dig"		 :
+				($token_np	=~ /^[0-9][0-9]$/)			? "2dig"		 :
+				($token_np	=~ /^[0-9][0-9][0-9]$/)		? "3dig"		 :
+				($token_np	=~ /^[0-9]+$/)				? "4+dig"		 :
+				($token_np	=~ /^[0-9]+(th|st|nd|rd)$/)	? "ordinal"		 :
+				($token_np	=~ /[0-9]/)					? "hasDig"		 : "nonNum";
+	push @{ $feats }, $num;
+	$$current++;
+
+	# Gazetteer (names)
+	my $dict_status	= (defined $dict{ $token_lc_np }) ? $dict{ $token_lc_np } : 0;
+	my $is_in_dict	= $dict_status;
+
+	my ($publisher_name, $place_name, $month_name, $last_name, $female_name, $male_name) = undef;
+
+   	if ($dict_status >= 32) 
+	{
+		$dict_status	-= 32;
+		$publisher_name	= "publisherName";
+   	} 
+	else 
+	{
+		$publisher_name	= "no";
+   	}
+	
+	if ($dict_status >= 16) 
+	{
+		$dict_status	-= 16;
+		$place_name		= "placeName";
+	} 
+	else 
+	{
+		$place_name		= "no";
+	}
+
+   	if ($dict_status >= 8) 
+	{
+		$dict_status	-= 8;
+		$month_name		= "monthName";
+   	} 
+	else 
+	{
+		$month_name		= "no";
+   	}
+
+	if ($dict_status >= 4) 
+	{
+		$dict_status	-= 4;
+		$last_name		= "lastName";
+	} 
+	else 
+	{
+		$last_name		= "no";
+	}
+
+   	if ($dict_status >= 2) 
+	{
+		$dict_status	-= 2;
+		$female_name	= "femaleName";
+   	} 
+	else 
+	{
+		$female_name	= "no";
+   	}
+			
+	if ($dict_status >= 1) 
+	{
+		$dict_status	-= 1;
+		$male_name		= "maleName";
+   	} 
+	else 
+	{
+		$male_name		= "no";
+   	}
+
+	# Name status
+   	push @{ $feats }, $is_in_dict;
+	$$current++;
+
+	# Male name
+	push @{ $feats }, $male_name;
+	$$current++;
+
+	# Female name
+	push @{ $feats }, $female_name;
+	$$current++;
+			
+	# Last name
+	push @{ $feats }, $last_name;
+	$$current++;
+
+	# Month name
+	push @{ $feats }, $month_name;
+	$$current++;
+
+	# Place name
+	push @{ $feats }, $place_name;
+	$$current++;
+			
+	# Publisher name
+ 	push @{ $feats }, $publisher_name;
+	$$current++;
+}
+
+# Prepare data for trfpp
+sub prepData 
+{
+    my ($rcite_text, $filename) = @_;
+
+	# Generate a temporary file
     my $tmpfile = buildTmpFile($filename);
 
-    readDict($dictFile); # Thang Mar 10: move inside the method, only load when running
+	###
+	# Thang Mar 10: move inside the method, only load when running
+	###
+    readDict($dict_file); 
 
-    unless (open(TMP, ">:utf8", $tmpfile)) {
-      fatal("Could not open tmp file $tmpDir/$tmpfile for writing.");
-      return;
+    unless (open(TMP, ">:utf8", $tmpfile)) 
+	{
+		fatal("Could not open tmp file " . $tmp_dir . "/" . $tmpfile . " for writing.");
+      	return;
     }
 
-    foreach (split "\n", $$rCiteText) {
-	if (/^\s*$/) { next; }		# skip blank lines
+    foreach (split "\n", $$rcite_text) 
+	{	
+		# Skip blank lines
+		if (/^\s*$/) { next; }
 
-	my $tag = "";
-	my @tokens = split(/ +/);
-	my @feats = ();
-	my $hasPossibleEditor =
-	(/[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors"; # modified by Artemy Kolchinsky (v090625): 'ed.' also matches things like 'Med.' , which are found extremely often in my document database. To avoid this situation, I changed this string to match 'ed.', 'editor', 'editors', and 'eds.' if *not* preceeded by an alphabetic character
+		my $tag		= "";
+		my @tokens	= split(/ +/);
+		my @feats	= ();
+		
+		###
+		# Modified by Artemy Kolchinsky (v090625): 'ed.' also matches things like 'Med.', 
+		# which are found extremely often in my document database. To avoid this situation, 
+		# I changed this string to match 'ed.', 'editor', 'editors', and 'eds.' if *not* 
+		# preceeded by an alphabetic character.
+		###
+		my $has_possible_editor = (/[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
 
-	my $j = 0;
-	for (my $i = 0; $i <= $#tokens; $i++) {
-	    if ($tokens[$i] =~ /^\s*$/) { next; }
-	    
-	    if ($tokens[$i] =~ /^<\/[a-zA-Z]+/) {#Thang v100401: /^\<\/([\p{IsLower}]+)/) {
-		next;
-	    }
-	    if ($tokens[$i] =~ /^<([a-zA-Z]+)/) { #Thang v100401: /^\<([\p{IsLower}]+)/) {
-		$tag = $1;
-		next;
-	    }
+		my $j = 0;
+		for (my $i = 0; $i <= $#tokens; $i++) 
+		{
+	    	if ($tokens[$i] =~ /^\s*$/) { next; }
 
-	    # prep
-	    my $word = $tokens[$i];
+			###
+			# Thang v100401: /^\<\/([\p{IsLower}]+)/)
+			###
+	    	if ($tokens[$i] =~ /^<\/[a-zA-Z]+/) { next; }
+			
+			###
+			# Thang v100401: /^\<([\p{IsLower}]+)/)
+			###
+	    	if ($tokens[$i] =~ /^<([a-zA-Z]+)/) 
+			{
+				$tag = $1;
+				next;
+	    	}
 
-	    my $wordNP = $tokens[$i];			      # no punctuation
-	    $wordNP =~ s/[^\w]//g;
+	    	# Prep
+	    	my $word	= $tokens[$i];
+			
+			# No punctuation
+	    	my $word_np	 = $tokens[$i];			      
+	    	$word_np	 =~ s/[^\w]//g;
+	    	if ($word_np =~ /^\s*$/) { $word_np	= "EMPTY"; }
 
-	    if ($wordNP =~ /^\s*$/) { $wordNP = "EMPTY"; }
-	    my $wordLCNP = lc($wordNP);    # lowercased word, no punctuation
+			# Lowercased word, no punctuation
+			my $word_lc_np	= lc($word_np);    
+	    	if ($word_lc_np	=~ /^\s*$/) { $word_lc_np = "EMPTY"; }
 
+	    	# Feature generation
 
-	    if ($wordLCNP =~ /^\s*$/) { $wordLCNP = "EMPTY"; }
+			# 0 = lexical word	# 20 = possible editor
 
-	    ## feature generation
-	    $feats[$j][0] = $word;			    # 0 = lexical word
+	    	$feats[ $j ][ 0 ] = $word;
 
-	    my @chars = split(//,$word);
+	    	my @chars = split(//, $word);
 
+	    	my $last_char = $chars[ -1 ];
+	    	if ($last_char =~ /[\p{IsLower}]/) 
+			{ 
+				$last_char = 'a'; 
+			}
+	    	elsif ($last_char =~ /[\p{IsUpper}]/) 
+			{ 
+				$last_char = 'A'; 
+			}
+	    	elsif ($last_char =~ /[0-9]/) 
+			{ 
+				$last_char = '0'; 
+			}
 
-	    my $lastChar = $chars[-1];
-	    if ($lastChar =~ /[\p{IsLower}]/) { $lastChar = 'a'; }
-	    elsif ($lastChar =~ /[\p{IsUpper}]/) { $lastChar = 'A'; }
-	    elsif ($lastChar =~ /[0-9]/) { $lastChar = '0'; }
-	    push(@{$feats[$j]}, $lastChar);		       # 1 = last char
+			# 1 = last char
+			push(@{ $feats[ $j ] }, $last_char);
 
-	    push(@{$feats[$j]}, $chars[0]);		      # 2 = first char
-	    push(@{$feats[$j]}, join("",@chars[0..1]));  # 3 = first 2 chars
-	    push(@{$feats[$j]}, join("",@chars[0..2]));  # 4 = first 3 chars
-	    push(@{$feats[$j]}, join("",@chars[0..3]));  # 5 = first 4 chars
+			# 2 = first char
+			push(@{ $feats[ $j ] }, $chars[0]);
 
-	    push(@{$feats[$j]}, $chars[-1]);		       # 6 = last char
-	    push(@{$feats[$j]}, join("",@chars[-2..-1])); # 7 = last 2 chars
-	    push(@{$feats[$j]}, join("",@chars[-3..-1])); # 8 = last 3 chars
-	    push(@{$feats[$j]}, join("",@chars[-4..-1])); # 9 = last 4 chars
+		    # 3 = first 2 chars
+			push(@{ $feats[ $j ] }, join("", @chars[0..1]));
 
-	    push(@{$feats[$j]}, $wordLCNP);  # 10 = lowercased word, no punct
+		    # 4 = first 3 chars
+			push(@{ $feats[ $j ] }, join("", @chars[0..2]));
 
+			# 5 = first 4 chars
+	    	push(@{ $feats[ $j ] }, join("", @chars[0..3]));
+			
+			# 6 = last char
+	    	push(@{ $feats[ $j ] }, $chars[-1]);
+			
+			# 7 = last 2 chars
+	    	push(@{ $feats[ $j ] }, join("", @chars[-2..-1]));
 
-	    # 11 - capitalization
-	    my $ortho = ($wordNP =~ /^[\p{IsUpper}]$/) ? "singleCap" :
-		($wordNP =~ /^[\p{IsUpper}][\p{IsLower}]+/) ? "InitCap" :
-		($wordNP =~ /^[\p{IsUpper}]+$/) ? "AllCap" : "others";
-	    push(@{$feats[$j]}, $ortho);
+			# 8 = last 3 chars
+	    	push(@{ $feats[ $j ] }, join("", @chars[-3..-1]));
 
-	    # 12 - numbers
-	    my $num = ($wordNP =~ /^(19|20)[0-9][0-9]$/) ? "year" :
-		($word =~ /[0-9]\-[0-9]/) ? "possiblePage" :
-		($word =~ /[0-9]\([0-9]+\)/) ? "possibleVol" :
-		($wordNP =~ /^[0-9]$/) ? "1dig" :
-		($wordNP =~ /^[0-9][0-9]$/) ? "2dig" :
-		($wordNP =~ /^[0-9][0-9][0-9]$/) ? "3dig" :
-		($wordNP =~ /^[0-9]+$/) ? "4+dig" :
-		($wordNP =~ /^[0-9]+(th|st|nd|rd)$/) ? "ordinal" :
-		($wordNP =~ /[0-9]/) ? "hasDig" : "nonNum";
-	    push(@{$feats[$j]}, $num);
+			# 9 = last 4 chars
+		    push(@{ $feats[ $j ] }, join("", @chars[-4..-1]));
 
-	    # gazetteer (names)
-	    my $dictStatus = (defined $dict{$wordLCNP}) ? $dict{$wordLCNP} : 0;
-            #my $isInDict = ($dictStatus != 0) ? "isInDict" : "no";
-	    my $isInDict = $dictStatus;
+			# 10 = lowercased word, no punct
+		    push(@{ $feats[ $j ] }, $word_lc_np);  
 
-	    my ($publisherName,$placeName,$monthName,$lastName,$femaleName,$maleName);
-	    if ($dictStatus >= 32) {
-		$dictStatus -= 32;
-		$publisherName = "publisherName";
-	    } else {
-		$publisherName = "no";
-	    }
-	    if ($dictStatus >= 16) {
-		$dictStatus -= 16;
-		$placeName = "placeName";
-	    } else {
-		$placeName = "no";
-	    }
-	    if ($dictStatus >= 8) {
-		$dictStatus -= 8;
-		$monthName = "monthName";
-	    } else {
-		$monthName = "no";
-	    }
-	    if ($dictStatus >= 4) {
-		$dictStatus -= 4;
-		$lastName = "lastName";
-	    } else {
-		$lastName = "no";
-	    }
-	    if ($dictStatus >= 2) {
-		$dictStatus -= 2;
-		$femaleName = "femaleName";
-	    } else {
-		$femaleName = "no";
-	    }
-	    if ($dictStatus >= 1) {
-		$dictStatus -= 1;
-		$maleName = "maleName";
-	    } else {
-		$maleName = "no";
-	    }
+	    	# 11 - capitalization
+	    	my $ortho = ($word_np =~ /^[\p{IsUpper}]$/) ? "singleCap" : 
+						($word_np =~ /^[\p{IsUpper}][\p{IsLower}]+/) ? "InitCap" : 
+						($word_np =~ /^[\p{IsUpper}]+$/) ? "AllCap" : "others";
+	    	push(@{ $feats[ $j ] }, $ortho);
 
-	    push(@{$feats[$j]}, $isInDict);		    # 13 = name status
-	    push(@{$feats[$j]}, $maleName);		      # 14 = male name
-	    push(@{$feats[$j]}, $femaleName);		    # 15 = female name
-	    push(@{$feats[$j]}, $lastName);		      # 16 = last name
-	    push(@{$feats[$j]}, $monthName);		     # 17 = month name
-	    push(@{$feats[$j]}, $placeName);		     # 18 = place name
-	    push(@{$feats[$j]}, $publisherName);	 # 19 = publisher name
+	    	# 12 - numbers
+	    	my $num =	($word_np	=~ /^(19|20)[0-9][0-9]$/) ? "year" :
+						($word		=~ /[0-9]\-[0-9]/) ? "possiblePage" :
+						($word		=~ /[0-9]\([0-9]+\)/) ? "possibleVol" :
+						($word_np	=~ /^[0-9]$/) ? "1dig" :
+						($word_np	=~ /^[0-9][0-9]$/) ? "2dig" :
+						($word_np	=~ /^[0-9][0-9][0-9]$/) ? "3dig" :
+						($word_np	=~ /^[0-9]+$/) ? "4+dig" :
+						($word_np	=~ /^[0-9]+(th|st|nd|rd)$/) ? "ordinal" :
+						($word_np	=~ /[0-9]/) ? "hasDig" : "nonNum";
+			push(@{ $feats[ $j ] }, $num);
 
-	    push(@{$feats[$j]}, $hasPossibleEditor);	# 20 = possible editor
+	    	# Gazetteer (names)
+	    	my $dict_status	= (defined $dict{ $word_lc_np }) ? $dict{ $word_lc_np } : 0;
+	    	my $is_in_dict	= $dict_status;
 
-	    # not accurate ($#tokens counts tags too)
-	    if ($#tokens <= 0) {
-		next;
-	    }
-	    my $location = int ($j / $#tokens * 12);
-	    push(@{$feats[$j]}, $location);	      # 21 = relative location
+	    	my ($publisher_name, $place_name, $month_name, $last_name, $female_name, $male_name);
 
-	    # 22 - punctuation
-	    my $punct = ($word =~ /^[\"\'\`]/) ? "leadQuote" :
-		($word =~ /[\"\'\`][^s]?$/) ? "endQuote" :
-		($word =~ /\-.*\-/) ? "multiHyphen" :
-		($word =~ /[\-\,\:\;]$/) ? "contPunct" :
-		($word =~ /[\!\?\.\"\']$/) ? "stopPunct" :
-	        ($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-		($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
-	    push(@{$feats[$j]}, $punct);		    # 22 = punctuation
+	    	if ($dict_status >= 32) 
+			{
+				$dict_status	-= 32;
+				$publisher_name	= "publisherName";
+	    	} 
+			else 
+			{
+				$publisher_name	= "no";
+	    	}
 
-	    # output tag
-	    push(@{$feats[$j]}, $tag);
+	    	if ($dict_status >= 16) 
+			{
+				$dict_status	-= 16;
+				$place_name		= "placeName";
+	    	} 
+			else 
+			{
+				$place_name		= "no";
+	    	}
 
-	    $j++;
+	    	if ($dict_status >= 8) 
+			{
+				$dict_status	-= 8;
+				$month_name		= "monthName";
+	    	} 
+			else 
+			{
+				$month_name		= "no";
+	    	}
 
-	}
+	    	if ($dict_status >= 4) 
+			{
+				$dict_status	-= 4;
+				$last_name		= "lastName";
+	    	} 
+			else 
+			{
+				$last_name		= "no";
+	    	}
 
-	# export output: print
-	for (my $j = 0; $j <= $#feats; $j++) {
-	    print TMP join (" ", @{$feats[$j]});
-	    print TMP "\n";
-	}
-	print TMP "\n";
+	    	if ($dict_status >= 2) 
+			{
+				$dict_status	-= 2;
+				$female_name	= "femaleName";
+	    	} 
+			else 
+			{
+				$female_name	= "no";
+	    	}
+			
+			if ($dict_status >= 1) 
+			{
+				$dict_status	-= 1;
+				$male_name		= "maleName";
+	    	} 
+			else 
+			{
+				$male_name		= "no";
+	    	}
+
+			# 13 = name status
+	    	push(@{ $feats[ $j ] }, $is_in_dict);
+
+			# 14 = male name
+			push(@{ $feats[ $j ] }, $male_name);
+
+			# 15 = female name
+			push(@{ $feats[ $j ] }, $female_name);
+			
+			# 16 = last name
+	    	push(@{ $feats[ $j ] }, $last_name);
+
+			# 17 = month name
+	    	push(@{ $feats[ $j ] }, $month_name);
+
+			# 18 = place name
+	    	push(@{ $feats[ $j ] }, $place_name);
+			
+			# 19 = publisher name
+	    	push(@{ $feats[ $j ] }, $publisher_name);
+
+			# 20 = possible editor
+	    	push(@{ $feats[ $j ] }, $has_possible_editor);
+
+	    	# Not accurate ($#tokens counts tags too)
+	    	if ($#tokens <= 0) { next; }
+
+	    	my $location = int ($j / $#tokens * 12);
+			
+			# 21 = relative location
+	    	push(@{ $feats[ $j ]}, $location);	      
+
+	    	# 22 - punctuation
+	    	my $punct =	($word	=~ /^[\"\'\`]/) ? "leadQuote" :
+						($word	=~ /[\"\'\`][^s]?$/) ? "endQuote" :
+						($word	=~ /\-.*\-/) ? "multiHyphen" :
+						($word	=~ /[\-\,\:\;]$/) ? "contPunct" :
+						($word	=~ /[\!\?\.\"\']$/) ? "stopPunct" :
+						($word	=~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
+						($word	=~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
+		    # 22 = punctuation
+			push(@{ $feats[ $j ] }, $punct);
+
+		    # output tag
+		    push(@{ $feats[ $j ] }, $tag);
+
+	    	$j++;
+		}
+
+		# Export output: print
+		for (my $j = 0; $j <= $#feats; $j++) 
+		{
+	    	print TMP join (" ", @{ $feats[ $j ] });
+	    	print TMP "\n";
+		}
+
+		print TMP "\n";
     }
     close TMP;
 
+	# Finish prepare data for crfpp
     return $tmpfile;
+}
 
-}  # prepData
-
-
-sub buildTmpFile {
+sub buildTmpFile 
+{
     my ($filename) = @_;
-    my $tmpfile = $filename;
-    $tmpfile =~ s/[\.\/]//g;
-    $tmpfile .= $$ . time;
-    # untaint tmpfile variable
-    if ($tmpfile =~ /^([-\@\w.]+)$/) {
-	$tmpfile = $1;
-    }
+
+    my $tmpfile	= $filename;
+    $tmpfile	=~ s/[\.\/]//g;
+    $tmpfile	.= $$ . time;
+
+	# Untaint tmpfile variable
+    if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }
     
+	###
+	# Altered by Min (Thu Feb 28 13:08:59 SGT 2008)
+	###
+    return "/tmp/$tmpfile"; 
     # return $tmpfile;
-    return "/tmp/$tmpfile"; # Altered by Min (Thu Feb 28 13:08:59 SGT 2008)
+}
 
-}  # buildTmpFile
-
-
-sub fatal {
+sub fatal 
+{
     my $msg = shift;
     print STDERR "Fatal Exception: $msg\n";
 }
 
+###
+# Huydhn: split the reference portion using crf++ model
+###
+sub splitReference
+{
+	my ($infile, $outfile) = @_;
 
-sub decode {
-    my ($inFile, $outFile) = @_;
-
-    unless (open(PIPE, "$crf_test -m $modelFile $inFile |")) {
-	fatal("Could not open pipe from crf call: $!");
-	return;
+	unless (open(PIPE, "$crf_test -m $split_model_file $infile |")) 
+	{
+		fatal("Could not open pipe from crf call: $!");
+		return;
     }
-    my $output;
+
+	my $output;
     {
-	local $/ = undef;
-	$output = <PIPE>;
+		local $/ = undef;
+		$output = <PIPE>;
     }
     close PIPE;
 
-    unless(open(IN, "<:utf8", $inFile)) {
-	fatal("Could not open input file: $!");
-	return;
+    unless(open(IN, "<:utf8", $infile)) 
+	{
+		fatal("Could not open input file: $!");
+		return;
     }
-    my @codeLines = ();
-    while(<IN>) {
-	chomp();
-	push @codeLines, $_;
+    
+	my @code_lines = ();
+
+	while(<IN>) 
+	{
+		chomp();
+		push @code_lines, $_;
     }
     close IN;
 
-    my @outputLines = split "\n", $output;
-    for (my $i=0; $i<=$#outputLines; $i++) {
-	if ($outputLines[$i] =~ m/^\s*$/) {
-	    next;
-	}
-	my @outputTokens = split " +", $outputLines[$i];
-	my $class = $outputTokens[$#outputTokens];
-	my @codeTokens = split "\t", $codeLines[$i];
-	if ($#codeTokens < 0) {
-	    next;
-	}
-	$codeTokens[$#codeTokens] = $class;
-	@codeLines[$i] = join "\t", @codeTokens;
+    my @output_lines = split "\n", $output;
+    for (my $i = 0; $i <= $#output_lines; $i++) 
+	{
+		# Remove blank line
+		if ($output_lines[$i] =~ m/^\s*$/) { next; }
+	
+		my @output_tokens	= split(/\s+/, $output_lines[$i]);
+		my $class			= $output_tokens[ $#output_tokens ];
+		my @code_tokens		= split(/\s+/, $code_lines[ $i ]);
+
+		if ($#code_tokens < 0) { next; }
+
+		$code_tokens[ $#code_tokens ] = $class;
+		$code_lines[$i]	= join " ", @code_tokens;
     }
 
-    unless (open(OUT, ">:utf8", $outFile)) {
-	fatal("Could not open crf output file for writing: $!");
-	return;
+    unless (open(OUT, ">:utf8", $outfile)) 
+	{
+		fatal("Could not open crf output file for writing: $!");
+		return;
     }
 
-    foreach my $line (@codeLines) {
-      if(!Encode::is_utf8($line)){ # Thang v100401: add this to avoid double decoding
-	print OUT Encode::decode_utf8($line), "\n";
-      } else {
-	print OUT $line, "\n";
-      }
+    foreach my $line (@code_lines) 
+	{
+		###
+		# Thang v100401: add this to avoid double decoding
+		###
+      	if (!Encode::is_utf8($line))
+		{
+			print OUT Encode::decode_utf8($line), "\n";
+		} 
+		else 
+		{
+			print OUT $line, "\n";
+      	}
     }
     close OUT;
+	return 1;
+}
 
-    return 1;
+sub decode 
+{
+    my ($infile, $outfile) = @_;
 
-}  # decode
-
-
-sub readDict {
-  my $dictFileLoc = shift @_;
-  my $mode = 0;
-  open (DATA, "<:utf8", $dictFileLoc) || die "Could not open dict file $dictFileLoc: $!";
-  while (<DATA>) {
-    if (/^\#\# Male/) { $mode = 1; }			  # male names
-    elsif (/^\#\# Female/) { $mode = 2; }		# female names
-    elsif (/^\#\# Last/) { $mode = 4; }			  # last names
-    elsif (/^\#\# Chinese/) { $mode = 4; }		  # last names
-    elsif (/^\#\# Months/) { $mode = 8; }		 # month names
-    elsif (/^\#\# Place/) { $mode = 16; }		 # place names
-    elsif (/^\#\# Publisher/) { $mode = 32; }	     # publisher names
-    elsif (/^\#/) { next; }
-    else {
-      chop;
-      my $key = $_;
-      my $val = 0;
-      if (/\t/) {				     # has probability
-	($key,$val) = split (/\t/,$_);
-      }
-
-      # already tagged (some entries may appear in same part of lexicon more than once
-      if ($dict{$key} >= $mode) { next; }
-      else { $dict{$key} += $mode; }		      # not yet tagged
+    unless (open(PIPE, "$crf_test -m $model_file $infile |")) 
+	{
+		fatal("Could not open pipe from crf call: $!");
+		return;
     }
-  }
-  close (DATA);
 
-}  # readDict
+    my $output;
+    {
+		local $/ = undef;
+		$output = <PIPE>;
+    }
+    close PIPE;
 
+    unless(open(IN, "<:utf8", $infile)) 
+	{
+		fatal("Could not open input file: $!");
+		return;
+    }
+
+    my @code_lines = ();
+
+	while(<IN>) 
+	{
+		chomp();
+		push @code_lines, $_;
+    }
+    close IN;
+
+    my @output_lines = split "\n", $output;
+    for (my $i = 0; $i <= $#output_lines; $i++) 
+	{
+		# Remove blank line
+		if ($output_lines[$i] =~ m/^\s*$/) { next; }
+	
+		my @output_tokens	= split(/\s+/, $output_lines[$i]);
+		my $class			= $output_tokens[ $#output_tokens ];
+		my @code_tokens		= split(/\s+/, $code_lines[ $i ]);
+
+		if ($#code_tokens < 0) { next; }
+
+		$code_tokens[ $#code_tokens ] = $class;
+		$code_lines[$i]	= join "\t", @code_tokens;
+    }
+
+    unless (open(OUT, ">:utf8", $outfile)) 
+	{
+		fatal("Could not open crf output file for writing: $!");
+		return;
+    }
+
+    foreach my $line (@code_lines) 
+	{
+		###
+		# Thang v100401: add this to avoid double decoding
+		###
+      	if (!Encode::is_utf8($line))
+		{
+			print OUT Encode::decode_utf8($line), "\n";
+		} 
+		else 
+		{
+			print OUT $line, "\n";
+      	}
+    }
+    close OUT;
+	return 1;
+}
+
+sub readDict 
+{
+	my $dict_file_loc = shift @_;
+
+  	my $mode = 0;
+  	open (DATA, "<:utf8", $dict_file_loc) || die "Could not open dict file $dict_file_loc: $!";
+
+	while (<DATA>) 
+	{
+    	if		(/^\#\# Male/) 		{ $mode = 1; }		# male names
+    	elsif	(/^\#\# Female/)	{ $mode = 2; }		# female names
+    	elsif	(/^\#\# Last/)		{ $mode = 4; }		# last names
+    	elsif	(/^\#\# Chinese/)	{ $mode = 4; }		# last names
+    	elsif	(/^\#\# Months/)	{ $mode = 8; }		# month names
+    	elsif	(/^\#\# Place/)		{ $mode = 16; }		# place names
+    	elsif	(/^\#\# Publisher/)	{ $mode = 32; }		# publisher names
+    	elsif	(/^\#/)				{ next; }
+    	else 
+		{
+      		chop;
+      		my $key = $_;
+      		my $val = 0;
+
+			# Has probability
+			if (/\t/) { ($key, $val) = split (/\t/,$_); }
+
+      		# Already tagged (some entries may appear in same part of lexicon more than once
+			if ($dict{ $key } >= $mode) 
+			{ 
+				next; 
+			}
+			# not yet tagged
+      		else 
+			{ 
+				$dict{ $key } += $mode; 
+			}
+    	}
+  	}
+
+	close (DATA);
+}
 
 1;

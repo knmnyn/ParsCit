@@ -4,7 +4,7 @@
 import os,sys,getopt,re
 
 # paths to executables 
-# Thang v101101: minor modifications in the code so that it doesn't matter if the below directory paths end with / or not
+# Thang v100901: minor modifications in the code so that it doesn't matter if the below directory paths end with / or not
 PARSCIT_PATH=sys.path[0] + "/../../bin/"
 BIBUTILS_PATH=sys.path[0] + "/bibutils_4.10"
 SAXON_PATH=sys.path[0] + "/saxonhe9-2-1-2j/saxon9he.jar"
@@ -20,7 +20,7 @@ def parscit_to_mods(parscit_out, is_quiet):
 	return out
 	
 def export_mods(mods_xml, out_type, is_quiet):
-	bibutils_cmd="%s/xml2%s %s"%(BIBUTILS_PATH, out_type, mods_xml) # Thang v101101: modify to add multiple export format
+	bibutils_cmd="%s/xml2%s %s"%(BIBUTILS_PATH, out_type, mods_xml) # Thang v100901: modify to add multiple export format
 	
         if is_quiet == "yes": bibutils_cmd = "%s 2>/dev/null" %(bibutils_cmd)
         out=os.popen(bibutils_cmd).readlines()
@@ -34,7 +34,7 @@ def usage():
         print "\t-i <inputType>\tType=\"all\" (full-text input),\"ref\" (input contains only individual reference strings, one per line), \"xml\" (Omnipage XML input), \"parscit\" (ParsCit citation output), or \"mods\" (MODS file) (default=\"ref\")"
         print "\t-o <outputType>\tType=(ads|bib|end|isi|ris|wordbib) (default=bib)"
 
-# Thang v101101: process argv array using getopt
+# Thang v100901: process argv array using getopt
 def process_argv(argv):
   try:
     opts, args = getopt.getopt(argv[1:], "hqi:o:", ["help", "quiet", "input=", "output="])
@@ -91,7 +91,7 @@ def process_argv(argv):
     os.makedirs(out_dir)
 
   return (out_type, in_type, inp_file, out_dir, is_quiet)
-# End Thang v101101: process argv array
+# End Thang v100901: process argv array
 
 ############
 ### MAIN ###
@@ -99,7 +99,7 @@ def process_argv(argv):
 (out_type, in_type, inp_file, out_dir, is_quiet) = process_argv(sys.argv)
 if is_quiet == "no": print "# Extracting references from the input file... "
 
-# Thang v101101: handle in_type
+# Thang v100901: handle in_type
 if (in_type == "ref"):
   parscit_out = os.popen("%s/parseRefStrings.pl %s" %(PARSCIT_PATH,inp_file)).readlines()
 elif(in_type == "all"):
@@ -128,7 +128,7 @@ else: # already an MODS file, copy over
   parscit_mods = inp_file
 
 # transform mods intermediate xml into other export format
-# Thang v101101: modify to handle multiple format 
+# Thang v100901: modify to handle multiple format 
 export_file='%s/parscit.%s' %(out_dir, out_type)
 if is_quiet == "no": print "# Transforming intermediate mods xml into %s format. Output to %s ..." % (out_type, export_file)
 
