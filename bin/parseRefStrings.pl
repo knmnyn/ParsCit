@@ -7,6 +7,12 @@
 # Min-Yen Kan (Thu Feb 28 14:10:28 SGT 2008)
 #  Derived from citeExtract.pl
 #
+
+# This portion is configurable, change it for your own needs
+use lib "/home/wing.nus/tools/languages/programming/perl/lib/5.10.0/";
+use lib "/home/wing.nus/tools/languages/programming/perl/lib/site_perl/5.10.0/";
+#
+
 use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";

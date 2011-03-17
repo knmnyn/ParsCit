@@ -33,6 +33,11 @@ use Getopt::Std;
 use strict 'vars';
 use lib "$FindBin::Bin/../lib";
 
+# This portion is configurable, change it for your own needs
+use lib "/home/wing.nus/tools/languages/programming/perl/lib/5.10.0/";
+use lib "/home/wing.nus/tools/languages/programming/perl/lib/site_perl/5.10.0/";
+#
+
 # USER customizable section
 my $tmpfile	.= $0; 
 $tmpfile	=~ s/[\.\/]//g;
@@ -399,6 +404,5 @@ sub newTmpFile
 	my $tmpfile	= `date '+%Y%m%d-%H%M%S-$$'`;
 	chomp($tmpfile); return $tmpfile;
 }
-
 
 
