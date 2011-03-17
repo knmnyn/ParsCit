@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl
 # -*- cperl -*-
 =head1 NAME
 
@@ -598,3 +598,4 @@ sub newTmpFile {
   chomp($tmpFile);
   return $tmpFile;
 }
+
