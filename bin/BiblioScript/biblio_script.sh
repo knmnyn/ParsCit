@@ -116,7 +116,6 @@ if(in_type != "mods" and in_type != "parscit"):
 elif(in_type == "parscit"):
   parscit_xml = inp_file
 
-	
 # transform parscit's output into mods 3.x
 if(in_type != "mods"):
   parscit_mods='%s/parscit_mods.xml'%out_dir
