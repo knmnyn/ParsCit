@@ -238,7 +238,7 @@ sub normalizeHeaderField
 	{
     	$tag	 = "authors";
     	$content =~ s/\d//g; # remove numbers
-    	$content = ParsCit::PostProcess::normalizeAuthorNames($content);
+    	$content = ParsCit::PostProcess::NormalizeAuthorNames($content);
   	} 
 	elsif ($tag eq "email") 
 	{
@@ -311,7 +311,7 @@ sub normalizeHeaderField
 		#
 		# 17 jan 2011
 		###
-    	$content = ParsCit::PostProcess::stripPunctuation($content);
+    	$content = ParsCit::PostProcess::StripPunctuation($content);
 	}
 
   	return ($tag, $content);
