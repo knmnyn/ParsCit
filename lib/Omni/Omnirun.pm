@@ -14,6 +14,7 @@ use XML::Parser;
 # Global variables
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
+my $obj_list = $Omni::Config::obj_list;
 
 # Temporary variables
 my $tmp_content 	= undef;
@@ -42,7 +43,8 @@ sub new
 	my @words	= ();
 
 	# Class members
-	my $self = {	'_raw'			=> undef,
+	my $self = {	'_self'			=> $obj_list->{ 'OMNIRUN' },
+					'_raw'			=> undef,
 					'_content'		=> undef,
 					'_font_face'	=> undef,
 					'_font_family'	=> undef,
@@ -128,6 +130,7 @@ sub parse
 	my $child = $node->first_child();
 
 	# Has some child
+	# #PCDATA$ is the returned path from XML::Twig if $child is data content
 	if ((defined $child) && ($child->path() =~ m/#PCDATA$/))
 	{
 		my $content = undef;
@@ -139,65 +142,56 @@ sub parse
 	}
 	else
 	{
-		# Get every word in the <run>
-		my $wd = $node->first_child( $tag_list->{ 'WORD' }) ;
-		while (defined $wd)
+		# Some type of separator
+		my $space_tag	= $tag_list->{ 'SPACE' };
+		my $tab_tag		= $tag_list->{ 'TAB' };
+		my $newline_tag	= $tag_list->{ 'NEWLINE' };
+		my $word_tag	= $tag_list->{ 'WORD' };
+
+		# Get every word in the <run> together with <space> and <tab> ...
+		my $obj = $node->first_child();
+		while (defined $obj)
 		{
-			my $word = new Omni::Omniword();
+			my $xpath = $obj->path();
 
-			# Set raw content
-			$word->set_raw($wd->sprint);
-
-			# Update word list
-			push @tmp_words, $word;
-
-			# Check separator
-			my $sep = $wd->next_sibling();
-
-			# No space, tab, nothing 
-			if (! defined $sep)
+			# if this child is <wd>
+			if ($xpath =~ m/\/$word_tag$/)
 			{
+				my $word = new Omni::Omniword();
+
+				# Set raw content
+				$word->set_raw($obj->sprint);
+
+				# Update word list
+				push @tmp_words, $word;
+
+				# Update content
 				$tmp_content = $tmp_content . $word->get_content;
 			}
-			else
+			# if this child is <space>
+			elsif ($xpath =~ m/\/$space_tag$/)
 			{
-				my $sep_content	= $sep->sprint;
-	
-				# Some type of separator
-				my $space	= $tag_list->{ 'SPACE' };
-				my $tab		= $tag_list->{ 'TAB' };
-				my $newline	= $tag_list->{ 'NEWLINE' };
-
-				# Space
-				if ($sep_content =~ m/<($space)/)
-				{
-					$tmp_content = $tmp_content . $word->get_content . " ";	
-				}
-				# Tab
-				elsif ($sep_content =~ m/<($tab)/)
-				{
-					$tmp_content = $tmp_content . $word->get_content . "\t";	
-				}
-				# Newline
-				elsif ($sep_content =~ m/<($newline)/)
-				{
-					$tmp_content = $tmp_content . $word->get_content . "\n";
-				}
-				# Strange separator
-				else
-				{
-					$tmp_content = $tmp_content . $word->get_content;					
-				}
+				$tmp_content = $tmp_content . " ";	
 			}
+			# if this child is <tab>
+			elsif ($xpath =~ m/\/$tab_tag$/)
+			{
+				$tmp_content = $tmp_content . "\t";	
+			}
+			# if this child is <nl>
+			#elsif ($xpath =~ m/\/$newline_tag$/)
+			#{
+			#	$tmp_content = $tmp_content . "\n";
+			#}
 
 			# Little brother
-			if ($wd->is_last_child) 
+			if ($obj->is_last_child) 
 			{ 
 				last; 
 			}
 			else
 			{
-				$wd = $wd->next_sibling( $tag_list->{ 'WORD' } );
+				$obj = $obj->next_sibling();
 			}
 		}
 	}
@@ -209,7 +203,13 @@ sub add_word
 	push @{ $self->{ '_words' } }, $word;
 }
 
-sub get_words_ref
+sub get_name
+{
+	my ($self) = @_;
+	return $self->{ '_self' };
+}
+
+sub get_objs_ref
 {
 	my ($self) = @_;
 	return $self->{ '_words' };

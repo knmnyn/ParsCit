@@ -33,26 +33,52 @@ use CSXUtil::SafeText qw(cleanXML);
 ###
 
 # Extract citations from text
-sub extractCitations 
+sub ExtractCitations 
 {
     my ($text_file, $org_file, $is_xml) = @_;
 
 	# Real works are in there
-    my ($status, $msg, $citations, $body_text) = extractCitationsImpl($text_file, $org_file, $is_xml);
+    my ($status, $msg, $citations, $body_text) = ExtractCitationsImpl($text_file, $org_file, $is_xml);
 
 	# Check the result status
     if ($status > 0) 
 	{
-		return buildXMLResponse($citations);
+		return BuildXMLResponse($citations);
     } 
 	else 
 	{
 		# Return error message
 		my $error = "Error: " . $msg; return \$error;
     }
-} 
+}
 
-sub extractCitationsAlreadySegmented 
+###
+# Huydhn
+# Extract citations from text
+# The reference section will be provided by sectlabel.
+# Previously, parscit find this section itself using 
+# regular expression
+###
+sub ExtractCitations2
+{
+	my ($all_text, $cit_lines, $is_xml, $doc, $cit_addrs) = @_;
+
+	# Real works are in there
+    my ($status, $msg, $citations, $body_text) = ExtractCitationsImpl2($all_text, $cit_lines, $is_xml, $doc, $cit_addrs);
+
+	# Check the result status
+    if ($status > 0) 
+	{
+		return BuildXMLResponse($citations);
+    } 
+	else 
+	{
+		# Return error message
+		my $error = "Error: " . $msg; return \$error;
+    }	
+}
+
+sub ExtractCitationsAlreadySegmented 
 {
     my ($text_file) = @_;
 
@@ -121,12 +147,12 @@ sub extractCitationsAlreadySegmented
 	# Stop - nothing left to do.
     if ($#citations < 0) { return ($status, $msg, \@valid_citations); }
 
-    my $tmpfile = ParsCit::Tr2crfpp::prepData(\$normalized_cite_text, $text_file);
+    my $tmpfile = ParsCit::Tr2crfpp::PrepData(\$normalized_cite_text, $text_file);
     my $outfile = $tmpfile . "_dec";
 
-    if (ParsCit::Tr2crfpp::decode($tmpfile, $outfile))
+    if (ParsCit::Tr2crfpp::Decode($tmpfile, $outfile))
 	{
-		my ($raw_xml, $cite_info, $tstatus, $tmsg) = ParsCit::PostProcess::readAndNormalize($outfile);
+		my ($raw_xml, $cite_info, $tstatus, $tmsg) = ParsCit::PostProcess::ReadAndNormalize($outfile);
 
 		if ($tstatus <= 0) { return ($tstatus, $msg, undef, undef); }
 
@@ -165,11 +191,11 @@ sub extractCitationsAlreadySegmented
     unlink($tmpfile);
     unlink($outfile);
 
-    return buildXMLResponse(\@valid_citations);
+    return BuildXMLResponse(\@valid_citations);
 }
 
 # Thang: tmp method for debugging purpose
-sub printArray 
+sub PrintArray 
 {
 	my ($filename, $tokens) = @_;
   	open(OF, ">:utf8", $filename);
@@ -184,7 +210,7 @@ sub printArray
 # citation objects and a reference to the body text of the article
 # being processed.
 ###
-sub extractCitationsImpl 
+sub ExtractCitationsImpl 
 {
     my ($textfile, $orgfile, $is_xml, $bwrite_split) = @_;
 
@@ -231,11 +257,12 @@ sub extractCitationsImpl
 		$doc->set_raw($xml);
 		
 		# Extract the reference portion from the XML
-		my ($start_ref, $end_ref, $rcite_text_from_xml) = ParsCit::PreProcess::findCitationTextXML($doc);
+		my ($start_ref, $end_ref, $rcite_text_from_xml, $rcit_addrs) = ParsCit::PreProcess::FindCitationTextXML($doc);
+
 		# Extract the reference portion from the text. 
 		# TODO: NEED TO BE REMOVED FROM HERE
 		my $content = $doc->get_content();
-		($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::findCitationText(\$content, \@pos_array);
+		($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::FindCitationText(\$content, \@pos_array);
 
 		my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
     	my @body_tokens			= split(/\s+/, $$rbody_text);
@@ -247,13 +274,13 @@ sub extractCitationsImpl
 		# TODO: TO HERE
 		
 		# Filename initialization
-    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = writeSplit($textfile, $rcite_text_from_xml, $rbody_text); }
+    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = WriteSplit($textfile, $rcite_text_from_xml, $rbody_text); }
 
 		# Prepare to split unmarked reference portion
-		my $tmp_file = ParsCit::Tr2crfpp::prepDataUnmarked($doc, $start_ref, $end_ref);
+		my $tmp_file = ParsCit::Tr2crfpp::PrepDataUnmarked($doc, $rcit_addrs);
 
 		# Extract citations from citation text
-	    $rraw_citations	= ParsCit::PreProcess::segmentCitationsXML($rcite_text_from_xml, $tmp_file);
+	    $rraw_citations	= ParsCit::PreProcess::SegmentCitationsXML($rcite_text_from_xml, $tmp_file);
 	}
 	else
 	{
@@ -265,7 +292,7 @@ sub extractCitationsImpl
     	# Thang May 2010
 	    # Map each position in norm_body_text to a position in body_text, scalar(@pos_array) = number of tokens in norm_body_text
 		# TODO: Switch this function to sectlabel module
-    	($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::findCitationText(\$text, \@pos_array);
+    	($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::FindCitationText(\$text, \@pos_array);
 
 	    my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
     	my @body_tokens			= split(/\s+/, $$rbody_text);
@@ -278,10 +305,10 @@ sub extractCitationsImpl
 		###
 
 		# Filename initialization
-    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = writeSplit($textfile, $rcite_text, $rbody_text); }
+    	if ($bwrite_split > 0) { ($citefile, $bodyfile) = WriteSplit($textfile, $rcite_text, $rbody_text); }
 
 		# Extract citations from citation text
-	    $rraw_citations	= ParsCit::PreProcess::segmentCitations($rcite_text);
+	    $rraw_citations	= ParsCit::PreProcess::SegmentCitations($rcite_text);
 	}
 
 	my @citations		= ();
@@ -303,12 +330,12 @@ sub extractCitationsImpl
 	# Stop - nothing left to do.
     if ($#citations < 0) { return ($status, $msg, \@valid_citations, $rnorm_body_text); }
 
-    my $tmpfile = ParsCit::Tr2crfpp::prepData(\$normalized_cite_text, $textfile);
+    my $tmpfile = ParsCit::Tr2crfpp::PrepData(\$normalized_cite_text, $textfile);
     my $outfile = $tmpfile . "_dec";
 
-    if (ParsCit::Tr2crfpp::decode($tmpfile, $outfile)) 
+    if (ParsCit::Tr2crfpp::Decode($tmpfile, $outfile)) 
 	{
-		my ($rraw_xml, $rcite_info, $tstatus, $tmsg) = ParsCit::PostProcess::readAndNormalize($outfile);
+		my ($rraw_xml, $rcite_info, $tstatus, $tmsg) = ParsCit::PostProcess::ReadAndNormalize($outfile);
 		if ($tstatus <= 0) { return ($tstatus, $msg, undef, undef); }
 
 		my @cite_info = @{ $rcite_info };
@@ -333,12 +360,12 @@ sub extractCitationsImpl
 				}
 				
 				###
-				# Modified by Nick Friedrich
+				# Modified by Nick Friedrich$ref_lines->[ 0 ]
 				### getCitationContext returns contexts and the position of the contexts
 				###
 				# Thang: Nov 2009 add $rcit_strs - in-text ciation strs
 				###
-				my ($rcontexts, $rpositions, $start_word_positions, $end_word_positions, $rcit_strs) = ParsCit::CitationContext::getCitationContext($rnorm_body_text, 
+				my ($rcontexts, $rpositions, $start_word_positions, $end_word_positions, $rcit_strs) = ParsCit::CitationContext::GetCitationContext($rnorm_body_text, 
 																																					\@pos_array, 
 																																					$marker);
 
@@ -390,8 +417,176 @@ sub extractCitationsImpl
     return ($status, $msg, \@valid_citations, $rbody_text, $citefile, $bodyfile);
 }
 
+###
+# Huydhn
+# New function for citation extraction based on the output
+# of sectlabel
+###
+sub ExtractCitationsImpl2
+{
+	my ($all_text, $cit_lines, $is_xml, $doc, $cit_addrs) = @_;
+
+	# Status and error message initialization
+    my ($status, $msg) = (1, "");
+	
+	# NOTE: What is its purpose?
+	my @pos_array = (); 
+	# Reference text, boby text, and normalize body text
+	my ($rcite_text, $rnorm_body_text, $rbody_text) = undef;
+	# Reference to an array of single reference
+	my $rraw_citations = undef;
+
+	# Find and separate reference
+	if ($is_xml)
+	{
+		# TODO: NEED TO BE REMOVED FROM HERE
+		($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::FindCitationText2($all_text, $cit_lines, \@pos_array);
+
+		my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
+    	my @body_tokens			= split(/\s+/, $$rbody_text);
+
+		my $size	= scalar(@norm_body_tokens);
+    	my $size1	= scalar(@pos_array);
+
+	    if($size != $size1) { die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n"; }
+		# TODO: TO HERE
+		
+		# Prepare to split unmarked reference portion
+		my $tmp_file = ParsCit::Tr2crfpp::PrepDataUnmarked($doc, $cit_addrs);
+
+		# Extract citations from citation text
+	    $rraw_citations	= ParsCit::PreProcess::SegmentCitationsXML($rcite_text, $tmp_file);
+	}
+	else
+	{
+		###
+    	# Thang May 2010
+	    # Map each position in norm_body_text to a position in body_text, scalar(@pos_array) = number of tokens in norm_body_text
+		# TODO: Switch this function to sectlabel module
+    	($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::FindCitationText2($all_text, $cit_lines, \@pos_array);
+
+	    my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);
+    	my @body_tokens			= split(/\s+/, $$rbody_text);
+
+		my $size	= scalar(@norm_body_tokens);
+    	my $size1	= scalar(@pos_array);
+
+	    if($size != $size1) { die "ParsCit::Controller::extractCitationsImpl: normBodyText size $size != posArray size $size1\n"; }
+    	# End Thang May 2010
+		###
+
+		# Extract citations from citation text
+	    $rraw_citations	= ParsCit::PreProcess::SegmentCitations($rcite_text);
+	}
+
+	my @citations		= ();
+    my @valid_citations	= ();
+
+	# Process each citation
+    my $normalized_cite_text = "";
+    foreach my $citation (@{ $rraw_citations }) 
+	{
+		# Tr2cfpp needs an enclosing tag for initial class seed.
+		my $cite_string = $citation->getString();
+		if (defined $cite_string && $cite_string !~ m/^\s*$/) 
+		{
+	    	$normalized_cite_text .= "<title> " . $citation->getString() . " </title>\n";
+	    	push @citations, $citation;
+		}
+    }
+
+	# Stop - nothing left to do.
+    if ($#citations < 0) { return ($status, $msg, \@valid_citations, $rnorm_body_text); }
+
+    my $tmpfile = ParsCit::Tr2crfpp::PrepData(\$normalized_cite_text, "");
+    my $outfile = $tmpfile . "_dec";
+
+    if (ParsCit::Tr2crfpp::Decode($tmpfile, $outfile)) 
+	{
+		my ($rraw_xml, $rcite_info, $tstatus, $tmsg) = ParsCit::PostProcess::ReadAndNormalize($outfile);
+		if ($tstatus <= 0) { return ($tstatus, $msg, undef, undef); }
+
+		my @cite_info = @{ $rcite_info };
+
+		if ($#citations == $#cite_info) 
+		{
+	    	for (my $i = 0; $i <= $#citations; $i++) 
+			{
+				my $citation	= $citations[ $i ];
+				my %cite_info	= %{ $cite_info[ $i ] };
+				
+				foreach my $key (keys %cite_info) 
+				{
+		    		$citation->loadDataItem($key, $cite_info{ $key });
+				}
+		
+				my $marker = $citation->getMarker();
+				if (!defined $marker) 
+				{
+		    		$marker = $citation->buildAuthYearMarker();
+		    		$citation->setMarker($marker);
+				}
+				
+				###
+				# Modified by Nick Friedrich$ref_lines->[ 0 ]
+				### getCitationContext returns contexts and the position of the contexts
+				###
+				# Thang: Nov 2009 add $rcit_strs - in-text ciation strs
+				###
+				my ($rcontexts, $rpositions, $start_word_positions, $end_word_positions, $rcit_strs) = ParsCit::CitationContext::GetCitationContext($rnorm_body_text, 
+																																					\@pos_array, 
+																																					$marker);
+
+				###
+				# Thang May 2010: add $rWordPositions, $rBodyText to find word-based positions (0-based) according to the *.body file
+				###
+
+				foreach my $context (@{ $rcontexts }) 				
+				{
+					# Next citation context
+		    		$citation->addContext($context);
+		    		
+					# Next citation position
+					my $position = shift @{ $rpositions };
+		    		$citation->addPosition($position);
+		    
+					##
+		    		# Thang: Nov 2009, add $rcit_strs
+					###
+					# Next citation string
+		    		my $cit_str = shift @{ $rcit_strs };
+		    		$citation->addCitStr($cit_str);
+		    		# End Thang: Nov 2009
+
+		    		# Next start and end of citation
+					my $start_pos	= shift @{ $start_word_positions };
+		    		my $end_pos		= shift @{ $end_word_positions };
+
+		    		$citation->addStartWordPosition( $pos_array[ $start_pos ] );
+		    		$citation->addEndWordPosition( $pos_array[ $end_pos ] );
+					# print STDERR $cit_str, " --> ", $body_tokens[ $pos_array[ $start_pos ] ], " \t ", $pos_array[ $start_pos], " ### "; 
+					# print STDERR $pos_array[ $end_pos], " \t ", $body_tokens[ $pos_array[ $end_pos ] ], "\n";
+				}
+		
+				push @valid_citations, $citation;
+	    	}
+		} 
+		else 
+		{
+	    	$status	= -1;
+	    	$msg	= "Mismatch between expected citations and cite info";
+		}
+    }
+
+    unlink($tmpfile);
+    unlink($outfile);
+
+	# Our work here is done
+    return ($status, $msg, \@valid_citations, $rbody_text);
+}
+
 # Write citation list in xml format 
-sub buildXMLResponse 
+sub BuildXMLResponse 
 {
     my ($rcitations) = @_;
 
@@ -410,16 +605,15 @@ sub buildXMLResponse
     $xml .= "</citationList>\n";
     $xml .= "</algorithm>\n";
     return \$xml;
-
 } 
 
 # 
-sub writeSplit 
+sub WriteSplit 
 {
     my ($textfile, $rcite_text, $rbody_text) = @_;
 
-    my $citefile = changeExtension($textfile, "cite");
-    my $bodyfile = changeExtension($textfile, "body");
+    my $citefile = ChangeExtension($textfile, "cite");
+    my $bodyfile = ChangeExtension($textfile, "body");
 
     if (open(OUT, ">$citefile")) 
 	{
@@ -448,7 +642,7 @@ sub writeSplit
 } 
 
 # Support function: change the extension of a file
-sub changeExtension 
+sub ChangeExtension 
 {
     my ($fn, $ext) = @_;
     unless ($fn =~ s/^(.*)\..*$/$1\.$ext/) { $fn .= "." . $ext; }

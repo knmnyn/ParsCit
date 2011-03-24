@@ -8,8 +8,10 @@ package ParsCit::PreProcess;
 # Isaac Councill, 7/19/07
 ###
 
-use strict;
 use utf8;
+use strict;
+
+use Omni::Config;
 use ParsCit::Citation;
 
 my %marker_types =	(	'SQUARE'		=> '\\[.+?\\]',
@@ -20,13 +22,19 @@ my %marker_types =	(	'SQUARE'		=> '\\[.+?\\]',
 						#'NAKEDNUMDOT'	=> '\\d{1,3}\\.'	# Modified by Artemy Kolchinsky (v090625)
 					);
 
+# Omnilib configuration: object name
+my $obj_list = $Omni::Config::obj_list;
+
 ###
 # Huydhn: similar to findCitationText, find the citation portion using regular expression.
 # However the input is an omnipage xml document object, not the raw text
 ###
-sub findCitationTextXML
+sub FindCitationTextXML
 {
 	my ($doc) = @_;
+
+	# Positions or addresses of all lines in the reference
+	my @cit_addrs	= ();
 
 	# Start and end of a reference
 	my $start_found	= 0;
@@ -35,22 +43,22 @@ sub findCitationTextXML
 	my %end_ref		= ();
 
 	# All pages in the document
-	my $pages		= $doc->get_pages_ref();	
+	my $pages		= $doc->get_objs_ref();	
 	# Foreach line in the document, check if it is the beginning of a reference using regular expression
 	for (my $x = scalar(@{ $pages }) - 1; $x >= 0; $x--)
 	{
 		# All columns in one page
-		my $columns	= $pages->[ $x ]->get_cols_ref();
+		my $columns	= $pages->[ $x ]->get_objs_ref();
 
 		for (my $y = scalar(@{ $columns }) - 1; $y >= 0; $y--)
 		{
 			# All paragraphs in one column
-			my $paras = $columns->[ $y ]->get_paras_ref();
+			my $paras = $columns->[ $y ]->get_objs_ref();
 
 			for (my $z = scalar(@{ $paras }) - 1; $z >= 0; $z--)
 			{
 				# All lines in one paragraph
-				my $lines = $paras->[ $z ]->get_lines_ref();
+				my $lines = $paras->[ $z ]->get_objs_ref();
 
 				for (my $t = scalar(@{ $lines }) - 1; $t >= 0; $t--)
 				{
@@ -61,31 +69,31 @@ sub findCitationTextXML
 					{
 						if (($t + 1) < scalar(@{ $lines }))
 						{
-							$start_ref{ 'LINE' }	= $t + 1;
-							$start_ref{ 'PARA' }	= $z;
-							$start_ref{ 'COLUMN' }	= $y;
-							$start_ref{ 'PAGE' }	= $x;
+							$start_ref{ 'L4' }	= $t + 1;
+							$start_ref{ 'L3' }	= $z;
+							$start_ref{ 'L2' }	= $y;
+							$start_ref{ 'L1' }	= $x;
 						}
 						elsif (($z + 1) < scalar(@{ $paras }))
 						{
-							$start_ref{ 'LINE' }	= 0;
-							$start_ref{ 'PARA' }	= $z + 1;	
-							$start_ref{ 'COLUMN' }	= $y;
-							$start_ref{ 'PAGE' }	= $x;
+							$start_ref{ 'L4' }	= 0;
+							$start_ref{ 'L3' }	= $z + 1;	
+							$start_ref{ 'L2' }	= $y;
+							$start_ref{ 'L1' }	= $x;
 						}
 						elsif (($y + 1) < scalar(@{ $columns }))
 						{
-							$start_ref{ 'LINE' }	= 0;
-							$start_ref{ 'PARA' }	= 0;	
-							$start_ref{ 'COLUMN' }	= $y + 1;
-							$start_ref{ 'PAGE' }	= $x;
+							$start_ref{ 'L4' }	= 0;
+							$start_ref{ 'L3' }	= 0;	
+							$start_ref{ 'L2' }	= $y + 1;
+							$start_ref{ 'L1' }	= $x;
 						}
 						elsif (($x + 1) < scalar(@{ $pages }))
 						{
-							$start_ref{ 'LINE' }	= 0;
-							$start_ref{ 'PARA' }	= 0;	
-							$start_ref{ 'COLUMN' }	= 0;
-							$start_ref{ 'PAGE' }	= $x + 1;
+							$start_ref{ 'L4' }	= 0;
+							$start_ref{ 'L3' }	= 0;	
+							$start_ref{ 'L2' }	= 0;
+							$start_ref{ 'L1' }	= $x + 1;
 						}
 						else
 						{
@@ -112,29 +120,29 @@ sub findCitationTextXML
 	my $reference_text	 = "";
 
 	# Reference not found
-	if (! exists $start_ref{ 'PAGE' }) { return (\%start_ref, \%end_ref, \$reference_text); }
+	if (! exists $start_ref{ 'L1' }) { return (\%start_ref, \%end_ref, \$reference_text); }
 
 	# Foreach line in the document after the start of the reference, check if it is the end of a reference using regular expression
-	for (my $x = $start_ref{ 'PAGE' }; $x < scalar(@{ $pages }); $x++)
+	for (my $x = $start_ref{ 'L1' }; $x < scalar(@{ $pages }); $x++)
 	{
 		# All columns in one page
-		my $columns	= $pages->[ $x ]->get_cols_ref();
+		my $columns	= $pages->[ $x ]->get_objs_ref();
 	
-		my $start_column = ($x == $start_ref{ 'PAGE' }) ? $start_ref{ 'COLUMN' } : 0;
+		my $start_column = ($x == $start_ref{ 'L1' }) ? $start_ref{ 'L2' } : 0;
 
 		for (my $y = $start_column; $y < scalar(@{ $columns }); $y++)
 		{
 			# All paragraphs in one column
-			my $paras = $columns->[ $y ]->get_paras_ref();
+			my $paras = $columns->[ $y ]->get_objs_ref();
 
-			my $start_para = (($x == $start_ref{ 'PAGE' }) && ($y == $start_ref{ 'COLUMN' })) ? $start_ref{ 'PARA' } : 0;
+			my $start_para = (($x == $start_ref{ 'L1' }) && ($y == $start_ref{ 'L2' })) ? $start_ref{ 'L3' } : 0;
 
 			for (my $z = $start_para; $z < scalar(@{ $paras }); $z++)
 			{
 				# All lines in one paragraph
-				my $lines = $paras->[ $z ]->get_lines_ref();
+				my $lines = $paras->[ $z ]->get_objs_ref();
 
-				my $start_line = (($x == $start_ref{ 'PAGE' }) && ($y == $start_ref{ 'COLUMN' }) && ($z == $start_ref{ 'PARA' })) ? $start_ref{ 'LINE' } : 0;
+				my $start_line = (($x == $start_ref{ 'L1' }) && ($y == $start_ref{ 'L2' }) && ($z == $start_ref{ 'L3' })) ? $start_ref{ 'L4' } : 0;
 
 				for (my $t = $start_line; $t < scalar(@{ $lines }); $t++)
 				{
@@ -158,50 +166,55 @@ sub findCitationTextXML
 									}
 									else
 									{
-										$end_ref{ 'PAGE' }	 = $x - 1;
+										$end_ref{ 'L1' }	 = $x - 1;
 									
-										$tmp = $pages->[ $x - 1 ]->get_cols_ref();
-										$end_ref{ 'COLUMN' } = scalar(@{ $tmp }) - 1;
+										$tmp = $pages->[ $x - 1 ]->get_objs_ref();
+										$end_ref{ 'L2' } 	= scalar(@{ $tmp }) - 1;
 									
-										$tmp = $tmp->[ -1 ]->get_paras_ref();
-										$end_ref{ 'PARA' }	 = scalar(@{ $tmp }) - 1;
+										$tmp = $tmp->[ -1 ]->get_objs_ref();
+										$end_ref{ 'L3' }	 = scalar(@{ $tmp }) - 1;
 									
-										$tmp = $tmp->[ -1 ]->get_lines_ref();
-										$end_ref{ 'LINE' }	 = scalar(@{ $tmp }) - 1;	
+										$tmp = $tmp->[ -1 ]->get_objs_ref();
+										$end_ref{ 'L4' }	 = scalar(@{ $tmp }) - 1;	
 									}
 								}
 								else
 								{
-									$end_ref{ 'PAGE' }	 = $x;
-									$end_ref{ 'COLUMN' } = $y - 1;
+									$end_ref{ 'L1' }	= $x;
+									$end_ref{ 'L2' }	= $y - 1;
 									
-									$tmp = $columns->[ $y - 1 ]->get_paras_ref();
-									$end_ref{ 'PARA' }	 = scalar(@{ $tmp }) - 1;
+									$tmp = $columns->[ $y - 1 ]->get_objs_ref();
+									$end_ref{ 'L3' }	= scalar(@{ $tmp }) - 1;
 									
-									$tmp = $tmp->[ -1 ]->get_lines_ref();
-									$end_ref{ 'LINE' }	 = scalar(@{ $tmp }) - 1;
+									$tmp = $tmp->[ -1 ]->get_objs_ref();
+									$end_ref{ 'L4' }	= scalar(@{ $tmp }) - 1;
 								}
 							}
 							else
 							{
-								$end_ref{ 'PAGE' }	 = $x;
-								$end_ref{ 'COLUMN' } = $y;
-								$end_ref{ 'PARA' }	 = $z - 1;
+								$end_ref{ 'L1' }	= $x;
+								$end_ref{ 'L2' } 	= $y;
+								$end_ref{ 'L3' }	= $z - 1;
 							
-								$tmp = $paras->[ $z - 1 ]->get_lines_ref();
-								$end_ref{ 'LINE' }	 = scalar(@{ $tmp }) - 1;
+								$tmp = $paras->[ $z - 1 ]->get_objs_ref();
+								$end_ref{ 'L4' }	= scalar(@{ $tmp }) - 1;
 							}
 						}
 						else
 						{
-							$end_ref{ 'PAGE' }	 = $x;
-							$end_ref{ 'COLUMN' } = $y;
-							$end_ref{ 'PARA' }	 = $z;
-							$end_ref{ 'LINE' }	 = $t - 1;
+							$end_ref{ 'L1' }	= $x;
+							$end_ref{ 'L2' }	= $y;
+							$end_ref{ 'L3' }	= $z;
+							$end_ref{ 'L4' }	= $t - 1;
 						}
 
 						$end_found = 1;
 						last;
+					}
+					# This is is not the end of the reference, so, logically, it belongs to the reference
+					else
+					{
+						push @cit_addrs, { 'L1' => $x, 'L2' => $y, 'L3' => $z, 'L4' => $t };
 					}
 					
 					$reference_length += length($ln_content);
@@ -218,21 +231,21 @@ sub findCitationTextXML
 	}
 
 	# End of the reference not found, asume that it's the end of the document
-	if (! exists $end_ref{ 'PAGE' })
+	if (! exists $end_ref{ 'L1' })
 	{
 		# Just a temporary variable
 		my $tmp = undef;
 
-		$end_ref{ 'PAGE' }	 = scalar(@{ $pages }) - 1;
+		$end_ref{ 'L1' }	= scalar(@{ $pages }) - 1;
 
-		$tmp = $pages->[ -1 ]->get_cols_ref();
-		$end_ref{ 'COLUMN' } = scalar(@{ $tmp }) - 1;
+		$tmp = $pages->[ -1 ]->get_objs_ref();
+		$end_ref{ 'L2' }	= scalar(@{ $tmp }) - 1;
 
-		$tmp = $tmp->[ -1 ]->get_paras_ref();
-		$end_ref{ 'PARA' }	 = scalar(@{ $tmp }) - 1;
+		$tmp = $tmp->[ -1 ]->get_objs_ref();
+		$end_ref{ 'L3' }	= scalar(@{ $tmp }) - 1;
 
-		$tmp = $tmp->[ -1 ]->get_lines_ref();
-		$end_ref{ 'LINE' }	 = scalar(@{ $tmp }) - 1;
+		$tmp = $tmp->[ -1 ]->get_objs_ref();
+		$end_ref{ 'L4' }	= scalar(@{ $tmp }) - 1;
 	}
 
 	# Odd case: when citation is longer than the content itself, what should we do?
@@ -245,7 +258,7 @@ sub findCitationTextXML
     }
 
 	# Now we have the citation text
-	return (\%start_ref, \%end_ref, \$reference_text);
+	return (\%start_ref, \%end_ref, \$reference_text, \@cit_addrs);
 }
 
 ###
@@ -257,7 +270,7 @@ sub findCitationTextXML
 # citation text string will be returned.  Returns references to
 # the citation text, normalized body text, and original body text.
 ###
-sub findCitationText 
+sub FindCitationText 
 {
     my ($rtext, $pos_array) = @_;
 
@@ -286,14 +299,14 @@ sub findCitationText
 	if ($citetext eq "")
 	{
 		print STDERR "Citation text cannot be found: ignoring", "\n";
-		return \$citetext, normalizeBodyText(\$bodytext), \$bodytext;
+		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
 	}
 
 	# Odd case: when citation is longer than the content itself, what should we do?
     if (length($citetext) >= 0.8 * length($bodytext)) 
 	{
 		print STDERR "Citation text longer than article body: ignoring\n";
-		return \$citetext, normalizeBodyText(\$bodytext), \$bodytext;
+		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
     }
 
 	# Citation stops when another section starts
@@ -305,13 +318,51 @@ sub findCitationText
     if ($citetext eq '0' || ! defined $citetext) { print STDERR "warning: no citation text found\n"; }
 
 	# Now we have the citation text
-	return (normalizeCiteText(\$citetext), normalizeBodyText(\$bodytext, $pos_array), \$bodytext);
+	return (NormalizeCiteText(\$citetext), NormalizeBodyText(\$bodytext, $pos_array), \$bodytext);
+}
+
+###
+# Huydhn: find citation section in raw text
+# This function is used exclusively when the citation
+# section is provided by sectlabel
+sub FindCitationText2 
+{
+    my ($rtext, $rcit_lines, $pos_array) = @_;
+
+	# Citation and body text
+    my $citetext	= "";
+    my $bodytext	= "";
+
+	# All line in the document
+	my @lines		= split(/\n/, $$rtext);
+
+	# Append all lines that belong to the citation
+	foreach my $line_index (@{ $rcit_lines })
+	{
+		$citetext = $citetext . $lines[ $line_index ] . "\n";
+	}
+
+	# If a line is not in @cit_lines, it belongs to the body text
+	for (my $i = 0; $i < $rcit_lines->[ 0 ]; $i++)
+	{
+		$bodytext = $bodytext . $lines[ $i ] . "\n";
+    }
+
+	# Odd case: when citation is longer than the content itself, what should we do?
+    if (length($citetext) >= 0.8 * length($bodytext)) 
+	{
+		print STDERR "Citation text longer than article body: ignoring\n";
+		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
+    }
+
+	# Now we have the citation text
+	return (NormalizeCiteText(\$citetext), NormalizeBodyText(\$bodytext, $pos_array), \$bodytext);
 }
 
 ##
 # Removes lines that appear to be junk from the citation text.
 ##
-sub normalizeCiteText 
+sub NormalizeCiteText 
 {
     my ($rcitetext) = @_;
 
@@ -358,7 +409,7 @@ sub normalizeCiteText
 # This method handle multiple bracket references in a line, e.g "abc [1, 2-5, 11] def [1-3, 5] ghi jkl"
 # + this method maps the position of tokens in normalized body text --> positions of tokens in body text (for later retrieve context positions)
 ###
-sub expandBracketMarker 
+sub ExpandBracketMarker 
 {
 	my ($line, $pos_array, $token_count) = @_;
   	#  $line = "abc [1, 2-5, 11] def [1-3, 5] ghi jkl";
@@ -401,7 +452,7 @@ sub expandBracketMarker
       		$num_new_tokens = $4 - $3;
 			if ($num_new_tokens > 0)
 			{
-				$match = "[" . $1 . transformMarker($3, $4) . $5 . "]";
+				$match = "[" . $1 . TransformMarker($3, $4) . $5 . "]";
       		} 
 			else 
 			{
@@ -471,7 +522,7 @@ sub expandBracketMarker
 # are replaced by markers containing every number of the range
 # (e.g. [1-5] replaced by [1, 2, 3, 4, 5]).
 ###
-sub normalizeBodyText 
+sub NormalizeBodyText 
 {
 	my ($rtext, $pos_array) = @_;
 
@@ -484,7 +535,7 @@ sub normalizeBodyText
     	$line =~ s/^\s+//; # Thang May 2010: trip leading spaces
 
     	my @tmp_pos_array		= ();
-		($line, $token_count)	= expandBracketMarker($line, \@tmp_pos_array, $token_count); # Thang May 2010
+		($line, $token_count)	= ExpandBracketMarker($line, \@tmp_pos_array, $token_count); # Thang May 2010
 		my @tokens				= split(/\s+/, $line);
 
 		if(scalar(@tokens) != scalar(@tmp_pos_array))
@@ -520,7 +571,7 @@ sub normalizeBodyText
 	return \$text;  
 }
 
-sub transformMarker 
+sub TransformMarker 
 {
 	my ($first_number, $second_number) = @_;
 
@@ -535,20 +586,20 @@ sub transformMarker
 # used in the reference section.  Returns a reference to a list 
 # of citation objects.
 ###
-sub segmentCitations 
+sub SegmentCitations 
 {
     my ($rcite_text) = @_;
 
-    my $marker_type = guessMarkerType($rcite_text);
+    my $marker_type = GuessMarkerType($rcite_text);
 
     my $rcitations = undef;
     if ($marker_type ne 'UNKNOWN') 
 	{
-		$rcitations = splitCitationsByMarker($rcite_text, $marker_type);
+		$rcitations = SplitCitationsByMarker($rcite_text, $marker_type);
     } 
 	else 
 	{
-		$rcitations = splitUnmarkedCitations($rcite_text);
+		$rcitations = SplitUnmarkedCitations($rcite_text);
     }
 
     return $rcitations;
@@ -561,7 +612,7 @@ sub segmentCitations
 # a new citation is started.  Returns a reference to a
 # list of citation objects.
 ###
-sub splitCitationsByMarker 
+sub SplitCitationsByMarker 
 {
     my ($rcite_text, $marker_type) = @_;
 
@@ -642,7 +693,7 @@ sub splitCitationsByMarker
 #
 # HISTORY: Modified in 081201 by Min to remove superfluous print statements
 ###
-sub splitUnmarkedCitations 
+sub SplitUnmarkedCitations 
 {
     my ($rcite_text) = @_;
 
@@ -751,7 +802,7 @@ sub splitUnmarkedCitations
 		my $first_line	= $cite_starts[ $k ];
 		my $last_line	= ($k == $#cite_starts) ? $#content : ($cite_starts[ $k + 1 ] - 1);
 
-		my $cite_string	= mergeLines(join "\n", @content[ $first_line .. $last_line ]);
+		my $cite_string	= MergeLines(join "\n", @content[ $first_line .. $last_line ]);
 		
 		my $citation	= new ParsCit::Citation();
 		$citation->setString($cite_string);
@@ -769,23 +820,23 @@ sub splitUnmarkedCitations
 #
 # Added by Huydhn, 13 Jan 2011
 ###
-sub segmentCitationsXML
+sub SegmentCitationsXML
 {
     my ($rcite_text_from_xml, $tmp_file) = @_;
 
 	# TODO: Need to be removed
-    my $marker_type = guessMarkerType($rcite_text_from_xml);
+    my $marker_type = GuessMarkerType($rcite_text_from_xml);
 
     my $rcitations = undef;
     if ($marker_type ne 'UNKNOWN') 
 	{
 		# TODO: Need to be removed
-		$rcitations = splitCitationsByMarker($rcite_text_from_xml, $marker_type);
+		$rcitations = SplitCitationsByMarker($rcite_text_from_xml, $marker_type);
     } 
 	else 	
 	{
 		# Huydhn: split reference using crf++ model
-		$rcitations = splitUnmarkedCitations2($tmp_file);
+		$rcitations = SplitUnmarkedCitations2($tmp_file);
     }
 
     return $rcitations;
@@ -797,7 +848,7 @@ sub segmentCitationsXML
 #
 # HISTORY: Added in 100111 by Huy Do
 ###
-sub splitUnmarkedCitations2
+sub SplitUnmarkedCitations2
 {
 	my ($infile) = @_;	
 
@@ -806,7 +857,7 @@ sub splitUnmarkedCitations2
 
 	# Run the crf++
 	my $outfile = $infile . "_split.dec";
-    if (ParsCit::Tr2crfpp::splitReference($infile, $outfile))
+    if (ParsCit::Tr2crfpp::SplitReference($infile, $outfile))
 	{
 		my $file_handle = undef;
 		unless(open($file_handle, "<:utf8", $outfile))
@@ -846,7 +897,7 @@ sub splitUnmarkedCitations2
 					my $citation = new ParsCit::Citation();
 
 					# Clean up the citation text first
-					my $one_cit_str = mergeLines($cit_str);
+					my $one_cit_str = MergeLines($cit_str);
 
 					# Save the citation
 					$citation->setString($one_cit_str);
@@ -869,7 +920,7 @@ sub splitUnmarkedCitations2
 			my $citation = new ParsCit::Citation();
 
 			# Clean up the citation text first
-			my $one_cit_str = mergeLines($cit_str);
+			my $one_cit_str = MergeLines($cit_str);
 
 			# Save the citation
 			$citation->setString($one_cit_str);
@@ -888,7 +939,7 @@ sub splitUnmarkedCitations2
 # Merges lines of text by dehyphenating where appropriate,
 # with normal spacing.
 ###
-sub mergeLines 
+sub MergeLines 
 {
     my ($text) = shift;
 
@@ -897,7 +948,7 @@ sub mergeLines
 
     foreach my $line (@lines) 
 	{
-		$line = trim($line);
+		$line = Trim($line);
 
 		###
 		# Modified by Artemy Kolchinsky (v090625)
@@ -919,7 +970,7 @@ sub mergeLines
 		###
     }
 
-    return trim($merged_text);
+    return Trim($merged_text);
 }
 
 ###
@@ -928,7 +979,7 @@ sub mergeLines
 # text.  If a sufficient number of matches to a particular type
 # are found, we can be reasonably sure of the type.
 ###
-sub guessMarkerType 
+sub GuessMarkerType 
 {
     my ($rcite_text) = @_;
 
@@ -978,7 +1029,7 @@ sub guessMarkerType
     return $marker_type;
 }
 
-sub trim 
+sub Trim 
 {
     my $text = shift;
     $text =~ s/^\s+//;

@@ -16,6 +16,7 @@ use XML::Parser;
 # Global variables
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
+my $obj_list = $Omni::Config::obj_list;
 
 # Temporary variables
 my $tmp_content 	= undef;
@@ -41,7 +42,8 @@ sub new
 	my @lines	= ();
 
 	# Class members
-	my $self = {	'_raw'			=> undef,
+	my $self = {	'_self'			=> $obj_list->{ 'OMNIPARA' },
+					'_raw'			=> undef,
 					'_content'		=> undef,
 					'_bottom'		=> undef,
 					'_top'			=> undef,
@@ -127,13 +129,16 @@ sub parse
 		my $prev = $ln->prev_sibling();
 		if (defined $prev)
 		{
-			my $bullet		 = $tag_list->{ 'BULLET' };
+			my $bullet_tag	 = $tag_list->{ 'BULLET' };
+
+			# The previous tag
 			my $prev_content = $prev->sprint();
 			# Has bullet
-			if ($prev_content =~ m/^<$bullet/) 
+			if ($prev_content =~ m/^<$bullet_tag/) 
 			{ 
 				$line->set_bullet('true');
 			}
+			# Doesn't have bullet
 			else
 			{
 				$line->set_bullet('false');
@@ -152,7 +157,13 @@ sub parse
 	}
 }
 
-sub get_lines_ref
+sub get_name
+{
+	my ($self) = @_;
+	return $self->{ '_self' };
+}
+
+sub get_objs_ref
 {
 	my ($self) = @_;
 	return $self->{ '_lines' };

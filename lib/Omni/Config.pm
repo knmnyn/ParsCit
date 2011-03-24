@@ -34,10 +34,11 @@ $ALG_VERSION	= "110121";
 							'TOP-CELL'		=> 'topBorder',
 							'LEFT-CELL'		=> 'leftBorder',
 							'RIGHT-CELL'	=> 'rightBorder',
-							'PICTURE'		=> 'picture',
 							'NEWLINE'		=> 'nl',
 							'TAB'			=> 'tab',
-							'DD'			=> 'dd'
+							'DD'			=> 'dd',
+							'PICTURE'		=> 'picture',
+							'FRAME'			=> 'frame'
 						);
 $tag_list = \%omni_tag_list;
 
@@ -58,8 +59,34 @@ $tag_list = \%omni_tag_list;
 							'SUSCRIPT'		=> 'subsuperscript',
 							'BASELINE'		=> 'baseline',
 							'BOLD'			=> 'bold',
-							'ITALIC'		=> 'italic'
+							'ITALIC'		=> 'italic',
+							# These attribute usually go with <dd> tag
+							'BOTTOMDIST'	=> 'bottomDistance',
+							'TOPDIST'		=> 'topDistance',
+							'LEFTDIST'		=> 'leftDistance',
+							'RIGHTDIST'		=> 'rightDistance',
+							# These attribute usually fo with <cell> tag
+							'GROWFROM'		=> 'gridRowFrom',
+							'GROWTO'		=> 'gridRowTill',
+							'GCOLFROM'		=> 'gridColFrom',
+							'GCOLTO'		=> 'gridColTill',
+							'VALIGN'		=> 'verticalAlignment',
 						);
 $att_list = \%omni_att_list;
+
+# All object type in Omni library
+%omni_obj_list	=		(	'OMNIDOC'		=> 'document',
+							'OMNIPAGE'		=> 'page',
+							'OMNICOL'		=> 'column',
+							'OMNIDD'		=> 'dd',
+							'OMNITABLE'		=> 'table',
+							'OMNIIMG'		=> 'image',
+							'OMNIPARA'		=> 'paragraph',
+							'OMNILINE'		=> 'line',
+							'OMNIRUN'		=> 'run',
+							'OMNIWORD'		=> 'word',
+							'OMNIFRAME'		=> 'frame',
+						);
+$obj_list = \%omni_obj_list;
 
 1;

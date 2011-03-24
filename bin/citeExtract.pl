@@ -241,7 +241,7 @@ if (($mode & $PARSCIT) == $PARSCIT)
 	###
 	# Huydhn: add xml features to parscit in case of unmarked reference
 	###
-	my $pc_xml = ParsCit::Controller::extractCitations($text_file, $in, $is_xml_input);
+	my $pc_xml = ParsCit::Controller::ExtractCitations($text_file, $in, $is_xml_input);
 
 	# Remove first line <?xml/> 
 	$rxml .= removeTopLines($$pc_xml, 1) . "\n";

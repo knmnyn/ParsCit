@@ -5,11 +5,9 @@ use strict;
 
 # Local libraries
 use Omni::Config;
-use Omni::Omniword;
-use Omni::Omnirun;
-use Omni::Omniline;
-use Omni::Omnipara;
+use Omni::Omnidd;
 use Omni::Omnicol;
+use Omni::Omniframe;
 
 # Extern libraries
 use XML::Twig;
@@ -18,10 +16,11 @@ use XML::Parser;
 # Global variables
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
+my $obj_list = $Omni::Config::obj_list;
 
 # Temporary variables
 my $tmp_content 	= undef;
-my @tmp_cols		= ();
+my @tmp_objs		= ();
 
 ###
 # A page object in Omnipage xml: a page contains zero or many collums
@@ -33,13 +32,14 @@ sub new
 {
 	my ($class) = @_;
 
-	# Page: a page can have many columns
-	my @cols	= ();
+	# Page: a page can have many columns, many tables, or many images
+	my @objs	= ();
 
 	# Class members
-	my $self = {	'_raw'			=> undef,
+	my $self = {	'_self'			=> $obj_list->{ 'OMNIPAGE' },
+					'_raw'			=> undef,
 					'_content'		=> undef,
-					'_cols'			=> \@cols	};
+					'_objs'			=> \@objs	};
 
 	bless $self, $class;
 	return $self;
@@ -69,7 +69,7 @@ sub set_raw
 	# Copy information from temporary variables to class members
 
 	# Copy all columns 
-	@{$self->{ '_cols' } }	= @tmp_cols;
+	@{$self->{ '_objs' } }	= @tmp_objs;
 	
 	# Copy content
 	$self->{ '_content' }	= $tmp_content;
@@ -87,10 +87,11 @@ sub parse
 
 	# At first, content is blank
 	$tmp_content	= "";
-	# because there's no column or dd, what the heck is dd
-	@tmp_cols		= ();
+	# because there's no columnm, table or image
+	@tmp_objs		= ();
 
 	# Get <page> node attributes
+	# At version 16, Omnipage page does not have any interesting atribute
 
 	my $child = undef;
 	# Get the body text
@@ -101,17 +102,21 @@ sub parse
 	# Get the first child in the body text
 	$child = $child->first_child();
 
-	# Some type of child
+	# The child of <page> is usually <section> but it's not always the case
 	my $section_tag	= $tag_list->{ 'SECTION' };
-	my $column_tag	= $tag_list->{ 'COL' };
+
+	# <dd>, <col> are usually not the children but the
+	# desendents of <page> but I'm not sure about this
 	my $dd_tag		= $tag_list->{ 'DD' };
+	my $column_tag	= $tag_list->{ 'COL' };
+	my $frame_tag	= $tag_list->{ 'FRAME' };
 
 	# Check if there's any column or dd, what the heck is dd 
 	while (defined $child)
 	{
 		my $xpath = $child->path();
 
-		# if this child is <section>
+		# if this child is <section>, then <column> and <dd> tag are grandchild of <page>
 		if ($xpath =~ m/\/$section_tag$/)
 		{
 			# Get the first grand child
@@ -120,7 +125,7 @@ sub parse
 			# Subloop
 			while (defined $grand_child)
 			{
-				my $grand_xpath = $grand_child->path();	
+				my $grand_xpath = $grand_child->path();
 
 				# if this child is <column>
 				if ($grand_xpath =~ m/\/$column_tag$/)
@@ -131,7 +136,7 @@ sub parse
 					$column->set_raw($grand_child->sprint());
 
 					# Update column list
-					push @tmp_cols, $column;
+					push @tmp_objs, $column;
 
 					# Update content
 					$tmp_content = $tmp_content . $column->get_content() . "\n";
@@ -139,31 +144,30 @@ sub parse
 				# if this child is <dd>
 				elsif ($grand_xpath =~ m/\/$dd_tag$/)
 				{
-					# Create the fake <column>
-					my $output = XML::Writer::String->new();
-					my $writer = new XML::Writer(OUTPUT => $output, UNSAFE => 'true');
-
-					$writer->startTag(	"column", 
-										$att_list->{ 'BOTTOM' } 	=> GetNodeAttr($grand_child, $att_list->{ 'BOTTOM' }),
-										$att_list->{ 'TOP' }		=> GetNodeAttr($grand_child, $att_list->{ 'TOP' }),
-										$att_list->{ 'LEFT' } 		=> GetNodeAttr($grand_child, $att_list->{ 'LEFT' }),
-										$att_list->{ 'RIGHT' } 		=> GetNodeAttr($grand_child, $att_list->{ 'RIGHT' })	);
-
-					$writer->raw( $grand_child->xml_string() );
-					$writer->endTag("column");
-					$writer->end();
-
-					# Save the fake <column>
-					my $column = new Omni::Omnicol();
+					my $dd = new Omni::Omnidd();
 
 					# Set raw content
-					$column->set_raw( $output->value() );
+					$dd->set_raw($child->sprint());
 
 					# Update column list
-					push @tmp_cols, $column;
+					push @tmp_objs, $dd;
 
 					# Update content
-					$tmp_content = $tmp_content . $column->get_content() . "\n";
+					$tmp_content = $tmp_content . $dd->get_content() . "\n";
+				}
+				# if this child is <frame>
+				elsif ($xpath =~ m/\/$frame_tag$/)
+				{
+					my $frame = new Omni::Omniframe();
+
+					# Set raw content
+					$frame->set_raw($child->sprint());
+
+					# Update column list
+					push @tmp_objs, $frame;
+
+					# Update content
+					$tmp_content = $tmp_content . $frame->get_content() . "\n";
 				}
 
 				# Little brother
@@ -186,7 +190,7 @@ sub parse
 			$column->set_raw($child->sprint());
 
 			# Update column list
-			push @tmp_cols, $column;
+			push @tmp_objs, $column;
 
 			# Update content
 			$tmp_content = $tmp_content . $column->get_content() . "\n";
@@ -194,31 +198,30 @@ sub parse
 		# if this child is <dd>
 		elsif ($xpath =~ m/\/$dd_tag$/)
 		{
-			# Create the fake <column>
-			my $output = XML::Writer::String->new();
-			my $writer = new XML::Writer(OUTPUT => $output, UNSAFE => 'true');
-
-			$writer->startTag(	"column", 
-								$att_list->{ 'BOTTOM' } 	=> GetNodeAttr($child, $att_list->{ 'BOTTOM' }),
-								$att_list->{ 'TOP' }		=> GetNodeAttr($child, $att_list->{ 'TOP' }),
-								$att_list->{ 'LEFT' } 		=> GetNodeAttr($child, $att_list->{ 'LEFT' }),
-								$att_list->{ 'RIGHT' } 		=> GetNodeAttr($child, $att_list->{ 'RIGHT' })	);
-
-			$writer->raw( $child->xml_string() );
-			$writer->endTag("column");
-			$writer->end();
-
-			# Save the fake <column>
-			my $column = new Omni::Omnicol();
+			my $dd = new Omni::Omnidd();
 
 			# Set raw content
-			$column->set_raw( $output->value() );
+			$dd->set_raw($child->sprint());
 
 			# Update column list
-			push @tmp_cols, $column;
+			push @tmp_objs, $dd;
 
 			# Update content
-			$tmp_content = $tmp_content . $column->get_content() . "\n";
+			$tmp_content = $tmp_content . $dd->get_content() . "\n";
+		}
+		# if this child is <frame>
+		elsif ($xpath =~ m/\/$frame_tag$/)
+		{
+			my $frame = new Omni::Omniframe();
+
+			# Set raw content
+			$frame->set_raw($child->sprint());
+
+			# Update column list
+			push @tmp_objs, $frame;
+
+			# Update content
+			$tmp_content = $tmp_content . $frame->get_content() . "\n";
 		}
 
 		# Little brother
@@ -231,18 +234,18 @@ sub parse
 			$child = $child->next_sibling();
 		}
 	}
-
-	my @all_cols = $node->descendants( $tag_list->{ 'COLUMN' } );
-	foreach my $cl (@all_cols)
-	{
-		
-	}
 }
 
-sub get_cols_ref
+sub get_name
 {
 	my ($self) = @_;
-	return $self->{ '_cols' };
+	return $self->{ '_self' };
+}
+
+sub get_objs_ref
+{
+	my ($self) = @_;
+	return $self->{ '_objs' };
 }
 
 sub get_content

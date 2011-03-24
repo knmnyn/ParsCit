@@ -5,6 +5,7 @@ use strict;
 
 # Local libraries
 use Omni::Config;
+use Omni::Omnirun;
 
 # Extern libraries
 use XML::Twig;
@@ -13,6 +14,7 @@ use XML::Parser;
 # Global variables
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
+my $obj_list = $Omni::Config::obj_list;
 
 # Temporary variables
 my $tmp_content 	= undef;
@@ -32,7 +34,8 @@ sub new
 	my ($class) = @_;
 
 	# Class members
-	my $self = {	'_raw'			=> undef,
+	my $self = {	'_self'			=> $obj_list->{ 'OMNIWORD' },
+					'_raw'			=> undef,
 					'_content'		=> undef,
 					'_bottom'		=> undef,
 					'_top'			=> undef,
@@ -93,6 +96,12 @@ sub parse
 	# Get the word's content
 	$tmp_content 	= GetNodeText($node);
 	$tmp_content	=~ s/^\s+|\s+$//g;
+}
+
+sub get_name
+{
+	my ($self) = @_;
+	return $self->{ '_self' };
 }
 
 sub get_content

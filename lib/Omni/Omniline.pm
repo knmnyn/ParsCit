@@ -17,6 +17,7 @@ use XML::Writer::String;
 # Global variables
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
+my $obj_list = $Omni::Config::obj_list;
 
 # Temporary variables
 my $tmp_content 	= undef;
@@ -25,7 +26,7 @@ my $tmp_bottom		= undef;
 my $tmp_top			= undef;
 my $tmp_left		= undef;
 my $tmp_right		= undef;
-my @tmp_runs		= ();
+my @tmp_objs		= ();
 
 ###
 # A line object in Omnipage xml: a line can contain one or many runs
@@ -37,11 +38,12 @@ sub new
 {
 	my ($class) = @_;
 
-	# Runs: a line can have multiple runs
-	my @runs	= ();
+	# A line can have multiple runs or words
+	my @objs	= ();
 
 	# Class members
-	my $self = {	'_raw'			=> undef,
+	my $self = {	'_self'			=> $obj_list->{ 'OMNILINE' },
+					'_raw'			=> undef,
 					'_content'		=> undef,
 					'_baseline'		=> undef,
 					'_bottom'		=> undef,
@@ -49,7 +51,7 @@ sub new
 					'_left'			=> undef,
 					'_right'		=> undef,
 					'_bullet'		=> undef,
-					'_runs'			=> \@runs	};
+					'_objs'			=> \@objs	};
 
 	bless $self, $class;
 	return $self;
@@ -83,8 +85,8 @@ sub set_raw
 	$self->{ '_left' }		= $tmp_left;
 	$self->{ '_right' } 	= $tmp_right;
 	
-	# Copy all runs
-	@{ $self->{ '_runs' } }	= @tmp_runs;
+	# Copy all objects
+	@{ $self->{ '_objs' } }	= @tmp_objs;
 
 	# Copy content
 	$self->{ '_content' } 	= $tmp_content;
@@ -101,9 +103,9 @@ sub parse
 	my ($twig, $node) = @_;
 
 	# At first, content is blank
-	$tmp_content 		= "";
+	$tmp_content 	= "";
 	# because there's no run
-	@tmp_runs			= ();
+	@tmp_objs		= ();
 
 	# Get <line> node attributes
 	$tmp_bottom		= GetNodeAttr($node, $att_list->{ 'BOTTOM' });
@@ -155,7 +157,7 @@ sub parse
 		$run->set_raw($output->value());
 
 		# Update run list
-		push @tmp_runs, $run;
+		push @tmp_objs, $run;
 
 		# Update content
 		$tmp_content = $tmp_content . $run->get_content();
@@ -185,8 +187,8 @@ sub parse
 				# Set raw content
 				$run->set_raw($child->sprint());
 				
-				# Update run list
-				push @tmp_runs, $run;
+				# Update object list
+				push @tmp_objs, $run;
 
 				# Update content
 				$tmp_content = $tmp_content . $run->get_content();
@@ -197,7 +199,7 @@ sub parse
 				# One word can contain many <run>
 				my $grand_child = $child->first_child( $tag_list->{ 'RUN' } );
 
-				# The first child is a special child
+				# The first <run> is a special child
 				if (defined $grand_child)
 				{
 					my $run = new Omni::Omnirun();
@@ -228,7 +230,7 @@ sub parse
 					$run->add_word($word);
 					
 					# Update run list
-					push @tmp_runs, $run;
+					push @tmp_objs, $run;
 
 					# Update content
 					$tmp_content = $tmp_content . $run->get_content();
@@ -245,7 +247,7 @@ sub parse
 						$run->set_raw($grand_child->sprint());
 
 						# Update run list
-						push @tmp_runs, $run;
+						push @tmp_objs, $run;
 		
 						# Update content
 						$tmp_content = $tmp_content . $run->get_content();
@@ -297,7 +299,7 @@ sub parse
 					$run->set_raw($output->value());
 					
 					# Update run list
-					push @tmp_runs, $run;
+					push @tmp_objs, $run;
 
 					# Update content
 					$tmp_content = $tmp_content . $run->get_content();
@@ -344,10 +346,16 @@ sub set_bullet
 	$self->{ '_bullet' } = $bullet;		
 }
 
-sub get_runs_ref
+sub get_name
 {
 	my ($self) = @_;
-	return $self->{ '_runs' };
+	return $self->{ '_self' };
+}
+
+sub get_objs_ref
+{
+	my ($self) = @_;
+	return $self->{ '_objs' };
 }
 
 sub get_content
