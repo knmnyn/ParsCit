@@ -1,6 +1,6 @@
 #!/usr/bin/perl -wT
-# Author: Luong Minh Thang <luongmin@comp.nus.edu.sg>, generated at Wed, 03 Mar 2010 00:36:36
 
+# Author: Luong Minh Thang <luongmin@comp.nus.edu.sg>, generated at Wed, 03 Mar 2010 00:36:36
 # Modified from template by Min-Yen Kan <kanmy@comp.nus.edu.sg>
 
 require 5.0;
@@ -9,17 +9,20 @@ use Getopt::Long;
 
 # I do not know a better solution to find a lib path in -T mode.
 # So if you know a better solution, I'd be glad to hear.
-# See this http://www.perlmonks.org/?node_id=585299 for why I used the below code
+# See this http://www.perlmonks.org/?node_id=585299 for why I 
+# used the below code
 use FindBin;
+
 my $path;
-BEGIN {
-  if ($FindBin::Bin =~ /(.*)/) {
-    $path = $1;
-  }
+BEGIN 
+{
+	if ($FindBin::Bin =~ /(.*)/) { $path = $1; }
 }
+
 use lib "$path/../lib";
-use SectLabel::Controller;
+
 use SectLabel::Config;
+use SectLabel::Controller;
 
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
@@ -83,7 +86,7 @@ if($isXmlInput){
   my $xmlInFile = newTmpFile();
   $xmlInFile = untaintPath($xmlInFile);
   my $cmd = "$path/sectLabel/";
-  $cmd .= ($isNew) ? "processOmniXML_new.pl" : "processOmniXML.pl";
+  $cmd .= ($isNew) ? "processOmniXMLv2.pl" : "processOmniXML.pl";
   $cmd .= " -in $inFile -out $xmlInFile -xmlFeature -decode";
   execute($cmd);
   $inFile = $xmlInFile;

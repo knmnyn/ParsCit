@@ -31,13 +31,18 @@ use FindBin;
 use Getopt::Std;
 
 use strict 'vars';
-use lib "$FindBin::Bin/../lib";
+use lib $FindBin::Bin . "/../lib";
 
-# This portion is configurable, change it for your own needs
-use lib "/home/wing.nus/tools/languages/programming/perl/lib/5.10.0/";
-use lib "/home/wing.nus/tools/languages/programming/perl/lib/site_perl/5.10.0/";
-#
+# Dependencies
+use File::Spec;
+use File::Basename;
 
+# Local libraries
+use Omni::Omnidoc;
+use Omni::Traversal;
+use ParsCit::Controller;
+use SectLabel::AAMatching;
+	
 # USER customizable section
 my $tmpfile	.= $0; 
 $tmpfile	=~ s/[\.\/]//g;
@@ -54,10 +59,10 @@ my $PARSCIT		= 1;
 my $PARSHED		= 2;
 my $SECTLABEL	= 4; # Thang v100401
 
-my $default_mode		= $PARSCIT;
 my $default_input_type	= "raw";
-my $output_version		= "100401";
-my $biblio_script		="$FindBin::Bin/BiblioScript/biblio_script.sh";
+my $output_version		= "110505";
+my $biblio_script		= $FindBin::Bin . "/BiblioScript/biblio_script.sh";
+my $default_mode		= $PARSCIT;
 # END user customizable section
 
 # Ctrl-C handler
@@ -93,20 +98,20 @@ sub Version
 }
 
 # MAIN program
-my $cmdLine = $0 . " " . join (" ", @ARGV);
+my $cmd_line = $0 . " " . join (" ", @ARGV);
 
 # Invoked with no arguments, error in execution
 if ($#ARGV == -1)
 { 		        
-	print STDERR "# $progname info\t\tNo arguments detected, waiting for input on command line.\n";
-	print STDERR "# $progname info\t\tIf you need help, stop this program and reinvoke with \"-h\".\n";
+	print STDERR "# $progname info\t\tNo arguments detected, waiting for input on command line.		\n";
+	print STDERR "# $progname info\t\tIf you need help, stop this program and reinvoke with \"-h\".	\n";
 	exit(-1);
 }
 
 $SIG{'INT'} = 'quitHandler';
-getopts ('hqm:i:e:tv');
+getopts ('hqm:i:e:tva');
 
-our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_i, $opt_e, $opt_t);
+our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_i, $opt_e, $opt_t, $opt_a);
 
 # Use (!defined $opt_X) for options with arguments
 if ($opt_v) 
@@ -123,14 +128,14 @@ if ($opt_h)
 	exit (0); 
 }
 
-my $mode		= (!defined $opt_m) ? $default_mode : parseMode($opt_m);
+my $mode		= (!defined $opt_m) ? $default_mode : ParseMode($opt_m);
 my $ph_model	= ($opt_t == 1) ? 1 : 0;
 
 my $in		= shift;	# input file
 my $out		= shift;	# if available
 
 # Output buffer
-my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"$output_version\">\n";
+my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"" . $output_version . "\">\n";
 
 ###
 # Thang v100401: add input type option, and SectLabel
@@ -186,14 +191,39 @@ if (defined $opt_e && $opt_e ne "")
 	@export_types = sort { $a cmp $b } keys %type_hash;
 }
 
-my $text_file = undef;
-
+my $doc			= undef;
+my $text_file	= undef;
 # Extracting text from Omnipage XML output
 if ($is_xml_input)
 {
-	$text_file	= "/tmp/" . newTmpFile();
-	my $cmd		= "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $text_file -decode";
+	$text_file	= "/tmp/" . NewTmpFile();
+	my $cmd		= $FindBin::Bin . "/sectLabel/processOmniXMLv2.pl -q -in $in -out $text_file -decode";
 	system($cmd);
+
+	###
+	# Huydhn: input is xml from Omnipage
+	###
+	if (! open(IN, "<:utf8", $in)) { return (-1, "Could not open xml file " . $in . ": " . $!); }
+	my $xml = do { local $/; <IN> };
+	close IN;
+
+	###
+	# Huydhn
+	# NOTE: the omnipage xml is not well constructed (concatenated multiple xml files).
+	# This merged xml need to be fixed first before pass it to xml processing libraries, e.g. xml::twig
+	###
+	# Convert to Unix format
+	$xml =~ s/\r//g;
+	# Remove <?xml version="1.0" encoding="UTF-8"?>
+	$xml =~ s/<\?xml.+?>\n//g;
+	# Remove <!--XML document generated using OCR technology from ScanSoft, Inc.-->
+	$xml =~ s/<\!\-\-XML.+?>\n//g;
+	# Declaration and root
+	$xml = "<?xml version=\"1.0\"?>" . "\n" . "<root>" . "\n" . $xml . "\n" . "</root>";
+
+	# New document
+	$doc = new Omni::Omnidoc();
+	$doc->set_raw($xml);
 } 
 else 
 {
@@ -205,56 +235,153 @@ if (($mode & $SECTLABEL) == $SECTLABEL)
 { 
 	my $sect_label_input = $text_file;
 
-	# Get XML features and append to $textFile
-	if($is_xml_input)
+	# Get XML features and append to $text_file
+	if ($is_xml_input)
 	{
-		my $cmd	= "$FindBin::Bin/sectLabel/processOmniXML.pl -q -in $in -out $text_file.feature -xmlFeature -decode";
+		my $cmd	= $FindBin::Bin . "/sectLabel/processOmniXMLv3.pl -q -in $in -out $text_file.feature -decode";
 		system($cmd);
 
+		my $address_file = $text_file . ".feature" . ".address";
+		if (! open(IN, "<:utf8", $address_file)) { return (-1, "Could not open address file " . $address_file . ": " . $!); }
+		
+		my @omni_address = ();
+		# Read the address file provided by process OmniXML script
+		while (<IN>)
+		{
+			chomp;
+			# Save and split the line
+			my $line	= $_;
+			my @element	= split(/\s+/, $line);
+
+			my %addr		= ();
+			# Address
+			$addr{ 'L1' }	= $element[ 0 ];
+			$addr{ 'L2' }	= $element[ 1 ];
+			$addr{ 'L3' }	= $element[ 2 ];
+			$addr{ 'L4' }	= $element[ 3 ];
+
+			# Save the address
+			push @omni_address, { %addr };
+		}
+		close IN;
+		unlink($address_file);
+
 		$sect_label_input .= ".feature";
-	}
+		my ($sl_xml, $aut_lines, $aff_lines) = SectLabel($sect_label_input, $is_xml_input, 0);
 
-	my $sl_xml	.= sectLabel($sect_label_input, $is_xml_input);
+		# Remove first line <?xml/>
+		$rxml .= RemoveTopLines($sl_xml, 1) . "\n";
 	
-	# Remove first line <?xml/>
-	$rxml		.= removeTopLines($sl_xml, 1) . "\n";
+		# Only run author - affiliation if "something" is provided
+		if ($opt_a)
+		{
+			my @aut_addrs = ();
+			my @aff_addrs = ();
+			# Address of author section	
+			for my $lindex (@{ $aut_lines }) { push @aut_addrs, $omni_address[ $lindex ]; }
+			# Address of affiliation section
+			for my $lindex (@{ $aff_lines }) { push @aff_addrs, $omni_address[ $lindex ]; }
 
-	# Remove XML feature file
-	if ($is_xml_input) { unlink($sect_label_input);	}
+			# The tarpit
+			my $aa_xml = SectLabel::AAMatching::AAMatching($doc, \@aut_addrs, \@aff_addrs);
+		
+			# Author-Affiliation Matching result
+			$rxml .= $aa_xml . "\n";
+		}
+
+		# Remove XML feature file
+		unlink($sect_label_input);
+	}
+	else
+	{
+		my $sl_xml	.= SectLabel($sect_label_input, $is_xml_input, 0);
+	
+		# Remove first line <?xml/>
+		$rxml		.= RemoveTopLines($sl_xml, 1) . "\n";
+	}
 }
 
 # PARSHED
 if (($mode & $PARSHED) == $PARSHED) 
 {
 	use ParsHed::Controller;
+
 	my $ph_xml	= ParsHed::Controller::extractHeader($text_file, $ph_model); 
 	
 	# Remove first line <?xml/> 
-	$rxml		.= removeTopLines($$ph_xml, 1) . "\n";
+	$rxml		.= RemoveTopLines($$ph_xml, 1) . "\n";
 }
 
 # PARSCIT
-if (($mode & $PARSCIT) == $PARSCIT) 
+if (($mode & $PARSCIT) == $PARSCIT)
 {
-	use ParsCit::Controller;
+	if ($is_xml_input)
+	{
+		my $cmd	= $FindBin::Bin . "/sectLabel/processOmniXMLv3.pl -q -in $in -out $text_file.feature -decode";
+		system($cmd);
 
-	###
-	# Huydhn: add xml features to parscit in case of unmarked reference
-	###
-	my $pc_xml = ParsCit::Controller::ExtractCitations($text_file, $in, $is_xml_input);
+		my $address_file = $text_file . ".feature" . ".address";
+		if (! open(IN, "<:utf8", $address_file)) { return (-1, "Could not open address file " . $address_file . ": " . $!); }
+		
+		my @omni_address = ();
+		# Read the address file provided by process OmniXML script
+		while (<IN>)
+		{
+			chomp;
+			# Save and split the line
+			my $line	= $_;
+			my @element	= split(/\s+/, $line);
 
-	# Remove first line <?xml/> 
-	$rxml .= removeTopLines($$pc_xml, 1) . "\n";
+			my %addr		= ();
+			# Address
+			$addr{ 'L1' }	= $element[ 0 ];
+			$addr{ 'L2' }	= $element[ 1 ];
+			$addr{ 'L3' }	= $element[ 2 ];
+			$addr{ 'L4' }	= $element[ 3 ];
 
-	# Thang v100901: call to BiblioScript
-	if (scalar(@export_types) != 0) { biblioScript(\@export_types, $$pc_xml, $out); }
+			# Save the address
+			push @omni_address, { %addr };
+		}
+		close IN;
+		unlink($address_file);
+
+		my $sect_label_input = $text_file . ".feature";
+		# Output of sectlabel becomes input for parscit
+		my ($all_text, $cit_lines) = SectLabel($sect_label_input, $is_xml_input, 1);	
+		# Remove XML feature file
+		unlink($sect_label_input);
+
+		my @cit_addrs = ();
+		# Address of reference section	
+		for my $lindex (@{ $cit_lines }) { push @cit_addrs, $omni_address[ $lindex ]; }
+
+		my $pc_xml = undef;
+		# Huydhn: add xml features to parscit in case of unmarked reference
+		$pc_xml = ParsCit::Controller::ExtractCitations2(\$all_text, $cit_lines, $is_xml_input, $doc, \@cit_addrs);
+
+		# Remove first line <?xml/> 
+		$rxml .= RemoveTopLines($$pc_xml, 1) . "\n";
+
+		# Thang v100901: call to BiblioScript
+		if (scalar(@export_types) != 0) { BiblioScript(\@export_types, $$pc_xml, $out); }
+	}
+	else
+	{
+		my $pc_xml = ParsCit::Controller::ExtractCitations($text_file, $in, $is_xml_input);
+	
+		# Remove first line <?xml/> 
+		$rxml .= RemoveTopLines($$pc_xml, 1) . "\n";
+
+		# Thang v100901: call to BiblioScript
+		if (scalar(@export_types) != 0) { BiblioScript(\@export_types, $$pc_xml, $out); }
+	}
 }
 
 $rxml .= "</algorithms>";
 
 if (defined $out) 
 {
-	open (OUT, ">:utf8", "$out") or die "$progname fatal\tCould not open \"$out\" for writing: $!";
+	open (OUT, ">:utf8", $out) or die $progname . " fatal\tCould not open \"" . $out . "\" for writing: $!";
 	print OUT $rxml;
 	close OUT;
 } 
@@ -279,7 +406,7 @@ if ($is_xml_input)
 
 # END of main program
 
-sub parseMode 
+sub ParseMode 
 {
 	my $arg = shift;
 
@@ -311,7 +438,7 @@ sub parseMode
 }
 
 # Remove top n lines
-sub removeTopLines 
+sub RemoveTopLines 
 {
 	my ($input, $top_n) = @_;
 
@@ -322,18 +449,18 @@ sub removeTopLines
 		shift(@lines);
 	}
 
-	return join("\n",@lines);
+	return join("\n", @lines);
 }
 
 ###
 # Thang v100401: generate section info
 ###
-sub sectLabel 
+sub SectLabel 
 {
-	my ($text_file, $is_xml_input) = @_;
+	my ($text_file, $is_xml_input, $for_parscit) = @_;
 
-	use SectLabel::Controller;
 	use SectLabel::Config;
+	use SectLabel::Controller;
 
 	my $is_xml_output	= 1;
 	my $is_debug		= 0;
@@ -351,30 +478,50 @@ sub sectLabel
 	$config_file	= "$FindBin::Bin/../$config_file";
 
 	# Classify section
-	my $sl_xml		= SectLabel::Controller::extractSection(	$text_file, 
-																$is_xml_output, 
-																$model_file, 
-																$dict_file, 
-																$func_file, 
-																$config_file, 
-																$is_xml_input, 
-																$is_debug);
-	return $$sl_xml;
+	if (! $for_parscit)
+	{
+		my ($sl_xml, $aut_lines, $aff_lines) = SectLabel::Controller::ExtractSection(	$text_file, 
+																						$is_xml_output, 
+																						$model_file, 
+																						$dict_file, 
+																						$func_file, 
+																						$config_file, 
+																						$is_xml_input, 
+																						$is_debug,
+																						$for_parscit	);
+		return ($$sl_xml, $aut_lines, $aff_lines);
+	}
+	# Huydhn: sectlabel output -> parscit input
+	else
+	{
+		my ($all_text, $cit_lines) = SectLabel::Controller::ExtractSection(	$text_file, 
+																			$is_xml_output, 
+																			$model_file, 
+																			$dict_file, 
+																			$func_file, 
+																			$config_file, 
+																			$is_xml_input, 
+																			$is_debug,
+																			$for_parscit	);
+
+		return ($all_text, $cit_lines);
+	}
 }
 
 ###
 # Thang v100901: incorporate BiblioScript
 ###
-sub biblioScript 
+sub BiblioScript 
 {
 	my ($types, $pc_xml, $outfile) = @_;
 
 	my @export_types	= @{ $types };
-	my $tmp_dir			= "/tmp/".newTmpFile();
+	my $tmp_dir			= "/tmp/" . NewTmpFile();
 	system("mkdir -p $tmp_dir");
 
 	# Write extract_citation output to a tmp file
 	my $filename		= "$tmp_dir/input.txt";
+
 	open(OF, ">:utf8", $filename);
 	print OF $pc_xml;
 	close OF;
@@ -382,7 +529,8 @@ sub biblioScript
 	# Call to BiblioScript
 	my $size	= scalar(@export_types);
 	my $format	= $export_types[0];
-	my $cmd		= "$biblio_script -q -i parscit -o $format $filename $tmp_dir";
+	my $cmd		= $biblio_script . " -q -i parscit -o " . $format . " " . $filename . " " . $tmp_dir;
+
 	system($cmd);
 	system("mv $tmp_dir/parscit.$format $outfile.$format");
 
@@ -390,19 +538,22 @@ sub biblioScript
 	for (my $i = 1; $i < $size; $i++)
 	{
 		$format	= $export_types[$i];
-		$cmd	= "$biblio_script -q -i mods -o $format $tmp_dir/parscit_mods.xml $tmp_dir";
+		$cmd	= $biblio_script . " -q -i mods -o " . $format . " " . $tmp_dir . "/parscit_mods.xml " . $tmp_dir;
+
 		system($cmd);
 		system("mv $tmp_dir/parscit.$format $outfile.$format");
 	}
 
-	system("rm -rf $tmp_dir");
+	system("rm -rf " . $tmp_dir);
 }
 
 # Method to generate tmp file name
-sub newTmpFile 
+sub NewTmpFile 
 {
 	my $tmpfile	= `date '+%Y%m%d-%H%M%S-$$'`;
-	chomp($tmpfile); return $tmpfile;
+	chomp  $tmpfile;
+	return $tmpfile;
 }
+
 
 

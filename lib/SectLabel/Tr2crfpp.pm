@@ -1,1047 +1,1247 @@
 package SectLabel::Tr2crfpp;
-#
+
+###
 # Created from templateAppl.pl version 3.4 by Min-Yen Kan <kanmy@comp.nus.edu.sg>.
 # Modified by Isaac Councill on 7/20/07: wrapped the code as a package for use by
 # an external controller.
 #
 # Copyright 2005 \251 by Min-Yen Kan (not sure what this means for IGC edits, but
 # what the hell -IGC)
-#
+###
 
-use strict 'vars';
 use utf8;
+use strict 'vars';
+
+# Dependencies
 use FindBin;
-use SectLabel::Config;
 use Encode ();
 
-### USER customizable section
+# Local libraries
+use SectLabel::Config;
 
-my $crf_test = $SectLabel::Config::crf_test;
-$crf_test = "$FindBin::Bin/../$crf_test";
+### USER customizable section
+my $crf_test	= $SectLabel::Config::crf_test;
+$crf_test		= "$FindBin::Bin/../$crf_test";
 ### END user customizable section
 
-my %dict = ();
-my %funcWord = ();
+my %dict		= ();
+my %func_word	= ();
 
-my %keywords = (); 
-my %bigrams = ();
-my %trigrams = ();
-my %fourthgrams = ();
+my %keywords	= (); 
+my %bigrams		= ();
+my %trigrams	= ();
+my %fourthgrams	= ();
 
 # list of tags trained in parsHed
 # those with value 0 do not have frequent keyword features
-my $allTags = $SectLabel::Config::tags;
+my $all_tags = $SectLabel::Config::tags;
 
-my %config = (
-	      '1token' => 0,
-	      '2token' => 0,
-	      '3token' => 0,
-	      '4token' => 0,
+my %config = (	'1token'	=> 0,
+	      		'2token'	=> 0,
+	      		'3token'	=> 0,
+	      		'4token'	=> 0,
 
-	      # token-level features
-	      'parscit' => 0, # use all Parscit original features
-	      'parscit_char' => 0, # parscit char features
+	      		# Token-level features
+	      		'parscit'		=> 0, # Use all Parscit original features
+	      		'parscit_char'	=> 0, # Parscit char features
 
-	      'tokenCapital' => 0,
-	      'tokenNumber' => 0,
-	      'tokenName' => 0,
-	      'tokenPunct' => 0,
-	      'tokenKeyword' => 0,
+	      		'tokenCapital'	=> 0,
+	      		'tokenNumber'	=> 0,
+	      		'tokenName'		=> 0,
+	      		'tokenPunct'	=> 0,
+	      		'tokenKeyword'	=> 0,
 	      
-	      '1gram' => 0,
-	      '2gram' => 0,
-	      '3gram' => 0,
-	      '4gram' => 0,
+				'1gram'	=> 0,
+	      		'2gram'	=> 0,
+	      		'3gram'	=> 0,
+	      		'4gram'	=> 0,
 
-	      'lineNum' => 0,
-	      'linePunct' => 0,
-	      'linePos' => 0,
-	      'lineLength' => 0,
-	      'lineCapital' => 0,
+				'lineNum'		=> 0,
+	      		'linePunct'		=> 0,
+	      		'linePos'		=> 0,
+	      		'lineLength'	=> 0,
+	      		'lineCapital'	=> 0,
 
-	      # pos
-	      'xmlLoc' => 0,
-	      'xmlAlign' => 0,
-	      'xmlIndent' => 0,
+	      		# Pos
+	      		'xmlLoc'	=> 0,
+	      		'xmlAlign'	=> 0,
+	      		'xmlIndent'	=> 0,
 	      
-	      # format
-	      'xmlFontSize' => 0,
-	      'xmlBold' => 0,
-	      'xmlItalic' => 0,
+	      		# Format
+	      		'xmlFontSize'	=> 0,
+	      		'xmlBold'		=> 0,
+	      		'xmlItalic'		=> 0,
 	      
-	      # object
-	      'xmlPic' => 0,
-	      'xmlTable' => 0,
-	      'xmlBullet' => 0,
+	      		# Object
+	      		'xmlPic'	=> 0,
+	      		'xmlTable'	=> 0,
+	      		'xmlBullet'	=> 0,
 
-	      # bigram differential features
-	      'bi_xmlA' => 0,
-	      'bi_xmlS' => 0,
-	      'bi_xmlF' => 0,
-	      'bi_xmlSF' => 0,
-	      'bi_xmlSFBI' => 0,
-	      'bi_xmlSFBIA' => 0,
-	      'bi_xmlPara' => 0,
+	      		# Bigram differential features
+	      		'bi_xmlA' 		=> 0,
+	      		'bi_xmlS' 		=> 0,
+	      		'bi_xmlF'		=> 0,
+	      		'bi_xmlSF'		=> 0,
+	      		'bi_xmlSFBI'	=> 0,
+	      		'bi_xmlSFBIA'	=> 0,
+	      		'bi_xmlPara'	=> 0,
 
-	      # unused
-	      'xmlSpace' => 0,	      
-	     );
+	      		# Unused
+	      		'xmlSpace'	=> 0,
+			);
 
-my %tagMap = (
-	      "LineLevel" => "UL",
-	      "xml" => "UX",
-	      "bi_xml" => "B", # bigram
-	      "1token" => "U1",
-	      "2token" => "U2",
-	      "3token" => "U3",
-	      "4token" => "U4",
-	      "1gram" => "U5",
-	      "2gram" => "U6",
-	      "3gram" => "U7",
-	      "4gram" => "U8",
+my %tag_map = (	"lineLevel"	=> "UL",
+	      		"xml"		=> "UX",
+
+	      		"bi_xml"	=> "B", # Bigram
+	      		"1token"	=> "U1",
+	      		"2token"	=> "U2",
+	      		"3token"	=> "U3",
+	      		"4token"	=> "U4",
+
+	      		"1gram"	=> "U5",
+	      		"2gram"	=> "U6",
+	      		"3gram"	=> "U7",
+	      		"4gram"	=> "U8",
 	      
-	      "Capital" => "U9",
-	      "Number" => "UA0",
-	      "Punct" => "UA1",
-	      "Func" => "UA2",
-	      "Binary" => "UA3",
-	     );
+	      		"capital"	=> "U9",
+	      		"number"	=> "UA0",
+	      		"punct"		=> "UA1",
+	      		"func"		=> "UA2",
+	      		"binary"	=> "UA3",
+			);
 
 binmode(STDERR, ":utf8");
 binmode(STDOUT, ":utf8");
 
-sub initialize {
-  my ($dictFile, $funcFile, $configFile) = @_;
+sub Initialize 
+{
+	my ($dict_file, $func_file, $config_file) = @_;
 
-#  print STDERR "Dict file = $dictFile\n";
-#  print STDERR "Func file = $funcFile\n";
-  readDict($dictFile);
-  loadListHash($funcFile, \%funcWord);
-  if(defined $configFile && $configFile ne ""){
-    loadConfigFile($configFile, \%config);
-  } else {
-    die "!defined $configFile || $configFile eq \"\"\n";
-  }
+  	ReadDict($dict_file);
+  	LoadListHash($func_file, \%func_word);
 
-#  if($kFile ne "") { readKeywordDict($kFile, \%keywords); }
-#  if($biFile ne "") { readKeywordDict($biFile, \%bigrams); }
-#  if($triFile ne "") { readKeywordDict($triFile, \%trigrams); }
-#  if($fourthFile ne "") { readKeywordDict($fourthFile, \%fourthgrams); }
+  	if (defined $config_file && $config_file ne "")
+	{
+    	LoadConfigFile($config_file, \%config);
+  	} 
+	else 
+	{
+    	die "!defined $config_file || $config_file eq \"\"\n";
+  	}
+
+	# if ($kFile ne "")		 { ReadKeywordDict($kFile, \%keywords); }
+	# if ($biFile ne "")	 { ReadKeywordDict($biFile, \%bigrams); }
+	# if ($triFile ne "")	 { ReadKeywordDict($triFile, \%trigrams); }
+	# if ($fourthFile ne "") { ReadKeywordDict($fourthFile, \%fourthgrams); }
 }
 
-## Entry point called by sectLabel/tr2crfpp.pl
-sub tr2crfpp {
-  my ($inFile, $outFile, $dictFile, $funcFile, $configFile, $isGenerateTemplate) = @_; #$kFile, $biFile, $triFile, $fourthFile
-  if(!defined $isGenerateTemplate){
-    die "Die: Tr2crfpp::tr2crfpp - undefined isGenerateTemplate\n";
-  }
+# Entry point called by sectLabel/tr2crfpp.pl
+sub Tr2crfpp 
+{
+	my ($infile, $outfile, $dict_file, $func_file, $config_file, $is_generate_template) = @_; #$kFile, $biFile, $triFile, $fourthFile
 
-  initialize($dictFile, $funcFile, $configFile);
+	if(!defined $is_generate_template) { die "Die: Tr2crfpp::tr2crfpp - undefined is_generate_template\n"; }
 
-  # File IOs
-  open (IF, "<:utf8", $inFile) || die "# crash\t\tCan't open \"$inFile\"";
-  my @lines = <IF>;
-  processData(\@lines, $outFile, $isGenerateTemplate);
+  	Initialize($dict_file, $func_file, $config_file);
 
-  close (IF);
+  	# File IOs
+  	open (IF, "<:utf8", $infile) || die "# crash\t\tCan't open \"$infile\"";
+  	
+	my @lines = <IF>;
+  	ProcessData(\@lines, $outfile, $is_generate_template);
+
+	close (IF);
 }
 
-## Entry point called by SectLabel::Controller
-sub extractTestFeatures {
-  my ($textLines, $filename, $dictFile, $funcFile, $configFile, $isDebug) = @_;
-  my $tmpfile = buildTmpFile($filename);
+# Entry point called by SectLabel::Controller
+sub ExtractTestFeatures 
+{
+	my ($text_lines, $filename, $dict_file, $func_file, $config_file, $is_debug) = @_;
+  	
+	my $tmpfile = BuildTmpFile($filename);
+  	Initialize($dict_file, $func_file, $config_file);
 
-  initialize($dictFile, $funcFile, $configFile);
+	my $is_generate_template = 0;
+  	ProcessData($text_lines, $tmpfile, $is_generate_template, $is_debug);
 
-  my $isGenerateTemplate = 0;
-  processData($textLines, $tmpfile, $isGenerateTemplate, $isDebug);
-
-  return $tmpfile;
+  	return $tmpfile;
 }
 
-sub processData {
-  my ($lines, $outFile, $isGenerateTemplate, $isDebug) = @_;
+sub ProcessData 
+{
+	my ($lines, $outfile, $is_generate_template, $is_debug) = @_;
 
-  open (OF, ">:utf8", $outFile) || die "# crash\t\tCan't open \"$outFile\"";
+	open (OF, ">:utf8", $outfile) || die "# crash\t\tCan't open \"$outfile\"";
 
-  my %countMap = ();
-  getDocLineCounts($lines, \%countMap);
-  my $numDocs = scalar(keys %countMap);
+  	my %count_map	= ();
+  	GetDocLineCounts($lines, \%count_map);
+  	my $num_docs		= scalar(keys %count_map);
 
-  my $index = -1;
-  my $isAbstract = 0;
-  my $isIntro = 0;
-  my $docId = 0;
-  my $numLines = $countMap{$docId};
-  my $tag = "noTag";
+  	my $is_abstract	= 0;
+  	my $is_intro	= 0;
+  	my $doc_id		= 0;
+  	my $tag			= "noTag";
+	my $index		= -1;
+  	my $num_lines	= $count_map{$doc_id};
 
-  if($isDebug){
-    print STDERR "numLines = $numLines\n";
-  }
+	if ($is_debug) { print STDERR "numLines = $num_lines\n"; }
 
-  my $xmlFeature = "";
-  foreach my $line (@{$lines}) {
-    chomp($line);
-    $index++;
+	my $xml_feature = "";
+	
+	foreach my $line (@{$lines}) 
+	{
+    	chomp($line);
+    	$index++;
     
-#    if ($line =~ /^\#/) { next; } # skip comments
-    if ($line =~ /^\s*$/) { # blank lines, new documents
-      print OF "\n";
+		# if ($line =~ /^\#/) { next; } # skip comments
 
-      # reset
-      $index = -1;
-      $isAbstract = 0;
-      $isIntro = 0;
-      $docId++;
-      $numLines = $countMap{$docId};
-      next; 
-    } else {
-      if ($line =~ /^(.+?) \|\|\| (.+)$/) {
-	$tag = $1;
-	$line = $2;
-	if(!defined $allTags->{$tag}){
-#	  print STDERR "#! Warning: tag \"$tag\" not defined - skip \"$line\"\n";
-	  next;
-	}
-      }
+		# Blank lines, new documents
+    	if ($line =~ /^\s*$/) 
+		{
+      		print OF "\n";
 
-      if ($line =~ /^(.+) \|XML\| (.+?)$/) {
-	$line = $1;
-	$xmlFeature = $2;
-      }
+      		# Reset
+      		$is_abstract = 0;
+      		$is_intro	 = 0;
+      		$index		 = -1;
 
-      if($line =~ /abstract/i){
-	$isAbstract = 1;
-      } elsif($line =~ /introduction/i){
-	$isIntro = 1;
-      } else {
-	if($isAbstract == 1){
-	  $isAbstract = 2;
-	}
-	if($isIntro == 1){
-	  $isIntro = 2;
-	}
-      }
+			$doc_id++;
+      		$num_lines = $count_map{$doc_id};
 
-      my @feats = ();
-      my @templates = crfFeature($line, $index, $numLines, $isAbstract, $isIntro, $xmlFeature, $tag, \@feats);
+      		next; 
+    	} 
+		else 
+		{
+      		if ($line =~ /^(.+?) \|\|\| (.+)$/) 
+			{
+				$tag	= $1;
+				$line	= $2;
+				
+				if(!defined $all_tags->{$tag})
+				{
+					# print STDERR "#! Warning: tag \"$tag\" not defined - skip \"$line\"\n";
+	  				next;
+				}
+      		}
 
-      # generate CRF features
-      if($isGenerateTemplate){
-	$isGenerateTemplate = 0; #done generate template file
-	print STDOUT join("", @templates);
-      }
+      		if ($line =~ /^(.+) \|XML\| (.+?)$/) 
+			{
+				$line			= $1;
+				$xml_feature	= $2;
+      		}
 
-#      if($index == -1) {
-#	last;
-#      }
-      print OF join (" ", @feats);
-      print OF "\n";
-    }
-  }
+      		if ($line =~ /abstract/i)
+			{
+				$is_abstract = 1;
+      		} 
+			elsif ($line =~ /introduction/i)
+			{
+				$is_intro = 1;
+      		} 
+			else 
+			{
+				if($is_abstract == 1)
+				{
+	  				$is_abstract = 2;
+				}
 
-  close (OF);
+				if($is_intro == 1)
+				{
+	  				$is_intro = 2;
+				}
+      		}
+
+      		my @feats		= ();
+      		my @templates	= CRFFeature($line, $index, $num_lines, $is_abstract, $is_intro, $xml_feature, $tag, \@feats);
+
+			# Generate CRF features
+      		if ($is_generate_template)
+			{
+				$is_generate_template = 0; # Done generate template file
+				print STDOUT join("", @templates);
+      		}
+
+			# if($index == -1) 
+			# {
+			# 	last;
+			# }
+
+			print OF join (" ", @feats);
+      		print OF "\n";
+    	}
+  	}
+
+  	close (OF);
 }
 
-sub getDocLineCounts {
-  my ($lines, $countMap) = @_;
+sub GetDocLineCounts 
+{
+	my ($lines, $count_map) = @_;
 
-  my $count = 0;
-  my $docId = 0;
-  my $flag = 0;
-  foreach my $line (@{$lines}) {
-    chomp($line);
-    $count++;
-    
-    if ($line =~ /^\s*$/) { # blank lines, new documents
-      $flag = 1; # more than 1 document
-      $countMap->{$docId} = $count;
+  	my $count	= 0;
+  	my $doc_id	= 0;
+  	my $flag	= 0;
+
+  	foreach my $line (@{$lines}) 
+	{
+    	chomp($line);
+    	$count++;
+
+		# Blank lines, new documents
+    	if ($line =~ /^\s*$/) 
+		{
+			# More than 1 document
+      		$flag = 1;
+
+      		$count_map->{$doc_id} = $count;
       
-      $count = 0;
-      $docId++;
-    }
-  }
+      		$count = 0;
+      		$doc_id++;
+    	}
+  	}
 
-  if($flag == 0){
-    $countMap->{$docId} = $count;
-  }
+  	if ($flag == 0)
+	{
+    	$count_map->{$doc_id} = $count;
+  	}
 }
-##
+
+###
 # Main method to extract features
-## 
-sub crfFeature {
-  my ($line, $index, $numLines, $isAbstract, $isIntro, $xmlFeature, $tag, $feats) = @_;
-  my $token = "";
+###
+sub CRFFeature 
+{
+	my ($line, $index, $num_lines, $is_abstract, $is_intro, $xml_feature, $tag, $feats) = @_;
+  	
+	my $token			= "";
+  	my @templates		= ();
+  	my %feature_counts	= (); # To perform feature linking
 
-  my @templates = ();
-  my %featureCounts = (); # to perform feature linking
+	my @tmp_tokens	= split(/\s+/, $line);
+  	# Filter out empty token
+  	my @tokens		= ();
 
-  my @tmpTokens = split(/\s+/, $line);
-  #filter out empty token
-  my @tokens = ();
-  foreach my $token (@tmpTokens){ 
-    $token =~ s/^\s+//g; # strip off leading spaces
-    $token =~ s/\s+$//g; # strip off trailing spaces
+  	foreach my $token (@tmp_tokens)
+	{
+    	$token =~ s/^\s+//g; # Strip off leading spaces
+    	$token =~ s/\s+$//g; # Strip off trailing spaces
 
-    if($token ne ""){
-      push(@tokens, $token);
-    }
-  }
+		if ($token ne "")
+		{
+      		push(@tokens, $token);
+    	}
+  	}
 
-  # full form: does not count in crf template file, simply for outputing purpose to get the whole line data
-  my $lineFull = join("|||", @tokens);
-  push(@{$feats}, "$lineFull");
+  	# Full form: does not count in crf template file, simply for outputing purpose to get the whole line data
+  	my $lineFull = join("|||", @tokens);
+  	push(@{$feats}, "$lineFull");
 
-  ##############################
-  #### Line-level features ####
-  ##############################
-  generateLineFeature($line, \@tokens, $index, $numLines, $isAbstract, $isIntro, $feats, "# Line-level features\n", $tagMap{"LineLevel"}, \@templates, \%featureCounts);
+  	###
+  	# Line-level features
+  	###
+	GenerateLineFeature($line, \@tokens, $index, $num_lines, $is_abstract, $is_intro, $feats, "# Line-level features\n", $tag_map{"lineLevel"}, \@templates, \%feature_counts);
 
-  ### XML features ###
-  generateXmlFeature($xmlFeature, $feats, "# Xml features\n", $tagMap{"xml"}, $tagMap{"bi_xml"}, \@templates, \%featureCounts);
+	###
+  	# XML features
+	###
+  	GenerateXmlFeature($xml_feature, $feats, "# Xml features\n", $tag_map{"xml"}, $tag_map{"bi_xml"}, \@templates, \%feature_counts);
 
-#  generateNumberFeature(\@tokens, $feats, "#number. features\n", $tagMap{"Number"}, \@templates, \%featureCounts);
+	# GenerateNumberFeature(\@tokens, $feats, "#number. features\n", $tag_map{"number"}, \@templates, \%feature_counts);
   
-  # keyword features
-  for(my $i=1; $i<=4; $i++){
-    if($config{"${i}gram"}){
-      my @topTokens = ();
-      getNgrams($line, $i, \@topTokens);
-      generateKeywordFeature(\@topTokens, $feats, \%keywords, "# ${i}gram features\n", $tagMap{"${i}gram"}, \@templates, \%featureCounts);
-    }
-  }
+  	# Keyword features
+	for (my $i = 1; $i <= 4; $i++)
+	{
+    	if ($config{"${i}gram"})
+		{
+      		my @top_tokens = ();
+      		GetNgrams($line, $i, \@top_tokens);
+      		GenerateKeywordFeature(\@top_tokens, $feats, \%keywords, "# ${i}gram features\n", $tag_map{"${i}gram"}, \@templates, \%feature_counts);
+    	}
+  	}
 
-  ##############################
-  #### Token-level features ####
-  ##############################
-  # apply most of Parscit features
-  for(my $i=1; $i<=4; $i++){
-    if($config{"${i}token"}){
-      generateTokenFeature(\@tokens, ($i-1), \%keywords, $feats, "#${i}token general features\n", $tagMap{"${i}token"}, \@templates, \%featureCounts);
-    }
-  }
+  	###
+  	# Token-level features
+  	###
+  	# Apply most of Parscit features
+  	for (my $i = 1; $i <= 4; $i++)
+	{
+    	if($config{"${i}token"})
+		{
+      		GenerateTokenFeature(\@tokens, ($i-1), \%keywords, $feats, "#${i}token general features\n", $tag_map{"${i}token"}, \@templates, \%feature_counts);
+    	}
+  	}
 
-  #########################
-  #### Feature linking ####
-  #########################
-  my $i;
-  if($config{"back1"}){
-    featureLink(\@templates, "UA", "#constraint on first token features at -1 relative position \n", $featureCounts{$tagMap{"1token"}}->{"start"}, $featureCounts{$tagMap{"1token"}}->{"end"}, "-1");
-  }
-  push(@templates, "\n");
+  	###
+  	# Feature linking
+  	###
+  	my $i = undef;
 
-  if($config{"forw1"}){
-    featureLink(\@templates, "UB", "#constraint on first token features at +1 relative position \n", $featureCounts{$tagMap{"1token"}}->{"start"}, $featureCounts{$tagMap{"1token"}}->{"end"}, "1");
-  }
-  push(@templates, "\n");
+	if ($config{"back1"})
+	{
+    	FeatureLink(\@templates, "UA", "#constraint on first token features at -1 relative position \n", $feature_counts{$tag_map{"1token"}}->{"start"}, $feature_counts{$tag_map{"1token"}}->{"end"}, "-1");
+  	}
+  	push(@templates, "\n");
 
-  # output tag
-  push(@{$feats}, $tag);
+  	if ($config{"forw1"})
+	{
+    	FeatureLink(\@templates, "UB", "#constraint on first token features at +1 relative position \n", $feature_counts{$tag_map{"1token"}}->{"start"}, $feature_counts{$tag_map{"1token"}}->{"end"}, "1");
+  	}
+  	push(@templates, "\n");
 
-  push(@templates, "# Output\nB0\n");
-  return @templates;
+  	# Output tag
+  	push(@{$feats}, $tag);
+
+  	push(@templates, "# Output\nB0\n");
+  	return @templates;
 }
 
-sub generateXmlFeature {
-  my ($xmlFeature, $feats, $msg, $label, $biLabel, $templates, $featureCounts) = @_;
+sub GenerateXmlFeature 
+{
+	my ($xml_feature, $feats, $msg, $label, $biLabel, $templates, $feature_counts) = @_;
 
-  my @features = split(/\s+/, $xmlFeature);
-  my $count = 0;
-  my $type;
-  my %biFeatureFlag = ();
-  foreach my $feature (@features) {
-    if($feature =~ /^bi_xml/){
-      $biFeatureFlag{$count} = 1; 
-    }
+  	my @features	= split(/\s+/, $xml_feature);  	
+	my $count		= 0;
+ 	my $type		= undef;
 
-    if($feature =~ /^((bi_)?xml[a-zA-Z]+)\_.+$/){
-      $type = $1;
-      if($config{$type}){
-	push(@{$feats}, $feature);
-	$count++;
-      }
-    } else {
-      die "Die: xml feature doesn't match \"$feature\"\n";
-    }
-  }
+  	my %bi_feature_flag = ();
+	foreach my $feature (@features) 
+	{
+    	if ($feature =~ /^bi_xml/) { $bi_feature_flag{$count} = 1; }
+
+    	if ($feature =~ /^((bi_)?xml[a-zA-Z]+)\_.+$/)
+		{
+      		$type = $1;
+      		if ($config{$type}) 
+			{
+				push(@{$feats}, $feature);
+				$count++;
+      		}
+    	} 
+		else 
+		{
+      		die "Die: xml feature doesn't match \"$feature\"\n";
+    	}
+  	}
   
-  updateTemplate(scalar(@{$feats}), $count, $msg, $label, $templates, $featureCounts, $biLabel, \%biFeatureFlag);
+  	UpdateTemplate(scalar(@{$feats}), $count, $msg, $label, $templates, $feature_counts, $biLabel, \%bi_feature_flag);
 }
 
-sub updateTemplate {
-  my ($curSize, $numFeatures, $msg, $label, $templates, $featureCounts, $biLabel, $biFeatureFlag) = @_;
+sub UpdateTemplate 
+{
+	my ($cur_size, $num_features, $msg, $label, $templates, $feature_counts, $biLabel, $bi_feature_flag) = @_;
 
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = $curSize - $numFeatures;
-  $featureCounts->{$label}->{"start"} = $prevSize;
-  $featureCounts->{$label}->{"end"} = $curSize;
+  	# Crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = $cur_size - $num_features;
+  	$feature_counts->{$label}->{"start"} = $prev_size;
+  	$feature_counts->{$label}->{"end"} = $cur_size;
   
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    if($biFeatureFlag->{$i}){
-      push(@{$templates}, "$biLabel".$i++.":%x[0,$j]\n");
-    } else {
-      push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-    }
-  }
-  push(@{$templates}, "\n");
+  	my $i = 0;
+  	for (my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	if ($bi_feature_flag->{$i})
+		{
+      		push(@{$templates}, "$biLabel".$i++.":%x[0,$j]\n");
+    	} 
+		else 
+		{
+      		push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+    	}
+  	}
+  	
+	push(@{$templates}, "\n");
 }
 
+sub GenerateLineFeature 
+{
+	my ($line, $tokens, $index, $num_lines, $is_abstract, $is_intro, $feats, $msg, $label, $templates, $feature_counts) = @_;
 
-# 'linePos' => 1,
-# 'lineLength' => 1,
-# 'lineCapital' => 1,
+  	# Crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"start"} = $prev_size;
+
+  	# Editor
+  	my $has_possible_editor = ($line =~ /[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+  	push(@{$feats}, $has_possible_editor);
   
+  	if ($config{"lineNum"})
+	{
+    	my $word	= $tokens->[0];
+    	my $num		= "";
 
-sub generateLineFeature {
-  my ($line, $tokens, $index, $numLines, $isAbstract, $isIntro, $feats, $msg, $label, $templates, $featureCounts) = @_;
-
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"start"} = $prevSize;
-
-  # editor
-  my $hasPossibleEditor =
-    ($line =~ /[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors"; # Parscit feature
-  push(@{$feats}, $hasPossibleEditor);
-  
-  if($config{"lineNum"}){
-    my $word = $tokens->[0];
-    my $num = "";
-    if(scalar(@{$tokens}) > 1){
-      $num = ($word =~ /^[1-9]\.[1-9]\.?$/) ? "posSubsec" :
-	($word =~ /^[1-9]\.[1-9]\.[1-9]\.?$/) ? "posSubsubsec" :
-	  ($word =~ /^\w\.[1-9]\.[1-9]\.?$/) ? "posCategory" :
-	    "";
-    }
+    	if (scalar(@{$tokens}) > 1)
+		{
+      		$num =	($word =~ /^[1-9]\.[1-9]\.?$/)			? "posSubsec"		: 
+					($word =~ /^[1-9]\.[1-9]\.[1-9]\.?$/)	? "posSubsubsec"	: 
+					($word =~ /^\w\.[1-9]\.[1-9]\.?$/)		? "posCategory"		:
+					"";
+    	}
     
-    if($num eq ""){
-      $num = ($word =~ /^[1-9][A-Za-z]\w*$/) ? "numFootnote" :
-	($word =~ /^[1-9]\s*(http|www)/) ? "numWebfootnote" :
-	  "lineNumOthers";
-    }
+    	if ($num eq "")
+		{
+      		$num =	($word =~ /^[1-9][A-Za-z]\w*$/)		? "numFootnote" 	:
+					($word =~ /^[1-9]\s*(http|www)/) 	? "numWebfootnote" 	:
+	  				"lineNumOthers";
+    	}
     
-    push(@{$feats}, $num);
-  }
+    	push(@{$feats}, $num);
+  	}
   
-  if($config{"linePunct"}){
-    my $punct = "";
-    $punct = ($line =~ /@\w+\./) ? "possibleEmail" : 
-      ($line =~ /(www|http)/) ? "possibleWeb" : 
-	($line =~ /\(\d\d?\)\s*$/) ? "endNumbering" : 
-	  "linePunctOthers";
+  	if ($config{"linePunct"})
+	{
+    	my $punct	= "";
+    	$punct		=	($line =~ /@\w+\./)			? "possibleEmail"	: 
+      					($line =~ /(www|http)/)		? "possibleWeb" 	: 
+						($line =~ /\(\d\d?\)\s*$/)	? "endNumbering" 	: 
+	  					"linePunctOthers";
   
-    push(@{$feats}, $punct);
-  }
+    	push(@{$feats}, $punct);
+  	}
   
-  if($config{"lineCapital"}){
-    my $cap = getCapFeature($tokens);
-    push(@{$feats}, $cap);
-  }
+  	if ($config{"lineCapital"})
+	{
+    	my $cap = GetCapFeature($tokens);
+    	push(@{$feats}, $cap);
+  	}
   
-  if($config{"linePos"}){
-    my $position = "POS-".int($index*8.0/$numLines);
-    push(@{$feats}, $position);
-  }
+  	if ($config{"linePos"})
+	{
+    	my $position = "POS-".int($index*8.0/$num_lines);
+    	push(@{$feats}, $position);
+  	}
   
-  if($config{"lineLength"}){  
-    # num tokens, words
-    my @tokens = split(/\s+/, $line);
-    
-    my $numWords = 0;
-    foreach my $token (@tokens){
-      if($token =~ /^\p{P}*[a-zA-Z]+\p{P}*$/){
-	$numWords++;
-      }
-    }
-    my $wordLength = 
-      ($numWords >= 5) ? "5+Words" :
-	"${numWords}Words";
-    push(@{$feats}, $wordLength);
-  }
+  	if ($config{"lineLength"})
+	{ 
+    	# Num tokens, words
+    	my @tokens		= split(/\s+/, $line);    
+    	my $num_words	= 0;
 
-  # for crfpp template
-  my $curSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"end"} = $curSize;
+    	foreach my $token (@tokens)
+		{
+      		if ($token =~ /^\p{P}*[a-zA-Z]+\p{P}*$/)
+			{
+				$num_words++;
+      		}
+    	}
+    
+		my $word_length = 
+      	($num_words >= 5) ? "5+Words" : "${num_words}Words";
+
+    	push(@{$feats}, $word_length);
+  	}
+
+  	# For crfpp template
+  	my $cur_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"end"} = $cur_size;
   
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-  }
-  push(@{$templates}, "\n");
+  	my $i = 0;
+  	for (my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+  	}
+  
+  	push(@{$templates}, "\n");
 }
 
-sub generateTokenFeature {
-  my ($tokens, $index, $keywords, $feats, $msg, $label, $templates, $featureCounts) = @_;
+sub GenerateTokenFeature 
+{
+	my ($tokens, $index, $keywords, $feats, $msg, $label, $templates, $feature_counts) = @_;
 
-  my $numTokens = scalar(@{$tokens});
-  my $token = "EMPTY";
-  if($numTokens > $index){
-    $token = $tokens->[$index];
-  }
+  	my $num_tokens	= scalar(@{$tokens});
+  	my $token		= "EMPTY";
+  	if ($num_tokens > $index) { $token = $tokens->[$index]; }
 
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"start"} = $prevSize;
+  	# Crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"start"} = $prev_size;
 
-  # prep
-  my $word = $token;
-  my $wordLC = lc($token);
-  my $wordNP = $token;			      # no punctuation
-  $wordNP =~ s/[^\w]//g;
-  if ($wordNP =~ /^\s*$/) { $wordNP = "EMPTY"; }
-  my $wordLCNP = lc($wordNP);    # lowercased word, no punctuation
-  if ($wordLCNP =~ /^\s*$/) { $wordLCNP = "EMPTY"; }
+  	# Prep
+  	my $word	= $token;
+  	my $word_lc	= lc($token);
+
+	# No punctuation
+	my $word_np	= $token;
+	$word_np	=~ s/[^\w]//g;  	
+	if ($word_np =~ /^\s*$/) { $word_np = "EMPTY"; }
+
+	# Lowercased word, no punctuation
+  	my $word_lcnp = lc($word_np);    
+  	if ($word_lcnp =~ /^\s*$/) { $word_lcnp = "EMPTY"; }
   
-  ## lexical features
-  push(@{$feats}, "TOKEN-$word"); # lexical word
-  push(@{$feats}, "$wordLC");  # lowercased word
-  push(@{$feats}, "$wordLCNP");  # lowercased word, no punct
-  
-  if($config{"parscit"}){ # Parscit char feature
-    if($config{"parscit_char"}){ # Parscit char feature
-      my @chars = split(//,$word);
-      my $lastChar = $chars[-1];
-      if ($lastChar =~ /[\p{IsLower}]/) { $lastChar = 'a'; }
-      elsif ($lastChar =~ /[\p{IsUpper}]/) { $lastChar = 'A'; }
-      elsif ($lastChar =~ /[0-9]/) { $lastChar = '0'; }
-      push(@{$feats}, $lastChar);		       # 1 = last char
+  	# Lexical features
+  	push(@{$feats}, "TOKEN-$word"); # Lexical word
+  	push(@{$feats}, "$word_lc");  	# Lowercased word
+  	push(@{$feats}, "$word_lcnp");  # Lowercased word, no punct
 
-      # Thang added 02-Mar-10 this to avoid uninitialized warnning messages when using -w
-      for(my $i=scalar(@chars); $i<4;$i++){
-	push(@chars, '|');
-      }
+	# Parscit char feature
+	if ($config{"parscit"})
+	{
+		# Parscit char feature
+    	if ($config{"parscit_char"})
+		{
+      		my @chars 		= split(//,$word);
+      		my $last_char 	= $chars[-1];
+      	
+			if ($last_char =~ /[\p{IsLower}]/) 
+			{ 
+				$last_char = 'a'; 
+			}
+      		elsif ($last_char =~ /[\p{IsUpper}]/) 
+			{ 
+				$last_char = 'A'; 
+			}
+      		elsif ($last_char =~ /[0-9]/) 
+			{ 
+				$last_char = '0'; 
+			}
 
-      push(@{$feats}, $chars[0]);		      # 2 = first char
-      push(@{$feats}, join("",@chars[0..1]));  # 3 = first 2 chars
-      push(@{$feats}, join("",@chars[0..2]));  # 4 = first 3 chars
-      push(@{$feats}, join("",@chars[0..3]));  # 5 = first 4 chars
+			# 1 = last char
+	  		push(@{$feats}, $last_char);		       
+
+      		# Thang added 02-Mar-10 this to avoid uninitialized warnning messages when using -w
+      		for (my $i = scalar(@chars); $i < 4;$i++)
+			{
+				push(@chars, '|');
+      		}
+
+      		push(@{$feats}, $chars[0]);		      		# 2 = first char
+      		push(@{$feats}, join("",@chars[0..1]));  	# 3 = first 2 chars
+      		push(@{$feats}, join("",@chars[0..2]));  	# 4 = first 3 chars
+      		push(@{$feats}, join("",@chars[0..3]));  	# 5 = first 4 chars
       
-      push(@{$feats}, $chars[-1]);		       # 6 = last char
-      push(@{$feats}, join("",@chars[-2..-1])); # 7 = last 2 chars
-      push(@{$feats}, join("",@chars[-3..-1])); # 8 = last 3 chars
-      push(@{$feats}, join("",@chars[-4..-1])); # 9 = last 4 chars
-    }
-  }
+      		push(@{$feats}, $chars[-1]);		       	# 6 = last char
+      		push(@{$feats}, join("",@chars[-2..-1])); 	# 7 = last 2 chars
+      		push(@{$feats}, join("",@chars[-3..-1])); 	# 8 = last 3 chars
+      		push(@{$feats}, join("",@chars[-4..-1]));	# 9 = last 4 chars
+    	}
+  	}
 
-  ## capitalization features
-  if($config{"tokenCapital"}){
-    my $ortho = ($wordNP =~ /^[\p{IsUpper}]$/) ? "singleCap" :
-      ($wordNP =~ /^[\p{IsUpper}][\p{IsLower}]+/) ? "InitCap" :
-	($wordNP =~ /^[\p{IsUpper}]+$/) ? "AllCap" : "others";
-    push(@{$feats}, $ortho);
-  }
+  	# Capitalization features
+  	if ($config{"tokenCapital"})
+	{
+    	my $ortho = ($word_np =~ /^[\p{IsUpper}]$/) 				? "singleCap" 	:
+      				($word_np =~ /^[\p{IsUpper}][\p{IsLower}]+/)	? "InitCap" 	:
+					($word_np =~ /^[\p{IsUpper}]+$/) 				? "AllCap" 		: "others";
+    
+		push(@{$feats}, $ortho);
+  	}
 
-  ## number features
-  if($config{"tokenNumber"}){
-    my $num ;
+  	# Number features
+  	if ($config{"tokenNumber"})
+	{
+    	my $num = undef;
     
-    if($config{"parscit"}){
-      $num = ($wordNP =~ /^(19|20)[0-9][0-9]$/) ? "year" :
-	($word =~ /[0-9]\-[0-9]/) ? "possiblePage" :
-	  ($word =~ /[0-9]\([0-9]+\)/) ? "possibleVol" :
-	    ($wordNP =~ /^[0-9]$/) ? "1dig" :
-	      ($wordNP =~ /^[0-9][0-9]$/) ? "2dig" :
-		($wordNP =~ /^[0-9][0-9][0-9]$/) ? "3dig" :
-		  ($wordNP =~ /^[0-9]+$/) ? "4+dig" :
-		    ($wordNP =~ /^[0-9]+(th|st|nd|rd)$/) ? "ordinal" :
-		      ($wordNP =~ /[0-9]/) ? "hasDig" : "nonNum";
-    } else {
-      $num = 
-	($word =~ /^[1-9]+\.$/) ? "endDot" :
-	  ($word =~ /^[1-9]+:$/) ? "endCol" :
-	    
-	    # Parscit features
-	    ($wordNP =~ /^(19|20)[0-9][0-9]$/) ? "year" :
-	      ($word =~ /[0-9]\-[0-9]/) ? "possiblePage" :
-		($word =~ /[0-9]\([0-9]+\)/) ? "possibleVol" :
-		  ($wordNP =~ /^[0-9]$/) ? "1dig" :
-		    ($wordNP =~ /^[0-9][0-9]$/) ? "2dig" :
-		      ($wordNP =~ /^[0-9][0-9][0-9]$/) ? "3dig" :
-			($wordNP =~ /^[0-9]+$/) ? "4+dig" :
-			  ($wordNP =~ /^[0-9]+(th|st|nd|rd)$/) ? "ordinal" :
-			    ($wordNP =~ /[0-9]/) ? "hasDig" : "nonNum";
-    } # end if parscit
-    push(@{$feats}, $num);
-  }
+    	if ($config{"parscit"})
+		{
+      		$num = 	($word_np =~ /^(19|20)[0-9][0-9]$/) 	? "year" 			:
+					($word =~ /[0-9]\-[0-9]/) 				? "possiblePage" 	:
+	  				($word =~ /[0-9]\([0-9]+\)/)	 		? "possibleVol"		:
+	    			($word_np =~ /^[0-9]$/) 				? "1dig" 			:
+	      			($word_np =~ /^[0-9][0-9]$/) 			? "2dig" 			:
+					($word_np =~ /^[0-9][0-9][0-9]$/) 		? "3dig" 			:
+		  			($word_np =~ /^[0-9]+$/) 				? "4+dig" 			:
+		    		($word_np =~ /^[0-9]+(th|st|nd|rd)$/) 	? "ordinal" 		:
+		      		($word_np =~ /[0-9]/) 					? "hasDig" 			: "nonNum";
+    	} 
+		else 
+		{
+      		$num =	($word =~ /^[1-9]+\.$/)					? "endDot" 			:
+	  				($word =~ /^[1-9]+:$/) 					? "endCol"			:
+	    	    	# Parscit features
+	    			($word_np =~ /^(19|20)[0-9][0-9]$/) 	? "year" 			:
+	      			($word =~ /[0-9]\-[0-9]/) 				? "possiblePage"	:
+					($word =~ /[0-9]\([0-9]+\)/) 			? "possibleVol" 	:
+		  			($word_np =~ /^[0-9]$/) 				? "1dig" 			:
+		    		($word_np =~ /^[0-9][0-9]$/) 			? "2dig" 			:
+		      		($word_np =~ /^[0-9][0-9][0-9]$/) 		? "3dig" 			:
+					($word_np =~ /^[0-9]+$/) 				? "4+dig" 			:
+			  		($word_np =~ /^[0-9]+(th|st|nd|rd)$/) 	? "ordinal" 		:
+			    	($word_np =~ /[0-9]/) 					? "hasDig" 			: "nonNum";
+    	}
+    
+		push(@{$feats}, $num);
+  	}
 
-  ## gazetteer (names) features
-  if($config{"tokenName"}){
-    my $dictStatus = (defined $dict{$wordLCNP}) ? $dict{$wordLCNP} : 0;
-    #      my $isInDict = ($dictStatus != 0) ? "isInDict" : "no";
-    my $isInDict = $dictStatus;
+  	# Gazetteer (names) features
+  	if ($config{"tokenName"})
+	{
+    	my $dict_status = (defined $dict{$word_lcnp}) ? $dict{$word_lcnp} : 0;
+    	# my $is_in_dict = ($dict_status != 0) ? "is_in_dict" : "no";
     
-    my ($publisherName,$placeName,$monthName,$lastName,$femaleName,$maleName);
+		my $is_in_dict = $dict_status;
     
-    if ($dictStatus >= 32) { $dictStatus -= 32; $publisherName = "publisherName" } else { $publisherName = "no"; }
-    if ($dictStatus >= 16) { $dictStatus -= 16; $placeName = "placeName" } else { $placeName = "no"; }
-    if ($dictStatus >= 8) { $dictStatus -= 8; $monthName = "monthName" } else { $monthName = "no"; }
-    if ($dictStatus >= 4) { $dictStatus -= 4; $lastName = "lastName" } else { $lastName = "no"; }
-    if ($dictStatus >= 2) { $dictStatus -= 2; $femaleName = "femaleName" } else { $femaleName = "no"; }
-    if ($dictStatus >= 1) { $dictStatus -= 1; $maleName = "maleName" } else { $maleName = "no"; }
+		my ($publisher_name, $place_name, $month_name, $last_name, $female_name, $male_name) = undef;
     
-    push(@{$feats}, $isInDict);		    # 13 = name status
-    push(@{$feats}, $maleName);		      # 14 = male name
-    push(@{$feats}, $femaleName);		    # 15 = female name
-    push(@{$feats}, $lastName);		      # 16 = last name
-    push(@{$feats}, $monthName);		     # 17 = month name
-    push(@{$feats}, $placeName);		     # 18 = place name
-    push(@{$feats}, $publisherName);	 # 19 = publisher name
-  }
+    	if ($dict_status >= 32) { $dict_status -= 32; 	$publisher_name	= "publisherName"	} else { $publisher_name	= "no"; }
+    	if ($dict_status >= 16)	{ $dict_status -= 16; 	$place_name 	= "placeName" 		} else { $place_name 		= "no"; }
+    	if ($dict_status >= 8)	{ $dict_status -= 8; 	$month_name 	= "monthName" 		} else { $month_name 		= "no"; }
+    	if ($dict_status >= 4)	{ $dict_status -= 4; 	$last_name 		= "lastName" 		} else { $last_name 		= "no"; }
+    	if ($dict_status >= 2) 	{ $dict_status -= 2; 	$female_name 	= "femaleName" 		} else { $female_name 		= "no"; }
+    	if ($dict_status >= 1) 	{ $dict_status -= 1; 	$male_name 		= "maleName" 		} else { $male_name 		= "no"; }
+    
+    	push(@{$feats}, $is_in_dict);		# 13 = name status
+    	push(@{$feats}, $male_name);	    # 14 = male name
+    	push(@{$feats}, $female_name);		# 15 = female name
+    	push(@{$feats}, $last_name);	    # 16 = last name
+    	push(@{$feats}, $month_name);		# 17 = month name
+    	push(@{$feats}, $place_name);		# 18 = place name
+    	push(@{$feats}, $publisher_name);	# 19 = publisher name
+  	}
   
-  # punctuation features
-  if($config{"tokenPunct"}){
-    my $punct;
+  	# Punctuation features
+  	if ($config{"tokenPunct"})
+	{
+    	my $punct = undef;
 
-    if($config{"parscit"}){
-      $punct = ($word =~ /^[\"\'\`]/) ? "leadQuote" :
-	($word =~ /[\"\'\`][^s]?$/) ? "endQuote" :
-	  ($word =~ /\-.*\-/) ? "multiHyphen" :
-	    ($word =~ /[\-\,\:\;]$/) ? "contPunct" :
-	      ($word =~ /[\!\?\.\"\']$/) ? "stopPunct" :
-	        ($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-		  ($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
-    } else {
-      $punct = 
-	($word =~ /^[a-z]\d$/) ? "possibleVar" : # x1, x2
+    	if ($config{"parscit"})
+		{
+      		$punct = 	($word =~ /^[\"\'\`]/) 						? "leadQuote" 	:
+						($word =~ /[\"\'\`][^s]?$/) 				? "endQuote" 	:
+	  					($word =~ /\-.*\-/) 						? "multiHyphen"	:
+	    				($word =~ /[\-\,\:\;]$/) 					? "contPunct" 	:
+	      				($word =~ /[\!\?\.\"\']$/) 					? "stopPunct" 	:
+	        			($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) 	? "braces" 		:
+		  				($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/)	? "possibleVol" : "others";
+    	} 
+		else 
+		{
+      		$punct =	($word =~ /^[a-z]\d$/) 						? "possibleVar" : # x1, x2
+	  		# Parscit
+			#			($word =~ /^[\"\'\`]/) 						? "leadQuote" 	:
+			#			($word =~ /[\"\'\`][^s]?$/) 				? "endQuote" 	:
+			#			($word =~ /\-.*\-/) 						? "multiHyphen" :
+						($word =~ /[\-\,\:\;]$/) 					? "contPunct" 	:
+		  				($word =~ /[\!\?\.\"\']$/) 					? "stopPunct" 	:
+		    			($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) 	? "braces" 		:
+		     	 		($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/)	? "possibleVol"	: "punctOthers";
 
-	  # Parscit
-#	  ($word =~ /^[\"\'\`]/) ? "leadQuote" :
-#	    ($word =~ /[\"\'\`][^s]?$/) ? "endQuote" :
-#	      ($word =~ /\-.*\-/) ? "multiHyphen" :
-		($word =~ /[\-\,\:\;]$/) ? "contPunct" :
-		  ($word =~ /[\!\?\.\"\']$/) ? "stopPunct" :
-		    ($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-		      ($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "punctOthers";
+			#			($word =~ /^[\*\^\x{0608}\x{0708}\x{07A0}][A-Za-z]\w*$/  && $index == 0)	? "punctFootnote" 	:
+			#			($word =~ /^[\p{P}\p{Math_Symbol}]*\p{Math_Symbol}\p{P}\p{Math_Symbol}]*/)	? "mathSym" 		:
+    	}
 
-#		  ($word =~ /^[\*\^\x{0608}\x{0708}\x{07A0}][A-Za-z]\w*$/  && $index == 0) ? "punctFootnote" :
-#		  ($word =~ /^[\p{P}\p{Math_Symbol}]*\p{Math_Symbol}\p{P}\p{Math_Symbol}]*/) ? "mathSym" :
-    } # end if parscit
+    	push(@{$feats}, $punct);
+	}
 
-    push(@{$feats}, $punct);
-  } # end fi punct feature
+  	if ($config{"tokenKeyword"})
+	{
+    	my $keyword_fea = "noKeyword";
+    	my $token = $word;
 
-  if($config{"tokenKeyword"}){
-    my $keywordFea = "noKeyword";
-    my $token = $word;
-    $token =~ s/^\p{P}+//g; #strip out leading punctuations
-    $token =~ s/\p{P}+$//g; #strip out trailing punctuations
-    $token =~ s/\d/0/g; #canocalize number into "0"
+		$token =~ s/^\p{P}+//g; # Strip out leading punctuations
+    	$token =~ s/\p{P}+$//g; # Strip out trailing punctuations
+    	$token =~ s/\d/0/g; 	# Canocalize number into "0"
     
-    foreach(keys %{$allTags}){
-      if($allTags->{$_} == 0) { next; };
+		foreach (keys %{$all_tags})
+		{
+      		if ($all_tags->{$_} == 0) { next; }
       
-      if($keywords->{$_}->{$token}){
-	$keywordFea = "keyword-$_";
-	last;
-      }
-    }
+      		if ($keywords->{$_}->{$token})
+			{
+				$keyword_fea = "keyword-$_";
+				last;
+      		}
+    	}
 
-    push(@{$feats}, $keywordFea);
-  }
+    	push(@{$feats}, $keyword_fea);
+  	}
 
-  # for crfpp template
-  my $curSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"end"} = $curSize;
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-  }
-  push(@{$templates}, "\n");
+  	# For crfpp template
+  	my $cur_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"end"} = $cur_size;
+  	
+	my $i = 0;
+  	for(my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+  	}
+  
+  	push(@{$templates}, "\n");
 }
 
-sub getCapFeature {
-  my ($tokens) = @_;
+sub GetCapFeature 
+{
+	my ($tokens) = @_;
+	
+	my $cap 	= "OthersCaps";
+ 	my $n 		= 0;
+  	my $count 	= 0; # non-word
+  	my $count1 	= 0;
+  	my $line 	= "";
 
-  my $cap = "OthersCaps";
-  my $n = 0;
-  my $count = 0; # non-word
-  my $count1 = 0;
-  my $line = "";
-
-  # check capitalization
-  my $isSkip = 0;
-  for(my $i = 0; $i < scalar(@{$tokens}); $i++){
-    my $token = $tokens->[$i];
-    if($token =~ /^\p{P}*$/){
-      next;
-    }
-    my @chars = split(//, $token);    
-    if(scalar(@chars) < 4) { # exclude non-word or an important words such as a, an, the, on, in ...
-      if(!($i == 0 && $token =~ /\d/)){ # dont' consider skip if it is the first token as numbers
-	$isSkip = 1; 
-      }
-      next;
-    } 
-
-    if($token =~ /^[A-Z][A-Za-z]*$/){ # capitalized
-      $count++;
-      $line .= "$token ";
-    }
+  	# Check capitalization
+  	my $is_skip = 0;
+  	for (my $i = 0; $i < scalar(@{$tokens}); $i++)
+	{
+    	my $token = $tokens->[$i];
+    	if ($token =~ /^\p{P}*$/) { next; }
+	
+		my @chars = split(//, $token);    
+		# Exclude non-word or an important words such as a, an, the, on, in ...
+    	if (scalar(@chars) < 4) 
+		{ 
+			# Dont' consider skip if it is the first token as numbers
+      		if (!($i == 0 && $token =~ /\d/))
+			{
+				$is_skip = 1; 
+      		}
+      		
+			next;
+    	} 
+	
+		# Capitalized
+    	if ($token =~ /^[A-Z][A-Za-z]*$/)
+		{ 
+      		$count++;
+      		$line .= "$token ";
+    	}
     
-    $n++;
-  }
+    	$n++;
+  	}
 
-  if($count >0){ # consider only if at lest 1 capitalized word
-    if($count == $n){
-      $cap = ($isSkip) ? "Most" : "All";
-      if($line =~ /[a-z]/){
-	$cap .= "InitCaps";
-      } else {
-	$cap .= "CharCaps";
-      }
-      if($tokens->[0] =~ /\d/) {# first token contains number
-	$cap = "Number$cap";
-      } elsif($count == 1){ # two few capitalized letter to conclude any pattern
-	$cap = "OthersCaps";
-      }
-    }
-  }
-  return $cap;
-}
+	# Consider only if at lest 1 capitalized word
+  	if ($count >0)
+	{
+    	if ($count == $n)
+		{
+      		$cap = ($is_skip) ? "Most" : "All";
+      
+	  		if($line =~ /[a-z]/)
+			{
+				$cap .= "InitCaps";
+      		} 
+			else 
+			{
+				$cap .= "CharCaps";
+      		}
 
-sub featureLink {
-  my ($templates, $label, $msg, $start, $end, $relPos) = @_;
-  my $i;
-
-  # to constraint on last token features at $relPos relative position
-  $i = 0;
-  push(@{$templates}, $msg);
-  for(my $j=$start; $j < $end; $j++){
-    push(@{$templates}, "$label".$i++.":%x[$relPos,$j]\n");
-  }
-  push(@{$templates}, "\n");
-}
-
-sub generateKeywordFeature {
-  my ($tokens, $feats, $keywords, $msg, $label, $templates, $featureCounts) = @_;
-
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"start"} = $prevSize;
-
-  foreach(keys %{$allTags}){
-    if($allTags->{$_} == 0) { next; };
-
-    my $i=0;
-    for(; $i<scalar(@{$tokens}); $i++){
-      if($keywords->{$_}->{$tokens->[$i]}){
-	push(@{$feats}, "$_-".$tokens->[$i]);
-	last;
-      }
-    }
-
-    if($i==scalar(@{$tokens})){
-      push(@{$feats}, "none");
-    }
-  }
-
-  # for crfpp template
-  my $curSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"end"} = $curSize;
+			# First token contains number
+	  		if ($tokens->[0] =~ /\d/) 
+			{
+				$cap = "number$cap";
+      		} 
+			# Two few capitalized letter to conclude any pattern
+			elsif ($count == 1)
+			{
+				$cap = "OthersCaps";
+      		}
+    	}
+  	}
   
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-  }
-  push(@{$templates}, "\n");
+  	return $cap;
 }
 
-##
-# Get nGrams
-##
-sub getNgrams {
-  my ($line, $numNGram, $nGrams) = @_;
+sub FeatureLink 
+{
+	my ($templates, $label, $msg, $start, $end, $rel_pos) = @_;
 
-#  $line = lc($line);
-
-  my @tmpTokens = split(/\s+/, $line);
-
-  #filter out empty token
-  my @tokens = ();
-  foreach my $token (@tmpTokens){ 
-    if($token ne ""){
-      $token =~ s/^\s+//g; # strip off leading spaces
-      $token =~ s/\s+$//g; # strip off trailing spaces
-      $token =~ s/^\p{P}+//g; #strip out leading punctuations
-      $token =~ s/\p{P}+$//g; #strip out trailing punctuations
-      $token =~ s/\d/0/g; #canocalize number into "0"
-
-      if($token =~ /(\w.*)@(.*\..*)/){ #email pattern, try to normalize
-	#	 $token =~ /(http:\/\/|www\.)/){
-	$token = $1;
-	my $remain = $2;
-	$token =~ s/\w+/x/g;
-	$token =~ s/\d+/0/g;
-	$token .= "@".$remain;
-      } 
-
-      if($token ne ""){
-	push(@tokens, $token);
-      }
-    }
-  }
-
-  my $count = 0;  
-  for(my $i=0; $i<=$#tokens; $i++){
-    if(($#tokens-$i + 1) < $numNGram) { last; }; # not enough ngrams
-    my $nGram = "";
-    for(my $j=$i; $j <= ($i+$numNGram-1); $j++){
-      my $token = $tokens[$j];
-
-      if($j < ($i+$numNGram-1)){
-	$nGram .= "$token-";
-      } else {
-	$nGram .= "$token";
-      }
-    }
-
-    if($nGram =~ /^\s*$/){ next; } #skip those with white spaces
-    if($nGram =~ /^\d*$/){ next; } #skip those with only digits
-    if($funcWord{$nGram}){ next; } #skip function words, matter for nGram = 1
-    push(@{$nGrams}, $nGram);
-
-    $count++;
-    if($count == 4){
-      last;
-    }
-  } # end while true
-}
-
-sub generateNumberFeature {
-  my ($tokens, $feats, $msg, $label, $templates, $featureCounts) = @_;
-
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"start"} = $prevSize;
-
-  my $line = join("", @{$tokens});
-  $line =~ s/\s+//g;
-  my @chars = split(//, $line);
-
-  my $count = 0;
-  my $n = scalar(@chars);
-  foreach(@chars){
-    if(/\d/){
-      $count++;
-    }
-  }
-
-  my $num = "otherNum";
-  if($n > 1){
-    my $ratio = $count/$n;
-    if($ratio >= 0.7){
-      $num = "HighNum";
-    } elsif($ratio >= 0.4){
-     $num = "MeidumNum";
-    }
-  }
-
-  push(@{$feats}, $num);
+  	# To constraint on last token features at $rel_pos relative position
+  	my $i = 0;  	
+	push(@{$templates}, $msg);
   
-  # for crfpp template
-  my $curSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"end"} = $curSize;
+  	for (my $j = $start; $j < $end; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[$rel_pos,$j]\n");
+  	}
   
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-  }
-  push(@{$templates}, "\n");
+  	push(@{$templates}, "\n");
 }
 
-sub generateFuncFeature {
-  my ($tokens, $feats, $msg, $label, $templates, $featureCounts) = @_;
+sub GenerateKeywordFeature 
+{
 
-  # crfpp template
-  push(@{$templates}, $msg);
-  my $prevSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"start"} = $prevSize;
+	my ($tokens, $feats, $keywords, $msg, $label, $templates, $feature_counts) = @_;
 
-  my $n = scalar(@{$tokens});
-  my $count = 0;
-  foreach my $token (@{$tokens}){
-    $token =~ s/^\p{P}+//; #strip leading punct
-    $token =~ s/\p{P}+$//; #strip traiing punct
-    $token = lc($token);
-    if($funcWord{$token}){
-      $count++;
-    }
-  }
+  	# Crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"start"} = $prev_size;
 
-  if($count == 0){
-    push(@{$feats}, "NoFunc");
-  } elsif($count <= 5){
-    push(@{$feats}, "FewFunc");
-  } else {
-    push(@{$feats}, "AlotFunc");
-  }
+  	foreach (keys %{$all_tags})
+	{
+    	if($all_tags->{$_} == 0) { next; };
 
-  # for crfpp template
-  my $curSize = scalar(@{$feats});
-  $featureCounts->{$label}->{"end"} = $curSize;
+    	my $i=0;
+    	for(; $i<scalar(@{$tokens}); $i++)
+		{
+      		if ($keywords->{$_}->{$tokens->[$i]})
+			{
+				push(@{$feats}, "$_-".$tokens->[$i]);
+				last;
+      		}
+    	}
+
+    	if ($i==scalar(@{$tokens}))
+		{
+      		push(@{$feats}, "none");
+    	}
+  	}
+
+  	# For crfpp template
+  	my $cur_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"end"} = $cur_size;
   
-  my $i = 0;
-  for(my $j=$prevSize; $j < $curSize; $j++){
-    push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
-  }
-  push(@{$templates}, "\n");
+  	my $i = 0;
+  	for (my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+  	}
+  	
+	push(@{$templates}, "\n");
 }
 
-sub buildTmpFile {
+# Get ngrams
+sub GetNgrams 
+{
+	my ($line, $num_ngram, $ngrams) = @_;
+
+	# $line = lc($line);
+
+  	my @tmp_tokens = split(/\s+/, $line);
+
+  	# Filter out empty token
+  	my @tokens = ();
+	foreach my $token (@tmp_tokens)
+	{ 
+    	if ($token ne "")
+		{
+      		$token =~ s/^\s+//g; 	# Strip off leading spaces
+      		$token =~ s/\s+$//g; 	# Strip off trailing spaces
+      		$token =~ s/^\p{P}+//g; # Strip out leading punctuations
+      		$token =~ s/\p{P}+$//g; # Strip out trailing punctuations
+      		$token =~ s/\d/0/g; 	# Canocalize number into "0"
+			
+			# Email pattern, try to normalize
+      		if ($token =~ /(\w.*)@(.*\..*)/)
+			{
+				# $token =~ /(http:\/\/|www\.)/){
+				$token = $1;
+				
+				my $remain = $2;
+				$token =~ s/\w+/x/g;
+				$token =~ s/\d+/0/g;
+				$token .= "@".$remain;
+      		} 
+
+      		if ($token ne "")
+			{
+				push(@tokens, $token);
+      		}
+    	}
+  	}
+
+  	my $count = 0;  
+	for (my $i = 0; $i <= $#tokens; $i++)
+	{ 
+		# not enough ngrams
+    	if (($#tokens-$i + 1) < $num_ngram) { last; };
+    
+		my $ngram = "";
+    	for (my $j=$i; $j <= ($i+$num_ngram-1); $j++)
+		{
+      		my $token = $tokens[$j];
+
+      		if ($j < ($i+$num_ngram-1))
+			{
+				$ngram .= "$token-";
+      		} 
+			else 
+			{
+				$ngram .= "$token";
+      		}
+    	}
+
+    	if ($ngram =~ /^\s*$/)	{ next; } # Skip those with white spaces
+    	if ($ngram =~ /^\d*$/)	{ next; } # Skip those with only digits
+    	if ($func_word{$ngram})	{ next; } # Skip function words, matter for ngram = 1
+
+		push(@{$ngrams}, $ngram);
+
+    	$count++;
+    	if ($count == 4) { last; }
+  	}
+}
+
+sub GenerateNumberFeature 
+{
+	my ($tokens, $feats, $msg, $label, $templates, $feature_counts) = @_;
+
+  	# crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"start"} = $prev_size;
+
+  	my $line 	= join("", @{$tokens});
+  	$line 		=~ s/\s+//g;
+  	my @chars	= split(//, $line);
+
+  	my $count 	= 0;
+  	my $n 		= scalar(@chars);
+
+	foreach(@chars)
+	{
+    	if (/\d/) { $count++; }
+  	}
+
+  	my $num = "otherNum";
+  
+  	if ($n > 1)
+	{
+    	my $ratio = $count/$n;
+    	if ($ratio >= 0.7)
+		{
+      		$num = "HighNum";
+    	} 
+		elsif ($ratio >= 0.4)
+		{
+     		$num = "MeidumNum";
+    	}
+  	}
+
+  	push(@{$feats}, $num);
+  
+  	# For crfpp template
+  	my $cur_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"end"} = $cur_size;
+  
+  	my $i = 0;
+  	for (my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+  	}
+  
+  	push(@{$templates}, "\n");
+}
+
+sub GenerateFuncFeature 
+{
+	my ($tokens, $feats, $msg, $label, $templates, $feature_counts) = @_;
+
+  	# Crfpp template
+  	push(@{$templates}, $msg);
+  	my $prev_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"start"} = $prev_size;
+
+  	my $n 		= scalar(@{$tokens});
+  	my $count 	= 0;
+  
+  	foreach my $token (@{$tokens})
+	{
+    	$token =~ s/^\p{P}+//; # Strip leading punct
+    	$token =~ s/\p{P}+$//; # Strip traiing punct
+    	$token = lc($token);
+
+		if ($func_word{$token})
+		{
+      		$count++;
+    	}
+  	}
+
+  	if ($count == 0)
+	{
+    	push(@{$feats}, "NoFunc");
+  	} 
+	elsif ($count <= 5)
+	{
+    	push(@{$feats}, "FewFunc");
+  	} 
+	else 
+	{
+    	push(@{$feats}, "AlotFunc");
+  	}
+
+  	# For crfpp template
+  	my $cur_size = scalar(@{$feats});
+  	$feature_counts->{$label}->{"end"} = $cur_size;
+  
+  	my $i = 0;
+  	for (my $j = $prev_size; $j < $cur_size; $j++)
+	{
+    	push(@{$templates}, "$label".$i++.":%x[0,$j]\n");
+  	}
+  
+  	push(@{$templates}, "\n");
+}
+
+sub BuildTmpFile 
+{
     my ($filename) = @_;
-    my $tmpfile = $filename;
-    $tmpfile =~ s/[\.\/]//g;
-    $tmpfile .= $$ . time;
-    # untaint tmpfile variable
-    if ($tmpfile =~ /^([-\@\w.]+)$/) {
-	$tmpfile = $1;
+	
+	my $tmpfile = $filename;
+    $tmpfile 	=~ s/[\.\/]//g;
+    $tmpfile 	.= $$ . time;
+    
+	# Untaint tmpfile variable
+    if ($tmpfile =~ /^([-\@\w.]+)$/) 
+	{
+		$tmpfile = $1;
     }
     
-    # return $tmpfile;
     return "/tmp/$tmpfile"; # Altered by Min (Thu Feb 28 13:08:59 SGT 2008)
+}
 
-}  # buildTmpFile
 
-
-sub fatal {
+sub Fatal 
+{
     my $msg = shift;
     print STDERR "Fatal Exception: $msg\n";
 }
 
 
-sub decode {
-  my ($inFile, $modelFile, $outFile) = @_;
+sub Decode 
+{
+	my ($infile, $model_file, $outfile) = @_;
   
-  my $labeledFile = buildTmpFile($inFile);
-  execute("$crf_test -v1 -m $modelFile $inFile > $labeledFile"); #  -v1: output confidence information
+  	my $labeled_file = BuildTmpFile($infile);
+  	Execute("$crf_test -v1 -m $model_file $infile > $labeled_file"); #  -v1: output confidence information
 
-  open (PIPE, "<:utf8", $labeledFile) || die "# crash\t\tCan't open \"$labeledFile\"";
+  	open (PIPE, "<:utf8", $labeled_file) || die "# crash\t\tCan't open \"$labeled_file\"";
+  	open (OUT, ">:utf8", $outfile) || die "# crash\t\tCan't open \"$outfile\"";
 
-  open (OUT, ">:utf8", $outFile) || die "# crash\t\tCan't open \"$outFile\"";
+  	while(<PIPE>)
+	{
+    	chomp;
+    	print OUT "$_\n";
+  	}
+  	
+	close PIPE;
+  	close OUT;
+ 
+ 	unlink($labeled_file);
+  	return 1;
+}
 
-  while(<PIPE>){
-    chomp;
-    print OUT "$_\n";
-  }
-  close PIPE;
-  close OUT;
+sub ReadKeywordDict 
+{
+  	my ($infile, $keywords) = @_;
+
+  	open (IF, "<:utf8", $infile) || die "fatal\t\tCannot open \"$infile\"!";
+  	# Process input file
+  	while(<IF>)
+  	{
+  		chomp;
+    
+    	if (/^(.+?): (.+)$/)
+		{
+      		my $tag 	= $1;
+      		my @tokens 	= split(/\s+/, $2);
+      
+	  		$keywords->{$tag} = ();
+      		foreach(@tokens)
+			{
+				$keywords->{$tag}->{$_} = 1;
+      		}
+    	}
+  	}
+
+  	close (IF);
+}
+
+sub LoadConfigFile 
+{
+	my ($infile, $configs) = @_;
+
+  	open (IF, "<:utf8", $infile) || die "fatal\t\tCannot open \"$infile\"!";
   
-  return 1;
-}  # decode
-
-sub readKeywordDict {
-  my ($inFile, $keywords) = @_;
-
-  open (IF, "<:utf8", $inFile) || die "fatal\t\tCannot open \"$inFile\"!";
-#  print STDERR "Load keywords from file $inFile\n";
-  #process input file
-  while(<IF>){
-    chomp;
+  	while(<IF>)
+	{
+    	chomp;
     
-    if(/^(.+?): (.+)$/){
-      my $tag = $1;
-      my @tokens = split(/\s+/, $2);
-      $keywords->{$tag} = ();
-      foreach(@tokens){
-	$keywords->{$tag}->{$_} = 1;
-      }
-    }
-  }
+    	if (/^(.+)=(.+)$/)
+		{
+      		my $name = $1;
+      		my $value = $2;
+      		$configs->{$name} = $value;
+    	}
+  	}
 
-  close (IF);
+  	close (IF);
 }
 
-sub loadConfigFile {
-  my ($inFile, $configs) = @_;
+sub ReadDict 
+{
+  	my ($dictFileLoc) = @_;
 
-  open (IF, "<:utf8", $inFile) || die "fatal\t\tCannot open \"$inFile\"!";
+  	my $mode = 0;
+  	open (DATA, "<:utf8", $dictFileLoc) || die "Could not open dict file $dictFileLoc: $!";
+  	while (<DATA>) 
+	{
+    	if (/^\#\# Male/) 			{ $mode = 1; }		# male names
+    	elsif (/^\#\# Female/) 		{ $mode = 2; }		# female names
+    	elsif (/^\#\# Last/) 		{ $mode = 4; }		# last names
+    	elsif (/^\#\# Chinese/) 	{ $mode = 4; }		# last names
+    	elsif (/^\#\# Months/) 		{ $mode = 8; }		# month names
+    	elsif (/^\#\# Place/) 		{ $mode = 16; }		# place names
+    	elsif (/^\#\# Publisher/)	{ $mode = 32; }		# publisher names
+    	elsif (/^\#/) { next; }
+    	else 
+		{
+      		chop;
+      		my $key = $_;
+      		my $val = 0;
+			# Has probability
+      		if (/\t/) { ($key,$val) = split (/\t/,$_); }
 
-#  print STDERR "\n# Loading config files $inFile\n";
-  while(<IF>){
-    chomp;
-    
-    if(/^(.+)=(.+)$/){
-#      print STDERR "$_\t";
-      my $name = $1;
-      my $value = $2;
-      $configs->{$name} = $value;
-    }
-  }
-#  print STDERR "\n";
-
-  close (IF);
+      		# Already tagged (some entries may appear in same part of lexicon more than once
+      		if (!$dict{$key})
+			{
+				$dict{$key} = $mode;
+      		} 
+			else 
+			{
+				if ($dict{$key} >= $mode) 
+				{ 
+					next; 
+				}
+				# Not yet tagged
+				else 
+				{ 
+					$dict{$key} += $mode; 
+				}
+      		}
+    	}
+  	}
+  
+	close (DATA);
 }
 
-sub readDict {
-  my ($dictFileLoc) = @_;
+sub LoadListHash 
+{
+	my ($infile, $hash) = @_;
 
-  my $mode = 0;
-  open (DATA, "<:utf8", $dictFileLoc) || die "Could not open dict file $dictFileLoc: $!";
-  while (<DATA>) {
-    if (/^\#\# Male/) { $mode = 1; }			  # male names
-    elsif (/^\#\# Female/) { $mode = 2; }		# female names
-    elsif (/^\#\# Last/) { $mode = 4; }			  # last names
-    elsif (/^\#\# Chinese/) { $mode = 4; }		  # last names
-    elsif (/^\#\# Months/) { $mode = 8; }		 # month names
-    elsif (/^\#\# Place/) { $mode = 16; }		 # place names
-    elsif (/^\#\# Publisher/) { $mode = 32; }	     # publisher names
-    elsif (/^\#/) { next; }
-    else {
-      chop;
-      my $key = $_;
-      my $val = 0;
-      if (/\t/) {				     # has probability
-	($key,$val) = split (/\t/,$_);
-      }
+  	open(IF, "<:utf8", $infile) || die "#Can't open file \"$infile\"";
 
-      # already tagged (some entries may appear in same part of lexicon more than once
-      if(!$dict{$key}){
-	$dict{$key} = $mode;
-      } else {
-	if ($dict{$key} >= $mode) { next; }
-	else { $dict{$key} += $mode; }		      # not yet tagged
-      }
-    }
-  }
-  close (DATA);
+  	while(<IF>)
+	{
+    	chomp;
+    	$hash->{$_} = 1;
+  	}
 
-}  # readDict
-
-sub loadListHash {
-  my ($inFile, $hash) = @_;
-
-  open(IF, "<:utf8", $inFile) || die "#Can't open file \"$inFile\"";
-
-  while(<IF>){
-    chomp;
-
-    $hash->{$_} = 1;
-  }
-
-  close IF;
+  	close IF;
 }
 
-sub untaint {
-  my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) {
-    $s = $1;               # $data now untainted
-  } else {
-    die "Bad data in $s";  # log this somewhere
-  }
-  return $s;
+sub Untaint 
+{
+	my ($s) = @_;
+  	if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) 
+	{
+    	$s = $1;               # $data now untainted
+  	} 
+	else 
+	{
+    	die "Bad data in $s";  # Log this somewhere
+  	}
+  
+  	return $s;
 }
 
-sub execute {
-  my ($cmd) = @_;
-#  print STDERR "Executing: $cmd\n";
-  $cmd = untaint($cmd);
-  system($cmd);
+sub Execute 
+{
+	my ($cmd) = @_;
+  	$cmd = Untaint($cmd);
+  	system($cmd);
 }
 
 1;

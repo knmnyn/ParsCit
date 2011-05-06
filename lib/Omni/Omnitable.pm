@@ -16,25 +16,6 @@ my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
 my $obj_list = $Omni::Config::obj_list;
 
-# Temporary variables
-my $tmp_content 	= undef;
-my $tmp_bottom		= undef;
-my $tmp_top			= undef;
-my $tmp_left		= undef;
-my $tmp_right		= undef;
-my $tmp_alignment	= undef;
-
-# My observation is that <table> contains <gridTable> and <cell>
-# <gridTable> contain the base grid's coordinates
-# <cell> contain the cell's position based on <gridTable> coordinates
-# and various types of objects: <picture>, <para>, may be even <dd> but
-# I'm not quite sure about this
-my @tmp_objs		= ();
-
-# Array contain grid coordinates
-my @tmp_grid_cols	= ();
-my @tmp_grid_rows	= ();
-
 ###
 # A table object in Omnipage xml: a table contains cells with various objects
 #
@@ -52,10 +33,14 @@ sub new
 	my @grid_cols	= ();
 	my @grid_rows	= ();
 
+	# Content of all rows in the table
+	my @rcontent	= ();
+
 	# Class members
 	my $self = {	'_self'			=> $obj_list->{ 'OMNITABLE' },
 					'_raw'			=> undef,
 					'_content'		=> undef,
+					'_rcontent'		=> \@rcontent,
 					'_bottom'		=> undef,
 					'_top'			=> undef,
 					'_left'			=> undef,
@@ -79,7 +64,7 @@ sub set_raw
 
 	# Parse the raw string
 	my $twig_roots		= { $tag_list->{ 'TABLE' }	=> 1 };
-	my $twig_handlers 	= { $tag_list->{ 'TABLE' }	=> \&parse};
+	my $twig_handlers 	= { $tag_list->{ 'TABLE' }	=> sub { parse(@_, \$self); } };
 
 	# XML::Twig 
 	my $twig = new XML::Twig(	twig_roots 		=> $twig_roots,
@@ -87,26 +72,8 @@ sub set_raw
 						 	 	pretty_print 	=> 'indented'	);
 
 	# Start the XML parsing
-	$twig->parse($raw);
+	$twig->parse($raw, \$self);
 	$twig->purge;
-
-	# Copy information from temporary variables to class members
-	$self->{ '_bottom' }	= $tmp_bottom;
-	$self->{ '_top' }		= $tmp_top;
-	$self->{ '_left' }		= $tmp_left;
-	$self->{ '_right' } 	= $tmp_right;
-	$self->{ '_alignment' }	= $tmp_alignment;
-
-	# Copy all cells 
-	@{$self->{ '_objs' } }		= @tmp_objs;
-
-	# Copy all grid columns
-	@{$self->{ '_grid_cols' } }	= @tmp_grid_cols;
-	# Copy all grid rows
-	@{$self->{ '_grid_rows' } }	= @tmp_grid_rows;
-	
-	# Copy content
-	$self->{ '_content' }		= $tmp_content;
 }
 
 sub get_raw
@@ -117,22 +84,23 @@ sub get_raw
 
 sub parse
 {
-	my ($twig, $node) = @_;
+	my ($twig, $node, $self) = @_;
 
 	# At first, content is blank
-	$tmp_content	= "";
+	my $tmp_content		= "";
+	my @tmp_rcontent	= ();
 	# because there's no object
-	@tmp_objs		= ();
+	my @tmp_objs		= ();
 	# and no coordinate
-	@tmp_grid_cols	= ();
-	@tmp_grid_rows	= ();
+	my @tmp_grid_cols	= ();
+	my @tmp_grid_rows	= ();
 
 	# Get <table> node attributes
-	$tmp_bottom			= GetNodeAttr($node, $att_list->{ 'BOTTOM' });
-	$tmp_top			= GetNodeAttr($node, $att_list->{ 'TOP' });
-	$tmp_left			= GetNodeAttr($node, $att_list->{ 'LEFT' });
-	$tmp_right			= GetNodeAttr($node, $att_list->{ 'RIGHT' });
-	$tmp_alignment		= GetNodeAttr($node, $att_list->{ 'ALIGN' });
+	my $tmp_bottom		= GetNodeAttr($node, $att_list->{ 'BOTTOM' });
+	my $tmp_top			= GetNodeAttr($node, $att_list->{ 'TOP' });
+	my $tmp_left		= GetNodeAttr($node, $att_list->{ 'LEFT' });
+	my $tmp_right		= GetNodeAttr($node, $att_list->{ 'RIGHT' });
+	my $tmp_alignment	= GetNodeAttr($node, $att_list->{ 'ALIGN' });
 
 	# A table contains <cell> and <gridtable> tag
 	my $cell_tag		= $tag_list->{ 'CELL' };
@@ -229,6 +197,8 @@ sub parse
 				$cell_content	 = $cell->get_content();
 				# Trim
 				$cell_content	 =~ s/^\s+|\s+$//g;
+				# Remove blank line
+				$cell_content	 =~ s/\n\s*\n/\n/g;
 
 				$content_matrix[ $row_index ][ $col_index ] = $cell_content;
 			}
@@ -249,13 +219,39 @@ sub parse
 					$lines[ $i ] = $lines[ $i ] . $local_lines[ $i ] . "\t";
 				}
 			}
-			# Add a new row
+
+			my $row_content = "";
+			# Add a new row to the table content and the row content
 			foreach my $line (@lines)
 			{
+				$row_content = $row_content . $line . "\n";
 				$tmp_content = $tmp_content . $line . "\n";
 			}
+			
+			# Save row content
+			push @tmp_rcontent, $row_content;
 		}
 	}
+
+	# Copy information from temporary variables to class members
+	$$self->{ '_bottom' }			= $tmp_bottom;
+	$$self->{ '_top' }				= $tmp_top;
+	$$self->{ '_left' }				= $tmp_left;
+	$$self->{ '_right' } 			= $tmp_right;
+	$$self->{ '_alignment' }		= $tmp_alignment;
+
+	# Copy all cells 
+	@{$$self->{ '_objs' } }			= @tmp_objs;
+
+	# Copy all grid columns
+	@{$$self->{ '_grid_cols' } }	= @tmp_grid_cols;
+	# Copy all grid rows
+	@{$$self->{ '_grid_rows' } }	= @tmp_grid_rows;
+	
+	# Copy content
+	$$self->{ '_content' }			= $tmp_content;
+	# Copy row content
+	@{ $$self->{ '_rcontent' } }	= @tmp_rcontent;
 }
 
 sub get_name
@@ -274,6 +270,12 @@ sub get_content
 {
 	my ($self) = @_;
 	return $self->{ '_content' };
+}
+
+sub get_row_content
+{
+	my ($self) = @_;
+	return $self->{ '_rcontent' };	
 }
 
 sub get_bottom_pos

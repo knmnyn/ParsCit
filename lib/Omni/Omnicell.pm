@@ -114,10 +114,18 @@ sub parse
 
 	# Get <cell> node attributes
 	$tmp_alignment		= GetNodeAttr($node, $att_list->{ 'ALIGN' });
+
 	$tmp_grid_row_from	= GetNodeAttr($node, $att_list->{ 'GROWFROM' });
 	$tmp_grid_row_to	= GetNodeAttr($node, $att_list->{ 'GROWTO' });
 	$tmp_grid_col_from	= GetNodeAttr($node, $att_list->{ 'GCOLFROM' });
 	$tmp_grid_col_to	= GetNodeAttr($node, $att_list->{ 'GCOLTO' });
+	
+	# TODO: don't understand, attribute with value = 0 will be returned as undef by twig
+	$tmp_grid_row_from	= ($tmp_grid_row_from ne "")	? $tmp_grid_row_from	: 0;
+	$tmp_grid_row_to	= ($tmp_grid_row_to ne "")		? $tmp_grid_row_to		: 0;
+	$tmp_grid_col_from	= ($tmp_grid_col_from ne "")	? $tmp_grid_col_from 	: 0;
+	$tmp_grid_col_to	= ($tmp_grid_col_to ne "")		? $tmp_grid_col_to 		: 0;
+
 	$tmp_vertical_align	= GetNodeAttr($node, $att_list->{ 'VALIGN' });
 
 	# Check if there's any object: <para> and <picture object: <para> and <picture>

@@ -96,31 +96,21 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version <A HREF="parscit-101101.zip">101101</A>: Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> and <A HREF=http://www.scripps.edu/~cdputnam/software/bibutils>BibUtils</A> software. See <A
-  HREF="CHANGELOG.txt">CHANGELOG.txt</A>; 
+  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added Author-affiliation matching. Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
+  <BR/> 
+  We have also pushed a copy of the ParsCit current distribution into <A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates. 
+  <BR/>
+  <li> Other versions: <BR/>
+<A HREF="parscit-101101.zip">101101</A>: Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> and <A HREF=http://www.scripps.edu/~cdputnam/software/bibutils>BibUtils</A> software. See CHANGELOG.txt; <BR/> 
+<A HREF="parscit-100401.zip">100401d</A>: Added SectLabel (logical structure parsing) software from the NUS team, and Iconip training data from Cheong Chi Hong for ParsCit with new ParsCit model retrained. See CHANGELOG.txt; <BR/> 
+<A HREF="parscit-090625.zip">090625b</A>: Added documentation for complete re-installation. Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
+<A HREF="parscit-090316.zip">090316</A>: Incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt; <BR/>
+<A HREF="parscit-081201.zip">081201</A>: Bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt; <BR/>
+<A HREF="parscit-080917.zip">080917</A>: Minor changes (improved models and mulilingual support), see CHANGELOG.txt; <BR/> 
+<A HREF="parscit-080402.zip">080402</A>: First public release.  Comes with precompiled linux binaries for CRF++; <BR/>
+<A HREF="parscit-080310.tgz">080310</A>: Beta release.
 
-<BR/>
-We have also pushed a copy of the ParsCit current distribution into 
-<A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates.
-<BR/>
-
-  <LI> Other versions: <BR/>
-<A HREF="parscit-100401.zip">100401d</A>: Added 
-  SectLabel (logical structure parsing) software from the NUS team,
-  and Iconip training data from Cheong Chi Hong for ParsCit with new
-  ParsCit model retrained. See CHANGELOG.txt; <BR/> 
-<A HREF="parscit-090625.zip">090625b</A>: added documentation for complete re-installation.  Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
-<A HREF="parscit-090316.zip">090316</A>: incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt;<BR/>
-<A HREF="parscit-081201.zip">081201</A>: bug fixes and incorporation of byte position offset from the Scienstein.org team. See CHANGELOG.txt;<BR/>
-<A HREF="parscit-080917.zip">080917</A>: minor changes (improved models and mulilingual support), see CHANGELOG.txt;<BR/> 
-<A HREF="parscit-080402.zip">080402</A>: first public release.  Comes with precompiled linux binaries for CRF++;<BR/>
-<A HREF="parscit-080310.tgz">080310</A>: beta release.
-
-  <li><A HREF="http://crfpp.sourceforge.net">CRF++</A>: A conditional
-random fields toolkit that you may need to install, if the compiled
-one does not work for you.  We recommend that you use version 0.51.
-
-</ul>
+  <li><A HREF="http://crfpp.sourceforge.net">CRF++</A>: A conditional random fields toolkit that you may need to install, if the compiled one does not work for you.  We recommend that you use version 0.51. </ul>
 
 <!-- Web Service ---------------------------------------------------------------------- --> 
 <A name="ws"></a><H2>Web Service</h2>
@@ -349,12 +339,12 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
 
 <UL>
   <LI> <A HREF="http://www.comp.nus.edu.sg/~kanmy">Min-Yen Kan</A> - Project leader, NUS
-<BR/>
   <LI> <A HREF="http://www.personal.psu.edu/igc2/">Isaac G. Councill</A>, The Pennsylvania State University
   <LI> <A HREF="http://clgiles.ist.psu.edu/">C. Lee Giles</A>, The Pennsylvania State University
   <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant, NUS
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
   <LI> Thuy Dung Nguyen - Research Assistant, NUS
+  <LI> Do Hoang Nhat Huy - Research Assistant, NUS
 </UL>
 
 <!-- FAQ ---------------------------------------------------------------------- -->
@@ -522,7 +512,11 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks Nikolay Nikolov for suggesting the conversion of OmniPage XML results from UTF-16 to UTF-8 to avoid encoding problems. Thanks to Matteo Romanello for the suggestion and permission to incorporate BiblioScript software (v101101). Many thanks to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
+<P>Thanks Tim Brody for his BiblioScript patch.Thanks Nikolay Nikolov 
+for suggesting the conversion of OmniPage XML results from UTF-16 to UTF-8 
+to avoid encoding problems. Thanks to Matteo Romanello for the suggestion 
+and permission to incorporate BiblioScript software (v101101). Many thanks 
+to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
 Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
 (v100401) and contributing the ICONIP training data and XML entity
 problems in reference string parsing (v100401).  Thanks to Priya

@@ -153,7 +153,7 @@ my $allText 		= processFile($inFile, $outFile, \%tags);
 # Find header part
 my @lines	 = split(/\n/, $allText);
 my $numLines = scalar(@lines);
-my ($headerLength, $bodyLength, $bodyStartId) =	SectLabel::PreProcess::findHeaderText(\@lines, 0, $numLines);
+my ($headerLength, $bodyLength, $bodyStartId) =	SectLabel::PreProcess::FindHeaderText(\@lines, 0, $numLines);
 
 # Output
 if ($isMarkup)
@@ -189,7 +189,7 @@ sub processFile
 
 	my $lineId = 0;
 
-	#each line contains a header
+	# Each line contains a header
 	while (<IF>) 
 	{
 		if (/^\#/) { next; } # skip comments
@@ -246,7 +246,6 @@ sub processFile
 			$text .= $line."\n";
 			next;
 		}
-
 		### Paragraph ###
 		# Note: table processing should have higher priority than paragraph, i.e. the priority does matter
 		elsif ($line =~ /^<para (.*)>$/)

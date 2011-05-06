@@ -6,6 +6,7 @@ use strict;
 # Local libraries
 use Omni::Config;
 use Omni::Omnipara;
+use Omni::Omnitable;
 
 # Extern libraries
 use XML::Twig;
@@ -15,8 +16,6 @@ use XML::Parser;
 my $tag_list = $Omni::Config::tag_list;
 my $att_list = $Omni::Config::att_list;
 my $obj_list = $Omni::Config::obj_list;
-
-# Temporary variables
 
 ###
 # A frame object in Omnipage xml: a frame contains paragraphs 
@@ -93,20 +92,20 @@ sub parse
 	# The large number of possible children is due to the
 	# ambiguous structure of the Omnipage XML
 	my $para_tag	= $tag_list->{ 'PARA' };
+	my $table_tag	= $tag_list->{ 'TABLE' };
 
-	my $child = undef;
 	# Get the first child in the body text
-	$child = $node->first_child();
+	my $child = $node->first_child();
 
 	while (defined $child)
 	{
 		my $xpath = $child->path();
 
-		# if this child is a <para> tag
+		# if this child is <para>
 		if ($xpath =~ m/\/$para_tag$/)
 		{
 			my $para = new Omni::Omnipara();
-
+		
 			# Set raw content
 			$para->set_raw($child->sprint());
 
@@ -116,7 +115,20 @@ sub parse
 			# Update content
 			$tmp_content = $tmp_content . $para->get_content() . "\n";
 		}
-	
+		elsif ($xpath =~ m/\/$table_tag$/)
+		{
+			my $table = new Omni::Omnitable();
+		
+			# Set raw content
+			$table->set_raw($child->sprint());
+
+			# Update paragraph list
+			push @tmp_objs, $table;
+
+			# Update content
+			$tmp_content = $tmp_content . $table->get_content() . "\n";
+		}
+
 		# Little brother
 		if ($child->is_last_child) 
 		{ 

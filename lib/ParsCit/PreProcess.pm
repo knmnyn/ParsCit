@@ -299,14 +299,14 @@ sub FindCitationText
 	if ($citetext eq "")
 	{
 		print STDERR "Citation text cannot be found: ignoring", "\n";
-		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
+		return \$citetext, NormalizeBodyText(\$bodytext, $pos_array), \$bodytext;
 	}
 
 	# Odd case: when citation is longer than the content itself, what should we do?
     if (length($citetext) >= 0.8 * length($bodytext)) 
 	{
 		print STDERR "Citation text longer than article body: ignoring\n";
-		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
+		return \$citetext, NormalizeBodyText(\$bodytext, $pos_array), \$bodytext;
     }
 
 	# Citation stops when another section starts
@@ -352,7 +352,7 @@ sub FindCitationText2
     if (length($citetext) >= 0.8 * length($bodytext)) 
 	{
 		print STDERR "Citation text longer than article body: ignoring\n";
-		return \$citetext, NormalizeBodyText(\$bodytext), \$bodytext;
+		return \$citetext, NormalizeBodyText(\$bodytext, $pos_array), \$bodytext;
     }
 
 	# Now we have the citation text
@@ -571,6 +571,7 @@ sub NormalizeBodyText
 	return \$text;  
 }
 
+# 
 sub TransformMarker 
 {
 	my ($first_number, $second_number) = @_;

@@ -1,3 +1,18 @@
+110505 (done by Huy)
+- New features: Sectlabel
+- Add author and affiliation matching ability (lib/SectLabel/AAMatching.pm resources/sectLabel/author.model resources/sectLabel/affiliation.model)
+- New sectlabel xml model with more tranning data (resources/sectLabel/sectLabel.modelXml.v2)
+
+- Major changes: Sectlabel
+- Addded Omni (lib/Omni/Omnitable.pm lib/Omni/Omnicell.pm lib/Omni/Omnidd.pm lib/Omni/Omniframe.pm lib/Omni/Traversal.pm)
+- Parscit now uses the reference output from Sectlabel as its input
+
+- Minor changes: Sectlabel and Parscit
+- Cleanup all temporary files in /tmp properly
+
+- Minor changes: bug fixes
+- Biblioscript: patch from Tim Brody
+
 110121 (done by Huy)
 - Major changes: Omni classes for Omnipage XML process using XML::Twig and XML::Writer instead of regular expression
 - Added Omni (lib/Omni/Config.pm lib/Omni/Omnicol.pm lib/Omni/Omnidoc.pm lib/Omni/Omniline.pm lib/Omni/Omnipage.pm lib/Omni/Omnipara.pm lib/Omni/Omnirun.pm lib/Omni/Omniword.pm)
@@ -8,9 +23,9 @@
 - Use the new Parscit model when there's no reference marker
 
 - Minor changes: bug fixes
-- Parscit post-process: stripPunctuation function removes the semi-colon in XML special characters, e.g. &amp;
+- Parscit post-process: stripPunctuation function removes the semi-colon in XML special characters, e.g. &amp; Thanks to Qasemizadeh, Behrang for reporting these issues.
 - Parscit controller: terminate properly when no reference is found (normBodyText size 1 != posArray size 0)
-- Parscit post-process: fix the volume number truncation, e.g. vol 5(1) becomes vol 5
+- Parscit post-process: fix the volume number truncation, e.g. vol 5(1) becomes vol 5; Thanks to Lennart Borgman for reporting these issues
 
 - Minor changes: Parscit
 - Add bin/xml2train.pl: extract reference text and XML information from Omnipage and save it into Parscit train file's format
@@ -33,7 +48,7 @@
 100401b
 - Minor changes (bug fixes) to section labeler model.
 
-100401 
+100401 (done by Thang)
 - Major Change: Added SectLabel module (due to Minh-Thang Luong and Thuy Dung Nguyen)
 - Added Iconip training data from Cheong Chi Hong
 - Updated default model to include Iconip data
@@ -42,7 +57,6 @@
 - Corrected small regexp error in lib/ParsCit/PreProcess.pm
 - Corrected small problem with training data in mixed-humanities
 
-(by Thang)
 - Added SectLabel (bin/sectExtract.pl, bin/sectExtract/, resource/sectExtract, lib/SectExtract)
 - Modified bin/citeExtract.pl, lib/ParsCit/PostProcess.pm, lib/ParsHed/PostProcess.pm to combine ParsCit, ParsHed, SectLabel, and standardize XML output
 - Added test/ for testing purpose with 12 samples documents and standard-output of citeExtract.pl in 5 modes (citations, header, section, meta, and all) using both txt and XML inputs
@@ -59,27 +73,17 @@
 - Released on 30 September 2009
 
 090625 (due to Minh-Thang Luong)
-- Standardized and improved ParsHed model with line-level
-  classification instead of token-level as previously.
-- Add a post-processing module for ParsHed to normalize field data,
-  e.g. authors, email, etc.
+- Standardized and improved ParsHed model with line-level classification instead of token-level as previously.
+- Add a post-processing module for ParsHed to normalize field data, e.g. authors, email, etc.
 - Detailed changes are reflected as follows:
-  * Added resources/parsHed - all parsHed-related including models
-   (old models in resources/parsHed/archive), template file, and
-   top frequent keyword files.
-  * Added lib/ParsHed - similar architect as lib/ParsCit to
-    modularizes and faciliates line-level training in ParsHed.
+  * Added resources/parsHed - all parsHed-related including models (old models in resources/parsHed/archive), template file, and top frequent keyword files.
+  * Added lib/ParsHed - similar architect as lib/ParsCit to modularizes and faciliates line-level training in ParsHed.
 	lib/ParsHed/Tr2crf.pm: line-level CRF feature extractor
 	lib/ParsHed/PostProcess.pm: post-processing of field data
-  * Added bin/parsHed - all parsHed-related scripts (redo.parsHed.pl,
-    and tr2crffpp_parsHed.pl).  Includes parseXmlHeader.pl and
-    convert2TokenLevel.pl used by redo.parsHed.pl to convert output
-    from line to token-level.
-  * Updated bin/headExtract.pl - to use the new model lib/ParsHed, as
-    well as old model (with -tokenLevel flag).
-  * Bug fixes in Citation.pm and Preprocess.pm (see
-    doc/v090625-Artemy-issues.txt). Thanks to Artemy Kolchinsky for
-    reporting these issues.
+  * Added bin/parsHed - all parsHed-related scripts (redo.parsHed.pl, and tr2crffpp_parsHed.pl).
+    Includes parseXmlHeader.pl and convert2TokenLevel.pl used by redo.parsHed.pl to convert output from line to token-level.
+  * Updated bin/headExtract.pl - to use the new model lib/ParsHed, as well as old model (with -tokenLevel flag).
+  * Bug fixes in Citation.pm and Preprocess.pm (see doc/v090625-Artemy-issues.txt). Thanks to Artemy Kolchinsky for reporting these issues.
   * Reordered the CHANGELOG into descending chronological order. 
 090625 (due to Min-Yen KAN)
 - Deprecated and unified ParsHedClient.rb into ParsCitClient.rb

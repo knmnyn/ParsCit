@@ -487,7 +487,7 @@ sub processCitations {
     } elsif ($lines[$i] =~ /^<context position=\"(\d+)\"[^>]+>(.+)<\/context>$/) {
       $contextIndex++;
       $contextsBuf .= "<P>Context $contextIndex at byte $1: ...$2...</P>";
-    } elsif ($lines[$i] =~ /^<(author|date|title|booktitle|note|volume|number|pages|journal|location|marker)>(.+)/) {
+    } elsif ($lines[$i] =~ /^<(author|date|title|booktitle|note|volume|issue|number|pages|journal|location|marker)>(.+)/) {
       if ($1 eq "marker") { $fieldsBuf = "<span class=\"$1\">$2</span>: \n$fieldsBuf"; }
       else { $fieldsBuf .= "<span class=\"$1\" onmouseover=\"tooltip(\'$1\')\" onmouseout=\"exit()\">$2</span>\n"; }
     }
@@ -500,7 +500,7 @@ sub processCitations {
 
 sub printTypes {
   my $buf = "Key: ";
-  foreach my $type ("author","booktitle","date","editor","institution","journal","location","note","pages","publisher","tech","title","volume","number","marker") {
+  foreach my $type ("author","booktitle","date","editor","institution","journal","location","note","pages","publisher","tech","title","volume","issue","number","marker") {
     $buf .= "<SPAN CLASS=\"$type\">$type</SPAN> ";
   }
   $buf .= "<BR>\n";

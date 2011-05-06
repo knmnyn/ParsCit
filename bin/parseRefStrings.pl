@@ -7,12 +7,6 @@
 # Min-Yen Kan (Thu Feb 28 14:10:28 SGT 2008)
 #  Derived from citeExtract.pl
 #
-
-# This portion is configurable, change it for your own needs
-use lib "/home/wing.nus/tools/languages/programming/perl/lib/5.10.0/";
-use lib "/home/wing.nus/tools/languages/programming/perl/lib/site_perl/5.10.0/";
-#
-
 use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
@@ -45,16 +39,16 @@ if ($line == 0) {
 }
 
 our $msg = "";
-my $tmpFile = ParsCit::Tr2crfpp::prepData(\$normalizedCiteText, $textFile);
+my $tmpFile = ParsCit::Tr2crfpp::PrepData(\$normalizedCiteText, $textFile);
 my $outFile = $tmpFile."_dec";
 my @validCitations = ();
 
 my $xml = "";
 $xml .= "<algorithm name=\"$ParsCit::Config::algorithmName\" version=\"$ParsCit::Config::algorithmVersion\">\n";
 $xml .= "<citationList>\n";
-if (ParsCit::Tr2crfpp::decode($tmpFile, $outFile)) {
+if (ParsCit::Tr2crfpp::Decode($tmpFile, $outFile)) {
     my ($rRawXML, $rCiteInfo, $tstatus, $tmsg) =
-	ParsCit::PostProcess::readAndNormalize($outFile);
+	ParsCit::PostProcess::ReadAndNormalize($outFile);
     if ($tstatus <= 0) {
 	return ($tstatus, $msg, undef, undef);
     }

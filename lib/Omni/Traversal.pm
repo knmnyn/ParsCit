@@ -55,10 +55,13 @@ my $obj_list = $Omni::Config::obj_list;
 ###
 sub OmniCollector
 {
-	my ($doc, $line_addrs) = @_;
+	my ($doc, $line_addrs, $need_obj) = @_;
 
 	# All the line
 	my @line_content = ();
+	
+	# Check the validity
+	if (scalar(@{ $line_addrs }) == 0) { return (\@line_content); }
 
 	# Current position	
 	my %current		 = ();
@@ -116,7 +119,15 @@ sub OmniCollector
 							($z == $line_addrs->[ $addr_index ]{ 'L3' }) &&
 							($t == $line_addrs->[ $addr_index ]{ 'L4' }))
 						{
-							push @line_content, $level_4->[ $t ]->get_content();
+							if ((! defined $need_obj) || ($need_obj == 0))
+							{
+								push @line_content, $level_4->[ $t ]->get_content();
+							}
+							else
+							{
+								push @line_content, $level_4->[ $t ];
+							}
+
 							# Next selected line
 							$addr_index++;
 							# Last one?
@@ -128,7 +139,7 @@ sub OmniCollector
 						}
 					}					
 				}
-				# Is a table or a frame
+				# Is a table
 				elsif (($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNITABLE' }) || ($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNIFRAME' }))
 				{
 					# TODO: this actually a trick to get it working for now.
@@ -137,7 +148,7 @@ sub OmniCollector
 					# which lines are its row
 					my @level_4 = split(/\n/, $level_3->[ $z ]->get_content());
 				
-					for (my $t = 0; $t <= scalar(@level_4); $t++)
+					for (my $t = 0; $t < scalar(@level_4); $t++)
 					{
 						# Current position
 						$current{ 'L4' } = $t;
@@ -148,7 +159,7 @@ sub OmniCollector
 							($z == $line_addrs->[ $addr_index ]{ 'L3' }) &&
 							($t == $line_addrs->[ $addr_index ]{ 'L4' }))
 						{
-							push @line_content, $level_4[ $t ];
+							if ((! defined $need_obj) || ($need_obj == 0)) { push @line_content, $level_4[ $t ]; }
 							# Next selected line
 							$addr_index++;
 							# Last one?

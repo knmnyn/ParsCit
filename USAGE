@@ -16,7 +16,8 @@ in UTF-8, but the expected encoding can be adjusted using perl
 command line switches.  To run ParsCit on a single document, execute
 the following command:
 
-citeExtract.pl [-m mode] [-i <inputType>] [-e <exportType>] <filename> [outfile]
+# Thang v100401: updated
+citeExtract.pl [-m mode] [-i <inputType>] <filename> [outfile]
 
 If "outfile" is specified, the XML output will be written to that
 file; otherwise, the XML will be printed to STDOUT.
@@ -33,13 +34,9 @@ extract_meta performs both the extract_citations and extrac_header
 operations.  extract_all performs all three operations (_citations,
 _header, _section).
 
-# Thang v100401: accept XML input
 The mode switch (-i) has two options: raw and xml. With "raw"
 (default), the system accepts raw text input; where as with "xml", the
 system expects XML output from Omnipage.
-
-# Thang v101101: export to different output formats
-The mode switch (-e) accepts any citation type that matches (ads|bib|end|isi|ris|wordbib). Multiple types could be specified by contatenating with "-" e.g., bib-end-ris.
 
 There is also a web service interface available, using the
 SOAP::Lite perl module.  To start the service, just execute:

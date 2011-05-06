@@ -2,7 +2,7 @@ package ParsCit::Config;
 
 ## Global
 $algorithmName		= "ParsCit";
-$algorithmVersion	= "110121";
+$algorithmVersion	= "110505";
 
 ## Repository Mappings
 %repositories	= (	'rep1'		=> '/repositories/rep1',
@@ -21,7 +21,7 @@ $dictFile	= "resources/parsCitDict.txt";
 $crf_test	= "crfpp/crf_test";
 
 ## Tr2crfpp parscit model
-$modelFile	= "resources/parsCit.model";
+$modelFile		= "resources/parsCit.model";
 ## Tr2crfpp parscit split reference model
 $splitModelFile	= "resources/parsCit.split.model";
 

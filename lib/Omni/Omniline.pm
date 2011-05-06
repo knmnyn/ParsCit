@@ -202,53 +202,54 @@ sub parse
 				# The first <run> is a special child
 				if (defined $grand_child)
 				{
-					my $run = new Omni::Omnirun();
-						
-					# Set raw content
-					$run->set_raw($grand_child->sprint());
-
-					# NOTE: The first <run> in <wd> will has the word position information
-					my $output = XML::Writer::String->new();
-					my $writer = new XML::Writer(OUTPUT => $output, UNSAFE => 'true');
-
-					$writer->startTag(	"wd", 
-										$att_list->{ 'BOTTOM' } 	=> GetNodeAttr($child, $att_list->{ 'BOTTOM' }),
-										$att_list->{ 'TOP' }		=> GetNodeAttr($child, $att_list->{ 'TOP' }),
-										$att_list->{ 'LEFT' } 		=> GetNodeAttr($child, $att_list->{ 'LEFT' }),
-										$att_list->{ 'RIGHT' } 		=> GetNodeAttr($child, $att_list->{ 'RIGHT' })	);
-
-					$writer->raw( $grand_child->xml_string() );
-					$writer->endTag("wd");
-					$writer->end();
-
-					# Fake word
-					my $word = new Omni::Omniword();
-					# Set raw content
-					$word->set_raw($output->value());
-
-					# Save the word
-					$run->add_word($word);
-					
-					# Update run list
-					push @tmp_objs, $run;
-
-					# Update content
-					$tmp_content = $tmp_content . $run->get_content();
-
-					# Get the next sibling
-					$grand_child = $grand_child->next_sibling( $tag_list->{ 'RUN' } );
-
-					# For each sequel <run>
 					while (defined $grand_child)
 					{
+						# NOTE: The following code is controvery. Consider the case when a word
+						# contain two runs, which means that this word has two parts in two different
+						# format.
+						#
+						# If I want to keep all these format info, I need to consider that this word
+						# is actually two words with no space between them
+						#
+						# But for compatible with Thang's code, there must be only one word here and
+						# subsequently only one run. So I only keep the first run
+
+						# NOTE: The first <run> in <wd> will has the word position information
+						my $output = XML::Writer::String->new();
+						my $writer = new XML::Writer(OUTPUT => $output, UNSAFE => 'true');					
+				
+						# Form the fake <run>
+						$writer->startTag(	"run", 
+											$att_list->{ 'FONTFACE' } 	=> GetNodeAttr($grand_child, $att_list->{ 'FONTFACE' }),
+											$att_list->{ 'FONTFAMILY' }	=> GetNodeAttr($grand_child, $att_list->{ 'FONTFAMILY' }),
+											$att_list->{ 'FONTPITCH' } 	=> GetNodeAttr($grand_child, $att_list->{ 'FONTPITCH' }),
+											$att_list->{ 'FONTSIZE' } 	=> GetNodeAttr($grand_child, $att_list->{ 'FONTSIZE' }),
+											$att_list->{ 'SPACING' } 	=> GetNodeAttr($grand_child, $att_list->{ 'SPACING' }),
+											$att_list->{ 'SUSCRIPT' } 	=> GetNodeAttr($grand_child, $att_list->{ 'SUSCRIPT' }),
+											$att_list->{ 'UNDERLINE' } 	=> GetNodeAttr($grand_child, $att_list->{ 'UNDERLINE' }),
+											$att_list->{ 'BOLD' }		=> GetNodeAttr($grand_child, $att_list->{ 'BOLD' }),
+											$att_list->{ 'ITALIC' }		=> GetNodeAttr($grand_child, $att_list->{ 'ITALIC' })	);
+						# Form the fake <wd>
+						$writer->startTag(	"wd", 
+											$att_list->{ 'BOTTOM' } 	=> GetNodeAttr($child, $att_list->{ 'BOTTOM' }),
+											$att_list->{ 'TOP' }		=> GetNodeAttr($child, $att_list->{ 'TOP' }),
+											$att_list->{ 'LEFT' } 		=> GetNodeAttr($child, $att_list->{ 'LEFT' }),
+											$att_list->{ 'RIGHT' } 		=> GetNodeAttr($child, $att_list->{ 'RIGHT' })	);
+		
+						$writer->raw( $grand_child->xml_string() );
+						$writer->endTag("wd");
+						$writer->endTag("run");
+						$writer->end();
+
+						# Fake run 
 						my $run = new Omni::Omnirun();
 	
 						# Set raw content
-						$run->set_raw($grand_child->sprint());
+						$run->set_raw($output->value());
 
 						# Update run list
 						push @tmp_objs, $run;
-		
+
 						# Update content
 						$tmp_content = $tmp_content . $run->get_content();
 

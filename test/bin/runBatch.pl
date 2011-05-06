@@ -106,7 +106,7 @@ sub processFile{
 sub untaintPath {
   my ($path) = @_;
 
-  if ( $path =~ /^([-_\/\w\.\d: \p{P}]+)$/ ) { #\p{C}\p{P}
+  if ( $path =~ /^([-_\/\w\.\d: ]+)$/ ) { #\p{C}\p{P}
     $path = $1;
   } else {
     die "Bad path $path\n";
@@ -117,7 +117,7 @@ sub untaintPath {
 
 sub untaint {
   my ($s) = @_;
-  if ($s =~ /^([\w \-\@\(\),\.\/<>\p{P}]+)$/) { #\p{C}\p{P}
+  if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) { #\p{C}\p{P}
     $s = $1;               # $data now untainted
   } else {
     die "Bad data in $s";  # log this somewhere

@@ -463,6 +463,7 @@ sub ExtractCitationsImpl2
     	# Thang May 2010
 	    # Map each position in norm_body_text to a position in body_text, scalar(@pos_array) = number of tokens in norm_body_text
 		# TODO: Switch this function to sectlabel module
+		###
     	($rcite_text, $rnorm_body_text, $rbody_text) = ParsCit::PreProcess::FindCitationText2($all_text, $cit_lines, \@pos_array);
 
 	    my @norm_body_tokens	= split(/\s+/, $$rnorm_body_text);

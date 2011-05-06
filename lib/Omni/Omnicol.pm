@@ -83,7 +83,7 @@ sub parse
 	# At first, content is blank
 	my $tmp_content	= "";
 	# because there's no object
-	my @tmp_objs		= ();
+	my @tmp_objs	= ();
 
 	# Get <column> node attributes
 	my $tmp_bottom		= GetNodeAttr($node, $att_list->{ 'BOTTOM' });
