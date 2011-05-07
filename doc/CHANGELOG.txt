@@ -1,13 +1,12 @@
 110505 (done by Huy)
 - New features: Sectlabel
-- Add author and affiliation matching ability (lib/SectLabel/AAMatching.pm resources/sectLabel/author.model resources/sectLabel/affiliation.model)
-- New sectlabel xml model with more tranning data (resources/sectLabel/sectLabel.modelXml.v2)
+- New sectlabel xml model with more training data (resources/sectLabel/sectLabel.modelXml.v2)
 
 - Major changes: Sectlabel
 - Addded Omni (lib/Omni/Omnitable.pm lib/Omni/Omnicell.pm lib/Omni/Omnidd.pm lib/Omni/Omniframe.pm lib/Omni/Traversal.pm)
-- Parscit now uses the reference output from Sectlabel as its input
+- ParsCit now uses the reference output from Sectlabel as its input
 
-- Minor changes: Sectlabel and Parscit
+- Minor changes: Sectlabel and ParsCit
 - Cleanup all temporary files in /tmp properly
 
 - Minor changes: bug fixes
