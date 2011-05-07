@@ -1,0 +1,66 @@
+Huy fixed these issues.
+
+- Temp files removed
+- Truncated XML entities (duplicate bug)
+
+> >> Hi David Jurgens:
+> >>
+> >> Thanks for your earlier bug report with ParsCit.  We have since fixed
+> >> the problems that you have reported with truncated strings as well as
+> >> the array reference problem.  The latter is caused when ParsCit cannot
+> >> properly find the reference section of the text using its heuristics.
+> >> I understand that it has been replaced with a more appropriate error
+> >> message.
+> >>
+> >> The latest version is on github, so you can download the source from
+> >> there and try it out.
+> >>
+> >> As for your latest request, we'll look into that for the next release.
+> >>
+> >> Cheers,
+> >>
+> >> Min
+> >>
+> >> On Wed, Dec 29, 2010 at 5:18 AM, David Jurgens <jurgens@cs.ucla.edu>
+> >> wrote:
+> >>>
+> >>> Hi,
+> >>>
+> >>>  Thanks for your work on ParsCit.  I think I've found a two possible
+> bugs
+> >>> when I was working with it.  It looks like when escaped characters
+> appear
+> >>> in
+> >>> the ParsHed output, the title string truncates the last part. Example:
+> >>>
+> >>> <algorithm name="ParsHed" version="101101">
+> >>> <variant no="0" confidence="0.930239">
+> >>> <title confidence="0.998202">Characterizing Indirect Speech
+> >>> Act&amp</title>
+> >>>
+> >>> I was trying to read the results in with a SAX parser and I saw several
+> >>> exceptions about reference entities not ending in ';' when trying to
+> read
+> >>> the ParsHed title.
+> >>>
+> >>>
+> >>> Second, I'm not sure whether these are bugs, but I was definitely
+> seeing
+> >>> a
+> >>> lot of these error messages when running ParsCit on my corpus:
+> >>>
+> >>>
+> >>> Can't use an undefined value as an ARRAY reference at
+> >>> /Users/jurgens/src/parscit-101101/bin/../lib/SectLabel/Controller.pm
+> line
+> >>> 136.
+> >>>
+> >>> ParsCit::Controller::extractCitationsImpl: normBodyText size 1 !=
+> >>> posArray
+> >>> size 0
+> >>>
+> >>> I'm using the latest ParsCit version with Perl 5.10 on OS X.  If you
+> >>> want, I
+> >>> can also find files that cause examples of these errors if that would
+> >>> help.
+> >>>
