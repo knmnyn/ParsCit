@@ -418,6 +418,12 @@ Nevertheless, there are problems with the output occasionally.  Below
 are some common problems people have encountered.
 
 <DL>
+  <DT>ParsCit v110505 seems to be a lot slower when used on Omnipage
+  output than the previous versions, why?</DT>
+  <DD>You are correct.  We are now using XML::Twig to do the XML
+  processing correctly, rather than do it ad-hoc ourselves, but this
+  requires constructing an exhaustive DOM tree for the Omnipage input.
+  This is the timesink that you are experiencing.</DD>
   <DT>I tried downloading and running ParsCit but I get complaints
     about /bin/sed and crf not being found.  Help?</DT>
   <DD>Please read the INSTALL.txt directions.  You need to recompile
