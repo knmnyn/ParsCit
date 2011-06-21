@@ -33,6 +33,9 @@ use Getopt::Std;
 use strict 'vars';
 use lib $FindBin::Bin . "/../lib";
 
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
+
 # Dependencies
 use File::Spec;
 use File::Basename;
@@ -294,10 +297,10 @@ if (($mode & $SECTLABEL) == $SECTLABEL)
 	}
 	else
 	{
-		my $sl_xml	.= SectLabel($sect_label_input, $is_xml_input, 0);
+		my ($sl_xml, $aut_lines, $aff_lines) = SectLabel($sect_label_input, $is_xml_input, 0);
 	
 		# Remove first line <?xml/>
-		$rxml		.= RemoveTopLines($sl_xml, 1) . "\n";
+		$rxml .= RemoveTopLines($sl_xml, 1) . "\n";
 	}
 }
 

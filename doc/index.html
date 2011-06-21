@@ -20,15 +20,26 @@ function toggleLayer( whichLayer ) {
 }
 </script>
 </HEAD><BODY BGCOLOR="#FFFFFF">
-<p>&raquo; <a href="javascript:toggleLayer('toc')">Toggle Table of Contents</a> </p>
 
-<div style="align:left; border: 1px solid green; font-size:9pt" id="toc">
-[ <A href="http://wing.comp.nus.edu.sg/">Back to the WING home page</A> ] [
-<A href="http://wing.comp.nus.edu.sg/portal/web-services.html">Back to WING web services</A> ] 
+<div id="leftcontent">
+[&nbsp;<A href="http://wing.comp.nus.edu.sg/">WING homepage</A>&nbsp;]<br/>
+[&nbsp;<A href="http://wing.comp.nus.edu.sg/portal/web-services.html">WING web services</A>&nbsp;]<br/> 
 <BR/>
-[&nbsp;<A href="#d">Download</a>&nbsp;] [&nbsp;<A href="#ws">Web Service</a>&nbsp;] [&nbsp;<A href="#wd">Web-based Demonstration</a>&nbsp;] [&nbsp;<A href="#p">Publications</a>&nbsp;]
-[&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#faq">FAQ</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
+[&nbsp;<A href="#d">Download</a>&nbsp;]<br/>
+[&nbsp;<A href="#ws">Web Service</a>&nbsp;]</br/>
+[&nbsp;<A href="#wd">Web Demo</a>&nbsp;]<br/>
+[&nbsp;<A href="#p">Publications</a>&nbsp;]<br/>
+[&nbsp;<A href="#gsiso">Input and Output</a>&nbsp;]<br/>
+[&nbsp;<A href="#gm">Group Members</a>&nbsp;]<br/>
+[&nbsp;<A href="#faq">FAQ</a>&nbsp;]<br/>
+[&nbsp;<A href="#t">Troubleshooting</a>&nbsp;]<br/> 
+<br/>
+<script type="text/javascript"
+src="http://feedjit.com/serve/?vv=932&tft=3&dd=0&wid=0804fba767d140cd&pid=0&proid=0&bc=FFFFFF&tc=000000&brd1=012B6B&lnk=135D9E&hc=FFFFFF&hfc=2853A8&btn=C99700&ww=200&wne=10&wh=WING+Live+Traffic+Feed&hl=0&hlnks=0&hfce=0&srefs=1&hbars=0"></script><noscript><a
+href="http://feedjit.com/">Feedjit Live Blog Stats</a></noscript>
 </div>
+
+<div id="centercontent">
 <IMG ALIGN="LEFT" SRC="parsCit.png" WIDTH="200px" ALT="Picture of ParsCit Swami">
 
 <CENTER><H1>ParsCit: An open-source CRF Reference String and Logical Document Structure Parsing Package</H1></CENTER>
@@ -96,7 +107,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added Author-affiliation matching. Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
+  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
   <BR/> 
   We have also pushed a copy of the ParsCit current distribution into <A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates. 
   <BR/>
@@ -541,6 +552,14 @@ Beel of scienstein.org for all fixes in the v081201 version of
 ParsCit.  Also thanks to Madian Khabsa for indicating problems with
 installation to MacOS.</p>
 
+<P>ParsCit is used by many projects worldwide, and not just in
+experimental, research and academic places, but in commercial
+enterprises as well.  <A HREF="http://www.mendeley.com/">Mendeley</A>
+is using ParsCit to parse references from contributed papers, as is
+the <A HREF="http://citec.repec.org/">Citations in Economics
+(CitEc)</A> project.
+
+
 <!-- Related Links ---------------------------------------------------------------------- -->
 <H2>Related Links</H2>
 
@@ -586,4 +605,6 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Last modified: 
 Sat May  7 21:38:46 SGT 2011
 <!-- hhmts end -->
-</H5></BODY> </HTML>
+</H5>
+</div>
+</BODY> </HTML>
