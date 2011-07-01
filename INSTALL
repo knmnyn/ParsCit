@@ -18,6 +18,21 @@ get the installation working within 30 minutes to an hour.
 You must have ruby and perl and a working C++ compiler on your local
 machine.
 
+ParsCit use the following Perl libraries from CPAN
+- Class::Struct
+- Getopt::Long
+- Getopt::Std
+- File::Basename
+- File::Spec
+- FindBin
+- HTML::Entities
+- IO::File
+- POSIX
+- XML::Parser
+- XML::Twig
+- XML::Writer
+- XML::Writer::String
+
 ------------------------------------------------------------
 **Command-line client**
 
