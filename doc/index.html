@@ -20,15 +20,26 @@ function toggleLayer( whichLayer ) {
 }
 </script>
 </HEAD><BODY BGCOLOR="#FFFFFF">
-<p>&raquo; <a href="javascript:toggleLayer('toc')">Toggle Table of Contents</a> </p>
 
-<div style="align:left; border: 1px solid green; font-size:9pt" id="toc">
-[ <A href="http://wing.comp.nus.edu.sg/">Back to the WING home page</A> ] [
-<A href="http://wing.comp.nus.edu.sg/portal/web-services.html">Back to WING web services</A> ] 
+<div id="leftcontent">
+[&nbsp;<A href="http://wing.comp.nus.edu.sg/">WING homepage</A>&nbsp;]<br/>
+[&nbsp;<A href="http://wing.comp.nus.edu.sg/portal/web-services.html">WING web services</A>&nbsp;]<br/> 
 <BR/>
-[&nbsp;<A href="#d">Download</a>&nbsp;] [&nbsp;<A href="#ws">Web Service</a>&nbsp;] [&nbsp;<A href="#wd">Web-based Demonstration</a>&nbsp;] [&nbsp;<A href="#p">Publications</a>&nbsp;]
-[&nbsp;<A href="#gsiso">Gold Standard Input and Sample Output</a>&nbsp;] [&nbsp;<A href="#gm">Group Members</a>&nbsp;] [&nbsp;<A href="#faq">FAQ</a>&nbsp;] [&nbsp;<A href="#t">Troubleshooting</a>&nbsp;] 
+[&nbsp;<A href="#d">Download</a>&nbsp;]<br/>
+[&nbsp;<A href="#ws">Web Service</a>&nbsp;]</br/>
+[&nbsp;<A href="#wd">Web Demo</a>&nbsp;]<br/>
+[&nbsp;<A href="#p">Publications</a>&nbsp;]<br/>
+[&nbsp;<A href="#gsiso">Input and Output</a>&nbsp;]<br/>
+[&nbsp;<A href="#gm">Group Members</a>&nbsp;]<br/>
+[&nbsp;<A href="#faq">FAQ</a>&nbsp;]<br/>
+[&nbsp;<A href="#t">Troubleshooting</a>&nbsp;]<br/> 
+<br/>
+<script type="text/javascript"
+src="http://feedjit.com/serve/?vv=932&tft=3&dd=0&wid=0804fba767d140cd&pid=0&proid=0&bc=FFFFFF&tc=000000&brd1=012B6B&lnk=135D9E&hc=FFFFFF&hfc=2853A8&btn=C99700&ww=200&wne=10&wh=WING+Live+Traffic+Feed&hl=0&hlnks=0&hfce=0&srefs=1&hbars=0"></script><noscript><a
+href="http://feedjit.com/">Feedjit Live Blog Stats</a></noscript>
 </div>
+
+<div id="centercontent">
 <IMG ALIGN="LEFT" SRC="parsCit.png" WIDTH="200px" ALT="Picture of ParsCit Swami">
 
 <CENTER><H1>ParsCit: An open-source CRF Reference String and Logical Document Structure Parsing Package</H1></CENTER>
@@ -96,7 +107,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added Author-affiliation matching. Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
+  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
   <BR/> 
   We have also pushed a copy of the ParsCit current distribution into <A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates. 
   <BR/>
@@ -206,7 +217,7 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 </FORM>
 </DIV>
 
-<P><B>Demo #2: As above but using XML input (XML must conform to Omnipage output, for current 100401 version)</B></P>
+<P><B>Demo #2: As above but using XML input (XML must conform to Omnipage output). This demo is slow so please be patient.</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
@@ -341,10 +352,10 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
   <LI> <A HREF="http://www.comp.nus.edu.sg/~kanmy">Min-Yen Kan</A> - Project leader, NUS
   <LI> <A HREF="http://www.personal.psu.edu/igc2/">Isaac G. Councill</A>, The Pennsylvania State University
   <LI> <A HREF="http://clgiles.ist.psu.edu/">C. Lee Giles</A>, The Pennsylvania State University
-  <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant, NUS
+  <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant (Alumnus), NUS
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
-  <LI> Thuy Dung Nguyen - Research Assistant, NUS
-  <LI> Do Hoang Nhat Huy - Research Assistant, NUS
+  <LI> Thuy Dung Nguyen - Research Assistant (Alumnus), NUS
+  <LI> Huy Nhat Hoang Do - Research Assistant, NUS
 </UL>
 
 <!-- FAQ ---------------------------------------------------------------------- -->
@@ -418,6 +429,12 @@ Nevertheless, there are problems with the output occasionally.  Below
 are some common problems people have encountered.
 
 <DL>
+  <DT>ParsCit v110505 seems to be a lot slower when used on Omnipage
+  output than the previous versions, why?</DT>
+  <DD>You are correct.  We are now using XML::Twig to do the XML
+  processing correctly, rather than do it ad-hoc ourselves, but this
+  requires constructing an exhaustive DOM tree for the Omnipage input.
+  This is the timesink that you are experiencing.</DD>
   <DT>I tried downloading and running ParsCit but I get complaints
     about /bin/sed and crf not being found.  Help?</DT>
   <DD>Please read the INSTALL.txt directions.  You need to recompile
@@ -432,11 +449,11 @@ $ cp crf_learn ../../.libs/lt-crf_learn<BR/>
 $ cp crf_test ../../.libs/lt-crf_test<BR/>
 </CODE></DD>
   <DT>Issue numbers don't get extracted.</DT>
-  <DD>We're looking into this.  The training data does not make a
-    distinction about volume and issue number.  We'd like to fix that
-    in a subsequent release.</DD>
+  <DD><SPAN CLASS="red">This issue should be fixed as of the v110505
+  release.</SPAN> There is now some heuristic postprocessing code to
+  take care of breaking single or multiple tokens for issues and
+  volumes. </DD>
   <DT>Separation of author names and publishing year fails</DT>
-
   <DD> In some reference data with non-standard sequences of
     first names and family names, e.g.
 <pre>
@@ -512,24 +529,36 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks Tim Brody for his BiblioScript patch.Thanks Nikolay Nikolov 
-for suggesting the conversion of OmniPage XML results from UTF-16 to UTF-8 
-to avoid encoding problems. Thanks to Matteo Romanello for the suggestion 
-and permission to incorporate BiblioScript software (v101101). Many thanks 
-to Kris Jack for pointing out problems with the ELF binaries and an appropriate fix.
-Thanks to Cheong Chi Hong for fixing problems with Preprocess.pm
-(v100401) and contributing the ICONIP training data and XML entity
-problems in reference string parsing (v100401).  Thanks to Priya
-Venkateshan for pointing out sudo/root installation possibilities
-(v100401).  Thanks to Mario Lipinski for reporting punctuation
-stripping problems in reference string parsing (v100401).  Thanks to
-Artemy Kolchinsky for fixes in Preprocess.pm (v090625). Thanks to
-Matteo Romanello for the humanities training datasets.  Thanks to Dain
-Kaplan for helping us fix the Preprocess.pm bug.  Thanks to Ayeh
-Bandeh-Ahmadi for correcting the warning in parseRefString.pl.  Thanks
-to Nick Friedrich and J&ouml;ran Beel of scienstein.org for all fixes
-in the v081201 version of ParsCit.  Also thanks to Madian Khabsa for
-indicating problems with installation to MacOS.</p>
+<P>Thanks to Behrang Qasemizadeh for reporting problems with
+truncation of XML entities in XML output (v110505).  Thanks Tim Brody
+for his BiblioScript patch.  Thanks to David Jurgens for suggesting
+that remove temporary files after runs (v110505).  Thanks Nikolay
+Nikolov for suggesting the conversion of OmniPage XML results from
+UTF-16 to UTF-8 to avoid encoding problems. Thanks to Matteo Romanello
+for the suggestion and permission to incorporate BiblioScript software
+(v101101). Many thanks to Kris Jack for pointing out problems with the
+ELF binaries and an appropriate fix.  Thanks to Cheong Chi Hong for
+fixing problems with Preprocess.pm (v100401) and contributing the
+ICONIP training data and XML entity problems in reference string
+parsing (v100401).  Thanks to Priya Venkateshan for pointing out
+sudo/root installation possibilities (v100401).  Thanks to Mario
+Lipinski for reporting punctuation stripping problems in reference
+string parsing (v100401).  Thanks to Artemy Kolchinsky for fixes in
+Preprocess.pm (v090625). Thanks to Matteo Romanello for the humanities
+training datasets.  Thanks to Dain Kaplan for helping us fix the
+Preprocess.pm bug.  Thanks to Ayeh Bandeh-Ahmadi for correcting the
+warning in parseRefString.pl.  Thanks to Nick Friedrich and J&ouml;ran
+Beel of scienstein.org for all fixes in the v081201 version of
+ParsCit.  Also thanks to Madian Khabsa for indicating problems with
+installation to MacOS.</p>
+
+<P>ParsCit is used by many projects worldwide, and not just in
+experimental, research and academic places, but in commercial
+enterprises as well.  <A HREF="http://www.mendeley.com/">Mendeley</A>
+is using ParsCit to parse references from contributed papers, as is
+the <A HREF="http://citec.repec.org/">Citations in Economics
+(CitEc)</A> project.
+
 
 <!-- Related Links ---------------------------------------------------------------------- -->
 <H2>Related Links</H2>
@@ -574,6 +603,8 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Sat May  1 15:57:47 2010
+Sat May  7 21:38:46 SGT 2011
 <!-- hhmts end -->
-</H5></BODY> </HTML>
+</H5>
+</div>
+</BODY> </HTML>

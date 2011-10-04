@@ -1,0 +1,30 @@
+Hi Behrang,
+
+I've fixed the bug that you reported. It's caused by the post-processing
+module in Parscit, which removes the proper punctuation in XML entities like
+&amp; (the ; is removed). The XML output becomes invalid.
+
+If you're getting the source code from github at git://
+github.com/knmnyn/ParsCit.git, then you just need to pull the new version
+because the change has already been pushed into this repository.
+
+Regards,
+Huy
+
+> ---------- Forwarded message ----------
+> From: Qasemizadeh, Behrang <behrang.qasemizadeh@deri.org>
+> Date: Wed, Feb 23, 2011 at 3:01 AM
+> Subject: Small bug in ParsCit
+> To: kanmy@comp.nus.edu.sg
+>
+>
+> Hi Min,
+>
+> Hope you are doing fine. I have found a tiny bug in ParsCit. For some
+> input it won't generate valid XML (though the output is still very
+> impressive). I have attached a sample PDF and generated XML by ParsCit
+> you may like to have a look.
+>
+> Cheers,
+>
+> Behrang

@@ -24,6 +24,9 @@ BEGIN
 }
 use lib "$path/../../lib";
 
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
+
 # Local libraries
 use Omni::Config;
 use Omni::Omnidoc;

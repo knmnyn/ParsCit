@@ -11,6 +11,9 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
+
 use ParsCit::Controller;
 use CSXUtil::SafeText qw(cleanAll cleanXML);
 
