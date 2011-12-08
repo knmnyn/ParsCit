@@ -24,9 +24,6 @@ BEGIN
 }
 use lib "$path/../../lib";
 
-use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
-use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
-
 # Local libraries
 use Omni::Config;
 use Omni::Omnidoc;
@@ -293,7 +290,7 @@ sub Output
 
       	my $font_size_feature = undef;
 		# Font_size feature
-		if ($g_font_size[$id] == -1)
+		if (($g_font_size[$id] eq "") || ($g_font_size[$id] == -1))
 		{
 			$font_size_feature = "xmlFontSize_none";
 		} 
@@ -853,8 +850,10 @@ sub UpdateXMLFontFeature
 		{
     		$font_size = $sorted_fonts[ 0 ];
 		}
-    
-   		push @g_font_size, $font_size;
+
+		if ($font_size eq "") { $font_size = 0; }
+   
+		push @g_font_size, $font_size;
     	$g_font_size_hash{ $font_size } = $g_font_size_hash{ $font_size } ? $g_font_size_hash{ $font_size } + 1 : 1;
   	}
   
@@ -880,7 +879,7 @@ sub UpdateXMLFeatures
 
 	# Bold feature
   	my $bold_feature = undef;
-  	if ($bold_count / $words_count >= 0.667)
+  	if (($words_count != 0) && ($bold_count / $words_count >= 0.667))
 	{
     	$bold_feature = "yes";
   	} 
@@ -892,7 +891,7 @@ sub UpdateXMLFeatures
   
   	# Italic feature
   	my $italic_feature = undef;
-  	if ($italic_count / $words_count >= 0.667)
+  	if (($words_count != 0) && ($italic_count / $words_count >= 0.667))
 	{
     	$italic_feature = "yes";
   	} 
@@ -903,7 +902,7 @@ sub UpdateXMLFeatures
   	push @g_italic, $italic_feature;
   
   	# Bullet feature
-  	if ($is_bullet eq "true")
+  	if ((defined $is_bullet) && ($is_bullet eq "true"))
 	{
     	push @g_bullet, "yes";
   	} 

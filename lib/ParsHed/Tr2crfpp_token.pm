@@ -271,7 +271,7 @@ sub decode {
 	    next;
 	}
 	$codeTokens[$#codeTokens] = $class;
-	@codeLines[$i] = join "\t", @codeTokens;
+	$codeLines[$i] = join "\t", @codeTokens;
 #	print Encode::decode_utf8(@codeLines[$i]), "\n";
     }
     

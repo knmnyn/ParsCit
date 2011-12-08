@@ -129,7 +129,7 @@ sub GuessPossibleMarkers
 		my $mark	= MakeSafe($2);
 		my $close	= MakeSafe($3);
 
-		my $ref_indicator = "$open([\p{IsUpper}\p{IsLower}\\-\\d]+[;,] *)*$mark([;,] *[\p{IsUpper}\p{IsLower}\\-\\d]+)*$close";
+		my $ref_indicator = "$open([\\p{IsUpper}\\p{IsLower}\\-\\d]+[;,] *)*$mark([;,] *[\\p{IsUpper}\\p{IsLower}\\-\\d]+)*$close";
 		return (0, $ref_indicator);
     }
 
@@ -196,6 +196,8 @@ sub GuessPossibleMarkers
 sub MakeSafe 
 {
     my $marker = shift;
+
+	if (! defined $marker) { return ""; }
 
     $marker =~ s/\\/\\\\/g;
     $marker =~ s/\-/\\\-/g;

@@ -59,9 +59,6 @@ sub extractHeaderImpl
 	# Thang 10/11/09: $confLevel to add confidence info
 	my ($text_file, $is_token_level, $conf_level) = @_;
 
-	# Model file for parscit header
-  	# if (!defined $model_file) { $model_file = $ParsCit::Config::modelFile; }
-  
   	my ($status, $msg) = (1, "");
 
 	# Open input text file

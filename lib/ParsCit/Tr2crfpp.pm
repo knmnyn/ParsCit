@@ -116,7 +116,8 @@ sub PrepDataUnmarked
 					if (($x == $cit_addrs->[ $addr_index ]{ 'L1' }) &&
 						($y == $cit_addrs->[ $addr_index ]{ 'L2' }) &&
 						($z == $cit_addrs->[ $addr_index ]{ 'L3' }) &&
-						($t == $cit_addrs->[ $addr_index ]{ 'L4' }))
+						($t == $cit_addrs->[ $addr_index ]{ 'L4' }) &&
+						($t < scalar(@{ $lines })))
 					{
 						# Get content
 						my $ln = $lines->[ $t ]->get_content();
@@ -124,7 +125,7 @@ sub PrepDataUnmarked
 						# Trim line
 						$ln	=~ s/^\s+|\s+$//g;
 						# Skip blank lines
-						if ($ln =~ m/^\s*$/) 
+						if (($ln =~ m/^\s*$/) || ($lines->[ $t ]->get_name() ne $obj_list->{ 'OMNILINE' }))
 						{
 							$addr_index++;
 							next; 
@@ -224,7 +225,8 @@ sub PrepDataUnmarked
 					if (($x != $cit_addrs->[ $addr_index ]{ 'L1' }) ||
 						($y != $cit_addrs->[ $addr_index ]{ 'L2' }) ||
 						($z != $cit_addrs->[ $addr_index ]{ 'L3' }) ||
-						($t != $cit_addrs->[ $addr_index ]{ 'L4' }))
+						($t != $cit_addrs->[ $addr_index ]{ 'L4' }) ||
+						($t >= scalar(@{ $lines })))
 					{
 						next ;
 					}
@@ -343,17 +345,18 @@ sub PrepDataUnmarked
 					$current++;
 
 					# First word
-					my $first_word		= $tokens[ 0 ];
+					my $first_word	= $tokens[ 0 ];
 					PrepDataUnmarkedToken($first_word, \@feats, \$current);
 					# Second word
-					my $second_word		= (scalar(@tokens) > 1) ? $tokens[ 1 ] : "EMPTY";
+					my $second_word	= (scalar(@tokens) > 1) ? $tokens[ 1 ] : "EMPTY";
 					PrepDataUnmarkedToken($second_word, \@feats, \$current);
 					# Last word
 					PrepDataUnmarkedToken($last_word, \@feats, \$current);
 	
 					# XML features
 					# Bullet
-					my $bullet = $lines->[ $t ]->get_bullet();
+					my $bullet = undef;
+					if ($lines->[ $t ]->get_name() eq $obj_list->{ 'OMNILINE' }) { $bullet = $lines->[ $t ]->get_bullet(); }
 					if ((defined $bullet) && ($bullet eq 'true'))
 					{
 						push @feats, 'xmlBullet_yes';	
@@ -365,10 +368,12 @@ sub PrepDataUnmarked
 					$current++;
 
 					# First word format: bold, italic, font size
-					my $xml_runs = $lines->[ $t ]->get_objs_ref();
+					my $xml_runs = undef;
+					if (($lines->[ $t ]->get_name() eq $obj_list->{ 'OMNILINE' })) { $xml_runs = $lines->[ $t ]->get_objs_ref(); }
 			
 					# First word format: bold
-					my $bold = $xml_runs->[ 0 ]->get_bold();
+					my $bold = undef;
+					if (defined $xml_runs) { $bold = $xml_runs->[ 0 ]->get_bold(); }
 					if ((defined $bold) && ($bold eq 'true'))
 					{	
 						push @feats, 'xmlBold_yes'; 
@@ -380,7 +385,8 @@ sub PrepDataUnmarked
 					$current++;
 
 					# First word format: italic
-					my $italic = $xml_runs->[ 0 ]->get_italic();
+					my $italic = undef;
+					if (defined $xml_runs) { $italic = $xml_runs->[ 0 ]->get_italic(); }
 					if ((defined $italic) && ($italic eq 'true'))
 					{
 						push @feats, 'xmlItalic_yes'; 
@@ -392,12 +398,13 @@ sub PrepDataUnmarked
 					$current++;
 
 					# First word format: font size
-					my $font_size = $xml_runs->[ 0 ]->get_font_size();
-					if ($font_size > $avg_font_size * $upper_ratio)
+					my $font_size = undef;
+					if (defined $xml_runs) { $font_size = $xml_runs->[ 0 ]->get_font_size(); }
+					if ((defined $font_size) && ($font_size > $avg_font_size * $upper_ratio))
 					{
 						push @feats, 'xmlFontSize_large';
 					}
-					elsif ($font_size < $avg_font_size * $lower_ratio)
+					elsif ((defined $font_size) && ($font_size < $avg_font_size * $lower_ratio))
 					{
 						push @feats,  'xmlFontSize_small';
 					}
@@ -408,12 +415,13 @@ sub PrepDataUnmarked
 					$current++;
 
 					# First word format: starting point, left alignment
-					my $start_point = $lines->[ $t ]->get_left_pos();
-					if ($start_point > $avg_start_point * $start_upper_ratio)
+					my $start_point = undef;
+					if (($lines->[ $t ]->get_name() eq $obj_list->{ 'OMNILINE' })) { $start_point = $lines->[ $t ]->get_left_pos(); }
+					if ((defined $start_point) && ($start_point > $avg_start_point * $start_upper_ratio))
 					{
 						push @feats, 'xmlBeginLine_right';
 					}
-					elsif ($start_point < $avg_start_point * $start_lower_ratio)
+					elsif ((defined $start_point) && ($start_point < $avg_start_point * $start_lower_ratio))
 					{
 						push @feats, 'xmlBeginLine_left';
 					}
@@ -476,21 +484,40 @@ sub PrepDataUnmarkedToken
 
 	# Characters
 	my @token_chars = split(//, $token);
+	my $token_len   = scalar @token_chars;
 		
 	# First char
 	push @{ $feats }, $token_chars[ 0 ];
 	$$current++;
 		
 	# First 2 chars
-	push @{ $feats }, join("", @token_chars[0..1]);
+	if ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[0..1]);
+	} else {
+		push @{ $feats }, $token_chars[ 0 ];
+	}
 	$$current++;
 
 	# First 3 chars
-	push @{ $feats }, join("", @token_chars[0..2]);
+	if ($token_len >= 3) {
+		push @{ $feats }, join("", @token_chars[0..2]);
+	} elsif ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[0..1]);
+	} else {
+		push @{ $feats }, $token_chars[ 0 ];
+	}
 	$$current++;
 
 	# First 4 chars
-    push @{ $feats }, join("", @token_chars[0..3]);
+    if ($token_len >= 4) {
+		push @{ $feats }, join("", @token_chars[0..3]);
+	} elsif ($token_len >= 3) {
+		push @{ $feats }, join("", @token_chars[0..2]);
+	} elsif ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[0..1]);
+	} else {
+		push @{ $feats }, $token_chars[ 0 ];
+	}
 	$$current++;
 			
 	# Last char
@@ -498,15 +525,33 @@ sub PrepDataUnmarkedToken
 	$$current++;
 			
 	# Last 2 chars
-    push @{ $feats }, join("", @token_chars[-2..-1]);
+    if ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[-2..-1]);
+	} else {
+    	push @{ $feats }, $token_chars[-1];
+	}
 	$$current++;
 
 	# Last 3 chars
-    push @{ $feats }, join("", @token_chars[-3..-1]);
+    if ($token_len >= 3) {
+		push @{ $feats }, join("", @token_chars[-3..-1]);
+	} elsif ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[-2..-1]);
+	} else {
+    	push @{ $feats }, $token_chars[-1];
+	}
 	$$current++;
 
 	# Last 4 chars
-	push @{ $feats }, join("", @token_chars[-4..-1]);
+	if ($token_len >= 4) {
+		push @{ $feats }, join("", @token_chars[-4..-1]);
+	} elsif ($token_len >= 3) {
+		push @{ $feats }, join("", @token_chars[-3..-1]);
+	} elsif ($token_len >= 2) {
+		push @{ $feats }, join("", @token_chars[-2..-1]);
+	} else {
+    	push @{ $feats }, $token_chars[-1];
+	}
 	$$current++;
 
 	# Caption
@@ -705,6 +750,7 @@ sub PrepData
 	    	$feats[ $j ][ 0 ] = $word;
 
 	    	my @chars = split(//, $word);
+			my $chars_len = scalar @chars;
 
 	    	my $last_char = $chars[ -1 ];
 	    	if ($last_char =~ /[\p{IsLower}]/) 
@@ -727,25 +773,61 @@ sub PrepData
 			push(@{ $feats[ $j ] }, $chars[0]);
 
 		    # 3 = first 2 chars
-			push(@{ $feats[ $j ] }, join("", @chars[0..1]));
+			if ($chars_len >= 2) { 
+				push(@{ $feats[ $j ] }, join("", @chars[0..1]));
+			} else {
+				push(@{ $feats[ $j ] }, $chars[0]);
+			}
 
 		    # 4 = first 3 chars
-			push(@{ $feats[ $j ] }, join("", @chars[0..2]));
+			if ($chars_len >= 3) {
+				push(@{ $feats[ $j ] }, join("", @chars[0..2]));
+			} elsif ($chars_len >= 2) {
+				push(@{ $feats[ $j ] }, join("", @chars[0..1]));
+			} else {
+				push(@{ $feats[ $j ] }, $chars[0]);
+			}
 
 			# 5 = first 4 chars
-	    	push(@{ $feats[ $j ] }, join("", @chars[0..3]));
+	    	if ($chars_len >= 4) {
+				push(@{ $feats[ $j ] }, join("", @chars[0..3]));
+			} elsif ($chars_len >= 3) {
+				push(@{ $feats[ $j ] }, join("", @chars[0..2]));
+			} elsif ($chars_len >= 2) {
+				push(@{ $feats[ $j ] }, join("", @chars[0..1]));
+			} else {
+				push(@{ $feats[ $j ] }, $chars[0]);
+			}
 			
 			# 6 = last char
 	    	push(@{ $feats[ $j ] }, $chars[-1]);
 			
 			# 7 = last 2 chars
-	    	push(@{ $feats[ $j ] }, join("", @chars[-2..-1]));
+	    	if ($chars_len >= 2) {
+				push(@{ $feats[ $j ] }, join("", @chars[-2..-1]));
+			} else {
+	    		push(@{ $feats[ $j ] }, $chars[-1]);
+			}
 
 			# 8 = last 3 chars
-	    	push(@{ $feats[ $j ] }, join("", @chars[-3..-1]));
+	    	if ($chars_len >= 3) {
+				push(@{ $feats[ $j ] }, join("", @chars[-3..-1]));
+			} elsif ($chars_len >= 2) {
+				push(@{ $feats[ $j ] }, join("", @chars[-2..-1]));
+			} else {
+	    		push(@{ $feats[ $j ] }, $chars[-1]);
+			}
 
 			# 9 = last 4 chars
-		    push(@{ $feats[ $j ] }, join("", @chars[-4..-1]));
+		    if ($chars_len >= 4) {
+				push(@{ $feats[ $j ] }, join("", @chars[-4..-1]));
+			} elsif ($chars_len >= 3) {
+				push(@{ $feats[ $j ] }, join("", @chars[-3..-1]));
+			} elsif ($chars_len >= 2) {
+				push(@{ $feats[ $j ] }, join("", @chars[-2..-1]));
+			} else {
+	    		push(@{ $feats[ $j ] }, $chars[-1]);
+			}
 
 			# 10 = lowercased word, no punct
 		    push(@{ $feats[ $j ] }, $word_lc_np);  
@@ -1096,7 +1178,7 @@ sub ReadDict
 			if (/\t/) { ($key, $val) = split (/\t/,$_); }
 
       		# Already tagged (some entries may appear in same part of lexicon more than once
-			if ($dict{ $key } >= $mode) 
+			if ((defined $dict{ $key }) && ($dict{ $key } >= $mode))
 			{ 
 				next; 
 			}

@@ -648,7 +648,7 @@ sub SplitCitationsByMarker
 	  		# Modified by Artemy Kolchinsky (v090625)
 	  		# !!! merge without removing "-" if preceeded by numbers...
 			###
-	  		if ($current_citation_string =~ m/[A-Za-z]\-$/)
+	  		if ((defined $current_citation_string) && ($current_citation_string =~ m/[A-Za-z]\-$/))
 			{
 		    	# Merge words when lines are hyphenated
 	    		$current_citation_string	=~ s/\-$//; 
@@ -656,7 +656,7 @@ sub SplitCitationsByMarker
 	  		} 
 			else 
 			{
-	    		if ($current_citation_string !~ m/\-\s*$/) { $current_citation_string .= " "; } #!!!
+	    		if ((! defined $current_citation_string) || ($current_citation_string !~ m/\-\s*$/)) { $current_citation_string .= " "; } #!!!
 	    		$current_citation_string .= $line;
 			}
 			###

@@ -33,9 +33,6 @@ use Getopt::Std;
 use strict 'vars';
 use lib $FindBin::Bin . "/../lib";
 
-use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
-use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
-
 # Dependencies
 use File::Spec;
 use File::Basename;
@@ -132,7 +129,7 @@ if ($opt_h)
 }
 
 my $mode		= (!defined $opt_m) ? $default_mode : ParseMode($opt_m);
-my $ph_model	= ($opt_t == 1) ? 1 : 0;
+my $ph_model	= (defined $opt_t) ? 1 : 0;
 
 my $in		= shift;	# input file
 my $out		= shift;	# if available
@@ -298,7 +295,7 @@ if (($mode & $SECTLABEL) == $SECTLABEL)
 	else
 	{
 		my ($sl_xml, $aut_lines, $aff_lines) = SectLabel($sect_label_input, $is_xml_input, 0);
-	
+
 		# Remove first line <?xml/>
 		$rxml .= RemoveTopLines($sl_xml, 1) . "\n";
 	}
@@ -446,7 +443,7 @@ sub RemoveTopLines
 	my ($input, $top_n) = @_;
 
 	# Remove first line <?xml/> 
-	my @lines = split (/\n/,$input);
+	my @lines = split (/\n/, $input);
 	for(my $i = 0; $i < $top_n; $i++)
 	{
 		shift(@lines);
