@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 # -*- cperl -*-
 =head1 NAME
 
@@ -18,8 +18,15 @@ parsCit.cgi
 
 =cut
 require 5.0;
-use Getopt::Std;
+
 use CGI;
+use CGI::Carp;
+
+use File::Temp;
+use HTTP::Message;
+use LWP::UserAgent;
+
+use Getopt::Std;
 use LWP::Simple qw(!head);
 
 ### USER customizable section
@@ -71,7 +78,12 @@ sub License {
 print STDERR "# Copyright 2008 \251 by Min-Yen Kan\n";
 }
 
-my $q = new CGI;
+my $q   = new CGI;
+# Maximum file size, 128MB
+$CGI::POST_MAX = 1024 * 1024 * 10;
+# We don't accept "anything"
+my $safe_filename_characters = "a-zA-Z0-9_.-";
+
 print "Content-Type: text/html\n\n";
 printHeader();
 
@@ -156,6 +168,55 @@ close (OUTFILE);
 $inputMethod = "text field";
 $message = "Demo 2: (whole file):\n  Input: $inputMethod\n";
 $demo = 2;
+} elsif (($q->param('pdffile') ne "") and ($q->param('demo') == "2")) { # M4) uploaded pdf
+	# This file works but becomes too messy, this part is added by Do Hoang Nhat Huy
+
+	# Storage
+	my $upload_dir  = "/home/wing.nus/tmp";
+	my $htmp  = File::Temp->new(DIR => $upload_dir);
+	# Get the temporary unique filename
+	my $ppath = $htmp->filename;
+	
+	my $buf = undef;
+	# Save the uploaded file
+	open my $output_handle, ">", $ppath or die "$!"; binmode $output_handle;
+	while (read($q->param( 'pdffile' ), $buf, 1024)) { print $output_handle $buf; }
+	close $output_handle;	
+
+	# Dont understand
+	system("chmod +r $ppath");
+
+	if (Verify( $ppath )) {
+		my $ua       = LWP::UserAgent->new();
+		my $response = $ua->post( "http://wing.comp.nus.edu.sg/~huydhn/nuance/omnipage/upload.cgi",
+								  'Accept'			=> "text/xml;q=0.9,*/*;q=0.8",
+								  'Accept-Encoding'	=> "gzip, deflate",
+								  'Accept-Charset'	=> "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
+								  'Content-Type'	=> "multipart/form-data",
+								  'Content'			=> [ 'content' => [$ppath] ]);
+
+		my $ocontent = $response->decoded_content('default_charset'=>'utf8');
+		
+		open OUTFILE, ">$filename";
+		print OUTFILE $ocontent;
+		close OUTFILE;
+
+		if (Verify( $filename )) {
+			$inputMethod = "upload";
+			$message = "Demo 2 (whole file):\n  Input: $inputMethod \n";
+			$demo = 2;
+		} else {
+			## Fail to ocr 
+			print "<P>Fail to ocr your pdf.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
+			printTrailer();
+			exit;
+		}
+	} else {
+		## Fail to upload
+		print "<P>Fail to save your pdf.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
+		printTrailer();
+		exit;
+	}
 
 ## Try Demo 3 
 } elsif (($q->param('urllines') ne "") and ($q->param('demo') == "3")){ # M1) get input from url
@@ -183,7 +244,7 @@ $message = "Demo 3: (line set):\n  Input: $inputMethod\n";
 $demo = 3;
 } else {
 ## Oops, no input?
-print "<P>You must provide some input data.  Please <A HREF=\"emma.html\">return to the ParsCit home page</A> to try again.\n";
+print "<P>You must provide some input data.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
 printTrailer();
 logMessage("# Demo: None selected\n  Input: <no data>\n  Output: <no data>\n");
 exit;
@@ -326,6 +387,7 @@ printTrailer();
 sub biblioScript {
   my ($option, $q, $fileName, $inputFormat) = @_;
 
+  my $tmpDir = "/tmp/".newTmpFile();
   if($option =~ /^(1|3|5)$/) {# citations requested
     # get export types (selected checkboxes)
     my @exportTypes = ();
@@ -336,7 +398,6 @@ sub biblioScript {
       }
     }
 
-    my $tmpDir = "/tmp/".newTmpFile();
     my $size = scalar(@exportTypes);
     if($size > 0){
       chdir ("$installDir/bin");
@@ -373,11 +434,13 @@ sub biblioScript {
 }
 
 sub loadTooHigh {
-my $load = `uptime`;
-  $load =~ /load average: ([\d.]+)/i;
-  my $load = $1;
-  print "Load on server: $load<br/>";
-  if ($load > $loadThreshold) { return 1; } else { return 0; }
+	my $load = `uptime`;
+	
+	$load =~ /load average: ([\d.]+)/i;
+	$load = $1;
+
+	print "Load on server: $load<br/>";
+	if ($load > $loadThreshold) { return 1; } else { return 0; }
 }
 
 sub printHeader {
@@ -597,5 +660,28 @@ sub newTmpFile {
   my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
   chomp($tmpFile);
   return $tmpFile;
+}
+
+sub Verify
+{
+	my ($inFile) = @_;
+	
+	my $status = 1;
+	if(!-e $inFile)
+	{
+		$status = 0;
+	} 
+	else
+	{
+		my $numLines = `wc -l < $inFile`;
+		chomp($numLines);
+		if($numLines == 0)
+		{
+			print STDERR "! File $inFile has no content\n";
+			$status = 0;
+		}
+	}
+
+	return $status;
 }
 

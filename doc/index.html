@@ -107,7 +107,7 @@ using <CODE>perl</CODE> (must be in your path).
 
 <ul>
 
-  <li> Current version <A HREF="parscit-110505.zip">110505</A>: Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
+  <li> Current version <A HREF="parscit-110505b.zip">110505b</A>: Added XML::Twig for XML processing. ParsCit now uses input provided by SectLabel. See <A HREF="CHANGELOG.txt"> CHANGELOG.txt </A>;<BR/>
   <BR/> 
   We have also pushed a copy of the ParsCit current distribution into <A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates. 
   <BR/>
@@ -217,7 +217,7 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 </FORM>
 </DIV>
 
-<P><B>Demo #2: As above but using XML input (XML must conform to Omnipage output). This demo is slow so please be patient.</B></P>
+<P><B>Demo #2a: As above but using XML input (XML must conform to Omnipage output). This demo is slow so please be patient.</B></P>
 <DIV STYLE="background-color:D0D0FF; padding: 1em">
 <FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="parsCit.cgi">
 <INPUT TYPE="text" SIZE="80" NAME="demo" value="2" style="display:none;">
@@ -230,11 +230,17 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 <INPUT TYPE="FILE" NAME="datafile">
 </P>
 
-<P>Input Method 3) Paste the whole file here:
+<P>Input Method 3) Paste the whole .xml file here:
 <br/>
 <TEXTAREA ROWS="4" COLS="80" NAME="textfile">
 </TEXTAREA>
 </P>
+
+<P>Input Method 4) Upload your own .pdf file (less than 50 pages & smaller than 10MB):
+<br/>
+<INPUT TYPE="FILE" NAME="pdffile">
+</P>
+
 <P>Parse the document using the following options
 <SELECT NAME="ParsCitOptions">
   <OPTION SELECTED VALUE="5">all</OPTION>
@@ -253,6 +259,15 @@ Note that if system loads gets high, your demo call may not be executed.  If you
 </P>
 
 <br/><CENTER><INPUT TYPE="SUBMIT" VALUE="Parse this file!"></CENTER>
+</FORM>
+</DIV>
+
+<P><B>Demo #2b: OCR a PDF file using Omnipage (less than 50 pages & smaller than 10MB).</B></P>
+<DIV STYLE="background-color:D0D0FF; padding: 1em">
+<FORM ENCTYPE="multipart/form-data" METHOD="post" ACTION="upload.cgi">
+<P style="font-size:small;"><I>Internal key (if applicable):</I> <INPUT TYPE="password" SIZE="4" NAME="key"></P>
+<P>File to OCR (PDF only): <INPUT TYPE="FILE" NAME="content"></P>
+<br/><CENTER><INPUT TYPE="SUBMIT" VALUE="OCR this file!"></CENTER>
 </FORM>
 </DIV>
 
