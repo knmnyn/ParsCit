@@ -33,6 +33,9 @@ use Getopt::Std;
 use strict 'vars';
 use lib $FindBin::Bin . "/../lib";
 
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
+use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.10.0";
+
 # Dependencies
 use File::Spec;
 use File::Basename;
