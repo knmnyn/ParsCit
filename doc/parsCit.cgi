@@ -87,6 +87,12 @@ my $safe_filename_characters = "a-zA-Z0-9_.-";
 print "Content-Type: text/html\n\n";
 printHeader();
 
+# check load if possible to do demo
+if ($q->param('key') ne $internalKey && loadTooHigh()) {
+printLoadTooHigh();
+exit;
+}
+
 ###
 ### MAIN program
 ###
@@ -146,11 +152,19 @@ $message = "Demo 1: (whole file):\n  Input: $inputMethod\n";
 $demo = 1;
 
 } elsif (($q->param('urlfile') ne "") and ($q->param('demo') == "2")) { # M1) get input from url
+
+# Please be patient
+printLoader();
+
 getstore ($q->param('urlfile'), $filename);
 $inputMethod = "URL";
 $message = "Demo 2: (whole file):\n  Input: $inputMethod\n";
 $demo = 2;
 } elsif (($q->param('datafile') ne "") and ($q->param('demo') == "2")) { 	# M2) get input from uploaded text file
+
+# Please be patient
+printLoader();
+
 # Copy a binary file to somewhere safe
 open (OUTFILE,">$filename");
 while ($bytesread = read($q->param('datafile'),$buffer,1024)) {
@@ -161,6 +175,10 @@ $inputMethod = "upload";
 $message = "Demo 2 (whole file):\n  Input: $inputMethod \n";
 $demo = 2;
 } elsif (($q->param('textfile') ne "") and ($q->param('demo') == "2")) { # M3) by text area
+
+# Please be patient
+printLoader();
+
 open (OUTFILE,">$filename");
 print OUTFILE $q->param('textfile');
 close (OUTFILE);
@@ -170,6 +188,9 @@ $message = "Demo 2: (whole file):\n  Input: $inputMethod\n";
 $demo = 2;
 } elsif (($q->param('pdffile') ne "") and ($q->param('demo') == "2")) { # M4) uploaded pdf
 	# This file works but becomes too messy, this part is added by Do Hoang Nhat Huy
+
+	# Please be patient
+	printLoader();
 
 	# Storage
 	my $upload_dir  = "/home/wing.nus/tmp";
@@ -188,7 +209,7 @@ $demo = 2;
 
 	if (Verify( $ppath )) {
 		my $ua       = LWP::UserAgent->new();
-		my $response = $ua->post( "http://wing.comp.nus.edu.sg/~huydhn/nuance/omnipage/upload.cgi",
+		my $response = $ua->post( "http://wing.comp.nus.edu.sg/parsCit/upload.cgi",
 								  'Accept'			=> "text/xml;q=0.9,*/*;q=0.8",
 								  'Accept-Encoding'	=> "gzip, deflate",
 								  'Accept-Charset'	=> "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
@@ -207,12 +228,14 @@ $demo = 2;
 			$demo = 2;
 		} else {
 			## Fail to ocr 
+  			print "<script type='text/javascript'> document.getElementById('background').style.display = 'none' </script>";
 			print "<P>Fail to ocr your pdf.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
 			printTrailer();
 			exit;
 		}
 	} else {
-		## Fail to upload
+		## Fpuail to upload
+  		print "<script type='text/javascript'> document.getElementById('background').style.display = 'none' </script>";
 		print "<P>Fail to save your pdf.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
 		printTrailer();
 		exit;
@@ -255,12 +278,6 @@ open (IF,$filename) || die;
 while (<IF>) { $inputBuf .= $_; }
 close $filename;
 
-# check load if possible to do demo
-if ($q->param('key') ne $internalKey && loadTooHigh()) {
-printLoadTooHigh();
-exit;
-}
-
 my $cmd = "";
 my $outputBuf = "";
 if ($demo == 1 ) {		# run demo 1
@@ -295,9 +312,6 @@ if ($demo == 1 ) {		# run demo 1
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 } elsif ($demo == 2) {
-  # Thang v101101: call BiblioScript
-  biblioScript($option, $q, $filename, "xml");
-
   $cmd = "nice ./citeExtract.pl -i xml ";
 
   if ($option == 1){
@@ -316,14 +330,17 @@ if ($demo == 1 ) {		# run demo 1
     $cmd .= "-m extract_all";
   }
 
-
-  $cmd .= " $filename";
-  print "Executing <B>$cmd</B>.\n";
-  print "Input Method: <B>$inputMethod</B>.";
   chdir ("$installDir/bin");
+  $cmd .= " $filename";
+  $outputBuf = `$cmd`;  
+
+  # Thang v101101: call BiblioScript
+  biblioScript($option, $q, $filename, "xml");
+
+  # print "Executing <B>$cmd</B>.\n";
+  print "Input Method: <B>$inputMethod</B>.";
   print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden1')\">Show XML output</A> ]";
   print "<DIV ID=\"hidden1\" CLASS=\"hidden\" STYLE=\"display:none;\"><PRE>";
-  $outputBuf = `$cmd`;
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 
@@ -413,6 +430,9 @@ sub biblioScript {
         $cmd = "./BiblioScript/biblio_script.sh -q -i mods -o $format $tmpDir/parscit_mods.xml $tmpDir";
         system($cmd);
       }
+
+	  # Remove the loader
+	  print "<script type='text/javascript'> document.getElementById('background').style.display = 'none' </script>";
 
       # get the output
       foreach $format(@exportTypes){
@@ -653,6 +673,13 @@ function exit()
 }
 </script>
 TOOLTIP
+}
+
+sub printLoader {
+# Ugly
+print <<LOADER
+<div id="background"><center><img src="loader.gif"><br /> Please be patient &hellip;</center></div>
+LOADER
 }
 
 # Thang v101101: method to generate tmp file name

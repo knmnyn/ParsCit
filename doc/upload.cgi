@@ -36,6 +36,8 @@ my $threshold = 2;
 my $upload_dir  = "/home/wing.nus/tmp";
 # OCR toolset
 my $ocr_toolset = "/home/wing.nus/local/bin/ocr";
+# OCR server
+my $ocr_server  = "tpe.ddns.comp.nus.edu.sg:31586";
 
 # Get the uploaded file
 my $check   = new CGI;
@@ -126,7 +128,7 @@ sub Ocr
 	if (! Verify($pdf_path)) { return undef; }
 
 	my $option = "xml";
-	my $cmd = $ocr_toolset . " " . $pdf_path . " " . $omni_path . " " . $option;
+	my $cmd = $ocr_toolset . " " . $pdf_path . " " . $omni_path . " " . $option . " " . $ocr_server;
 	system($cmd);
 	
 	# Validity check
