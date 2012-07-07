@@ -396,13 +396,32 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
      tables, equations, footnotes and captions. <BR/> For compatibility
      issues, the ParsHed module is still retained in our source code
      and command line options.  </DD>
-  <DT>What is the "genericHeader" in the output of SectLabel?</DT>
+
+  <DT>How do I retrain ParsCit for a different language? I saw code in
+    lib/ParsCit/PreProcess' to find the beginning of the bibliography
+    section, and changed that but it doesn't work.</DT>
+  <DD>The current version does not depend on those regular expressions
+    anymore, they are for previous versions (e.g., v101101).  ParsCit
+    now first labels each line using the SectLabel module and
+    discovers which lines to parse references for based on the first
+    step's output.  You need to retrain SectLabel for this, by
+    providing labeled data about what class of line each line in your
+    training data is.  It's also possible to "downgrade" the current
+    version to go back to use the rule-based method for identifying
+    the reference section.</DD>
+  <DT>What is the "genericHeader" in the output of SectLabel?  What is
+  the difference between "genericSect.tagged" and "SectLabel.tagged"?</DT>
   <DD>Generic headers, such as introduction, methodology, and
      evaluation, represent generic purposes of different sections in a
      scholarly article.  We map all section names to generic ones
      (i.e., "5. Text Features" to "Methodology").  This promotes
      comparative viewing of sections with identical purpose across
-     articles.  </DD>
+     articles.  For the second question, actually, Generic section is
+     a component of SectLabel.  It is responsible for classifying the
+     section headers of a paper into the generic categories such as
+     Introduction, Methodology, Result, etc.  For details refer to our
+     IJDLS journal paper.
+ </DD>
   <DT>Why is there an option to input file in XML format? Which DTD
     should it follow?</DT>
   <DD>SectLabel is a robust logical document structure inference
@@ -415,6 +434,13 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
     should follows the DTD by OmniPage.  Note: The ParsCit team is not
     affiliated with Nuance in any way nor does it endorse
     OmniPage.</DD>
+  <DT> I need to run ParsCit but I can't get well-formed text from my
+    PDF documents.  Can you help?</DT>
+  <DD> No, we cannot help you with this.  We don't perform OCR or text
+    extraction from PDF documents.  You will have to find your own
+    source for doing the extraction or conversion.  We've found
+    Omnipage useful in our own project work (hence the possibility of
+    XML input), but we don't endorse any product.</DD>
   <DT> The OmniPage XML doesn't seem to be well-formed.  Is that OK?</DT>
   <DD> Yes. The sample "XML" provided in the links (for Demo 2) are
     actual outputs for a sequence of XML pages (one XML file per
@@ -546,7 +572,9 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks to Behrang Qasemizadeh for reporting problems with
+<P>Thanks to Yustus Oktian for questions about training for another
+language.  Thanks to Madhur Kapoor for asking questions about PDF
+conversion.  Thanks to Behrang Qasemizadeh for reporting problems with
 truncation of XML entities in XML output (v110505).  Thanks Tim Brody
 for his BiblioScript patch.  Thanks to David Jurgens for suggesting
 that remove temporary files after runs (v110505).  Thanks Nikolay
