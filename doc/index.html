@@ -112,7 +112,7 @@ using <CODE>perl</CODE> (must be in your path).
   We have also pushed a copy of the ParsCit current distribution into <A HREF="http://www.github.com/knmnyn/parscit">GitHub</A>.  While we'll strive to keep the GitHub version as updated as possible, the versions on this page will remain the most authoritative for major updates. 
   <BR/>
   <li> Other versions: <BR/>
-<A HREF="parscit-101101.zip">101101</A>: Incorporate <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> and <A HREF=http://www.scripps.edu/~cdputnam/software/bibutils>BibUtils</A> software. See CHANGELOG.txt; <BR/> 
+<A HREF="parscit-101101.zip">101101</A>: Incorporated <A HREF="http://github.com/mromanello/BiblioScript">BiblioScript</A> and <A HREF=http://www.scripps.edu/~cdputnam/software/bibutils>BibUtils</A> software. See CHANGELOG.txt; <BR/> 
 <A HREF="parscit-100401.zip">100401d</A>: Added SectLabel (logical structure parsing) software from the NUS team, and Iconip training data from Cheong Chi Hong for ParsCit with new ParsCit model retrained. See CHANGELOG.txt; <BR/> 
 <A HREF="parscit-090625.zip">090625b</A>: Added documentation for complete re-installation. Improved ParsHed with added line-level CRF model together and post-processing module by NUS team, WSDL file and client for service at NUS and minor bug fixes for ParsCit. See CHANGELOG.txt; <BR/>
 <A HREF="parscit-090316.zip">090316</A>: Incorporation of ParsHed (header parsing) software from the NUS team. See CHANGELOG.txt; <BR/>
@@ -369,9 +369,9 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
   <LI> <A HREF="http://www.comp.nus.edu.sg/~kanmy">Min-Yen Kan</A> - Project leader, NUS
   <LI> <A HREF="http://www.personal.psu.edu/igc2/">Isaac G. Councill</A>, The Pennsylvania State University
   <LI> <A HREF="http://clgiles.ist.psu.edu/">C. Lee Giles</A>, The Pennsylvania State University
-  <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant (Alumnus), NUS
+  <LI> <A HREF="http://wing.comp.nus.edu.sg/~lmthang">Minh-Thang Luong</A> - Research Assistant (alumnus), NUS
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
-  <LI> Thuy Dung Nguyen - Research Assistant (Alumnus), NUS
+  <LI> Thuy Dung Nguyen - Research Assistant (alumnus), NUS
   <LI> Huy Nhat Hoang Do - Research Assistant, NUS
 </UL>
 
@@ -478,14 +478,27 @@ are some common problems people have encountered.
   processing correctly, rather than do it ad-hoc ourselves, but this
   requires constructing an exhaustive DOM tree for the Omnipage input.
   This is the timesink that you are experiencing.</DD>
+  <DT>I'm running ParsCit on Windows but I can't get it to work, even
+  after installing a perl interpreter.  Specifically, the
+  citeExtract.pl program dies complaining that it Can't open
+  "/tmp/...." at line 175.  </DT>
+  <DD>ParsCit hasn't been fully tested on windows at NUS, so we can't
+  vouch for whether it will run correctly. In this specific error
+  case, the "/tmp/" directory (a standard place for temporary files in
+  UNIX systems) is normally not available in Windows, and may generate
+  problems.  You may need to change the code and/or create an
+  appropriate directory for ParsCit to generate such files.</DD>
   <DT>I tried downloading and running ParsCit but I get complaints
     about /bin/sed and crf not being found.  Help?</DT>
   <DD>Please read the INSTALL.txt directions.  You need to recompile
     CRF++ for your platform.  The paths included with the install are
     for our version, you need to recompile to have the paths point
     correctly.</DD>
-  <DT>When running citeExtract.pl I get some errors complaining about the wrong ELF class of the binaries.  How can I fix this?</DT>
-  <DD>This seems to be a problem with the compiled executables of CRF++ bundled with the software.  Follow the INSTALL instructions but after step 1 do:
+  <DT>When running citeExtract.pl I get some errors complaining about
+  the wrong ELF class of the binaries.  How can I fix this?</DT>
+  <DD>This seems to be a problem with the compiled executables of
+  CRF++ bundled with the software.  Follow the INSTALL instructions
+  but after step 1 do:
 <P>
 <CODE>$ cp -Rf * ../../.libs
 $ cp crf_learn ../../.libs/lt-crf_learn<BR/>
