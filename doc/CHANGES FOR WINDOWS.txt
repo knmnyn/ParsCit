@@ -1,0 +1,25 @@
+N.B.> This file is applicable only to the Windows fork of ParsCit,
+although this file is present in both distributions in the doc/
+subdirectory.  -Min
+(Fri Oct 12 11:16:46 SGT 2012)
+
+------------------------------------------------------------
+
+This edition deals with the problem of applying ParsCit on Windows.
+
+The step of recompiling crf++ is no longer required.
+
+At present, only citeExtract.pl is avalaible.
+
+More details about the changes:
+	1. replaced the temporary dictionaty "/tmp/" with "D:\"
+	2. modified regex used in checking "untainted path string"
+	3. modified some command-line statements
+	4. integrated crf++0.55 of released edition
+	
+I hope this will be helpful :)
+
+Zhu Ying-Bo
+Language Computing and Web Mining Group
+Institute of Computer Science and Technology of Peking University
+Email : Yumichika@163.com

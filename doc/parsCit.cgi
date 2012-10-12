@@ -205,7 +205,7 @@ $demo = 2;
 	close $output_handle;	
 
 	# Dont understand
-	system("chmod +r $ppath");
+	system("chmod +rw $ppath");
 
 	if (Verify( $ppath )) {
 		my $ua       = LWP::UserAgent->new();
@@ -217,7 +217,7 @@ $demo = 2;
 								  'Content'			=> [ 'content' => [$ppath] ]);
 
 		my $ocontent = $response->decoded_content('default_charset'=>'utf8');
-		
+	
 		open OUTFILE, ">$filename";
 		print OUTFILE $ocontent;
 		close OUTFILE;
@@ -234,7 +234,7 @@ $demo = 2;
 			exit;
 		}
 	} else {
-		## Fpuail to upload
+		## Fail to upload
   		print "<script type='text/javascript'> document.getElementById('background').style.display = 'none' </script>";
 		print "<P>Fail to save your pdf.  Please <A HREF=\"index.html\">return to the ParsCit home page</A> to try again.\n";
 		printTrailer();
