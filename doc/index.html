@@ -509,6 +509,18 @@ are some common problems people have encountered.
 $ cp crf_learn ../../.libs/lt-crf_learn<BR/>
 $ cp crf_test ../../.libs/lt-crf_test<BR/>
 </CODE></DD>
+  <DT>I'm trying to install parscit v110505 using the instructions in the install file, and when I get to the point where you're supposed to recompile CRF, it exists with an error:<BR/>
+
+<PRE>In file included from node.h:13:0,
+                   from node.cpp:9:
+		   path.h:26:52: error: 'size_t' has not been declared
+		   make[1]: *** [node.lo] Error 1
+		   make[1]: Leaving directory `/home/agarnett/parscit/crfpp/CRF++-0.51'
+		   make: *** [all] Error 2</PRE><BR/>
+The install file mentions that this may fail the first time; unfortunately for me, it keeps failing. any help?</DT>
+  <DD>The error is from CRF++ package (not from ParsCit), there are two ways to fix it:<BR/>
+  1.  Add the line.  <CODE>#include&lt;iostream&gt;</CODE> in node.cpp and compile crf++ again, or;<BR/>
+  2.  Go to <A HREF="http://crfpp.googlecode.com/svn/trunk/doc/index.html">http://crfpp.googlecode.com/svn/trunk/doc/index.html</A> and download the latest version.  The instruction is the same.  Hope this helps.</DD>
   <DT>Issue numbers don't get extracted.</DT>
   <DD><SPAN CLASS="red">This issue should be fixed as of the v110505
   release.</SPAN> There is now some heuristic postprocessing code to
@@ -590,13 +602,14 @@ $ mv model ../../resources/parsCit.model
 <p>ParsCit owes its continued maintenance and support from its user
 base.  Here we'd like to thank them for their help.</p>
 
-<P>Thanks to George E. Raptis (george.e.raptis@bath.edu) and Eric Tran 
-(etra440@gmail.com) for the port to Windows.  Thanks to Zhu Ying-Bo 
-(yumichika@163.com) from the Language Computing and Web Mining Group,
-Institute of Computer Science and Technology of Peking University for 
-the partial port to Windows.  Thanks to Yustus Oktian for questions about 
-training for another language.  Thanks to Madhur Kapoor for asking questions 
-about PDF conversion.  Thanks to Behrang Qasemizadeh for reporting problems with
+<P>Thanks to Alex Garnett in spotting more problems with CRF
+dependencies.  Thanks to George E. Raptis and Eric Tran for the port
+to Windows.  Thanks to Zhu Ying-Bo (yumichika@163.com) from the
+Language Computing and Web Mining Group, Institute of Computer Science
+and Technology of Peking University for the partial port to Windows.
+Thanks to Yustus Oktian for questions about training for another
+language.  Thanks to Madhur Kapoor for asking questions about PDF
+conversion.  Thanks to Behrang Qasemizadeh for reporting problems with
 truncation of XML entities in XML output (v110505).  Thanks Tim Brody
 for his BiblioScript patch.  Thanks to David Jurgens for suggesting
 that remove temporary files after runs (v110505).  Thanks Nikolay
