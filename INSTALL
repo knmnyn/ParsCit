@@ -54,6 +54,8 @@ ParsCit software.  It is due to Taku Kudo.
 
   $ configure  
   # important! the first "make" command fails for me; not sure why 
+  # Also see the Troubleshooting notes in the ParsCit home page
+  # (doc/index.html) for other possible problems with this step.
   $ make
   $ make clean
   $ make
