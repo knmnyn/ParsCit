@@ -24,7 +24,7 @@ use ParsCit::PostProcess;
 # Dictionary
 my %dict = ();
 # CRF++
-my $crft = $FindBin::Bin . "/../" . $SectLabel::Config::crf_test;
+my $crft = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$SectLabel::Config::crf_test";
 
 # Matching features of each author, including
 # Signals

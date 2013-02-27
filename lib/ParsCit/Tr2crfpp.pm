@@ -25,8 +25,7 @@ $tmp_dir		= "$FindBin::Bin/../$tmp_dir";
 my $dict_file	= $ParsCit::Config::dictFile;
 $dict_file		= "$FindBin::Bin/../$dict_file";
 
-my $crf_test	= $ParsCit::Config::crf_test;
-$crf_test		= "$FindBin::Bin/../$crf_test";
+my $crf_test	= $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$ParsCit::Config::crf_test";
 
 my $model_file	= $ParsCit::Config::modelFile;
 $model_file		= "$FindBin::Bin/../$model_file";

@@ -22,8 +22,7 @@ $tmpDir = "$FindBin::Bin/../$tmpDir";
 my $dictFile = $ParsHed::Config::dictFile;
 $dictFile = "$FindBin::Bin/../$dictFile";
 
-my $crf_test = $ParsHed::Config::crf_test;
-$crf_test = "$FindBin::Bin/../$crf_test";
+my $crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$ParsHed::Config::crf_test";
 
 my $modelFile = $ParsHed::Config::oldModelFile;
 $modelFile = "$FindBin::Bin/../$modelFile";
