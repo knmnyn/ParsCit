@@ -40,12 +40,24 @@ These are the two scripts: citeExtract.pl and parseRefStrings.pl.  The
 second script is a subset of the first, and should be your first
 target to get running.
 
-1) You will first need to reinstall, recompile the crfpp package and
-place the binaries at crfpp/.  We are using CRF++ version 0.51.  To do
-this follow these instructions in the crfpp directory.  CRF++ is the
+1) You will first need to install CRF++. CRF++ is the
 core conditional random field learner, that is re-distributed in this
-ParsCit software.  It is due to Taku Kudo.
+ParsCit software. It is due to Taku Kudo. We are using CRF++ version 0.51.
 
+You have two options:
+  a) You may install CRF++ anywhere, and set the environment variable
+  CRFPP_HOME to tell ParsCit where to find it. CRFPP_HOME should be set
+  such that "$CRFPP_HOME/bin" contains the binaries crf_test and crf_learn.
+  For example if you run a default "make install" on Linux and those
+  binaries are installed to "/usr/local/bin", CRFPP_HOME should be
+  "/usr/local".
+
+  b) You may place the binaries in the crfpp/ directory within the ParsCit
+  source. You do not then need to set any environment variables, although
+  you may need to edit Config.pm files.
+
+Installation methods:
+  a) From source, in the crfpp directory:
   $ cd crfpp
   # we're going to rebuild CRF 51
   $ rm -Rf CRF++-0.51
@@ -71,9 +83,19 @@ ParsCit software.  It is due to Taku Kudo.
   $ cd .libs
   $ cp -Rf * ../../.libs
 
-2) Once the binaries are placed properly, you may need to edit the
+  b) With apt, on a Debian-based Linux distribution:
+  sudo apt-add-repository 'deb http://cl.naist.jp/~eric-n/ubuntu-nlp oneiric all'
+  sudo apt-get update
+  sudo apt-get install libcrf++-dev crf++
+
+  c) With Homebrew, on OS X:
+  brew install crf++
+
+2) Once the binaries are placed properly, if you are not using the
+CRFPP_HOME environment variable, you may need to edit the
 lib/ParsCit/Config.pm file to point to the proper directories on your
-machine.
+machine. If you are using CRFPP_HOME, you may want to set it in
+your .bashrc or .profile file.
 
 3) Edit the shebang lines (first line) of the scripts in the bin/
 directory to point to the proper versions of perl
