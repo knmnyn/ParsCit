@@ -11,7 +11,8 @@ $tmpDir			= "tmp";
 $dictFile		= "resources/parsCitDict.txt";
 $funcFile		= "resources/sectLabel/funcWord";
 
-$crf_test		= "crfpp/crf_test";
+$crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "crfpp/crf_test";
+
 $modelFile		= "resources/sectLabel/sectLabel.model";
 $modelXmlFile	= "resources/sectLabel/sectLabel.modelXml.v2";
 $configFile		= "resources/sectLabel/sectLabel.config";

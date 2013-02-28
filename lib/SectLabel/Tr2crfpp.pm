@@ -20,8 +20,7 @@ use Encode ();
 use SectLabel::Config;
 
 ### USER customizable section
-my $crf_test	= $SectLabel::Config::crf_test;
-$crf_test		= "$FindBin::Bin/../$crf_test";
+my $crf_test	= $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$SectLabel::Config::crf_test";
 ### END user customizable section
 
 my %dict		= ();
@@ -1225,7 +1224,7 @@ sub LoadListHash
 sub Untaint 
 {
 	my ($s) = @_;
-  	if ($s =~ /^([\w \-\@\(\),\.\/<>]+)$/) 
+  	if ($s =~ /^([\w \-\@\(\),\.\/<>\+]+)$/)
 	{
     	$s = $1;               # $data now untainted
   	} 
