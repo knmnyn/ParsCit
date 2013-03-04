@@ -4,7 +4,7 @@ require 'find'
 
 pwd = File.dirname(__FILE__)
 
-@CRFPP  = "#{pwd}/../../crfpp"
+@CRFPP  = ENV['CRFPP_HOME'] ? "#{ENV['CRFPP_HOME']}/bin" : "#{pwd}/../../crfpp"
 @SRC    = "#{pwd}/genericSect"
 @DATA   = "#{pwd}/../../resources/sectLabel/"
 @TEST_DIR = "/tmp/"
@@ -20,7 +20,7 @@ system(cmd)
 
 if ARGV[1] != nil
 	g = File.open("#{ARGV[1]}", "w")
-	
+
 	cmd = "chmod 777 #{ARGV[1]}"
 	system(cmd)
 end

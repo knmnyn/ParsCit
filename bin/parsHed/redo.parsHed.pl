@@ -18,8 +18,9 @@ my $parscitHome = "$FindBin::Bin/../..";
 my $tr2crfppLoc = "$parscitHome/bin/parsHed/tr2crfpp_parsHed.pl";
 my $convertLoc = "$parscitHome/bin/parsHed/convert2TokenLevel.pl"; #new model
 my $keywordLoc = "$parscitHome/bin/parsHed/keywordGen.pl"; #new model
-my $crf_learnLoc = "$parscitHome/crfpp/crf_learn";
-my $crf_testLoc = "$parscitHome/crfpp/crf_test";
+my $crfpp = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin" : "$parscitHome/crfpp";
+my $crf_learnLoc = "$crfpp/crf_learn";
+my $crf_testLoc = "$crfpp/crf_test";
 my $conllevalLoc = "$parscitHome/bin/conlleval.pl";
 ### END user customizable section
 

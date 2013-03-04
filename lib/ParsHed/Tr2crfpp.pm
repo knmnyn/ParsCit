@@ -28,8 +28,7 @@ $keywordFile = "$FindBin::Bin/../$keywordFile";
 my $bigramFile = $ParsHed::Config::bigramFile;
 $bigramFile = "$FindBin::Bin/../$bigramFile";
 
-my $crf_test = $ParsHed::Config::crf_test;
-$crf_test = "$FindBin::Bin/../$crf_test";
+my $crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$ParsHed::Config::crf_test";
 
 my $modelFile = $ParsHed::Config::modelFile;
 $modelFile = "$FindBin::Bin/../$modelFile";

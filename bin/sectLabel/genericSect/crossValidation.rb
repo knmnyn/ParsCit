@@ -3,7 +3,7 @@ require 'find'
 
 pwd = File.dirname(__FILE__)
 
-@CRFPP  = "#{pwd}/../../../crfpp"
+@CRFPP  = ENV['CRFPP_HOME'] ? "#{ENV['CRFPP_HOME']}/bin" : "#{pwd}/../../../crfpp"
 @RESOURCES   = "#{pwd}/../../../crfpp/traindata/"
 @TEST_DIR = "#{pwd}/run"
 @CONLLEVAL = "#{pwd}/../../conlleval.pl"
@@ -48,7 +48,7 @@ while iFold <= numFold do
 	system(cmd)
 	cmd = "#{pwd}/../single2multi.pl -in #{@TEST_DIR}/gs_test.txt -out #{@TEST_DIR}/gs_test_#{iFold}.txt"
 	system(cmd)
-	
+
 	#create train and test file
 	cmd = "ruby extractFeature.rb #{@TEST_DIR}/gs_train_#{iFold}.txt  > #{@TEST_DIR}/gs_train_#{iFold}.train "
 	system(cmd)

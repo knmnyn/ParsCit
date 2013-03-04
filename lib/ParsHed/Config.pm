@@ -10,7 +10,8 @@ $dictFile		= "resources/parsCitDict.txt";
 $keywordFile	= "resources/parsHed/keywords";
 $bigramFile		= "resources/parsHed/bigram";
 
-$crf_test		= "crfpp/crf_test";
+$crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "crfpp/crf_test";
+
 $modelFile		= "resources/parsHed/parsHed.model";
 $oldModelFile	= "resources/parsHed/archive/parsHed.090316.model";
 
