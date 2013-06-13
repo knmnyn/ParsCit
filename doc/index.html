@@ -594,6 +594,28 @@ $ mv model ../../resources/parsCit.model
     0.51 and place the libraries and the executables in the proper
     place. See the README for details.</DD>
 
+	<DT> I am trying to install CRF++(CRFPP).
+		 When I executed the following in the terminal,
+		 <BR><BR>
+		 <CODE>
+		 $ /opt/parscit2/bin/citeExtract.pl -m extract_all
+		 <BR>$ /var/www/internal/indra/uploads_batch/proses.txt
+		 <BR>$ /var/www/internal/indra/uploads_batch/hasiltemp.xml	
+		 </CODE>
+		 <BR><BR>the following error was thrown.
+		 <CODE>
+		 <BR>$ /opt/parscit2/crfpp/.libs/lt-crf_test: error while loading shared libraries:
+		 <BR>libcrfpp.so.0: cannot open shared object file: No such file or directory
+		</CODE>
+	</DT>
+	<DD> The file libcrfpp.so.0 is not in your library path. Normally, a successful 
+		reinstallation of CRF++ (following the instructions above) will also solve this 
+		problem. If it is still persists, you can try setting the LD_LIBRARY_PATH variable to the location of libcrfpp.so.0 file :
+		<BR>
+		<CODE>
+		$ export LD_LIBRARY_PATH=&lt;PATH-TO-LIBCRFPP.SO.0-FILE&gt;
+		</CODE>	
+	</DD>
 </DL>
 
 <!-- Kudos ---------------------------------------------------------------------- -->
@@ -685,7 +707,7 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Mon Mar  4 14:23:46 SGT 2013
+Thu Jun 13 21:17:28 SGT 2013
 <!-- hhmts end -->
 </H5>
 </div>
