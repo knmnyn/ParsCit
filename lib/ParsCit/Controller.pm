@@ -220,9 +220,9 @@ sub ExtractCitationsImpl
   	while (<IN>) 
 	{
 		
-		# Remove ^M character at the end of the file if any
-		s/\cM/\n/; 
     	chomp;
+		# Remove ^M character at the end of the file if any
+		s/\cM$//; 
 
   	}
   	close IN;
