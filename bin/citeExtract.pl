@@ -137,6 +137,26 @@ my $ph_model	= (defined $opt_t) ? 1 : 0;
 my $in		= shift;	# input file
 my $out		= shift;	# if available
 
+# Ankur : Handle Mac style CR LF encoding of input file
+
+if (! open(IN, "<:utf8", $in)) { return (-1, "Could not open file " . $in . ": " . $!); }
+my @lines;
+@lines = <IN>;
+close(IN);
+foreach (@lines){
+    $_ =~ s/\cM/\n/g;
+}
+my ($vol, $dir, $fname) = File::Spec->splitpath($in);
+my ($name , $ext) = ($fname =~ m/(.+)\.(.+)/);
+my $new_name = $name . "-conv." . $ext;
+my $full_path = File::Spec->catpath($vol, $dir, $new_name);
+print $full_path . "\n";
+if (! open(OUT, ">:utf8", $full_path)) { return (-1, "Could not open file " . $full_path . ": " . $!); }
+print OUT @lines;
+close(OUT);
+$in = $full_path;
+print "\nParsed Successfully\n";
+
 # Output buffer
 my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"" . $output_version . "\">\n";
 

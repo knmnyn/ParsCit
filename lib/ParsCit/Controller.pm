@@ -216,6 +216,17 @@ sub ExtractCitationsImpl
 
     if (! defined $bwrite_split) { $bwrite_split = $ParsCit::Config::bWriteSplit; }
 
+  	if (!open (IN, "<:utf8", $textfile)) { return (-1, "Could not open text file $textfile: $!"); }
+  	while (<IN>) 
+	{
+		
+		# Remove ^M character at the end of the file if any
+		s/\cM/\n/; 
+    	chomp;
+
+  	}
+  	close IN;
+
 	# Status and error message initialization
     my ($status, $msg) = (1, "");
 	
