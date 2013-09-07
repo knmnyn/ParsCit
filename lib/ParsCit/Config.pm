@@ -18,7 +18,7 @@ $URI		= 'http://citeseerx.org/algorithms/parscit/wsdl';
 ## Paths relative to ParsCit root dir ($FindBin::Bin/..)
 $tmpDir		= "tmp";
 $dictFile	= "resources/parsCitDict.txt";
-$crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "crfpp/crf_test";
+$crf_test	= "crfpp/crf_test";
 
 ## Tr2crfpp parscit model
 $modelFile		= "resources/parsCit.model";
@@ -26,8 +26,8 @@ $modelFile		= "resources/parsCit.model";
 $splitModelFile	= "resources/parsCit.split.model";
 
 ## Citation Context
-$contextRadius	= 200;
-$maxContexts	= 5;
+$contextRadius	= 600;
+$maxContexts	= 10;
 
 ## Write citation and body file components
 $bWriteSplit	= 1;

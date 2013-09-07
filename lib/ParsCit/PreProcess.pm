@@ -1038,4 +1038,37 @@ sub Trim
     return $text;
 }
 
+# Ankur : Handle Mac style CR LF encoding of input file
+# Canocicalizes carriage return, line feed characters 
+# at line ending
+sub canolicalizeEOL {
+    my ($infile) = @_;
+    
+	my $oneline = 0;
+    if (! open(IN, "<:utf8", $infile)) { return (-1, "Could not open file " . $infile . ": " . $!); }
+	
+    open(IN, "<:utf8", $infile);
+    my @lines;
+    @lines = <IN>;
+    close(IN); 
+	
+    foreach (@lines){
+        $_ =~ s/\cM/\n/g;
+    }
+        
+	# Create a new temp file
+	my $new_file_name = $infile . "-conv-tmp";
+        
+	if (! open(OUT, ">:utf8", $new_file_name)) { return (-1, "Could not open file " . $new_file_name . ": " . $!); }
+	print OUT @lines;
+	close(OUT);
+	
+	# Delete the old file
+	unlink( $infile );
+	
+	# Rename newly created file to the old file name
+	my $cmd = "mv $new_file_name $infile";
+	system($cmd);
+}
+
 1;

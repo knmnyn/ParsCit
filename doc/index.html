@@ -49,7 +49,7 @@ tasks: 1) reference string parsing, sometimes also called citation
 parsing or citation extraction, and 2) logical structure parsing of
 scienfific documents.  It is architected as a supervised machine
 learning procedure that uses Conditional Random Fields as its learning
-mechanism.  You can download the code below, parse strings online, or
+mechanism. You can download the code below, parse strings online, or
 send batch jobs to our web service.  The code contains both the
 training data, feature generator and shell scripts to connect the
 system to a web service (used on this web site).</P>
@@ -86,6 +86,18 @@ strings and parsing the logical structure of a document.  The first
 task is handled by a module with the project namesake, ParsCit, and
 the second task by a separate module SectLabel.
 </P>
+
+<h4> Extracting and Matching Authors and Affiliations in
+Scholarly Documents</h4>
+<P>We introduce <B>Enlil</B>, an information extraction system that discovers
+the institutional affiliations of authors in scholarly papers. Enlil
+consists of two steps: one that first identifies authors and affiliations
+using a conditional random field; and a second support vector
+machine that connects authors to their affiliations. Enlil relies on the SectLabel 
+for its input. It collects all reported author and affiliation lines from SectLabel
+for processing.
+</P>
+<!--<P> Our latest version of Parscit that is available for download includes Enlil. </P>-->
 
 <br clear="all"/>
 <!-- License ---------------------------------------------------------------------- -->
@@ -315,14 +327,22 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
 <A name="p"></a><H2>Publications</H2>
 <P><B>Journal Papers:</B>
 <UL>
-  <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (forthcoming)
+  <LI> Minh-Thang Luong, Thuy Dung Nguyen and Min-Yen Kan (2010)
        <U>Logical Structure Recovery in Scholarly Articles with Rich
-       Document Features</U>.  Forthcoming in the International
-       Journal of Digital Library Systems.  <BR/>
+       Document Features</U>. International
+       Journal of Digital Library Systems (IJDLS), 1(4), 1-23.  <BR/>
        [ <A HREF="ijdls-SectLabel.pdf">pre-print .pdf</A> ]
 </UL>
 
+
 <P><B>International Referreed Conference Publications:</B>
+<UL>
+  <LI> Huy Hoang Nhat Do, Muthu Kumar Chandrasekaran, Philip S. Cho, 
+	  and Min-Yen Kan.(2013) <U>Extracting and Matching Authors and Affiliations 
+	  in Scholarly Documents.</U>In Proceedings of the Thirteenth Annual International 
+	  ACM/IEEE Joint Conference on Digital Libraries (JCDL'13), Indianapolis: ACM. 2013. <BR/>
+	  [ <A HREF="jcdl2013.pdf">pre-print .pdf</A> ]
+</UL>
 <UL>
   <LI> Isaac G. Councill, C. Lee Giles, Min-Yen Kan. (2008)
        <U>ParsCit: An open-source CRF reference string parsing
@@ -378,6 +398,7 @@ HREF="http://wing.comp.nus.edu.sg/~wing.nus/samples/W06-0102.cite">http://wing.c
   <LI> Yong Kiat Ng - Final year undergraduate student (graduated, 2004), NUS
   <LI> Thuy Dung Nguyen - Research Assistant (alumnus), NUS
   <LI> Huy Nhat Hoang Do - Research Assistant, NUS
+  <LI> <A HREF="http://wing.comp.nus.edu.sg/~cmkumar">Muthu Kumar Chandrasekaran</A> - Research Assistant, NUS
 </UL>
 
 <!-- FAQ ---------------------------------------------------------------------- -->
@@ -658,7 +679,7 @@ MacOS.</p>
 
 <P>ParsCit is used by many projects worldwide, and not just in
 experimental, research and academic places, but in commercial
-snterprises as well.  <A HREF="http://www.mendeley.com/">Mendeley</A>
+enterprises as well.  <A HREF="http://www.mendeley.com/">Mendeley</A>
 is using ParsCit to parse references from contributed papers, as is
 the <A HREF="http://citec.repec.org/">Citations in Economics
 (CitEc)</A> project.
@@ -707,7 +728,7 @@ Created on: Fri Dec 24 01:48:05 SGT 2004
 | Version: 1.0
 
 | Last modified: 
-Thu Jun 13 21:17:28 SGT 2013
+Tue Jul 23 00:28:05 SGT 2013
 <!-- hhmts end -->
 </H5>
 </div>

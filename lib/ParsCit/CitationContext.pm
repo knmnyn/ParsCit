@@ -13,9 +13,6 @@ use utf8;
 
 use ParsCit::Config;
 
-my $context_radius	= $ParsCit::Config::contextRadius;
-my $max_contexts	= $ParsCit::Config::maxContexts;
-
 sub CountTokens 
 {
 	my ($text) = @_;
@@ -38,7 +35,11 @@ sub CountTokens
 sub GetCitationContext 
 {
 	my ($rbody_text, $pos_array, $marker) = @_;
-  
+
+	# Some global variables
+	my $context_radius	= $ParsCit::Config::contextRadius;
+	my $max_contexts	= $ParsCit::Config::maxContexts;
+
 	my ($prioritize, @markers) = GuessPossibleMarkers($marker);
   
   	my @matches		= ();

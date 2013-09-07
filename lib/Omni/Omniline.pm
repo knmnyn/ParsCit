@@ -26,6 +26,7 @@ my $tmp_bottom		= undef;
 my $tmp_top			= undef;
 my $tmp_left		= undef;
 my $tmp_right		= undef;
+my $tmp_tab			= 0;
 my @tmp_objs		= ();
 
 ###
@@ -45,12 +46,13 @@ sub new
 	my $self = {	'_self'			=> $obj_list->{ 'OMNILINE' },
 					'_raw'			=> undef,
 					'_content'		=> undef,
-					'_baseline'		=> undef,
+					'_baseline'		=> undef,					
 					'_bottom'		=> undef,
 					'_top'			=> undef,
 					'_left'			=> undef,
 					'_right'		=> undef,
 					'_bullet'		=> undef,
+					'_tab'			=> undef,
 					'_objs'			=> \@objs	};
 
 	bless $self, $class;
@@ -84,6 +86,7 @@ sub set_raw
 	$self->{ '_top' }		= $tmp_top;
 	$self->{ '_left' }		= $tmp_left;
 	$self->{ '_right' } 	= $tmp_right;
+	$self->{ '_tab' }		= $tmp_tab;
 	
 	# Copy all objects
 	@{ $self->{ '_objs' } }	= @tmp_objs;
@@ -125,6 +128,13 @@ sub parse
 	my $tmp_bold		= GetNodeAttr($node, $att_list->{ 'BOLD' });
 	my $tmp_italic		= GetNodeAttr($node, $att_list->{ 'ITALIC' });
 
+	# This flag will be turned on if the current element is a tab
+	# otherwise it will be off by default
+	my $tab_flag = 0;
+
+	# Fake run index
+	my $index = 1;
+
 	# Check if there's any run
 	my @all_runs = $node->descendants( $tag_list->{ 'RUN' });
 	# There is not
@@ -152,6 +162,9 @@ sub parse
 
 		# Fake run
 		my $run = new Omni::Omnirun();
+
+		# If the tab flag is on
+		$run->set_previous_tab($tab_flag);
 		
 		# Set raw content
 		$run->set_raw($output->value());
@@ -161,6 +174,9 @@ sub parse
 
 		# Update content
 		$tmp_content = $tmp_content . $run->get_content();
+
+		# Tab flag - off
+		$tab_flag = 0;
 	}
 	else
 	{
@@ -184,6 +200,9 @@ sub parse
 			{
 				my $run = new Omni::Omnirun();
 
+				# If the tab flag is on
+				$run->set_previous_tab($tab_flag);
+
 				# Set raw content
 				$run->set_raw($child->sprint());
 				
@@ -192,6 +211,18 @@ sub parse
 
 				# Update content
 				$tmp_content = $tmp_content . $run->get_content();
+
+				# Tab flag - off
+				$tab_flag = 0;
+
+				# Check last tab
+				if (1 == $run->is_last_tab()) {
+					# Update the total number of tab
+					$tmp_tab = $tmp_tab + 1;
+
+					# Tab flag - on
+					$tab_flag = 1;
+				}
 			}
 			# if this child is <wd>
 			elsif ($xpath =~ m/\/$word_tag$/)
@@ -243,7 +274,13 @@ sub parse
 
 						# Fake run 
 						my $run = new Omni::Omnirun();
-	
+
+						# Indicate that it is a faked run
+						$run->set_fake($index);
+						
+						# If the tab flag is on
+						$run->set_previous_tab($tab_flag);
+
 						# Set raw content
 						$run->set_raw($output->value());
 
@@ -252,6 +289,18 @@ sub parse
 
 						# Update content
 						$tmp_content = $tmp_content . $run->get_content();
+
+						# Tab flag - off
+						$tab_flag = 0;
+
+						# Check last tab
+						if (1 == $run->is_last_tab()) {
+							# Update the total number of tab
+							$tmp_tab = $tmp_tab + 1;
+
+							# Tab flag - on
+							$tab_flag = 1;
+						}
 
 						# Little brother
 						if ($grand_child->is_last_child) 
@@ -295,6 +344,12 @@ sub parse
 
 					# Fake run
 					my $run = new Omni::Omnirun();
+
+					# Indicate that it is a faked run
+					$run->set_fake($index);
+
+					# If the tab flag is on
+					$run->set_previous_tab($tab_flag);
 		
 					# Set raw content
 					$run->set_raw($output->value());
@@ -304,7 +359,22 @@ sub parse
 
 					# Update content
 					$tmp_content = $tmp_content . $run->get_content();
+
+					# Tab flag - off
+					$tab_flag = 0;
+
+					# Check last tab
+					if (1 == $run->is_last_tab()) {
+						# Update the total number of tab
+						$tmp_tab = $tmp_tab + 1;
+	
+						# Tab flag - on
+						$tab_flag = 1;
+					}
 				}
+
+				# Update fake index
+				$index++;
 			}
 			elsif  ($xpath =~ m/\/$space_tag$/)
 			{
@@ -315,11 +385,20 @@ sub parse
 			{
 				# Update content
 				$tmp_content = $tmp_content . "\t";
+				
+				# Update the total number of tab
+				$tmp_tab = $tmp_tab + 1;
+
+				# Tab flag - on
+				$tab_flag = 1;
 			}
 			elsif  ($xpath =~ m/\/$newline_tag$/)
 			{
 				# Update content
 				$tmp_content = $tmp_content . "\n";
+
+				# Tab flag - off
+				$tab_flag = 0;
 			}
 
 			# Little brother
@@ -345,6 +424,18 @@ sub set_bullet
 {
 	my ($self, $bullet) = @_;
 	$self->{ '_bullet' } = $bullet;		
+}
+
+sub get_tab
+{
+	my ($self) = @_;
+	return $self->{ '_tab' };
+}
+
+sub set_tab
+{
+	my ($self, $tab) = @_;
+	$self->{ '_tab' } = $tab;
 }
 
 sub get_name

@@ -376,6 +376,9 @@ sub GenerateAuthorAffiliation
 	# This file is the output from CRF++ for sectlabel
 	open(IN, "<:utf8", $in_file) or return (undef, undef, 0, "couldn't open in_file: $!");
 
+	# Label of the previous line
+	my $prev_sys = "";
+
   	while (<IN>) 
 	{
 		# Overall condidence line, do not care about this
@@ -406,14 +409,35 @@ sub GenerateAuthorAffiliation
 		if ($sys eq "author") 
 		{ 
 			push @aut_lines, $line_index; 
+		
+			# Save the old label
+			$prev_sys = $sys;
+			# Point to the next line
+			$line_index++;
 		}
 		elsif ($sys eq "affiliation")
 		{
 			push @aff_lines, $line_index;
-		}
 
-		# Point to the next line
-		$line_index++;
+			# Save the old label
+			$prev_sys = $sys;
+			# Point to the next line
+			$line_index++;
+		}
+		elsif (($sys eq "address") && ($prev_sys eq "affiliation"))
+		{
+			push @aff_lines, $line_index;
+			
+			# Point to the next line
+			$line_index++;
+		}
+		else
+		{
+			# Save the old label
+			$prev_sys = $sys;
+			# Point to the next line
+			$line_index++;
+		}
   	}
 
   	close (IN);

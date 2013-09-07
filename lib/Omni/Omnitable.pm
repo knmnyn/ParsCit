@@ -35,12 +35,15 @@ sub new
 
 	# Content of all rows in the table
 	my @rcontent	= ();
+	# All line in the table
+	my @lines		= ();
 
 	# Class members
 	my $self = {	'_self'			=> $obj_list->{ 'OMNITABLE' },
 					'_raw'			=> undef,
 					'_content'		=> undef,
 					'_rcontent'		=> \@rcontent,
+					'_lines'		=> \@lines,
 					'_bottom'		=> undef,
 					'_top'			=> undef,
 					'_left'			=> undef,
@@ -89,6 +92,7 @@ sub parse
 	# At first, content is blank
 	my $tmp_content		= "";
 	my @tmp_rcontent	= ();
+	my @tmp_lines		= ();
 	# because there's no object
 	my @tmp_objs		= ();
 	# and no coordinate
@@ -157,7 +161,6 @@ sub parse
 
 		# Update cell list
 		push @tmp_objs, $obj;
-
 	}
 
 	# Unformatted table
@@ -165,22 +168,45 @@ sub parse
 	{
 		# Just append cell content
 		foreach my $cell (@tmp_objs) { $tmp_content = $tmp_content . $cell->get_content() . "\n"; }
+
+		# Get every line objects in the table, this's a nightmare
+		foreach my $cell (@tmp_objs) {
+			foreach my $para (@{ $cell->get_objs_ref }) {
+				foreach my $line (@{ $para->get_objs_ref }) {
+					push @tmp_lines, $line;	
+				}
+			}
+		}
 	}
 	# Formatted table
 	else
 	{
 		# Table content
 		my @content_matrix = ();
+		# Lines
+		my @lines_matrix  = ();
 		
 		# Matrix initialization
 		for(my $i = 0; $i < scalar(@tmp_grid_rows); $i++)
 		{
 			# Empty row
-			my @row = ();
+			my @row_content = ();
+			my @row_line	= ();
+
 			# Update the row
-			for(my $j = 0; $j < scalar(@tmp_grid_cols); $j++) { push @row, ""; }
+			for(my $j = 0; $j < scalar(@tmp_grid_cols); $j++) { 
+				push @row_content, ""; 
+
+				my @tmp = ();
+				# Just a blank temporary array
+				push @row_line, [ @tmp ];
+			}
+
+			# Save the row as content
+			push @content_matrix, [ @row_content ];
+
 			# Save the row
-			push @content_matrix, [ @row ];
+			push @lines_matrix, [ @row_line ];
 		}
 
 		# Update table content
@@ -199,8 +225,15 @@ sub parse
 				$cell_content	 =~ s/^\s+|\s+$//g;
 				# Remove blank line
 				$cell_content	 =~ s/\n\s*\n/\n/g;
-
+				# Save the content
 				$content_matrix[ $row_index ][ $col_index ] = $cell_content;
+
+				# Get every line objects in the cell, this's a nightmare
+				foreach my $para (@{ $cell->get_objs_ref }) {
+					foreach my $line (@{ $para->get_objs_ref }) {
+						push @{ $lines_matrix[ $row_index ][ $col_index ] }, $line;	
+					}
+				}
 			}
 		}
 
@@ -231,6 +264,44 @@ sub parse
 			# Save row content
 			push @tmp_rcontent, $row_content;
 		}
+
+		# Save lines
+		foreach my $row (@lines_matrix) {
+			my @runs = ();	
+			# Concat similar line in cells of the same row
+			foreach my $cell (@{ $row }) {
+				my @tmp = @{ $cell };
+
+				for (my $i = 0; $i < scalar @tmp; $i++) {
+					if ($i == scalar @runs) { push @runs, ""; }
+					
+					foreach my $run (@{ $tmp[ $i ]->get_objs_ref }) {
+						$runs[ $i ] = $runs[ $i ] . $run->get_raw();
+					}
+				}			
+			}
+
+			foreach my $fake_line (@runs) {
+				my $output = XML::Writer::String->new();
+				my $writer = new XML::Writer(OUTPUT => $output, UNSAFE => 'true');
+				# Form the fake <ln>
+				$writer->startTag("ln");
+
+				$writer->raw( $fake_line );
+				
+				# We have the fake <ln>
+				$writer->endTag("ln");
+				$writer->end();
+				
+				my $line = new Omni::Omniline();
+
+				# Set raw content
+				$line->set_raw($output->value());
+
+				# Update line list
+				push @tmp_lines, $line;
+			}
+		}
 	}
 
 	# Copy information from temporary variables to class members
@@ -252,6 +323,8 @@ sub parse
 	$$self->{ '_content' }			= $tmp_content;
 	# Copy row content
 	@{ $$self->{ '_rcontent' } }	= @tmp_rcontent;
+	# Copy all lines in the table
+	@{ $$self->{ '_lines' } }		= @tmp_lines;
 }
 
 sub get_name
@@ -276,6 +349,12 @@ sub get_row_content
 {
 	my ($self) = @_;
 	return $self->{ '_rcontent' };	
+}
+
+sub get_lines
+{
+	my ($self) = @_;
+	return $self->{ '_lines' };	
 }
 
 sub get_bottom_pos

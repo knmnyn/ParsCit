@@ -312,7 +312,7 @@ if ($demo == 1 ) {		# run demo 1
   print CGI::escapeHTML($outputBuf);
   print "</PRE></DIV>";
 } elsif ($demo == 2) {
-  $cmd = "nice ./citeExtract.pl -i xml ";
+  $cmd = "nice ./citeExtract.pl -i xml -a ";
 
   if ($option == 1){
     $cmd .= "-m extract_citations";
@@ -332,7 +332,7 @@ if ($demo == 1 ) {		# run demo 1
 
   chdir ("$installDir/bin");
   $cmd .= " $filename";
-  $outputBuf = `$cmd`;  
+  $outputBuf = `$cmd`;
 
   # Thang v101101: call BiblioScript
   biblioScript($option, $q, $filename, "xml");
@@ -387,6 +387,13 @@ if ($option == 5 || $option == 1 || $demo == 2 || $demo == 3) {
   print "<DIV ID=\"hidden4\" STYLE=\"display:'';\">";
   print (processCitations($outputBuf, $filename)); 
   print "</DIV>";
+}
+
+if ($demo == 2) {
+	print "<BR>[ <A HREF=\"javascript:toggleLayer('hidden5')\">Show Enlil output</A> ]";
+	print "<DIV ID=\"hidden5\" STYLE=\"display:'';\">";
+	print (processEnlil($outputBuf, $filename)); 
+	print "</DIV>";
 }
 
 # remove temporary files
@@ -538,6 +545,47 @@ sub processSections {
   $output .= "</P>";
   $output;
 }
+
+
+
+sub processEnlil {
+  my $isSection = 0;
+  my $input = shift @_;
+  my @lines = split (/\n/,$input);
+  my $output = "<P>";
+  my $label = "";
+  my $content = "";
+  my $class = 1;
+  for (my $i = 0; $i <= $#lines; $i++) {
+    # Trim
+	$lines[$i] =~ s/^\s+|\s+$//g;
+
+    if ($lines[$i] =~ /<algorithm name="AAMatching".+>/) {$isSection = 1;}
+    if ($isSection == 1 && $lines[$i] =~ /<\/authors>/) { last; }
+    if ($isSection == 1) {
+      if ($lines[$i] =~ /<fullname[^>]*?>([^<]+?)<\/fullname>/) {
+        $content = $1;
+
+		$class += 1;
+
+        $output .= "<span class=\"author\" onmouseover=\"tooltip(\'author\')\" onmouseout=\"exit()\">$content</span><br/>"; 
+        $content = "";
+
+      } elsif ($lines[$i] =~ /<institutions[^>]*?>([^<]+?)<\/institution>/) {
+		
+      } elsif ($lines[$i] =~ /<institution[^>]*?>([^<]+?)<\/institution>/) {
+        $content = $1;
+
+        $output .= "&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"affiliation\" onmouseover=\"tooltip(\'affiliation\')\" onmouseout=\"exit()\">$content</span><br/>"; 
+        $content = "";
+      }				
+    }
+  }
+  $output .= "</P>";
+  $output;
+}
+
+
 
 sub processCitations {
   my $input = shift @_;

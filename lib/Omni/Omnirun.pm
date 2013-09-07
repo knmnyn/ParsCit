@@ -27,6 +27,8 @@ my $tmp_su_script	= undef;	# sub-script or super-script
 my $tmp_underline	= undef;
 my $tmp_bold		= undef;
 my $tmp_italic		= undef;
+my $tmp_tab_flag	= undef;
+my $tmp_tab			= 0;
 my @tmp_words		= ();
 
 ###
@@ -55,6 +57,10 @@ sub new
 					'_underline'	=> undef,
 					'_bold'			=> undef,
 					'_italic'		=> undef,
+					'_fake'			=> 0,
+					'_tab'			=> undef,	# the number of tab inside a run
+					'_ptab'			=> undef,	# previous character is a tab, not a space
+					'_ltab'			=> undef,	# last character is a tab, not a space
 					'_words'		=> \@words	};
 
 	bless $self, $class;
@@ -68,6 +74,9 @@ sub set_raw
 
 	# Save the raw xml <run> ... </run>
 	$self->{ '_raw' }	= $raw;
+
+	# Previous tab
+	$tmp_tab_flag = (! defined $self->{ '_ptab' }) ? 0 : $self->{ '_ptab' };
 
 	# Parse the raw string
 	my $twig_roots		= { $tag_list->{ 'RUN' }	=> 1 };
@@ -92,6 +101,8 @@ sub set_raw
 	$self->{ '_underline' }		= $tmp_underline;
 	$self->{ '_bold' }			= $tmp_bold;
 	$self->{ '_italic' }		= $tmp_italic;
+	$self->{ '_tab' }			= $tmp_tab;
+	$self->{ '_ltab' }			= $tmp_tab_flag;
 	
 	# Copy all words
 	@{ $self->{ '_words' } }	= @tmp_words;
@@ -126,6 +137,10 @@ sub parse
 	# because there's no word
 	@tmp_words			= ();
 
+	# This flag will be turned on if the current element is a tab
+	# otherwise it will be off by default
+	my $tab_flag = $tmp_tab_flag;
+
 	# Check if there's any child
 	my $child = $node->first_child();
 
@@ -139,6 +154,9 @@ sub parse
 
 		# Save the content
 		$tmp_content = $tmp_content . $content;
+
+		# Tab flag - off
+		$tab_flag = 0;
 	}
 	else
 	{
@@ -158,6 +176,9 @@ sub parse
 			if ($xpath =~ m/\/$word_tag$/)
 			{
 				my $word = new Omni::Omniword();
+				
+				# If the tab flag is on
+				$word->set_previous_tab($tab_flag);
 
 				# Set raw content
 				$word->set_raw($obj->sprint);
@@ -167,6 +188,9 @@ sub parse
 
 				# Update content
 				$tmp_content = $tmp_content . $word->get_content;
+
+				# Tab flag - off
+				$tab_flag = 0;
 			}
 			# if this child is <space>
 			elsif ($xpath =~ m/\/$space_tag$/)
@@ -177,12 +201,13 @@ sub parse
 			elsif ($xpath =~ m/\/$tab_tag$/)
 			{
 				$tmp_content = $tmp_content . "\t";	
+
+				# Update the total number of tab
+				$tmp_tab = $tmp_tab + 1;
+
+				# Tab flag - on
+				$tab_flag = 1;
 			}
-			# if this child is <nl>
-			#elsif ($xpath =~ m/\/$newline_tag$/)
-			#{
-			#	$tmp_content = $tmp_content . "\n";
-			#}
 
 			# Little brother
 			if ($obj->is_last_child) 
@@ -195,6 +220,19 @@ sub parse
 			}
 		}
 	}
+
+	# Save the tab flag
+	$tmp_tab_flag = $tab_flag;
+}
+
+sub set_fake {
+	my ($self, $fake) = @_;
+	$self->{ '_fake' } = $fake;
+}
+
+sub is_fake {
+	my ($self) = @_;
+	return $self->{ '_fake' };
 }
 
 sub add_word
@@ -207,6 +245,36 @@ sub get_name
 {
 	my ($self) = @_;
 	return $self->{ '_self' };
+}
+
+sub set_previous_tab
+{
+	my ($self, $ptab) = @_;
+	$self->{ '_ptab' } = $ptab;
+}
+
+sub is_previous_tab
+{
+	my ($self) = @_;
+	return $self->{ '_ptab' };
+}
+
+sub is_last_tab
+{
+	my ($self) = @_;
+	return $self->{ '_ltab' };
+}
+
+sub get_tab
+{
+	my ($self) = @_;
+	return $self->{ '_tab' };
+}
+
+sub set_tab
+{
+	my ($self, $tab) = @_;
+	$self->{ '_tab' } = $tab;
 }
 
 sub get_objs_ref

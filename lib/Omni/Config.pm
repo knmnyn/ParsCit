@@ -81,6 +81,7 @@ $att_list = \%omni_att_list;
 							'OMNICOL'		=> 'column',
 							'OMNIDD'		=> 'dd',
 							'OMNITABLE'		=> 'table',
+							'OMNICELL'		=> 'cell',
 							'OMNIIMG'		=> 'image',
 							'OMNIPARA'		=> 'paragraph',
 							'OMNILINE'		=> 'line',

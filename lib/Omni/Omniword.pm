@@ -37,6 +37,7 @@ sub new
 	my $self = {	'_self'			=> $obj_list->{ 'OMNIWORD' },
 					'_raw'			=> undef,
 					'_content'		=> undef,
+					'_ptab'			=> undef,	# previous character is a tab, not a space
 					'_bottom'		=> undef,
 					'_top'			=> undef,
 					'_left'			=> undef,
@@ -102,6 +103,18 @@ sub get_name
 {
 	my ($self) = @_;
 	return $self->{ '_self' };
+}
+
+sub set_previous_tab
+{
+	my ($self, $ptab) = @_;
+	$self->{ '_ptab' } = $ptab;
+}
+
+sub is_previous_tab
+{
+	my ($self) = @_;
+	return $self->{ '_ptab' };
 }
 
 sub get_content

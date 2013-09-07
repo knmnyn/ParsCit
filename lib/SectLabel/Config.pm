@@ -7,20 +7,21 @@ $algorithmVersion	= "110505";
 # Tr2crfpp
 # Paths relative to SectLabel root dir ($FindBin::Bin/..)
 ###
-$tmpDir			= "tmp";
+$tmpDir			= "../tmp";
 $dictFile		= "resources/parsCitDict.txt";
 $funcFile		= "resources/sectLabel/funcWord";
 
-$crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "crfpp/crf_test";
-
+$crf_test		= "crfpp/crf_test";
 $modelFile		= "resources/sectLabel/sectLabel.model";
 $modelXmlFile	= "resources/sectLabel/sectLabel.modelXml.v2";
 $configFile		= "resources/sectLabel/sectLabel.config";
 $configXmlFile	= "resources/sectLabel/sectLabel.configXml";
 
-$autFile		= "resources/sectLabel/author.model";
-$affFile		= "resources/sectLabel/affiliation.model";
-$matFile		= "resources/sectLabel/aamatch.model";
+$autFile		= "../resources/sectLabel/author.model";
+$affFile		= "../resources/sectLabel/affiliation.model";
+$matFile		= "../resources/sectLabel/aamatch.model";
+$matSVMFile		= "../resources/sectLabel/aamatch.svm.model";
+$matMEFile		= "../resources/sectLabel/aamatch.maxent.model";
 
 ###
 # Thang v100401: note the keyword feature and configs below are not currently 

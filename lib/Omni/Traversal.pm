@@ -140,15 +140,26 @@ sub OmniCollector
 					}					
 				}
 				# Is a table
-				elsif (($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNITABLE' }) || ($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNIFRAME' }))
+				elsif ($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNITABLE' })
 				{
 					# TODO: this actually a trick to get it working for now.
 					# We care not about the cell inside the table but the content
 					# of the table only. So the table is consider a paragraph in
 					# which lines are its row
-					my @level_4 = split(/\n/, $level_3->[ $z ]->get_content());
+					my @level_4_content = split(/\n/, $level_3->[ $z ]->get_content());
+					# This is nightmare
+					my $level_4_lines	= $level_3->[ $z ]->get_lines();
+
+					# Size mismatch flag
+					my $size_mismatch = 0;
+
+					if (scalar(@level_4_content) != scalar(@{ $level_4_lines })) {
+						$size_mismatch = 1;
+						# These two array should have the same size
+						print STDERR "# Table lines mismatch (" . scalar(@level_4_content) . ") != (" . scalar(@{ $level_4_lines }) . ")." . "\n";
+					}
 				
-					for (my $t = 0; $t < scalar(@level_4); $t++)
+					for (my $t = 0; $t < scalar(@level_4_content); $t++)
 					{
 						# Current position
 						$current{ 'L4' } = $t;
@@ -159,7 +170,52 @@ sub OmniCollector
 							($z == $line_addrs->[ $addr_index ]{ 'L3' }) &&
 							($t == $line_addrs->[ $addr_index ]{ 'L4' }))
 						{
-							if ((! defined $need_obj) || ($need_obj == 0)) { push @line_content, $level_4[ $t ]; }
+							if ((! defined $need_obj) || ($need_obj == 0)) { 
+								push @line_content, $level_4_content[ $t ]; 
+							} else {
+								# For safety reason, this will only work if the size is matched
+								if (0x00 == $size_mismatch) {
+									push @line_content, $level_4_lines->[ $t ]; 
+								}
+							}
+
+							# Next selected line
+							$addr_index++;
+							# Last one?
+							if ($addr_index == scalar(@{ $line_addrs }))
+							{
+								$break = 1;
+								last;
+							}
+						}
+					}
+				}
+				# Or a frame
+				elsif ($level_3->[ $z ]->get_name() eq $obj_list->{ 'OMNIFRAME' })
+				{
+					# TODO: this actually a trick to get it working for now.
+					# We care not about the cell inside the table but the content
+					# of the table only. So the table is consider a paragraph in
+					# which lines are its row
+					my @level_4_content = split(/\n/, $level_3->[ $z ]->get_content());
+
+					for (my $t = 0; $t < scalar(@level_4_content); $t++)
+					{
+						# Current position
+						$current{ 'L4' } = $t;
+
+						# Only keep selected line
+						if (($x == $line_addrs->[ $addr_index ]{ 'L1' }) &&
+							($y == $line_addrs->[ $addr_index ]{ 'L2' }) &&
+							($z == $line_addrs->[ $addr_index ]{ 'L3' }) &&
+							($t == $line_addrs->[ $addr_index ]{ 'L4' }))
+						{
+							if ((! defined $need_obj) || ($need_obj == 0)) { 
+								push @line_content, $level_4_content[ $t ]; 
+							} else {
+								# TODO not yet implemented
+							}
+
 							# Next selected line
 							$addr_index++;
 							# Last one?

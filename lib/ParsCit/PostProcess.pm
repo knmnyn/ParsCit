@@ -420,6 +420,22 @@ sub NormalizeAuthorName
     return $tmp_str;
 }
 
+sub NormalizeAuthorName2
+{
+    my @auth_tokens = @_;
+
+    if ($#auth_tokens < 0) { return ""; }
+
+    my $tmp_str = join " ", @auth_tokens;
+    
+    $tmp_str =~ s/\.\-/-/g;
+	$tmp_str =~ s/[\,\.]/ /g;
+    $tmp_str =~ s/  +/ /g;
+    $tmp_str = Trim($tmp_str);
+
+    return $tmp_str;
+}
+
 ###
 # Utility for creating an intermediate representation of multi-word
 # name components, e.g., transforms "van der Wald" to "van_dir_Wald".
