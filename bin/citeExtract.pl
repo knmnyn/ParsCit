@@ -325,6 +325,7 @@ if (($mode & $PARSHED) == $PARSHED)
 # PARSCIT
 if (($mode & $PARSCIT) == $PARSCIT)
 {
+    my ($all_text, $cit_lines);
 	if ($is_xml_input)
 	{
 		my $cmd	= $FindBin::Bin . "/sectLabel/processOmniXMLv3.pl -q -in $in -out $text_file.feature -decode";
@@ -357,7 +358,7 @@ if (($mode & $PARSCIT) == $PARSCIT)
 
 		my $sect_label_input = $text_file . ".feature";
 		# Output of sectlabel becomes input for parscit
-		my ($all_text, $cit_lines) = SectLabel($sect_label_input, $is_xml_input, 1);	
+		($all_text, $cit_lines) = SectLabel($sect_label_input, $is_xml_input, 1);	
 		# Remove XML feature file
 		unlink($sect_label_input);
 
@@ -377,8 +378,17 @@ if (($mode & $PARSCIT) == $PARSCIT)
 	}
 	else
 	{
-		my $pc_xml = ParsCit::Controller::ExtractCitations($text_file, $in, $is_xml_input);
-	
+
+        # Issue 13 resolution : Rerouting SectLabel Output to ParsCit - Ankur #
+
+		#my $pc_xml = ParsCit::Controller::ExtractCitations($text_file, $in, $is_xml_input);
+
+		($all_text, $cit_lines) = SectLabel($text_file, $is_xml_input, 1);
+        my $cit_addrs = 0;
+		my $pc_xml = ParsCit::Controller::ExtractCitations2(\$all_text, $cit_lines, $is_xml_input, $doc, $cit_addrs);
+
+        #----------------------------
+
 		# Remove first line <?xml/> 
 		$rxml .= RemoveTopLines($$pc_xml, 1) . "\n";
 
