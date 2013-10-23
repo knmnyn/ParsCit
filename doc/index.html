@@ -638,6 +638,27 @@ $ mv model ../../resources/parsCit.model
 		$ export LD_LIBRARY_PATH=&lt;PATH-TO-LIBCRFPP.SO.0-FILE&gt;
 		</CODE>	
 	</DD>
+    <BR>
+	<DT>
+	      I get the following error message :
+		  <BR><BR>
+		      &nbsp;&nbsp;Can't locate XML/Twig.pm in @INC (@INC contains: ...)<BR>
+			  &nbsp;&nbsp;BEGIN failed&#45;-compilation aborted at ...<BR>
+			  &nbsp;&nbsp;Compilation failed in require at ...<BR>
+			  &nbsp;&nbsp;...<BR>
+	</DT>
+	<DD>
+	     This is because the Perl interpreter on your machine/server can't locate all the Perl modules required (XML::Twig in this case) 
+		 for ParsCit to function properly.<BR>
+		 <OL>
+		 	<LI> You will either have to install these modules from CPAN before running ParsCit. You can find a list of all the 
+				 required modules for ParsCit on <a href="https://github.com/knmnyn/ParsCit/blob/master/INSTALL">this</a> page.
+			<LI> In case you do have the required modules on the server, it is possible that the interpreter was not able to locate 
+			     these. In this case, you would have to update the list of paths that the interpreter searches to find the required modules. 
+				 This can be done by updating the environment variable PERL5LIB (for Perl5) or PERLLIB to include the path of the 
+				 installed modules.
+		</OL>
+	</DD>
 </DL>
 
 <!-- Kudos ---------------------------------------------------------------------- -->
