@@ -20,7 +20,19 @@ def crosswalk(doc):
 
     # Looping over all the pages from pdfx output
     for page in pdf2xml.iterchildren('page'):
-        print page.tag
+        sec = etree.SubElement(omnidoc, 'section')
+        col = etree.SubElement(sec, 'column')
+        para = etree.SubElement(col, 'para')
+        for word in page.iterchildren('word'):
+            height = word.get('height')
+            width= word.get('width')
+            top = word.get('top')
+            left = word.get('left')
+            baseline = word.get('baseline')
+            wd = etree.SubElement(para, 'wd', l = left, r = left + width, t = top,
+                        b = basline)
+            wd.text = word.text
+    print etree.tostring(omnidoc)
 
 
 if __name__ == '__main__':
