@@ -6,6 +6,14 @@ from lxml.etree import ElementTree
 
 # TODO main function to handle command line args
 
+# Constants and Flags
+# Space between lines
+LSPACE = 5.0
+# Space between paras
+PSPACE = 20.0
+# Flag for first line in the para
+first_line = False
+
 
 def crosswalk(doc):
     """
@@ -26,6 +34,12 @@ def crosswalk(doc):
         tags.
 
     Temporary Space :
+
+    Assumptions :
+        1. Interline spacing within a para : 12.0 (approx)
+        2. A para is demarcated when either the spacing between two lines is
+        greater than 20 or if the first word of a line is not aligned with the
+        rest of the lines. Look at getCurrentLine() for the logic
 
     Things not accounting for in Omnixml:
         - 'ln' attributes apart from dimensions
@@ -61,21 +75,61 @@ def crosswalk(doc):
 
 
 def getCurrentLine(line, word):
+    global first_line
     if line.get('b') is None:
         line.set('l', word.get('left'))
         line.set('t', word.get('top'))
         line.set('b', word.get('baseline'))
         line.set('baseline', word.get('baseline'))
+        para = line.getparent()
+        setnew(para, line)
+        setnew(para.getparent(), para)
+        first_line = True
         return line
-    if abs(float(line.get('b')) - float(word.get('baseline'))) < 5.0:
+    if abs(float(line.get('b')) - float(word.get('baseline'))) < LSPACE:
         return line
     else:
+        # When new line is encountered
+        # TODO check for column
+        # TODO still havent looked at chenge of column
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
-        line.addnext(newline)
+        if newPara(line, newline):
+            current_para = line.getparent()
+            current_para.set('b', line.get('b'))
+            newleft = current_para.getparent().get('l')
+            newright = current_para.getparent().get('r')
+            new_para = Element('para', l=newleft, t=newline.get('t'),
+                               r=newright)
+            current_para.addnext(new_para)
+            new_para.append(newline)
+        else:
+            line.addnext(newline)
         line.set('r', getLastChild(line, attr='r').get('r'))
+        if first_line:
+            para = line.getparent()
+            column = para.getparent()
+            para.set('r', line.get('r'))
+            column.set('r', line.get('r'))
         return newline
+
+
+def newPara(line1, line2):
+    newleft = line2.get('l')
+    # will have to see what happens when the column is changed
+    colleft = line1.getparent().getparent().get('l')
+    if abs(float(line1.get('b')) - float(line2.get('t'))) > 20:
+        return True
+    elif abs(float(newleft) - float(colleft)) > 100:
+        return True
+    else:
+        return False
+
+
+def setnew(totag, fromtag):
+    totag.set('l', fromtag.get('l'))
+    totag.set('t', fromtag.get('t'))
 
 
 def getLastChild(tag, attr=None, cond=None):
