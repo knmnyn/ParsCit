@@ -10,7 +10,9 @@ from lxml.etree import ElementTree
 # Space between lines
 LSPACE = 5.0
 # Space between paras
-PSPACE = 20.0
+PSPACE = 15.0
+# Indent for new para
+INDENT = 10.0
 # Flag for first line in the para
 first_line = False
 
@@ -63,6 +65,7 @@ def crosswalk(doc):
     omnixml = ElementTree(omnidoc)
 
     # Looping over all the pages from pdfx output
+    # TODO Each page tag has a description and body tag which have to be added.
     for page in pdf2xml.iterchildren('page'):
         sec = etree.SubElement(omnidoc, 'section')
         col = etree.SubElement(sec, 'column')
@@ -86,6 +89,8 @@ def getCurrentLine(line, word):
         setnew(para.getparent(), para)
         first_line = True
         return line
+    # If the baseline attribute of the word is equal to the 'b' attribute of
+    # the line, then the word most probably belongs to the same line.
     if abs(float(line.get('b')) - float(word.get('baseline'))) < LSPACE:
         return line
     else:
@@ -106,6 +111,8 @@ def getCurrentLine(line, word):
             new_para.append(newline)
         else:
             line.addnext(newline)
+        # The attribute 'r' of the previous line has not been assigned yet. Use
+        # the 'r' attribute of the last word of that line for that.
         line.set('r', getLastChild(line, attr='r').get('r'))
         if first_line:
             para = line.getparent()
@@ -119,15 +126,23 @@ def newPara(line1, line2):
     newleft = line2.get('l')
     # will have to see what happens when the column is changed
     colleft = line1.getparent().getparent().get('l')
-    if abs(float(line1.get('b')) - float(line2.get('t'))) > 20:
+    # The following will check the space between two paragraphs
+    if abs(float(line1.get('b')) - float(line2.get('t'))) > PSPACE:
         return True
-    elif abs(float(newleft) - float(colleft)) > 100:
+    # The following will check the indentation of a line to see if it should
+    # belong to a new paragraph.
+    elif abs(float(newleft) - float(colleft)) > INDENT:
         return True
     else:
         return False
 
 
 def setnew(totag, fromtag):
+    # For now, I am using this to set the attributes for a parant from a child
+    # tag and hence only the 'left' and 'top' can be set.
+    # Can later add more functionality. Maybe add parameter to pass a list
+    # containing the parameters to be set. use zip to combine the two lists to
+    # set parameters if the second list ('from' attributes) is also provided.
     totag.set('l', fromtag.get('l'))
     totag.set('t', fromtag.get('t'))
 
