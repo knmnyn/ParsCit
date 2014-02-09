@@ -11,6 +11,8 @@ from lxml.etree import ElementTree
 LSPACE = 5.0
 # Space between paras
 PSPACE = 15.0
+# Space between sections
+SECSPACE = 20.0
 # Indent for new para
 INDENT = 10.0
 # Flag for first line in the para
@@ -66,6 +68,7 @@ def crosswalk(doc):
 
     # Looping over all the pages from pdfx output
     # TODO Each page tag has a description and body tag which have to be added.
+    # TODO The 'b' attr of the bottom right para and col are being missed.
     for page in pdf2xml.iterchildren('page'):
         sec = etree.SubElement(omnidoc, 'section')
         col = etree.SubElement(sec, 'column')
@@ -78,15 +81,27 @@ def crosswalk(doc):
 
 
 def getCurrentLine(line, word):
+    """
+    The 'l', 't' attr of a line, para, column are set when the first line is
+    encountered. This is done right in the beginning.
+    The 'r' attribute is set when the first line ends and the next line is
+    encountered. This is done all the way at the end of the function.
+    The 'b' attr of para and column will be set only when a para or column end
+    """
+    # TODO:Section change has to be included.
+    # TODO:Add overflow margin
     global first_line
+    # if line doesnt have a 'b' attribute, then we are still on the first line
     if line.get('b') is None:
-        line.set('l', word.get('left'))
-        line.set('t', word.get('top'))
-        line.set('b', word.get('baseline'))
-        line.set('baseline', word.get('baseline'))
+        #line.set('l', word.get('left'))
+        #line.set('t', word.get('top'))
+        #line.set('b', word.get('baseline'))
+        #line.set('baseline', word.get('baseline'))
+        setAttr(line, word, ['l', 't', 'b', 'baseline'],
+                ['left', 'top', 'baseline', 'baseline'])
         para = line.getparent()
-        setnew(para, line)
-        setnew(para.getparent(), para)
+        setAttr(para, line, ['l', 't'])
+        setAttr(para.getparent(), para, ['l', 't'])
         first_line = True
         return line
     # If the baseline attribute of the word is equal to the 'b' attribute of
@@ -95,19 +110,49 @@ def getCurrentLine(line, word):
         return line
     else:
         # When new line is encountered
-        # TODO check for column
-        # TODO still havent looked at chenge of column
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
-        if newPara(line, newline):
+        if newPara(line, newline) == 1:
+            # When a new para is encountered, the 'b' attr of the previous para
+            # has to be set.
+            # using the left and right attributes of the column to set attr for
+            # the new para. Cant rely on line as a line could be shorter.
             current_para = line.getparent()
             current_para.set('b', line.get('b'))
             newleft = current_para.getparent().get('l')
             newright = current_para.getparent().get('r')
-            new_para = Element('para', l=newleft, t=newline.get('t'),
-                               r=newright)
+            try:
+                new_para = Element('para', l=newleft, t=newline.get('t'),
+                                   r=newright)
+            except Exception as e:
+                print str(e)
+                print etree.tostring(line)
+                print etree.tostring(newline)
             current_para.addnext(new_para)
+            new_para.append(newline)
+        elif newPara(line, newline) == 2:
+            # new column
+            # When a new column is encountered, set the 'b' attr of the
+            # previous para and column.
+            # also, set first_line to true. Since the 'r' attr of the new line
+            # is not set as of the point when the new para/col are encountered,
+            # setting first_line will ensure that when this line ends, these
+            # attributes get set.
+            first_line = True
+            current_para = line.getparent()
+            current_para.set('b', line.get('b'))
+            # Also, set the 'b' attr of the previous column
+            current_col = current_para.getparent()
+            current_col.set('b', current_para.get('b'))
+            # Add a new column
+            new_col = Element('column')
+            setAttr(new_col, newline, ['l', 't'])
+            current_col.addnext(new_col)
+            # Add a new para to it and append the new line as well
+            new_para = Element('para')
+            setAttr(new_para, new_col, ['l', 't'])
+            new_col.append(new_para)
             new_para.append(newline)
         else:
             line.addnext(newline)
@@ -123,28 +168,51 @@ def getCurrentLine(line, word):
 
 
 def newPara(line1, line2):
+    """
+    Returns
+    0 : When there is no change of paragraph
+    1 : When there is a change of paragraph
+    2 : When there is a change in the column
+    """
+    # TODO:Section change has to be included.
+    # TODO:Better logic with multiple conditions
+    # In fact there should be a confidence factor for each of the options and
+    # the strongest confidence wins in the end to be returned.
+    para1 = line1.getparent()
     newleft = line2.get('l')
-    # will have to see what happens when the column is changed
-    colleft = line1.getparent().getparent().get('l')
+    colleft = para1.getparent().get('l')
+    diff = abs(float(newleft) - float(colleft))
+    para_width = abs(float(para1.get('l')) - float(para1.get('l')))
     # The following will check the space between two paragraphs
-    if abs(float(line1.get('b')) - float(line2.get('t'))) > PSPACE:
-        return True
+    interline_diff = abs(float(line1.get('b')) - float(line2.get('t')))
+    if interline_diff > PSPACE and interline_diff < SECSPACE:
+        return 1
     # The following will check the indentation of a line to see if it should
     # belong to a new paragraph.
-    elif abs(float(newleft) - float(colleft)) > INDENT:
-        return True
+    elif diff > INDENT and diff < para_width:
+        return 1
+    elif diff > para_width:
+        # New column encountered
+        return 2
     else:
-        return False
+        return 0
 
 
-def setnew(totag, fromtag):
+def setAttr(totag, fromtag, to_attr=None, from_attr=None):
     # For now, I am using this to set the attributes for a parant from a child
-    # tag and hence only the 'left' and 'top' can be set.
-    # Can later add more functionality. Maybe add parameter to pass a list
-    # containing the parameters to be set. use zip to combine the two lists to
-    # set parameters if the second list ('from' attributes) is also provided.
-    totag.set('l', fromtag.get('l'))
-    totag.set('t', fromtag.get('t'))
+    # tag and hence only the 'left' and 'top' can be set by default.
+    # Specify the attributes as lists to_attr and from_attr for more
+    # functionality.
+    if to_attr is not None:
+        if from_attr is not None:
+            for tattr, fattr in zip(to_attr, from_attr):
+                totag.set(tattr, fromtag.get(fattr))
+        else:
+            for attr in to_attr:
+                totag.set(attr, fromtag.get(attr))
+    else:
+        totag.set('l', fromtag.get('l'))
+        totag.set('t', fromtag.get('t'))
 
 
 def getLastChild(tag, attr=None, cond=None):
