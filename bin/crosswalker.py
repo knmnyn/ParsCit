@@ -17,6 +17,8 @@ SECSPACE = 20.0
 INDENT = 10.0
 # Flag for first line in the para
 first_line = False
+# Flag for indent on the first line of the para
+para_indent = False
 
 
 def crosswalk(doc):
@@ -40,8 +42,7 @@ def crosswalk(doc):
     Temporary Space :
 
     Assumptions :
-        1. Interline spacing within a para : 12.0 (approx)
-        2. A para is demarcated when either the spacing between two lines is
+        1. A para is demarcated when either the spacing between two lines is
         greater than 20 or if the first word of a line is not aligned with the
         rest of the lines. Look at getCurrentLine() for the logic
 
@@ -93,10 +94,6 @@ def getCurrentLine(line, word):
     global first_line
     # if line doesnt have a 'b' attribute, then we are still on the first line
     if line.get('b') is None:
-        #line.set('l', word.get('left'))
-        #line.set('t', word.get('top'))
-        #line.set('b', word.get('baseline'))
-        #line.set('baseline', word.get('baseline'))
         setAttr(line, word, ['l', 't', 'b', 'baseline'],
                 ['left', 'top', 'baseline', 'baseline'])
         para = line.getparent()
@@ -110,6 +107,16 @@ def getCurrentLine(line, word):
         return line
     else:
         # When new line is encountered
+        # Set the attributes for the previous line before processing the next
+        # line.
+        # The attribute 'r' of the previous line has not been assigned yet. Use
+        # the 'r' attribute of the last word of that line for that.
+        line.set('r', getLastChild(line, attr='r').get('r'))
+        if first_line:
+            para = line.getparent()
+            column = para.getparent()
+            para.set('r', line.get('r'))
+            column.set('r', line.get('r'))
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
@@ -122,13 +129,9 @@ def getCurrentLine(line, word):
             current_para.set('b', line.get('b'))
             newleft = current_para.getparent().get('l')
             newright = current_para.getparent().get('r')
-            try:
-                new_para = Element('para', l=newleft, t=newline.get('t'),
-                                   r=newright)
-            except Exception as e:
-                print str(e)
-                print etree.tostring(line)
-                print etree.tostring(newline)
+            new_para = Element('para', l=newleft, t=newline.get('t'),
+                               r=newright, alignment='justified',
+                               language='en')
             current_para.addnext(new_para)
             new_para.append(newline)
         elif newPara(line, newline) == 2:
@@ -156,14 +159,7 @@ def getCurrentLine(line, word):
             new_para.append(newline)
         else:
             line.addnext(newline)
-        # The attribute 'r' of the previous line has not been assigned yet. Use
-        # the 'r' attribute of the last word of that line for that.
-        line.set('r', getLastChild(line, attr='r').get('r'))
-        if first_line:
-            para = line.getparent()
-            column = para.getparent()
-            para.set('r', line.get('r'))
-            column.set('r', line.get('r'))
+        # Add logic at this level for adjusting para/col margins.
         return newline
 
 
@@ -175,27 +171,35 @@ def newPara(line1, line2):
     2 : When there is a change in the column
     """
     # TODO:Section change has to be included.
-    # TODO:Better logic with multiple conditions
-    # In fact there should be a confidence factor for each of the options and
-    # the strongest confidence wins in the end to be returned.
+    no_change = 0.51
+    para_change = 0.5
+    col_change = 0.5
     para1 = line1.getparent()
     newleft = line2.get('l')
     colleft = para1.getparent().get('l')
     diff = abs(float(newleft) - float(colleft))
-    para_width = abs(float(para1.get('l')) - float(para1.get('l')))
+    #para_width = None
+    #if para1.get('r') is not None:
+    para_width = abs(float(para1.get('r')) - float(para1.get('l')))
     # The following will check the space between two paragraphs
     interline_diff = abs(float(line1.get('b')) - float(line2.get('t')))
-    if interline_diff > PSPACE and interline_diff < SECSPACE:
-        return 1
+    if interline_diff > PSPACE:
+        para_change = updateConfidence(para_change, 0.2)
     # The following will check the indentation of a line to see if it should
     # belong to a new paragraph.
-    elif diff > INDENT and diff < para_width:
-        return 1
+    #if para_width is not None:
+    if diff > INDENT and diff < para_width:
+        para_change = updateConfidence(para_change, 0.5)
     elif diff > para_width:
         # New column encountered
-        return 2
-    else:
-        return 0
+        col_change = updateConfidence(col_change, 0.5)
+    maxval, toreturn = max(zip([no_change, para_change, col_change],
+                               [0, 1, 2]))
+    return toreturn
+
+
+def updateConfidence(var, amt):
+    return (var + (1 - var) * amt)
 
 
 def setAttr(totag, fromtag, to_attr=None, from_attr=None):
