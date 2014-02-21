@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 from lxml import etree
 from lxml.etree import Element
 from lxml.etree import ElementTree
@@ -48,6 +49,7 @@ def crosswalk(doc):
 
     Things not accounting for in Omnixml:
         - 'ln' attributes apart from dimensions
+</pdf2xml>
 
     Simplified xml :
     Not Considering the following:
@@ -69,15 +71,37 @@ def crosswalk(doc):
 
     # Looping over all the pages from pdfx output
     # TODO Each page tag has a description and body tag which have to be added.
-    # TODO The 'b' attr of the bottom right para and col are being missed.
     for page in pdf2xml.iterchildren('page'):
-        sec = etree.SubElement(omnidoc, 'section')
+        #Add description tag
+        omnipage = etree.SubElement(omnidoc, 'page')
+        body = etree.SubElement(omnipage, 'body')
+        sec = etree.SubElement(body, 'section')
         col = etree.SubElement(sec, 'column')
         para = etree.SubElement(col, 'para')
         line = etree.SubElement(para, 'ln')
         for word in page.iterfind('.//word'):
             line = getCurrentLine(line, word)
             addWord(line, word)
+        # The 'b' attr of the last line has to be set
+        last_para = line.getparent()
+        # presumably the last line
+        last_para.set('b', line.get('b'))
+        last_para.getparent().set('b', line.get('b'))
+        # Assign attr to the section
+        setAttr(sec, para, ['l', 't'])
+        setAttr(sec, last_para, ['r', 'b'])
+        # Look for the page number and add it as 'dd' tag
+        toremove = 0
+        for colm in omnipage.iterfind('.//column'):
+            if len(list(colm)) == 1:
+                if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
+                   is not None:
+                    toremove = colm
+                    break
+        dd_page_num = etree.SubElement(body, 'dd')
+        setAttr(dd_page_num, toremove[0], ['l', 't', 'r', 'b'])
+        dd_page_num.append(toremove[0])
+        toremove.getparent().remove(toremove)
     print etree.tostring(omnixml, pretty_print=True)
 
 
