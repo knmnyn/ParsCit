@@ -141,6 +141,9 @@ def getCurrentLine(line, word):
             column = para.getparent()
             para.set('r', line.get('r'))
             column.set('r', line.get('r'))
+        # Before moving on to initiating a new line, process the current line
+        # for the presence runs.
+        checkForRuns(line)
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
@@ -202,8 +205,6 @@ def newPara(line1, line2):
     newleft = line2.get('l')
     colleft = para1.getparent().get('l')
     diff = abs(float(newleft) - float(colleft))
-    #para_width = None
-    #if para1.get('r') is not None:
     para_width = abs(float(para1.get('r')) - float(para1.get('l')))
     # The following will check the space between two paragraphs
     interline_diff = abs(float(line1.get('b')) - float(line2.get('t')))
@@ -259,21 +260,64 @@ def getLastChild(tag, attr=None, cond=None):
             return child
 
 
+def checkForRuns(line):
+    # For now, I have assumed that at this stage of processing, a line would
+    # only have words and spaces as its children so the first item in the tag
+    # list of line should be a word.
+    font_type = list(line)[0].get('font')
+    # boundary_idx will store all run boundaries
+    # we need a list so that we can check if there is in fact a change of font
+    # or not. The line tag does not contain a run tag if there are no font
+    # differences along that line.
+    boundary_idx = []
+    for index, word in enumerate(line.iterfind('.//wd')):
+        if word.get('font') == font_type:
+            word.attrib.pop('font')
+            continue
+        else:
+            boundary_idx.append(index)
+            font_type = word.get('font')
+            word.attrib.pop('font')
+    if len(boundary_idx) > 0:
+        pntr = 0
+        current_run = etree.SubElement(line, 'run')
+        for index, word in enumerate(line.iterfind('./wd')):
+            if pntr == len(boundary_idx):
+                # The space tag after the current word tag ahs to be shifted
+                # under the run tag as well.
+                space = word.getnext()
+                current_run.append(word)
+                current_run.append(space)
+            else:
+                if index < boundary_idx[pntr]:
+                    space = word.getnext()
+                    current_run.append(word)
+                    current_run.append(space)
+                else:
+                    pntr += 1
+                    new_run = Element('run')
+                    current_run.addnext(new_run)
+                    current_run = new_run
+                    space = word.getnext()
+                    current_run.append(word)
+                    current_run.append(space)
+
+
 def addWord(parent, word, space=True):
     #general space element
     ele_space = Element('space')
     #height = str(word.get('height')
-    width = str(word.get('width'))
-    top = str(word.get('top'))
-    left = str(word.get('left'))
-    baseline = str(word.get('baseline'))
+    width = word.get('width')
+    top = word.get('top')
+    left = word.get('left')
+    baseline = word.get('baseline')
     right = str(float(left) + float(width))
     wd = etree.SubElement(parent, 'wd', l=left, r=right,
-                          t=top, b=baseline)
+                          t=top, b=baseline, font=word.get('font'))
     wd.text = word.text
     if space:
         wd.addnext(ele_space)
 
 
 if __name__ == '__main__':
-    crosswalk('../demodata/temp-pdfx-simp.xml')
+    crosswalk('../demodata/temp-pdfx.xml')
