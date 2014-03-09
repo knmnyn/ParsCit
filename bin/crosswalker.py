@@ -39,6 +39,8 @@ def crosswalk(doc):
     Pdfx :
         - every page has a single 'layer' tag under which are all the 'word'
         tags.
+        - there is no way to know if a word is in sub/super-script or not. pdfx
+        only gives the difference in font size.
 
     Temporary Space :
 
@@ -91,16 +93,34 @@ def crosswalk(doc):
         setAttr(sec, para, ['l', 't'])
         setAttr(sec, last_para, ['r', 'b'])
         # Look for the page number and add it as 'dd' tag
+        # The page number can either be wrapped by a para or a column. So both
+        # the wrappers need to be checked for
         toremove = 0
         for colm in omnipage.iterfind('.//column'):
+            # The column would contain a single para that would contain a
+            # single line which in turn would contain a wd and a space tag.
             if len(list(colm)) == 1:
                 if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
                    is not None:
                     toremove = colm
                     break
+        if toremove == 0:
+            # If the page number was not found wrapped within a column tag,
+            # then each para within all columns need to be examined.
+            for parapg in omnipage.iterfind('.//para'):
+                # Now you cant just look for a single line because normally a
+                # para can have a single line if it is the last line in a
+                # column.
+                if len(list(parapg)) == 1 and len(parapg[0]) == 2:
+                    #print etree.tostring(parapg[0])
+                    if re.match(r'[0-9ivxcmIVXCM]+', parapg[0][0].text) \
+                       is not None:
+                        toremove = parapg
+                        break
         dd_page_num = etree.SubElement(body, 'dd')
         setAttr(dd_page_num, toremove[0], ['l', 't', 'r', 'b'])
-        dd_page_num.append(toremove[0])
+        dd_page_num.append(toremove[0] if toremove.tag == 'column'
+                           else toremove)
         toremove.getparent().remove(toremove)
     print etree.tostring(omnixml, pretty_print=True)
 
@@ -147,6 +167,7 @@ def getCurrentLine(line, word):
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
+        adjusteftMargin(line, newline)
         if newPara(line, newline) == 1:
             # When a new para is encountered, the 'b' attr of the previous para
             # has to be set.
@@ -213,7 +234,8 @@ def newPara(line1, line2):
     # The following will check the indentation of a line to see if it should
     # belong to a new paragraph.
     #if para_width is not None:
-    if diff > INDENT and diff < para_width:
+    if diff > INDENT and diff < para_width and \
+       newleft > colleft:
         para_change = updateConfidence(para_change, 0.5)
     elif diff > para_width:
         # New column encountered
@@ -242,6 +264,24 @@ def setAttr(totag, fromtag, to_attr=None, from_attr=None):
     else:
         totag.set('l', fromtag.get('l'))
         totag.set('t', fromtag.get('t'))
+
+
+def adjusteftMargin(line, newline):
+    curr_para = line.getparent()
+    curr_col = curr_para.getparent()
+    paraleft = curr_para.get('l')
+    colleft = curr_col.get('l')
+    newleft = newline.get('l')
+    if paraleft != colleft:
+        raise Exception("Para and Column left attributes dont match")
+    diff = abs(float(newleft) - float(colleft))
+    para_width = abs(float(curr_col.get('r')) - float(curr_col.get('l')))
+    # the differnce should not be greater than the para width.
+    if float(curr_para.get('l')) > float(newline.get('l')) and \
+       diff < para_width:
+        # This means the margins of the para and col have to be reset
+        curr_col.set('l', newleft)
+        curr_para.set('l', newleft)
 
 
 def getLastChild(tag, attr=None, cond=None):
@@ -320,4 +360,4 @@ def addWord(parent, word, space=True):
 
 
 if __name__ == '__main__':
-    crosswalk('../demodata/temp-pdfx.xml')
+    crosswalk('../demodata/temp-pdfx-p2.xml')
