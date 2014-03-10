@@ -11,7 +11,7 @@ from lxml.etree import ElementTree
 # Space between lines
 LSPACE = 5.0
 # Space between paras
-PSPACE = 15.0
+PSPACE = 13.0  # Changes : 15.0, 14.0,
 # Space between sections
 SECSPACE = 20.0
 # Indent for new para
@@ -73,6 +73,8 @@ def crosswalk(doc):
 
     # Looping over all the pages from pdfx output
     # TODO Each page tag has a description and body tag which have to be added.
+    # TODO Work on run font
+    # TODO Work on line bold font
     for page in pdf2xml.iterchildren('page'):
         #Add description tag
         omnipage = etree.SubElement(omnidoc, 'page')
@@ -92,36 +94,12 @@ def crosswalk(doc):
         # Assign attr to the section
         setAttr(sec, para, ['l', 't'])
         setAttr(sec, last_para, ['r', 'b'])
-        # Look for the page number and add it as 'dd' tag
-        # The page number can either be wrapped by a para or a column. So both
-        # the wrappers need to be checked for
-        toremove = 0
-        for colm in omnipage.iterfind('.//column'):
-            # The column would contain a single para that would contain a
-            # single line which in turn would contain a wd and a space tag.
-            if len(list(colm)) == 1:
-                if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
-                   is not None:
-                    toremove = colm
-                    break
-        if toremove == 0:
-            # If the page number was not found wrapped within a column tag,
-            # then each para within all columns need to be examined.
-            for parapg in omnipage.iterfind('.//para'):
-                # Now you cant just look for a single line because normally a
-                # para can have a single line if it is the last line in a
-                # column.
-                if len(list(parapg)) == 1 and len(parapg[0]) == 2:
-                    #print etree.tostring(parapg[0])
-                    if re.match(r'[0-9ivxcmIVXCM]+', parapg[0][0].text) \
-                       is not None:
-                        toremove = parapg
-                        break
-        dd_page_num = etree.SubElement(body, 'dd')
-        setAttr(dd_page_num, toremove[0], ['l', 't', 'r', 'b'])
-        dd_page_num.append(toremove[0] if toremove.tag == 'column'
-                           else toremove)
-        toremove.getparent().remove(toremove)
+        processPageNum(omnipage)
+        #try:
+        #    processPageNum(omnipage)
+        #except Exception as e:
+        #    print "Couldnt process page number."
+        #    print str(e)
     print etree.tostring(omnixml, pretty_print=True)
 
 
@@ -343,6 +321,46 @@ def checkForRuns(line):
                     current_run.append(space)
 
 
+def processPageNum(omnipage):
+    # Look for the page number and add it as 'dd' tag
+    # The page number can either be wrapped by a para or a column. So both
+    # the wrappers need to be checked for
+    toremove = 0
+    for colm in omnipage.iterfind('.//column'):
+        # The column would contain a single para that would contain a
+        # single line which in turn would contain a wd and a space tag.
+        if len(list(colm)) == 1 and len(colm[0]) == 1 and \
+           len(colm[0][0]) == 2:
+            if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
+               is not None:
+                toremove = colm
+                break
+    if toremove == 0:
+        # If the page number was not found wrapped within a column tag,
+        # then each para within all columns need to be examined.
+        for parapg in omnipage.iterfind('.//para'):
+            # Now you cant just look for a single line because normally a
+            # para can have a single line if it is the last line in a
+            # column.
+            # Another condition is that the line should not contain any 'run'
+            # tags. There can be situations where a line has 2 'run' tags.
+            if len(list(parapg)) == 1 and len(parapg[0]) == 2 and \
+               parapg[0].find('run') is None:
+                if re.match(r'[0-9ivxcmIVXCM]+', parapg[0][0].text) \
+                   is not None:
+                    toremove = parapg
+                    break
+    body = omnipage.find('body')
+    toappend = toremove[0] if toremove.tag == 'column' else toremove
+    dd_page_num = etree.SubElement(body, 'dd')
+    setAttr(dd_page_num, toappend, ['l', 't', 'r', 'b'])
+    # Appending the element to another tag automatically removes it from its
+    # former parent tag. So if one tries to remove the tag after appending it,
+    # the child tag will be removed from the new parent.
+    dd_page_num.append(toappend)
+    #toremove.getparent().remove(toremove)
+
+
 def addWord(parent, word, space=True):
     #general space element
     ele_space = Element('space')
@@ -360,4 +378,4 @@ def addWord(parent, word, space=True):
 
 
 if __name__ == '__main__':
-    crosswalk('../demodata/temp-pdfx-p2.xml')
+    crosswalk('../demodata/temp-pdfx-p5.xml')
