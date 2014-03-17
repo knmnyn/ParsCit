@@ -20,6 +20,8 @@ INDENT = 10.0
 first_line = False
 # Flag for indent on the first line of the para
 para_indent = False
+# List of font tags given in the beginning of each pdfx xml
+FONTS = {}
 
 
 def crosswalk(doc):
@@ -43,6 +45,8 @@ def crosswalk(doc):
         only gives the difference in font size.
 
     Temporary Space :
+        1. The 'font' attribute in a wd tag is removed after processing each
+        line for font attributes in the function checkForRuns().
 
     Assumptions :
         1. A para is demarcated when either the spacing between two lines is
@@ -56,7 +60,7 @@ def crosswalk(doc):
     Simplified xml :
     Not Considering the following:
         - attributes of 'page' tag
-        - 'font' and 'edges' of word tag
+        - 'edges' of word tag
         - 'layer' tag under each 'page' tag
     """
     # Hopefully an xml file in pdfx format
@@ -64,17 +68,16 @@ def crosswalk(doc):
     # Working on a simplified xml for now. Will have to change once done
     pdfxdoc = etree.parse(doc)
     pdf2xml = pdfxdoc.getroot()
-
     # initialize Onmipage Type xml
     omnidoc = Element('document', xmlns="http://www.scansoft.com/" +
                       "omnipage/xml/ssdoc-schema3.xsd",
                       xsi="http://www.w3.org/2001/XMLSchema-instance")
     omnixml = ElementTree(omnidoc)
-
+    # Collect all fonts in the global dictionary before continuing
+    for font in pdf2xml.iterchildren('fontspec'):
+        FONTS[font.get('id')] = font
     # Looping over all the pages from pdfx output
     # TODO Each page tag has a description and body tag which have to be added.
-    # TODO Work on run font
-    # TODO Work on line bold font
     for page in pdf2xml.iterchildren('page'):
         #Add description tag
         omnipage = etree.SubElement(omnidoc, 'page')
@@ -112,7 +115,6 @@ def getCurrentLine(line, word):
     The 'b' attr of para and column will be set only when a para or column end
     """
     # TODO:Section change has to be included.
-    # TODO:Add overflow margin
     global first_line
     # if line doesnt have a 'b' attribute, then we are still on the first line
     if line.get('b') is None:
@@ -145,6 +147,8 @@ def getCurrentLine(line, word):
         newline = Element('ln', l=word.get('left'), t=word.get('top'),
                           b=word.get('baseline'),
                           baseline=word.get('baseline'))
+        # Adjust the left margin overflow. Happens when the first line of a
+        # column in indented.
         adjusteftMargin(line, newline)
         if newPara(line, newline) == 1:
             # When a new para is encountered, the 'b' attr of the previous para
@@ -279,6 +283,8 @@ def getLastChild(tag, attr=None, cond=None):
 
 
 def checkForRuns(line):
+    # Check to see if there any font changes within a line. If so, include
+    # 'run' tags. If not, include font attributes in the same line tag.
     # For now, I have assumed that at this stage of processing, a line would
     # only have words and spaces as its children so the first item in the tag
     # list of line should be a word.
@@ -290,15 +296,16 @@ def checkForRuns(line):
     boundary_idx = []
     for index, word in enumerate(line.iterfind('.//wd')):
         if word.get('font') == font_type:
-            word.attrib.pop('font')
+            #word.attrib.pop('font')
             continue
         else:
             boundary_idx.append(index)
             font_type = word.get('font')
-            word.attrib.pop('font')
+            #word.attrib.pop('font')
     if len(boundary_idx) > 0:
         pntr = 0
         current_run = etree.SubElement(line, 'run')
+        setFont(current_run, line.find('./wd').get('font'))
         for index, word in enumerate(line.iterfind('./wd')):
             if pntr == len(boundary_idx):
                 # The space tag after the current word tag ahs to be shifted
@@ -319,6 +326,28 @@ def checkForRuns(line):
                     space = word.getnext()
                     current_run.append(word)
                     current_run.append(space)
+                    setFont(current_run, word.get('font'))
+            word.attrib.pop('font')
+    else:
+        # This part of the function will be executed if there are no runs in a
+        # line. In such a case, the font attributes of the line tag have to be
+        # set.
+        setFont(line, line.find('./wd').get('font'))
+        for word in line.iterfind('./wd'):
+            word.attrib.pop('font')
+
+
+def setFont(tag, fontid):
+    # For now, this will set the fontSize and fontFace attributes of the tag
+    # passed to it. Also, if the font has the word 'bold' in it, then the
+    # 'bold' attribute of the tag will also be set
+    font = FONTS[fontid]
+    size = int(float(font.get('size'))) * 100
+    fonttype = font.get('family')
+    if re.search(r'.*(bold).*', fonttype.lower()) is not None:
+        tag.set('bold', 'true')
+    tag.set('fontSize', str(size))
+    tag.set('fontFace', fonttype)
 
 
 def processPageNum(omnipage):
