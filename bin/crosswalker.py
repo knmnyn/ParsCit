@@ -77,26 +77,20 @@ def crosswalk(doc):
     for font in pdf2xml.iterchildren('fontspec'):
         FONTS[font.get('id')] = font
     # Looping over all the pages from pdfx output
-    # TODO Each page tag has a description and body tag which have to be added.
     for page in pdf2xml.iterchildren('page'):
-        #Add description tag
         omnipage = etree.SubElement(omnidoc, 'page')
+        descrip = etree.SubElement(omnipage, 'description')
+        descrip.append(Element('description', file=doc))
         body = etree.SubElement(omnipage, 'body')
         sec = etree.SubElement(body, 'section')
         col = etree.SubElement(sec, 'column')
-        para = etree.SubElement(col, 'para')
+        para = etree.SubElement(col, 'para', alignment='justified',
+                                language='en')
         line = etree.SubElement(para, 'ln')
         for word in page.iterfind('.//word'):
             line = getCurrentLine(line, word)
             addWord(line, word)
-        # The 'b' attr of the last line has to be set
-        last_para = line.getparent()
-        # presumably the last line
-        last_para.set('b', line.get('b'))
-        last_para.getparent().set('b', line.get('b'))
-        # Assign attr to the section
-        setAttr(sec, para, ['l', 't'])
-        setAttr(sec, last_para, ['r', 'b'])
+        finalTouches(word, line, para, sec)
         processPageNum(omnipage)
         #try:
         #    processPageNum(omnipage)
@@ -149,7 +143,7 @@ def getCurrentLine(line, word):
                           baseline=word.get('baseline'))
         # Adjust the left margin overflow. Happens when the first line of a
         # column in indented.
-        adjusteftMargin(line, newline)
+        adjustleftMargin(line, newline)
         if newPara(line, newline) == 1:
             # When a new para is encountered, the 'b' attr of the previous para
             # has to be set.
@@ -248,7 +242,7 @@ def setAttr(totag, fromtag, to_attr=None, from_attr=None):
         totag.set('t', fromtag.get('t'))
 
 
-def adjusteftMargin(line, newline):
+def adjustleftMargin(line, newline):
     curr_para = line.getparent()
     curr_col = curr_para.getparent()
     paraleft = curr_para.get('l')
@@ -406,5 +400,20 @@ def addWord(parent, word, space=True):
         wd.addnext(ele_space)
 
 
+def finalTouches(word, line, para, sec):
+    if line.get('r') is None:
+        line.set('r', getLastChild(line, attr='r').get('r'))
+    # The 'b' attr of the last line has to be set
+    last_para = line.getparent()
+    # presumably the last line
+    last_para.set('b', line.get('b'))
+    if last_para.get('r') is None:
+        last_para.set('r', line.get('r'))
+    last_para.getparent().set('b', line.get('b'))
+    # Assign attr to the section
+    setAttr(sec, para, ['l', 't'])
+    setAttr(sec, last_para, ['r', 'b'])
+
+
 if __name__ == '__main__':
-    crosswalk('../demodata/temp-pdfx-p5.xml')
+    crosswalk('../demodata/P10-1024.xml')
