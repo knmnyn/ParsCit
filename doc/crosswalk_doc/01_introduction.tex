@@ -1,0 +1,17 @@
+This report documents the work done to incorporate the use of PDFx to process PDF files as part of the ParsCit system.
+Prior to the implementation of the crosswalk, the way pdf documents were handled by ParsCit was through Omnipage.
+First the pdf doucments were passed to Omnipage which would output a file containing the text from the pdf along with annotations to indicate the spacial placement of words as well as information on how words are grouped in the pdf document (More details in the next section).
+However, Omnipage is a commercial software.
+With this implementation, the aim is to be able to use an open-source/free software for the same purpose.
+
+PDFx from the research group at University of Manchester is a free software that is used to extract document structure information as well.
+For this purpose, it first extracts all the text from the pdf document with annotations similar to that of Omnipage.
+However there are several differences between the outputs given by the two softwares.
+
+Since using Omnipage to extract all the text (and annotations) is the first step of the pipeline in ParsCit, most of the logic for further processing the document structure heavily relies on the output format of Omnipage.
+This makes it very difficult to replace Omnipage as this owuld require a considerable amount of work on changing the code within most of the modules in ParsCit and the various modules like SectLabel, ParseHead, Enlil.
+
+The aim of this implementation is to use the output from PDFx and convert it to match the format of Omnipage output.
+This crosswalk would involve dealing only with the two output formats without any significant changes to the main logic in ParsCit.
+
+The following sections document how this crosswalk has been implemented, the problems encountered while doing so, an analysis of the performance of the crosswalk and the known issues with the implementation.

@@ -1,0 +1,55 @@
+\documentclass[12pt]{scrreprt}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+%% Pictures
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
+%% For multirow in tables
+\usepackage{multirow}
+%% Algorithm
+\usepackage{algorithm}
+\usepackage{todo}
+%% Text coloring
+\usepackage{color}
+%% To control enum spacing for brevity
+\usepackage{enumitem}
+\usepackage[margin=1.2in]{geometry}
+
+\definecolor{light-gray}{gray}{0.95}
+
+\graphicspath{ {images/} }
+\DeclareGraphicsExtensions{.png,.jpg}
+
+\title{PDFx to Omnipage CrossWalk Documentation}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+\label{section:introduction}
+\input{01_introduction.tex}
+
+\chapter{Methodology}
+\label{section: method}
+\input{02_methodology.tex}
+
+\chapter{Problems Encountered}
+\label{section:experiments}
+\input{03_results.tex}
+
+\chapter{Performance Analysis}
+\label{section:discussion}
+\input{04_discussion.tex}
+
+\chapter{Known Isuues}
+\label{section:conclusion}
+\input{05_conclusion.tex}
+
+\end{document}

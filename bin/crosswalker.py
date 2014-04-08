@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 import re
+import os
+import sys
+#import argparse
 from lxml import etree
 from lxml.etree import Element
 from lxml.etree import ElementTree
@@ -22,6 +25,8 @@ first_line = False
 para_indent = False
 # List of font tags given in the beginning of each pdfx xml
 FONTS = {}
+# Flag for Debugging
+DEBUG = False
 
 
 def crosswalk(doc):
@@ -97,7 +102,11 @@ def crosswalk(doc):
         #except Exception as e:
         #    print "Couldnt process page number."
         #    print str(e)
-    print etree.tostring(omnixml, pretty_print=True)
+    # Copy the generated xml into a new file
+    file, exten = os.path.splitext(doc)
+    newfile = file + '-omni.xml'
+    with open(newfile, 'w') as outf:
+        outf.write(etree.tostring(omnixml, pretty_print=True))
 
 
 def getCurrentLine(line, word):
@@ -352,12 +361,18 @@ def processPageNum(omnipage):
     for colm in omnipage.iterfind('.//column'):
         # The column would contain a single para that would contain a
         # single line which in turn would contain a wd and a space tag.
-        if len(list(colm)) == 1 and len(colm[0]) == 1 and \
-           len(colm[0][0]) == 2:
-            if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
-               is not None:
-                toremove = colm
-                break
+        try:
+            if len(list(colm)) == 1 and len(colm[0]) == 1 and \
+               len(colm[0][0]) == 2 and colm[0][0].find('run') is None:
+               #len(colm[0][0]) == 2:
+                if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
+                   is not None:
+                    toremove = colm
+                    break
+        except:
+            #if DEBUG:
+            print etree.tostring(colm, pretty_print=True)
+            raise
     if toremove == 0:
         # If the page number was not found wrapped within a column tag,
         # then each para within all columns need to be examined.
@@ -373,6 +388,8 @@ def processPageNum(omnipage):
                    is not None:
                     toremove = parapg
                     break
+    if toremove == 0:
+        return
     body = omnipage.find('body')
     toappend = toremove[0] if toremove.tag == 'column' else toremove
     dd_page_num = etree.SubElement(body, 'dd')
@@ -416,4 +433,11 @@ def finalTouches(word, line, para, sec):
 
 
 if __name__ == '__main__':
-    crosswalk('../demodata/P10-1024.xml')
+    #crosswalk('../demodata/P10-1024.xml')
+    #parser = argparse.ArgumentParser(description='Enter options.')
+    #parser.add_argument('--dbg', action='store_true', default=False,
+    #                    help='Turn on debugging output')
+    #args = parser.parse_args()
+    #if args.dbg:
+    #    DEBUG = True
+    crosswalk(sys.argv[1])
