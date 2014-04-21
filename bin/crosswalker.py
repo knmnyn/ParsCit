@@ -60,7 +60,6 @@ def crosswalk(doc):
 
     Things not accounting for in Omnixml:
         - 'ln' attributes apart from dimensions
-</pdf2xml>
 
     Simplified xml :
     Not Considering the following:

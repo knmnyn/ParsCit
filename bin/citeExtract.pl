@@ -65,7 +65,7 @@ my $PARSHED		= 2;
 my $SECTLABEL	= 4; # Thang v100401
 
 my $default_input_type	= "raw";
-my $output_version		= "110505";
+my $output_version		= "140420";
 my $biblio_script		= $FindBin::Bin . "/BiblioScript/biblio_script.sh";
 my $default_mode		= $PARSCIT;
 # END user customizable section
@@ -87,8 +87,9 @@ sub Help
 	print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
 
 	# Thang v100401: add new mode (extract_section), and -i <inputType>
+    # Ankur v140420: added new value [pdf] for inputType
 	print STDERR "\t-m <mode>	   \tMode (extract_citations, extract_header, extract_section, extract_meta, extract_all, default: extract_citations)\n";
-	print STDERR "\t-i <inputType> \tType (raw, xml, default: raw)\n";
+	print STDERR "\t-i <inputType> \tType (raw, xml, pdf, default: raw)\n";
 	print STDERR "\t-e <exportType>\tExport citations into multiple types (ads|bib|end|isi|ris|wordbib). Multiple types could be specified by contatenating with \"-\" e.g., bib-end-ris. Output files will be named as outfile.exportFormat, with outfile being the input argument, and exportFormat being each individual format supplied by -e option.\n";
 	print STDERR "\t-t\tUse token level model instead\n";
 	print STDERR "\n";
@@ -107,7 +108,7 @@ my $cmd_line = $0 . " " . join (" ", @ARGV);
 
 # Invoked with no arguments, error in execution
 if ($#ARGV == -1)
-{ 		        
+{
 	print STDERR "# $progname info\t\tNo arguments detected, waiting for input on command line.		\n";
 	print STDERR "# $progname info\t\tIf you need help, stop this program and reinvoke with \"-h\".	\n";
 	exit(-1);
@@ -119,18 +120,18 @@ getopts ('hqm:i:e:tva');
 our ($opt_q, $opt_v, $opt_h, $opt_m, $opt_i, $opt_e, $opt_t, $opt_a);
 
 # Use (!defined $opt_X) for options with arguments
-if ($opt_v) 
-{ 
+if ($opt_v)
+{
 	# call Version, if asked for
-	Version(); 
-	exit(0); 
+	Version();
+	exit(0);
 }
 
-if ($opt_h) 
+if ($opt_h)
 { 
 	# call help, if asked for
-	Help(); 
-	exit (0); 
+	Help();
+	exit (0);
 }
 
 my $mode		= (!defined $opt_m) ? $default_mode : ParseMode($opt_m);
@@ -140,7 +141,7 @@ my $in		= shift;	# input file
 my $out		= shift;	# if available
 
 # Convert line endings from Mac style, if so
-# Canocicalizes carriage return, line feed characters 
+# Canocicalizes carriage return, line feed characters
 # at line ending
 ParsCit::PreProcess::canolicalizeEOL($in);
 
@@ -149,16 +150,28 @@ my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"" 
 
 ###
 # Thang v100401: add input type option, and SectLabel
+# Ankur v140420: adding option to convert supplied pdf into pseudo-OmniPage xml
+#                format using PDFx. This is facilitated by allowing 'pdf' as a
+#                possible value for the commandline option '-i'.
 ###
 my $is_xml_input = 0;
 if (defined $opt_i && $opt_i !~ /^(xml|raw)$/)
 {
 	print STDERR "#! Input type needs to be either \"raw\" or \"xml\"\n";
-	Help(); 
+	Help();
 	exit (0);
-} 
+}
 elsif (defined $opt_i && $opt_i eq "xml")
 {
+	$is_xml_input = 1;
+}
+elsif (defined $opt_i && $opt_i eq "pdf")
+{
+    my $cmd = $FindBin::Bin . "/../lib/pdf2xml/pdf2ml $in";
+    my ($name, $dir, $ext) = fileparse($in, qr/\.pdf$/);
+    $pdfx_out = $dir . $name . ".xml";
+    $cmd = $FindBin::Bin . "/crosswalker.py $pdfx_out";
+    $in = $dir . $name . "-omni.xml";
 	$is_xml_input = 1;
 }
 
@@ -193,7 +206,7 @@ if (defined $opt_e && $opt_e ne "")
 			Help(); 
 			exit (0);
 		}
-		
+
 		$type_hash{ $token } = 1;
 	}
 
