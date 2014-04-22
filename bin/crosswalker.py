@@ -69,7 +69,6 @@ def crosswalk(doc):
     """
     # Hopefully an xml file in pdfx format
     # Use StringIO to handle the file if passed as a string
-    # Working on a simplified xml for now. Will have to change once done
     pdfxdoc = etree.parse(doc)
     pdf2xml = pdfxdoc.getroot()
     # initialize Onmipage Type xml

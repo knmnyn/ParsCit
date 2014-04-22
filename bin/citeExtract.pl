@@ -140,11 +140,6 @@ my $ph_model	= (defined $opt_t) ? 1 : 0;
 my $in		= shift;	# input file
 my $out		= shift;	# if available
 
-# Convert line endings from Mac style, if so
-# Canocicalizes carriage return, line feed characters
-# at line ending
-ParsCit::PreProcess::canolicalizeEOL($in);
-
 # Output buffer
 my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"" . $output_version . "\">\n";
 
@@ -155,7 +150,7 @@ my $rxml	= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithms version=\"" 
 #                possible value for the commandline option '-i'.
 ###
 my $is_xml_input = 0;
-if (defined $opt_i && $opt_i !~ /^(xml|raw)$/)
+if (defined $opt_i && $opt_i !~ /^(xml|raw|pdf)$/)
 {
 	print STDERR "#! Input type needs to be either \"raw\" or \"xml\"\n";
 	Help();
@@ -167,13 +162,20 @@ elsif (defined $opt_i && $opt_i eq "xml")
 }
 elsif (defined $opt_i && $opt_i eq "pdf")
 {
-    my $cmd = $FindBin::Bin . "/../lib/pdf2xml/pdf2ml $in";
+    my $cmd = $FindBin::Bin . "/../lib/pdf2xml/pdf2xml $in";
+    system($cmd);
     my ($name, $dir, $ext) = fileparse($in, qr/\.pdf$/);
-    $pdfx_out = $dir . $name . ".xml";
+    my $pdfx_out = $dir . $name . ".xml";
     $cmd = $FindBin::Bin . "/crosswalker.py $pdfx_out";
+    system($cmd);
     $in = $dir . $name . "-omni.xml";
 	$is_xml_input = 1;
 }
+
+# Convert line endings from Mac style, if so
+# Canocicalizes carriage return, line feed characters
+# at line ending
+ParsCit::PreProcess::canolicalizeEOL($in);
 
 ###
 # Thang v100901: add export type option & incorporate BibUtils
