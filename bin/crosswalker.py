@@ -2,8 +2,7 @@
 
 import re
 import os
-import sys
-#import argparse
+import argparse
 from lxml import etree
 from lxml.etree import Element
 from lxml.etree import ElementTree
@@ -29,7 +28,7 @@ FONTS = {}
 DEBUG = False
 
 
-def crosswalk(doc):
+def crosswalk(doc, outfile):
     """
     This space is for documenting the properties of the two formats (pdfx and
     omnipage).
@@ -101,10 +100,13 @@ def crosswalk(doc):
         #    print "Couldnt process page number."
         #    print str(e)
     # Copy the generated xml into a new file
-    file, exten = os.path.splitext(doc)
-    newfile = file + '-omni.xml'
-    with open(newfile, 'w') as outf:
-        outf.write(etree.tostring(omnixml, pretty_print=True))
+    if outfile is None:
+        file, exten = os.path.splitext(doc)
+        newfile = file + '-omni.xml'
+        with open(newfile, 'w') as outf:
+            outf.write(etree.tostring(omnixml, pretty_print=True))
+    else:
+        outfile.write(etree.tostring(omnixml, pretty_print=True))
 
 
 def getCurrentLine(line, word):
@@ -431,11 +433,18 @@ def finalTouches(word, line, para, sec):
 
 
 if __name__ == '__main__':
-    #crosswalk('../demodata/P10-1024.xml')
-    #parser = argparse.ArgumentParser(description='Enter options.')
+    outfilename = None
+    helpstr = 'Enter options.\nIf the output file name is not specified ' +\
+              'then the same name as the input file will be used with ' + \
+              '"-omni" appended to it'
+    parser = argparse.ArgumentParser(description=helpstr)
     #parser.add_argument('--dbg', action='store_true', default=False,
     #                    help='Turn on debugging output')
-    #args = parser.parse_args()
-    #if args.dbg:
-    #    DEBUG = True
-    crosswalk(sys.argv[1])
+    parser.add_argument('input', help='Input file')
+    parser.add_argument('-o', '--outf', action='store', dest='outfile',
+                        type=argparse.FileType('w'),
+                        help='Specify the location & name of the output file')
+    args = parser.parse_args()
+    if args.outfile:
+        outfilename = args.outfile
+    crosswalk(args.input, outfilename)
