@@ -48,45 +48,58 @@ logger.addHandler(fhandler)
 logger.addHandler(chandler)
 
 
+total_files = {}
+processed_files = {}
 for letter in letters:
     curdir = pdfdir + letter
     if os.path.isdir(curdir):
+        total_files[letter] = 0
+        processed_files[letter] = 0
         for dirName, subdirList, fileList in os.walk(curdir):
-            if len(fileList) > 0:
-                for fname in fileList:
-                    file = os.path.join(dirName, fname)
+            for fname in fileList:
+                total_files[letter] += 1
+                file = os.path.join(dirName, fname)
 
-                    # Create MD5 checksum
-                    # It could be simply computed but to consume less memory,
-                    # it is better to not read the whole file at one go.
-                    #md5hash = hashlib.md5(open(file, 'rb').read()).hexdigest()
-                    md5hash = getMd5Hash(file)
+                # Create MD5 checksum
+                # It could be simply computed but to consume less memory,
+                # it is better to not read the whole file at one go.
+                #md5hash = hashlib.md5(open(file, 'rb').read()).hexdigest()
+                md5hash = getMd5Hash(file)
 
-                    # Create directory for caching
-                    dirpath = cachedir + '/'.join(re.findall(r'....', md5hash))
-                    if not os.path.exists(dirpath):
-                        os.makedirs(dirpath)
+                # Create directory for caching
+                dirpath = cachedir + '/'.join(re.findall(r'....', md5hash))
+                if not os.path.exists(dirpath):
+                    os.makedirs(dirpath)
 
-                    # Pdfx Outfile name
-                    pfile, exten = os.path.splitext(fname)
-                    pfilename = pfile + '-pdfx.xml'
-                    pdfxfile = dirpath + '/' + pfilename
-                    p = subprocess.Popen([pdf2xml, file, pdfxfile],
-                                         stdout=subprocess.PIPE,
-                                         stderr=subprocess.PIPE)
-                    stdout, stderr = p.communicate()
-                    if stderr:
-                        logger.error(stderr)
-                        continue
-                    else:
-                        logger.info('Conversion using pdfx done for ' + fname)
+                # Pdfx Outfile name
+                pfile, exten = os.path.splitext(fname)
+                pfilename = pfile + '-pdfx.xml'
+                pdfxfile = dirpath + '/' + pfilename
+                p = subprocess.Popen([pdf2xml, file, pdfxfile],
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.PIPE)
+                stdout, stderr = p.communicate()
+                if stderr:
+                    logger.error(stderr)
+                    continue
+                else:
+                    logger.info('Conversion using pdfx done for ' + fname)
 
-                    # Crosswalk
-                    subprocess.check_call([crosswalk, pdfxfile],
-                                          stdout=subprocess.PIPE,
-                                          stderr=subprocess.PIPE)
-                    if stderr:
-                        logger.error(stderr)
-                        continue
-                    else:
-                        logger.info('Crosswalk done for ' + fname)
+                # Crosswalk
+                subprocess.check_call([crosswalk, pdfxfile],
+                                      stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+                if stderr:
+                    logger.error(stderr)
+                    continue
+                else:
+                    logger.info('Crosswalk done for ' + fname)
+
+                # Increase processed file counter
+                processed_files[letter] += 1
+
+logger.info("Total Files : {:d}".format(reduce(lambda x, y: x + y,
+                                               total_files.values())))
+logger.info("Processed Files : {:d}".format(reduce(lambda x, y: x + y,
+                                                   processed_files.values())))
+logger.info("Breakup :\n\t{0}\n\t{1}".format(total_files, processed_files))
