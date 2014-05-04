@@ -80,6 +80,7 @@ for letter in letters:
                                      stderr=subprocess.PIPE)
                 stdout, stderr = p.communicate()
                 if stderr:
+                    logger.error("At pdfx conversion for " + fname)
                     logger.error(stderr)
                     continue
                 else:
@@ -91,6 +92,7 @@ for letter in letters:
                                      stderr=subprocess.PIPE)
                 stdout, stderr = p.communicate()
                 if stderr:
+                    logger.error("At crosswalk conversion for " + fname)
                     logger.error(stderr)
                     continue
                 else:
