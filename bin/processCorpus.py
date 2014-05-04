@@ -86,9 +86,10 @@ for letter in letters:
                     logger.info('Conversion using pdfx done for ' + fname)
 
                 # Crosswalk
-                subprocess.check_call([crosswalk, pdfxfile],
-                                      stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE)
+                p = subprocess.Popen([crosswalk, pdfxfile],
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.PIPE)
+                stdout, stderr = p.communicate()
                 if stderr:
                     logger.error(stderr)
                     continue
