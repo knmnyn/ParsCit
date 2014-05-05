@@ -28,7 +28,7 @@ FONTS = {}
 DEBUG = False
 
 
-def crosswalk(doc, outfile):
+def crosswalk(doc, outfile=None):
     """
     This space is for documenting the properties of the two formats (pdfx and
     omnipage).
@@ -80,6 +80,8 @@ def crosswalk(doc, outfile):
         FONTS[font.get('id')] = font
     # Looping over all the pages from pdfx output
     for page in pdf2xml.iterchildren('page'):
+        if len(page) == 0:
+            continue
         omnipage = etree.SubElement(omnidoc, 'page')
         descrip = etree.SubElement(omnipage, 'description')
         descrip.append(Element('description', file=doc))
@@ -94,11 +96,6 @@ def crosswalk(doc, outfile):
             addWord(line, word)
         finalTouches(word, line, para, sec)
         processPageNum(omnipage)
-        #try:
-        #    processPageNum(omnipage)
-        #except Exception as e:
-        #    print "Couldnt process page number."
-        #    print str(e)
     # Copy the generated xml into a new file
     if outfile is None:
         file, exten = os.path.splitext(doc)
@@ -107,6 +104,7 @@ def crosswalk(doc, outfile):
             outf.write(etree.tostring(omnixml, pretty_print=True))
     else:
         outfile.write(etree.tostring(omnixml, pretty_print=True))
+    #print(etree.tostring(omnixml, pretty_print=True))
 
 
 def getCurrentLine(line, word):
@@ -361,18 +359,13 @@ def processPageNum(omnipage):
     for colm in omnipage.iterfind('.//column'):
         # The column would contain a single para that would contain a
         # single line which in turn would contain a wd and a space tag.
-        try:
-            if len(list(colm)) == 1 and len(colm[0]) == 1 and \
-               len(colm[0][0]) == 2 and colm[0][0].find('run') is None:
-               #len(colm[0][0]) == 2:
-                if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
-                   is not None:
-                    toremove = colm
-                    break
-        except:
-            #if DEBUG:
-            print etree.tostring(colm, pretty_print=True)
-            raise
+        if len(list(colm)) == 1 and len(colm[0]) == 1 and \
+           len(colm[0][0]) == 2 and colm[0][0].find('run') is None:
+            #len(colm[0][0]) == 2:
+            if re.match(r'[0-9ivxcmIVXCM]+', colm[0][0][0].text) \
+               is not None:
+                toremove = colm
+                break
     if toremove == 0:
         # If the page number was not found wrapped within a column tag,
         # then each para within all columns need to be examined.
@@ -418,8 +411,11 @@ def addWord(parent, word, space=True):
 
 
 def finalTouches(word, line, para, sec):
-    if line.get('r') is None:
-        line.set('r', getLastChild(line, attr='r').get('r'))
+    try:
+        if line.get('r') is None:
+            line.set('r', getLastChild(line, attr='r').get('r'))
+    except:
+        print(etree.tostring(sec, pretty_print=True))
     # The 'b' attr of the last line has to be set
     last_para = line.getparent()
     # presumably the last line
