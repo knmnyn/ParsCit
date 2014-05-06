@@ -49,15 +49,27 @@ The central idea is to read the PDFx generated XML and simultaneously generate t
 Each 'word' tag in the PDFx XML corresponds to a 'wd' tag in the output XML.
 
 The main logic starts in the function \emph{getCurrentLine} which is called with each encounter of a 'word' tag in the PDFx XML.
-This function returns the 'ln' (line) tag which is added to the output pseudo-Omni XML and is also the parent for the corresponding 'wd' tag.
+This function returns the 'ln' (line) tag which is added to the output pseudo-Omni XML as a child of the 'para' tag and is also the parent for the corresponding 'wd' tag.
 The returned 'ln' tag is either the same tag that the previous 'wd' tag was under, or a new 'ln' tab indicating the beginning of the next line.
 This is determined by measuring the distance between the coordinates representing the bottom of the current word and the bottom of the line containing the previous word.
 If this distance is less than a tuned value (represented by LSPACE), then it is assumed that the current word belongs to the same line as the previous word and the same line is returned.
+
 If not, then the first thing before creating and processing a new 'ln' tag is to conclude the properties of the previous line.
 This includes filling in values for the essential attributes of the 'ln' tag (currently the attribute 'r' representing the \emph{right coordiante} of the line) and checking for the presence of runs within the completed line.
 Runs are identified by comparing the 'font' attribute of each word.
 Chuncks of words that belong to the same font are grouped together into 'run' tags inside the 'ln' tag.
 
-***margin overflow***
+The next step in processing the new line has been referred to as margin overflow.
+This occurs when the first line of a new paragraph is indented.
+As will be shown later, in that case, the parents ('para' and 'column') of this indented line share the left ('l') attribute of the line.
+In this case, the remaining lines would have a sligthly shifted (towards the left) left coordinate.
+To fix this, the 'l' attribute of new line is compared with the 'l' attribute of the previous line's parents.
+If the new line is found slightly shifted towards the left, then the 'l' attribute of the enclosing para and column are updated to that of the new line.
+Care is taken to ensure that the new line is not from another column.
+
+The next thing to determine is whether there is a change in the para or column or neither.
+For this, there are a couple of conditions to check for.
+The distance between the current line and the previous line should be greater than the tuned value PSPACE.
+
 ***para & column ***
 ***final touches***

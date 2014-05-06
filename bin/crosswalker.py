@@ -201,7 +201,8 @@ def newPara(line1, line2):
     1 : When there is a change of paragraph
     2 : When there is a change in the column
     """
-    # TODO:Section change has to be included.
+    # The values represent the confidence levels that would be updated when
+    # different conditions are true.
     no_change = 0.51
     para_change = 0.5
     col_change = 0.5
