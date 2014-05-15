@@ -6,6 +6,15 @@ import re
 import string
 import hashlib
 
+## Ankur
+# This script will take ACL anthology type dir structure as input and for each
+# pdf file found, it will create a dir structure using the hash of the pdf file
+# and run 1) Pdfx on the pdf file and then 2) crosswalker (situated in
+# ParsCit/bin/crosswalker.py) on the output of the pdfx xml.
+# The root of the dir structure (cache) can be defined below with the variable
+# cachedir and so can the location of the ACL anthology type dir structure root
+# using pdfdir.
+
 BLKSIZE = 8196
 
 pdfdir = '/home/ankur/devbench/workrelated/public_html/'
@@ -67,7 +76,7 @@ for letter in letters:
                 md5hash = getMd5Hash(file)
 
                 # Create directory for caching
-                dirpath = cachedir + '/'.join(re.findall(r'....', md5hash))
+                dirpath = cachedir + '/'.join(re.findall(r'...', md5hash))
                 if not os.path.exists(dirpath):
                     os.makedirs(dirpath)
 

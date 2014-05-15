@@ -82,6 +82,9 @@ def crosswalk(doc, outfile=None):
     for page in pdf2xml.iterchildren('page'):
         if len(page) == 0:
             continue
+        # As it turns out, there can be just an image tag within a page.
+        elif len(page.findall('.//word')) == 0:
+            continue
         omnipage = etree.SubElement(omnidoc, 'page')
         descrip = etree.SubElement(omnipage, 'description')
         descrip.append(Element('description', file=doc))
@@ -412,11 +415,11 @@ def addWord(parent, word, space=True):
 
 
 def finalTouches(word, line, para, sec):
-    try:
-        if line.get('r') is None:
-            line.set('r', getLastChild(line, attr='r').get('r'))
-    except:
-        print(etree.tostring(sec, pretty_print=True))
+    #try:
+    if line.get('r') is None:
+        line.set('r', getLastChild(line, attr='r').get('r'))
+    #except:
+    #    print(etree.tostring(sec, pretty_print=True))
     # The 'b' attr of the last line has to be set
     last_para = line.getparent()
     # presumably the last line
