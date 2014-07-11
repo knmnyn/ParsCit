@@ -4,21 +4,24 @@ import os
 import subprocess
 import logging
 
-## Ankur
-# This script is used to run ParsCit/SectLabel on each crosswalked (xml file
-# resembling Omnipage output) found in the cache dir structure as created
-# using the script processCorpus.py.
+## Ankur - 30/05/2014
+# This script can be used to run ParsCit in batch mode.
+# Just change the path of 'cachedir' to the root of the dir structure
+# containing scientific articles and this script will look for pdfs in all sub
+# directories and try to run ParsCit over them.
+# Please note that there is no need to preprocess the pdf file. This version of
+# ParsCit has inbuilt pdfx functionality (only on x86 machines though).
 
-cachedir = '/home/ankur/devbench/workrelated/cache/'
+cachedir = '/home/ankur/devbench/workrelated/work/'
 parscit = '/home/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
 
 
 # Establish Logging
-logger = logging.getLogger('UsingParscit')
+logger = logging.getLogger('BatchParscit')
 logger.setLevel(logging.INFO)
 
 # create a file handler
-fhandler = logging.FileHandler('usingParscit.log')
+fhandler = logging.FileHandler('batchParscit.log')
 fhandler.setLevel(logging.INFO)
 
 # create a stream handler
@@ -36,12 +39,12 @@ logger.addHandler(chandler)
 
 for dirName, subdirList, fileList in os.walk(cachedir):
     for fname in fileList:
-        reg = re.match(r'(.+)-pdfx-omni.xml', fname)
+        reg = re.match(r'(.+).pdf', fname)
         if reg is not None:
             infile = os.path.join(dirName, fname)
             outfile = os.path.join(dirName,
                                    reg.group(1) + '-parscit-section.xml')
-            p = subprocess.Popen([parscit, '-m', 'extract_all', '-i', 'xml',
+            p = subprocess.Popen([parscit, '-m', 'extract_all', '-i', 'pdf',
                                   infile, outfile], stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
             stdout, stderr = p.communicate()

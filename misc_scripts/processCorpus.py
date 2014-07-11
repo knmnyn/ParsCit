@@ -76,7 +76,7 @@ for letter in letters:
                 md5hash = getMd5Hash(file)
 
                 # Create directory for caching
-                dirpath = cachedir + '/'.join(re.findall(r'...', md5hash))
+                dirpath = cachedir + '/'.join(re.findall(r'..', md5hash))
                 if not os.path.exists(dirpath):
                     os.makedirs(dirpath)
 
