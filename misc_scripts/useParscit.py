@@ -9,8 +9,8 @@ import logging
 # output resembling xml file) found in the cache dir structure as created
 # using the script processCorpus.py.
 
-cachedir = '/home/ankur/devbench/workrelated/cache/'
-parscit = '/home/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
+cachedir = '/mnt/compute/ankur/cache/'
+parscit = '/mnt/raid/homes/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
 
 
 # Establish Logging
@@ -34,6 +34,14 @@ chandler.setFormatter(formatter)
 logger.addHandler(fhandler)
 logger.addHandler(chandler)
 
+tot = 0
+for dirName, subdirList, fileList in os.walk(cachedir):
+    for fname in fileList:
+        reg = re.match(r'(.+)-pdfx-omni.xml', fname)
+        if reg is not None:
+            tot += 1
+
+num = 0
 for dirName, subdirList, fileList in os.walk(cachedir):
     for fname in fileList:
         reg = re.match(r'(.+)-pdfx-omni.xml', fname)
@@ -45,10 +53,13 @@ for dirName, subdirList, fileList in os.walk(cachedir):
                                   infile, outfile], stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
             stdout, stderr = p.communicate()
-            logger.info("Processing " + fname)
+            logger.info("Processing " + fname + " " + str(num + 1) + "/" + str(tot))
             if stdout:
                 logger.info(stdout)
             if stderr:
-                logger.error(stderr)
+                if re.search(r'Die in SectLabel::PreProcess::findHeaderText', stderr) is None:
+                    print num
+                    logger.error(stderr)
+            num += 1
 
 print "Done"
