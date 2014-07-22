@@ -14,6 +14,11 @@ import hashlib
 # The root of the dir structure (cache) can be defined below with the variable
 # cachedir and so can the location of the ACL anthology type dir structure root
 # using pdfdir.
+# This script was created becasue the binaries for pdfx that have been procured
+# from Alex of U. of Manchester are for 32-bit machines. Hence, to run
+# Pdfx-ParsCit over the entire ACL meant dividing the pipeline between the
+# available 32-bit machine and the 64-bit WING server.
+# For running everything together (on a 32-bit machine) use batch-ParsCit.py
 
 BLKSIZE = 8196
 
@@ -76,7 +81,7 @@ for letter in letters:
                 md5hash = getMd5Hash(file)
 
                 # Create directory for caching
-                dirpath = cachedir + '/'.join(re.findall(r'...', md5hash))
+                dirpath = cachedir + '/'.join(re.findall(r'..', md5hash))
                 if not os.path.exists(dirpath):
                     os.makedirs(dirpath)
 

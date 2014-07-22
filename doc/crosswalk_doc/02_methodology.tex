@@ -48,6 +48,7 @@ This is because in Omnipage format, the page number appears under the 'dd' tag a
 The central idea is to read the PDFx generated XML and simultaneously generate the output (pseudo-Omni) XML with each word read.
 Each 'word' tag in the PDFx XML corresponds to a 'wd' tag in the output XML.
 
+\subsection{getCurrentLine()}
 The main logic starts in the function \emph{getCurrentLine} which is called with each encounter of a 'word' tag in the PDFx XML.
 This function returns the 'ln' (line) tag which is added to the output pseudo-Omni XML as a child of the 'para' tag and is also the parent for the corresponding 'wd' tag.
 The returned 'ln' tag is either the same tag that the previous 'wd' tag was under, or a new 'ln' tab indicating the beginning of the next line.
@@ -56,9 +57,13 @@ If this distance is less than a tuned value (represented by LSPACE), then it is 
 
 If not, then the first thing before creating and processing a new 'ln' tag is to conclude the properties of the previous line.
 This includes filling in values for the essential attributes of the 'ln' tag (currently the attribute 'r' representing the \emph{right coordiante} of the line) and checking for the presence of runs within the completed line.
+
+\subsection{checkForRuns()}
 Runs are identified by comparing the 'font' attribute of each word.
 Chuncks of words that belong to the same font are grouped together into 'run' tags inside the 'ln' tag.
+This function looks for words that demarcate the beginnning of a new font within a line and then divides the word tags within the line such that words are attached to 'run' tags which become the immediate children of 'line' tag.
 
+\subsection{adjustleftMargin()}
 The next step in processing the new line has been referred to as margin overflow.
 This occurs when the first line of a new paragraph is indented.
 As will be shown later, in that case, the parents ('para' and 'column') of this indented line share the left ('l') attribute of the line.
@@ -67,9 +72,20 @@ To fix this, the 'l' attribute of new line is compared with the 'l' attribute of
 If the new line is found slightly shifted towards the left, then the 'l' attribute of the enclosing para and column are updated to that of the new line.
 Care is taken to ensure that the new line is not from another column.
 
+\subsection{newPara()}
 The next thing to determine is whether there is a change in the para or column or neither.
 For this, there are a couple of conditions to check for.
 The distance between the current line and the previous line should be greater than the tuned value PSPACE.
+If the new line is indented, then it is an indicator of a new paragraph.
+If the region of the new line does not geometrically overlap with that of the current column, then it indicates a change in the column.
+This part of the logic is carried out in the function \emph{newPara}, which returns a value of 0 if there is no change in either the para or column, a value of 1 if there is a change in the para and a value of 2 if there is a change in the column.
 
-***para & column ***
-***final touches***
+When a new para is deduced, the attributes ('b' as of now) of the previous para, that had not been set till now, are assigned using the corresponding attributes of the previous line.
+The attributes ('l' and 't') of the new para are assigned corresponding to the those of its parent column.
+Similarly, on encountering a new column, the attributes of both the new para and new column are assigned using the new line.
+The intricacies of how these assignments are made and what other changes are necessary to maintain the logical flow of markup representation of the PDF are made clear in the comments within the code.
+
+\subsection{processPageNum()}
+After all words within a page are processed, the page number is located by calling the function \emph{processPageNum}.
+The page number lookup is done by traversing the page tag tree and looking for column-para-line-word combination where the word is just a series of numbers and there are no other tags present.
+Once such a combination is located, it is removed from the 'body' tag (which the parent of all the words appearing in a page) and added under a 'dd' tag for the same page tag.

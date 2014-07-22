@@ -4,21 +4,24 @@ import os
 import subprocess
 import logging
 
-## Ankur
-# This script is used to run ParsCit/SectLabel on each crosswalked (xml file
-# resembling Omnipage output) found in the cache dir structure as created
-# using the script processCorpus.py.
+## Ankur - 30/05/2014
+# This script can be used to run ParsCit in batch mode.
+# Just change the path of 'cachedir' to the root of the dir structure
+# containing scientific articles and this script will look for pdfs in all sub
+# directories and try to run ParsCit over them.
+# Please note that there is no need to preprocess the pdf file. This version of
+# ParsCit has inbuilt pdfx functionality (only on x86 machines though).
 
-cachedir = '/mnt/compute/ankur/cache/'
-parscit = '/mnt/raid/homes/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
+cachedir = '/home/ankur/devbench/workrelated/work/'
+parscit = '/home/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
 
 
 # Establish Logging
-logger = logging.getLogger('UsingParscit')
+logger = logging.getLogger('BatchParscit')
 logger.setLevel(logging.INFO)
 
 # create a file handler
-fhandler = logging.FileHandler('usingParscit.log')
+fhandler = logging.FileHandler('batchParscit.log')
 fhandler.setLevel(logging.INFO)
 
 # create a stream handler
@@ -34,32 +37,21 @@ chandler.setFormatter(formatter)
 logger.addHandler(fhandler)
 logger.addHandler(chandler)
 
-tot = 0
 for dirName, subdirList, fileList in os.walk(cachedir):
     for fname in fileList:
-        reg = re.match(r'(.+)-pdfx-omni.xml', fname)
-        if reg is not None:
-            tot += 1
-
-num = 0
-for dirName, subdirList, fileList in os.walk(cachedir):
-    for fname in fileList:
-        reg = re.match(r'(.+)-pdfx-omni.xml', fname)
+        reg = re.match(r'(.+).pdf', fname)
         if reg is not None:
             infile = os.path.join(dirName, fname)
             outfile = os.path.join(dirName,
                                    reg.group(1) + '-parscit-section.xml')
-            p = subprocess.Popen([parscit, '-m', 'extract_all', '-i', 'xml',
+            p = subprocess.Popen([parscit, '-m', 'extract_all', '-i', 'pdf',
                                   infile, outfile], stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
             stdout, stderr = p.communicate()
-            logger.info("Processing " + fname + " " + str(num + 1) + "/" + str(tot))
+            logger.info("Processing " + fname)
             if stdout:
                 logger.info(stdout)
             if stderr:
-                if re.search(r'Die in SectLabel::PreProcess::findHeaderText', stderr) is None:
-                    print num
-                    logger.error(stderr)
-            num += 1
+                logger.error(stderr)
 
 print "Done"
