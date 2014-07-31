@@ -1,0 +1,111 @@
+Crosswalk Implementation Details
+
+Last Updated : 31 / 07 / 2014 [Ankur]
+
+Following are the implementation details for running Pdfx - Crosswalk - citeExtract pipeline.
+Currently the scripts related to this are in the "dev" branch of the git version control.
+
+NOTE:
+1. The current version of Pdfx library was compiled to run on a 32-bit system and hence will
+   not run on the WING server. So to be able to use this library, access to a 32-bit machince,
+   either physical or virtual, is required.
+2. The group that had provided the library for Pdfx insisted that the library be not shared
+   with anyone else. Hence, this library has not been staged to the git.
+
+
+==========
+PDFX
+==========
+
+So the first step in the pipeline when a scientific article in the form of pdf is presented
+is to convert it using Pdfx. This library is located in the "lib" dir of the root of ParsCit
+under the dir "pdf2xml".
+
+ParsCit
+ |
+ └── lib
+      |
+      └── pdf2xml
+
+The main script that provides a wrpaper over this library is also called "pdf2xml". It takes
+one argument, the complete path of the pdf file and outputs an xml in the same dir as the
+input file with a "-pdfx" appended to its name.
+
+
+==========
+Crosswalk
+==========
+
+Now the pdfx parsed xml needs to be crosswalked to represent an Omnipage type xml. For this,
+the script is called crosswalker.py and is in the bin dir in the root of ParsCit.
+
+ParsCit
+ |
+ └── bin
+      |
+      └── crosswalker.py
+
+This script takes at least 1 argument, the input file name with absolute path. Addictionally.
+the output file name can also be provided. If output filename is not provided, then the
+same filename with "-omni" appended to it is used for output. Please check -h, --help on
+this script for the format of commandline options.
+
+The documentation on the implementation of the corsswalk is in ParsCit/doc/crosswalk_doc/ .
+
+==========
+ParsCit
+==========
+
+Now the output of crosswalker can be used to run ParsCit using the wrapper script,
+citeExtract.pl which is present in the bin dir of the root of ParsCit.
+
+ParsCit
+ |
+ └── bin
+      |
+      └── citeExtract.pl
+
+Please use -h to check for all the options required to run this script. In the present
+context, "-i xml" is required as the input is the ouput of crosswalker, which is similar
+to the Omnipage xml format.
+
+
+==========
+One script to rule 'em all
+==========
+
+If ParsCit, along with pdfx, has been set up to run on a 32-bit OS, then the above three
+steps can be run together, without manually invoking each one, from the last script
+mentioned, citeExtract.pl.
+
+In this case the commandline option to be used is "-i pdf" and the input given should be
+a pdf file.
+
+One script that is particularly useful if there are many pdf files to run ParsCit on, is
+present in the "misc_scripts" dir of the root of ParsCit by the name of "batch-ParsCit.py".
+
+ParsCit
+ |
+ └── misc_scripts
+      |
+      └── batch-ParsCit.py
+
+
+==========
+32-bit backlash
+==========
+
+In case there are problems running the three steps on the same machine, scripts have been
+provided in "misc_scripts" dir of the project root, to run pdfx and crosswalk on a set of
+documents together (process-pdfx-crosswalk.py) and then run ParsCit on a different system
+(or thehsame since it might be faster to break the jobs into two different processes) using
+the script useParsCit.py.
+
+ParsCit
+ |
+ └── misc_scripts
+      |
+      └── useParsCit.py
+      |
+      └── process-pdfx-crosswalk.py
+

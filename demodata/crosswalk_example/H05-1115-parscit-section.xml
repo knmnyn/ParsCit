@@ -1,0 +1,1446 @@
+# Output of using ParsCit (citeExtract.pl)
+# 31 / 07 / 2014 [Ankur]
+# Comamnd run : ~..ParsCit/bin $ ./citeExtract.pl -m extract_all -i xml ../demodata/crosswalk_example/H05-1115-omni.xml ../demodata/crosswalk_example/H05-1115-parscit-section.xml
+# Alternatively, a single command can be run for all the steps (pdfx-crosswalk-parscit)
+# Comamnd run : ~..ParsCit/bin $ ./citeExtract.pl -m extract_all -i pdf ../demodata/crosswalk_example/H05-1115.pdf ../demodata/crosswalk_example/H05-1115-parscit-section.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="140420">
+  <algorithm name="SectLabel" version="110505">
+    <variant no="0" confidence="0.000000">
+      <title confidence="0.99256">
+Using Random Walks for Question-focused Sentence Retrieval
+</title>
+      <author confidence="0.937267">
+¨ ¸ Jahna Otterbacher 1 , G une Erkan 2 , Dragomir R. Radev 1,2
+</author>
+      <affiliation confidence="0.97902">
+1 School of Information, 2 Department of EECS
+University of Michigan
+</affiliation>
+      <email confidence="0.999378">
+{jahna,gerkan,radev}@umich.edu
+</email>
+      <sectionHeader confidence="0.995649" genericHeader="abstract">
+Abstract
+</sectionHeader>
+      <bodyText confidence="0.999965534482759">
+We consider the problem of question-
+focused sentence retrieval from complex
+news articles describing multi-event sto-
+ries published over time. Annotators gen-
+erated a list of questions central to under-
+standing each story in our corpus. Be-
+cause of the dynamic nature of the stories,
+many questions are time-sensitive (e.g.
+“How many victims have been found?”)
+Judges found sentences providing an an-
+swer to each question. To address the
+sentence retrieval problem, we apply a
+stochastic, graph-based method for com-
+paring the relative importance of the tex-
+tual units, which was previously used suc-
+cessfully for generic summarization. Cur-
+rently, we present a topic-sensitive version
+of our method and hypothesize that it can
+outperform a competitive baseline, which
+compares the similarity of each sentence
+to the input question via IDF-weighted
+word overlap. In our experiments, the
+method achieves a TRDR score that is sig-
+niﬁcantly higher than that of the baseline.
+Q&amp;A (Voorhees and Tice, 2000)), in which the user
+presents a single question and the system returns a
+corresponding answer (or a set of likely answers), in
+this case the user has a more complex information
+need.
+Similarly, when reading about a complex news
+story, such as an emergency situation, users might
+seek answers to a set of questions in order to un-
+derstand it better. For example, Figure 1 shows
+the interface to our Web-based news summarization
+system, which a user has queried for information
+about Hurricane Isabel. Understanding such stories
+is challenging for a number of reasons. In particular,
+complex stories contain many sub-events (e.g. the
+devastation of the hurricane, the relief effort, etc.) In
+addition, while some facts surrounding the situation
+do not change (such as “Which area did the hurri-
+cane ﬁrst hit?”), others may change with time (“How
+many people have been left homeless?”). There-
+fore, we are working towards developing a system
+for question answering from clusters of complex sto-
+ries published over time. As can be seen at the bot-
+tom of Figure 1, we plan to add a component to our
+current system that allows users to ask questions as
+they read a story. They may then choose to receive
+either a precise answer or a question-focused sum-
+mary.
+Currently, we address the question-focused sen-
+tence retrieval task. While passage retrieval (PR) is
+clearly not a new problem (e.g. (Robertson et al.,
+1992; Salton et al., 1993)), it remains important and
+yet often overlooked. As noted by (Gaizauskas et al.,
+2004), while PR is the crucial ﬁrst step for question
+answering, Q&amp;A research has typically not empha-
+</bodyText>
+      <sectionHeader confidence="0.999329" genericHeader="introduction">
+1 Introduction
+</sectionHeader>
+      <bodyText confidence="0.9986476">
+Recent work has motivated the need for systems
+that support “Information Synthesis” tasks, in which
+a user seeks a global understanding of a topic or
+story (Amigo et al., 2004). In contrast to the clas-
+sical question answering setting (e.g. TREC-style
+</bodyText>
+      <note confidence="0.634075">
+Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language
+Processing (HLT/EMNLP), pages 915–922, Vancouver, October 2005. c 2005 Association for Computational Linguistics
+</note>
+      <page confidence="0.989538">
+915
+</page>
+      <note confidence="0.781408818181818">
+Hurricane Isabel's outer bands moving onshore
+produced on 09/18, 6:18 AM
+2% Summary
+The North Carolina coast braced for a weakened but still potent Hurricane Isabel while already rain-soaked areas as far
+away as Pennsylvania prepared for possibly ruinous flooding. (2:3) A hurricane warning was in effect from Cape Fear in southern North Carolina to the Virginia-Maryland line, and tropical storm warnings extended from South Carolina
+to New Jersey. (2:14)
+While the outer edge of the hurricane approached the North Carolina coast Wednesday, the center of the storm was still
+400 miles south-southeast of Cape Hatteras, N.C., late Wednesday morning. (3:10) BBC NEWS World Americas
+Hurricane Isabel prompts US shutdown (4:1)
+Ask us:
+What states have been affected by the hurricane so far?
+</note>
+      <figureCaption confidence="0.6303814">
+Around 200,000 people in coastal areas of North Carolina and Virginia were ordered to evacuate or risk getting trapped
+by flooding from storm surges up to 11 feet. (5:8) The storm was expected to hit with its full fury today, slamming into the North Carolina coast with 105-mph winds and 45-foot wave crests, before moving through Virginia and bashing the
+capital with gusts of about 60 mph. (7:6)
+Figure 1: Question tracking interface to a summa-
+rization system.
+</figureCaption>
+      <bodyText confidence="0.995587892857143">
+sized it. The speciﬁc problem we consider differs
+from the classic task of PR for a Q&amp;A system in
+interesting ways, due to the time-sensitive nature of
+the stories in our corpus. For example, one challenge
+is that the answer to a user’s question may be up-
+dated and reworded over time by journalists in order
+to keep a running story fresh, or because the facts
+themselves change. Therefore, there is often more
+than one correct answer to a question.
+We aim to develop a method for sentence re-
+trieval that goes beyond ﬁnding sentences that are
+similar to a single query. To this end, we pro-
+pose to use a stochastic, graph-based method. Re-
+cently, graph-based methods have proved useful for
+a number of NLP and IR tasks such as document
+re-ranking in ad hoc IR (Kurland and Lee, 2005)
+and analyzing sentiments in text (Pang and Lee,
+2004). In (Erkan and Radev, 2004), we introduced
+the LexRank method and successfully applied it to
+generic, multi-document summarization. Presently,
+we introduce topic-sensitive LexRank in creating a
+sentence retrieval system. We evaluate its perfor-
+mance against a competitive baseline, which con-
+siders the similarity between each sentence and the
+question (using IDF-weighed word overlap). We
+demonstrate that LexRank signiﬁcantly improves
+question-focused sentence selection over the base-
+line.
+</bodyText>
+      <sectionHeader confidence="0.89882" genericHeader="method">
+2 Formal description of the problem
+</sectionHeader>
+      <bodyText confidence="0.999763708333333">
+Our goal is to build a question-focused sentence re-
+trieval mechanism using a topic-sensitive version of
+the LexRank method. In contrast to previous PR sys-
+tems such as Okapi (Robertson et al., 1992), which
+ranks documents for relevancy and then proceeds to
+ﬁnd paragraphs related to a question, we address the
+ﬁner-grained problem of ﬁnding sentences contain-
+ing answers. In addition, the input to our system is
+a set of documents relevant to the topic of the query
+that the user has already identiﬁed (e.g. via a search
+engine). Our system does not rank the input docu-
+ments, nor is it restricted in terms of the number of
+sentences that may be selected from the same docu-
+ment.
+The output of our system, a ranked list of sen-
+tences relevant to the user’s question, can be sub-
+sequently used as input to an answer selection sys-
+tem in order to ﬁnd speciﬁc answers from the ex-
+tracted sentences. Alternatively, the sentences can
+be returned to the user as a question-focused sum-
+mary. This is similar to “snippet retrieval” (Wu et
+al., 2004). However, in our system answers are ex-
+tracted from a set of multiple documents rather than
+on a document-by-document basis.
+</bodyText>
+      <sectionHeader confidence="0.995408" genericHeader="method">
+3 Our approach: topic-sensitive LexRank
+</sectionHeader>
+      <subsectionHeader confidence="0.998202">
+3.1 The LexRank method
+</subsectionHeader>
+      <bodyText confidence="0.9984985">
+In (Erkan and Radev, 2004), the concept of graph-
+based centrality was used to rank a set of sentences,
+in producing generic multi-document summaries.
+To apply LexRank, a similarity graph is produced
+for the sentences in an input document set. In the
+graph, each node represents a sentence. There are
+edges between nodes for which the cosine similar-
+ity between the respective pair of sentences exceeds
+a given threshold. The degree of a given node is
+an indication of how much information the respec-
+tive sentence has in common with other sentences.
+Therefore, sentences that contain the most salient in-
+formation in the document set should be very central
+within the graph.
+Figure 2 shows an example of a similarity graph
+for a set of ﬁve input sentences, using a cosine simi-
+larity threshold of 0.15. Once the similarity graph is
+constructed, the sentences are then ranked according
+to their eigenvector centrality. As previously men-
+tioned, the original LexRank method performed well
+in the context of generic summarization. Below,
+we describe a topic-sensitive version of LexRank,
+which is more appropriate for the question-focused
+sentence retrieval problem. In the new approach, the
+</bodyText>
+      <page confidence="0.997716">
+916
+</page>
+      <bodyText confidence="0.981695">
+score of a sentence is determined by a mixture model
+of the relevance of the sentence to the query and the
+similarity of the sentence to other high-scoring sen-
+tences.
+</bodyText>
+      <subsectionHeader confidence="0.986766">
+3.2 Relevance to the question
+</subsectionHeader>
+      <bodyText confidence="0.994604333333333">
+In topic-sensitive LexRank, we ﬁrst stem all of the
+sentences in a set of articles and compute word IDFs
+by the following formula:
+</bodyText>
+      <equation confidence="0.98777125">
+idf w = log
+N +1
+0.5 + sf w
+(1)
+</equation>
+      <bodyText confidence="0.999738666666667">
+where N is the total number of sentences in the clus-
+ter, and sf w is the number of sentences that the word
+w appears in.
+We also stem the question and remove the stop
+words from it. Then the relevance of a sentence s to
+the question q is computed by:
+</bodyText>
+      <equation confidence="0.997046">
+rel(s|q) =
+log(tf w,s + 1) × log(tf w,q + 1) × idf w (2)
+w∈q
+</equation>
+      <bodyText confidence="0.997976833333333">
+where tf w,s and tf w,q are the number of times w
+appears in s and q, respectively. This model has
+proven to be successful in query-based sentence re-
+trieval (Allan et al., 2003), and is used as our com-
+petitive baseline in this study (e.g. Tables 4, 5 and
+7).
+</bodyText>
+      <subsectionHeader confidence="0.967219">
+3.3 The mixture model
+</subsectionHeader>
+      <bodyText confidence="0.999982733333333">
+The baseline system explained above does not make
+use of any inter-sentence information in a cluster.
+We hypothesize that a sentence that is similar to
+the high scoring sentences in the cluster should also
+have a high score. For instance, if a sentence that
+gets a high score in our baseline model is likely to
+contain an answer to the question, then a related sen-
+tence, which may not be similar to the question it-
+self, is also likely to contain an answer.
+This idea is captured by the following mixture
+model, where p(s|q), the score of a sentence s given
+a question q, is determined as the sum of its rele-
+vance to the question (using the same measure as
+the baseline described above) and the similarity to
+the other sentences in the document cluster:
+</bodyText>
+      <equation confidence="0.99841125">
+p(s|q) = d P
+X sim(s, v) rel(s|q)
++(1−d) P p(v|q) (3)
+rel(z|q) sim(z, v) z∈C v∈C z∈C
+</equation>
+      <bodyText confidence="0.967108666666667">
+where C is the set of all sentences in the cluster. The
+value of d, which we will also refer to as the “ques-
+tion bias,” is a trade-off between two terms in the
+</bodyText>
+      <page confidence="0.972581">
+917
+</page>
+      <figure confidence="0.9912325">
+Graph
+Vertices:
+Sentence Index Salience Sentence
+4
+1
+0
+2
+3
+</figure>
+      <footnote confidence="0.9848248">
+0.1973852892722677 Milan fire brigade officials said that...
+0.03614457831325301 At least two people are dead, inclu...
+0.28454242157110576 Officials said the plane was carryin...
+0.1973852892722677 Italian police said the plane was car..
+0.28454242157110576 Rescue officials said that at least th...
+</footnote>
+      <figureCaption confidence="0.994224">
+Figure 2: LexRank example: sentence similarity
+graph with a cosine threshold of 0.15.
+</figureCaption>
+      <bodyText confidence="0.98392325">
+equation and is determined empirically. For higher
+values of d, we give more importance to the rele-
+vance to the question compared to the similarity to
+the other sentences in the cluster. The denominators
+in both terms are for normalization, which are de-
+scribed below. We use the cosine measure weighted
+by word IDFs as the similarity between two sen-
+tences in a cluster:
+</bodyText>
+      <equation confidence="0.997882571428572">
+sim(x, y) = qP
+xi
+2
+w∈x,y tf w,x tf w,y (idf w ) qP
+2 2 ∈x (tf xi ,x idf xi ) × yi ∈y (tf yi ,y idf yi )
+P
+(4)
+</equation>
+      <bodyText confidence="0.9768705">
+Equation 3 can be written in matrix notation as
+follows: T
+</bodyText>
+      <equation confidence="0.915788">
+p = [dA + (1 − d)B] p (5)
+</equation>
+      <bodyText confidence="0.999947266666667">
+A is the square matrix such that for a given index i,
+all the elements in the i th column are proportional
+to rel(i|q). B is also a square matrix such that each
+entry B(i, j) is proportional to sim(i, j). Both ma-
+trices are normalized so that row sums add up to 1.
+Note that as a result of this normalization, all rows
+of the resulting square matrix Q = [dA + (1 − d)B]
+also add up to 1. Such a matrix is called stochastic
+and deﬁnes a Markov chain. If we view each sen-
+tence as a state in a Markov chain, then Q(i, j) spec-
+iﬁes the transition probability from state i to state j
+in the corresponding Markov chain. The vector p
+we are looking for in Equation 5 is the stationary
+distribution of the Markov chain. An intuitive inter-
+pretation of the stationary distribution can be under-
+</bodyText>
+      <equation confidence="0.768843">
+X
+</equation>
+      <bodyText confidence="0.999948315789474">
+stood by the concept of a random walk on the graph
+representation of the Markov chain.
+With probability d, a transition is made from the
+current node (sentence) to the nodes that are simi-
+lar to the query. With probability (1-d), a transition
+is made to the nodes that are lexically similar to the
+current node. Every transition is weighted according
+to the similarity distributions. Each element of the
+vector p gives the asymptotic probability of ending
+up at the corresponding state in the long run regard-
+less of the starting state. The stationary distribution
+of a Markov chain can be computed by a simple it-
+erative algorithm, called power method. 1
+A simpler version of Equation 5, where A is a
+uniform matrix and B is a normalized binary matrix,
+is known as PageRank (Brin and Page, 1998; Page
+et al., 1998) and used to rank the web pages by the
+Google search engine. It was also the model used to
+rank sentences in (Erkan and Radev, 2004).
+</bodyText>
+      <subsectionHeader confidence="0.951021">
+3.4 Experiments with topic-sensitive LexRank
+</subsectionHeader>
+      <bodyText confidence="0.9999835">
+We experimented with different values of d on our
+training data. We also considered several threshold
+values for inter-sentence cosine similarities, where
+we ignored the similarities between the sentences
+that are below the threshold. In the training phase
+of the experiment, we evaluated all combinations
+of LexRank with d in the range of [0, 1] (in incre-
+ments of 0.10) and with a similarity threshold rang-
+ing from [0, 0.9] (in increments of 0.05). We then
+found all conﬁgurations that outperformed the base-
+line. These conﬁgurations were then applied to our
+development/test set. Finally, our best sentence re-
+trieval system was applied to our test data set and
+evaluated against the baseline. The remainder of the
+paper will explain this process and the results in de-
+tail.
+</bodyText>
+      <sectionHeader confidence="0.999424" genericHeader="method">
+4 Experimental setup
+</sectionHeader>
+      <subsectionHeader confidence="0.995496">
+4.1 Corpus
+</subsectionHeader>
+      <bodyText confidence="0.99940025">
+We built a corpus of 20 multi-document clusters of
+complex news stories, such as plane crashes, polit-
+ical controversies and natural disasters. The data
+The stationary distribution is unique and the power method
+is guaranteed to converge provided that the Markov chain is
+ergodic (Seneta, 1981). A non-ergodic Markov chain can be
+made ergodic by reserving a small probability for jumping to
+any other state from the current state (Page et al., 1998).
+</bodyText>
+      <equation confidence="0.490986">
+1
+</equation>
+      <bodyText confidence="0.999924307692308">
+clusters and their characteristics are shown in Ta-
+ble 1. The news articles were collected from various
+sources. “Newstracker” clusters were collected au-
+tomatically by our Web-based news summarization
+system. The number of clusters randomly assigned
+to the training, development/test and test data sets
+were 11, 3 and 6, respectively.
+Next, we assigned each cluster of articles to an
+annotator, who was asked to read all articles in the
+cluster. He or she then generated a list of factual
+questions key to understanding the story. Once we
+collected the questions for each cluster, two judges
+independently annotated nine of the training clus-
+ters. For each sentence and question pair in a given
+cluster, the judges were asked to indicate whether
+or not the sentence contained a complete answer
+to the question. Once an acceptable rate of inter-
+judge agreement was veriﬁed on the ﬁrst nine clus-
+ters (Kappa (Carletta, 1996) of 0.68), the remaining
+11 clusters were annotated by one judge each.
+In some cases, the judges did not ﬁnd any sen-
+tences containing the answer for a given question.
+Such questions were removed from the corpus. The
+ﬁnal number of questions annotated for answers
+over the entire corpus was 341, and the distributions
+of questions per cluster can be found in Table 1.
+</bodyText>
+      <subsectionHeader confidence="0.98194">
+4.2 Evaluation metrics and methods
+</subsectionHeader>
+      <bodyText confidence="0.99947175">
+To evaluate our sentence retrieval mechanism, we
+produced extract ﬁles, which contain a list of sen-
+tences deemed to be relevant to the question, for the
+system and from human judgment. To compare dif-
+ferent conﬁgurations of our system to the baseline
+system, we produced extracts at a ﬁxed length of 20
+sentences. While evaluations of question answering
+systems are often based on a shorter list of ranked
+sentences, we chose to generate longer lists for sev-
+eral reasons. One is that we are developing a PR
+system, of which the output can then be input to an
+answer extraction system for further processing. In
+such a setting, we would most likely want to gener-
+ate a relatively longer list of candidate sentences. As
+previously mentioned, in our corpus the questions
+often have more than one relevant answer, so ideally,
+our PR system would ﬁnd many of the relevant sen-
+tences, sending them on to the answer component
+to decide which answer(s) should be returned to the
+user. Each system’s extract ﬁle lists the document
+</bodyText>
+      <page confidence="0.977122">
+918
+</page>
+      <figure confidence="0.700469028571428">
+Cluster
+Algerian terror
+threat
+Milan plane
+crash
+Turkish plane
+crash
+Moscow terror
+attack
+Rhode Island
+club ﬁre
+FBI most
+wanted
+Russia bombing
+Bali terror
+attack
+Washington DC
+sniper
+GSPC terror
+group
+China
+earthquake
+Gulfair
+David Beckham
+trade
+Miami airport
+evacuation
+US hurricane
+EgyptAir crash
+Kursk submarine
+Hebrew University bombing
+Finland mall bombing
+Putin visits
+England
+Sources
+</figure>
+      <table confidence="0.919056807692308">
+AFP, UPI
+MSNBC, CNN, ABC,
+Fox, USAToday
+BBC, ABC,
+FoxNews, Yahoo
+UPI, AFP, AP
+MSNBC, CNN, ABC, Lycos,
+Fox, BBC, Ananova
+AFP, UPI
+AP, AFP
+CNN, FoxNews, ABC,
+BBC, Ananova
+FoxNews, Ha’aretz, BBC,
+BBC, Washington Times, CBS
+Newstracker
+Novelty 43
+ABC, BBC, CNN, USAToday,
+FoxNews, Washington Post
+AFP
+Newstracker
+DUC d04a
+Novelty 4
+Novelty 33
+Newstracker
+Newstracker
+Newstracker
+</table>
+      <figure confidence="0.991597661290322">
+Articles
+2
+9
+10
+7
+10
+3
+2
+10
+8
+8
+25
+11
+20
+12
+14
+25
+25
+11
+9
+12
+Questions
+15
+12
+7
+8
+14
+11
+30
+28
+29
+18
+29
+28
+15
+14
+29
+30
+27
+15
+20
+Data set
+train
+train
+train
+train
+train
+train
+train
+train
+train
+train
+train
+dev/test
+dev/test
+dev/test
+test
+test
+test
+test
+test
+test
+</figure>
+      <subsectionHeader confidence="0.5664">
+Sample question
+What is the condition under which
+</subsectionHeader>
+      <bodyText confidence="0.933841193548387">
+GIA will take its action?
+How many people were in the
+building at the time of the crash?
+To where was the plane headed?
+How many people were killed in
+the most recent explosion?
+Who was to blame for
+the ﬁre?
+How much is the State Department offering
+for information leading to bin Laden’s arrest?
+What was the cause of the blast?
+What were the motivations
+of the attackers?
+What kinds of equipment or weapons
+were used in the killings?
+What are the charges against
+the GSPC suspects?
+What was the magnitude of the
+earthquake in Zhangjiakou?
+How many people
+were on board?
+How long had Beckham been playing for
+MU before he moved to RM?
+How many concourses does
+the airport have?
+In which places had the hurricane landed?
+How many people were killed?
+When did the Kursk sink?
+How many people were injured?
+How many people were in the mall
+at the time of the bombing?
+</bodyText>
+      <table confidence="0.3829995">
+What issue concerned British
+human rights groups?
+</table>
+      <tableCaption confidence="0.993556">
+Table 1: Corpus of complex news stories.
+</tableCaption>
+      <bodyText confidence="0.999970125">
+and sentence numbers of the top 20 sentences. The
+“gold standard” extracts list the sentences judged as
+containing answers to a given question by the anno-
+tators (and therefore have variable sizes) in no par-
+ticular order. 2
+We evaluated the performance of the systems us-
+ing two metrics - Mean Reciprocal Rank (MRR)
+(Voorhees and Tice, 2000) and Total Reciprocal
+Document Rank (TRDR) (Radev et al., 2005).
+MRR, used in the TREC Q&amp;A evaluations, is the
+reciprocal rank of the ﬁrst correct answer (or sen-
+tence, in our case) to a given question. This measure
+gives us an idea of how far down we must look in the
+ranked list in order to ﬁnd a correct answer. To con-
+trast, TRDR is the total of the reciprocal ranks of all
+answers found by the system. In the context of an-
+swering questions from complex stories, where there
+is often more than one correct answer to a question,
+and where answers are typically time-dependent, we
+should focus on maximizing TRDR, which gives us
+a measure of how many of the relevant sentences
+were identiﬁed by the system. However, we report
+both the average MRR and TRDR over all questions
+in a given data set.
+</bodyText>
+      <sectionHeader confidence="0.576132" genericHeader="method">
+5 LexRank versus the baseline system
+</sectionHeader>
+      <bodyText confidence="0.999915857142857">
+In the training phase, we searched the parameter
+space for the values of d (the question bias) and the
+similarity threshold in order to optimize the resulting
+TRDR scores. For our problem, we expected that a
+relatively low similarity threshold pair with a high
+question bias would achieve the best results. Table 2
+shows the effect of varying the similarity threshold. 3
+The notation LR[a, d] is used, where a is the simi-
+larity threshold and d is the question bias. The opti-
+mal range for the parameter a was between 0.14 and
+0.20. This is intuitive because if the threshold is too
+high, such that only the most lexically similar sen-
+tences are represented in the graph, the method does
+not ﬁnd sentences that are related but are more lex-
+</bodyText>
+      <footnote confidence="0.9702865">
+2 For clusters annotated by two judges, all sentences chosen
+by at least one judge were included.
+3 A threshold of -1 means that no threshold was used such
+that all sentences were included in the graph.
+</footnote>
+      <page confidence="0.994829">
+919
+</page>
+      <figure confidence="0.991550882352941">
+12
+System
+LR[-1.0,0.65]
+LR[0.02,0.65]
+LR[0.16,0.65]
+LR[0.18,0.65]
+LR[0.20,0.65]
+LR[-1.0,0.80]
+LR[0.02,0.80]
+LR[0.16,0.80]
+LR[0.18,0.80]
+LR[0.20,0.80]
+Ave. MRR
+0.5270
+0.5261
+0.5131
+0.5062
+0.5091
+0.5288
+0.5324
+0.5184
+0.5199
+0.5282
+Ave. TRDR
+0.8117
+0.7950
+0.8134
+0.8020
+0.7944
+0.8152
+0.8043
+0.8160
+0.8154
+0.8152
+</figure>
+      <tableCaption confidence="0.790352">
+Table 2: Training phase: effect of similarity thresh-
+old (a) on Ave. MRR and TRDR.
+</tableCaption>
+      <figure confidence="0.967198871794872">
+System
+LR[0.02,0.65]
+LR[0.02,0.70]
+LR[0.02,0.75]
+LR[0.02,0.80]
+LR[0.02,0.85]
+LR[0.02,0.90]
+LR[0.20,0.65]
+LR[0.20,0.70]
+LR[0.20,0.75]
+LR[0.20,0.80]
+LR[0.20,0.85]
+LR[0.20,0.90]
+Ave. MRR
+0.5261
+0.5290
+0.5299
+0.5324
+0.5322
+0.5323
+0.5091
+0.5244
+0.5285
+0.5282
+0.5317
+0.5368
+Ave. TRDR
+0.7950
+0.7997
+0.8013
+0.8043
+0.8038
+0.8077
+0.7944
+0.8105
+0.8137
+0.8152
+0.8203
+0.8265
+</figure>
+      <tableCaption confidence="0.882522">
+Table 3: Training phase: effect of question bias (d)
+on Ave. MRR and TRDR.
+</tableCaption>
+      <bodyText confidence="0.999754615384615">
+ically diverse (e.g. paraphrases). Table 3 shows the
+effect of varying the question bias at two different
+similarity thresholds (0.02 and 0.20). It is clear that a
+high question bias is needed. However, a small prob-
+ability for jumping to a node that is lexically simi-
+lar to the given sentence (rather than the question
+itself) is needed. Table 4 shows the conﬁgurations
+of LexRank that performed better than the baseline
+system on the training data, based on mean TRDR
+scores over the 184 training questions. We applied
+all four of these conﬁgurations to our unseen devel-
+opment/test data, in order to see if we could further
+differentiate their performances.
+</bodyText>
+      <subsectionHeader confidence="0.992391">
+5.1 Development/testing phase
+</subsectionHeader>
+      <bodyText confidence="0.999592">
+The scores for the four LexRank systems and the
+baseline on the development/test data are shown in
+</bodyText>
+      <figure confidence="0.924105166666667">
+System
+Baseline
+LR[0.14,0.95]
+LR[0.18,0.90]
+LR[0.18,0.95]
+LR[0.20,0.95]
+Ave. MRR
+0.5518
+0.5267
+0.5376
+0.5421
+0.5404
+Ave. TRDR
+0.8297
+0.8305
+0.8382
+0.8382
+0.8311
+</figure>
+      <tableCaption confidence="0.950368">
+Table 4: Training phase: systems outperforming the
+baseline in terms of TRDR score.
+</tableCaption>
+      <figure confidence="0.88868705">
+System
+Baseline
+LR[0.14,0.95]
+LR[0.18,0.90]
+LR[0.18,0.95]
+LR[0.20,0.95]
+Ave. MRR
+0.5709
+0.5882
+0.5820
+0.5956
+0.6068
+Ave. TRDR
+1.0002
+1.0469
+1.0288
+1.0411
+1.0601
+Table 5: Development testing evaluation.
+Cluster
+Gulfair
+David Beckham trade
+Miami airport
+evacuation
+B-MRR
+0.5446
+0.5074
+0.7401
+LR-MRR
+0.5461
+0.5919
+0.7517
+B-TRDR
+0.9116
+0.7088
+1.7157
+LR-TRDR
+0.9797
+0.7991
+1.7028
+</figure>
+      <tableCaption confidence="0.930678666666667">
+Table 6: Average scores by cluster: baseline versus
+LR[0.20,0.95].
+Table 5. This time, all four LexRank systems outper-
+</tableCaption>
+      <bodyText confidence="0.99291815625">
+formed the baseline, both in terms of average MRR
+and TRDR scores. An analysis of the average scores
+over the 72 questions within each of the three clus-
+ters for the best system, LR[0.20,0.95], is shown
+in Table 6. While LexRank outperforms the base-
+line system on the ﬁrst two clusters both in terms
+of MRR and TRDR, their performances are not sub-
+stantially different on the third cluster. Therefore,
+we examined properties of the questions within each
+cluster in order to see what effect they might have on
+system performance.
+We hypothesized that the baseline system, which
+compares the similarity of each sentence to the ques-
+tion using IDF-weighted word overlap, should per-
+form well on questions that provide many content
+words. To contrast, LexRank might perform bet-
+ter when the question provides fewer content words,
+since it considers both similarity to the query and
+inter-sentence similarity. Out of the 72 questions in
+the development/test set, the baseline system outper-
+formed LexRank on 22 of the questions. In fact, the
+average number of content words among these 22
+questions was slightly, but not signiﬁcantly, higher
+than the average on the remaining questions (3.63
+words per question versus 3.46). Given this obser-
+vation, we experimented with two mixed strategies,
+in which the number of content words in a question
+determined whether LexRank or the baseline system
+was used for sentence retrieval. We tried threshold
+values of 4 and 6 content words, however, this did
+not improve the performance over the pure strategy
+of system LR[0.20,0.95]. Therefore, we applied this
+</bodyText>
+      <page confidence="0.967749">
+920
+</page>
+      <figure confidence="0.974302636363636">
+Baseline
+LR[0.20,0.95]
+p-value
+Ave. MRR
+0.5780
+0.6189
+na
+Ave. TRDR
+0.8673
+0.9906
+0.0619
+</figure>
+      <tableCaption confidence="0.988757">
+Table 7: Testing phase: baseline vs. LR[0.20,0.95].
+</tableCaption>
+      <bodyText confidence="0.7628615">
+system versus the baseline to our unseen test set of
+134 questions.
+</bodyText>
+      <subsectionHeader confidence="0.998729">
+5.2 Testing phase
+</subsectionHeader>
+      <bodyText confidence="0.999974555555556">
+As shown in Table 7, LR[0.20,0.95] outperformed
+the baseline system on the test data both in terms
+of average MRR and TRDR scores. The improve-
+ment in average TRDR score was statistically sig-
+niﬁcant with a p-value of 0.0619. Since we are in-
+terested in a passage retrieval mechanism that ﬁnds
+sentences relevant to a given question, providing in-
+put to the question answering component of our sys-
+tem, the improvement in average TRDR score is
+very promising. While we saw in Section 5.1 that
+LR[0.20,0.95] may perform better on some question
+or cluster types than others, we conclude that it beats
+the competitive baseline when one is looking to op-
+timize mean TRDR scores over a large set of ques-
+tions. However, in future work, we will continue
+to improve the performance, perhaps by develop-
+ing mixed strategies using different conﬁgurations
+of LexRank.
+</bodyText>
+      <sectionHeader confidence="0.999795" genericHeader="method">
+6 Discussion
+</sectionHeader>
+      <bodyText confidence="0.999985470588235">
+The idea behind using LexRank for sentence re-
+trieval is that a system that considers only the sim-
+ilarity between candidate sentences and the input
+query, and not the similarity between the candidate
+sentences themselves, is likely to miss some impor-
+tant sentences. When using any metric to compare
+sentences and a query, there is always likely to be
+a tie between multiple sentences (or, similarly, there
+may be cases where fewer than the number of de-
+sired sentences have similarity scores above zero).
+LexRank effectively provides a means to break such
+ties. An example of such a scenario is illustrated in
+Tables 8 and 9, which show the top ranked sentences
+by the baseline and LexRank, respectively for the
+question “What caused the Kursk to sink?” from the
+Kursk submarine cluster. It can be seen that all top
+ﬁve sentences chosen by the baseline system have
+</bodyText>
+      <note confidence="0.542565">
+Rank
+1
+</note>
+      <subsectionHeader confidence="0.540447">
+Sentence
+</subsectionHeader>
+      <bodyText confidence="0.989443166666667">
+The Russian governmental commission on the
+accident of the submarine Kursk sinking in
+the Barents Sea on August 12 has rejected
+11 original explanations for the disaster,
+but still cannot conclude what caused the
+tragedy indeed, Russian Deputy Premier Ilya
+Klebanov said here Friday.
+There has been no ﬁnal word on what caused
+the submarine to sink while participating
+in a major naval exercise, but Defense
+Minister Igor Sergeyev said the theory
+that Kursk may have collided with another
+</bodyText>
+      <figureCaption confidence="0.955547117647059">
+object is receiving increasingly
+concrete conﬁrmation.
+Russian Deputy Prime Minister Ilya Klebanov
+said Thursday that collision with a big
+object caused the Kursk nuclear submarine
+to sink to the bottom of the Barents Sea.
+Russian Deputy Prime Minister Ilya Klebanov
+said Thursday that collision with a big
+object caused the Kursk nuclear submarine
+to sink to the bottom of the Barents Sea.
+President Clinton’s national security adviser,
+Samuel Berger, has provided his Russian
+counterpart with a written summary of what
+U.S. naval and intelligence ofﬁcials believe
+caused the nuclear-powered submarine Kursk to
+sink last month in the Barents Sea, ofﬁcials
+said Wednesday.
+</figureCaption>
+      <figure confidence="0.9854715">
+Score
+4.2282
+Relevant?
+N
+2 4.2282 N
+3 4.2282 Y
+4 4.2282 Y
+5 4.2282 N
+</figure>
+      <tableCaption confidence="0.8274735">
+Table 8: Top ranked sentences using baseline system
+on the question “What caused the Kursk to sink?”.
+</tableCaption>
+      <bodyText confidence="0.9999021">
+the same sentence score (similarity to the query), yet
+the top ranking two sentences are not actually rele-
+vant according to the judges. To contrast, LexRank
+achieved a better ranking of the sentences since it is
+better able to differentiate between them. It should
+be noted that both for the LexRank and baseline sys-
+tems, chronological ordering of the documents and
+sentences is preserved, such that in cases where two
+sentences have the same score, the one published
+earlier is ranked higher.
+</bodyText>
+      <sectionHeader confidence="0.998509" genericHeader="conclusions">
+7 Conclusion
+</sectionHeader>
+      <bodyText confidence="0.999903333333333">
+We presented topic-sensitive LexRank and applied
+it to the problem of sentence retrieval. In a Web-
+based news summarization setting, users of our sys-
+tem could choose to see the retrieved sentences (as
+in Table 9) as a question-focused summary. As in-
+dicated in Table 9, each of the top three sentences
+were judged by our annotators as providing a com-
+plete answer to the respective question. While the
+ﬁrst two sentences provide the same answer (a col-
+lision caused the Kursk to sink), the third sentence
+provides a different answer (an explosion caused the
+disaster). While the last two sentences do not pro-
+vide answers according to our judges, they do pro-
+vide context information about the situation. Alter-
+natively, the user might prefer to see the extracted
+</bodyText>
+      <page confidence="0.984664">
+921
+</page>
+      <figure confidence="0.692558333333333">
+Rank
+1
+Sentence
+</figure>
+      <bodyText confidence="0.955184454545455">
+Russian Deputy Prime Minister Ilya Klebanov
+said Thursday that collision with a big
+object caused the Kursk nuclear submarine
+to sink to the bottom of the Barents Sea.
+Russian Deputy Prime Minister Ilya Klebanov
+said Thursday that collision with a big
+object caused the Kursk nuclear submarine
+to sink to the bottom of the Barents Sea.
+The Russian navy refused to conﬁrm this,
+but ofﬁcers have said an explosion in the
+torpedo compartment at the front of the
+submarine apparently caused the Kursk to sink.
+President Clinton’s national security adviser,
+Samuel Berger, has provided his Russian
+counterpart with a written summary of what
+U.S. naval and intelligence ofﬁcials believe
+caused the nuclear-powered submarine Kursk to
+sink last month in the Barents Sea, ofﬁcials
+said Wednesday.
+There has been no ﬁnal word on what caused
+the submarine to sink while participating
+in a major naval exercise, but Defense
+</bodyText>
+      <figure confidence="0.947371166666667">
+Minister Igor Sergeyev said the theory
+that Kursk may have collided with another
+object is receiving increasingly
+concrete conﬁrmation.
+Score
+0.0133
+Relevant?
+Y
+2 0.0133 Y
+3 0.0125 Y
+4 0.0124 N
+5 0.0123 N
+</figure>
+      <tableCaption confidence="0.771484">
+Table 9: Top ranked sentences using the
+</tableCaption>
+      <bodyText confidence="0.972446714285714">
+LR[0.20,0.95] system on the question “What caused
+the Kursk to sink?”
+answers from the retrieved sentences. In this case,
+the sentences selected by our system would be sent
+to an answer identiﬁcation component for further
+processing. As discussed in Section 2, our goal was
+to develop a topic-sensitive version of LexRank and
+to use it to improve a baseline system, which had
+previously been used successfully for query-based
+sentence retrieval (Allan et al., 2003). In terms of
+this task, we have shown that over a large set of unal-
+tered questions written by our annotators, LexRank
+can, on average, outperform the baseline system,
+particularly in terms of TRDR scores.
+</bodyText>
+      <sectionHeader confidence="0.993033" genericHeader="acknowledgments">
+8 Acknowledgments
+</sectionHeader>
+      <bodyText confidence="0.999909333333333">
+We would like to thank the members of the CLAIR
+group at Michigan and in particular Siwei Shen and
+Yang Ye for their assistance with this project.
+</bodyText>
+      <sectionHeader confidence="0.999016" genericHeader="references">
+References
+</sectionHeader>
+      <reference confidence="0.998292186440678">
+James Allan, Courtney Wade, and Alvaro Bolivar. 2003.
+Retrieval and novelty detection at the sentence level.
+In SIGIR ’03: Proceedings of the 26th annual interna-
+tional ACM SIGIR conference on Research and devel-
+opment in informaion retrieval, pages 314–321. ACM
+Press.
+Enrique Amigo, Julio Gonzalo, Victor Peinado, Anselmo
+Pe and Felisa Verdejo. 2004. An Empirical Study nas,
+of Information Synthesis Task. In Proceedings of the
+42nd Meeting of the Association for Computational
+Linguistics (ACL’04), Main Volume, pages 207–214,
+Barcelona, Spain, July.
+Sergey Brin and Lawrence Page. 1998. The anatomy of
+a large-scale hypertextual Web search engine. Com-
+puter Networks and ISDN Systems, 30(1–7):107–117.
+Jean Carletta. 1996. Assessing Agreement on Classiﬁca-
+tion Tasks: The Kappa Statistic. CL, 22(2):249–254.
+Gunes Erkan and Dragomir Radev. 2004. LexRank:
+Graph-based Lexical Centrality as Salience in Text.
+JAIR, 22:457–479.
+Robert Gaizauskas, Mark Hepple, and Mark Greenwood.
+2004. Information Retrieval for Question Answering:
+a SIGIR 2004 Workshop. In SIGIR 2004 Workshop on
+Information Retrieval for Question Answering.
+Oren Kurland and Lillian Lee. 2005. PageRank without
+hyperlinks: Structural re-ranking using links induced
+by language models. In SIGIR 2005, Salvador, Brazil,
+August.
+L. Page, S. Brin, R. Motwani, and T. Winograd. 1998.
+The pagerank citation ranking: Bringing order to the
+web. Technical report, Stanford University, Stanford,
+CA.
+Bo Pang and Lillian Lee. 2004. A Sentimental Educa-
+tion: Sentiment Analysis Using Subjectivity Summa-
+rization Based on Minimum Cuts. In Association for
+Computational Linguistics.
+Dragomir Radev, Weiguo Fan, Hong Qi, Harris Wu, and
+Amardeep Grewal. 2005. Probabilistic Question An-
+swering on the Web. Journal of the American So-
+ciety for Information Science and Technology, 56(3),
+March.
+Stephen E. Robertson, Steve Walker, Micheline
+Hancock-Beaulieu, Aarron Gull, and Marianna Lau.
+1992. Okapi at TREC. In Text REtrieval Conference,
+pages 21–30.
+G. Salton, J. Allan, and C. Buckley. 1993. Approaches
+to Passage REtrieval in Full Text Information Systems.
+In Proceedings of the 16th Annual International ACM
+SIGIR Conference on Research and Development in
+Information Retrieval, pages 49–58.
+E. Seneta. 1981. Non-negative matrices and markov
+chains. Springer-Verlag, New York.
+Ellen Voorhees and Dawn Tice. 2000. The TREC-8
+Question Answering Track Evaluation. In Text Re-
+trieval Conference TREC-8, Gaithersburg, MD.
+Harris Wu, Dragomir R. Radev, and Weiguo Fan.
+2004. Towards Answer-focused Summarization Using
+Search Engines. New Directions in Question Answer-
+ing.
+</reference>
+      <page confidence="0.99668">
+922
+</page>
+    </variant>
+  </algorithm>
+  <algorithm name="ParsCit" version="110505">
+    <citationList>
+      <citation valid="true">
+        <authors>
+          <author>James Allan</author>
+          <author>Courtney Wade</author>
+          <author>Alvaro Bolivar</author>
+        </authors>
+        <title>Retrieval and novelty detection at the sentence level.</title>
+        <date>2003</date>
+        <contexts>
+          <context position="9189" citStr="Allan et al., 2003" startWordPosition="1525" endWordPosition="1528">st stem all of the sentences in a set of articles and compute word IDFs by the following formula: idf w = log N +1 0.5 + sf w (1) where N is the total number of sentences in the cluster, and sf w is the number of sentences that the word w appears in. We also stem the question and remove the stop words from it. Then the relevance of a sentence s to the question q is computed by: rel(s|q) = log(tf w,s + 1) × log(tf w,q + 1) × idf w (2) w∈q where tf w,s and tf w,q are the number of times w appears in s and q, respectively. This model has proven to be successful in query-based sentence retrieval (Allan et al., 2003), and is used as our competitive baseline in this study (e.g. Tables 4, 5 and 7). 3.3 The mixture model The baseline system explained above does not make use of any inter-sentence information in a cluster. We hypothesize that a sentence that is similar to the high scoring sentences in the cluster should also have a high score. For instance, if a sentence that gets a high score in our baseline model is likely to contain an answer to the question, then a related sentence, which may not be similar to the question itself, is also likely to contain an answer. This idea is captured by the following </context>
+        </contexts>
+        <marker>Allan, Wade, Bolivar, 2003</marker>
+        <rawString>James Allan, Courtney Wade, and Alvaro Bolivar. 2003. Retrieval and novelty detection at the sentence level.</rawString>
+      </citation>
+      <citation valid="false">
+        <booktitle>In SIGIR ’03: Proceedings of the 26th annual international ACM SIGIR conference on Research and development in informaion retrieval,</booktitle>
+        <pages>314--321</pages>
+        <publisher>ACM Press.</publisher>
+        <marker/>
+        <rawString>In SIGIR ’03: Proceedings of the 26th annual international ACM SIGIR conference on Research and development in informaion retrieval, pages 314–321. ACM Press.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Enrique Amigo</author>
+          <author>Julio Gonzalo</author>
+          <author>Victor Peinado</author>
+          <author>Anselmo Pe</author>
+          <author>Felisa Verdejo</author>
+        </authors>
+        <title>An Empirical Study nas, of Information Synthesis Task.</title>
+        <date>2004</date>
+        <booktitle>In Proceedings of the 42nd Meeting of the Association for Computational Linguistics (ACL’04), Main Volume,</booktitle>
+        <pages>207--214</pages>
+        <location>Barcelona, Spain,</location>
+        <contexts>
+          <context position="3021" citStr="Amigo et al., 2004" startWordPosition="489" endWordPosition="492">e to receive either a precise answer or a question-focused summary. Currently, we address the question-focused sentence retrieval task. While passage retrieval (PR) is clearly not a new problem (e.g. (Robertson et al., 1992; Salton et al., 1993)), it remains important and yet often overlooked. As noted by (Gaizauskas et al., 2004), while PR is the crucial ﬁrst step for question answering, Q&amp;A research has typically not empha1 Introduction Recent work has motivated the need for systems that support “Information Synthesis” tasks, in which a user seeks a global understanding of a topic or story (Amigo et al., 2004). In contrast to the classical question answering setting (e.g. TREC-style Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing (HLT/EMNLP), pages 915–922, Vancouver, October 2005. c 2005 Association for Computational Linguistics 915 Hurricane Isabel's outer bands moving onshore produced on 09/18, 6:18 AM 2% Summary The North Carolina coast braced for a weakened but still potent Hurricane Isabel while already rain-soaked areas as far away as Pennsylvania prepared for possibly ruinous flooding. (2:3) A hurricane warning was in ef</context>
+        </contexts>
+        <marker>Amigo, Gonzalo, Peinado, Pe, Verdejo, 2004</marker>
+        <rawString>Enrique Amigo, Julio Gonzalo, Victor Peinado, Anselmo Pe and Felisa Verdejo. 2004. An Empirical Study nas, of Information Synthesis Task. In Proceedings of the 42nd Meeting of the Association for Computational Linguistics (ACL’04), Main Volume, pages 207–214, Barcelona, Spain, July.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Sergey Brin</author>
+          <author>Lawrence Page</author>
+        </authors>
+        <date>1998</date>
+        <note>The anatomy of</note>
+        <contexts>
+          <context position="12882" citStr="Brin and Page, 1998" startWordPosition="2209" endWordPosition="2212"> that are similar to the query. With probability (1-d), a transition is made to the nodes that are lexically similar to the current node. Every transition is weighted according to the similarity distributions. Each element of the vector p gives the asymptotic probability of ending up at the corresponding state in the long run regardless of the starting state. The stationary distribution of a Markov chain can be computed by a simple iterative algorithm, called power method. 1 A simpler version of Equation 5, where A is a uniform matrix and B is a normalized binary matrix, is known as PageRank (Brin and Page, 1998; Page et al., 1998) and used to rank the web pages by the Google search engine. It was also the model used to rank sentences in (Erkan and Radev, 2004). 3.4 Experiments with topic-sensitive LexRank We experimented with different values of d on our training data. We also considered several threshold values for inter-sentence cosine similarities, where we ignored the similarities between the sentences that are below the threshold. In the training phase of the experiment, we evaluated all combinations of LexRank with d in the range of [0, 1] (in increments of 0.10) and with a similarity threshol</context>
+        </contexts>
+        <marker>Brin, Page, 1998</marker>
+        <rawString>Sergey Brin and Lawrence Page. 1998. The anatomy of</rawString>
+      </citation>
+      <citation valid="false">
+        <title>a large-scale hypertextual Web search engine.</title>
+        <journal>Computer Networks and ISDN Systems,</journal>
+        <pages>30--1</pages>
+        <marker/>
+        <rawString>a large-scale hypertextual Web search engine. Computer Networks and ISDN Systems, 30(1–7):107–117.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Jean Carletta</author>
+        </authors>
+        <title>Assessing Agreement on Classiﬁcation Tasks: The Kappa Statistic.</title>
+        <date>1996</date>
+        <booktitle>CL, 22(2):249–254. Gunes Erkan and Dragomir Radev. 2004. LexRank: Graph-based Lexical Centrality as Salience in Text. JAIR,</booktitle>
+        <pages>22--457</pages>
+        <contexts>
+          <context position="15257" citStr="Carletta, 1996" startWordPosition="2602" endWordPosition="2603">ere 11, 3 and 6, respectively. Next, we assigned each cluster of articles to an annotator, who was asked to read all articles in the cluster. He or she then generated a list of factual questions key to understanding the story. Once we collected the questions for each cluster, two judges independently annotated nine of the training clusters. For each sentence and question pair in a given cluster, the judges were asked to indicate whether or not the sentence contained a complete answer to the question. Once an acceptable rate of interjudge agreement was veriﬁed on the ﬁrst nine clusters (Kappa (Carletta, 1996) of 0.68), the remaining 11 clusters were annotated by one judge each. In some cases, the judges did not ﬁnd any sentences containing the answer for a given question. Such questions were removed from the corpus. The ﬁnal number of questions annotated for answers over the entire corpus was 341, and the distributions of questions per cluster can be found in Table 1. 4.2 Evaluation metrics and methods To evaluate our sentence retrieval mechanism, we produced extract ﬁles, which contain a list of sentences deemed to be relevant to the question, for the system and from human judgment. To compare di</context>
+        </contexts>
+        <marker>Carletta, 1996</marker>
+        <rawString>Jean Carletta. 1996. Assessing Agreement on Classiﬁcation Tasks: The Kappa Statistic. CL, 22(2):249–254. Gunes Erkan and Dragomir Radev. 2004. LexRank: Graph-based Lexical Centrality as Salience in Text. JAIR, 22:457–479.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Robert Gaizauskas</author>
+          <author>Mark Hepple</author>
+          <author>Mark Greenwood</author>
+        </authors>
+        <title>Information Retrieval for Question Answering:</title>
+        <date>2004</date>
+        <contexts>
+          <context position="2734" citStr="Gaizauskas et al., 2004" startWordPosition="441" endWordPosition="444">ore, we are working towards developing a system for question answering from clusters of complex stories published over time. As can be seen at the bottom of Figure 1, we plan to add a component to our current system that allows users to ask questions as they read a story. They may then choose to receive either a precise answer or a question-focused summary. Currently, we address the question-focused sentence retrieval task. While passage retrieval (PR) is clearly not a new problem (e.g. (Robertson et al., 1992; Salton et al., 1993)), it remains important and yet often overlooked. As noted by (Gaizauskas et al., 2004), while PR is the crucial ﬁrst step for question answering, Q&amp;A research has typically not empha1 Introduction Recent work has motivated the need for systems that support “Information Synthesis” tasks, in which a user seeks a global understanding of a topic or story (Amigo et al., 2004). In contrast to the classical question answering setting (e.g. TREC-style Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing (HLT/EMNLP), pages 915–922, Vancouver, October 2005. c 2005 Association for Computational Linguistics 915 Hurricane Isa</context>
+        </contexts>
+        <marker>Gaizauskas, Hepple, Greenwood, 2004</marker>
+        <rawString>Robert Gaizauskas, Mark Hepple, and Mark Greenwood. 2004. Information Retrieval for Question Answering:</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>a SIGIR</author>
+        </authors>
+        <title>Workshop.</title>
+        <date>2004</date>
+        <booktitle>In SIGIR 2004 Workshop on Information Retrieval for Question Answering.</booktitle>
+        <marker>SIGIR, 2004</marker>
+        <rawString>a SIGIR 2004 Workshop. In SIGIR 2004 Workshop on Information Retrieval for Question Answering.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Oren Kurland</author>
+          <author>Lillian Lee</author>
+        </authors>
+        <title>PageRank without hyperlinks: Structural re-ranking using links induced by language models.</title>
+        <date>2005</date>
+        <booktitle>In SIGIR 2005,</booktitle>
+        <location>Salvador, Brazil,</location>
+        <contexts>
+          <context position="5352" citStr="Kurland and Lee, 2005" startWordPosition="870" endWordPosition="873">ories in our corpus. For example, one challenge is that the answer to a user’s question may be updated and reworded over time by journalists in order to keep a running story fresh, or because the facts themselves change. Therefore, there is often more than one correct answer to a question. We aim to develop a method for sentence retrieval that goes beyond ﬁnding sentences that are similar to a single query. To this end, we propose to use a stochastic, graph-based method. Recently, graph-based methods have proved useful for a number of NLP and IR tasks such as document re-ranking in ad hoc IR (Kurland and Lee, 2005) and analyzing sentiments in text (Pang and Lee, 2004). In (Erkan and Radev, 2004), we introduced the LexRank method and successfully applied it to generic, multi-document summarization. Presently, we introduce topic-sensitive LexRank in creating a sentence retrieval system. We evaluate its performance against a competitive baseline, which considers the similarity between each sentence and the question (using IDF-weighed word overlap). We demonstrate that LexRank signiﬁcantly improves question-focused sentence selection over the baseline. 2 Formal description of the problem Our goal is to buil</context>
+        </contexts>
+        <marker>Kurland, Lee, 2005</marker>
+        <rawString>Oren Kurland and Lillian Lee. 2005. PageRank without hyperlinks: Structural re-ranking using links induced by language models. In SIGIR 2005, Salvador, Brazil, August. L. Page, S. Brin, R. Motwani, and T. Winograd. 1998.</rawString>
+      </citation>
+      <citation valid="false">
+        <title>The pagerank citation ranking: Bringing order to the web.</title>
+        <tech>Technical report,</tech>
+        <institution>Stanford University,</institution>
+        <location>Stanford, CA.</location>
+        <marker/>
+        <rawString>The pagerank citation ranking: Bringing order to the web. Technical report, Stanford University, Stanford, CA.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Bo Pang</author>
+          <author>Lillian Lee</author>
+        </authors>
+        <title>A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts.</title>
+        <date>2004</date>
+        <booktitle>In Association for Computational Linguistics. Dragomir Radev,</booktitle>
+        <location>Weiguo Fan, Hong Qi, Harris Wu, and</location>
+        <contexts>
+          <context position="5406" citStr="Pang and Lee, 2004" startWordPosition="879" endWordPosition="882">he answer to a user’s question may be updated and reworded over time by journalists in order to keep a running story fresh, or because the facts themselves change. Therefore, there is often more than one correct answer to a question. We aim to develop a method for sentence retrieval that goes beyond ﬁnding sentences that are similar to a single query. To this end, we propose to use a stochastic, graph-based method. Recently, graph-based methods have proved useful for a number of NLP and IR tasks such as document re-ranking in ad hoc IR (Kurland and Lee, 2005) and analyzing sentiments in text (Pang and Lee, 2004). In (Erkan and Radev, 2004), we introduced the LexRank method and successfully applied it to generic, multi-document summarization. Presently, we introduce topic-sensitive LexRank in creating a sentence retrieval system. We evaluate its performance against a competitive baseline, which considers the similarity between each sentence and the question (using IDF-weighed word overlap). We demonstrate that LexRank signiﬁcantly improves question-focused sentence selection over the baseline. 2 Formal description of the problem Our goal is to build a question-focused sentence retrieval mechanism usin</context>
+        </contexts>
+        <marker>Pang, Lee, 2004</marker>
+        <rawString>Bo Pang and Lillian Lee. 2004. A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts. In Association for Computational Linguistics. Dragomir Radev, Weiguo Fan, Hong Qi, Harris Wu, and</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Amardeep Grewal</author>
+        </authors>
+        <title>Probabilistic Question Answering on the Web.</title>
+        <date>2005</date>
+        <journal>Journal of the American Society for Information Science and Technology,</journal>
+        <volume>56</volume>
+        <issue>3</issue>
+        <marker>Grewal, 2005</marker>
+        <rawString>Amardeep Grewal. 2005. Probabilistic Question Answering on the Web. Journal of the American Society for Information Science and Technology, 56(3), March.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Stephen E Robertson</author>
+          <author>Steve Walker</author>
+          <author>Micheline Hancock-Beaulieu</author>
+          <author>Aarron Gull</author>
+          <author>Marianna Lau</author>
+        </authors>
+        <title>Okapi at TREC.</title>
+        <date>1992</date>
+        <booktitle>In Text REtrieval Conference,</booktitle>
+        <pages>21--30</pages>
+        <contexts>
+          <context position="2625" citStr="Robertson et al., 1992" startWordPosition="423" endWordPosition="426">the hurricane ﬁrst hit?”), others may change with time (“How many people have been left homeless?”). Therefore, we are working towards developing a system for question answering from clusters of complex stories published over time. As can be seen at the bottom of Figure 1, we plan to add a component to our current system that allows users to ask questions as they read a story. They may then choose to receive either a precise answer or a question-focused summary. Currently, we address the question-focused sentence retrieval task. While passage retrieval (PR) is clearly not a new problem (e.g. (Robertson et al., 1992; Salton et al., 1993)), it remains important and yet often overlooked. As noted by (Gaizauskas et al., 2004), while PR is the crucial ﬁrst step for question answering, Q&amp;A research has typically not empha1 Introduction Recent work has motivated the need for systems that support “Information Synthesis” tasks, in which a user seeks a global understanding of a topic or story (Amigo et al., 2004). In contrast to the classical question answering setting (e.g. TREC-style Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing (HLT/EMNLP</context>
+          <context position="6130" citStr="Robertson et al., 1992" startWordPosition="984" endWordPosition="987">, multi-document summarization. Presently, we introduce topic-sensitive LexRank in creating a sentence retrieval system. We evaluate its performance against a competitive baseline, which considers the similarity between each sentence and the question (using IDF-weighed word overlap). We demonstrate that LexRank signiﬁcantly improves question-focused sentence selection over the baseline. 2 Formal description of the problem Our goal is to build a question-focused sentence retrieval mechanism using a topic-sensitive version of the LexRank method. In contrast to previous PR systems such as Okapi (Robertson et al., 1992), which ranks documents for relevancy and then proceeds to ﬁnd paragraphs related to a question, we address the ﬁner-grained problem of ﬁnding sentences containing answers. In addition, the input to our system is a set of documents relevant to the topic of the query that the user has already identiﬁed (e.g. via a search engine). Our system does not rank the input documents, nor is it restricted in terms of the number of sentences that may be selected from the same document. The output of our system, a ranked list of sentences relevant to the user’s question, can be subsequently used as input t</context>
+        </contexts>
+        <marker>Robertson, Walker, Hancock-Beaulieu, Gull, Lau, 1992</marker>
+        <rawString>Stephen E. Robertson, Steve Walker, Micheline Hancock-Beaulieu, Aarron Gull, and Marianna Lau. 1992. Okapi at TREC. In Text REtrieval Conference, pages 21–30.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>G Salton</author>
+          <author>J Allan</author>
+          <author>C Buckley</author>
+        </authors>
+        <title>Approaches to Passage REtrieval in Full Text Information Systems.</title>
+        <date>1993</date>
+        <contexts>
+          <context position="2647" citStr="Salton et al., 1993" startWordPosition="427" endWordPosition="430">), others may change with time (“How many people have been left homeless?”). Therefore, we are working towards developing a system for question answering from clusters of complex stories published over time. As can be seen at the bottom of Figure 1, we plan to add a component to our current system that allows users to ask questions as they read a story. They may then choose to receive either a precise answer or a question-focused summary. Currently, we address the question-focused sentence retrieval task. While passage retrieval (PR) is clearly not a new problem (e.g. (Robertson et al., 1992; Salton et al., 1993)), it remains important and yet often overlooked. As noted by (Gaizauskas et al., 2004), while PR is the crucial ﬁrst step for question answering, Q&amp;A research has typically not empha1 Introduction Recent work has motivated the need for systems that support “Information Synthesis” tasks, in which a user seeks a global understanding of a topic or story (Amigo et al., 2004). In contrast to the classical question answering setting (e.g. TREC-style Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing (HLT/EMNLP), pages 915–922, Vanc</context>
+        </contexts>
+        <marker>Salton, Allan, Buckley, 1993</marker>
+        <rawString>G. Salton, J. Allan, and C. Buckley. 1993. Approaches to Passage REtrieval in Full Text Information Systems.</rawString>
+      </citation>
+      <citation valid="false">
+        <booktitle>In Proceedings of the 16th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval,</booktitle>
+        <pages>49--58</pages>
+        <marker/>
+        <rawString>In Proceedings of the 16th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval, pages 49–58.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>E Seneta</author>
+        </authors>
+        <title>Non-negative matrices and markov chains.</title>
+        <date>1981</date>
+        <publisher>Springer-Verlag,</publisher>
+        <location>New York.</location>
+        <contexts>
+          <context position="14180" citStr="Seneta, 1981" startWordPosition="2424" endWordPosition="2425"> outperformed the baseline. These conﬁgurations were then applied to our development/test set. Finally, our best sentence retrieval system was applied to our test data set and evaluated against the baseline. The remainder of the paper will explain this process and the results in detail. 4 Experimental setup 4.1 Corpus We built a corpus of 20 multi-document clusters of complex news stories, such as plane crashes, political controversies and natural disasters. The data The stationary distribution is unique and the power method is guaranteed to converge provided that the Markov chain is ergodic (Seneta, 1981). A non-ergodic Markov chain can be made ergodic by reserving a small probability for jumping to any other state from the current state (Page et al., 1998). 1 clusters and their characteristics are shown in Table 1. The news articles were collected from various sources. “Newstracker” clusters were collected automatically by our Web-based news summarization system. The number of clusters randomly assigned to the training, development/test and test data sets were 11, 3 and 6, respectively. Next, we assigned each cluster of articles to an annotator, who was asked to read all articles in the clust</context>
+        </contexts>
+        <marker>Seneta, 1981</marker>
+        <rawString>E. Seneta. 1981. Non-negative matrices and markov chains. Springer-Verlag, New York.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Ellen Voorhees</author>
+          <author>Dawn Tice</author>
+        </authors>
+        <title>The TREC-8 Question Answering Track Evaluation.</title>
+        <date>2000</date>
+        <booktitle>In Text Retrieval Conference TREC-8,</booktitle>
+        <location>Gaithersburg, MD.</location>
+        <contexts>
+          <context position="1222" citStr="Voorhees and Tice, 2000" startWordPosition="187" endWordPosition="190">nd sentences providing an answer to each question. To address the sentence retrieval problem, we apply a stochastic, graph-based method for comparing the relative importance of the textual units, which was previously used successfully for generic summarization. Currently, we present a topic-sensitive version of our method and hypothesize that it can outperform a competitive baseline, which compares the similarity of each sentence to the input question via IDF-weighted word overlap. In our experiments, the method achieves a TRDR score that is signiﬁcantly higher than that of the baseline. Q&amp;A (Voorhees and Tice, 2000)), in which the user presents a single question and the system returns a corresponding answer (or a set of likely answers), in this case the user has a more complex information need. Similarly, when reading about a complex news story, such as an emergency situation, users might seek answers to a set of questions in order to understand it better. For example, Figure 1 shows the interface to our Web-based news summarization system, which a user has queried for information about Hurricane Isabel. Understanding such stories is challenging for a number of reasons. In particular, complex stories con</context>
+          <context position="19052" citStr="Voorhees and Tice, 2000" startWordPosition="3260" endWordPosition="3263"> have? In which places had the hurricane landed? How many people were killed? When did the Kursk sink? How many people were injured? How many people were in the mall at the time of the bombing? What issue concerned British human rights groups? Table 1: Corpus of complex news stories. and sentence numbers of the top 20 sentences. The “gold standard” extracts list the sentences judged as containing answers to a given question by the annotators (and therefore have variable sizes) in no particular order. 2 We evaluated the performance of the systems using two metrics - Mean Reciprocal Rank (MRR) (Voorhees and Tice, 2000) and Total Reciprocal Document Rank (TRDR) (Radev et al., 2005). MRR, used in the TREC Q&amp;A evaluations, is the reciprocal rank of the ﬁrst correct answer (or sentence, in our case) to a given question. This measure gives us an idea of how far down we must look in the ranked list in order to ﬁnd a correct answer. To contrast, TRDR is the total of the reciprocal ranks of all answers found by the system. In the context of answering questions from complex stories, where there is often more than one correct answer to a question, and where answers are typically time-dependent, we should focus on max</context>
+        </contexts>
+        <marker>Voorhees, Tice, 2000</marker>
+        <rawString>Ellen Voorhees and Dawn Tice. 2000. The TREC-8 Question Answering Track Evaluation. In Text Retrieval Conference TREC-8, Gaithersburg, MD.</rawString>
+      </citation>
+      <citation valid="true">
+        <authors>
+          <author>Harris Wu</author>
+          <author>Dragomir R Radev</author>
+          <author>Weiguo Fan</author>
+        </authors>
+        <title>Towards Answer-focused Summarization Using Search Engines. New Directions in Question Answering.</title>
+        <date>2004</date>
+        <contexts>
+          <context position="6965" citStr="Wu et al., 2004" startWordPosition="1133" endWordPosition="1136">of documents relevant to the topic of the query that the user has already identiﬁed (e.g. via a search engine). Our system does not rank the input documents, nor is it restricted in terms of the number of sentences that may be selected from the same document. The output of our system, a ranked list of sentences relevant to the user’s question, can be subsequently used as input to an answer selection system in order to ﬁnd speciﬁc answers from the extracted sentences. Alternatively, the sentences can be returned to the user as a question-focused summary. This is similar to “snippet retrieval” (Wu et al., 2004). However, in our system answers are extracted from a set of multiple documents rather than on a document-by-document basis. 3 Our approach: topic-sensitive LexRank 3.1 The LexRank method In (Erkan and Radev, 2004), the concept of graphbased centrality was used to rank a set of sentences, in producing generic multi-document summaries. To apply LexRank, a similarity graph is produced for the sentences in an input document set. In the graph, each node represents a sentence. There are edges between nodes for which the cosine similarity between the respective pair of sentences exceeds a given thre</context>
+        </contexts>
+        <marker>Wu, Radev, Fan, 2004</marker>
+        <rawString>Harris Wu, Dragomir R. Radev, and Weiguo Fan. 2004. Towards Answer-focused Summarization Using Search Engines. New Directions in Question Answering.</rawString>
+      </citation>
+    </citationList>
+  </algorithm>
+</algorithms>

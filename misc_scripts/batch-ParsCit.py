@@ -10,7 +10,7 @@ import logging
 # containing scientific articles and this script will look for pdfs in all sub
 # directories and try to run ParsCit over them.
 # Please note that there is no need to preprocess the pdf file. This version of
-# ParsCit has inbuilt pdfx functionality (only on x86 machines though).
+# ParsCit has inbuilt pdfx functionality (only on 32-bit machines though).
 
 cachedir = '/home/ankur/devbench/workrelated/work/'
 parscit = '/home/ankur/devbench/workrelated/ParsCit/bin/citeExtract.pl'
