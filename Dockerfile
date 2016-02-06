@@ -23,3 +23,5 @@ RUN make install
 RUN cp crf_learn crf_test ..
 WORKDIR /ParsCit/crfpp/CRF++-0.51/.libs
 RUN cp -Rf * ../../.libs
+
+WORKDIR /ParsCit/bin
