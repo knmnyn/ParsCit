@@ -1,0 +1,13 @@
+use alienfile;
+
+# https://taku910.github.io/crfpp/
+share {
+	requires 'Alien::gmake';
+	plugin Download => (
+		url => 'https://github.com/taku910/crfpp/archive/master.zip',
+	);
+
+	plugin Extract => 'zip';
+
+	plugin 'Build::Autoconf';
+};
