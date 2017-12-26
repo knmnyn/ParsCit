@@ -1,0 +1,41 @@
+From 38108ea8d5e59867092ae8cb9e4484a9a39e85fa Mon Sep 17 00:00:00 2001
+From: Zakariyya Mughal <zaki.mughal@gmail.com>
+Date: Mon, 25 Dec 2017 15:10:50 -0600
+Subject: [PATCH] Only include winmain.h on Win32
+
+---
+ crf_learn.cpp | 2 ++
+ crf_test.cpp  | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/crf_learn.cpp b/crf_learn.cpp
+index 8965ce6..444dd28 100644
+--- a/crf_learn.cpp
++++ b/crf_learn.cpp
+@@ -6,7 +6,9 @@
+ //  Copyright(C) 2005-2007 Taku Kudo <taku@chasen.org>
+ //
+ #include "crfpp.h"
++#ifdef _WIN32
+ #include "winmain.h"
++#endif
+ 
+ int main(int argc, char **argv) {
+   return crfpp_learn(argc, argv);
+diff --git a/crf_test.cpp b/crf_test.cpp
+index 1d0ba26..97f85c4 100644
+--- a/crf_test.cpp
++++ b/crf_test.cpp
+@@ -6,7 +6,9 @@
+ //  Copyright(C) 2005-2007 Taku Kudo <taku@chasen.org>
+ //
+ #include "crfpp.h"
++#ifdef _WIN32
+ #include "winmain.h"
++#endif
+ 
+ int main(int argc, char **argv) {
+   return crfpp_test(argc, argv);
+-- 
+2.15.1
+
