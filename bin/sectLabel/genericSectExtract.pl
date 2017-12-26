@@ -17,16 +17,16 @@ sub main {
 	my $name  = "@{[ time ]}-$$";
 
 	my $test_file = File::Spec->catfile($test_dir, "${name}.test" );
-	open( my $extract_fh, '>', $test_file );
+	open( my $extract_fh, '>:encoding(UTF-8)', $test_file );
 	run3 [
-		'ruby',
-		File::Spec->catfile($FindBin::Bin, qw(extractFeature.rb)),
+		$^X,
+		File::Spec->catfile($FindBin::Bin, qw(extractFeature.pl)),
 		$ARGV[0],
 	], \undef, $extract_fh;
 	close $extract_fh;
 
 	my $out_file =  File::Spec->catfile($test_dir, "${name}.out" );
-	open( my $out_fh, '>', $out_file );
+	open( my $out_fh, '>:encoding(UTF-8)', $out_file );
 	run3 [
 		$crf_test,
 		qw(-m), File::Spec->catfile($data, qw(genericSect.model)),
@@ -36,13 +36,15 @@ sub main {
 
 	my $output_fh;
 	if( $ARGV[1] ) {
-		open( $output_fh, '>', $ARGV[1] );
+		open( $output_fh, '>:encoding(UTF-8)', $ARGV[1] );
 	} else {
+		binmode STDOUT, ":encoding(UTF-8)";
 		$output_fh = \*STDOUT;
 	}
 
-	open( my $out_read_fh, '<', $out_file);
-	while( chomp(my $str = <$out_read_fh>) ) {
+	open( my $out_read_fh, '<:encoding(UTF-8)', $out_file);
+	while( my $str = <$out_read_fh> ) {
+		chomp $str;
 		StripLTSpace($str);
 		next unless $str;
 
