@@ -1,4 +1,5 @@
 package ParsCit::Config;
+use ParsCit;
 
 ## Global
 $algorithmName		= "ParsCit";
@@ -17,13 +18,13 @@ $URI		= 'http://citeseerx.org/algorithms/parscit/wsdl';
 ## Tr2crfpp
 ## Paths relative to ParsCit root dir ($FindBin::Bin/..)
 $tmpDir		= "tmp";
-$dictFile	= "resources/parsCitDict.txt";
+$dictFile	= ParsCit->_resource_path("resources/parsCitDict.txt");
 $crf_test	= "crfpp/crf_test";
 
 ## Tr2crfpp parscit model
-$modelFile		= "resources/parsCit.model";
+$modelFile		= ParsCit->_resource_path("resources/parsCit.model");
 ## Tr2crfpp parscit split reference model
-$splitModelFile	= "resources/parsCit.split.model";
+$splitModelFile	= ParsCit->_resource_path("resources/parsCit.split.model");
 
 ## Citation Context
 $contextRadius	= 600;

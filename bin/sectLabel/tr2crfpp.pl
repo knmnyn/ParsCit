@@ -59,11 +59,11 @@ my $outfile		= undef;
 
 my $dict_file	= undef;
 $dict_file		= $SectLabel::Config::dictFile;
-$dict_file 		= $FindBin::Bin . "/../../" . $dict_file;
+#$dict_file 		= $FindBin::Bin . "/../../" . $dict_file;
 
 my $func_file	= undef;
 $func_file		= $SectLabel::Config::funcFile;
-$func_file		= $FindBin::Bin . "/../../" . $func_file;
+#$func_file		= $FindBin::Bin . "/../../" . $func_file;
 
 my $config_file	= undef;
 my $is_template	= 0;
