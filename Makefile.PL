@@ -9,14 +9,21 @@ use ExtUtils::MakeMaker;
 use File::ShareDir::Install;
 $File::ShareDir::Install::INCLUDE_DOTFILES = 1;
 $File::ShareDir::Install::INCLUDE_DOTDIRS = 1;
-install_share dist => "resources";
+install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "An open-source CRF Reference String and Logical Document Structure Parsing Package",
   "AUTHOR" => "Min-Yen Kan, Isaac G. Councill, C. Lee Giles, Minh-Thang Luong, Huy Nhat Hoang Do",
+  "BUILD_REQUIRES" => {
+    "Alien::Build" => "0.32",
+    "Alien::Build::MM" => "0.32",
+    "ExtUtils::MakeMaker" => "6.52"
+  },
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => 0,
+    "Alien::Build" => "0.32",
+    "Alien::Build::MM" => "0.32",
+    "ExtUtils::MakeMaker" => "6.52",
     "File::ShareDir::Install" => "0.06"
   },
   "DISTNAME" => "ParsCit",
@@ -41,10 +48,12 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.000",
   "NAME" => "ParsCit",
   "PREREQ_PM" => {
+    "Alien::Base" => "0.038",
     "Class::Struct" => 0,
     "Encode" => 0,
     "Exporter" => 0,
     "File::Basename" => 0,
+    "File::ShareDir" => 0,
     "File::Spec" => 0,
     "FindBin" => 0,
     "Getopt::Long" => 0,
@@ -56,8 +65,10 @@ my %WriteMakefileArgs = (
     "XML::Writer" => 0,
     "XML::Writer::String" => 0,
     "lib" => 0,
+    "parent" => 0,
     "strict" => 0,
-    "utf8" => 0
+    "utf8" => 0,
+    "warnings" => 0
   },
   "VERSION" => 130908,
   "test" => {
@@ -67,10 +78,15 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Alien::Base" => "0.038",
+  "Alien::Build" => "0.32",
+  "Alien::Build::MM" => "0.32",
   "Class::Struct" => 0,
   "Encode" => 0,
   "Exporter" => 0,
+  "ExtUtils::MakeMaker" => "6.52",
   "File::Basename" => 0,
+  "File::ShareDir" => 0,
   "File::Spec" => 0,
   "FindBin" => 0,
   "Getopt::Long" => 0,
@@ -82,9 +98,18 @@ my %FallbackPrereqs = (
   "XML::Writer" => 0,
   "XML::Writer::String" => 0,
   "lib" => 0,
+  "parent" => 0,
   "strict" => 0,
-  "utf8" => 0
+  "utf8" => 0,
+  "warnings" => 0
 );
+
+
+# BEGIN code inserted by Dist::Zilla::Plugin::AlienBuild
+use Alien::Build::MM;
+my $abmm = Alien::Build::MM->new;
+%WriteMakefileArgs = $abmm->mm_args(%WriteMakefileArgs);
+# END code inserted by Dist::Zilla::Plugin::AlienBuild
 
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
@@ -103,3 +128,21 @@ package
 MY;
 use File::ShareDir::Install qw(postamble);
 }
+
+
+# BEGIN code inserted by Dist::Zilla::Plugin::AlienBuild
+sub MY::postamble {
+  $abmm->mm_postamble;
+}
+# END code inserted by Dist::Zilla::Plugin::AlienBuild
+
+# BEGIN code inserted by ParsCitMaker
+{
+	package MY;
+	no warnings 'redefine';
+	use File::ShareDir::Install;
+	sub postamble {
+		join "\n", $abmm->mm_postamble, File::ShareDir::Install::postamble(@_);
+	}
+}
+# END code inserted by ParsCitMaker
