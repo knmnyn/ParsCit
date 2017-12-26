@@ -26,7 +26,7 @@ sub _resource_path {
 
 	eval {
 		my $dist_dir = dist_dir('ParsCit');
-		$final_path = File::Spec->catfile($dist_dir , @components[1..$#components]);
+		$final_path = File::Spec->catfile($dist_dir, @components);
 		1;
 	} || return $path;
 
