@@ -25,7 +25,7 @@ use SectLabel::Tr2crfpp;
 use SectLabel::PostProcess;
 use CSXUtil::SafeText qw(cleanXML);
 
-my $generic_sect_path = $FindBin::Bin . "/genericSectExtract.rb";
+my $generic_sect_path = $FindBin::Bin . "/genericSectExtract.pl";
 
 ###
 # Main API method for generating an XML document including all
@@ -219,8 +219,7 @@ sub GetGenericHeaders
 	close OF;
   
 	# Get a list of generic headers
-  	my $cmd = $generic_sect_path . " " . $header_file . " " . $header_file . ".out";
-  	system($cmd);
+	system($^X, $generic_sect_path, $header_file, "${header_file}.out");
 
 	open(IF, "<:utf8", $header_file . ".out");
 	my $generic_count = 0;
