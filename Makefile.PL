@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     "bin/sectLabel/README",
     "bin/sectLabel/README.txt",
     "bin/sectLabel/genericSect/crossValidation.rb",
-    "bin/sectLabel/genericSect/extractFeature.rb",
+    "bin/sectLabel/genericSect/extractFeature.pl",
     "bin/sectLabel/genericSectExtract.pl",
     "bin/sectLabel/getStructureInfo.pl",
     "bin/sectLabel/processOmniXML.pl",
