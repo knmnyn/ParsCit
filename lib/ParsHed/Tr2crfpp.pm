@@ -313,7 +313,7 @@ sub generateTokenFeature {
 	($word =~ /[\-\,\:\;]$/) ? "contPunct" :
 	  ($word =~ /[\!\?\.\"\']$/) ? "stopPunct" :
 	    ($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-	      ($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
+	      ($word =~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/) ? "possibleVol" : "others";
   push(@{$feats}, $punct);		    # 22 = punctuation
 }
 

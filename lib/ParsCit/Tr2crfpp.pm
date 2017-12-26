@@ -955,7 +955,7 @@ sub PrepData
 						($word	=~ /[\-\,\:\;]$/) ? "contPunct" :
 						($word	=~ /[\!\?\.\"\']$/) ? "stopPunct" :
 						($word	=~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-						($word	=~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
+						($word	=~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/) ? "possibleVol" : "others";
 		    # 22 = punctuation
 			push(@{ $feats[ $j ] }, $punct);
 
