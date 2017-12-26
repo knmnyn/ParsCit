@@ -1517,13 +1517,3 @@ sub Execute
   	$cmd = Untaint($cmd);
 	system($cmd);
 }
-
-sub NewTmpFile 
-{
-	my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
-  	chomp($tmpFile);
-  	return $tmpFile;
-}
-
-
-

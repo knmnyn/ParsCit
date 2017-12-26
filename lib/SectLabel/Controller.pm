@@ -24,6 +24,7 @@ use SectLabel::Config;
 use SectLabel::Tr2crfpp;
 use SectLabel::PostProcess;
 use CSXUtil::SafeText qw(cleanXML);
+use ParsCit;
 
 my $generic_sect_path = $FindBin::Bin . "/genericSectExtract.pl";
 
@@ -210,7 +211,7 @@ sub GetGenericHeaders
 	my $num_headers = scalar(@{ $headers });
 
 	# Put the list of headers to file
-  	my $header_file = "/tmp/" . NewTmpFile();
+  	my $header_file = ParsCit->NewTempFile;
 
   	$generic_sect_path = UntaintPath($generic_sect_path);
 	
@@ -314,18 +315,6 @@ sub UntaintPath
   	}
 
 	return $path;
-}
-
-###
-# Thang v100401 method to generate tmp file name
-###
-sub NewTmpFile 
-{
-	my $tmpfile = `date '+%Y%m%d-%H%M%S-$$'`;
-
-	chomp($tmpfile);
-	$tmpfile = UntaintPath($tmpfile);
-	return $tmpfile;
 }
 
 1;

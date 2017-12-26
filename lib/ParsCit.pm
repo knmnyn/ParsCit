@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 use File::ShareDir qw(dist_dir);
+use Path::Tiny;
 use File::Spec;
 use Env qw($CRFPP_HOME);
 
@@ -38,6 +39,14 @@ sub _resource_path {
 	} || return $path;
 
 	return $final_path;
+}
+
+sub NewTempFile {
+	Path::Tiny->tempfile;
+}
+
+sub NewTempDir {
+	Path::Tiny->tempdir;
 }
 
 1;

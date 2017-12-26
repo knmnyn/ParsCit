@@ -1067,8 +1067,8 @@ sub canolicalizeEOL {
 	unlink( $infile );
 	
 	# Rename newly created file to the old file name
-	my $cmd = "mv $new_file_name $infile";
-	system($cmd);
+	use File::Copy;
+	move("$new_file_name", "$infile");
 }
 
 1;

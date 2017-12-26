@@ -23,6 +23,7 @@ use lib "$path/../lib";
 
 use SectLabel::Config;
 use SectLabel::Controller;
+use ParsCit;
 
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
@@ -83,8 +84,7 @@ my $configFile = $isXmlInput ? $SectLabel::Config::configXmlFile : $SectLabel::C
 $configFile = "$path/../$configFile";
 
 if($isXmlInput){
-  my $xmlInFile = newTmpFile();
-  $xmlInFile = untaintPath($xmlInFile);
+  my $xmlInFile = ParsCit->NewTempFile;
   my $cmd = "$path/sectLabel/";
   $cmd .= ($isNew) ? "processOmniXMLv2.pl" : "processOmniXML.pl";
   $cmd .= " -in $inFile -out $xmlInFile -xmlFeature -decode";
@@ -140,10 +140,4 @@ sub execute {
   print STDERR "Executing: $cmd\n";
   $cmd = untaint($cmd);
   system($cmd);
-}
-
-sub newTmpFile {
-  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
-  chomp($tmpFile);
-  return $tmpFile;
 }

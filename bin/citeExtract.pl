@@ -40,6 +40,7 @@ use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.
 # Dependencies
 use File::Spec;
 use File::Basename;
+use ParsCit;
 
 # Local libraries
 use Omni::Omnidoc;
@@ -49,14 +50,7 @@ use SectLabel::AAMatching;
 use ParsCit::PreProcess;
 
 # USER customizable section
-my $tmpfile	.= $0; 
-$tmpfile	=~ s/[\.\/]//g;
-$tmpfile	.= $$ . time;
-
-# Untaint tmpfile variable
-if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }
-
-$tmpfile		= "/tmp/" . $tmpfile;
+my $tmpfile		= ParsCit->NewTempFile;
 $0				=~ /([^\/]+)$/;
 my $progname	= $1;
 
@@ -206,7 +200,7 @@ my $text_file	= undef;
 # Extracting text from Omnipage XML output
 if ($is_xml_input)
 {
-	$text_file	= "/tmp/" . NewTmpFile();
+	$text_file	= ParsCit->NewTempFile;
 	my $cmd		= $FindBin::Bin . "/sectLabel/processOmniXMLv2.pl -q -in $in -out $text_file -decode";
 	system($cmd);
 
@@ -419,8 +413,9 @@ if ($is_xml_input)
 		# Get the normal .body .cite files
         my $filename = $text_file . ".body";
         if(-e $filename){
-            system("mv $text_file.body $in.body");
-            system("mv $text_file.cite $in.cite");
+		use File::Copy;
+		move("$text_file.body", "$in.body");
+		move("$text_file.cite", "$in.cite");
         }
 	}
 
@@ -539,8 +534,7 @@ sub BiblioScript
 	my ($types, $pc_xml, $outfile) = @_;
 
 	my @export_types	= @{ $types };
-	my $tmp_dir			= "/tmp/" . NewTmpFile();
-	system("mkdir -p $tmp_dir");
+	my $tmp_dir			= ParsCit->NewTempDir;
 
 	# Write extract_citation output to a tmp file
 	my $filename		= "$tmp_dir/input.txt";
@@ -555,7 +549,8 @@ sub BiblioScript
 	my $cmd		= $biblio_script . " -q -i parscit -o " . $format . " " . $filename . " " . $tmp_dir;
 
 	system($cmd);
-	system("mv $tmp_dir/parscit.$format $outfile.$format");
+	use File::Copy;
+	move("$tmp_dir/parscit.$format", "$outfile.$format");
 
 	# Reuse the MODS file generated in the first call
 	for (my $i = 1; $i < $size; $i++)
@@ -564,19 +559,8 @@ sub BiblioScript
 		$cmd	= $biblio_script . " -q -i mods -o " . $format . " " . $tmp_dir . "/parscit_mods.xml " . $tmp_dir;
 
 		system($cmd);
-		system("mv $tmp_dir/parscit.$format $outfile.$format");
+		move("$tmp_dir/parscit.$format", "$outfile.$format");
 	}
 
 	system("rm -rf " . $tmp_dir);
 }
-
-# Method to generate tmp file name
-sub NewTmpFile 
-{
-	my $tmpfile	= `date '+%Y%m%d-%H%M%S-$$'`;
-	chomp  $tmpfile;
-	return $tmpfile;
-}
-
-
-
