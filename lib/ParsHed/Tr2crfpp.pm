@@ -13,6 +13,7 @@ use utf8;
 use FindBin;
 use ParsHed::Config;
 use Encode ();
+use ParsCit;
 
 ### USER customizable section
 
@@ -20,18 +21,18 @@ my $tmpDir = $ParsHed::Config::tmpDir;
 $tmpDir = "$FindBin::Bin/../$tmpDir";
 
 my $dictFile = $ParsHed::Config::dictFile;
-$dictFile = "$FindBin::Bin/../$dictFile";
+#$dictFile = "$FindBin::Bin/../$dictFile";
 
 my $keywordFile = $ParsHed::Config::keywordFile;
-$keywordFile = "$FindBin::Bin/../$keywordFile";
+#$keywordFile = "$FindBin::Bin/../$keywordFile";
 
 my $bigramFile = $ParsHed::Config::bigramFile;
-$bigramFile = "$FindBin::Bin/../$bigramFile";
+#$bigramFile = "$FindBin::Bin/../$bigramFile";
 
 my $crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$ParsHed::Config::crf_test";
 
 my $modelFile = $ParsHed::Config::modelFile;
-$modelFile = "$FindBin::Bin/../$modelFile";
+#$modelFile = "$FindBin::Bin/../$modelFile";
 
 ### END user customizable section
 

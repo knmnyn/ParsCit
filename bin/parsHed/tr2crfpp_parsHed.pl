@@ -26,8 +26,9 @@ use Getopt::Long;
 use ParsHed::Config;
 use File::ShareDir qw(dist_dir);
 
+use ParsCit;
+
 my $parscitHome = "$path/../..";
-my $resourcesDir = eval { dist_dir('ParsCit') } || "$path/../../resources";
 
 ### USER customizable section
 $0 =~ /([^\/]+)$/; my $progname = $1;
@@ -52,9 +53,9 @@ my $QUIET = 0;
 my $HELP = 0;
 my $inFile = undef;
 my $outFile = undef;
-my $dictFile = "$resourcesDir/parsCitDict.txt";
-my $keywordFile = "$resourcesDir/parsHed/keywords";
-my $bigramFile = "$resourcesDir/parsHed/bigram";
+my $dictFile = ParsCit->_resource_path("resources/parsCitDict.txt");
+my $keywordFile = ParsCit->_resource_path("resources/parsHed/keywords");
+my $bigramFile = ParsCit->_resource_path("resources/parsHed/bigram");
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'k=s' => \$keywordFile,

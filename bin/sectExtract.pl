@@ -93,10 +93,10 @@ if($isXmlInput){
 }
 
 my $dictFile = $SectLabel::Config::dictFile;
-$dictFile = "$path/../$dictFile";
+#$dictFile = "$path/../$dictFile";
 
 my $funcFile = $SectLabel::Config::funcFile;
-$funcFile = "$path/../$funcFile";
+#$funcFile = "$path/../$funcFile";
 my $rXML = SectLabel::Controller::extractSection($inFile, $isXmlOutput, $modelFile, $dictFile, $funcFile, $configFile, $isXmlInput, $isDebug);
 
 if($isXmlInput){

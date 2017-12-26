@@ -6,8 +6,15 @@ use warnings;
 
 use File::ShareDir qw(dist_dir);
 use File::Spec;
+use Env qw($CRFPP_HOME);
 
 use parent qw(Alien::Base);
+
+sub import {
+	$CRFPP_HOME = ParsCit->dist_dir;
+
+	return;
+}
 
 sub crf_test_path {
 	my ($self) = @_;

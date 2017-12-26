@@ -5,6 +5,7 @@ require 5.0;
 use strict;
 use Getopt::Long;
 use FindBin;
+use ParsCit;
 
 ### USER customizable section
 my $tmpfile .= $0; $tmpfile =~ s/[\.\/]//g;

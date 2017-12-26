@@ -13,7 +13,7 @@ $tmpDir			= "../tmp";
 $dictFile		= ParsCit->_resource_path("resources/parsCitDict.txt");
 $funcFile		= ParsCit->_resource_path("resources/sectLabel/funcWord");
 
-$crf_test		= "crfpp/crf_test";
+$crf_test		= ParsCit->crf_test_path;
 $modelFile		= ParsCit->_resource_path("resources/sectLabel/sectLabel.model");
 $modelXmlFile	= ParsCit->_resource_path("resources/sectLabel/sectLabel.modelXml.v2");
 $configFile		= ParsCit->_resource_path("resources/sectLabel/sectLabel.config");

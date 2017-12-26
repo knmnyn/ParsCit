@@ -19,7 +19,7 @@ $URI		= 'http://citeseerx.org/algorithms/parscit/wsdl';
 ## Paths relative to ParsCit root dir ($FindBin::Bin/..)
 $tmpDir		= "tmp";
 $dictFile	= ParsCit->_resource_path("resources/parsCitDict.txt");
-$crf_test	= "crfpp/crf_test";
+$crf_test	= ParsCit->crf_test_path;
 
 ## Tr2crfpp parscit model
 $modelFile		= ParsCit->_resource_path("resources/parsCit.model");

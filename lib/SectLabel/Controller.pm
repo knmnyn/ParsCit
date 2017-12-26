@@ -25,7 +25,7 @@ use SectLabel::Tr2crfpp;
 use SectLabel::PostProcess;
 use CSXUtil::SafeText qw(cleanXML);
 
-my $generic_sect_path = $FindBin::Bin . "/sectLabel/genericSectExtract.rb";
+my $generic_sect_path = $FindBin::Bin . "/genericSectExtract.rb";
 
 ###
 # Main API method for generating an XML document including all

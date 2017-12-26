@@ -489,16 +489,16 @@ sub SectLabel
 	my $is_debug		= 0;
 
 	my $model_file	= $is_xml_input ? $SectLabel::Config::modelXmlFile : $SectLabel::Config::modelFile;
-	$model_file		= "$FindBin::Bin/../$model_file";
+	#$model_file		= "$FindBin::Bin/../$model_file";
 
 	my $dict_file	= $SectLabel::Config::dictFile;
-	$dict_file		= "$FindBin::Bin/../$dict_file";
+	#$dict_file		= "$FindBin::Bin/../$dict_file";
 
 	my $func_file	= $SectLabel::Config::funcFile;
-	$func_file		= "$FindBin::Bin/../$func_file";
+	#$func_file		= "$FindBin::Bin/../$func_file";
 
 	my $config_file	= $is_xml_input ? $SectLabel::Config::configXmlFile : $SectLabel::Config::configFile;
-	$config_file	= "$FindBin::Bin/../$config_file";
+	#$config_file	= "$FindBin::Bin/../$config_file";
 
 	# Classify section
 	if (! $for_parscit)
