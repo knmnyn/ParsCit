@@ -3,6 +3,7 @@ use alienfile;
 # https://taku910.github.io/crfpp/
 share {
 	requires 'Alien::gmake';
+	requires 'Alien::patch' => 0.08;
 	plugin Download => (
 		url => 'https://github.com/taku910/crfpp/archive/master.zip',
 	);
@@ -10,4 +11,10 @@ share {
 	plugin Extract => 'zip';
 
 	plugin 'Build::Autoconf';
+	build [
+		'%{patch} -p1 < %{.install.root}/../patch/crfpp/0001-Only-include-winmain.h-on-Win32.patch',
+		'%{configure} --disable-shared',
+		'%{make}',
+		'%{make} install',
+	];
 };

@@ -60,6 +60,7 @@ lib/SectLabel/Controller.pm
 lib/SectLabel/PostProcess.pm
 lib/SectLabel/PreProcess.pm
 lib/SectLabel/Tr2crfpp.pm
+patch/crfpp/0001-Only-include-winmain.h-on-Win32.patch
 resources/parsCit.allData.090625b.model
 resources/parsCit.allData.100401.model
 resources/parsCit.allThreeCS.model
