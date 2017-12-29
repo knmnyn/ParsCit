@@ -91,9 +91,13 @@ my %WriteMakefileArgs = (
     "utf8" => 0,
     "warnings" => 0
   },
+  "TEST_REQUIRES" => {
+    "Capture::Tiny" => 0,
+    "Test::Most" => 0
+  },
   "VERSION" => 130908,
   "test" => {
-    "TESTS" => ""
+    "TESTS" => "t/*.t"
   }
 );
 
@@ -102,6 +106,7 @@ my %FallbackPrereqs = (
   "Alien::Base" => "0.038",
   "Alien::Build" => "0.32",
   "Alien::Build::MM" => "0.32",
+  "Capture::Tiny" => 0,
   "Class::Struct" => 0,
   "Encode" => 0,
   "Env" => 0,
@@ -121,6 +126,7 @@ my %FallbackPrereqs = (
   "POSIX" => 0,
   "Path::Tiny" => 0,
   "String::Strip" => 0,
+  "Test::Most" => 0,
   "XML::Parser" => 0,
   "XML::Twig" => 0,
   "XML::Writer" => 0,
