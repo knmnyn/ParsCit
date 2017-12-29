@@ -58,7 +58,7 @@ my %WriteMakefileArgs = (
     "bin/tr2crfpp.pl",
     "bin/xml2train.pl"
   ],
-  "LICENSE" => "perl",
+  "LICENSE" => "gpl",
   "MIN_PERL_VERSION" => "5.000",
   "NAME" => "ParsCit",
   "PREREQ_PM" => {
