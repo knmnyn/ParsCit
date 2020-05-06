@@ -1,27 +1,31 @@
-# ParsCit
-#
-# VERSION 1.0
-FROM 32bit/debian:jessie
-MAINTAINER Min-Yen Kan <knmnyn@hotmail.com>
+FROM debian:buster-slim
 
-RUN apt-get update
-RUN apt-get install -y g++ make libexpat1-dev perl ruby
+RUN apt-get update \
+ && apt-get install -y g++ make libexpat1-dev perl ruby wget
 
-RUN cpan install XML::Twig
-RUN cpan install XML::Writer
-RUN cpan install XML::Writer::String
+RUN cpan install Class::Struct \
+ && cpan install Getopt::Long \
+ && cpan install Getopt::Std \
+ && cpan install File::Basename \
+ && cpan install File::Spec \
+ && cpan install FindBin \
+ && cpan install HTML::Entities \
+ && cpan install IO::File \
+ && cpan install POSIX \
+ && cpan install XML::Parser \
+ && cpan install XML::Twig \
+ && cpan install XML::Writer \
+ && cpan install XML::Writer::String
 
 ADD . /ParsCit
 WORKDIR /ParsCit/crfpp
-RUN tar -xvzf crf++-0.51.tar.gz
-WORKDIR /ParsCit/crfpp/CRF++-0.51
-RUN ./configure
-RUN perl -pi -e 's/#include <cmath>/#include <cmath>\n#include <iostream>/g' node.cpp
-RUN make
-RUN make install
-
-RUN cp crf_learn crf_test ..
-WORKDIR /ParsCit/crfpp/CRF++-0.51/.libs
-RUN cp -Rf * ../../.libs
-
+RUN wget -O crf++-0.58.tar.gz 'https://drive.google.com/u/0/uc?id=0B4y35FiV1wh7QVR6VXJ5dWExSTQ&export=download' \
+    && tar -xvzf crf++-0.58.tar.gz \
+    && cd CRF++-0.58 \
+    && ./configure \
+    && make \
+    && make install \
+    && cp crf_learn crf_test .. \
+    && cd .libs \
+    && cp -Rf * ../../.libs
 WORKDIR /ParsCit/bin
