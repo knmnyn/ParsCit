@@ -186,12 +186,6 @@ sub executeQuiet {
   system($cmd);
 }
 
-sub newTmpFile {
-  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
-  chomp($tmpFile);
-  return $tmpFile;
-}
-
 ### v100401, run on 6 Jul 10, micro F1 = 93.35, macro F1 (avg of individual F1s) =  ###
 #processed 37802 tokens with 37802 phrases; found: 37802 phrases; correct: 35289.
 # accuracy:  93.35%; precision:  93.35%; recall:  93.35%; FB1:  93.35

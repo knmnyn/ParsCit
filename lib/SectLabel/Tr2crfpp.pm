@@ -21,7 +21,7 @@ use SectLabel::Config;
 
 ### USER customizable section
 my $crf_test	= $SectLabel::Config::crf_test;
-$crf_test		= "$FindBin::Bin/../$crf_test";
+#$crf_test		= "$FindBin::Bin/../$crf_test";
 ### END user customizable section
 
 my %dict		= ();
@@ -704,7 +704,7 @@ sub GenerateTokenFeature
 	    				($word =~ /[\-\,\:\;]$/) 					? "contPunct" 	:
 	      				($word =~ /[\!\?\.\"\']$/) 					? "stopPunct" 	:
 	        			($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) 	? "braces" 		:
-		  				($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/)	? "possibleVol" : "others";
+		  				($word =~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/)	? "possibleVol" : "others";
     	} 
 		else 
 		{
@@ -716,7 +716,7 @@ sub GenerateTokenFeature
 						($word =~ /[\-\,\:\;]$/) 					? "contPunct" 	:
 		  				($word =~ /[\!\?\.\"\']$/) 					? "stopPunct" 	:
 		    			($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) 	? "braces" 		:
-		     	 		($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/)	? "possibleVol"	: "punctOthers";
+		     	 		($word =~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/)	? "possibleVol"	: "punctOthers";
 
 			#			($word =~ /^[\*\^\x{0608}\x{0708}\x{07A0}][A-Za-z]\w*$/  && $index == 0)	? "punctFootnote" 	:
 			#			($word =~ /^[\p{P}\p{Math_Symbol}]*\p{Math_Symbol}\p{P}\p{Math_Symbol}]*/)	? "mathSym" 		:

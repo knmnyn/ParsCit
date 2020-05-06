@@ -24,6 +24,9 @@ require 5.0;
 use strict 'vars';
 use Getopt::Long;
 use ParsHed::Config;
+use File::ShareDir qw(dist_dir);
+
+use ParsCit;
 
 my $parscitHome = "$path/../..";
 
@@ -43,16 +46,16 @@ sub Help {
   print STDERR "       $progname -in taggedHeaderFile -out outFile [-k keywordFile -b bigramFile]\n";
   print STDERR "Options:\n";
   print STDERR "\t-q\tQuiet Mode (don't echo license)\n";
-  print STDERR "\t-k: Default keywordFile $parscitHome/resources/parsHed/keywords\n";
-  print STDERR "\t-b: Default bigramFile $parscitHome/resources/parsHed/bigram\n";
+  print STDERR "\t-k: Default keywordFile $resourcesDir/parsHed/keywords\n";
+  print STDERR "\t-b: Default bigramFile $resourcesDir/parsHed/bigram\n";
 }
 my $QUIET = 0;
 my $HELP = 0;
 my $inFile = undef;
 my $outFile = undef;
-my $dictFile = "$parscitHome/resources/parsCitDict.txt";
-my $keywordFile = "$parscitHome/resources/parsHed/keywords";
-my $bigramFile = "$parscitHome/resources/parsHed/bigram";
+my $dictFile = ParsCit->_resource_path("resources/parsCitDict.txt");
+my $keywordFile = ParsCit->_resource_path("resources/parsHed/keywords");
+my $bigramFile = ParsCit->_resource_path("resources/parsHed/bigram");
 $HELP = 1 unless GetOptions('in=s' => \$inFile,
 			    'out=s' => \$outFile,
 			    'k=s' => \$keywordFile,
@@ -512,10 +515,4 @@ sub execute {
   print STDERR "Executing: $cmd\n";
   $cmd = untaint($cmd);
   system($cmd);
-}
-
-sub newTmpFile {
-  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
-  chomp($tmpFile);
-  return $tmpFile;
 }

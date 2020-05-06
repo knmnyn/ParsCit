@@ -5,8 +5,8 @@ require 'find'
 pwd = File.dirname(__FILE__)
 
 @CRFPP  = ENV['CRFPP_HOME'] ? "#{ENV['CRFPP_HOME']}/bin" : "#{pwd}/../../crfpp"
-@SRC    = "#{pwd}/genericSect"
-@DATA   = "#{pwd}/../../resources/sectLabel/"
+@SRC    = "#{pwd}"
+@DATA   = %x(perl -MParsCit -E "say ParsCit->_resource_path('resources/sectLabel')").chomp
 @TEST_DIR = "/tmp/"
 
 name  = "#{Time.now.to_i}-#{Process.pid}"

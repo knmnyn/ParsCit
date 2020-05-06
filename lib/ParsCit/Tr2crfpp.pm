@@ -20,19 +20,19 @@ use ParsCit::Config;
 
 ### USER customizable section
 my $tmp_dir		= $ParsCit::Config::tmpDir;
-$tmp_dir		= "$FindBin::Bin/../$tmp_dir";
+#$tmp_dir		= "$FindBin::Bin/../$tmp_dir";
 
 my $dict_file	= $ParsCit::Config::dictFile;
-$dict_file		= "$FindBin::Bin/../$dict_file";
+#$dict_file		= "$FindBin::Bin/../$dict_file";
 
 my $crf_test	= $ParsCit::Config::crf_test;
-$crf_test		= "$FindBin::Bin/../$crf_test";
+#$crf_test		= "$FindBin::Bin/../$crf_test";
 
 my $model_file	= $ParsCit::Config::modelFile;
-$model_file		= "$FindBin::Bin/../$model_file";
+#$model_file		= "$FindBin::Bin/../$model_file";
 
 my $split_model_file	= $ParsCit::Config::splitModelFile;
-$split_model_file		= "$FindBin::Bin/../$split_model_file";
+#$split_model_file		= "$FindBin::Bin/../$split_model_file";
 ### END user customizable section
 
 ###
@@ -955,7 +955,7 @@ sub PrepData
 						($word	=~ /[\-\,\:\;]$/) ? "contPunct" :
 						($word	=~ /[\!\?\.\"\']$/) ? "stopPunct" :
 						($word	=~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-						($word	=~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
+						($word	=~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/) ? "possibleVol" : "others";
 		    # 22 = punctuation
 			push(@{ $feats[ $j ] }, $punct);
 

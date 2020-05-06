@@ -1,5 +1,7 @@
 package SectLabel::Config;
 
+use ParsCit;
+
 $algorithmName		= "SectLabel";
 $algorithmVersion	= "110505";
 
@@ -8,20 +10,20 @@ $algorithmVersion	= "110505";
 # Paths relative to SectLabel root dir ($FindBin::Bin/..)
 ###
 $tmpDir			= "../tmp";
-$dictFile		= "resources/parsCitDict.txt";
-$funcFile		= "resources/sectLabel/funcWord";
+$dictFile		= ParsCit->_resource_path("resources/parsCitDict.txt");
+$funcFile		= ParsCit->_resource_path("resources/sectLabel/funcWord");
 
-$crf_test		= "crfpp/crf_test";
-$modelFile		= "resources/sectLabel/sectLabel.model";
-$modelXmlFile	= "resources/sectLabel/sectLabel.modelXml.v2";
-$configFile		= "resources/sectLabel/sectLabel.config";
-$configXmlFile	= "resources/sectLabel/sectLabel.configXml";
+$crf_test		= ParsCit->crf_test_path;
+$modelFile		= ParsCit->_resource_path("resources/sectLabel/sectLabel.model");
+$modelXmlFile	= ParsCit->_resource_path("resources/sectLabel/sectLabel.modelXml.v2");
+$configFile		= ParsCit->_resource_path("resources/sectLabel/sectLabel.config");
+$configXmlFile	= ParsCit->_resource_path("resources/sectLabel/sectLabel.configXml");
 
-$autFile		= "../resources/sectLabel/author.model";
-$affFile		= "../resources/sectLabel/affiliation.model";
-$matFile		= "../resources/sectLabel/aamatch.model";
-$matSVMFile		= "../resources/sectLabel/aamatch.svm.model";
-$matMEFile		= "../resources/sectLabel/aamatch.maxent.model";
+$autFile		= ParsCit->_resource_path("resources/sectLabel/author.model");
+$affFile		= ParsCit->_resource_path("resources/sectLabel/affiliation.model");
+$matFile		= ParsCit->_resource_path("resources/sectLabel/aamatch.model");
+$matSVMFile		= ParsCit->_resource_path("resources/sectLabel/aamatch.svm.model");
+$matMEFile		= ParsCit->_resource_path("resources/sectLabel/aamatch.maxent.model");
 
 ###
 # Thang v100401: note the keyword feature and configs below are not currently 

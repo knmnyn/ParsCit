@@ -17,15 +17,15 @@ use Encode ();
 ### USER customizable section
 
 my $tmpDir = $ParsHed::Config::tmpDir;
-$tmpDir = "$FindBin::Bin/../$tmpDir";
+#$tmpDir = "$FindBin::Bin/../$tmpDir";
 
 my $dictFile = $ParsHed::Config::dictFile;
-$dictFile = "$FindBin::Bin/../$dictFile";
+#$dictFile = "$FindBin::Bin/../$dictFile";
 
 my $crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "$FindBin::Bin/../$ParsHed::Config::crf_test";
 
 my $modelFile = $ParsHed::Config::oldModelFile;
-$modelFile = "$FindBin::Bin/../$modelFile";
+#$modelFile = "$FindBin::Bin/../$modelFile";
 
 ### END user customizable section
 
@@ -178,7 +178,7 @@ sub prepData {
 		($word =~ /[\-\,\:\;]$/) ? "contPunct" :
 		($word =~ /[\!\?\.\"\']$/) ? "stopPunct" :
 	        ($word =~ /^[\(\[\{\<].+[\)\]\}\>].?$/) ? "braces" :
-		($word =~ /^[0-9]{2-5}\([0-9]{2-5}\).?$/) ? "possibleVol" : "others";
+		($word =~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/) ? "possibleVol" : "others";
 	    push(@{$feats[$j]}, $punct);		    # 22 = punctuation
 
 	    # output tag

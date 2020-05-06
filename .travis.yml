@@ -1,0 +1,6 @@
+language: perl
+perl:
+  - "5.20"
+sudo: false             # faster builds as long as you don't need sudo access
+before_install:
+  - eval $(curl https://travis-perl.github.io/init) --auto

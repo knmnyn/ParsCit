@@ -130,9 +130,3 @@ sub execute {
   $cmd = untaint($cmd);
   system($cmd);
 }
-
-sub newTmpFile {
-  my $tmpFile = `date '+%Y%m%d-%H%M%S-$$'`;
-  chomp($tmpFile);
-  return $tmpFile;
-}

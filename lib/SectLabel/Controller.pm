@@ -24,8 +24,9 @@ use SectLabel::Config;
 use SectLabel::Tr2crfpp;
 use SectLabel::PostProcess;
 use CSXUtil::SafeText qw(cleanXML);
+use ParsCit;
 
-my $generic_sect_path = $FindBin::Bin . "/sectLabel/genericSectExtract.rb";
+my $generic_sect_path = $FindBin::Bin . "/genericSectExtract.pl";
 
 ###
 # Main API method for generating an XML document including all
@@ -210,7 +211,7 @@ sub GetGenericHeaders
 	my $num_headers = scalar(@{ $headers });
 
 	# Put the list of headers to file
-  	my $header_file = "/tmp/" . NewTmpFile();
+  	my $header_file = ParsCit->NewTempFile;
 
   	$generic_sect_path = UntaintPath($generic_sect_path);
 	
@@ -219,8 +220,7 @@ sub GetGenericHeaders
 	close OF;
   
 	# Get a list of generic headers
-  	my $cmd = $generic_sect_path . " " . $header_file . " " . $header_file . ".out";
-  	system($cmd);
+	system($^X, $generic_sect_path, $header_file, "${header_file}.out");
 
 	open(IF, "<:utf8", $header_file . ".out");
 	my $generic_count = 0;
@@ -315,18 +315,6 @@ sub UntaintPath
   	}
 
 	return $path;
-}
-
-###
-# Thang v100401 method to generate tmp file name
-###
-sub NewTmpFile 
-{
-	my $tmpfile = `date '+%Y%m%d-%H%M%S-$$'`;
-
-	chomp($tmpfile);
-	$tmpfile = UntaintPath($tmpfile);
-	return $tmpfile;
 }
 
 1;

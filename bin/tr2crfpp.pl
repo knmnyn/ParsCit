@@ -24,6 +24,9 @@ use Getopt::Std;
 use strict 'vars';
 use FindBin;
 # use diagnostics;
+use File::ShareDir qw(dist_dir);
+use File::Spec;
+use ParsCit;
 
 ### USER customizable section
 my $tmpfile .= $0; $tmpfile =~ s/[\.\/]//g;
@@ -32,7 +35,7 @@ if ($tmpfile =~ /^([-\@\w.]+)$/) { $tmpfile = $1; }		      # untaint tmpfile var
 $tmpfile = "/tmp/" . $tmpfile;
 $0 =~ /([^\/]+)$/; my $progname = $1;
 my $outputVersion = "1.0";
-my $dictFile = "$FindBin::Bin/../resources/parsCitDict.txt";
+my $dictFile = ParsCit->_resource_path('resources/parsCitDict.txt');
 ### END user customizable section
 
 ### Ctrl-C handler

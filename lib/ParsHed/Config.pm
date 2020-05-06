@@ -1,19 +1,21 @@
 package ParsHed::Config;
 
+use ParsCit;
+
 $algorithmName		= "ParsHed";
 $algorithmVersion	= "110505";
 
 ## Tr2crfpp
 ## Paths relative to ParsCit root dir ($FindBin::Bin/..)
 $tmpDir			= "tmp";
-$dictFile		= "resources/parsCitDict.txt";
-$keywordFile	= "resources/parsHed/keywords";
-$bigramFile		= "resources/parsHed/bigram";
+$dictFile		= ParsCit->_resource_path("resources/parsCitDict.txt");
+$keywordFile	= ParsCit->_resource_path("resources/parsHed/keywords");
+$bigramFile		= ParsCit->_resource_path("resources/parsHed/bigram");
 
 $crf_test = $ENV{'CRFPP_HOME'} ? "$ENV{'CRFPP_HOME'}/bin/crf_test" : "crfpp/crf_test";
 
-$modelFile		= "resources/parsHed/parsHed.model";
-$oldModelFile	= "resources/parsHed/archive/parsHed.090316.model";
+$modelFile		= ParsCit->_resource_path("resources/parsHed/parsHed.model");
+$oldModelFile	= ParsCit->_resource_path("resources/parsHed/archive/parsHed.090316.model");
 
 # Flags for different types of CRF features for line-level training
 $isFullFormToken	= 1;
