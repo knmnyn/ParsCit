@@ -140,6 +140,17 @@ sub NormalizeFields
 				# Content is a reference to a list of author
 				$content = NormalizeAuthorNames($content);
 	    	} 
+	    	###
+	    	# The NormalizeAuthorNames procedure is also used for editor strings.
+	    	# Single editors are nested within an 'editors' tag, each placed in a single 'editor' tag
+	    	# MB1
+	    	###
+	    	elsif ($tag eq "editor") 
+	    	{
+				$tag = "editors";
+				# Content is a reference to a list of author
+				$content = NormalizeAuthorNames($content);
+			}
 			elsif ($tag eq "date") 
 			{
 				$content = NormalizeDate($content);
@@ -166,7 +177,21 @@ sub NormalizeFields
 	    
 			# Heuristic - only get first instance of tag.
 	    	# TODO: we can do better than that...
-	    	unless (defined $cite_info{ $tag }) { $cite_info{ $tag } = $content; }
+#	    	unless (defined $cite_info{ $tag }) { $cite_info{ $tag } = $content; }
+
+			###
+			# At least authors and editors are insorted into existing result lists
+			# MB1
+			###
+			if (defined $cite_info{ $tag }) {
+				if ($tag eq "authors" || $tag eq "editors") {
+					my $currentlist_ref = \@{$cite_info{ $tag }};
+					push $currentlist_ref, @{$content};
+				}
+			}
+			else {
+				$cite_info{ $tag } = $content;
+			}	
 		}
 	
 		push @cite_infos, \%cite_info;
@@ -269,7 +294,13 @@ sub NormalizeAuthorNames
 
     foreach my $tok (@tokens) 
 	{
-		if ($tok =~ m/^(&|and)$/i) 
+		###
+		# language specific author split strings are loaded from ParsCit::ConfigLang
+		# MB1
+		###
+		my $author_split_regex = $ParsCit::ConfigLang::authorSplitRegex;
+
+		if ($tok =~ m/$author_split_regex/i) 
 		{
 	    	if ($#current_auth >= 0) 
 			{
@@ -323,7 +354,17 @@ sub RepairAndTokenizeAuthorText
     my ($author_text) = @_;
 
     # Repair obvious parse errors and weird notations.
-    $author_text =~ s/et\.? al\.?.*$//;
+	###
+	# language specific author parts to delete are loaded from ParsCit::ConfigLang.
+	# 1) 'et al' ... and other words
+	# 2) 'in' ... as can be found at start of editor text
+	# MB1
+	###
+	my $to_delete_strings = $ParsCit::ConfigLang::authorDeleteRegex;
+    $author_text =~ s/$to_delete_strings//;
+    my $inpart = $ParsCit::ConfigLang::inMarker;
+    $author_text =~ s/^\s*$inpart:?\s*//i;
+    
     $author_text =~ s/^.*?[\p{IsUpper}\p{IsLower}][\p{IsUpper}\p{IsLower}]+\. //;
     $author_text =~ s/\(.*?\)//g;
     $author_text =~ s/^.*?\)\.?//g;
@@ -336,7 +377,9 @@ sub RepairAndTokenizeAuthorText
     $author_text =~ s/;/,/g;
     $author_text =~ s/,/, /g;
     $author_text =~ s/\:/ /g;
-    $author_text =~ s/[\:\"\<\>\/\?\{\}\[\]\+\=\(\)\*\^\%\$\#\@\!\~\_]//g;
+#   $author_text =~ s/[\:\"\<\>\/\?\{\}\[\]\+\=\(\)\*\^\%\$\#\@\!\~\_]//g;
+    $author_text =~ s/[\:\"\<\>\?\{\}\[\]\+\=\(\)\*\^\%\$\#\@\!\~\_]//g; 	#keep 'slash' since slash is often used as name seperator - MB1
+   
     $author_text = JoinMultiWordNames($author_text);
 
     my @orig_tokens	= split '\s+', $author_text;
@@ -345,7 +388,8 @@ sub RepairAndTokenizeAuthorText
     for (my $i=0; $i <= $#orig_tokens; $i++) 
 	{
 		my $tok = $orig_tokens[$i];
-		if ($tok !~ m/[\p{IsUpper}\p{IsLower}&]/) 
+		
+		if ($tok !~ m/[\p{IsUpper}\p{IsLower}&\/]/) #keep 'slash' since slash is often used as name seperator - MB1
 		{
 	    	if ($i < $#orig_tokens/2) 
 			{
@@ -445,7 +489,8 @@ sub NormalizeAuthorName2
 sub JoinMultiWordNames 
 {
     my $author_text = shift;
-    $author_text =~ s/\b((?:van|von|der|den|de|di|le|el))\s/$1_/sgi; # Thang 02 Mar 10: change \1 into \$1
+#   $author_text =~ s/\b((?:van|von|der|den|de|di|le|el))\s/$1_/sgi; # Thang 02 Mar 10: change \1 into \$1
+    $author_text =~ s/\b((?:(?i)van|von|der|den|de|di|le|el|zu|zur|vom|zum|und|dem|d'|del|da|degli|dalla|te|ter|of|(?-i)v.|d.|z.))\s/$1_/sg; # added more multi word components - MB1
     return $author_text;
 
 }

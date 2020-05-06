@@ -17,6 +17,7 @@ use Encode ();
 
 use Omni::Config;
 use ParsCit::Config;
+use ParsCit::ConfigLang; 	#MB1
 
 ### USER customizable section
 my $tmp_dir		= $ParsCit::Config::tmpDir;
@@ -679,7 +680,7 @@ sub PrepDataUnmarkedToken
 # Prepare data for trfpp
 sub PrepData 
 {
-    my ($rcite_text, $filename) = @_;
+    my ($rcite_text, $filename, $split) = @_; 	# Additional parameter 'split' - MB1
 
 	# Generate a temporary file
     my $tmpfile = BuildTmpFile($filename);
@@ -700,6 +701,22 @@ sub PrepData
 		# Skip blank lines
 		if (/^\s*$/) { next; }
 
+		###
+		# Insert extra whitespace: 
+		# 1) around dots, which are preceed by a letter and succeeded by capital letter,
+		# 2) around slashs, which are preceed by a letter, a semicolon or a dot and succeeded by a letter, a semicolon or a dot.
+		# 3) before opening brackets
+		# 4) after double dots
+		# This may occur in case of author strings. These author strings will not be processed correctly if no whitespace insertion is done.
+		# MB1
+		###
+		if ($split == 1) {
+		while (s/(\p{L})\.(\p{isUpper})/$1. $2/g) { }		# Rule 1)
+		s/([\p{L}\.;]) ?\/ ?([\p{L}\.;])/$1 \/ $2/g; 		# Rule 2)
+		while (s/:([^\s])/: $1/g) { }						# Rule 3)
+		while (s/([^\s])([({])/$1 $2/g) { }					# Rule 4)
+		}
+
 		my $tag		= "";
 		my @tokens	= split(/ +/);
 		my @feats	= ();
@@ -710,7 +727,15 @@ sub PrepData
 		# I changed this string to match 'ed.', 'editor', 'editors', and 'eds.' if *not* 
 		# preceeded by an alphabetic character.
 		###
-		my $has_possible_editor = (/[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+#		my $has_possible_editor = (/[^A-Za-z](ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+		
+		###
+		# language specific editor strings are loaded from ParsCit::ConfigLang
+		# And: regex set to case insensitive
+		# MB1
+		###
+		my $has_editor_regex = $ParsCit::ConfigLang::hasEditorRegex; 
+		my $has_possible_editor = (/$has_editor_regex/i) ? "possibleEditors" : "noEditors"; 
 
 		my $j = 0;
 		for (my $i = 0; $i <= $#tokens; $i++) 
@@ -958,7 +983,7 @@ sub PrepData
 						($word	=~ /^[0-9]{2,5}\([0-9]{2,5}\).?$/) ? "possibleVol" : "others";
 		    # 22 = punctuation
 			push(@{ $feats[ $j ] }, $punct);
-
+			
 		    # output tag
 		    push(@{ $feats[ $j ] }, $tag);
 
@@ -1081,7 +1106,11 @@ sub SplitReference
 
 sub Decode 
 {
-    my ($infile, $outfile) = @_;
+    my ($infile, $outfile, $custom_modelfile) = @_;
+
+	if ($custom_modelfile) {
+		$model_file = $custom_modelfile;
+	}
 
     unless (open(PIPE, "$crf_test -m $model_file $infile |")) 
 	{
