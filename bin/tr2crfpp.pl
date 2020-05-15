@@ -1,5 +1,9 @@
 #!/usr/bin/env perl
 # -*- cperl -*-
+#
+# Matthias Bösinger (29.03.2016)
+# -> all changes marked with: MB1
+
 =head1 NAME
 
 tr2crfpp.pl
@@ -22,7 +26,13 @@ tr2crfpp.pl
 require 5.0;
 use Getopt::Std;
 use strict 'vars';
+use utf8;
+use 5.010; 	# MB1
 use FindBin;
+
+binmode STDIN, ":encoding(UTF-8)"; 	# MB1
+binmode STDOUT, ":encoding(UTF-8)"; 	# MB1
+
 # use diagnostics;
 use File::ShareDir qw(dist_dir);
 use File::Spec;
@@ -96,21 +106,29 @@ my $filename;
 if ($filename = shift) {
  NEWFILE:
   if (!(-e $filename)) { die "# $progname crash\t\tFile \"$filename\" doesn't exist"; }
-  open (*IF, $filename) || die "# $progname crash\t\tCan't open \"$filename\"";
-  $fh = "IF";
+  open (IF, "<:encoding(UTF-8)", $filename) || die "# $progname crash\t\tCan't open \"$filename\""; 	# set encoding to UTF-8 - MB1
+# open (*IF, $filename) || die "# $progname crash\t\tCan't open \"$filename\"";
+# $fh = "IF";
 } else {
   $filename = "<STDIN>";
   $fh = "STDIN";
 }
 
-while (<$fh>) {
+# while (<$fh>) { 	# set encoding to UTF-8 - MB1
+while (<IF>) { 	# set encoding to UTF-8 - MB1
   if (/^\#/) { next; }			# skip comments
   elsif (/^\s+$/) { next; }		# skip blank lines
   else {
     my $tag = "";
     my @tokens = split(/ +/);
     my @feats = ();
-    my $hasPossibleEditor = (/(ed\.|editor|editors|eds\.)/) ? "possibleEditors" : "noEditors";
+    
+    ###
+    # Regex updated accordingly to changes in Tr2crfpp.pm by Artemy Kolchinsky and new german editor strings in ConfigLang.pm
+    # MB1
+    ###
+    my $hasPossibleEditor = (/[^A-Za-z](ed\.?|editor|editors|eds\.?|Hrsg\.?|Herausgeber|Hg\.?|hgg\.?)/i) ? "possibleEditors" : "noEditors";
+    
     my $j = 0;
     for (my $i = 0; $i <= $#tokens; $i++) {
 #    for (my $i = $#tokens; $i >= 0; $i--) {

@@ -7,8 +7,12 @@
 # Min-Yen Kan (Thu Feb 28 14:10:28 SGT 2008)
 #  Derived from citeExtract.pl
 #
+# Matthias Bösinger (29.03.2016)
+# -> all changes marked with: MB1
+
 use strict;
 use FindBin;
+use Getopt::Long;
 use lib "$FindBin::Bin/../lib";
 
 use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/5.10.0";
@@ -16,16 +20,40 @@ use lib "/home/wing.nus/tools/languages/programming/perl-5.10.0/lib/site_perl/5.
 
 use ParsCit::Controller;
 use CSXUtil::SafeText qw(cleanAll cleanXML);
+use ParsCit::ConfigLang;
+
+###
+# set standard encoding to UTF-8 
+# MB1
+###
+binmode STDIN, ":encoding(UTF-8)";
+binmode STDOUT, ":encoding(UTF-8)";
+
+### Get additional parameter (language parameter (english as default), split parameter, keep temp files parameter) - MB1
+my $lang = "en";
+my $split = '';
+my $keep = '';
+if (!GetOptions("lang=s" => \$lang, "split" => \$split, "keep" => \$keep)) {
+	print "Usage: $0 textfile outfile [-lang=en|de] [-split] [-keep]\n";
+    exit;
+}
+# initialize language config
+if (!ParsCit::ConfigLang::Init($lang)) {
+	print "Usage: $0 textfile outfile [-lang=en|de] [-split] [-keep]\n";
+    exit;
+}
+### End (additional parameter) - MB1
 
 my $textFile = $ARGV[0];
 my $outFile = $ARGV[1];
 
 if (!defined $textFile) {
-    print "Usage: $0 textfile [outfile]\n";
+    print "Usage: $0 textfile outfile [-lang=en|de] [-split] [-keep]\n";	# Updated - MB1
     exit;
 }
 
-open (IF, $textFile) || die "Couldn't open text file \"textFile\"!";
+# open (IF, $textFile) || die "Couldn't open text file \"textFile\"!";
+open (IF, "<:utf8", $textFile) || die "Couldn't open text file \"textFile\"!"; 	# set to utf-8-encoding - MB1
 my $normalizedCiteText = "";
 my $line = 0;
 while (<IF>) {
@@ -42,16 +70,16 @@ if ($line == 0) {
 }
 
 our $msg = "";
-my $tmpFile = ParsCit::Tr2crfpp::PrepData(\$normalizedCiteText, $textFile);
-my $outFile = $tmpFile."_dec";
+my $tmpFile = ParsCit::Tr2crfpp::PrepData(\$normalizedCiteText, $textFile, $split); 	# Additional parameter 'split' - MB1
+my $outTmpFile = $tmpFile."_dec"; 	# Changed name from '$outFile'. Otherwise name conflict with 'outFile' from $ARGV[1]; - MB1
 my @validCitations = ();
 
 my $xml = "";
 $xml .= "<algorithm name=\"$ParsCit::Config::algorithmName\" version=\"$ParsCit::Config::algorithmVersion\">\n";
 $xml .= "<citationList>\n";
-if (ParsCit::Tr2crfpp::Decode($tmpFile, $outFile)) {
+if (ParsCit::Tr2crfpp::Decode($tmpFile, $outTmpFile)) {
     my ($rRawXML, $rCiteInfo, $tstatus, $tmsg) =
-	ParsCit::PostProcess::ReadAndNormalize($outFile);
+	ParsCit::PostProcess::ReadAndNormalize($outTmpFile);
     if ($tstatus <= 0) {
 	return ($tstatus, $msg, undef, undef);
     }
@@ -60,15 +88,16 @@ if (ParsCit::Tr2crfpp::Decode($tmpFile, $outFile)) {
 	my %citeInfo = %{$citeInfo[$i]};
 	$xml .= "<citation>\n";
 	foreach my $key (keys %citeInfo) {
-	    if ($key eq "authors" || $key eq "editors") {
-		my $singular = $key;
-		chop $singular;
-		$xml .= "<$key>\n";
-		foreach my $person (@{$citeInfo{$key}}) {
-			cleanAll(\$person);
-		    $xml .= "<$singular>$person</$singular>\n";
-		}
-		$xml .= "</$key>\n";
+	    if ($key eq "authors" || $key eq "editors") 
+	    {
+			my $singular = $key;
+			chop $singular;
+			$xml .= "<$key>\n";
+			foreach my $person (@{$citeInfo{$key}}) {
+				cleanAll(\$person);
+				$xml .= "<$singular>$person</$singular>\n";
+			}
+			$xml .= "</$key>\n";
 	    } 
 		elsif ($key eq "volume") 
 		{
@@ -96,7 +125,24 @@ if (ParsCit::Tr2crfpp::Decode($tmpFile, $outFile)) {
     $xml .= "</citationList>\n</algorithm>\n";
 }
 
-unlink($tmpFile);
-unlink($outFile);
+###
+# tmp-files are kept if parameter has been set.
+# MB1
+###
+unless ($keep) { 
+	unlink($tmpFile); 
+	unlink($outTmpFile);
+}
 
-print $xml;
+###
+# If outFile has been passed as parameter the result .xml will be print to this file.
+# Else the result .xml will be print to standard out.
+# MB1
+###
+if (open(OUT, ">:utf8", $outFile)) {
+	print OUT $xml;
+}
+else {
+	print $xml;
+}
+
